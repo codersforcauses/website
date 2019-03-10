@@ -1,0 +1,27 @@
+{
+  "name": "cfc-website",
+  "version": "1.0.0",
+  "description": "Coders for Causes website",
+  "main": "index.ts",
+  "scripts": {
+    "dev": "next",
+    "build": "next build",
+    "start": "next start"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/codersforcauses/website.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/codersforcauses/website/issues"
+  },
+  "homepage": "https://github.com/codersforcauses/website#readme",
+  "dependencies": {
+    "@zeit/next-typescript": "^1.1.1",
+    "next": "^8.0.3",
+    "react": "^16.8.4",
+    "react-dom": "^16.8.4"
+  }
+}
