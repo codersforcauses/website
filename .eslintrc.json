@@ -1,7 +1,13 @@
 {
   "extends": ["standard", "standard-react"],
   "parser": "@typescript-eslint/parser",
-  "rules": {
-    "react/react-in-jsx-scope": false
-  }
+  "overrides": [
+    {
+      "files": ["*.ts", "*.tsx"],
+      "rules": {
+        "no-unused-vars": ["off"],
+        "no-undef": ["off"]
+      }
+    }
+  ]
 }
