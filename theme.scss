@@ -1,0 +1,24 @@
+// theme
+// colours
+$theme-colors: (
+  "primary": #000000,
+  "secondary": #ffffff,
+  "dark": #000000
+);
+
+$link-color: #007bff;
+
+// typography
+$font-family-sans-serif: "IBM Plex Sans", -apple-system, BlinkMacSystemFont,
+  "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif,
+  "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji" !default;
+$font-family-monospace: "IBM Plex Mono", SFMono-Regular, Menlo, Monaco, Consolas,
+  "Liberation Mono", "Courier New", monospace !default;
+$font-family-base: $font-family-sans-serif;
+$headings-font-family: $font-family-monospace;
+
+// misc
+$border-radius: 2px;
+
+// import Bootstrap
+@import "~bootstrap/scss/bootstrap";

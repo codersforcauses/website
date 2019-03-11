@@ -1,0 +1,46 @@
+{
+  "name": "cfc-website",
+  "version": "0.0.1",
+  "description": "Coders for Causes website",
+  "main": "index.ts",
+  "scripts": {
+    "dev": "next",
+    "build": "next build",
+    "start": "next start",
+    "release": "standard-version"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/codersforcauses/website.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/codersforcauses/website/issues"
+  },
+  "homepage": "https://github.com/codersforcauses/website#readme",
+  "dependencies": {
+    "@zeit/next-sass": "^1.0.1",
+    "@zeit/next-source-maps": "0.0.3",
+    "@zeit/next-typescript": "^1.1.1",
+    "bootstrap": "^4.3.1",
+    "next": "^8.0.3",
+    "node-sass": "^4.11.0",
+    "react": "^16.8.4",
+    "react-dom": "^16.8.4",
+    "reactstrap": "^7.1.0"
+  },
+  "devDependencies": {
+    "@types/next": "^8.0.1",
+    "@typescript-eslint/parser": "^1.4.2",
+    "eslint": "^5.15.1",
+    "eslint-config-standard": "^12.0.0",
+    "eslint-config-standard-react": "^7.0.2",
+    "eslint-plugin-import": "^2.16.0",
+    "eslint-plugin-node": "^8.0.1",
+    "eslint-plugin-promise": "^4.0.1",
+    "eslint-plugin-react": "^7.12.4",
+    "eslint-plugin-standard": "^4.0.0",
+    "standard-version": "^5.0.1"
+  }
+}
