@@ -5,10 +5,10 @@ import NavLink from 'reactstrap/lib/NavLink'
 export default function (props: Props) {
   const { href, text } = props
   return (
-    <span className='header-link'>
+    <span>
       {style}
       <Link href={href}>
-        <NavLink>{text}</NavLink>
+        <NavLink className='header-link'>{text}</NavLink>
       </Link>
     </span>
   )
@@ -18,6 +18,7 @@ const style = (
   <style jsx>{`
     a.header-link {
       color: #ffffff;
+      cursor: pointer;
     }
   `}</style>
 )
