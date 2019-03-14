@@ -1,14 +1,14 @@
 import React from 'react'
-import { Jumbotron, Container, Row, Col } from 'reactstrap'
+import { Container, Row, Col } from 'reactstrap'
 
 export default (props: {}) => (
   <div>
-    <Jumbotron className='hero bg-white text-black d-flex align-items-center rounded-0'>
-      <Container>
+    <Container>
+      <div className='hero bg-white d-flex align-items-center rounded-0 border-bottom border-dark'>
         {style}
         <Row>
-          <Col xs='12' lg='6'>
-            <h3 className='main-header text-nowrap'>
+          <Col xs='12' lg='7'>
+            <h3 className='main-header'>
               We build software for charities
             </h3>
             <p>
@@ -20,17 +20,20 @@ export default (props: {}) => (
               term project, get in touch with us for more information
             </p>
           </Col>
+
+          <Col />
         </Row>
-      </Container>
-    </Jumbotron>
+      </div>
+    </Container>
   </div>
 )
 
 const style = (
   <style jsx>{`
     .hero {
-      padding: 50px 0;
+      padding: 4rem 0;
       height: 50vh;
+      min-height: 26rem;
     }
     .main-header {
       font-weight: bolder;
