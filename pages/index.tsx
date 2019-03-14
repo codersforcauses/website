@@ -17,7 +17,7 @@ const style = (
   <style jsx>{`
     .hero {
       padding: 50px 0;
-      height: calc(100vh - 200px);
+      height: calc(100vh - 100px);
       margin-bottom: 100vh;
     }
   `}</style>

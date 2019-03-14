@@ -1,18 +1,19 @@
 import React, { Component } from 'react'
-import {
-  Navbar,
-  NavbarBrand,
-  Container,
-  Nav,
-  NavItem,
-  NavLink,
-  Button
-} from 'reactstrap'
+import { Navbar, NavbarBrand, Container, Nav, Button } from 'reactstrap'
 import Link from 'next/link'
+import HeaderItem, { HeaderItemContent } from './HeaderItem'
 
 export default class Header extends Component {
-  links = [
-    { href: '/about', text: 'About' },
+  links: HeaderItemContent[] = [
+    {
+      href: '/about',
+      text: 'About',
+      items: [
+        { text: 'Team', href: '/about' },
+        { text: 'Sponsors', href: '/about' },
+        { text: 'Contact', href: '/about' }
+      ]
+    },
     { href: '/events', text: 'Events' },
     { href: '/projects', text: 'Projects' }
   ]
@@ -29,15 +30,11 @@ export default class Header extends Component {
             </Link>
             <Nav>
               {this.links.map(link => (
-                <NavItem key={link.href}>
-                  <Link href={link.href}>
-                    <NavLink>{link.text}</NavLink>
-                  </Link>
-                </NavItem>
+                <HeaderItem item={link} key={link.text} />
               ))}
             </Nav>
           </Nav>
-          <Button color='secondary' outline className=''>
+          <Button color='secondary' outline>
             Membership
           </Button>
         </Container>
