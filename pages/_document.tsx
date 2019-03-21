@@ -22,6 +22,10 @@ export default class MyDocument extends Document {
             href='https://fonts.googleapis.com/css?family=IBM+Plex+Mono|IBM+Plex+Sans'
             rel='stylesheet'
           />
+          <link
+            href='https://use.fontawesome.com/releases/v5.8.0/css/all.css'
+            rel='stylesheet'
+          />
         </Head>
         <body>
           <Main />
