@@ -24,7 +24,7 @@ export default class Header extends Component {
         <Container>
           <Nav className='justify-content-start'>
             <Link href='/'>
-              <NavbarBrand className='mr-5 pr-5'>
+              <NavbarBrand className='mr-5'>
                 <code className='font-weight-bold'>cfc</code>
               </NavbarBrand>
             </Link>
