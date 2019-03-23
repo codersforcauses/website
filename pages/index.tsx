@@ -2,6 +2,7 @@ import React from 'react'
 import { Jumbotron, Button, Container } from 'reactstrap'
 import Clients from '../components/Clients'
 import Services from '../components/Services'
+import constants from '../data/constants.json'
 
 export default (props: {}) => (
   <div>
@@ -32,6 +33,14 @@ export default (props: {}) => (
       <h2 className='font-weight-bold mb-5'>What we offer.</h2>
       <Services />
     </Container>
+    <div className='bg-dark text-white py-5'>
+      <Container className='py-5 mb-5'>
+        <h1 className='display-3 mb-3'>Let's talk.</h1>
+        <a href={`mailto:${constants.email}`} className='text-white'>
+          <h3>{constants.email}</h3>
+        </a>
+      </Container>
+    </div>
   </div>
 )
 
@@ -39,7 +48,7 @@ const style = (
   <style jsx>{`
     .hero {
       padding: 50px 0;
-      height: calc(100vh - 100px);
+      height: 500px;
     }
   `}</style>
 )
