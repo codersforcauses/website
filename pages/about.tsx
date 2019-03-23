@@ -8,11 +8,11 @@ export default (props: {}) => (
     <Jumbotron className='mb-0 bg-dark hero pad text-white'>
       <Container>
         <Row className='my-5 d-flex align-items-center'>
-          <Col xs='12' lg='7'>
-            <h3 className='header'>
+          <Col xs={12} lg={7}>
+            <h2 className='header'>
               We build software for charities
-            </h3>
-            <p>
+            </h2>
+            <p className='lead'>
               Coders for Causes is a not for profit organisation that empowers
               charities and other not for profit organisations by connecting them
               with university students to develop technical solutions. We are a
@@ -21,22 +21,18 @@ export default (props: {}) => (
               term project, get in touch with us for more information.
             </p>
           </Col>
-
-          <Col xs='12' lg='5'>
-            <img src='/static/wordmark_white.svg' className='header-img' alt='Coders for Causes logo' />
-          </Col>
         </Row>
       </Container>
     </Jumbotron>
 
     <Container>
       <Row className='pad'>
-        <Col xs='12'>
+        <Col xs={12}>
           <h3 className='header'>
             Meet the Committee
           </h3>
         </Col>
-        <Col xs='12'>
+        <Col xs={12}>
           <CommitteeCard />
         </Col>
       </Row>
@@ -45,7 +41,7 @@ export default (props: {}) => (
     <Jumbotron className='pad m-0'>
       <Container>
         <Row>
-          <Col xs='12'>
+          <Col xs={12}>
             <h3 className='header'>
               Our Clients
             </h3>

@@ -1,5 +1,5 @@
 import React from 'react'
-import { Card, CardImg, CardBody, CardTitle, CardSubtitle, CardText, CardProps, ListGroup, ListGroupItem } from 'reactstrap'
+import { Card, CardImg, CardBody, CardTitle, CardSubtitle, CardText, CardProps } from 'reactstrap'
 
 export default function (props: Props) {
   const { item } = props
