@@ -13,7 +13,7 @@ export default () => {
       {style}
       {clientsSample.map(client => (
         <Col
-          xs={3}
+          xs={6}
           md={2}
           key={client.name}
           className='d-flex align-items-center'

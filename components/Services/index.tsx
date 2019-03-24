@@ -22,7 +22,7 @@ export default () => (
   <Row>
     {services.map(service => (
       <Col
-        xs={6}
+        xs={12}
         lg={12 / services.length}
         className='mb-4'
         key={service.title}
