@@ -42,6 +42,9 @@ const style = (
     a.header-dropdown-toggle {
       color: #ffffff;
     }
+    .header-dropdown-menu a {
+      color: #000 !important;
+    }
   `}</style>
 )
 

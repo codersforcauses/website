@@ -3,7 +3,7 @@ import { Row, Col, Card, CardBody } from 'reactstrap'
 import services from '../../data/services.json'
 
 const Service = (props: ServiceProps) => (
-  <Card className='text-center'>
+  <Card className='text-center border-0'>
     <CardBody>
       <i className={`fa-3x fas fa-${props.icon}`} />
       <h4 className='mt-4 font-weight-bold'>{props.title}</h4>
