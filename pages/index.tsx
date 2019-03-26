@@ -21,11 +21,11 @@ export default (props: {}) => (
         powered and all of our members are volunteers.
       </p>
       <Button color='primary' outline>
-        Work with us&nbsp;&nbsp;&nbsp;>
+        Work with us&ensp;&nbsp;>
       </Button>
     </Container>
     <div className='bg-light'>
-      <Container className='py-5'>
+      <Container>
         <Clients />
       </Container>
     </div>
@@ -38,7 +38,7 @@ export default (props: {}) => (
           <Col md={8}>
             <h1 className='display-3 mb-3'>Let's talk.</h1>
             <a href={`mailto:${constants.email}`} className='text-white'>
-              <h3>{constants.email}</h3>
+              <h3 className='scalable'>{constants.email}</h3>
             </a>
           </Col>
           <Col sm={4} className='d-none d-sm-block'>
@@ -53,8 +53,11 @@ export default (props: {}) => (
 const style = (
   <style jsx>{`
     .hero {
-      margin-top: 64px;
+      margin-top: 4rem;
       height: 500px;
+    }
+    .scalable {
+      font-size: calc(2vmin + 0.8rem);
     }
   `}</style>
 )
