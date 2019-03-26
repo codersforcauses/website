@@ -17,15 +17,7 @@ export default class Header extends Component<{}, State> {
   }
 
   links: HeaderItemContent[] = [
-    {
-      href: '/about',
-      text: 'About',
-      items: [
-        { text: 'Team', href: '/about/team' },
-        { text: 'Sponsors', href: '/about/sponsors' },
-        { text: 'Contact', href: '/about/contact' }
-      ]
-    },
+    { href: '/about', text: 'About' },
     { href: '/events', text: 'Events' },
     { href: '/projects', text: 'Projects' }
   ]
@@ -36,9 +28,9 @@ export default class Header extends Component<{}, State> {
     const { isOpen } = this.state
     return (
       <Navbar
+        dark
         color='dark'
         className='text-white py-3 fixed-top shadow-sm'
-        dark
         expand='md'
       >
         <Container>
@@ -51,7 +43,7 @@ export default class Header extends Component<{}, State> {
             </NavbarToggler>
             <Link href='/'>
               <NavbarBrand className='mr-md-5 pr-md-5'>
-                <code className='font-weight-bold'>cfc</code>
+                <code className='font-weight-bold' style={{ cursor: 'pointer' }}>cfc</code>
               </NavbarBrand>
             </Link>
             <Collapse navbar isOpen={isOpen}>
@@ -62,7 +54,7 @@ export default class Header extends Component<{}, State> {
               </Nav>
             </Collapse>
           </Nav>
-          <Button color='secondary' outline className='d-none d-md-block'>
+          <Button outline color='secondary' className='d-none d-md-block'>
             Membership
           </Button>
         </Container>
