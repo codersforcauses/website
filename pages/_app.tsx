@@ -2,6 +2,8 @@ import React from 'react'
 import App, { Container, NextAppContext } from 'next/app'
 import Head from 'next/head'
 import '../theme.scss'
+import Header from '../components/Header'
+import Footer from '../components/Footer'
 
 export default class MyApp extends App {
   static async getInitialProps (context: NextAppContext) {
@@ -21,7 +23,11 @@ export default class MyApp extends App {
         <Head>
           <title>Coders for Causes</title>
         </Head>
-        <Component {...pageProps} />
+        <div>
+          <Header />
+          <Component {...pageProps} />
+          <Footer />
+        </div>
       </Container>
     )
   }
