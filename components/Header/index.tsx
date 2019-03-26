@@ -28,9 +28,9 @@ export default class Header extends Component<{}, State> {
     const { isOpen } = this.state
     return (
       <Navbar
+        dark
         color='dark'
         className='text-white py-3 fixed-top shadow-sm'
-        dark
         expand='md'
       >
         <Container>
@@ -42,7 +42,7 @@ export default class Header extends Component<{}, State> {
               <i className='fas fa-bars text-white' />
             </NavbarToggler>
             <Link href='/'>
-              <NavbarBrand className='mr-5'>
+              <NavbarBrand className='mr-md-5 pr-md-5'>
                 <code className='font-weight-bold' style={{ cursor: 'pointer' }}>cfc</code>
               </NavbarBrand>
             </Link>
@@ -54,7 +54,7 @@ export default class Header extends Component<{}, State> {
               </Nav>
             </Collapse>
           </Nav>
-          <Button color='secondary' outline className='d-none d-md-block'>
+          <Button outline color='secondary' className='d-none d-md-block'>
             Membership
           </Button>
         </Container>
