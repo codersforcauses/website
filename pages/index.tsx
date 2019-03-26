@@ -53,7 +53,8 @@ export default (props: {}) => (
 const style = (
   <style jsx>{`
     .hero {
-      margin-top: 4rem;
+      margin-top: 4.5rem;
+      border-radius: 0;
       height: 500px;
     }
     .scalable {
