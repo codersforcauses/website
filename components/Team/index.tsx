@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Col, CardDeck } from 'reactstrap'
 import CardItem, { CardItemContent } from './CardItem'
-import { committee } from '../../data/constants.json'
+import { committee } from '../../data/committee.json'
 
 export default class CommitteeCard extends Component {
   render () {
