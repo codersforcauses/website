@@ -5,6 +5,7 @@ export default (
     .client-logo {
       object-fit: contain;
       object-position: center;
+      max-width: 100px;
     }
   `}</style>
 )
