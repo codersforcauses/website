@@ -9,7 +9,7 @@ export default () => {
     .sort(randomise)
     .slice(0, Math.min(4, clients.length))
   return (
-    <Row className='justify-content-center'>
+    <Row className='justify-content-center py-5'>
       {style}
       {clientsSample.map(client => (
         <Col
