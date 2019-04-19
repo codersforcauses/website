@@ -8,8 +8,8 @@ export default class CommitteeCard extends Component {
     return (
       <CardDeck>
         {committee.map(member => (
-          <Col xs={12} md={6} lg={4} className='p-0'>
-            <CardItem item={member} key={member.name} />
+          <Col xs={12} md={6} lg={4} className='p-0' key={member.name}>
+            <CardItem item={member} />
           </Col>
         ))}
       </CardDeck>
