@@ -16,12 +16,12 @@ cache:
   directories:
     - ~/.npm
     - ~/.cache
-  override:
-    - npm ci
-    - npm run cy:verify
 
-defaults: &defaults
-  script:
-    - npm run build &
-    - npm start & wait-on http://localhost:3000 &
-    - npm run cypress:run
+install:
+  # use the new "ci" command for fastest installs on CI
+  - npm ci
+
+script:
+  - npm run build
+  - npm run start & wait-on http://localhost:3000
+  - npm run cypress:run
