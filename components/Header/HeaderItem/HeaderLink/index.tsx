@@ -8,7 +8,9 @@ export default function (props: Props) {
     <span>
       {style}
       <Link href={href}>
-        <NavLink className='header-link'>{text}</NavLink>
+        <NavLink className='header-link' data-tid={`nav-${text}`}>
+          {text}
+        </NavLink>
       </Link>
     </span>
   )
