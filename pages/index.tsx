@@ -4,7 +4,7 @@ import Clients from '../components/Clients'
 import Services from '../components/Services'
 import constants from '../data/constants.json'
 
-export default (props: {}) => (
+export default () => (
   <div>
     <Jumbotron className='hero bg-dark text-white d-flex align-items-center rounded-0'>
       <Container>
@@ -21,7 +21,7 @@ export default (props: {}) => (
         powered and all of our members are volunteers.
       </p>
       <Button color='primary' outline>
-        Work with us&ensp;&nbsp;>
+        Work with us &ensp;<span className='arrow'>&raquo;</span>
       </Button>
     </Container>
     <div className='bg-light'>
@@ -32,17 +32,20 @@ export default (props: {}) => (
     <Container className='py-5 my-5'>
       <Services />
     </Container>
-    <div className='py-5 bg-dark text-white'>
+    <div className='pt-5 pb-md-5 bg-dark text-white'>
       <Container className='py-5'>
         <Row>
           <Col md={8}>
             <h1 className='display-3 mb-3'>Let's talk.</h1>
             <a href={`mailto:${constants.email}`} className='text-white'>
-              <h3 className='scalable'>{constants.email}</h3>
+              <h3 className='scalable m-0'>{constants.email}</h3>
             </a>
           </Col>
-          <Col sm={4} className='d-none d-sm-block'>
-            <h1 className='display-1 text-right'>;)</h1>
+          <Col
+            sm={4}
+            className='d-none d-md-flex m-0 justify-content-end align-items-center'
+          >
+            <h1 className='display-1 m-0'>;)</h1>
           </Col>
         </Row>
       </Container>
@@ -59,6 +62,9 @@ const style = (
     }
     .scalable {
       font-size: calc(2vmin + 0.8rem);
+    }
+    .arrow {
+      font-size: 1.1rem;
     }
   `}</style>
 )
