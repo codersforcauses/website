@@ -29,6 +29,19 @@ export default class MyDocument extends Document {
             integrity='sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf'
             crossOrigin='anonymous'
           />
+          {/* light/dark theme favicons */}
+          {/* <link
+            rel='icon'
+            media='(prefers-color-scheme:dark)'
+            href='favicon-dark.png'
+            type='image/png'
+          />
+          <link
+            rel='icon'
+            media='(prefers-color-scheme:light)'
+            href='favicon-light.png'
+            type='image/png'
+          /> */}
         </Head>
         <body>
           <Main />
