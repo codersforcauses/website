@@ -64,3 +64,5 @@ typings/
 
 # ignore yarn.lock
 yarn.lock
+
+.vscode
