@@ -11,7 +11,7 @@
         "linkedin": "https://www.linkedin.com/in/jeremiah-pinto/"
       },
       "picture": {
-        "src": "https://placeholdit.imgix.net/~text?txtsize=33&txt=318%C3%97180&w=318&h=180",
+        "src": "../static/comittee/jeremiahdp.png",
         "alt": "CFC President"
       }
     },
@@ -22,11 +22,11 @@
       "social": {
         "email": "vicepresident@codersforcauses.org",
         "discord": "Drubi",
-        "github": "https://github.com/DrewAlexander98",
+        "github": "https://github.com/Drewbi",
         "linkedin": "https://www.linkedin.com/in/drew-alexander-29397317a/"
       },
       "picture": {
-        "src": "https://placeholdit.imgix.net/~text?txtsize=33&txt=318%C3%97180&w=318&h=180",
+        "src": "../static/comittee/drewdp.png",
         "alt": "CFC Vice-President"
       }
     },
@@ -37,11 +37,11 @@
       "social": {
         "email": "secretary@codersforcauses.org",
         "discord": "Elysian",
-        "github": "https://github.com/ekinbukulmez",
+        "github": "https://github.com/blaiddyd",
         "linkedin": "https://www.linkedin.com/in/ekinbukulmez/"
       },
       "picture": {
-        "src": "https://placeholdit.imgix.net/~text?txtsize=33&txt=318%C3%97180&w=318&h=180",
+        "src": "https://avatars0.githubusercontent.com/u/37198910?s=400&v=4",
         "alt": "CFC Secretary"
       }
     },
@@ -56,7 +56,7 @@
         "linkedin": "https://www.linkedin.com/in/david-yu-australia/"
       },
       "picture": {
-        "src": "https://placeholdit.imgix.net/~text?txtsize=33&txt=318%C3%97180&w=318&h=180",
+        "src": "https://avatars3.githubusercontent.com/u/23206864?s=400&v=4",
         "alt": "CFC Treasurer"
       }
     },
@@ -71,7 +71,7 @@
         "linkedin": "https://www.linkedin.com/in/innocent-muisha-00958615a/"
       },
       "picture": {
-        "src": "https://placeholdit.imgix.net/~text?txtsize=33&txt=318%C3%97180&w=318&h=180",
+        "src": "../static/comittee/innocentdp.png",
         "alt": "CFC Client Officer"
       }
     },
@@ -86,7 +86,7 @@
         "linkedin": "https://www.linkedin.com/in/vietminhle/"
       },
       "picture": {
-        "src": "https://placeholdit.imgix.net/~text?txtsize=33&txt=318%C3%97180&w=318&h=180",
+        "src": "../static/comittee/minhdp.png",
         "alt": "CFC Marketing Officer"
       }
     },
@@ -101,7 +101,7 @@
         "linkedin": "https://www.linkedin.com/in/thai-nguyen-8b6098183/"
       },
       "picture": {
-        "src": "https://placeholdit.imgix.net/~text?txtsize=33&txt=318%C3%97180&w=318&h=180",
+        "src": "https://avatars0.githubusercontent.com/u/34293984?s=400&v=4",
         "alt": "CFC OCM"
       }
     },
@@ -116,7 +116,7 @@
         "linkedin": "https://www.linkedin.com/in/jkkim98/"
       },
       "picture": {
-        "src": "https://placeholdit.imgix.net/~text?txtsize=33&txt=318%C3%97180&w=318&h=180",
+        "src": "../static/comittee/jongdp.png",
         "alt": "CFC OCM"
       }
     },
@@ -131,7 +131,7 @@
         "linkedin": "https://www.linkedin.com/in/joshua-milambo-8298aa163/"
       },
       "picture": {
-        "src": "https://placeholdit.imgix.net/~text?txtsize=33&txt=318%C3%97180&w=318&h=180",
+        "src": "../static/comittee/joshdp.png",
         "alt": "CFC OCM"
       }
     }
