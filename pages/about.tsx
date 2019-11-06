@@ -73,7 +73,7 @@ export default (props: {}) => (
 const style = (
   <style jsx>{`
     .header {
-      font-wzeight: bolder;
+      font-weight: bolder;
       margin-bottom: 1.2rem;
     }
     .pad {
@@ -82,12 +82,6 @@ const style = (
     .hero {
       margin-top: 4.5rem;
       border-radius: 0;
-    }
-    .hero::after {
-      content: ' ';
-      left: 0;
-      background-color: yellow !important;
-      top: 4.5rem;
     }
   `}</style>
 )
