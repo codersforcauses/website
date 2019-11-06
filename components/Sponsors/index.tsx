@@ -3,26 +3,21 @@ import { Row, Col } from 'reactstrap'
 import { randomise } from '../../helpers/array'
 import sponsors from '../../data/sponsors.json'
 
-export default () => {
-  const sponsorsSample = sponsors
-    .sort(randomise)
-    .slice(0, Math.min(3, sponsors.length))
-  return (
-    <Row className='justify-content-center py-5'>
-      {sponsorsSample.map(sponsor => (
-        <Col
-          xs={4}
-          md={3}
-          key={sponsor.name}
-          className='d-flex align-items-center mb-4 mb-md-0 justify-content-center'
-        >
-          <img
-            src={sponsor.logo}
-            alt={sponsor.name}
-            className='img-fluid'
-          />
-        </Col>
-      ))}
-    </Row>
-  )
-}
+const sponsorsSample = sponsors
+  .sort(randomise)
+  .slice(0, Math.min(3, sponsors.length))
+
+export default () => (
+  <Row className='justify-content-center py-5'>
+    {sponsorsSample.map(sponsor => (
+      <Col
+        xs={3}
+        md={2}
+        key={sponsor.name}
+        className='d-flex align-items-center mb-4 mb-md-0 justify-content-center'
+      >
+        <img src={sponsor.logo} alt={sponsor.name} className='img-fluid' />
+      </Col>
+    ))}
+  </Row>
+)
