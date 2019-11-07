@@ -30,6 +30,7 @@ export default class MyDocument extends Document {
             crossOrigin='anonymous'
           />
           {/* light/dark theme favicons */}
+          {/* Haven't found a browser where the dark icon works better than the light */}
           <link
             rel='icon'
             media='(prefers-color-scheme:dark)'
@@ -39,7 +40,7 @@ export default class MyDocument extends Document {
           <link
             rel='icon'
             media='(prefers-color-scheme:light)'
-            href='/favicon-dark.png'
+            href='/favicon-light.png'
             type='image/png'
           />
         </Head>
