@@ -30,18 +30,18 @@ export default class MyDocument extends Document {
             crossOrigin='anonymous'
           />
           {/* light/dark theme favicons */}
-          {/* <link
+          <link
             rel='icon'
             media='(prefers-color-scheme:dark)'
-            href='favicon-dark.png'
+            href='/favicon-light.png'
             type='image/png'
           />
           <link
             rel='icon'
             media='(prefers-color-scheme:light)'
-            href='favicon-light.png'
+            href='/favicon-dark.png'
             type='image/png'
-          /> */}
+          />
         </Head>
         <body>
           <Main />
