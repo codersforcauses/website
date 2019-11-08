@@ -40,7 +40,7 @@ export default class MyDocument extends Document {
           <link
             rel='icon'
             media='(prefers-color-scheme:light)'
-            href='/favicon-light.png'
+            href='/favicon-dark.png'
             type='image/png'
           />
         </Head>
