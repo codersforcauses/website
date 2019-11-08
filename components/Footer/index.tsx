@@ -15,7 +15,7 @@ export default () => (
           className='mt-4 mt-md-0'
         >
           <img
-            src='/wordmark_white.svg'
+            src='/logo/wordmark_white.svg'
             alt='Coders for Causes wordmark'
             className='img-fluid mb-3 image'
           />
