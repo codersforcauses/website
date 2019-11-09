@@ -4,6 +4,7 @@ import Head from 'next/head'
 import '../theme.scss'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
+import { initAnalytics } from '../helpers/analytics'
 
 export default class MyApp extends App {
   static async getInitialProps (context: NextAppContext) {
@@ -13,6 +14,10 @@ export default class MyApp extends App {
       pageProps = await Component.getInitialProps(ctx)
     }
     return { pageProps }
+  }
+
+  componentDidMount () {
+    initAnalytics('2423121134')
   }
 
   render () {
