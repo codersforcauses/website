@@ -24,6 +24,8 @@ export default () => (
             <br />
             Crawley WA, 6009
           </p>
+          <br />
+          <p className='small'>© Coders for Causes. All rights reserved.</p>
         </Col>
         <Col xs={6} md={2}>
           <h4 className='mb-3'>About us</h4>
