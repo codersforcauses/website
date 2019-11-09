@@ -31,7 +31,8 @@
     "node-sass": "^4.11.0",
     "react": "^16.8.4",
     "react-dom": "^16.8.4",
-    "reactstrap": "^7.1.0"
+    "reactstrap": "^7.1.0",
+    "typed.js": "^2.0.11"
   },
   "devDependencies": {
     "@types/next": "^8.0.1",
