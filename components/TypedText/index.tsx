@@ -11,7 +11,7 @@ export default ({ text }: { text: Array<string> }) => {
       typeSpeed: 50,
       backSpeed: 30,
       backDelay: 2000,
-      cursorChar: '\u258A',
+      cursorChar: '\u258B',
       loop: true
     })
 
