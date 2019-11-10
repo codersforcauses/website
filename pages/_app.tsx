@@ -37,6 +37,8 @@ export default class MyApp extends App {
           className='fb-customerchat'
           data-theme_color='#000000'
           data-page_id='700598980115471'
+          data-logged_in_greeting='Hi there! How can we help you?'
+          data-logged_out_greeting='Please log in to chat with us'
         />
       </>
     )
