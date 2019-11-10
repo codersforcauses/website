@@ -29,7 +29,7 @@
     "node-sass": "^4.11.0",
     "react": "^16.11.0",
     "react-dom": "^16.11.0",
-    "reactstrap": "^7.1.0"
+    "reactstrap": "^8.0.0"
   },
   "devDependencies": {
     "@types/node": "^12.12.7",
@@ -39,17 +39,17 @@
     "cypress": "^3.6.1",
     "cz-conventional-changelog": "3.0.2",
     "eslint": "^6.0.0",
-    "eslint-config-standard": "^12.0.0",
+    "eslint-config-standard": "14.1.0",
     "eslint-config-standard-react": "^9.0.0",
     "eslint-plugin-cypress": "^2.7.0",
     "eslint-plugin-import": "^2.18.2",
-    "eslint-plugin-node": "^8.0.1",
+    "eslint-plugin-node": "10.0.0",
     "eslint-plugin-promise": "^4.2.1",
     "eslint-plugin-react": "^7.16.0",
     "eslint-plugin-standard": "^4.0.1",
     "husky": "^3.0.0",
-    "lint-staged": "^8.2.1",
-    "standard-version": "^5.0.2",
+    "lint-staged": "9.4.2",
+    "standard-version": "7.0.0",
     "typescript": "^3.7.2",
     "wait-on": "^3.3.0"
   },
