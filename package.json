@@ -31,11 +31,11 @@
     "node-sass": "^4.11.0",
     "react": "^16.8.4",
     "react-dom": "^16.8.4",
-    "reactstrap": "^7.1.0"
+    "reactstrap": "^8.0.0"
   },
   "devDependencies": {
     "@types/next": "8.0.7",
-    "@types/reactstrap": "7.1.6",
+    "@types/reactstrap": "8.0.6",
     "@types/styled-jsx": "2.2.8",
     "@typescript-eslint/parser": "2.6.1",
     "cypress": "3.6.1",
