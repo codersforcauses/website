@@ -10,7 +10,7 @@ export default () => (
       <Row>
         <Col md={3} className='mb-3'>
           <img
-            src='static/logo/wordmark_white.svg'
+            src='/logo/wordmark_white.svg'
             alt='Coders for Causes wordmark'
             className='img-fluid w-50 mb-3'
           />
