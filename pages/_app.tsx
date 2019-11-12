@@ -1,14 +1,14 @@
 import React from 'react'
-import App, { Container, NextAppContext } from 'next/app'
+import App, { AppContext } from 'next/app'
 import Head from 'next/head'
 import '../theme.scss'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
 import { initAnalytics } from '../helpers/analytics'
+import { initMessenger } from '../helpers/messenger'
 
 export default class MyApp extends App {
-  static async getInitialProps (context: NextAppContext) {
-    const { Component, ctx } = context
+  static async getInitialProps ({ Component, ctx }: AppContext) {
     let pageProps = {}
     if (Component.getInitialProps) {
       pageProps = await Component.getInitialProps(ctx)
@@ -18,13 +18,14 @@ export default class MyApp extends App {
 
   componentDidMount () {
     initAnalytics('2423121134')
+    initMessenger()
   }
 
   render () {
     const { Component, pageProps } = this.props
 
     return (
-      <Container>
+      <>
         <Head>
           <title>Coders for Causes</title>
         </Head>
@@ -33,7 +34,15 @@ export default class MyApp extends App {
           <Component {...pageProps} />
           <Footer />
         </div>
-      </Container>
+        <div id='fb-root' />
+        <div
+          className='fb-customerchat'
+          data-theme_color='#000000'
+          data-page_id='700598980115471'
+          data-logged_in_greeting='Hi there! How can we help you?'
+          data-logged_out_greeting='Please log in to chat with us'
+        />
+      </>
     )
   }
 }

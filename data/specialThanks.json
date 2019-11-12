@@ -1,12 +1,12 @@
 [
   {
-    "logo": "static/special_thanks/github.png",
+    "logo": "/specialThanks/githubfull.png",
     "color": "",
     "name": "Github",
     "href": "https://github.com/codersforcauses"
   },
   {
-    "logo": "static/special_thanks/jetbrains.svg",
+    "logo": "/specialThanks/jetbrains.png",
     "color": "",
     "name": "Jetbrains",
     "href": "https://www.jetbrains.com/"

@@ -11,7 +11,7 @@
         "linkedin": "https://www.linkedin.com/in/jeremiah-pinto/"
       },
       "picture": {
-        "src": "/static/committee/jeremiahdp.png",
+        "src": "/committee/jeremiahdp.png",
         "alt": "CFC President"
       }
     },
@@ -26,7 +26,7 @@
         "linkedin": "https://www.linkedin.com/in/drew-alexander-29397317a/"
       },
       "picture": {
-        "src": "/static/committee/drewdp.png",
+        "src": "/committee/drewdp.png",
         "alt": "CFC Vice-President"
       }
     },
@@ -71,7 +71,7 @@
         "linkedin": "https://www.linkedin.com/in/innocent-muisha-00958615a/"
       },
       "picture": {
-        "src": "/static/committee/innocentdp.png",
+        "src": "/committee/innocentdp.png",
         "alt": "CFC Client Officer"
       }
     },
@@ -86,7 +86,7 @@
         "linkedin": "https://www.linkedin.com/in/vietminhle/"
       },
       "picture": {
-        "src": "/static/committee/minhdp.png",
+        "src": "/committee/minhdp.png",
         "alt": "CFC Marketing Officer"
       }
     },
@@ -116,7 +116,7 @@
         "linkedin": "https://www.linkedin.com/in/jkkim98/"
       },
       "picture": {
-        "src": "/static/committee/jongdp.png",
+        "src": "/committee/jongdp.png",
         "alt": "CFC OCM"
       }
     },
@@ -131,7 +131,7 @@
         "linkedin": "https://www.linkedin.com/in/joshua-milambo-8298aa163/"
       },
       "picture": {
-        "src": "/static/committee/joshdp.png",
+        "src": "/committee/joshdp.png",
         "alt": "CFC OCM"
       }
     }

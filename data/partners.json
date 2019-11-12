@@ -1,12 +1,12 @@
 [
   {
-    "logo": "static/partners/makers.png",
-    "color": "",
-    "name": "UWA Makers"
+    "name": "UWA Makers",
+    "logo": "/partners/makersNoUWA.png",
+    "color": ""
   },
   {
-    "logo": "static/partners/eeewa.png",
-    "color": "",
-    "name": "Electrical and Electronic Engineers WA"
+    "name": "Electrical and Electronic Engineers WA",
+    "logo": "/partners/eeewa.png",
+    "color": ""
   }
 ]

@@ -1,17 +1,17 @@
 [
   {
-    "logo": "static/sponsors/rio_tinto_logo.svg",
-    "color": "",
-    "name": "Rio Tinto"
+    "name": "Rio Tinto",
+    "logo": "/sponsors/rio_tinto_logo.svg",
+    "color": ""
   },
   {
-    "logo": "static/sponsors/iqx_logo.svg",
-    "color": "",
-    "name": "UWA IQX"
+    "name": "UWA IQX",
+    "logo": "/sponsors/iqx_logo.svg",
+    "color": ""
   },
   {
-    "logo": "static/sponsors/bhp_logo.svg",
-    "color": "",
-    "name": "BHP"
+    "name": "BHP",
+    "logo": "/sponsors/bhp_logo.svg",
+    "color": ""
   }
 ]

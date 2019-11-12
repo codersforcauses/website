@@ -15,7 +15,7 @@ export default () => (
           className='mt-4 mt-md-0'
         >
           <img
-            src='/static/logo/wordmark_white.svg'
+            src='/logo/wordmark_white.svg'
             alt='Coders for Causes wordmark'
             className='img-fluid mb-3 image'
           />
@@ -81,7 +81,11 @@ export default () => (
           <h4 className='mb-3'>Social</h4>
           <ul className='list-unstyled'>
             <li>
-              <a href='https://github.com/codersforcauses' target='_blank'>
+              <a
+                href='https://github.com/codersforcauses'
+                target='_blank'
+                rel='noreferrer noopener'
+              >
                 <p className='m-0'>GitHub</p>
               </a>
             </li>
@@ -89,6 +93,7 @@ export default () => (
               <a
                 href='https://www.facebook.com/codersforcauses'
                 target='_blank'
+                rel='noreferrer noopener'
               >
                 <p className='m-0'>Facebook</p>
               </a>
@@ -97,12 +102,17 @@ export default () => (
               <a
                 href='https://linkedin.com/company/coders-for-causes'
                 target='_blank'
+                rel='noreferrer noopener'
               >
                 <p className='m-0'>LinkedIn</p>
               </a>
             </li>
             <li>
-              <a href='http://discord.codersforcauses.org' target='_blank'>
+              <a
+                href='http://discord.codersforcauses.org'
+                target='_blank'
+                rel='noreferrer noopener'
+              >
                 <p className='m-0'>Discord</p>
               </a>
             </li>
