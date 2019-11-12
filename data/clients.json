@@ -1,21 +1,21 @@
 [
   {
-    "logo": "static/clients/ignite_mentoring_logo.png",
+    "logo": "/clients/ignite_mentoring_logo.png",
     "color": "",
     "name": "Ignite Mentoring"
   },
   {
-    "logo": "static/clients/teach_learn_grow_logo.png",
+    "logo": "/clients/teach_learn_grow_logo.png",
     "color": "",
     "name": "Teach Learn Grow"
   },
   {
-    "logo": "static/clients/p2s_rugbyworks_logo.png",
+    "logo": "/clients/p2s_rugbyworks_logo.png",
     "color": "",
     "name": "P2S Rugby"
   },
   {
-    "logo": "static/clients/anglicare_wa_logo.png",
+    "logo": "/clients/anglicare_wa_logo.png",
     "color": "",
     "name": "Anglicare WA"
   }
