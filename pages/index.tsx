@@ -2,6 +2,7 @@ import React from 'react'
 import { Jumbotron, Button, Container, Row, Col } from 'reactstrap'
 import Clients from '../components/Clients'
 import Services from '../components/Services'
+import Face from '../components/Face'
 import constants from '../data/constants.json'
 
 export default (props: {}) => (
@@ -42,7 +43,7 @@ export default (props: {}) => (
             </a>
           </Col>
           <Col sm={4} className='d-none d-sm-block'>
-            <h1 className='display-1 text-right'>;)</h1>
+            <Face />
           </Col>
         </Row>
       </Container>
