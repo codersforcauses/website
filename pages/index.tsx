@@ -14,9 +14,13 @@ export default () => (
           <TypedText
             text={[
               './Innovation with a mission',
+              './Programming with purpose',
+              './Do good. ^200Write code',
+              './Made with code',
+              './Made with ^500❤️',
+              '#include git.c',
               'class Coders extends Causes',
-              'made_with: "love"',
-              'we live in a ^1000  society'
+              'sudo rm -rf /'
             ]}
           />
         </h1>
