@@ -5,5 +5,6 @@ export default (
     .face {
       margin-left: 65%
     }
-  `}</style>
+  `}
+  </style>
 )
