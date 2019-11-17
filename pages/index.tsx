@@ -1,15 +1,30 @@
 import React from 'react'
 import { Jumbotron, Button, Container, Row, Col } from 'reactstrap'
+import TypedText from '../components/TypedText'
 import Clients from '../components/Clients'
 import Services from '../components/Services'
+import Face from '../components/Face'
 import constants from '../data/constants.json'
 
 export default () => (
-  <div>
+  <>
     <Jumbotron className='hero bg-dark text-white d-flex align-items-center rounded-0'>
       <Container>
         {style}
-        <h1 className='mb-4'>./Innovation with a mission</h1>
+        <h1 className='mb-4'>
+          <TypedText
+            text={[
+              './Innovation with a mission',
+              './Programming with purpose',
+              './Do good. ^200Write code',
+              './Made with code',
+              './Made with ^500❤️',
+              '#include git.c',
+              'class Coders extends Causes',
+              'sudo rm -rf /'
+            ]}
+          />
+        </h1>
       </Container>
     </Jumbotron>
     <Container className='py-5 my-5'>
@@ -25,7 +40,7 @@ export default () => (
       </Button>
     </Container>
     <div className='bg-light'>
-      <Container>
+      <Container className='bg-light py-5'>
         <Clients />
       </Container>
     </div>
@@ -41,16 +56,13 @@ export default () => (
               <h3 className='scalable m-0'>{constants.email}</h3>
             </a>
           </Col>
-          <Col
-            sm={4}
-            className='d-none d-md-flex m-0 justify-content-end align-items-center'
-          >
-            <h1 className='display-1 m-0'>;)</h1>
+          <Col sm={4} className='d-none d-sm-block'>
+            <Face />
           </Col>
         </Row>
       </Container>
     </div>
-  </div>
+  </>
 )
 
 const style = (
@@ -60,11 +72,6 @@ const style = (
       border-radius: 0;
       height: 500px;
     }
-    .scalable {
-      font-size: calc(2vmin + 0.8rem);
-    }
-    .arrow {
-      font-size: 1.1rem;
-    }
-  `}</style>
+  `}
+  </style>
 )
