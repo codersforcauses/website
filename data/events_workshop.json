@@ -1,0 +1,62 @@
+[
+  {
+    "id": 1,
+    "type": "workshop",
+    "img": "/events/IMG_9700.jpeg",
+    "title": "eg_Title",
+    "description": "workshop workshop workshop workshop workshop workshop workshop workshop workshop workshop workshop workshop workshop workshop workshop workshop workshop workshop workshop ",
+    "requirements": ["eg_req1", "eg_req2"],
+    "location": "eg_Location",
+    "date": "eg_Date"
+  },
+  {
+    "id": 2,
+    "type": "workshop",
+    "img": "/events/IMG_9700.jpeg",
+    "title": "eg_Title2",
+    "description": "eg_Desc",
+    "requirements": ["eg_req1", "eg_req2"],
+    "location": "eg_Location",
+    "date": "eg_Date"
+  },
+  {
+    "id": 3,
+    "type": "workshop",
+    "img": "/events/IMG_9700.jpeg",
+    "title": "eg_Title3",
+    "description": "eg_Desc",
+    "requirements": ["eg_req1", "eg_req2"],
+    "location": "eg_Location",
+    "date": "eg_Date"
+  },
+  {
+    "id": 4,
+    "type": "workshop",
+    "img": "/events/IMG_9700.jpeg",
+    "title": "eg_Title",
+    "description": "workshop workshop workshop workshop workshop workshop workshop workshop workshop workshop workshop workshop workshop workshop workshop workshop workshop workshop workshop ",
+    "requirements": ["eg_req1", "eg_req2"],
+    "location": "eg_Location",
+    "date": "eg_Date"
+  },
+  {
+    "id": 5,
+    "type": "workshop",
+    "img": "/events/IMG_9700.jpeg",
+    "title": "eg_Title",
+    "description": "workshop workshop workshop workshop workshop workshop workshop workshop workshop workshop workshop workshop workshop workshop workshop workshop workshop workshop workshop ",
+    "requirements": ["eg_req1", "eg_req2"],
+    "location": "eg_Location",
+    "date": "eg_Date"
+  },
+  {
+    "id": 6,
+    "type": "workshop",
+    "img": "/events/IMG_9700.jpeg",
+    "title": "eg_Title",
+    "description": "workshop workshop workshop workshop workshop workshop workshop workshop workshop workshop workshop workshop workshop workshop workshop workshop workshop workshop workshop ",
+    "requirements": ["eg_req1", "eg_req2"],
+    "location": "eg_Location",
+    "date": "eg_Date"
+  }
+]
