@@ -36,10 +36,12 @@ const EventCard = ({ id, img, title, description }: EventCardProps) => {
             <h1 className='title'>{title}</h1>
           </CardTitle>
           <CardText className='description'>{descTrimmed}</CardText>
+        </CardBody>
+        <div>
           <Link href={'/event/' + id}>
             <Button className='button'>Learn more</Button>
           </Link>
-        </CardBody>
+        </div>
       </Card>
     </>
   )

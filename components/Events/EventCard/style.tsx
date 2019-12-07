@@ -16,8 +16,12 @@ export default (
         font-size: 0.8rem;
       }
       .button {
+        margin-top: 1.25rem;
         color: white;
         background-color: black;
+        position: relative;
+        bottom: 1.25rem;
+        left: 1.25rem;
       }
     `}
   </style>
