@@ -38,17 +38,32 @@ const Events = (props: EventProps) => (
           {props.type}
         </h1>
       </div>
-      {props.events.map(event => (
-        <EventCard
-          key={event.id}
-          id={event.id}
-          img={event.img}
-          title={event.title}
-          description={event.description}
-        />
-      ))}
+      {props.events
+        .sort((e1, e2) => compareEventsByDate(e1, e2))
+        .map(event => (
+          <EventCard
+            key={event.id}
+            id={event.id}
+            img={event.img}
+            title={event.title}
+            description={event.description}
+          />
+        ))}
     </div>
   </>
 )
+
+type eventObject = {
+  date: string
+}
+
+const compareEventsByDate = (eventA: eventObject, eventB: eventObject) => {
+  const dateA = new Date(eventA.date)
+  const dateB = new Date(eventB.date)
+
+  if (dateA > dateB) return 1
+  else if (dateA < dateB) return -1
+  else return 0
+}
 
 export default Events
