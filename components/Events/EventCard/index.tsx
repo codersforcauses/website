@@ -29,20 +29,22 @@ const EventCard = ({ id, img, title, description }: EventCardProps) => {
   return (
     <>
       {style}
-      <Card className='event-card'>
-        <CardImg top src={img} />
-        <CardBody>
-          <CardTitle>
-            <h1 className='title'>{title}</h1>
-          </CardTitle>
-          <CardText className='description'>{descTrimmed}</CardText>
-        </CardBody>
-        <div>
-          <Link href={'/event/' + id}>
-            <Button className='button'>Learn more</Button>
-          </Link>
-        </div>
-      </Card>
+      <div className='event-item col-sm-12 col-md-6 col-lg-4'>
+        <Card className='event-card'>
+          <CardImg top src={img} />
+          <CardBody>
+            <CardTitle>
+              <h1 className='title'>{title}</h1>
+            </CardTitle>
+            <CardText className='description'>{descTrimmed}</CardText>
+          </CardBody>
+          <div>
+            <Link href={'/event/' + id}>
+              <Button className='button'>Learn more</Button>
+            </Link>
+          </div>
+        </Card>
+      </div>
     </>
   )
 }
