@@ -4,7 +4,7 @@ export default (
   <style jsx>
     {`
       .card {
-        border: 2px solid black;
+        border: 1px solid black;
         border-radius: 0;
         height: 100%;
       }

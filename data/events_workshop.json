@@ -3,60 +3,66 @@
     "id": 1,
     "type": "workshop",
     "img": "/events/IMG_9700.jpeg",
-    "title": "eg_Title",
+    "title": "eg_Title1",
     "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
     "requirements": ["eg_req1", "eg_req2"],
     "location": "eg_Location",
-    "date": "eg_Date"
+    "date": "2019-12-07",
+    "time": "1440"
   },
   {
     "id": 2,
     "type": "workshop",
     "img": "/events/IMG_9700.jpeg",
     "title": "eg_Title2",
-    "description": "eg_Desc",
+    "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
     "requirements": ["eg_req1", "eg_req2"],
     "location": "eg_Location",
-    "date": "eg_Date"
+    "date": "2019-12-08",
+    "time": "1440"
   },
   {
     "id": 3,
     "type": "workshop",
     "img": "/events/IMG_9700.jpeg",
     "title": "eg_Title3",
-    "description": "eg_Desc",
+    "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
     "requirements": ["eg_req1", "eg_req2"],
     "location": "eg_Location",
-    "date": "eg_Date"
+    "date": "2019-12-09",
+    "time": "1440"
   },
   {
     "id": 4,
     "type": "workshop",
     "img": "/events/IMG_9700.jpeg",
-    "title": "eg_Title",
-    "description": "workshop workshop workshop workshop workshop workshop workshop workshop workshop workshop workshop workshop workshop workshop workshop workshop workshop workshop workshop ",
+    "title": "eg_Title4",
+    "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
     "requirements": ["eg_req1", "eg_req2"],
     "location": "eg_Location",
-    "date": "eg_Date"
+    "date": "2019-12-10",
+    "time": "1440"
   },
   {
     "id": 5,
     "type": "workshop",
     "img": "/events/IMG_9700.jpeg",
-    "title": "eg_Title",
-    "description": "workshop workshop workshop workshop workshop workshop workshop workshop workshop workshop workshop workshop workshop workshop workshop workshop workshop workshop workshop ",
+    "title": "eg_Title5",
+    "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
     "requirements": ["eg_req1", "eg_req2"],
     "location": "eg_Location",
-    "date": "eg_Date"
+    "date": "2019-12-11",
+    "time": "1440"
   },
   {
     "id": 6,
     "type": "workshop",
     "img": "/events/IMG_9700.jpeg",
     "title": "eg_Title",
-    "description": "workshop workshop workshop workshop workshop workshop workshop workshop workshop workshop workshop workshop workshop workshop workshop workshop workshop workshop workshop ",
+    "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
     "requirements": ["eg_req1", "eg_req2"],
     "location": "eg_Location",
-    "date": "eg_Date"
+    "date": "2019-12-07",
+    "time": "1440"
   }
 ]

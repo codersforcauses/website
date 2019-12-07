@@ -21,18 +21,18 @@ type EventProps = {
   events: EventItemProps[]
 }
 
-// TODO: sort by date
 const Events = (props: EventProps) => (
   <>
     {style(props.direction)}
     <div
-      className='row'
+      className='row mb-4'
       style={{
         flexDirection: props.direction === 'right' ? 'row' : 'row-reverse'
       }}
     >
-      <div className='event-type event-item col-sm-12 col-md-6 col-lg-4'>
+      <div className='m-auto p-2 col-sm-12 col-md-6 col-lg-4'>
         <h1
+          className='mb-0'
           style={{ textAlign: props.direction === 'right' ? 'left' : 'right' }}
         >
           {props.type}

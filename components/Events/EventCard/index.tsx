@@ -29,7 +29,7 @@ const EventCard = ({ id, img, title, description }: EventCardProps) => {
   return (
     <>
       {style}
-      <div className='event-item col-sm-12 col-md-6 col-lg-4'>
+      <div className='p-2 col-sm-12 col-md-6 col-lg-4'>
         <Card className='event-card'>
           <CardImg top src={img} />
           <CardBody>
