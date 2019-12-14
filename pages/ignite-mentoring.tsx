@@ -46,17 +46,22 @@ export default (props: {}) => (
           </Button>
         </Col>
       </Row>
-      <Row className='pad-mid'>
+      <Row className='py-5'>
         <Col md={8}>
-          <h3>Technologies used</h3>
+          <h3 className='mt-4 font-weight-bold'>Technologies used</h3>
         </Col>
         <Col xs={4}>
-          <h3>Potential impact</h3>
+          <h3 className='mt-4 font-weight-bold'>Potential impact</h3>
+          <ul>
+            <li>Improve process efficiency</li>
+            <li>Promote organisational transparency</li>
+            <li>Risk mitigation</li>
+          </ul>
         </Col>
       </Row>
-      <Row className='pad-bot'>
+      <Row className='py-5'>
         <Col md={12}>
-          <h3>Members</h3>
+          <h3 className='mt-4 font-weight-bold'>Members</h3>
         </Col>
       </Row>
     </Container>
@@ -68,15 +73,6 @@ const style = (
     .header {
       font-weight: bolder;
       margin-bottom: 1.2rem;
-    }
-    .pad-top {
-      padding: 5rem 0 0 0;
-    }
-    .pad-mid {
-      padding: 3rem 0;
-    }
-    .pad-bot {
-      padding: 0 0 6rem 0;
     }
     .icon-left {
       font-size: 1.5em;
@@ -95,5 +91,10 @@ const style = (
       margin-top: 4.5rem;
       border-radius: 0;
     }
-  `}</style>
+    ul {
+      list-style: none;
+      list-style: url('/icons/check-circle-solid.svg');
+    }
+  `}
+  </style>
 )
