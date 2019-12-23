@@ -33,7 +33,7 @@
     "typed.js": "^2.0.11"
   },
   "devDependencies": {
-    "@types/node": "12.12.21",
+    "@types/node": "12.12.22",
     "@types/react": "16.9.16",
     "@types/reactstrap": "8.2.0",
     "@typescript-eslint/parser": "2.13.0",
