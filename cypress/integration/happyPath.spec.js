@@ -1,12 +1,12 @@
 /// <reference types="Cypress" />
 
 it('should render', () => {
-  cy.visit('http://localhost:3000')
+  cy.visit('http://localhost:8080')
   cy.contains('Coders for Causes')
 })
 
 it('should be able to navigate', () => {
-  cy.visit('http://localhost:3000')
+  cy.visit('http://localhost:8080')
   cy.get('[data-tid="nav-Events"]').click()
   cy.contains('Events')
 
