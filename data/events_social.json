@@ -1,0 +1,22 @@
+[
+  {
+    "id": 1,
+    "type": "social",
+    "img": "/events/IMG_9700.jpeg",
+    "title": "eg_Title",
+    "description": "social social social social social social social social social social social social social social social social social social social ",
+    "requirements": ["eg_req1", "eg_req2"],
+    "location": "eg_Location",
+    "date": "eg_Date"
+  },
+  {
+    "id": 2,
+    "type": "social",
+    "img": "/events/IMG_9700.jpeg",
+    "title": "eg_Title",
+    "description": "social social social social social social social social social social social social social social social social social social social social social social social social social social social social social social social social social social social social social social",
+    "requirements": ["eg_req1", "eg_req2"],
+    "location": "eg_Location",
+    "date": "eg_Date"
+  }
+]
