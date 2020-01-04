@@ -8,5 +8,3 @@
 # Coders for Causes website
 
 This repo contains the source for Coders for Causes website.
-
-test
