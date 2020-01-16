@@ -51,7 +51,7 @@
     "husky": "4.0.10",
     "lint-staged": "9.5.0",
     "standard-version": "7.0.1",
-    "typescript": "3.7.4",
+    "typescript": "3.7.5",
     "wait-on": "3.3.0"
   },
   "config": {
