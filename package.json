@@ -50,7 +50,7 @@
     "eslint-plugin-standard": "4.0.1",
     "husky": "4.1.0",
     "lint-staged": "9.5.0",
-    "standard-version": "7.0.1",
+    "standard-version": "7.1.0",
     "typescript": "3.7.5",
     "wait-on": "3.3.0"
   },
