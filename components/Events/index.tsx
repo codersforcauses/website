@@ -24,6 +24,7 @@ type EventProps = {
 const Events = (props: EventProps) => (
   <>
     {style(props.direction)}
+    <a id={props.type} />
     <div
       className='row mb-4'
       style={{
@@ -31,6 +32,7 @@ const Events = (props: EventProps) => (
       }}
     >
       <div className='m-auto p-2 col-sm-12 col-md-6 col-lg-4'>
+
         <h1
           className='mb-0'
           style={{ textAlign: props.direction === 'right' ? 'left' : 'right' }}
