@@ -1,10 +1,10 @@
 {
   "name": "cfc-website",
-  "version": "0.0.1",
+  "version": "1.0.1",
   "description": "Coders for Causes website",
   "main": "index.ts",
   "scripts": {
-    "dev": "next",
+    "dev": "next -p 8080",
     "build": "next build",
     "start": "next start",
     "release": "standard-version",
