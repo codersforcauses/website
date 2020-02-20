@@ -83,5 +83,6 @@ const style = (
       margin-top: 4.5rem;
       border-radius: 0;
     }
-  `}</style>
+  `}
+  </style>
 )

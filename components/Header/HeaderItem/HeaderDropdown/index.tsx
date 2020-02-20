@@ -45,7 +45,8 @@ const style = (
     .header-dropdown-menu a {
       color: #000 !important;
     }
-  `}</style>
+  `}
+  </style>
 )
 
 interface Props {

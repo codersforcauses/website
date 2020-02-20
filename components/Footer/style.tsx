@@ -8,5 +8,6 @@ export default (
     .image {
       max-width: 220px;
     }
-  `}</style>
+  `}
+  </style>
 )

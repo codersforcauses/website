@@ -20,7 +20,8 @@ const style = (
       color: #ffffff;
       cursor: pointer;
     }
-  `}</style>
+  `}
+  </style>
 )
 
 interface Props {
