@@ -52,7 +52,7 @@
     "lint-staged": "10.0.8",
     "standard-version": "7.1.0",
     "typescript": "3.7.5",
-    "wait-on": "4.0.0"
+    "wait-on": "4.0.1"
   },
   "config": {
     "commitizen": {
