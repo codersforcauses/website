@@ -20,17 +20,17 @@ const Footer = (props: { theme: Object }) => (
           <h4 className='mb-3'>About us</h4>
           <ul className='list-unstyled m-md-0'>
             <li>
-              <Link href='/about'>
+              <Link href='/about#_what_we_do'>
                 <a>What we do</a>
               </Link>
             </li>
             <li>
-              <Link href='/about'>
+              <Link href='/about#_meet_the_team'>
                 <a>Meet the team</a>
               </Link>
             </li>
             <li>
-              <Link href='/about'>
+              <Link href='/contact'>
                 <a>Contact us</a>
               </Link>
             </li>

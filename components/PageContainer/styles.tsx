@@ -32,7 +32,15 @@ export const globalStyle = theme => css`
 
   .main {
     margin-top: 72px;
-    min-height: calc(100vh - 284.8px);
+    min-height: calc(100vh - 284px);
+  }
+
+  /*
+    Offsets all ID's with prefix '_' with the height of header.
+    This also means all ID's must be prefixed by '_'.
+  */
+  [id^="_"] {
+    scroll-margin-top: 72px;
   }
 
   .monospace {

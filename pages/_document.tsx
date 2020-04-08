@@ -66,13 +66,6 @@ class MyDocument extends Document {
 
           <link
             rel='icon'
-            media='(prefers-color-scheme:dark)'
-            href='/favicon-light.png'
-            type='image/png'
-          />
-          <link
-            rel='icon'
-            media='(prefers-color-scheme:light)'
             href='/favicon-light.png'
             type='image/png'
           />

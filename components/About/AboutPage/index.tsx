@@ -13,7 +13,7 @@ import { style } from './style'
 const AboutPage = (props: { theme: Object }) => (
   <div css={style(props.theme)}>
     <Title typed>./about</Title>
-    <Container id='#' className='my-5 py-5 bg-white rounded-0'>
+    <Container id='_what_we_do' className='my-5 py-5 bg-white rounded-0'>
       <Row className='d-flex align-items-center'>
         <Col xs={12} lg={7}>
           <h2 className='header'>We build software for charities</h2>
@@ -29,8 +29,8 @@ const AboutPage = (props: { theme: Object }) => (
       </Row>
     </Container>
 
-    <Jumbotron className='m-0'>
-      <Container id='team' className='rounded-0'>
+    <Jumbotron id="_meet_the_team" className='m-0'>
+      <Container className='rounded-0'>
         <Row>
           <Col xs={12}>
             <h3 className='header'>Meet the Team</h3>
