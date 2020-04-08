@@ -5,7 +5,7 @@ import { Button, Container, Row, Col } from 'reactstrap'
 import TechList from '../TechList'
 import { style } from './style'
 
-const impact: Array<String> = [
+const impact: Array<string> = [
   'Improve process efficiency',
   'Promote organisational transparency',
   'Risk mitigation',
@@ -77,8 +77,8 @@ const ProjectPage = (props: { theme: Object }) => (
               Potential impact
             </h4>
             <ul className='p-0'>
-              {impact.map((text: String) => (
-                <li className='d-flex align-items-center pr-3 my-2'>
+              {impact.map((text: string, i: number) => (
+                <li key={i} className='d-flex align-items-center pr-3 my-2'>
                   <i className='material-icons-sharp mr-3'>check_circle</i>
                   {text}
                 </li>

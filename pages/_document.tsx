@@ -29,10 +29,16 @@ class MyDocument extends Document {
             href='https://kit-free.fontawesome.com'
             crossOrigin=''
           />
+          <link
+            rel='preconnect'
+            href='https://connect.facebook.net'
+            crossOrigin=''
+          />
           <link rel='preconnect' href='https://unsplash.it' crossOrigin='' />
 
           <link rel='dns-prefetch' href='//fonts.gstatic.com/' />
           <link rel='dns-prefetch' href='//kit-free.fontawesome.com' />
+          <link rel='dns-prefetch' href='//connect.facebook.net' />
           <link rel='dns-prefetch' href='//unsplash.it' />
 
           {/* Typefaces from Google Fonts */}
