@@ -1,54 +1,60 @@
-import React from 'react'
-import Document, {
-  Head,
-  Main,
-  NextScript,
-  DocumentContext
-} from 'next/document'
-import '../theme.scss'
+import Document, { Head, Html, Main, NextScript } from 'next/document'
 
-export default class MyDocument extends Document {
-  static async getInitialProps (ctx: DocumentContext) {
+class MyDocument extends Document {
+  static async getInitialProps(ctx) {
+    const originalRenderPage = ctx.renderPage
+
+    ctx.renderPage = () =>
+      originalRenderPage({
+        enhanceApp: App => App,
+        enhanceComponent: Component => Component,
+      })
+
     const initialProps = await Document.getInitialProps(ctx)
-    return { ...initialProps }
+
+    return initialProps
   }
 
-  render () {
+  render() {
     return (
-      <html>
+      <Html lang='en'>
         <Head>
+          <link
+            rel='preconnect'
+            href='https://fonts.gstatic.com/'
+            crossOrigin=''
+          />
+          <link
+            rel='preconnect'
+            href='https://kit-free.fontawesome.com'
+            crossOrigin=''
+          />
+          <link rel='preconnect' href='https://unsplash.it' crossOrigin='' />
+
+          <link rel='dns-prefetch' href='//fonts.gstatic.com/' />
+          <link rel='dns-prefetch' href='//kit-free.fontawesome.com' />
+          <link rel='dns-prefetch' href='//unsplash.it' />
+
           {/* Typefaces from Google Fonts */}
           <link
-            href='https://fonts.googleapis.com/css?family=IBM+Plex+Mono|IBM+Plex+Sans'
+            href='https://fonts.googleapis.com/css?family=IBM+Plex+Mono|IBM+Plex+Sans|Material+Icons+Sharp&display=swap'
             rel='stylesheet'
           />
+
           {/* Font Awesome */}
-          <link
-            rel='stylesheet'
-            href='https://use.fontawesome.com/releases/v5.8.1/css/all.css'
-            integrity='sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf'
+          <script
+            src='https://kit.fontawesome.com/249aebb7ef.js'
             crossOrigin='anonymous'
-          />
-          {/* light/dark theme favicons */}
-          {/* Haven't found a browser where the dark icon works better than the light */}
-          <link
-            rel='icon'
-            media='(prefers-color-scheme:dark)'
-            href='/favicon-light.png'
-            type='image/png'
-          />
-          <link
-            rel='icon'
-            media='(prefers-color-scheme:light)'
-            href='/favicon-light.png'
-            type='image/png'
+            defer
           />
         </Head>
         <body>
           <Main />
-          <NextScript />
         </body>
-      </html>
+        <NextScript />
+      </Html>
     )
   }
 }
+
+export default MyDocument

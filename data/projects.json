@@ -1,0 +1,94 @@
+[
+  {
+    "icon": "computer",
+    "img": "static/projects/ignitementoring.png",
+    "name": "Ignite Mentoring",
+    "client": "Ignite Mentoring",
+    "type": "Web Development",
+    "date": "February 2019",
+    "purl": "/projects/ignitementoring",
+    "url": "https://codersforcauses.github.io/ignite-mentoring-2018/",
+    "impact": [
+      "Improve process efficiency",
+      "Promote organisational transparency",
+      "Risk mitigation"
+    ],
+    "desc": "it's all ogre now",
+    "tech": ["HTML", "CSS", "JavaScript", "Heroku"],
+    "members": [
+      "David Yu",
+      "Innocent Muisha",
+      "Jong Kyung Kim",
+      "Daniel Jacobs"
+    ]
+  },
+  {
+    "icon": "devices",
+    "img": "static/projects/ignitementoring.png",
+    "name": "Teach Learn Grow",
+    "client": "Ignite Mentoring",
+    "type": "Web Development",
+    "date": "February 2019",
+    "purl": "/projects/teachlearngrow",
+    "url": "https://codersforcauses.github.io/ignite-mentoring-2018/",
+    "impact": [
+      "Improve process efficiency",
+      "Promote organisational transparency",
+      "Risk mitigation"
+    ],
+    "desc": "it's all ogre now",
+    "tech": ["HTML", "CSS", "JavaScript", "Heroku"],
+    "members": [
+      "David Yu",
+      "Innocent Muisha",
+      "Jong Kyung Kim",
+      "Daniel Jacobs"
+    ]
+  },
+  {
+    "icon": "devices",
+    "img": "static/projects/ignitementoring.png",
+    "name": "P2S Rugbyworks",
+    "client": "Ignite Mentoring",
+    "type": "Web Development",
+    "date": "February 2019",
+    "purl": "/projects/p2srugby",
+    "url": "https://codersforcauses.github.io/ignite-mentoring-2018/",
+    "impact": [
+      "Improve process efficiency",
+      "Promote organisational transparency",
+      "Risk mitigation"
+    ],
+    "desc": "it's all ogre now",
+    "tech": ["HTML", "CSS", "JavaScript", "Heroku"],
+    "members": [
+      "David Yu",
+      "Innocent Muisha",
+      "Jong Kyung Kim",
+      "Daniel Jacobs"
+    ]
+  },
+  {
+    "icon": "devices",
+    "img": "static/projects/ignitementoring.png",
+    "name": "Anglicare WA",
+    "client": "Ignite Mentoring",
+    "type": "Web Development",
+    "date": "February 2019",
+    "purl": "/projects/anglicarewa",
+    "url": "https://codersforcauses.github.io/ignite-mentoring-2018/",
+    "impact": [
+      "Improve process efficiency",
+      "Promote organisational transparency",
+      "Risk mitigation"
+    ],
+    "desc": "it's all ogre now",
+    "tech": ["HTML", "CSS", "JavaScript", "Heroku"],
+    "members": [
+      "David Yu",
+      "Innocent Muisha",
+      "Jong Kyung Kim",
+      "Daniel Jacobs"
+    ]
+  }
+]

@@ -1,28 +1,15 @@
-import React from 'react'
+import { css } from '@emotion/core'
 
-export default (
-  <style jsx>
-    {`
-      .card {
-        border: 1px solid black;
-        border-radius: 0;
-        height: 100%;
-      }
-      .title {
-        font-weight: 700;
-        font-size: 1.5rem;
-      }
-      .card .description {
-        font-size: 0.8rem;
-      }
-      .button {
-        margin-top: 1.25rem;
-        color: white;
-        background-color: black;
-        position: relative;
-        bottom: 1.25rem;
-        left: 1.25rem;
-      }
-    `}
-  </style>
-)
+export const style = theme => css`
+  .event-img {
+    max-height: 15rem;
+  }
+  .heading {
+    font-size: 1.5rem;
+    font-weight: bold;
+    line-height: 1.7rem;
+  }
+  .smaller {
+    line-height: 1.3;
+  }
+`
