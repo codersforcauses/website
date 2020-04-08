@@ -1,6 +1,8 @@
 {
-  "name": "next-test",
+  "name": "cfc-website",
   "version": "0.1.0",
+  "description": "Coders for Causes website",
+  "main": "index.tsx",
   "private": true,
   "browserslist": [
     ">0.3%",
@@ -8,10 +10,23 @@
     "not dead",
     "not op_mini all"
   ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/codersforcauses/website.git"
+  },
+  "author": "Coders for Causes",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/codersforcauses/website/issues"
+  },
+  "homepage": "https://github.com/codersforcauses/website#readme",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "cz": "./node_modules/.bin/git-cz",
+    "cypress:open": "cypress open",
+    "cypress:run": "cypress run"
   },
   "dependencies": {
     "@emotion/core": "^10.0.27",
@@ -39,6 +54,21 @@
     "eslint-plugin-promise": "^4.2.1",
     "eslint-plugin-react": "^7.18.3",
     "eslint-plugin-standard": "^4.0.1",
-    "typescript": "^3.7.5"
+    "husky": "^4.2.3",
+    "lint-staged": "^10.1.2",
+    "typescript": "^3.7.5",
+    "wait-on": "^4.0.1"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged",
+      "commit": "git-cz"
+    }
+  },
+  "lint-staged": {
+    "*.tsx": [
+      "eslint --fix",
+      "git add"
+    ]
   }
 }
