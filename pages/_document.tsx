@@ -63,6 +63,19 @@ class MyDocument extends Document {
             crossOrigin='anonymous'
             defer
           />
+
+          <link
+            rel='icon'
+            media='(prefers-color-scheme:dark)'
+            href='/favicon-light.png'
+            type='image/png'
+          />
+          <link
+            rel='icon'
+            media='(prefers-color-scheme:light)'
+            href='/favicon-light.png'
+            type='image/png'
+          />
         </Head>
         <body>
           <Main />
