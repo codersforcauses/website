@@ -122,7 +122,7 @@ const BrandPage = (props: { theme: Object }) => (
           <Col xs={12} sm={6} md={4} lg={2}>
             <ColourCard
               color='error'
-              name='Full Red (Alert)'
+              name='Red Alert (Alert)'
               className='text-white'
             />
           </Col>
