@@ -1,14 +1,23 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core'
 import { withTheme } from 'emotion-theming'
-import { Button, Container, Row, Col, Form, FormGroup, Label, Input } from 'reactstrap'
+import {
+  Button,
+  Container,
+  Row,
+  Col,
+  Form,
+  FormGroup,
+  Label,
+  Input
+} from 'reactstrap'
 import Title from '../../Utils/Title'
 import { styles } from './style'
 
 const BrandPage = (props: { theme: Object }) => (
   <div css={styles(props.theme)}>
     <Title typed>./contact us</Title>
-    <Container className='py-5'>
+    <Container className='py-5 my-5'>
       <Row>
         <Col lg={8}>
           <Form>

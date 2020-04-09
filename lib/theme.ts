@@ -11,10 +11,9 @@ export const theme = {
     primary: '#000000',
     secondary: '#ffffff',
     accent: '#01f1cc',
-    // colors to be defined
-    success: '#5cb85c',
-    error: '#CF3A24',
-    warning: '#f0ad4e',
+    success: '#0070F3',
+    error: '#ff0000',
+    warning: '#F5A623',
   },
 
   spacing: {
@@ -27,6 +26,33 @@ export const theme = {
   },
 }
 
+export interface Theme {
+  breakpoints?: {
+    xs?: number
+    sm?: number
+    md?: number
+    lg?: number
+    xl?: number
+  }
+
+  colors?: {
+    primary?: string
+    secondary?: string
+    accent?: string
+    success?: string
+    error?: string
+    warning?: string
+  }
+
+  spacing?: {
+    1?: number
+    2?: number
+    3?: number
+    4?: number
+    5?: number
+    auto?: string
+  }
+}
 export interface Breakpoints {
   xs?: Function
   sm?: Function

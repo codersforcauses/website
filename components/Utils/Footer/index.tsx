@@ -11,7 +11,7 @@ const Footer = (props: { theme: Object }) => (
       <Row>
         <Col md={3} className='mb-3'>
           <img
-            src='/logo/wordmark_white.svg'
+            src='/logo/cfc_logo_white_full.svg'
             alt='Coders for Causes wordmark'
             className='img-fluid w-75 mb-3'
           />
