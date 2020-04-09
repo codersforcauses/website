@@ -34,6 +34,11 @@ const Footer = (props: { theme: Object }) => (
                 <a>Contact us</a>
               </Link>
             </li>
+            <li>
+              <Link href='/branding'>
+                <a>Our branding</a>
+              </Link>
+            </li>
           </ul>
         </Col>
         <Col md={3}>
