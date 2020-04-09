@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core'
 import { withTheme } from 'emotion-theming'
-import { Jumbotron, Button, Container, Row, Col, CardGroup } from 'reactstrap'
+import { Jumbotron, Container, Row, Col } from 'reactstrap'
 import Title from '../../Utils/Title'
 import LogoCard from '../LogoCard'
 import ColourCard from '../ColourCard'
