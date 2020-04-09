@@ -10,7 +10,7 @@ import {
   Col
 } from 'reactstrap'
 import Link from 'next/link'
-import TechList from '../TechList'
+import TechList from './TechList'
 import { style } from './style'
 
 const impact: Array<string> = [
@@ -26,7 +26,7 @@ const ProjectPage = (props: { theme: Object }) => (
     </div>
     <Container className='my-5'>
       <Row>
-        <Col lg={9}>
+        <Col xs={12}>
           <Breadcrumb tag='nav' className='breadcrumbs'>
             <Link href='/projects'>
               <BreadcrumbItem tag='a' href='/projects'>
@@ -37,6 +37,8 @@ const ProjectPage = (props: { theme: Object }) => (
               Ignite Mentoring
             </BreadcrumbItem>
           </Breadcrumb>
+        </Col>
+        <Col lg={9}>
           <div className='mb-5'>
             <h1 className='display-4 m-0 mb-4 monospace'>Ignite Mentoring</h1>
 

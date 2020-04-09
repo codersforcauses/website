@@ -3,7 +3,7 @@ import { jsx } from '@emotion/core'
 import { withTheme } from 'emotion-theming'
 import { Container } from 'reactstrap'
 import Title from '../../Utils/Title'
-import ProjectCards from '../ProjectCards'
+import ProjectCards from './ProjectCards'
 import { style } from './style'
 
 const ProjectsPage = (props: { theme: Object }) => (

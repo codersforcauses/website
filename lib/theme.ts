@@ -4,7 +4,7 @@ export const theme = {
     sm: 600,
     md: 960,
     lg: 1280,
-    xl: 1920,
+    xl: 1920
   },
 
   colors: {
@@ -13,7 +13,7 @@ export const theme = {
     accent: '#01f1cc',
     success: '#0070F3',
     error: '#ff0000',
-    warning: '#F5A623',
+    warning: '#F5A623'
   },
 
   spacing: {
@@ -22,8 +22,8 @@ export const theme = {
     3: 1,
     4: 1.5,
     5: 3,
-    auto: 'auto',
-  },
+    auto: 'auto'
+  }
 }
 
 export interface Theme {

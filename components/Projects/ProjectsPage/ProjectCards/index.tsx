@@ -3,7 +3,7 @@ import { jsx } from '@emotion/core'
 import { withTheme } from 'emotion-theming'
 import { Row, Col, Card, CardImg, CardTitle } from 'reactstrap'
 import Link from 'next/link'
-import projects from '../../../data/projects.json'
+import projects from '../../../../data/projects.json'
 import { style } from './style'
 
 const ProjectCards = (props: { theme }) => {

@@ -1,3 +1,4 @@
+import React from 'react'
 import PageContainer from '../components/PageContainer'
 import ContactPage from '../components/Contact/ContactPage'
 

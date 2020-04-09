@@ -1,7 +1,8 @@
+import React from 'react'
 import { Container } from 'reactstrap'
 import PageContainer from '../components/PageContainer'
 
-const Error = ({ statusCode }) => (
+const Error = ({ statusCode }: { statusCode: any }) => (
   <PageContainer>
     <Container className='py-5'>
       {statusCode

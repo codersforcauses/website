@@ -13,7 +13,7 @@ import Link from 'next/link'
 import { style } from './style'
 
 const EventCard = (props: { theme: Object }) => (
-  <Card outline color='primary' css={style(props.theme)}>
+  <Card outline color='primary' className='rounded-0' css={style(props.theme)}>
     <CardImg
       top
       width='100%'
@@ -30,8 +30,10 @@ const EventCard = (props: { theme: Object }) => (
         Some quick example text to build on the card title and make up the bulk
         of the card's content.
       </CardText>
-      <Link href='/events/ignite_mentoring'>
-        <Button color='primary'>Learn more</Button>
+      <Link href='/events/essential_software_industry_skills'>
+        <Button color='primary' className='rounded-0'>
+          Learn more
+        </Button>
       </Link>
     </CardBody>
   </Card>

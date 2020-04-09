@@ -1,3 +1,4 @@
+import React from 'react'
 import Document, { Head, Html, Main, NextScript } from 'next/document'
 
 class MyDocument extends Document {
@@ -7,7 +8,7 @@ class MyDocument extends Document {
     ctx.renderPage = () =>
       originalRenderPage({
         enhanceApp: App => App,
-        enhanceComponent: Component => Component,
+        enhanceComponent: Component => Component
       })
 
     const initialProps = await Document.getInitialProps(ctx)
@@ -64,11 +65,7 @@ class MyDocument extends Document {
             defer
           />
 
-          <link
-            rel='icon'
-            href='/favicon-light.png'
-            type='image/png'
-          />
+          <link rel='icon' href='/favicon-light.png' type='image/png' />
         </Head>
         <body>
           <Main />

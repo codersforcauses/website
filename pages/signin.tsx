@@ -1,11 +1,11 @@
 import React from 'react'
 import PageContainer from '../components/PageContainer'
-import BrandPage from '../components/Brand/BrandPage'
+import SignInPage from '../components/Auth/SignInPage'
 
-const Branding = () => (
+const SignIn = () => (
   <PageContainer>
-    <BrandPage />
+    <SignInPage />
   </PageContainer>
 )
 
-export default Branding
+export default SignIn

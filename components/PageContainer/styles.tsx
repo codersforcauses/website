@@ -32,14 +32,14 @@ export const globalStyle = theme => css`
 
   .main {
     margin-top: 72px;
-    min-height: calc(100vh - 284px);
+    min-height: calc(100vh - (72px + 236px));
   }
 
   /*
     Offsets all ID's with prefix '_' with the height of header.
     This also means all ID's must be prefixed by '_'.
   */
-  [id^="_"] {
+  [id^='_'] {
     scroll-margin-top: 72px;
   }
 
@@ -47,8 +47,16 @@ export const globalStyle = theme => css`
     font-family: 'IBM Plex Mono';
   }
 
+  input {
+    color: ${theme.colors.primary};
+  }
+
   .font-weight-black {
     font-weight: 900;
+  }
+
+  .modal-content {
+    border-radius: 0;
   }
 
   .md-lg {

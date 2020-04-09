@@ -26,10 +26,17 @@ const AboutPage = (props: { theme: Object }) => (
             term project, get in touch with us for more information.
           </p>
         </Col>
+        <Col lg={{ size: 4, offset: 1 }}>
+          <img
+            src='/illustrations/pair_programming.svg'
+            alt='Coder Coding'
+            className='img-fluid'
+          />
+        </Col>
       </Row>
     </Container>
 
-    <Jumbotron id="_meet_the_team" className='m-0'>
+    <Jumbotron id='_meet_the_team' className='m-0'>
       <Container className='rounded-0'>
         <Row>
           <Col xs={12}>

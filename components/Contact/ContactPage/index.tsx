@@ -19,7 +19,7 @@ const BrandPage = (props: { theme: Object }) => (
     <Title typed>./contact us</Title>
     <Container className='py-5 my-5'>
       <Row>
-        <Col lg={8}>
+        <Col lg={7}>
           <Form>
             <Row form>
               <Col md={6}>
@@ -95,11 +95,21 @@ const BrandPage = (props: { theme: Object }) => (
             <Button
               size='lg'
               color='primary'
-              className='w-25 rounded-0 monospace'
+              className='rounded-0 monospace px-5'
             >
               Send
             </Button>
           </Form>
+        </Col>
+        <Col
+          lg={{ size: 4, offset: 1 }}
+          className='d-none d-lg-flex align-items-center'
+        >
+          <img
+            src='/illustrations/contact_us.svg'
+            alt='Coder Coding'
+            className='img-fluid'
+          />
         </Col>
       </Row>
     </Container>
