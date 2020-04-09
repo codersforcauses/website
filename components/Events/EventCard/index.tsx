@@ -7,7 +7,7 @@ import {
   CardBody,
   CardImg,
   CardText,
-  CardTitle,
+  CardTitle
 } from 'reactstrap'
 import Link from 'next/link'
 import { style } from './style'
@@ -30,7 +30,7 @@ const EventCard = (props: { theme: Object }) => (
         Some quick example text to build on the card title and make up the bulk
         of the card's content.
       </CardText>
-      <Link href='#'>
+      <Link href='/events/ignite_mentoring'>
         <Button color='primary'>Learn more</Button>
       </Link>
     </CardBody>

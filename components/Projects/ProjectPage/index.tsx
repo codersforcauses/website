@@ -1,14 +1,22 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core'
 import { withTheme } from 'emotion-theming'
-import { Button, Container, Row, Col } from 'reactstrap'
+import {
+  Button,
+  Breadcrumb,
+  BreadcrumbItem,
+  Container,
+  Row,
+  Col
+} from 'reactstrap'
+import Link from 'next/link'
 import TechList from '../TechList'
 import { style } from './style'
 
 const impact: Array<string> = [
   'Improve process efficiency',
   'Promote organisational transparency',
-  'Risk mitigation',
+  'Risk mitigation'
 ]
 
 const ProjectPage = (props: { theme: Object }) => (
@@ -19,6 +27,16 @@ const ProjectPage = (props: { theme: Object }) => (
     <Container className='my-5'>
       <Row>
         <Col lg={9}>
+          <Breadcrumb tag='nav' className='breadcrumbs'>
+            <Link href='/projects'>
+              <BreadcrumbItem tag='a' href='/projects'>
+                Projects
+              </BreadcrumbItem>
+            </Link>
+            <BreadcrumbItem active tag='span' className='active-tab'>
+              Ignite Mentoring
+            </BreadcrumbItem>
+          </Breadcrumb>
           <div className='mb-5'>
             <h1 className='display-4 m-0 mb-4 monospace'>Ignite Mentoring</h1>
 

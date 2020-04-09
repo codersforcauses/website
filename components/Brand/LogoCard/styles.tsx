@@ -3,7 +3,7 @@ import { media } from '../../../lib/mediaQueries'
 
 export const styles = (theme, background) => css`
   .logo-img {
-    margin: 2rem 2rem calc(2rem - 48px);
+    margin: 0.75rem 2rem calc(2rem - 48px);
   }
 
   .image {

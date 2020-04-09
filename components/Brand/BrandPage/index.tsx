@@ -13,7 +13,7 @@ const BrandPage = (props: { theme: Object }) => (
     <Container className='py-5 my-5'>
       <Row>
         <Col xs={12}>
-          <h3>Our Logo</h3>
+          <h3 className='font-weight-bold'>Our Logo</h3>
           <p>
             Please do not edit, change, distort, recolour, or reconfigure the
             Coders for Causes logo.
@@ -37,7 +37,7 @@ const BrandPage = (props: { theme: Object }) => (
       </Row>
       <Row className='mt-5'>
         <Col xs={12}>
-          <h4>Alternate Logos</h4>
+          <h4 className='font-weight-bold'>Alternate Logos</h4>
           <p>
             If possible, we prefer you use our full logo. If not, we have
             provided alternate logos for you to use.
@@ -94,7 +94,7 @@ const BrandPage = (props: { theme: Object }) => (
       <Container>
         <Row noGutters>
           <Col xs={12}>
-            <h3 className='mb-3'>Our colours</h3>
+            <h3 className='mb-3 font-weight-bold'>Our colours</h3>
           </Col>
           <Col xs={12} sm={6} md={4} lg={2}>
             <ColourCard

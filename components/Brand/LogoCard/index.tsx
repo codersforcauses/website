@@ -20,8 +20,8 @@ const LogoCard = (props: {
     <div className={`${props.main ? 'image' : 'image-alternate'} logo-img`} />
     <CardFooter className='border-0 d-flex flex-row-reverse download-links px-1 px-sm-2 px-md-3 bg-transparent'>
       <a
+        download
         href={props.png}
-        download={props.png}
         target='_blank'
         rel='noopener noreferrer'
         className={props.dark && 'text-white'}
@@ -30,8 +30,8 @@ const LogoCard = (props: {
       </a>
       &ensp;
       <a
+        download
         href={props.svg}
-        download={props.svg}
         target='_blank'
         rel='noopener noreferrer'
         className={props.dark && 'text-white'}

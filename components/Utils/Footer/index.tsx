@@ -30,13 +30,13 @@ const Footer = (props: { theme: Object }) => (
               </Link>
             </li>
             <li>
-              <Link href='/contact'>
-                <a>Contact us</a>
+              <Link href='/branding'>
+                <a>Our branding</a>
               </Link>
             </li>
             <li>
-              <Link href='/branding'>
-                <a>Our branding</a>
+              <Link href='/contact'>
+                <a>Contact us</a>
               </Link>
             </li>
           </ul>
