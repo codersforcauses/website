@@ -9,12 +9,23 @@ const Footer = (props: { theme: Object }) => (
   <footer className='bg-dark text-white py-5 footer' css={style(props.theme)}>
     <Container>
       <Row>
-        <Col md={3} className='mb-3'>
-          <img
-            src='/logo/cfc_logo_white_full.svg'
-            alt='Coders for Causes wordmark'
-            className='img-fluid w-75 mb-3'
-          />
+        <Col
+          md={3}
+          className='mb-3 mb-md-0 d-flex flex-column justify-content-between'
+        >
+          <div>
+            <img
+              src='/logo/cfc_logo_white_full.svg'
+              alt='Coders for Causes wordmark'
+              className='img-fluid w-75 mb-1'
+            />
+            <p className='mb-1 monospace copyright'>
+              Copyright &copy; {new Date().getFullYear()} Coders for Causes
+            </p>
+          </div>
+          <p className='monospace m-0'>
+            <small>Made with &#10084;</small>
+          </p>
         </Col>
         <Col md={3}>
           <h4 className='mb-3'>About us</h4>

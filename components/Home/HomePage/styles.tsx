@@ -1,7 +1,7 @@
 import { css } from '@emotion/core'
 import { media } from '../../../lib/mediaQueries'
 
-export const styles = (theme) => css`
+export const styles = theme => css`
   .hero {
     margin-top: 64px;
     height: 500px;
