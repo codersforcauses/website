@@ -23,7 +23,7 @@ const HomePage = (props: { theme: Object }) => (
               './Made with ^500❤️',
               '#include git.c',
               'class Coders extends Causes',
-              'sudo rm -rf /',
+              'sudo rm -rf /'
             ]}
           />
         </h1>
@@ -37,7 +37,7 @@ const HomePage = (props: { theme: Object }) => (
         university students to develop technical solutions. We are students
         powered and all of our members are volunteers.
       </p>
-      <Button color='primary' outline>
+      <Button outline color='primary' className='rounded-0'>
         Work with us&nbsp;&nbsp;&nbsp;>
       </Button>
     </Container>
