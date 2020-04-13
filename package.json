@@ -4,7 +4,7 @@
   "description": "Coders for Causes website",
   "main": "index.ts",
   "scripts": {
-    "dev": "next -p 8080",
+    "dev": "next",
     "build": "next build",
     "start": "next start",
     "release": "standard-version",
