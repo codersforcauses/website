@@ -15,6 +15,7 @@ cache:
   # cache both npm modules and Cypress binary
   directories:
     - $HOME/.cache/yarn
+    - $HOME/.cache/Cypress
     - node_modules
     - .next/cache
 
