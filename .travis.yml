@@ -12,6 +12,8 @@ addons:
 
 cache:
   yarn: true
+  # Don't cache node_modules or .npm
+  # https://docs.cypress.io/guides/guides/continuous-integration.html#Caching
   directories:
     - ~/.cache
 
