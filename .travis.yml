@@ -14,9 +14,8 @@ cache:
   yarn: true
   # cache both npm modules and Cypress binary
   directories:
-    - ~/.cache
     - ~/node_modules
-    - .next/cache
+    - ~/.cache
 
 install:
   - yarn
