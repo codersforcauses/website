@@ -20,6 +20,14 @@ import { styles } from './styles'
 
 const SignUpPage = (props: { theme: Object }) => {
   const [isUWAStudent, setIsUWAStudent] = useState(true)
+  const [loading, setLoading] = useState(false)
+
+  const handleSubmit = async values => {
+    setLoading(true)
+    setTimeout(function () {
+      setLoading(false)
+    }, 2000)
+  }
   return (
     <div css={styles(props.theme)}>
       <Title typed>./sign-up</Title>
@@ -53,10 +61,10 @@ const SignUpPage = (props: { theme: Object }) => {
             </Nav>
             <TabContent activeTab={isUWAStudent ? 1 : 2}>
               <TabPane tabId={1} className='pt-3'>
-                <UWAStudent />
+                <UWAStudent loading={loading} handleSubmit={handleSubmit} />
               </TabPane>
               <TabPane tabId={2} className='pt-3'>
-                <OtherMember />
+                <OtherMember loading={loading} handleSubmit={handleSubmit} />
               </TabPane>
             </TabContent>
           </Col>

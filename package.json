@@ -36,16 +36,19 @@
     "bootstrap": "^4.4.1",
     "emotion-normalize": "^10.1.0",
     "emotion-theming": "^10.0.27",
+    "formik": "^2.1.4",
     "next": "9.2.2",
     "node-sass": "^4.13.1",
     "react": "16.12.0",
     "react-dom": "16.12.0",
     "reactstrap": "^8.4.1",
-    "typed.js": "^2.0.11"
+    "typed.js": "^2.0.11",
+    "yup": "^0.28.3"
   },
   "devDependencies": {
     "@types/node": "^13.7.4",
     "@types/react": "^16.9.23",
+    "@types/yup": "^0.26.35",
     "@typescript-eslint/parser": "^2.27.0",
     "commitizen": "^4.0.4",
     "cypress": "^4.3.0",

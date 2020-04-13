@@ -26,21 +26,21 @@ const AboutPage = (props: { theme: Object }) => (
             term project, get in touch with us for more information.
           </p>
         </Col>
-        <Col lg={{ size: 4, offset: 1 }}>
-          <img
-            src='/illustrations/pair_programming.svg'
-            alt='Coder Coding'
-            className='img-fluid'
-          />
-        </Col>
+        <Col
+          lg={{ size: 4, offset: 1 }}
+          tag='img'
+          src='/illustrations/pair_programming.svg'
+          alt='Coder Coding'
+          className='img-fluid'
+        />
       </Row>
     </Container>
 
     <Jumbotron id='_meet_the_team' className='m-0'>
       <Container className='rounded-0'>
         <Row>
-          <Col xs={12}>
-            <h3 className='header'>Meet the Team</h3>
+          <Col xs={12} tag='h3' className='header'>
+            Meet the Team
           </Col>
           <Col xs={12}>
             <Committee />
@@ -52,28 +52,28 @@ const AboutPage = (props: { theme: Object }) => (
     <Jumbotron className='m-0 bg-white'>
       <Container>
         <Row>
-          <Col xs={12}>
-            <h3 className='header m-0'>Our Clients</h3>
+          <Col xs={12} tag='h3' className='header m-0'>
+            Our Clients
           </Col>
         </Row>
         <div className='py-5'>
           <Clients />
         </div>
         <Row>
-          <Col xs={12}>
-            <h3 className='header m-0'>Our Sponsors</h3>
+          <Col xs={12} tag='h3' className='header m-0'>
+            Our Sponsors
           </Col>
         </Row>
         <Sponsors />
         <Row>
-          <Col xs={12}>
-            <h3 className='header m-0'>Our Partnered Clubs</h3>
+          <Col xs={12} tag='h3' className='header m-0'>
+            Our Partnered Clubs
           </Col>
         </Row>
         <Partners />
         <Row>
-          <Col xs={12}>
-            <h3 className='header m-0'>Special Thanks</h3>
+          <Col xs={12} tag='h3' className='header m-0'>
+            Special Thanks
           </Col>
         </Row>
         <SpecialThanks />

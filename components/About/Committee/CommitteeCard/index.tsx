@@ -8,7 +8,7 @@ import {
   CardTitle,
   CardSubtitle,
   CardText,
-  CardProps,
+  CardProps
 } from 'reactstrap'
 import { styles } from './style'
 
@@ -18,12 +18,12 @@ const CommitteeCard = ({
     position,
     about,
     social,
-    picture: { src, alt },
+    picture: { src, alt }
   },
   ...props
 }: Props) => (
   <Card className='m-3 border-0 rounded-0' css={styles(props.theme)}>
-    <CardImg top width='100%' src={src} alt={alt} />
+    <CardImg top width='100%' src={src} alt={alt} className='rounded-0' />
     <CardBody>
       <CardTitle className='font-weight-bolder text-monospace'>
         {name}

@@ -2,28 +2,39 @@
 import { jsx } from '@emotion/core'
 import { withTheme } from 'emotion-theming'
 import { useState } from 'react'
+import { Field, FormikProps, Form, withFormik } from 'formik'
 import {
   Button,
-  Form,
   FormGroup,
   Label,
   Input,
   InputGroup,
   InputGroupAddon,
+  FormFeedback,
   UncontrolledAlert,
   Row,
   Col
 } from 'reactstrap'
+import Spinner from '../../../Elements/Spinner'
+import { validationSchema } from './validation'
 import { styles } from './styles'
 
-const OtherMember = (props: { theme: Object }) => {
+const mapPropsToValues = () => ({
+  firstName: '',
+  lastName: '',
+  email: '',
+  password: '',
+  confirmPassword: ''
+})
+
+const OtherMember = (props: Props & FormikProps<FormValues>) => {
   const [passwordVisible, setPasswordVisible] = useState(false)
 
   return (
     <Form css={styles(props.theme)}>
-      <UncontrolledAlert color='error' className='rounded-0'>
+      {/* <UncontrolledAlert color='error' className='rounded-0'>
         Invalid email or password
-      </UncontrolledAlert>
+      </UncontrolledAlert> */}
       <FormGroup>
         <Row form>
           <Col md={6}>
@@ -33,12 +44,15 @@ const OtherMember = (props: { theme: Object }) => {
               </Label>
               <Input
                 type='text'
-                name='firstName'
-                id='firstName'
-                placeholder='John'
                 size='lg'
-                className='rounded-0 border-dark'
+                tag={Field}
+                placeholder='John'
+                name='firstName'
+                value={props.values.firstName}
+                invalid={props.errors.firstName && props.touched.firstName}
+                className='rounded-0 text-dark border-dark'
               />
+              <FormFeedback>{props.errors.firstName}</FormFeedback>
             </FormGroup>
           </Col>
           <Col md={6}>
@@ -48,12 +62,15 @@ const OtherMember = (props: { theme: Object }) => {
               </Label>
               <Input
                 type='text'
-                name='lastName'
-                id='lastName'
-                placeholder='Doe'
                 size='lg'
-                className='rounded-0 border-dark'
+                tag={Field}
+                placeholder='Doe'
+                name='lastName'
+                value={props.values.lastName}
+                invalid={props.errors.lastName && props.touched.lastName}
+                className='rounded-0 text-dark border-dark'
               />
+              <FormFeedback>{props.errors.lastName}</FormFeedback>
             </FormGroup>
           </Col>
         </Row>
@@ -62,12 +79,15 @@ const OtherMember = (props: { theme: Object }) => {
         </Label>
         <Input
           type='email'
-          name='email'
-          id='email'
-          placeholder='hello@codersforcauses.org'
           size='lg'
-          className='rounded-0 border-dark'
+          tag={Field}
+          placeholder='hello@codersforcauses.org'
+          name='email'
+          value={props.values.email}
+          invalid={props.errors.email && props.touched.email}
+          className='rounded-0 text-dark border-dark'
         />
+        <FormFeedback>{props.errors.email}</FormFeedback>
       </FormGroup>
       <Row form>
         <Col md={6}>
@@ -78,11 +98,13 @@ const OtherMember = (props: { theme: Object }) => {
             <InputGroup>
               <Input
                 type={passwordVisible ? 'text' : 'password'}
-                name='password'
-                id='password'
-                placeholder='********'
                 size='lg'
-                className='rounded-0 border-dark border-right-0'
+                tag={Field}
+                placeholder='********'
+                name='password'
+                value={props.values.password}
+                invalid={props.errors.password && props.touched.password}
+                className='rounded-0 text-dark border-dark border-right-0'
               />
               <InputGroupAddon addonType='append'>
                 <Button
@@ -96,6 +118,7 @@ const OtherMember = (props: { theme: Object }) => {
                   </i>
                 </Button>
               </InputGroupAddon>
+              <FormFeedback>{props.errors.password}</FormFeedback>
             </InputGroup>
           </FormGroup>
         </Col>
@@ -107,11 +130,15 @@ const OtherMember = (props: { theme: Object }) => {
             <InputGroup>
               <Input
                 type={passwordVisible ? 'text' : 'password'}
-                name='confirmPassword'
-                id='confirmPassword'
-                placeholder='********'
                 size='lg'
-                className='rounded-0 border-dark border-right-0'
+                tag={Field}
+                placeholder='********'
+                name='confirmPassword'
+                value={props.values.confirmPassword}
+                invalid={
+                  props.errors.confirmPassword && props.touched.confirmPassword
+                }
+                className='rounded-0 text-dark border-dark border-right-0'
               />
               <InputGroupAddon addonType='append'>
                 <Button
@@ -125,6 +152,7 @@ const OtherMember = (props: { theme: Object }) => {
                   </i>
                 </Button>
               </InputGroupAddon>
+              <FormFeedback>{props.errors.confirmPassword}</FormFeedback>
             </InputGroup>
           </FormGroup>
         </Col>
@@ -132,9 +160,31 @@ const OtherMember = (props: { theme: Object }) => {
 
       <Button size='lg' color='primary' className='rounded-0 monospace px-4'>
         Sign Up
+        {props.loading && (
+          <Spinner color='secondary' size='sm' className='ml-2' />
+        )}
       </Button>
     </Form>
   )
 }
 
-export default withTheme(OtherMember)
+export default withTheme(
+  withFormik<Props, FormValues>({
+    handleSubmit: (values, bag) => bag.props.handleSubmit(values, bag),
+    mapPropsToValues,
+    validationSchema
+  })(OtherMember)
+)
+
+interface FormValues {
+  firstName: string
+  lastName: string
+  email: string
+  password: string
+  confirmPassword: string
+}
+interface Props {
+  handleSubmit: Function
+  loading: Boolean
+  theme: Object
+}

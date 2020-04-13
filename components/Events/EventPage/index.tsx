@@ -19,12 +19,14 @@ const EventPage = (props: { theme: Object }) => {
       </div>
       <Container className='my-5'>
         <Row className='mb-5 pb-5'>
-          <Col xs={12} md={6} lg={5} className='mb-4 mb-md-0'>
-            <img
-              src='https://source.unsplash.com/random'
-              className='img-fluid'
-            />
-          </Col>
+          <Col
+            xs={12}
+            md={6}
+            lg={5}
+            tag='img'
+            src='https://source.unsplash.com/random'
+            className='mb-4 mb-md-0 img-fluid'
+          />
           <Col xs={12} md={6} lg={{ size: 6, offset: 1 }}>
             <h4 className='mb-3 font-weight-bold event-head'>
               Essential Software Industry Skills
