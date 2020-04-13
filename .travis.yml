@@ -12,7 +12,6 @@ addons:
 
 cache:
   yarn: true
-  # cache both npm modules and Cypress binary
   directories:
     - ~/.cache
 
