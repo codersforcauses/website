@@ -14,8 +14,9 @@ cache:
   yarn: true
   # cache both npm modules and Cypress binary
   directories:
-    - ~/node_modules
-    - ~/.cache
+    - $HOME/.cache/yarn
+    - node_modules
+    - .next/cache
 
 install:
   # use the new "ci" command for fastest installs on CI
