@@ -14,12 +14,11 @@ cache:
   yarn: true
   # cache both npm modules and Cypress binary
   directories:
-    - ~/.npm
     - ~/.cache
 
 install:
   - yarn
-  
+
 script:
   - yarn build
   - yarn start & wait-on http://localhost:3000
