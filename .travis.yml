@@ -16,9 +16,6 @@ cache:
   directories:
     - ~/.cache
 
-install:
-  - yarn
-
 script:
   - yarn build
   - yarn start & wait-on http://localhost:3000
