@@ -12,6 +12,7 @@ import {
   TabContent,
   TabPane
 } from 'reactstrap'
+import Link from 'next/link'
 import Title from '../../Utils/Title'
 import UWAStudent from './UWAStudent'
 import OtherMember from './OtherMember'
@@ -24,6 +25,9 @@ const SignUpPage = (props: { theme: Object }) => {
       <Title typed>./sign-up</Title>
       <Container className='py-5 '>
         <Row>
+          <Col xs={12} tag='p'>
+            Already have an account? Sign in <Link href='/signin'>here</Link>!
+          </Col>
           <Col md={6}>
             <Nav tabs className='border-0'>
               <NavItem className='mr-2'>
