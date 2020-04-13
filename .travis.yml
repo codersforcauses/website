@@ -1,8 +1,7 @@
 language: node_js
 
 node_js:
-  # Node 10.3+ includes npm@6 which has good "npm ci" command
-  - 10.8
+  - 10.13
 
 # if using Ubuntu 16 need this library
 # https://github.com/cypress-io/cypress-documentation/pull/1647
@@ -12,16 +11,13 @@ addons:
       - libgconf-2-4
 
 cache:
-  # cache both npm modules and Cypress binary
+  yarn: true
+  # Don't cache node_modules or .npm
+  # https://docs.cypress.io/guides/guides/continuous-integration.html#Caching
   directories:
-    - ~/.npm
     - ~/.cache
 
-install:
-  # use the new "ci" command for fastest installs on CI
-  - npm ci
-
 script:
-  - npm run build
-  - npm run start & wait-on http://localhost:3000
-  - npm run cypress:run
+  - yarn build
+  - yarn start & wait-on http://localhost:3000
+  - yarn cypress:run
