@@ -2,19 +2,27 @@
 import { jsx } from '@emotion/core'
 import { withTheme } from 'emotion-theming'
 import { useState } from 'react'
+import { Field, FormikProps, Form, withFormik } from 'formik'
 import {
   Button,
-  Form,
   FormGroup,
   Label,
   Input,
   InputGroup,
   InputGroupAddon,
+  FormFeedback,
   UncontrolledAlert
 } from 'reactstrap'
+import Spinner from '../../../Elements/Spinner'
 import { styles } from './styles'
+import { validationSchema } from './validation'
 
-const UWAStudent = (props: { theme: Object }) => {
+const mapPropsToValues = () => ({
+  studentNumber: '',
+  password: ''
+})
+
+const UWAStudent = (props: Props & FormikProps<FormValues>) => {
   const [passwordVisible, setPasswordVisible] = useState(false)
   return (
     <Form css={styles(props.theme)}>
@@ -27,12 +35,15 @@ const UWAStudent = (props: { theme: Object }) => {
         </Label>
         <Input
           type='text'
-          name='studentNumber'
-          id='studentNumber'
+          bsSize='lg'
+          tag={Field}
           placeholder='211234567'
-          size='lg'
-          className='rounded-0 border-dark'
+          name='studentNumber'
+          value={props.values.studentNumber}
+          invalid={props.errors.studentNumber && props.touched.studentNumber}
+          className='rounded-0 text-dark border-dark'
         />
+        <FormFeedback>{props.errors.studentNumber}</FormFeedback>
       </FormGroup>
       <FormGroup>
         <Label for='password' className='monospace'>
@@ -41,11 +52,13 @@ const UWAStudent = (props: { theme: Object }) => {
         <InputGroup>
           <Input
             type={passwordVisible ? 'text' : 'password'}
-            name='password'
-            id='password'
+            bsSize='lg'
+            tag={Field}
             placeholder='********'
-            size='lg'
-            className='rounded-0 border-dark border-right-0'
+            name='password'
+            value={props.values.password}
+            invalid={props.errors.password && props.touched.password}
+            className='rounded-0 text-dark border-dark border-right-0'
           />
           <InputGroupAddon addonType='append'>
             <Button
@@ -59,13 +72,37 @@ const UWAStudent = (props: { theme: Object }) => {
               </i>
             </Button>
           </InputGroupAddon>
+          <FormFeedback>{props.errors.password}</FormFeedback>
         </InputGroup>
       </FormGroup>
-      <Button size='lg' color='primary' className='rounded-0 monospace px-4'>
+      <Button
+        size='lg'
+        color='primary'
+        className='rounded-0 monospace px-4 d-flex align-items-center'
+      >
         Sign in
+        {props.loading && (
+          <Spinner color='secondary' size='sm' className='ml-2' />
+        )}
       </Button>
     </Form>
   )
 }
 
-export default withTheme(UWAStudent)
+export default withTheme(
+  withFormik<Props, FormValues>({
+    handleSubmit: (values, bag) => bag.props.handleSubmit(values, bag),
+    mapPropsToValues,
+    validationSchema
+  })(UWAStudent)
+)
+
+interface FormValues {
+  studentNumber: string
+  password: string
+}
+interface Props {
+  handleSubmit: Function
+  loading: Boolean
+  theme: Object
+}

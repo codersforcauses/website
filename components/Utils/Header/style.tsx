@@ -1,15 +1,10 @@
 import { css } from '@emotion/core'
 
-export const styles = (theme) => css`
+export const styles = theme => css`
   min-height: 72px;
 
-  .pointer {
-    display: flex;
-    align-items: center;
-
-    &:hover {
-      cursor: pointer;
-    }
+  .brand {
+    line-height: 1.8rem;
   }
 
   .icon {

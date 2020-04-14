@@ -9,7 +9,7 @@ import {
   Nav,
   Button,
   Collapse,
-  NavbarToggler,
+  NavbarToggler
 } from 'reactstrap'
 import Link from 'next/link'
 import HeaderItem, { HeaderItemContent } from './HeaderItem'
@@ -21,7 +21,7 @@ const Header = (props: { theme: Object }) => {
   const links: HeaderItemContent[] = [
     { href: '/about', text: 'About' },
     { href: '/projects', text: 'Projects' },
-    { href: '/events', text: 'Events' },
+    { href: '/events', text: 'Events' }
   ]
 
   const toggleOpen = () => setOpen(!open)
@@ -37,16 +37,17 @@ const Header = (props: { theme: Object }) => {
       <Container>
         <Nav className='justify-content-start' tag='div'>
           <NavbarToggler
-            className='mr-5 d-flex d-md-none align-items-center px-0 border-0'
+            className='mr-5 d-flex d-md-none align-items-center px-0 ml-sm-3 border-0'
             onClick={toggleOpen}
           >
             <i className='material-icons-sharp text-white'>menu</i>
           </NavbarToggler>
-          <Link href='/'>
-            <NavbarBrand className='mr-md-5 pointer'>
-              <code className='font-weight-bold monospace'>cfc</code>
-            </NavbarBrand>
-          </Link>
+          <NavbarBrand
+            href='/'
+            className='mr-md-5 brand font-weight-bold monospace'
+          >
+            cfc
+          </NavbarBrand>
           <Collapse navbar isOpen={open} className='pl-3 pl-md-0'>
             <Nav navbar>
               {links.map(link => (

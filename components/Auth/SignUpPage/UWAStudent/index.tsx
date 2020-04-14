@@ -41,7 +41,7 @@ const UWAStudent = (props: Props & FormikProps<FormValues>) => {
         </Label>
         <Input
           type='text'
-          size='lg'
+          bsSize='lg'
           tag={Field}
           placeholder='211234567'
           name='studentNumber'
@@ -58,7 +58,7 @@ const UWAStudent = (props: Props & FormikProps<FormValues>) => {
         <InputGroup>
           <Input
             type={passwordVisible ? 'text' : 'password'}
-            size='lg'
+            bsSize='lg'
             tag={Field}
             placeholder='********'
             name='password'

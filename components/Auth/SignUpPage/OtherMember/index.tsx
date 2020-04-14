@@ -16,8 +16,8 @@ import {
   Col
 } from 'reactstrap'
 import Spinner from '../../../Elements/Spinner'
-import { validationSchema } from './validation'
 import { styles } from './styles'
+import { validationSchema } from './validation'
 
 const mapPropsToValues = () => ({
   firstName: '',
@@ -44,7 +44,7 @@ const OtherMember = (props: Props & FormikProps<FormValues>) => {
               </Label>
               <Input
                 type='text'
-                size='lg'
+                bsSize='lg'
                 tag={Field}
                 placeholder='John'
                 name='firstName'
@@ -62,7 +62,7 @@ const OtherMember = (props: Props & FormikProps<FormValues>) => {
               </Label>
               <Input
                 type='text'
-                size='lg'
+                bsSize='lg'
                 tag={Field}
                 placeholder='Doe'
                 name='lastName'
@@ -79,7 +79,7 @@ const OtherMember = (props: Props & FormikProps<FormValues>) => {
         </Label>
         <Input
           type='email'
-          size='lg'
+          bsSize='lg'
           tag={Field}
           placeholder='hello@codersforcauses.org'
           name='email'
@@ -98,7 +98,7 @@ const OtherMember = (props: Props & FormikProps<FormValues>) => {
             <InputGroup>
               <Input
                 type={passwordVisible ? 'text' : 'password'}
-                size='lg'
+                bsSize='lg'
                 tag={Field}
                 placeholder='********'
                 name='password'
@@ -130,7 +130,7 @@ const OtherMember = (props: Props & FormikProps<FormValues>) => {
             <InputGroup>
               <Input
                 type={passwordVisible ? 'text' : 'password'}
-                size='lg'
+                bsSize='lg'
                 tag={Field}
                 placeholder='********'
                 name='confirmPassword'
@@ -158,7 +158,11 @@ const OtherMember = (props: Props & FormikProps<FormValues>) => {
         </Col>
       </Row>
 
-      <Button size='lg' color='primary' className='rounded-0 monospace px-4'>
+      <Button
+        size='lg'
+        color='primary'
+        className='rounded-0 monospace px-4 d-flex align-items-center'
+      >
         Sign Up
         {props.loading && (
           <Spinner color='secondary' size='sm' className='ml-2' />
