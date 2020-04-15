@@ -36,7 +36,7 @@ export default () => (
         powered and all of our members are volunteers.
       </p>
       <Button color='primary' outline>
-        Work with us&nbsp;&nbsp;&nbsp;>
+        Work with us &ensp;<span className='arrow'>&raquo;</span>
       </Button>
     </Container>
     <div className='bg-light'>
@@ -47,13 +47,13 @@ export default () => (
     <Container className='py-5 my-5'>
       <Services />
     </Container>
-    <div className='py-5 bg-dark text-white'>
+    <div className='pt-5 pb-md-5 bg-dark text-white'>
       <Container className='py-5'>
         <Row>
           <Col md={8}>
             <h1 className='display-3 mb-3'>Let's talk.</h1>
             <a href={`mailto:${constants.email}`} className='text-white'>
-              <h3>{constants.email}</h3>
+              <h3 className='scalable m-0'>{constants.email}</h3>
             </a>
           </Col>
           <Col sm={4} className='d-none d-sm-block'>
@@ -68,7 +68,8 @@ export default () => (
 const style = (
   <style jsx>{`
     .hero {
-      margin-top: 64px;
+      margin-top: 4.5rem;
+      border-radius: 0;
       height: 500px;
     }
   `}

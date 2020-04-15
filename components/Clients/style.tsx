@@ -7,5 +7,6 @@ export default (
       object-position: center;
       max-width: 100px;
     }
-  `}</style>
+  `}
+  </style>
 )
