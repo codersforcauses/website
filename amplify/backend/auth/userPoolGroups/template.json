@@ -1,0 +1,68 @@
+{
+    "AWSTemplateFormatVersion": "2010-09-09",
+    "Parameters": {
+        "authwebsite0c1ffa6c0c1ffa6cUserPoolId": {
+            "Type": "String",
+            "Default": "authwebsite0c1ffa6c0c1ffa6cUserPoolId"
+        },
+        
+        "authwebsite0c1ffa6c0c1ffa6cAppClientID": {
+            "Type": "String",
+            "Default": "authwebsite0c1ffa6c0c1ffa6cAppClientID"
+        },
+        "authwebsite0c1ffa6c0c1ffa6cAppClientIDWeb": {
+            "Type": "String",
+            "Default": "authwebsite0c1ffa6c0c1ffa6cAppClientIDWeb"
+        },
+        "AuthRoleArn": {
+            "Type": "String"
+        },
+        "UnauthRoleArn": {
+            "Type": "String"
+        },
+        "env": {
+            "Type": "String"
+        }
+    },
+    "Conditions": {
+        "ShouldNotCreateEnvResources": {
+            "Fn::Equals": [
+                {
+                    "Ref": "env"
+                },
+                "NONE"
+            ]
+        }
+    },
+    "Resources": {
+    
+        "execGroup": {
+          "Type" : "AWS::Cognito::UserPoolGroup",
+          "Properties" : {
+              "GroupName" : "exec",
+              "Precedence" : 1,
+              
+              "UserPoolId" : {
+                "Ref": "authwebsite0c1ffa6c0c1ffa6cUserPoolId"
+              } 
+            }
+        },
+        
+    
+        "committeeGroup": {
+          "Type" : "AWS::Cognito::UserPoolGroup",
+          "Properties" : {
+              "GroupName" : "committee",
+              "Precedence" : 2,
+              
+              "UserPoolId" : {
+                "Ref": "authwebsite0c1ffa6c0c1ffa6cUserPoolId"
+              } 
+            }
+        },
+        
+    
+    
+    },
+    
+}

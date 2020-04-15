@@ -1,0 +1,29 @@
+{
+    "prod": {
+        "awscloudformation": {
+            "AuthRoleName": "amplify-website-prod-32131-authRole",
+            "UnauthRoleArn": "arn:aws:iam::017748580431:role/amplify-website-prod-32131-unauthRole",
+            "AuthRoleArn": "arn:aws:iam::017748580431:role/amplify-website-prod-32131-authRole",
+            "Region": "ap-southeast-2",
+            "DeploymentBucketName": "amplify-website-prod-32131-deployment",
+            "UnauthRoleName": "amplify-website-prod-32131-unauthRole",
+            "StackName": "amplify-website-prod-32131",
+            "StackId": "arn:aws:cloudformation:ap-southeast-2:017748580431:stack/amplify-website-prod-32131/51b451d0-7f4e-11ea-9461-0a6257d37ae2",
+            "AmplifyAppId": "d1pl3yh14ir0sy"
+        },
+        "categories": {
+            "function": {
+                "website0c1ffa6c0c1ffa6cCustomMessage": {
+                    "REDIRECTURL": "https://www.codersforcauses.org/",
+                    "EMAILSUBJECT": "Thank you for signing up",
+                    "EMAILMESSAGE": "Thank you for joining coders for causes"
+                }
+            },
+            "auth": {
+                "website0c1ffa6c0c1ffa6c": {
+                    "hostedUIProviderCreds": "[]"
+                }
+            }
+        }
+    }
+}
