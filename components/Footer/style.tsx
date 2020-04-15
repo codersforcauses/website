@@ -5,5 +5,9 @@ export default (
     .footer a {
       color: #fff;
     }
-  `}</style>
+    .image {
+      max-width: 220px;
+    }
+  `}
+  </style>
 )

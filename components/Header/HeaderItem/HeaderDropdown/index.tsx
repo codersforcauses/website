@@ -4,9 +4,9 @@ import DropdownToggle from 'reactstrap/lib/DropdownToggle'
 import HeaderLink from '../HeaderLink'
 import Link from 'next/link'
 
-export default function (props: Props) {
-  const { items, href, text } = props
+export default ({ items, text, href, ...props }: Props) => {
   const [isOpen, updateIsOpen] = useState(false)
+
   return (
     <Dropdown
       {...props}
@@ -45,7 +45,8 @@ const style = (
     .header-dropdown-menu a {
       color: #000 !important;
     }
-  `}</style>
+  `}
+  </style>
 )
 
 interface Props {

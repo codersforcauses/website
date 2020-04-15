@@ -59,3 +59,10 @@ typings/
 
 # next.js build output
 .next
+
+.DS_Store
+
+# ignore yarn.lock
+yarn.lock
+
+.vscode

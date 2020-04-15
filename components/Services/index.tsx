@@ -2,12 +2,12 @@ import React from 'react'
 import { Row, Col, Card, CardBody } from 'reactstrap'
 import services from '../../data/services.json'
 
-const Service = (props: ServiceProps) => (
+const Service = ({ icon, title, description }: ServiceProps) => (
   <Card className='text-center border-0'>
     <CardBody>
-      <i className={`fa-3x fas fa-${props.icon}`} />
-      <h4 className='mt-4 font-weight-bold'>{props.title}</h4>
-      <p className='mb-0'>{props.description}</p>
+      <i className={`fa-3x fas fa-${icon}`} />
+      <h4 className='mt-4 font-weight-bold'>{title}</h4>
+      <p className='mb-0'>{description}</p>
     </CardBody>
   </Card>
 )
@@ -23,6 +23,7 @@ export default () => (
     {services.map(service => (
       <Col
         xs={12}
+        sm={6}
         lg={12 / services.length}
         className='mb-4'
         key={service.title}

@@ -3,7 +3,7 @@ import Typed from 'typed.js'
 
 export default ({ text }: { text: Array<string> }) => {
   let typed: Typed
-  let typedText: any = useRef<HTMLSpanElement>()
+  const typedText: any = useRef<HTMLSpanElement>()
 
   useEffect(() => {
     typed = new Typed(typedText.current, {

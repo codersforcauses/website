@@ -1,0 +1,139 @@
+{
+  "committee": [
+    {
+      "name": "Jeremiah Pinto",
+      "position": "President",
+      "about": "",
+      "social": {
+        "email": "president@codersforcauses.org",
+        "discord": "Smooth Jezz",
+        "github": "https://github.com/JeremiahPinto",
+        "linkedin": "https://www.linkedin.com/in/jeremiah-pinto/"
+      },
+      "picture": {
+        "src": "/committee/jeremiahdp.png",
+        "alt": "CFC President"
+      }
+    },
+    {
+      "name": "Drew Alexander",
+      "position": "Vice President",
+      "about": "",
+      "social": {
+        "email": "vicepresident@codersforcauses.org",
+        "discord": "Drubi",
+        "github": "https://github.com/Drewbi",
+        "linkedin": "https://www.linkedin.com/in/drew-alexander-29397317a/"
+      },
+      "picture": {
+        "src": "/committee/drewdp.png",
+        "alt": "CFC Vice-President"
+      }
+    },
+    {
+      "name": "Ekin Bukulmez",
+      "position": "Secretary",
+      "about": "",
+      "social": {
+        "email": "secretary@codersforcauses.org",
+        "discord": "Elysian",
+        "github": "https://github.com/blaiddyd",
+        "linkedin": "https://www.linkedin.com/in/ekinbukulmez/"
+      },
+      "picture": {
+        "src": "https://avatars0.githubusercontent.com/u/37198910?s=400&v=4",
+        "alt": "CFC Secretary"
+      }
+    },
+    {
+      "name": "David Yu",
+      "position": "Treasurer",
+      "about": "",
+      "social": {
+        "email": "treasurer@codersforcauses.org",
+        "discord": "davidyu112311234",
+        "github": "https://github.com/noobling",
+        "linkedin": "https://www.linkedin.com/in/david-yu-australia/"
+      },
+      "picture": {
+        "src": "https://avatars3.githubusercontent.com/u/23206864?s=400&v=4",
+        "alt": "CFC Treasurer"
+      }
+    },
+    {
+      "name": "Innocent Muisha",
+      "position": "Client Officer",
+      "about": "",
+      "social": {
+        "email": "clientofficer@codersforcauses.org",
+        "discord": "Eagle-i",
+        "github": "https://github.com/innocentmm",
+        "linkedin": "https://www.linkedin.com/in/innocent-muisha-00958615a/"
+      },
+      "picture": {
+        "src": "/committee/innocentdp.png",
+        "alt": "CFC Client Officer"
+      }
+    },
+    {
+      "name": "Minh Le",
+      "position": "Marketing Officer",
+      "about": "",
+      "social": {
+        "email": "publicity@codersforcauses.org",
+        "discord": "Minhocent Bystander",
+        "github": "https://github.com/Pixeladed",
+        "linkedin": "https://www.linkedin.com/in/vietminhle/"
+      },
+      "picture": {
+        "src": "/committee/minhdp.png",
+        "alt": "CFC Marketing Officer"
+      }
+    },
+    {
+      "name": "Thai Nguyen",
+      "position": "Ordinary Committee Member",
+      "about": "",
+      "social": {
+        "email": "committee@codersforcauses.org",
+        "discord": "Tai",
+        "github": "https://github.com/thaingu",
+        "linkedin": "https://www.linkedin.com/in/thai-nguyen-8b6098183/"
+      },
+      "picture": {
+        "src": "https://avatars0.githubusercontent.com/u/34293984?s=400&v=4",
+        "alt": "CFC OCM"
+      }
+    },
+    {
+      "name": "Jong Kyung Kim",
+      "position": "Ordinary Committee Member",
+      "about": "",
+      "social": {
+        "email": "committee@codersforcauses.org",
+        "discord": "Happy Dust",
+        "github": "https://github.com/JKKim98",
+        "linkedin": "https://www.linkedin.com/in/jkkim98/"
+      },
+      "picture": {
+        "src": "/committee/jongdp.png",
+        "alt": "CFC OCM"
+      }
+    },
+    {
+      "name": "Joshua Milambo",
+      "position": "Ordinary Committee Member",
+      "about": "",
+      "social": {
+        "email": "committee@codersforcauses.org",
+        "discord": "Joshua Milambo",
+        "github": "https://github.com/Papajmil",
+        "linkedin": "https://www.linkedin.com/in/joshua-milambo-8298aa163/"
+      },
+      "picture": {
+        "src": "/committee/joshdp.png",
+        "alt": "CFC OCM"
+      }
+    }
+  ]
+}

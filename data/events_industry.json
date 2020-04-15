@@ -1,0 +1,32 @@
+[
+  {
+    "id": 1,
+    "type": "industry",
+    "img": "/events/IMG_9700.jpeg",
+    "title": "Software Industry Night",
+    "description": "Coders for Causes invite you to a night of networking with industry professionals proudly supported by BHP and Rio Tinto. Hosted at the UWA Innovation Quarter (IQX), join us as representatives from the software industry share insights into career opportunities as well as keynotes from companies in the field",
+    "requirements": ["Dress smart casual"],
+    "location": "UWA IQX 8 Broadway Street, Crawley, Western Australia, Australia 6009",
+    "date": "6PM - 8PM Tuesday, October 8, 2019"
+  },
+  {
+    "id": 2,
+    "type": "industry",
+    "img": "/events/IMG_9700.jpeg",
+    "title": "Software Industry Night",
+    "description": "Coders for Causes invite you to a night of networking with industry professionals proudly supported by BHP and Rio Tinto. Hosted at the UWA Innovation Quarter (IQX), join us as representatives from the software industry share insights into career opportunities as well as keynotes from companies in the field",
+    "requirements": ["Dress smart casual"],
+    "location": "UWA IQX 8 Broadway Street, Crawley, Western Australia, Australia 6009",
+    "date": "6PM - 8PM Tuesday, October 8, 2019"
+  },
+  {
+    "id": 3,
+    "type": "industry",
+    "img": "/events/IMG_9700.jpeg",
+    "title": "Software Industry Night",
+    "description": "Coders for Causes invite you to a night of networking with industry professionals proudly supported by BHP and Rio Tinto. Hosted at the UWA Innovation Quarter (IQX), join us as representatives from the software industry share insights into career opportunities as well as keynotes from companies in the field",
+    "requirements": ["Dress smart casual"],
+    "location": "UWA IQX 8 Broadway Street, Crawley, Western Australia, Australia 6009",
+    "date": "6PM - 8PM Tuesday, October 8, 2019"
+  }
+]

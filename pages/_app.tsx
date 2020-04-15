@@ -4,6 +4,7 @@ import Head from 'next/head'
 import '../theme.scss'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
+import { initAnalytics } from '../helpers/analytics'
 import { initMessenger } from '../helpers/messenger'
 
 export default class MyApp extends App {
@@ -16,6 +17,7 @@ export default class MyApp extends App {
   }
 
   componentDidMount () {
+    initAnalytics('2423121134')
     initMessenger()
   }
 
