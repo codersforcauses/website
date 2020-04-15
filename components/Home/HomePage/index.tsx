@@ -37,7 +37,7 @@ const HomePage = (props: { theme: Object }) => (
         university students to develop technical solutions. We are students
         powered and all of our members are volunteers.
       </p>
-      <Button outline color='primary' className='rounded-0'>
+      <Button color='primary' className='rounded-0'>
         Work with us&nbsp;&nbsp;&nbsp;>
       </Button>
     </Container>

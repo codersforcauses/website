@@ -100,7 +100,7 @@ const BrandPage = (props: { theme: Object }) => {
               Typography
             </Col>
             <Col xs={12} tag='p'>
-              You can test our fonts below.
+              You can test our fonts below. Click on the text to edit it.
             </Col>
             <Col xs={6} tag='p' className='monospace'>
               <Card
@@ -109,8 +109,20 @@ const BrandPage = (props: { theme: Object }) => {
                 color='primary'
                 className='bg-transparent rounded-0'
               >
-                <strong>IBM Plex Mono</strong>
-                {typographyText}
+                <div className='d-flex align-items-center justify-content-between'>
+                  <strong>IBM Plex Mono</strong>
+                  <a
+                    href='https://fonts.google.com/specimen/IBM+Plex+Mono'
+                    target='_blank'
+                    rel='noreferrer noopener'
+                    title='Link to font'
+                  >
+                    <i className='material-icons-sharp'>link</i>
+                  </a>
+                </div>
+                <p contentEditable className='big mt-3 mb-0'>
+                  {typographyText}
+                </p>
               </Card>
             </Col>
             <Col xs={6} tag='p'>
@@ -120,20 +132,21 @@ const BrandPage = (props: { theme: Object }) => {
                 color='primary'
                 className='bg-transparent rounded-0'
               >
-                <strong>IBM Plex Sans</strong>
-                {typographyText}
+                <div className='d-flex align-items-center justify-content-between'>
+                  <strong>IBM Plex Sans</strong>
+                  <a
+                    href='https://fonts.google.com/specimen/IBM+Plex+Sans'
+                    target='_blank'
+                    rel='noreferrer noopener'
+                    title='Link to font'
+                  >
+                    <i className='material-icons-sharp'>link</i>
+                  </a>
+                </div>
+                <p contentEditable className='big mt-3 mb-0'>
+                  {typographyText}
+                </p>
               </Card>
-            </Col>
-            <Col xs={12} className='mb-3'>
-              <Input
-                type='textarea'
-                size='sm'
-                name='typographyText'
-                onChange={({ target: { value = typographyText } = {} }) =>
-                  setTypographyText(value)}
-                value={typographyText}
-                className='rounded-0 border border-dark text-dark'
-              />
             </Col>
           </Row>
 

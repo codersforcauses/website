@@ -1,7 +1,7 @@
 import { css } from '@emotion/core'
 import { media } from '../../../lib/mediaQueries'
 
-export const styles = (theme) => css`
+export const styles = theme => css`
   .hero {
     margin-top: 64px;
     height: 500px;
@@ -9,6 +9,11 @@ export const styles = (theme) => css`
 
   .email {
     font-size: 1rem;
+  }
+
+  .big {
+    font-size: 2rem;
+    line-height: 1.2;
   }
 
   ${media.sm`
