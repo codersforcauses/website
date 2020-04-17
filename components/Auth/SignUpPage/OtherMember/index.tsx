@@ -52,6 +52,7 @@ const OtherMember = (props: Props & FormikProps<FormValues>) => {
                 bsSize='lg'
                 tag={Field}
                 placeholder='John'
+                id='firstName'
                 name='firstName'
                 value={props.values.firstName}
                 invalid={props.errors.firstName && props.touched.firstName}
@@ -70,6 +71,7 @@ const OtherMember = (props: Props & FormikProps<FormValues>) => {
                 bsSize='lg'
                 tag={Field}
                 placeholder='Doe'
+                id='lastName'
                 name='lastName'
                 value={props.values.lastName}
                 invalid={props.errors.lastName && props.touched.lastName}
@@ -87,6 +89,7 @@ const OtherMember = (props: Props & FormikProps<FormValues>) => {
           bsSize='lg'
           tag={Field}
           placeholder='hello@codersforcauses.org'
+          id='email'
           name='email'
           value={props.values.email}
           invalid={props.errors.email && props.touched.email}
@@ -106,6 +109,7 @@ const OtherMember = (props: Props & FormikProps<FormValues>) => {
                 bsSize='lg'
                 tag={Field}
                 placeholder='********'
+                id='password'
                 name='password'
                 value={props.values.password}
                 invalid={props.errors.password && props.touched.password}
@@ -138,6 +142,7 @@ const OtherMember = (props: Props & FormikProps<FormValues>) => {
                 bsSize='lg'
                 tag={Field}
                 placeholder='********'
+                id='confirmPassword'
                 name='confirmPassword'
                 value={props.values.confirmPassword}
                 invalid={
@@ -162,8 +167,8 @@ const OtherMember = (props: Props & FormikProps<FormValues>) => {
           </FormGroup>
         </Col>
       </Row>
-
       <Button
+        type='submit'
         size='lg'
         color='primary'
         className='rounded-0 monospace px-4 d-flex align-items-center'

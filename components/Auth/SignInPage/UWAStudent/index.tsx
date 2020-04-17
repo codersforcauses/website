@@ -43,6 +43,7 @@ const UWAStudent = (props: Props & FormikProps<FormValues>) => {
           bsSize='lg'
           tag={Field}
           placeholder='211234567'
+          id='studentNumber'
           name='studentNumber'
           value={props.values.studentNumber}
           invalid={props.errors.studentNumber && props.touched.studentNumber}
@@ -60,6 +61,7 @@ const UWAStudent = (props: Props & FormikProps<FormValues>) => {
             bsSize='lg'
             tag={Field}
             placeholder='********'
+            id='password'
             name='password'
             value={props.values.password}
             invalid={props.errors.password && props.touched.password}
@@ -81,6 +83,7 @@ const UWAStudent = (props: Props & FormikProps<FormValues>) => {
         </InputGroup>
       </FormGroup>
       <Button
+        type='submit'
         size='lg'
         color='primary'
         className='rounded-0 monospace px-4 d-flex align-items-center'

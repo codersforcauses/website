@@ -27,6 +27,7 @@ const Step2 = (props: Props & FormikProps<FormValues>) => {
           bsSize='lg'
           tag={Field}
           placeholder='hello@codersforcauses.org'
+          id='email'
           name='email'
           value={props.values.email}
           invalid={props.errors.email && props.touched.email}
@@ -43,6 +44,7 @@ const Step2 = (props: Props & FormikProps<FormValues>) => {
           bsSize='lg'
           tag={Field}
           placeholder='0000'
+          id='code'
           name='code'
           value={props.values.code}
           invalid={props.errors.code && props.touched.code}
@@ -63,6 +65,7 @@ const Step2 = (props: Props & FormikProps<FormValues>) => {
             bsSize='lg'
             tag={Field}
             placeholder='********'
+            id='password'
             name='password'
             value={props.values.password}
             invalid={props.errors.password && props.touched.password}
@@ -93,6 +96,7 @@ const Step2 = (props: Props & FormikProps<FormValues>) => {
             bsSize='lg'
             tag={Field}
             placeholder='********'
+            id='confirmPassword'
             name='confirmPassword'
             value={props.values.confirmPassword}
             invalid={

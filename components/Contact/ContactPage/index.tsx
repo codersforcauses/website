@@ -43,6 +43,7 @@ const BrandPage = (props: Props & FormikProps<FormValues>) => (
                     bsSize='lg'
                     tag={Field}
                     placeholder='John'
+                    id='firstName'
                     name='firstName'
                     value={props.values.firstName}
                     invalid={props.errors.firstName && props.touched.firstName}
@@ -61,6 +62,7 @@ const BrandPage = (props: Props & FormikProps<FormValues>) => (
                     bsSize='lg'
                     tag={Field}
                     placeholder='Doe'
+                    id='lastName'
                     name='lastName'
                     value={props.values.lastName}
                     invalid={props.errors.lastName && props.touched.lastName}
@@ -79,6 +81,7 @@ const BrandPage = (props: Props & FormikProps<FormValues>) => (
                 bsSize='lg'
                 tag={Field}
                 placeholder='Coders for Causes'
+                id='organisationName'
                 name='organisationName'
                 value={props.values.organisationName}
                 invalid={
@@ -104,6 +107,7 @@ const BrandPage = (props: Props & FormikProps<FormValues>) => (
                 bsSize='lg'
                 tag={Field}
                 placeholder='hello@codersforcauses.org'
+                id='email'
                 name='email'
                 value={props.values.email}
                 invalid={props.errors.email && props.touched.email}
@@ -119,6 +123,7 @@ const BrandPage = (props: Props & FormikProps<FormValues>) => (
                 type='textarea'
                 bsSize='lg'
                 placeholder='Write a short message here to get things started'
+                id='message'
                 name='message'
                 value={props.values.message}
                 onChange={props.handleChange}
