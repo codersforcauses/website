@@ -2,6 +2,7 @@
 import { jsx } from '@emotion/core'
 import { withTheme } from 'emotion-theming'
 import { useState } from 'react'
+import { Auth } from 'aws-amplify'
 import {
   Container,
   Row,
@@ -13,7 +14,9 @@ import {
   TabPane
 } from 'reactstrap'
 import Link from 'next/link'
+import Router from 'next/router'
 import Title from '../../Utils/Title'
+import { phemeLogin } from '../../../helpers/phemeLogin'
 import UWAStudent from './UWAStudent'
 import OtherMember from './OtherMember'
 import { styles } from './styles'
@@ -21,12 +24,48 @@ import { styles } from './styles'
 const SignInPage = (props: { theme: Object }) => {
   const [isUWAStudent, setIsUWAStudent] = useState(true)
   const [loading, setLoading] = useState(false)
+  const [errors, setErrors] = useState('')
+
+  const closeError = () => setErrors('')
 
   const handleSubmit = async values => {
     setLoading(true)
-    setTimeout(function () {
+    const data = {
+      username: values.email,
+      password: values.password
+    }
+    try {
+      if (isUWAStudent) {
+        const phemeResponse = await phemeLogin(
+          values.studentNumber,
+          values.password,
+          `${process.env.PHEME_URL}api/login`,
+          process.env.PHEME_TOKEN
+        )
+
+        // eslint-disable-next-line
+        if (!phemeResponse.success) throw { message: phemeResponse.message }
+
+        // reassign data to use values fetched from pheme login
+        data.username = `${values.studentNumber}@student.uwa.edu.au`
+        data.password = `${values.studentNumber}${process.env.PHEME_SALT}`
+      }
+      const response = await Auth.signIn(data.username, data.password)
+      // console.log(response)
+      Router.push('/dashboard')
+    } catch ({ code, message }) {
+      if (code === 'UserNotConfirmedException') {
+        setErrors(
+          'To login into Coders for Causes, please click on the verification link sent to your email and try again.'
+        )
+      }
+      setErrors(
+        message ||
+          'An unexpected error occurred. Please refresh the page and try again.'
+      )
+    } finally {
       setLoading(false)
-    }, 2000)
+    }
   }
 
   return (
@@ -62,10 +101,20 @@ const SignInPage = (props: { theme: Object }) => {
             </Nav>
             <TabContent activeTab={isUWAStudent ? 1 : 2}>
               <TabPane tabId={1} className='pt-3'>
-                <UWAStudent loading={loading} handleSubmit={handleSubmit} />
+                <UWAStudent
+                  loading={loading}
+                  error={errors}
+                  closeError={closeError}
+                  handleSubmit={handleSubmit}
+                />
               </TabPane>
               <TabPane tabId={2} className='pt-3'>
-                <OtherMember loading={loading} handleSubmit={handleSubmit} />
+                <OtherMember
+                  loading={loading}
+                  error={errors}
+                  closeError={closeError}
+                  handleSubmit={handleSubmit}
+                />
               </TabPane>
             </TabContent>
           </Col>

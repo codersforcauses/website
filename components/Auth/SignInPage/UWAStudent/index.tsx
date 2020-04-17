@@ -26,8 +26,13 @@ const UWAStudent = (props: Props & FormikProps<FormValues>) => {
   const [passwordVisible, setPasswordVisible] = useState(false)
   return (
     <Form css={styles(props.theme)}>
-      <UncontrolledAlert color='error' className='rounded-0'>
-        Invalid student number or pheme password
+      <UncontrolledAlert
+        isOpen={!!props.error}
+        toggle={props.closeError}
+        color='error'
+        className='rounded-0'
+      >
+        {props.error}
       </UncontrolledAlert>
       <FormGroup>
         <Label for='studentNumber' className='monospace'>
@@ -103,6 +108,8 @@ interface FormValues {
 }
 interface Props {
   handleSubmit: Function
+  closeError: Function
+  error: string
   loading: Boolean
   theme: Object
 }

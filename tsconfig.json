@@ -14,10 +14,7 @@
     "isolatedModules": true,
     "jsx": "preserve",
     "sourceMap": true,
-    "baseUrl": ".",
-    "paths": {
-      "@/*": ["./*"]
-    }
+    "baseUrl": "."
   },
   "exclude": ["node_modules"],
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "lib/mediaQueries.ts"]

@@ -32,9 +32,14 @@ const OtherMember = (props: Props & FormikProps<FormValues>) => {
 
   return (
     <Form css={styles(props.theme)}>
-      {/* <UncontrolledAlert color='error' className='rounded-0'>
-        Invalid email or password
-      </UncontrolledAlert> */}
+      <UncontrolledAlert
+        isOpen={!!props.error}
+        toggle={props.closeError}
+        color='error'
+        className='rounded-0'
+      >
+        {props.error}
+      </UncontrolledAlert>
       <FormGroup>
         <Row form>
           <Col md={6}>
@@ -189,6 +194,8 @@ interface FormValues {
 }
 interface Props {
   handleSubmit: Function
+  closeError: Function
+  error: string
   loading: Boolean
   theme: Object
 }

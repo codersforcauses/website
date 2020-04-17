@@ -12,8 +12,11 @@ import {
   TabContent,
   TabPane
 } from 'reactstrap'
+import { Auth } from 'aws-amplify'
 import Link from 'next/link'
+import Router from 'next/router'
 import Title from '../../Utils/Title'
+import { phemeLogin } from '../../../helpers/phemeLogin'
 import UWAStudent from './UWAStudent'
 import OtherMember from './OtherMember'
 import { styles } from './styles'
@@ -21,12 +24,51 @@ import { styles } from './styles'
 const SignUpPage = (props: { theme: Object }) => {
   const [isUWAStudent, setIsUWAStudent] = useState(true)
   const [loading, setLoading] = useState(false)
+  const [errors, setErrors] = useState('')
+
+  const closeError = () => setErrors('')
 
   const handleSubmit = async values => {
     setLoading(true)
-    setTimeout(function () {
+    const data = {
+      username: values?.email,
+      password: values?.password,
+      attributes: {
+        given_name: values?.firstName,
+        family_name: values?.lastName
+      }
+    }
+    try {
+      if (isUWAStudent) {
+        const phemeResponse = await phemeLogin(
+          values.studentNumber,
+          values.password,
+          `${process.env.PHEME_URL}api/login`,
+          process.env.PHEME_TOKEN
+        )
+
+        // eslint-disable-next-line
+        if (!phemeResponse.success) throw { message: phemeResponse.message }
+
+        const user = phemeResponse.user
+
+        // reassign data to use values fetched from pheme login
+        data.username = `${values.studentNumber}@student.uwa.edu.au`
+        data.password = `${values.studentNumber}${process.env.PHEME_SALT}`
+        data.attributes.given_name = user.firstname.split(' ')[0]
+        data.attributes.family_name = user.lastname
+      }
+      const response = await Auth.signUp(data)
+      // console.log(response)
+      Router.push('/dashboard')
+    } catch (error) {
+      setErrors(
+        error.message ||
+          'An unexpected error occurred. Please refresh the page and try again.'
+      )
+    } finally {
       setLoading(false)
-    }, 2000)
+    }
   }
   return (
     <div css={styles(props.theme)}>
@@ -61,10 +103,20 @@ const SignUpPage = (props: { theme: Object }) => {
             </Nav>
             <TabContent activeTab={isUWAStudent ? 1 : 2}>
               <TabPane tabId={1} className='pt-3'>
-                <UWAStudent loading={loading} handleSubmit={handleSubmit} />
+                <UWAStudent
+                  error={errors}
+                  closeError={closeError}
+                  loading={loading}
+                  handleSubmit={handleSubmit}
+                />
               </TabPane>
               <TabPane tabId={2} className='pt-3'>
-                <OtherMember loading={loading} handleSubmit={handleSubmit} />
+                <OtherMember
+                  error={errors}
+                  closeError={closeError}
+                  loading={loading}
+                  handleSubmit={handleSubmit}
+                />
               </TabPane>
             </TabContent>
           </Col>

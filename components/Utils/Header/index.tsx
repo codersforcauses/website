@@ -12,6 +12,7 @@ import {
   NavbarToggler
 } from 'reactstrap'
 import Link from 'next/link'
+import Avatar from '../../Elements/Avatar'
 import HeaderItem, { HeaderItemContent } from './HeaderItem'
 import { styles } from './style'
 
@@ -56,13 +57,14 @@ const Header = (props: { theme: Object }) => {
             </Nav>
           </Collapse>
         </Nav>
-        <Button
+        <Avatar round name='Jeremiah Pinto' />
+        {/* <Button
           outline
           color='secondary'
           className='d-none d-md-block rounded-0'
         >
           Membership
-        </Button>
+        </Button> */}
       </Container>
     </Navbar>
   )

@@ -102,7 +102,7 @@ const BrandPage = (props: { theme: Object }) => {
             <Col xs={12} tag='p'>
               You can test our fonts below. Click on the text to edit it.
             </Col>
-            <Col xs={6} tag='p' className='monospace'>
+            <Col xs={6} className='monospace'>
               <Card
                 body
                 outline
@@ -120,12 +120,15 @@ const BrandPage = (props: { theme: Object }) => {
                     <i className='material-icons-sharp'>link</i>
                   </a>
                 </div>
-                <p contentEditable className='big mt-3 mb-0'>
-                  {typographyText}
-                </p>
+                <Input
+                  type='textarea'
+                  value={typographyText}
+                  onChange={({ target: { value } }) => setTypographyText(value)}
+                  className='big mt-3 mb-0 p-0 bg-transparent rounded-0 border-0 text-dark'
+                />
               </Card>
             </Col>
-            <Col xs={6} tag='p'>
+            <Col xs={6}>
               <Card
                 body
                 outline
@@ -143,9 +146,12 @@ const BrandPage = (props: { theme: Object }) => {
                     <i className='material-icons-sharp'>link</i>
                   </a>
                 </div>
-                <p contentEditable className='big mt-3 mb-0'>
-                  {typographyText}
-                </p>
+                <Input
+                  type='textarea'
+                  value={typographyText}
+                  onChange={({ target: { value } }) => setTypographyText(value)}
+                  className='big mt-3 mb-0 p-0 bg-transparent rounded-0 border-0 text-dark'
+                />
               </Card>
             </Col>
           </Row>

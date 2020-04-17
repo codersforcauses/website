@@ -2,6 +2,7 @@
 import { jsx } from '@emotion/core'
 import { withTheme } from 'emotion-theming'
 import { useState } from 'react'
+import { Auth } from 'aws-amplify'
 import { Field, FormikProps, Form, withFormik } from 'formik'
 import {
   Button,
@@ -25,20 +26,61 @@ const mapPropsToValues = () => ({
 
 const OtherMember = (props: Props & FormikProps<FormValues>) => {
   const [passwordVisible, setPasswordVisible] = useState(false)
-  const [forgotPassword, setForgotPassword] = useState(false)
   const [loading, setLoading] = useState(false)
+  const [forgotPassword, setForgotPassword] = useState(false)
+  const [resetCode, setResetCode] = useState(false)
 
-  const handleSubmit = async values => {
-    setLoading(true)
-    setLoading(false)
+  const [error, setError] = useState('')
+
+  const closeModal = () => {
+    setResetCode(false)
     setForgotPassword(false)
   }
+  const handleSendPasswordResetCode = async email => {
+    setLoading(true)
+    try {
+      await Auth.forgotPassword(email.trim())
+      setError('')
+      setResetCode(true)
+    } catch ({ code, message }) {
+      if (code === 'UserNotFoundException') {
+        setError(
+          'Email not found. Please make sure you are using the email you registered with.'
+        )
+      } else setError(message)
+    } finally {
+      setLoading(false)
+    }
+  }
+  const handleResetCodeSubmit = async ({ email, code, password }) => {
+    setLoading(true)
+    try {
+      await Auth.forgotPasswordSubmit(
+        email.trim(),
+        code.trim(),
+        password.trim()
+      )
+    } catch ({ message }) {
+      setError(message)
+    } finally {
+      setLoading(false)
+      setError('')
+      setResetCode(false)
+      setForgotPassword(false)
+    }
+  }
+  const changeStep = () => setResetCode(!resetCode)
 
   return (
     <Form css={styles(props.theme)}>
-      {/* <UncontrolledAlert color='error' className='rounded-0'>
-        Invalid email or password
-      </UncontrolledAlert> */}
+      <UncontrolledAlert
+        isOpen={!!props.error}
+        toggle={props.closeError}
+        color='error'
+        className='rounded-0'
+      >
+        {props.error}
+      </UncontrolledAlert>
       <FormGroup>
         <Label for='email' className='monospace'>
           Email
@@ -87,6 +129,7 @@ const OtherMember = (props: Props & FormikProps<FormValues>) => {
       </FormGroup>
       <div className='d-flex'>
         <Button
+          type='submit'
           size='lg'
           color='primary'
           className='rounded-0 monospace px-4 d-flex align-items-center'
@@ -96,15 +139,24 @@ const OtherMember = (props: Props & FormikProps<FormValues>) => {
             <Spinner color='secondary' size='sm' className='ml-2' />
           )}
         </Button>
-        <Button color='link' onClick={() => setForgotPassword(true)}>
+        <Button
+          color='link'
+          onClick={() => setForgotPassword(true)}
+          className='ml-3'
+        >
           Forgot Password?
         </Button>
       </div>
       <ForgotPasswordModal
         loading={loading}
+        error={error}
+        closeError={() => setError('')}
         isOpen={forgotPassword}
-        closeModal={() => setForgotPassword(false)}
-        handleSubmit={handleSubmit}
+        isResetStep={resetCode}
+        handleChangeStep={changeStep}
+        handlePasswordReset={handleResetCodeSubmit}
+        closeModal={closeModal}
+        handleSendPasswordResetCode={handleSendPasswordResetCode}
       />
     </Form>
   )
@@ -124,6 +176,8 @@ interface FormValues {
 }
 interface Props {
   handleSubmit: Function
+  closeError: Function
+  error: string
   loading: Boolean
   theme: Object
 }

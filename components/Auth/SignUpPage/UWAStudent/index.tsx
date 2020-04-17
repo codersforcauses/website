@@ -32,9 +32,14 @@ const UWAStudent = (props: Props & FormikProps<FormValues>) => {
         credentials. If not or you wish to join using another email, please
         register using 'Email Sign-up'.
       </UncontrolledAlert>
-      {/* <UncontrolledAlert color='error' className='rounded-0'>
-        Invalid student number or pheme password
-      </UncontrolledAlert> */}
+      <UncontrolledAlert
+        isOpen={!!props.error}
+        toggle={props.closeError}
+        color='error'
+        className='rounded-0'
+      >
+        {props.error}
+      </UncontrolledAlert>
       <FormGroup>
         <Label for='studentNumber' className='monospace'>
           UWA Student Number
@@ -109,6 +114,8 @@ interface FormValues {
 }
 interface Props {
   handleSubmit: Function
+  closeError: Function
+  error: string
   loading: Boolean
   theme: Object
 }
