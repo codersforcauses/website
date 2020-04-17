@@ -38,6 +38,7 @@ const Website = ({ Component, pageProps }: AppProps) => {
     }
   }, [])
 
+  console.log(process.env.PHEME_URL)
   return (
     <ThemeProvider theme={theme}>
       {/* <User> */}
