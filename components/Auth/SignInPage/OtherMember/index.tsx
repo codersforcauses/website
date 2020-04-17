@@ -33,8 +33,8 @@ const OtherMember = (props: Props & FormikProps<FormValues>) => {
   const [error, setError] = useState('')
 
   const closeModal = () => {
-    setResetCode(false)
     setForgotPassword(false)
+    setResetCode(false)
   }
   const handleSendPasswordResetCode = async email => {
     setLoading(true)

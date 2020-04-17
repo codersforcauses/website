@@ -65,4 +65,18 @@ export const globalStyle = theme => css`
   .md-xl {
     font-size: 6rem;
   }
+
+  .logo {
+    object-fit: contain;
+    object-position: center;
+    max-width: 100px;
+
+    transition: 0.3s;
+    filter: grayscale(100%) contrast(0.2) brightness(1.1);
+
+    &:hover {
+      filter: none;
+      // cursor: pointer;
+    }
+  }
 `

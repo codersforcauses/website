@@ -74,7 +74,11 @@ const SignInPage = (props: { theme: Object }) => {
       <Container className='py-5 '>
         <Row>
           <Col xs={12} tag='p'>
-            Don't have an account? Create one <Link href='/signup'>here</Link>!
+            Don't have an account? Create one&nbsp;
+            <Link href='/signup'>
+              <a>here</a>
+            </Link>
+            !
           </Col>
           <Col md={6}>
             <Nav tabs className='border-0'>

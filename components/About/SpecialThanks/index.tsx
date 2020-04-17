@@ -9,14 +9,14 @@ const specialThanksSample = specialThanks
 
 const SpecialThanks = () => (
   <Row className='justify-content-around pt-5'>
-    {specialThanksSample.map((object) => (
+    {specialThanksSample.map(object => (
       <Col
         xs={3}
         md={2}
         key={object.name}
         className='d-flex align-items-center justify-content-center'
       >
-        <img src={object.logo} alt={object.name} className='img-fluid' />
+        <img src={object.logo} alt={object.name} className='img-fluid logo' />
       </Col>
     ))}
   </Row>

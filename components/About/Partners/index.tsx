@@ -9,14 +9,14 @@ const partnersSample = partners
 
 const Partners = () => (
   <Row className='justify-content-around py-5'>
-    {partnersSample.map((partner) => (
+    {partnersSample.map(partner => (
       <Col
         xs={4}
         md={3}
         key={partner.name}
         className='d-flex align-items-center justify-content-center'
       >
-        <img src={partner.logo} alt={partner.name} className='img-fluid' />
+        <img src={partner.logo} alt={partner.name} className='img-fluid logo' />
       </Col>
     ))}
   </Row>
