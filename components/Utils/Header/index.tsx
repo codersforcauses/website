@@ -57,14 +57,14 @@ const Header = (props: { theme: Object }) => {
             </Nav>
           </Collapse>
         </Nav>
-        <Avatar round name='Jeremiah Pinto' />
-        {/* <Button
+        {/* <Avatar round name='John Doe' /> */}
+        <Button
           outline
           color='secondary'
           className='d-none d-md-block rounded-0'
         >
           Membership
-        </Button> */}
+        </Button>
       </Container>
     </Navbar>
   )
