@@ -5,5 +5,6 @@ export const style = theme => css`
     object-fit: contain;
     object-position: center;
     max-width: 100px;
+    filter: grayscale(100%) contrast(0.2) brightness(1.1);
   }
 `
