@@ -9,7 +9,6 @@ import {
   Row,
   Col
 } from 'reactstrap'
-import Link from 'next/link'
 import TechList from './TechList'
 import { style } from './style'
 
@@ -28,11 +27,9 @@ const ProjectPage = (props: { theme: Object }) => (
       <Row>
         <Col xs={12}>
           <Breadcrumb tag='nav' className='breadcrumbs'>
-            <Link href='/projects'>
-              <BreadcrumbItem tag='a' href='/projects'>
-                Projects
-              </BreadcrumbItem>
-            </Link>
+            <BreadcrumbItem tag='a' href='/projects'>
+              Projects
+            </BreadcrumbItem>
             <BreadcrumbItem active tag='span' className='active-tab'>
               Ignite Mentoring
             </BreadcrumbItem>
