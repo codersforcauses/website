@@ -30,19 +30,18 @@ const HomePage = (props: { theme: Object }) => (
       </Container>
     </Jumbotron>
     <Container className='py-5 my-5'>
-      <h2 className='font-weight-bold mb-4'>We are a charity.</h2>
+      <h2 className='font-weight-bold mb-4'>We are developers.</h2>
       <p className='lead'>
-        Coders for Causes is a non for profit organisation that empowers
-        charities and other non for profit organisations by connecting them with
-        university students to develop technical solutions. We are students
-        powered and all of our members are volunteers.
+        Coders for Causes are a group of developers that empower charities and
+        non-profit organisations by providing them solutions to their technical
+        problems. We are students powered and all of our members are volunteers.
       </p>
-      <Button color='primary' className='rounded-0'>
-        Work with us&nbsp;&nbsp;&nbsp;>
+      <Button size='lg' color='primary' className='rounded-0'>
+        Work with us&nbsp;&nbsp;&raquo;
       </Button>
     </Container>
     <div className='bg-light'>
-      <Container className='py-5'>
+      <Container>
         <Clients />
       </Container>
     </div>

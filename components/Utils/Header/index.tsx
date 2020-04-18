@@ -30,9 +30,10 @@ const Header = (props: { theme: Object }) => {
   return (
     <Navbar
       dark
+      tag='header'
       color='dark'
-      className='text-white py-3 fixed-top shadow-sm'
       expand='md'
+      className='text-white py-3 fixed-top shadow-sm'
       css={styles(props.theme)}
     >
       <Container>

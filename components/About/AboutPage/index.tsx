@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core'
 import { withTheme } from 'emotion-theming'
-import { Button, Container, Jumbotron, Row, Col } from 'reactstrap'
+import { Container, Jumbotron, Row, Col } from 'reactstrap'
 import Title from '../../Utils/Title'
 import Committee from '../Committee'
 import Clients from '../../Utils/Clients'
@@ -36,49 +36,39 @@ const AboutPage = (props: { theme: Object }) => (
       </Row>
     </Container>
 
-    <Jumbotron id='_meet_the_team' className='m-0'>
-      <Container className='rounded-0'>
-        <Row>
-          <Col xs={12} tag='h3' className='header'>
-            Meet the Team
-          </Col>
-          <Col xs={12}>
-            <Committee />
-          </Col>
-        </Row>
+    <Jumbotron id='_meet_the_team' className='m-0 p-0'>
+      <Container className='rounded-0 py-5'>
+        <h3 className='m-0'>Meet the Team</h3>
+        <Committee />
       </Container>
     </Jumbotron>
 
-    <Jumbotron className='m-0 bg-white'>
-      <Container>
-        <Row>
-          <Col xs={12} tag='h3' className='header m-0'>
-            Our Clients
-          </Col>
-        </Row>
-        <div className='py-5'>
-          <Clients />
-        </div>
-        <Row>
-          <Col xs={12} tag='h3' className='header m-0'>
-            Our Sponsors
-          </Col>
-        </Row>
-        <Sponsors />
-        <Row>
-          <Col xs={12} tag='h3' className='header m-0'>
-            Our Partnered Clubs
-          </Col>
-        </Row>
-        <Partners />
-        <Row>
-          <Col xs={12} tag='h3' className='header m-0'>
-            Special Thanks
-          </Col>
-        </Row>
-        <SpecialThanks />
-      </Container>
-    </Jumbotron>
+    <Container className='my-5'>
+      <Row>
+        <Col xs={12} tag='h3' className='header m-0'>
+          Our Clients
+        </Col>
+      </Row>
+      <Clients />
+      <Row>
+        <Col xs={12} tag='h3' className='header m-0'>
+          Our Sponsors
+        </Col>
+      </Row>
+      <Sponsors />
+      <Row>
+        <Col xs={12} tag='h3' className='header m-0'>
+          Our Partnered Clubs
+        </Col>
+      </Row>
+      <Partners />
+      <Row>
+        <Col xs={12} tag='h3' className='header m-0'>
+          Special Thanks
+        </Col>
+      </Row>
+      <SpecialThanks />
+    </Container>
   </div>
 )
 

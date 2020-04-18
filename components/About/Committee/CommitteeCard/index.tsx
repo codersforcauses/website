@@ -4,7 +4,7 @@ import { withTheme } from 'emotion-theming'
 import {
   Card,
   CardImg,
-  CardBody,
+  CardImgOverlay,
   CardTitle,
   CardSubtitle,
   CardText,
@@ -22,9 +22,9 @@ const CommitteeCard = ({
   },
   ...props
 }: Props) => (
-  <Card className='m-3 border-0 rounded-0' css={styles(props.theme)}>
-    <CardImg top width='100%' src={src} alt={alt} className='rounded-0' />
-    <CardBody>
+  <Card inverse className='border-0 rounded-0' css={styles(props.theme)}>
+    <CardImg width='100%' src={src} alt={alt} className='rounded-0' />
+    <CardImgOverlay className='bg-dark card-overlay'>
       <CardTitle className='font-weight-bolder text-monospace'>
         {name}
       </CardTitle>
@@ -99,7 +99,7 @@ const CommitteeCard = ({
           </a>
         )}
       </CardText>
-    </CardBody>
+    </CardImgOverlay>
   </Card>
 )
 

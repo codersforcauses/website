@@ -8,7 +8,7 @@ const clientsSample = clients
   .slice(0, Math.min(4, clients.length))
 
 const Clients = () => (
-  <Row className='justify-content-around'>
+  <Row className='justify-content-around py-5'>
     {clientsSample.map(client => (
       <Col
         xs={6}
