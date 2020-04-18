@@ -3,10 +3,10 @@ import { jsx } from '@emotion/core'
 import { withTheme } from 'emotion-theming'
 import { Container, Row, Col } from 'reactstrap'
 import Link from 'next/link'
-import { style } from './style'
+import { styles } from './styles'
 
 const Footer = (props: { theme: Object }) => (
-  <footer className='bg-dark text-white py-5 footer' css={style(props.theme)}>
+  <footer className='bg-dark text-white py-5 footer' css={styles(props.theme)}>
     <Container>
       <Row>
         <Col

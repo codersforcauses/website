@@ -3,12 +3,12 @@ import { jsx } from '@emotion/core'
 import { withTheme } from 'emotion-theming'
 import { useState } from 'react'
 import { Button, Container, Row, Col } from 'reactstrap'
-import { style } from './style'
+import { styles } from './styles'
 
 const EventPage = (props: { theme: Object }) => {
   const [isPaid, setIsPaid] = useState(true)
   return (
-    <div css={style(props.theme, 'https://source.unsplash.com/random')}>
+    <div css={styles(props.theme, 'https://source.unsplash.com/random')}>
       <div className='bg-dark mt-5 py-5 bg text-white monospace'>
         <Container className='mt-5 pt-5'>
           <h5 className='my-5'>./Workshop</h5>

@@ -10,7 +10,7 @@ import {
   Col
 } from 'reactstrap'
 import TechList from './TechList'
-import { style } from './style'
+import { styles } from './styles'
 
 const impact: Array<string> = [
   'Improve process efficiency',
@@ -19,7 +19,7 @@ const impact: Array<string> = [
 ]
 
 const ProjectPage = (props: { theme: Object }) => (
-  <div css={style(props.theme, 'https://source.unsplash.com/random')}>
+  <div css={styles(props.theme, 'https://source.unsplash.com/random')}>
     <div className='bg-dark pad bg'>
       <Container className='my-5 py-5' />
     </div>

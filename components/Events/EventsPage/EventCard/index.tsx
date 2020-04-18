@@ -10,10 +10,10 @@ import {
   CardTitle
 } from 'reactstrap'
 import Link from 'next/link'
-import { style } from './style'
+import { styles } from './styles'
 
 const EventCard = (props: { theme: Object }) => (
-  <Card outline color='primary' className='rounded-0' css={style(props.theme)}>
+  <Card outline color='primary' className='rounded-0' css={styles(props.theme)}>
     <CardImg
       top
       width='100%'

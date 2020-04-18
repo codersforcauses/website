@@ -4,10 +4,10 @@ import { withTheme } from 'emotion-theming'
 import { Container, Row, Col } from 'reactstrap'
 import Title from '../../Utils/Title'
 import EventCard from './EventCard'
-import { style } from './style'
+import { styles } from './styles'
 
 const EventPage = (props: { theme: Object }) => (
-  <div css={style(props.theme)}>
+  <div css={styles(props.theme)}>
     <Title typed>./events</Title>
     <Container className='my-5 py-5 bg-white rounded-0'>
       <Row>

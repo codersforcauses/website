@@ -6,7 +6,7 @@ import Link from 'next/link'
 import { DropdownMenu, DropdownItem, Dropdown } from 'reactstrap'
 import DropdownToggle from 'reactstrap/lib/DropdownToggle'
 import HeaderLink from '../HeaderLink'
-import { style } from './style'
+import { styles } from './styles'
 
 const HeaderDropdown = ({ items, href, text, ...props }: Props) => {
   const [isOpen, updateIsOpen] = useState(false)
@@ -19,7 +19,7 @@ const HeaderDropdown = ({ items, href, text, ...props }: Props) => {
       onBlur={() => updateIsOpen(false)}
       toggle={() => updateIsOpen(!isOpen)}
       isOpen={isOpen}
-      css={style(props.theme)}
+      css={styles(props.theme)}
     >
       <DropdownToggle nav className='header-dropdown-toggle'>
         <Link href={href}>
@@ -27,7 +27,7 @@ const HeaderDropdown = ({ items, href, text, ...props }: Props) => {
         </Link>
       </DropdownToggle>
       <DropdownMenu className='header-dropdown-menu'>
-        {items.map((item) => (
+        {items.map(item => (
           <DropdownItem key={item.href}>
             <HeaderLink href={item.href} text={item.text} />
           </DropdownItem>

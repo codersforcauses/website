@@ -10,7 +10,7 @@ import {
   CardText,
   CardProps
 } from 'reactstrap'
-import { styles } from './style'
+import { styles } from './styles'
 
 const CommitteeCard = ({
   item: {

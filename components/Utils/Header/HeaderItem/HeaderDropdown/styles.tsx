@@ -1,6 +1,6 @@
 import { css } from '@emotion/core'
 
-export const style = theme => css`
+export const styles = theme => css`
   .header-dropdown-menu {
     border: 0;
 

@@ -8,10 +8,10 @@ import Clients from '../../Utils/Clients'
 import Partners from '../Partners'
 import SpecialThanks from '../SpecialThanks'
 import Sponsors from '../Sponsors'
-import { style } from './style'
+import { styles } from './styles'
 
 const AboutPage = (props: { theme: Object }) => (
-  <div css={style(props.theme)}>
+  <div css={styles(props.theme)}>
     <Title typed>./about</Title>
     <Container id='_what_we_do' className='my-5 py-5 bg-white rounded-0'>
       <Row className='d-flex align-items-center'>

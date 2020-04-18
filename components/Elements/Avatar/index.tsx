@@ -11,7 +11,7 @@ import {
 } from 'reactstrap'
 import Router from 'next/router'
 import { getInitials } from '../../../helpers/user'
-import { style } from './style'
+import { styles } from './styles'
 
 const Avatar = ({
   dark = true,
@@ -40,7 +40,7 @@ const Avatar = ({
           className={`d-flex align-items-center justify-content-center ml-2 monospace ${
             round && 'rounded-circle'
           } ${props.className}`}
-          css={style(props.theme, size, dark, props.image)}
+          css={styles(props.theme, size, dark, props.image)}
         >
           {props.name && <p className='m-0'>{initials}</p>}
         </div>

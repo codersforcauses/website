@@ -1,6 +1,6 @@
 import { css } from '@emotion/core'
 
-export const style = (theme, image) => css`
+export const styles = (theme, image) => css`
   .pad {
     padding: 7rem 0;
     min-height: calc(60vh - 72px);

@@ -14,7 +14,7 @@ import {
   Input
 } from 'reactstrap'
 import Title from '../../Utils/Title'
-import { styles } from './style'
+import { styles } from './styles'
 import { validationSchema } from './validation'
 
 const mapPropsToValues = () => ({

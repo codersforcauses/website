@@ -14,7 +14,7 @@ import {
 import Link from 'next/link'
 import Avatar from '../../Elements/Avatar'
 import HeaderItem, { HeaderItemContent } from './HeaderItem'
-import { styles } from './style'
+import { styles } from './styles'
 
 const Header = (props: { theme: Object }) => {
   const [open, setOpen] = useState(false)

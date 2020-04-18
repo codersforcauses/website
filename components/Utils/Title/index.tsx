@@ -3,7 +3,7 @@ import { jsx } from '@emotion/core'
 import { withTheme } from 'emotion-theming'
 import { Jumbotron, Container } from 'reactstrap'
 import TypedText from '../TypedText'
-import { style } from './style'
+import { styles } from './styles'
 
 const Title = ({
   children,
@@ -16,7 +16,7 @@ const Title = ({
 }) => (
   <Jumbotron
     className='bg-dark text-white d-flex align-items-center rounded-0 mb-0 monospace'
-    css={style(props.theme)}
+    css={styles(props.theme)}
   >
     <Container>
       <h1 className='mb-4'>

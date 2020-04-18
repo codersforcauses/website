@@ -4,11 +4,11 @@ import { withTheme } from 'emotion-theming'
 import { Row, Col, Card, CardImg, CardTitle } from 'reactstrap'
 import Link from 'next/link'
 import projects from '../../../../data/projects.json'
-import { style } from './style'
+import { styles } from './styles'
 
 const ProjectCards = (props: { theme }) => {
   return (
-    <Row css={style(props.theme)}>
+    <Row css={styles(props.theme)}>
       {projects.map(project => (
         <Col
           xs={12}
