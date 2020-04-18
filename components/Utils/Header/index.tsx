@@ -39,13 +39,16 @@ const Header = (props: { theme: Object }) => {
       <Container>
         <Nav className='justify-content-start' tag='div'>
           <NavbarToggler
-            className='mr-5 d-flex d-md-none align-items-center px-0 ml-sm-3 border-0'
+            id='Menu'
             onClick={toggleOpen}
+            className='mr-5 d-flex d-md-none align-items-center px-0 ml-sm-3 border-0'
           >
             <i className='material-icons-sharp text-white'>menu</i>
           </NavbarToggler>
           <NavbarBrand
             href='/'
+            id='Home'
+            title='Home'
             className='mr-md-5 brand font-weight-bold monospace'
           >
             cfc

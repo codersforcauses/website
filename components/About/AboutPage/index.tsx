@@ -17,7 +17,7 @@ const AboutPage = (props: { theme: Object }) => (
       <Row className='d-flex align-items-center'>
         <Col xs={12} lg={7}>
           <h2 className='header'>We build software for charities</h2>
-          <p className='lead m-0'>
+          <p className='lead m-lg-0'>
             Coders for Causes is a not for profit organisation that empowers
             charities and other not for profit organisations by connecting them
             with university students to develop technical solutions. We are a
