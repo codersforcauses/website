@@ -72,6 +72,7 @@ const Map = (props: { marker: string; theme: Object }) => {
         }
         map.addLayer(property3D, labelLayerId)
 
+        // add marker for clubroom location
         new mapboxgl.Marker({ color: '#000000' })
           .setLngLat(UWA_COORDS)
           .addTo(map)
@@ -94,8 +95,6 @@ const Map = (props: { marker: string; theme: Object }) => {
           })
         }, 1000)
       })
-
-      // add marker for clubroom location
     }
 
     if (!map) initializeMap({ setMap, mapContainer })
