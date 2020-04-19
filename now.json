@@ -5,7 +5,7 @@
   "builds": [{ "src": "next.config.js", "use": "@now/next" }],
   "env": {
     "BASE_URL": "https://website-git-website-template.dankestkush.now.sh/",
-    "MAPBOX_API": "@cfc-website-mapbox-api",
+    "MAPBOX_API": "@cfc-website-temp-mapbox-api",
     "PHEME_URL": "@cfc-website-pheme-url",
     "PHEME_TOKEN": "@cfc-website-pheme-token",
     "PHEME_SALT": "@cfc-website-pheme-salt",
@@ -17,7 +17,7 @@
   "build": {
     "env": {
       "BASE_URL": "https://website-git-website-template.dankestkush.now.sh/",
-      "MAPBOX_API": "@cfc-website-mapbox-api",
+      "MAPBOX_API": "@cfc-website-temp-mapbox-api",
       "PHEME_URL": "@cfc-website-pheme-url",
       "PHEME_TOKEN": "@cfc-website-pheme-token",
       "PHEME_SALT": "@cfc-website-pheme-salt",
