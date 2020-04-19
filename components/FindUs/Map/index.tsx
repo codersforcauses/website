@@ -11,7 +11,7 @@ const property3D: mapboxgl.Layer = {
   'source-layer': 'building',
   filter: ['==', 'extrude', 'true'],
   type: 'fill-extrusion',
-  minzoom: 17,
+  minzoom: 17.5,
   paint: {
     'fill-extrusion-color': '#333',
     // use an 'interpolate' expression to add a smooth transition effect to the
@@ -83,7 +83,7 @@ const Map = (props: { marker: string; theme: Object }) => {
         // fly to animation
         setTimeout(() => {
           map.flyTo({
-            zoom: 16,
+            zoom: 17,
             speed: 0.6, // make the flying slow
 
             // This can be any easing function: it takes a number between
