@@ -34,7 +34,8 @@ const HomePage = (props: { theme: Object }) => (
       <p className='lead'>
         Coders for Causes are a group of developers that empower charities and
         non-profit organisations by providing them solutions to their technical
-        problems. We are students powered and all of our members are volunteers.
+        problems. We are student powered and all of our members are volunteers
+        dedicated to providing you the best results.
       </p>
       <Button size='lg' color='primary' className='rounded-0'>
         Work with us&nbsp;&nbsp;&raquo;
