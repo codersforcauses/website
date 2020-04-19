@@ -64,7 +64,6 @@ class MyDocument extends Document {
             crossOrigin='anonymous'
             defer
           />
-
           <link rel='icon' href='/favicon-light.png' type='image/png' />
         </Head>
         <body>

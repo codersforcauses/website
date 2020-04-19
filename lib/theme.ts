@@ -1,10 +1,10 @@
 export const theme = {
   breakpoints: {
-    xs: 360,
-    sm: 600,
-    md: 960,
-    lg: 1280,
-    xl: 1920
+    xs: 0,
+    sm: 576,
+    md: 768,
+    lg: 992,
+    xl: 1200
   },
 
   colors: {
