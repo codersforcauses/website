@@ -1,0 +1,16 @@
+.next/
+node_modules/
+amplify/
+cypress/
+.eslintrc
+.gitignore
+.prettierrc
+.travis.yml
+aws-exports.js
+*.md
+cypress.json
+LICENSE
+renovate.json
+
+# temp ignore dashboard route
+pages/dashboard/
