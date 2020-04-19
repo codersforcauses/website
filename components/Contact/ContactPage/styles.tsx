@@ -7,6 +7,5 @@ export const styles = theme => css`
   }
 
   ${media.sm`
-
   `}
 `
