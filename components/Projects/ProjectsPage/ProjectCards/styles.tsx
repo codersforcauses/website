@@ -1,7 +1,7 @@
 import { css } from '@emotion/core'
 import { media } from '../../../../lib/mediaQueries'
 
-export const style = theme => css`
+export const styles = theme => css`
   .space:nth-last-of-type(1) {
     margin: 0 !important;
   }

@@ -1,7 +1,7 @@
 import { css } from '@emotion/core'
 import { media } from '../../../lib/mediaQueries'
 
-export const style = (theme, url) => css`
+export const styles = (theme, url) => css`
   .text {
     font-size: 0.8rem;
     line-height: 1.3;

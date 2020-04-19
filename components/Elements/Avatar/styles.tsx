@@ -1,6 +1,6 @@
 import { css } from '@emotion/core'
 
-export const style = (theme, size, dark, image) => css`
+export const styles = (theme, size, dark, image) => css`
   background-color: ${theme.colors[dark ? 'primary' : 'secondary']};
   color: ${theme.colors[!dark ? 'primary' : 'secondary']};
   border: 1px solid ${theme.colors[!dark ? 'primary' : 'secondary']};

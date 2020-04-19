@@ -1,6 +1,6 @@
 import { css } from '@emotion/core'
 
-export const style = theme => css`
+export const styles = theme => css`
   .event-img {
     max-height: 15rem;
   }

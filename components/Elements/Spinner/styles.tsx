@@ -1,5 +1,5 @@
 import { css } from '@emotion/core'
 
-export const style = (theme, border) => css`
+export const styles = (theme, border) => css`
   border-width: ${border};
 `
