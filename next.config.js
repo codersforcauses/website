@@ -8,6 +8,7 @@ module.exports = withSass({
   },
   env: process.env.NODE_ENV !== 'development' && {
     BASE_URL: 'https://website-git-website-template.dankestkush.now.sh/',
+    MAPBOX_API: process.env.MAPBOX_API,
     PHEME_URL: process.env.PHEME_URL,
     PHEME_TOKEN: process.env.PHEME_TOKEN,
     PHEME_SALT: process.env.PHEME_SALT,
