@@ -12,7 +12,11 @@ const Map = dynamic(() => import('../Map'), { ssr: false })
 const FindUsPage = (props: { theme: Object }) => (
   <div css={styles(props.theme)}>
     <Head>
-      <script src='https://api.mapbox.com/mapbox-gl-js/v1.8.1/mapbox-gl.js' />
+      <script
+        async
+        defer
+        src='https://api.mapbox.com/mapbox-gl-js/v1.8.1/mapbox-gl.js'
+      />
       <link
         href='https://api.mapbox.com/mapbox-gl-js/v1.8.1/mapbox-gl.css'
         rel='stylesheet'
@@ -20,7 +24,7 @@ const FindUsPage = (props: { theme: Object }) => (
     </Head>
     <Title typed>./find us</Title>
     <div className='relative-container py-5'>
-      <Container className='py-5 bg-white rounded-0 d-md-flex text'>
+      <Container className='py-5 bg-secondary rounded-0 d-md-flex text'>
         <Row>
           <Col xs={12} md={6}>
             <h2 className='header'>We are here</h2>
@@ -36,7 +40,7 @@ const FindUsPage = (props: { theme: Object }) => (
             </p>
           </Col>
           <div className='map'>
-            <Map marker='/public/logo/cfc_logo_black_circle' />
+            <Map />
           </div>
         </Row>
       </Container>

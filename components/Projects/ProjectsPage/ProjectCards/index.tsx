@@ -28,12 +28,12 @@ const ProjectCards = (props: { theme }) => {
                   className='project-img img-fluid'
                 />
                 <div className='mt-3 d-flex align-items-center'>
-                  <div className='bg-dark'>
-                    <i className='material-icons-sharp text-white p-2'>
+                  <div className='bg-primary'>
+                    <i className='material-icons-sharp text-secondary p-2'>
                       {project.icon}
                     </i>
                   </div>
-                  <CardTitle className='font-weight-bold ml-3 mb-0 text-dark monospace'>
+                  <CardTitle className='font-weight-bold ml-3 mb-0 text-primary monospace'>
                     {project.name}
                   </CardTitle>
                 </div>

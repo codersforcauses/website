@@ -9,7 +9,7 @@ import { styles } from './styles'
 const ProjectsPage = (props: { theme: Object }) => (
   <div css={styles(props.theme)}>
     <Title typed>./projects</Title>
-    <Container id='#' className='my-5 py-5 px-1 bg-white rounded-0'>
+    <Container id='#' className='my-5 py-5 px-1 bg-secondary rounded-0'>
       <ProjectCards />
     </Container>
   </div>

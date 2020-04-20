@@ -24,7 +24,7 @@ const CommitteeCard = ({
 }: Props) => (
   <Card inverse className='border-0 rounded-0' css={styles(props.theme)}>
     <CardImg width='100%' src={src} alt={alt} className='rounded-0' />
-    <CardImgOverlay className='bg-dark card-overlay'>
+    <CardImgOverlay className='bg-primary card-overlay'>
       <CardTitle className='font-weight-bolder text-monospace'>
         {name}
       </CardTitle>

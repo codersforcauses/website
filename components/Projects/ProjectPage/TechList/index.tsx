@@ -9,8 +9,8 @@ const TechList = (props: { theme: Object }) => (
     className='d-flex align-items-center monospace'
     css={styles(props.theme)}
   >
-    <div className='bg-dark mr-3 bigger'>
-      <i className='material-icons-sharp text-white p-2 bigger'>menu</i>
+    <div className='bg-primary mr-3 bigger'>
+      <i className='material-icons-sharp text-secondary p-2 bigger'>menu</i>
     </div>
     VueJs
   </div>

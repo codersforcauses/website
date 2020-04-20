@@ -53,7 +53,7 @@ const UWAStudent = (props: Props & FormikProps<FormValues>) => {
           name='studentNumber'
           value={props.values.studentNumber}
           invalid={props.errors.studentNumber && props.touched.studentNumber}
-          className='rounded-0 text-dark border-dark'
+          className='rounded-0 text-primary border-primary'
         />
         <FormFeedback>{props.errors.studentNumber}</FormFeedback>
       </FormGroup>
@@ -71,7 +71,7 @@ const UWAStudent = (props: Props & FormikProps<FormValues>) => {
             name='password'
             value={props.values.password}
             invalid={props.errors.password && props.touched.password}
-            className='rounded-0 text-dark border-dark border-right-0'
+            className='rounded-0 text-primary border-primary border-right-0'
           />
           <InputGroupAddon addonType='append'>
             <Button

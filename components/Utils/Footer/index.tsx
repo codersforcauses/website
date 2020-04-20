@@ -6,7 +6,10 @@ import Link from 'next/link'
 import { styles } from './styles'
 
 const Footer = (props: { theme: Object }) => (
-  <footer className='bg-dark text-white py-5 footer' css={styles(props.theme)}>
+  <footer
+    className='bg-primary text-secondary py-5 footer'
+    css={styles(props.theme)}
+  >
     <Container>
       <Row>
         <Col

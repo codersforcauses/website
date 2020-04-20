@@ -23,8 +23,14 @@ export const globalStyle = theme => css`
     line-height: 1.5em;
   }
 
-  ::-moz-selection,
+  // selection needs to be separated to show on chromium browsers
   ::selection {
+    background: ${theme.colors.accent};
+    color: ${theme.colors.primary};
+    text-shadow: none;
+  }
+
+  ::-moz-selection {
     background: ${theme.colors.accent};
     color: ${theme.colors.primary};
     text-shadow: none;

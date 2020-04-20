@@ -124,7 +124,7 @@ const BrandPage = (props: { theme: Object }) => {
                   type='textarea'
                   value={typographyText}
                   onChange={({ target: { value } }) => setTypographyText(value)}
-                  className='big mt-3 mb-0 p-0 bg-transparent rounded-0 border-0 text-dark'
+                  className='big mt-3 mb-0 p-0 bg-transparent rounded-0 border-0 text-primary'
                 />
               </Card>
             </Col>
@@ -150,7 +150,7 @@ const BrandPage = (props: { theme: Object }) => {
                   type='textarea'
                   value={typographyText}
                   onChange={({ target: { value } }) => setTypographyText(value)}
-                  className='big mt-3 mb-0 p-0 bg-transparent rounded-0 border-0 text-dark'
+                  className='big mt-3 mb-0 p-0 bg-transparent rounded-0 border-0 text-primary'
                 />
               </Card>
             </Col>
@@ -164,7 +164,7 @@ const BrandPage = (props: { theme: Object }) => {
               <ColourCard
                 color='primary'
                 name='All Black (Primary)'
-                className='text-white'
+                className='text-secondary'
               />
             </Col>
             <Col xs={12} sm={6} md={4} lg={2}>
@@ -177,7 +177,7 @@ const BrandPage = (props: { theme: Object }) => {
               <ColourCard
                 color='success'
                 name='Ocean Blue (Success)'
-                className='text-white'
+                className='text-secondary'
               />
             </Col>
             <Col xs={12} sm={6} md={4} lg={2}>
@@ -187,7 +187,7 @@ const BrandPage = (props: { theme: Object }) => {
               <ColourCard
                 color='error'
                 name='Red Alert (Alert)'
-                className='text-white'
+                className='text-secondary'
               />
             </Col>
           </Row>

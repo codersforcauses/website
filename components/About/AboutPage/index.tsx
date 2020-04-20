@@ -13,7 +13,7 @@ import { styles } from './styles'
 const AboutPage = (props: { theme: Object }) => (
   <div css={styles(props.theme)}>
     <Title typed>./about</Title>
-    <Container id='_what_we_do' className='my-5 py-5 bg-white rounded-0'>
+    <Container id='_what_we_do' className='my-5 py-5 bg-secondary rounded-0'>
       <Row className='d-flex align-items-center'>
         <Col xs={12} lg={7}>
           <h2 className='header'>We build software for charities</h2>

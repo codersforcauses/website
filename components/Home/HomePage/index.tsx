@@ -11,7 +11,7 @@ import { styles } from './styles'
 
 const HomePage = (props: { theme: Object }) => (
   <div css={styles(props.theme)}>
-    <Jumbotron className='hero bg-dark text-white d-flex align-items-center rounded-0 monospace'>
+    <Jumbotron className='hero bg-primary text-secondary d-flex align-items-center rounded-0 monospace'>
       <Container>
         <h1 className='mb-4'>
           <TypedText
@@ -49,7 +49,7 @@ const HomePage = (props: { theme: Object }) => (
     <Container className='py-5 my-5'>
       <Services />
     </Container>
-    <div className='py-5 bg-dark text-white'>
+    <div className='py-5 bg-primary text-secondary'>
       <Container className='py-5'>
         <Row>
           <Col md={8}>
@@ -58,7 +58,7 @@ const HomePage = (props: { theme: Object }) => (
               href={`mailto:${constants.email}`}
               target='_blank'
               rel='noreferrer noopener'
-              className='text-white'
+              className='text-secondary'
             >
               <h3 className='email'>{constants.email}</h3>
             </a>

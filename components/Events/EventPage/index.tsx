@@ -9,7 +9,7 @@ const EventPage = (props: { theme: Object }) => {
   const [isPaid, setIsPaid] = useState(true)
   return (
     <div css={styles(props.theme, 'https://source.unsplash.com/random')}>
-      <div className='bg-dark mt-5 py-5 bg text-white monospace'>
+      <div className='bg-primary mt-5 py-5 bg text-secondary monospace'>
         <Container className='mt-5 pt-5'>
           <h5 className='my-5'>./Workshop</h5>
           <h1 className='display-4 m-0 event-main-head'>
@@ -69,10 +69,10 @@ const EventPage = (props: { theme: Object }) => {
             </div>
           </Col>
         </Row>
-        <Row noGutters className='text-white monospace'>
+        <Row noGutters className='text-secondary monospace'>
           <Col
             md={3}
-            className='bg-dark px-5 pt-5 pb-md-5 d-flex align-items-center justify-content-center'
+            className='bg-primary px-5 pt-5 pb-md-5 d-flex align-items-center justify-content-center'
           >
             <i className='material-icons-sharp md-xl'>
               {isPaid ? 'attach_money' : 'money_off'}
@@ -80,7 +80,7 @@ const EventPage = (props: { theme: Object }) => {
           </Col>
           <Col
             md={9}
-            className='bg-dark d-flex align-items-center p-5 pt-3 pt-md-5 workshop-border'
+            className='bg-primary d-flex align-items-center p-5 pt-3 pt-md-5 workshop-border'
           >
             <div className='px-lg-5'>
               <h5 className='font-weight-bold mb-3'>

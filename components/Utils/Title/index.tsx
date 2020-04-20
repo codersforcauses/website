@@ -15,7 +15,7 @@ const Title = ({
   typed?: boolean
 }) => (
   <Jumbotron
-    className='bg-dark text-white d-flex align-items-center rounded-0 mb-0 monospace'
+    className='bg-primary text-secondary d-flex align-items-center rounded-0 mb-0 monospace'
     css={styles(props.theme)}
   >
     <Container>

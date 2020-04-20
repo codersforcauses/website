@@ -9,7 +9,7 @@ import { styles } from './styles'
 const EventPage = (props: { theme: Object }) => (
   <div css={styles(props.theme)}>
     <Title typed>./events</Title>
-    <Container className='my-5 py-5 bg-white rounded-0'>
+    <Container className='my-5 py-5 bg-secondary rounded-0'>
       <Row>
         <Col xs={12} sm={6} lg={4} className='d-flex align-items-center'>
           <h2 className='monospace'>Workshops</h2>

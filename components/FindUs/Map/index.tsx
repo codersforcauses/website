@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core'
 import { withTheme } from 'emotion-theming'
-import { createElement, useState, useEffect, useRef } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import mapboxgl from 'mapbox-gl'
 import { styles } from './styles'
 
@@ -38,7 +38,7 @@ const property3D: mapboxgl.Layer = {
   }
 }
 
-const Map = (props: { marker: string; theme: Object }) => {
+const Map = (props: { theme: Object }) => {
   const [map, setMap] = useState(null)
   const mapContainer = useRef(null)
 
@@ -50,10 +50,12 @@ const Map = (props: { marker: string; theme: Object }) => {
     const initializeMap = ({ setMap, mapContainer }) => {
       const map = new mapboxgl.Map({
         container: mapContainer.current,
-        style: 'mapbox://styles/mapbox/light-v10',
+        style: 'mapbox://styles/mapbox/light-v10?optimize=true',
         center: UWA_COORDS,
+        minZoom: 9,
         zoom: 9,
-        pitch: 45,
+        maxZoom: 18.5,
+        pitch: 30,
         antialias: true
       })
 
@@ -101,10 +103,7 @@ const Map = (props: { marker: string; theme: Object }) => {
   }, [map, property3D])
 
   return (
-    <div
-      ref={el => (mapContainer.current = el)}
-      css={styles(props.theme, props.marker)}
-    />
+    <div ref={el => (mapContainer.current = el)} css={styles(props.theme)} />
   )
 }
 

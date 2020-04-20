@@ -85,7 +85,7 @@ const SignInPage = (props: { theme: Object }) => {
               <NavItem className='mr-2'>
                 <NavLink
                   className={`signin-tab rounded-0 ${
-                    isUWAStudent && 'border-dark'
+                    isUWAStudent && 'border-primary'
                   }`}
                   onClick={() => setIsUWAStudent(true)}
                 >
@@ -95,7 +95,7 @@ const SignInPage = (props: { theme: Object }) => {
               <NavItem>
                 <NavLink
                   className={`signin-tab rounded-0 ${
-                    !isUWAStudent && 'border-dark'
+                    !isUWAStudent && 'border-primary'
                   }`}
                   onClick={() => setIsUWAStudent(false)}
                 >

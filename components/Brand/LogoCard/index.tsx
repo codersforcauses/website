@@ -12,8 +12,8 @@ const LogoCard = (props: {
   theme: Object
 }) => (
   <Card
-    className={`border border-dark rounded-0 ${
-      props.dark && 'bg-dark text-white'
+    className={`border border-primary rounded-0 ${
+      props.dark && 'bg-primary text-secondary'
     }`}
     css={styles(props.theme, props.svg)}
   >
@@ -24,7 +24,7 @@ const LogoCard = (props: {
         href={props.png}
         target='_blank'
         rel='noopener noreferrer'
-        className={props.dark && 'text-white'}
+        className={props.dark && 'text-secondary'}
       >
         .png
       </a>
@@ -34,7 +34,7 @@ const LogoCard = (props: {
         href={props.svg}
         target='_blank'
         rel='noopener noreferrer'
-        className={props.dark && 'text-white'}
+        className={props.dark && 'text-secondary'}
       >
         .svg
       </a>

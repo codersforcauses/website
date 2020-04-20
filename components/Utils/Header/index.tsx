@@ -31,9 +31,9 @@ const Header = (props: { theme: Object }) => {
     <Navbar
       dark
       tag='header'
-      color='dark'
+      color='primary'
       expand='md'
-      className='text-white py-3 fixed-top shadow-sm'
+      className='text-secondary py-3 fixed-top shadow-sm'
       css={styles(props.theme)}
     >
       <Container>
@@ -43,7 +43,7 @@ const Header = (props: { theme: Object }) => {
             onClick={toggleOpen}
             className='mr-5 d-flex d-md-none align-items-center px-0 ml-sm-3 border-0'
           >
-            <i className='material-icons-sharp text-white'>menu</i>
+            <i className='material-icons-sharp text-secondary'>menu</i>
           </NavbarToggler>
           <NavbarBrand
             href='/'

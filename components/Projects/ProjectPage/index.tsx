@@ -20,7 +20,7 @@ const impact: Array<string> = [
 
 const ProjectPage = (props: { theme: Object }) => (
   <div css={styles(props.theme, 'https://source.unsplash.com/random')}>
-    <div className='bg-dark pad bg'>
+    <div className='bg-primary pad bg'>
       <Container className='my-5 py-5' />
     </div>
     <Container className='my-5'>
