@@ -1,21 +1,21 @@
 [
   {
-    "icon": "window-restore",
+    "icon": "web",
     "title": "Website",
     "description": "Build new websites or optimise existing pages to improve online visibility"
   },
   {
-    "icon": "database",
+    "icon": "storage",
     "title": "Data Storage",
     "description": "Design and create databases for efficient information storage"
   },
   {
-    "icon": "mobile",
+    "icon": "devices",
     "title": "Applications",
     "description": "Building custom web and mobile applications to engage with your audience"
   },
   {
-    "icon": "user",
+    "icon": "how_to_reg",
     "title": "Consulting",
     "description": "Empowering your organisation through technical knowledge"
   }

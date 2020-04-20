@@ -1,0 +1,14 @@
+{
+  "extends": ["standard", "standard-react", "plugin:cypress/recommended"],
+  "parser": "@typescript-eslint/parser",
+  "overrides": [
+    {
+      "files": ["*.ts", "*.tsx"],
+      "rules": {
+        "no-unused-vars": ["off"],
+        "no-undef": ["off"],
+        "space-before-function-paren": "off"
+      }
+    }
+  ]
+}

@@ -1,63 +1,74 @@
 {
   "name": "cfc-website",
-  "version": "1.0.1",
+  "version": "0.1.0",
   "description": "Coders for Causes website",
-  "main": "index.ts",
-  "scripts": {
-    "dev": "next",
-    "build": "next build",
-    "start": "next start",
-    "release": "standard-version",
-    "cz": "git-cz",
-    "cypress:open": "cypress open",
-    "cypress:run": "cypress run"
-  },
+  "main": "index.tsx",
+  "private": true,
+  "browserslist": [
+    ">0.3%",
+    "not ie 11",
+    "not dead",
+    "not op_mini all"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/codersforcauses/website.git"
   },
-  "author": "",
+  "author": "Coders for Causes",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/codersforcauses/website/issues"
   },
   "homepage": "https://github.com/codersforcauses/website#readme",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "cz": "./node_modules/.bin/git-cz",
+    "cypress:open": "cypress open",
+    "cypress:run": "cypress run"
+  },
   "dependencies": {
+    "@emotion/core": "^10.0.27",
     "@zeit/next-sass": "^1.0.1",
-    "bootstrap": "^4.3.1",
-    "next": "^9.0.0",
-    "node-sass": "^4.11.0",
-    "react": "^16.11.0",
-    "react-dom": "^16.11.0",
-    "reactstrap": "^8.0.0",
-    "typed.js": "^2.0.11"
+    "aws-amplify": "^3.0.7",
+    "aws-amplify-react": "^4.1.6",
+    "bootstrap": "^4.4.1",
+    "emotion-normalize": "^10.1.0",
+    "emotion-theming": "^10.0.27",
+    "formik": "^2.1.4",
+    "mapbox-gl": "^1.9.1",
+    "next": "9.2.2",
+    "node-sass": "^4.13.1",
+    "react": "16.12.0",
+    "react-dom": "16.12.0",
+    "reactstrap": "^8.4.1",
+    "typed.js": "^2.0.11",
+    "yup": "^0.28.3"
   },
   "devDependencies": {
-    "@types/node": "12.12.36",
-    "@types/react": "16.9.34",
-    "@types/reactstrap": "8.4.2",
-    "@typescript-eslint/parser": "2.28.0",
-    "cypress": "4.4.0",
-    "cz-conventional-changelog": "3.1.0",
-    "eslint": "6.8.0",
-    "eslint-config-standard": "14.1.0",
-    "eslint-config-standard-react": "9.2.0",
-    "eslint-plugin-cypress": "2.10.3",
-    "eslint-plugin-import": "2.20.1",
-    "eslint-plugin-node": "11.0.0",
-    "eslint-plugin-promise": "4.2.1",
-    "eslint-plugin-react": "7.19.0",
-    "eslint-plugin-standard": "4.0.1",
-    "husky": "4.2.5",
-    "lint-staged": "10.1.6",
-    "standard-version": "7.1.0",
-    "typescript": "3.8.3",
-    "wait-on": "4.0.2"
-  },
-  "config": {
-    "commitizen": {
-      "path": "./node_modules/cz-conventional-changelog"
-    }
+    "@types/mapbox-gl": "^1.9.0",
+    "@types/node": "^13.7.4",
+    "@types/react": "^16.9.23",
+    "@types/yup": "^0.26.35",
+    "@typescript-eslint/parser": "^2.27.0",
+    "commitizen": "^4.0.4",
+    "cypress": "^4.3.0",
+    "dotenv-webpack": "^1.7.0",
+    "eslint": "^6.8.0",
+    "eslint-config-standard": "^14.1.0",
+    "eslint-config-standard-react": "^9.2.0",
+    "eslint-plugin-cypress": "^2.10.3",
+    "eslint-plugin-import": "^2.20.1",
+    "eslint-plugin-jsx-a11y": "^6.2.3",
+    "eslint-plugin-node": "^11.0.0",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-react": "^7.18.3",
+    "eslint-plugin-standard": "^4.0.1",
+    "husky": "^4.2.3",
+    "lint-staged": "^10.1.2",
+    "typescript": "^3.7.5",
+    "wait-on": "^4.0.1"
   },
   "husky": {
     "hooks": {

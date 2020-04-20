@@ -1,7 +1,7 @@
 language: node_js
 
-node_js:
-  - 10.13
+nodejs:
+  - 'lts/*'
 
 # if using Ubuntu 16 need this library
 # https://github.com/cypress-io/cypress-documentation/pull/1647
@@ -12,8 +12,6 @@ addons:
 
 cache:
   yarn: true
-  # Don't cache node_modules or .npm
-  # https://docs.cypress.io/guides/guides/continuous-integration.html#Caching
   directories:
     - ~/.cache
 
@@ -21,3 +19,6 @@ script:
   - yarn build
   - yarn start & wait-on http://localhost:3000
   - yarn cypress:run
+
+notifications:
+  email: false

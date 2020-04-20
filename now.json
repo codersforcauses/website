@@ -1,0 +1,30 @@
+{
+  "name": "cfc-website",
+  "version": 2,
+  "public": false,
+  "builds": [{ "src": "next.config.js", "use": "@now/next" }],
+  "env": {
+    "BASE_URL": "https://website-git-website-template.dankestkush.now.sh/",
+    "MAPBOX_API": "@cfc-website-temp-mapbox-api",
+    "PHEME_URL": "@cfc-website-pheme-url",
+    "PHEME_TOKEN": "@cfc-website-pheme-token",
+    "PHEME_SALT": "@cfc-website-pheme-salt",
+    "AMPLIFY_AWS_COGNITO_REGION": "@cfc-website-cognito-region",
+    "AMPLIFY_AWS_COGNITO_USER_POOLS_ID": "@cfc-website-cognito-user-pool-id",
+    "AMPLIFY_AWS_COGNITO_WEB_CLIENT_ID": "@cfc-website-cognito-web-client-id",
+    "AMPLIFY_OAUTH_DOMAIN": "@cfc-website-oauth-domain"
+  },
+  "build": {
+    "env": {
+      "BASE_URL": "https://website-git-website-template.dankestkush.now.sh/",
+      "MAPBOX_API": "@cfc-website-temp-mapbox-api",
+      "PHEME_URL": "@cfc-website-pheme-url",
+      "PHEME_TOKEN": "@cfc-website-pheme-token",
+      "PHEME_SALT": "@cfc-website-pheme-salt",
+      "AMPLIFY_AWS_COGNITO_REGION": "@cfc-website-cognito-region",
+      "AMPLIFY_AWS_COGNITO_USER_POOLS_ID": "@cfc-website-cognito-user-pool-id",
+      "AMPLIFY_AWS_COGNITO_WEB_CLIENT_ID": "@cfc-website-cognito-web-client-id",
+      "AMPLIFY_OAUTH_DOMAIN": "@cfc-website-oauth-domain"
+    }
+  }
+}
