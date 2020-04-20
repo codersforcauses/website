@@ -27,6 +27,7 @@ const AboutPage = (props: { theme: Object }) => (
         rel='stylesheet'
       />
     </Head>
+
     <Title typed>./about</Title>
     <div className='relative-container py-5'>
       <Container
