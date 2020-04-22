@@ -62,13 +62,15 @@ const Header = (props: { theme: Object }) => {
           </Collapse>
         </Nav>
         {/* <Avatar round name='John Doe' /> */}
-        <Button
-          outline
-          color='secondary'
-          className='d-none d-md-block rounded-0'
-        >
-          Membership
-        </Button>
+        <Link href='/membership'>
+          <Button
+            outline
+            color='secondary'
+            className='d-none d-md-block rounded-0'
+          >
+            Membership
+          </Button>
+        </Link>
       </Container>
     </Navbar>
   )
