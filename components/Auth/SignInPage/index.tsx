@@ -13,7 +13,6 @@ import {
   TabContent,
   TabPane
 } from 'reactstrap'
-import Link from 'next/link'
 import Router from 'next/router'
 import Title from '../../Utils/Title'
 import { phemeLogin } from '../../../helpers/phemeLogin'
@@ -21,7 +20,7 @@ import UWAStudent from './UWAStudent'
 import OtherMember from './OtherMember'
 import { styles } from './styles'
 
-const SignInPage = (props: { theme: Object }) => {
+const SignInPage = (props: { signUp: Function; theme: Object }) => {
   const [isUWAStudent, setIsUWAStudent] = useState(true)
   const [loading, setLoading] = useState(false)
   const [errors, setErrors] = useState('')
@@ -75,9 +74,15 @@ const SignInPage = (props: { theme: Object }) => {
         <Row>
           <Col xs={12} tag='p'>
             Don't have an account? Create one&nbsp;
-            <Link href='/signup'>
-              <a>here</a>
-            </Link>
+            <a
+              href=''
+              onClick={e => {
+                e.preventDefault()
+                props.signUp(true)
+              }}
+            >
+              here
+            </a>
             !
           </Col>
           <Col md={6}>

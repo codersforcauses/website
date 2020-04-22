@@ -13,7 +13,6 @@ import {
   TabPane
 } from 'reactstrap'
 import { Auth } from 'aws-amplify'
-import Link from 'next/link'
 import Router from 'next/router'
 import Title from '../../Utils/Title'
 import { phemeLogin } from '../../../helpers/phemeLogin'
@@ -21,7 +20,7 @@ import UWAStudent from './UWAStudent'
 import OtherMember from './OtherMember'
 import { styles } from './styles'
 
-const SignUpPage = (props: { theme: Object }) => {
+const SignUpPage = (props: { signIn: Function; theme: Object }) => {
   const [isUWAStudent, setIsUWAStudent] = useState(true)
   const [loading, setLoading] = useState(false)
   const [errors, setErrors] = useState('')
@@ -77,9 +76,15 @@ const SignUpPage = (props: { theme: Object }) => {
         <Row>
           <Col xs={12} tag='p'>
             Already have an account? Sign in&nbsp;
-            <Link href='/signin'>
-              <a>here</a>
-            </Link>
+            <a
+              href=''
+              onClick={e => {
+                e.preventDefault()
+                props.signIn(false)
+              }}
+            >
+              here
+            </a>
             !
           </Col>
           <Col md={6}>
