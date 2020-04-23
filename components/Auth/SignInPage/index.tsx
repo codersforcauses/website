@@ -14,8 +14,8 @@ import {
   TabPane
 } from 'reactstrap'
 import Router from 'next/router'
-import Title from '../../Utils/Title'
-import { phemeLogin } from '../../../helpers/phemeLogin'
+import { phemeLogin } from 'helpers/phemeLogin'
+import Title from 'components/Utils/Title'
 import UWAStudent from './UWAStudent'
 import OtherMember from './OtherMember'
 import { styles } from './styles'

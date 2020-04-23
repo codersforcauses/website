@@ -1,5 +1,6 @@
+import React from 'react'
 import { Row, Col, Card, CardBody } from 'reactstrap'
-import services from '../../../data/services.json'
+import services from 'data/services.json'
 
 const Service = (props: {
   icon: string

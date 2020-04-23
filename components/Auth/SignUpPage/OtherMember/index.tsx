@@ -15,7 +15,7 @@ import {
   Row,
   Col
 } from 'reactstrap'
-import Spinner from '../../../Elements/Spinner'
+import Spinner from 'components/Elements/Spinner'
 import { styles } from './styles'
 import { validationSchema } from './validation'
 

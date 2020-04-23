@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core'
 import { withTheme } from 'emotion-theming'
-import React, { useState } from 'react'
+import { useState } from 'react'
 import Link from 'next/link'
 import { DropdownMenu, DropdownItem, Dropdown } from 'reactstrap'
 import DropdownToggle from 'reactstrap/lib/DropdownToggle'

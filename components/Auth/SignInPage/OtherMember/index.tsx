@@ -14,8 +14,8 @@ import {
   InputGroupAddon,
   UncontrolledAlert
 } from 'reactstrap'
+import Spinner from 'components/Elements/Spinner'
 import ForgotPasswordModal from './ForgotPasswordModal'
-import Spinner from '../../../Elements/Spinner'
 import { styles } from './styles'
 import { validationSchema } from './validation'
 

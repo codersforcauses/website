@@ -2,7 +2,7 @@
 import { jsx } from '@emotion/core'
 import { withTheme } from 'emotion-theming'
 import { Card, CardHeader, CardFooter } from 'reactstrap'
-import { Theme } from '../../../lib/theme'
+import { Theme } from 'lib/theme'
 import { styles } from './styles'
 
 const ColourCard = (props: {

@@ -2,7 +2,7 @@
 import { jsx } from '@emotion/core'
 import { withTheme } from 'emotion-theming'
 import { Container, Row, Col } from 'reactstrap'
-import Title from '../../Utils/Title'
+import Title from 'components/Utils/Title'
 import EventCard from './EventCard'
 import { styles } from './styles'
 

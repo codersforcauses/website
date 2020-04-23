@@ -12,7 +12,7 @@ import {
   InputGroup,
   InputGroupAddon
 } from 'reactstrap'
-import Spinner from '../../../../../Elements/Spinner'
+import Spinner from 'components/Elements/Spinner'
 
 const Step2 = (props: Props & FormikProps<FormValues>) => {
   const [passwordVisible, setPasswordVisible] = useState(false)

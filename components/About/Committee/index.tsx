@@ -1,7 +1,7 @@
 import React from 'react'
 import { Row, Col } from 'reactstrap'
+import { committee } from 'data/committee.json'
 import CommitteeCard from './CommitteeCard'
-import { committee } from '../../../data/committee.json'
 
 const Committee = () => (
   <Row>

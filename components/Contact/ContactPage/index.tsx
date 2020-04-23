@@ -13,7 +13,7 @@ import {
   Label,
   Input
 } from 'reactstrap'
-import Title from '../../Utils/Title'
+import Title from 'components/Utils/Title'
 import { styles } from './styles'
 import { validationSchema } from './validation'
 

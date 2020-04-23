@@ -1,7 +1,7 @@
 import React from 'react'
 import { Row, Col } from 'reactstrap'
-import { randomise } from '../../../helpers/array'
-import specialThanks from '../../../data/specialThanks.json'
+import { randomise } from 'helpers/array'
+import specialThanks from 'data/specialThanks.json'
 
 const specialThanksSample = specialThanks
   .sort(randomise)

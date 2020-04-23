@@ -1,7 +1,6 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core'
 import { withTheme } from 'emotion-theming'
-import {} from 'reactstrap'
 import { styles } from './styles'
 
 const TechList = (props: { theme: Object }) => (

@@ -2,8 +2,8 @@
 import { Global, jsx } from '@emotion/core'
 import { withTheme } from 'emotion-theming'
 import Head from 'next/head'
-import Header from '../Utils/Header'
-import Footer from '../Utils/Footer'
+import Header from 'components/Utils/Header'
+import Footer from 'components/Utils/Footer'
 import { globalStyle } from './styles'
 
 const PageContainer = ({

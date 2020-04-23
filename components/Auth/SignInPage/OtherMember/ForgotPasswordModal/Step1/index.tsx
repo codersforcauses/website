@@ -9,7 +9,7 @@ import {
   Label,
   Input
 } from 'reactstrap'
-import Spinner from '../../../../../Elements/Spinner'
+import Spinner from 'components/Elements/Spinner'
 
 const Step1 = (props: Props & FormikProps<FormValues>) => (
   <Form>

@@ -2,11 +2,11 @@
 import { jsx } from '@emotion/core'
 import { withTheme } from 'emotion-theming'
 import { Jumbotron, Button, Container, Row, Col } from 'reactstrap'
-import Clients from '../../Utils/Clients'
+import constants from 'data/constants.json'
+import TypedText from 'components/Utils/TypedText'
+import Clients from 'components/Utils/Clients'
 import Services from '../Services'
-import TypedText from '../../Utils/TypedText'
 import Face from '../Face'
-import constants from '../../../data/constants.json'
 import { styles } from './styles'
 
 const HomePage = (props: { theme: Object }) => (
