@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core'
 import { withTheme } from 'emotion-theming'
-import { useState } from 'react'
+import { useContext, useState } from 'react'
 import {
   Navbar,
   NavbarBrand,
@@ -12,9 +12,10 @@ import {
   NavbarToggler
 } from 'reactstrap'
 import Link from 'next/link'
-import Avatar from '../../Elements/Avatar'
+import SignedInUser from './SignedInUser'
 import HeaderItem, { HeaderItemContent } from './HeaderItem'
 import { styles } from './styles'
+import { UserContext } from 'helpers/user'
 
 const Header = (props: { theme: Object }) => {
   const [open, setOpen] = useState(false)
@@ -26,6 +27,8 @@ const Header = (props: { theme: Object }) => {
   ]
 
   const toggleOpen = () => setOpen(!open)
+
+  const { user, setUser } = useContext(UserContext)
 
   return (
     <Navbar
@@ -61,16 +64,23 @@ const Header = (props: { theme: Object }) => {
             </Nav>
           </Collapse>
         </Nav>
-        {/* <Avatar round name='John Doe' /> */}
-        <Link href='/membership'>
-          <Button
-            outline
-            color='secondary'
-            className='d-none d-md-block rounded-0'
-          >
-            Membership
-          </Button>
-        </Link>
+        {user ? (
+          <SignedInUser
+            setUser={setUser}
+            // eslint-disable-next-line
+            name={`${user?.given_name} ${user?.family_name}`}
+          />
+        ) : (
+          <Link href='/membership'>
+            <Button
+              outline
+              color='secondary'
+              className='d-none d-md-block rounded-0'
+            >
+              Membership
+            </Button>
+          </Link>
+        )}
       </Container>
     </Navbar>
   )

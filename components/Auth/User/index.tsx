@@ -1,38 +1,39 @@
-import React, { useEffect, useMemo, useState } from 'react'
+import React, { FunctionComponent, useEffect, useState } from 'react'
 import { Auth } from 'aws-amplify'
-import { UserProvider } from '../../../helpers/user'
+import { UserProvider } from 'helpers/user'
 
-// @ts-ignore
-const User = props =>
-  useMemo(() => {
-    const [load, setLoad] = useState(false)
-    const [user, setUser] = useState(null)
+const User: FunctionComponent = ({ children }) => {
+  const [load, setLoad] = useState(false)
+  const [user, setUser] = useState(null)
 
-    // console.log(typeof props)
-
-    try {
-      setLoad(true)
-      useEffect(() => {
-        const auth = async () => {
+  try {
+    useEffect(() => {
+      const auth = async () => {
+        try {
+          setLoad(true)
           const session = await Auth.currentSession()
-          return !session ? null : session.getIdToken().decodePayload()
+          setUser(session.getIdToken().decodePayload())
+        } catch (error) {
+          setUser(null)
+        } finally {
+          setLoad(false)
         }
-        auth().then(aws => (aws ? setUser(aws.sub) : setUser(null)))
-      }, [])
+      }
+      auth()
+    }, [])
+    console.log(user)
 
-      // query user data here
-      // TODO
+    // query user data here when backend is built
+    // TODO
 
-      return (
-        <UserProvider value={{ user: user, setUser: setUser, loading: load }}>
-          {props.children}
-        </UserProvider>
-      )
-    } catch (error) {
-      return <>{props.children}</>
-    } finally {
-      setLoad(false)
-    }
-  }, [])
+    return (
+      <UserProvider value={{ user: user, setUser: setUser, loading: load }}>
+        {children}
+      </UserProvider>
+    )
+  } catch (error) {
+    return <>{children}</>
+  }
+}
 
 export default User

@@ -1,6 +1,6 @@
 import App, { AppProps } from 'next/app'
 import { ThemeProvider } from 'emotion-theming'
-import React, { useEffect } from 'react'
+import React, { useContext, useEffect } from 'react'
 import Amplify from 'aws-amplify'
 import User from '../components/Auth/User'
 import { initAnalytics } from '../helpers/analytics'
@@ -39,23 +39,23 @@ const Website = ({ Component, pageProps }: AppProps) => {
   }, [])
 
   return (
-    <ThemeProvider theme={theme}>
-      {/* <User> */}
-      <Component {...pageProps} />
-      {/* </User> */}
-      {process.env.NODE_ENV !== 'development' && (
-        <>
-          <div id='fb-root' />
-          <div
-            className='fb-customerchat'
-            data-theme_color='#000000'
-            data-page_id='700598980115471'
-            data-logged_in_greeting='Hi there! How can we help you?'
-            data-logged_out_greeting='Please log in to chat with us'
-          />
-        </>
-      )}
-    </ThemeProvider>
+    <User>
+      <ThemeProvider theme={theme}>
+        <Component {...pageProps} />
+        {process.env.NODE_ENV !== 'development' && (
+          <>
+            <div id='fb-root' />
+            <div
+              className='fb-customerchat'
+              data-theme_color='#000000'
+              data-page_id='700598980115471'
+              data-logged_in_greeting='Hi there! How can we help you?'
+              data-logged_out_greeting='Please log in to chat with us'
+            />
+          </>
+        )}
+      </ThemeProvider>
+    </User>
   )
 }
 

@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core'
 import { withTheme } from 'emotion-theming'
-import { useState } from 'react'
+import { useState, useContext } from 'react'
 import { Auth } from 'aws-amplify'
 import {
   Container,
@@ -15,6 +15,7 @@ import {
 } from 'reactstrap'
 import Router from 'next/router'
 import { phemeLogin } from 'helpers/phemeLogin'
+import { UserContext } from 'helpers/user'
 import Title from 'components/Utils/Title'
 import UWAStudent from './UWAStudent'
 import OtherMember from './OtherMember'
@@ -24,6 +25,8 @@ const SignInPage = (props: { signUp: Function; theme: Object }) => {
   const [isUWAStudent, setIsUWAStudent] = useState(true)
   const [loading, setLoading] = useState(false)
   const [errors, setErrors] = useState('')
+
+  const { setUser } = useContext(UserContext)
 
   const closeError = () => setErrors('')
 
@@ -50,7 +53,7 @@ const SignInPage = (props: { signUp: Function; theme: Object }) => {
         data.password = `${values.studentNumber}${process.env.PHEME_SALT}`
       }
       const response = await Auth.signIn(data.username, data.password)
-      // console.log(response)
+      setUser(response.attributes)
       Router.push('/dashboard')
     } catch ({ code, message }) {
       if (code === 'UserNotConfirmedException') {
