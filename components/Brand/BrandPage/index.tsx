@@ -122,9 +122,10 @@ const BrandPage = (props: { theme: Object }) => {
                 </div>
                 <Input
                   type='textarea'
+                  plaintext
                   value={typographyText}
                   onChange={({ target: { value } }) => setTypographyText(value)}
-                  className='big mt-3 mb-0 p-0 bg-transparent rounded-0 border-0 text-primary'
+                  className='big mt-3'
                 />
               </Card>
             </Col>
@@ -148,9 +149,10 @@ const BrandPage = (props: { theme: Object }) => {
                 </div>
                 <Input
                   type='textarea'
+                  plaintext
                   value={typographyText}
                   onChange={({ target: { value } }) => setTypographyText(value)}
-                  className='big mt-3 mb-0 p-0 bg-transparent rounded-0 border-0 text-primary'
+                  className='big mt-3'
                 />
               </Card>
             </Col>

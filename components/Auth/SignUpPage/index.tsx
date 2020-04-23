@@ -91,6 +91,7 @@ const SignUpPage = (props: { signIn: Function; theme: Object }) => {
             <Nav tabs className='border-0'>
               <NavItem className='mr-2'>
                 <NavLink
+                  disabled={loading}
                   className={`signup-tab rounded-0 ${
                     isUWAStudent && 'border-primary'
                   }`}
@@ -101,6 +102,7 @@ const SignUpPage = (props: { signIn: Function; theme: Object }) => {
               </NavItem>
               <NavItem>
                 <NavLink
+                  disabled={loading}
                   className={`signup-tab rounded-0 ${
                     !isUWAStudent && 'border-primary'
                   }`}

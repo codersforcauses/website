@@ -48,6 +48,7 @@ const UWAStudent = (props: Props & FormikProps<FormValues>) => {
           type='text'
           bsSize='lg'
           tag={Field}
+          disabled={props.loading}
           placeholder='211234567'
           id='studentNumber'
           name='studentNumber'
@@ -66,6 +67,7 @@ const UWAStudent = (props: Props & FormikProps<FormValues>) => {
             type={passwordVisible ? 'text' : 'password'}
             bsSize='lg'
             tag={Field}
+            disabled={props.loading}
             placeholder='********'
             id='password'
             name='password'
@@ -77,6 +79,7 @@ const UWAStudent = (props: Props & FormikProps<FormValues>) => {
             <Button
               outline
               color='primary'
+              disabled={props.loading}
               className='rounded-0 border-left-0 d-flex align-items-center justify-content-center'
               onClick={() => setPasswordVisible(!passwordVisible)}
             >
@@ -92,6 +95,7 @@ const UWAStudent = (props: Props & FormikProps<FormValues>) => {
         type='submit'
         size='lg'
         color='primary'
+        disabled={props.loading}
         className='rounded-0 monospace px-4 d-flex align-items-center'
       >
         Sign Up
