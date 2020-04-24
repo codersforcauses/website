@@ -9,7 +9,7 @@ export const styles = (theme, image) => css`
   height: 38px;
   width: 38px;
 
-  ${!!image &&
+  ${image &&
   `
     background-image: url('${image}');
     background-size: cover;

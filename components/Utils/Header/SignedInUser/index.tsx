@@ -39,10 +39,17 @@ const Avatar = ({ name, setUser, ...props }: Props) => {
         </div>
       </DropdownToggle>
       <DropdownMenu className='rounded-0'>
-        <DropdownItem tag='small'>User Settings</DropdownItem>
+        <DropdownItem className='d-flex align-items-center px-3'>
+          <i className='material-icons-sharp mr-2'>settings</i>
+          <small>User Settings</small>
+        </DropdownItem>
         <DropdownItem divider />
-        <DropdownItem tag='small' onClick={handleSignOut}>
-          Sign Out
+        <DropdownItem
+          className='d-flex align-items-center px-3'
+          onClick={handleSignOut}
+        >
+          <i className='material-icons-sharp mr-2'>exit_to_app</i>
+          <small>Sign Out</small>
         </DropdownItem>
       </DropdownMenu>
     </ButtonDropdown>
