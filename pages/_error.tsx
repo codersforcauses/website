@@ -1,7 +1,7 @@
 import React from 'react'
 import { Container } from 'reactstrap'
-import PageContainer from '../components/PageContainer'
-import Title from '../components/Utils/Title'
+import PageContainer from 'components/PageContainer'
+import Title from 'components/Utils/Title'
 
 const Error = ({ statusCode }: { statusCode: any }) => (
   <PageContainer>

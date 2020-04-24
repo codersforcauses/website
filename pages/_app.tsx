@@ -2,11 +2,11 @@ import App, { AppProps } from 'next/app'
 import { ThemeProvider } from 'emotion-theming'
 import React, { useContext, useEffect } from 'react'
 import Amplify from 'aws-amplify'
-import User from '../components/Auth/User'
-import { initAnalytics } from '../helpers/analytics'
-import { initMessenger } from '../helpers/messenger'
-import { theme } from '../lib/theme'
-import '../theme.scss'
+import User from 'components/Auth/User'
+import { initAnalytics } from 'helpers/analytics'
+import { initMessenger } from 'helpers/messenger'
+import { theme } from 'lib/theme'
+import 'theme.scss'
 
 Amplify.configure({
   aws_project_region: process.env.AMPLIFY_AWS_COGNITO_REGION,

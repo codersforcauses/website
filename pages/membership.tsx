@@ -1,16 +1,17 @@
 import React, { useState } from 'react'
-import PageContainer from '../components/PageContainer'
-import SignInPage from '../components/Auth/SignInPage'
-import SignUpPage from '../components/Auth/SignUpPage'
+import PageContainer from 'components/PageContainer'
+import SignInPage from 'components/Auth/SignInPage'
+import SignUpPage from 'components/Auth/SignUpPage'
 
-const Membership = () => {
+const Membership = (props: { noRedirect?: boolean }) => {
   const [isSignUp, setIsSignUp] = useState(false)
+
   return (
     <PageContainer>
       {isSignUp ? (
-        <SignUpPage signIn={setIsSignUp} />
+        <SignUpPage noRedirect={props?.noRedirect} signIn={setIsSignUp} />
       ) : (
-        <SignInPage signUp={setIsSignUp} />
+        <SignInPage noRedirect={props?.noRedirect} signUp={setIsSignUp} />
       )}
     </PageContainer>
   )

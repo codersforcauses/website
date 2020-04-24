@@ -38,10 +38,13 @@ const Avatar = ({ name, setUser, ...props }: Props) => {
           {name && <p className='m-0'>{initials}</p>}
         </div>
       </DropdownToggle>
-      <DropdownMenu className='rounded-0'>
-        <DropdownItem className='d-flex align-items-center px-3'>
+      <DropdownMenu className='rounded-0 mt-2'>
+        <DropdownItem
+          href='/account_settings'
+          className='d-flex align-items-center px-3'
+        >
           <i className='material-icons-sharp mr-2'>settings</i>
-          <small>User Settings</small>
+          <small>Account Settings</small>
         </DropdownItem>
         <DropdownItem divider />
         <DropdownItem

@@ -1,18 +1,18 @@
 import React, { useContext } from 'react'
 import PageContainer from 'components/PageContainer'
-import DashboardPage from 'components/Dashboard/DashboardPage'
+import AccountSettingsPage from 'components/Auth/AccountSettingsPage'
 import Membership from 'pages/membership'
 import { UserContext } from 'helpers/user'
 
-const Dashboard = () => {
+const AccountSettings = () => {
   const { user } = useContext(UserContext)
   return user ? (
     <PageContainer>
-      <DashboardPage />
+      <AccountSettingsPage />
     </PageContainer>
   ) : (
     <Membership noRedirect />
   )
 }
 
-export default Dashboard
+export default AccountSettings

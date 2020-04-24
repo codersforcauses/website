@@ -20,7 +20,11 @@ import UWAStudent from './UWAStudent'
 import OtherMember from './OtherMember'
 import { styles } from './styles'
 
-const SignUpPage = (props: { signIn: Function; theme: Object }) => {
+const SignUpPage = (props: {
+  noRedirect?: boolean
+  signIn: Function
+  theme: Object
+}) => {
   const [isUWAStudent, setIsUWAStudent] = useState(true)
   const [loading, setLoading] = useState(false)
   const [errors, setErrors] = useState('')
@@ -59,7 +63,7 @@ const SignUpPage = (props: { signIn: Function; theme: Object }) => {
       }
       const response = await Auth.signUp(data)
       // console.log(response)
-      Router.push('/dashboard')
+      if (!props.noRedirect) Router.push('/dashboard')
     } catch (error) {
       setErrors(
         error.message ||

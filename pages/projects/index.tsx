@@ -1,5 +1,6 @@
-import PageContainer from '../../components/PageContainer'
-import ProjectsPage from '../../components/Projects/ProjectsPage'
+import React from 'react'
+import PageContainer from 'components/PageContainer'
+import ProjectsPage from 'components/Projects/ProjectsPage'
 
 const Projects = () => (
   <PageContainer>

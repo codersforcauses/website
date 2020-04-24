@@ -1,5 +1,6 @@
-import PageContainer from '../../components/PageContainer'
-import EventPage from '../../components/Events/EventPage'
+import React from 'react'
+import PageContainer from 'components/PageContainer'
+import EventPage from 'components/Events/EventPage'
 
 const Event = () => (
   <PageContainer>

@@ -21,7 +21,11 @@ import UWAStudent from './UWAStudent'
 import OtherMember from './OtherMember'
 import { styles } from './styles'
 
-const SignInPage = (props: { signUp: Function; theme: Object }) => {
+const SignInPage = (props: {
+  noRedirect?: boolean
+  signUp: Function
+  theme: Object
+}) => {
   const [isUWAStudent, setIsUWAStudent] = useState(true)
   const [loading, setLoading] = useState(false)
   const [errors, setErrors] = useState('')
@@ -54,7 +58,7 @@ const SignInPage = (props: { signUp: Function; theme: Object }) => {
       }
       const response = await Auth.signIn(data.username, data.password)
       setUser(response.attributes)
-      Router.push('/dashboard')
+      if (!props.noRedirect) Router.push('/dashboard')
     } catch ({ code, message }) {
       if (code === 'UserNotConfirmedException') {
         setErrors(
