@@ -1,5 +1,5 @@
 import React, { FunctionComponent, useEffect, useState } from 'react'
-import { Auth } from 'aws-amplify'
+import { Auth } from '@aws-amplify/auth'
 import { UserProvider } from 'helpers/user'
 
 const User: FunctionComponent = ({ children }) => {

@@ -25,20 +25,23 @@
     "build": "next build",
     "start": "next start",
     "cz": "./node_modules/.bin/git-cz",
+    "analyze": "ANALYZE=true yarn build",
     "cypress:open": "cypress open",
     "cypress:run": "cypress run"
   },
   "dependencies": {
+    "@aws-amplify/auth": "^3.2.5",
     "@emotion/core": "^10.0.27",
     "@zeit/next-sass": "^1.0.1",
-    "aws-amplify": "^3.0.7",
     "bootstrap": "^4.4.1",
     "emotion-normalize": "^10.1.0",
     "emotion-theming": "^10.0.27",
     "formik": "^2.1.4",
+    "install": "^0.13.0",
     "mapbox-gl": "^1.9.1",
     "next": "9.3.5",
     "node-sass": "^4.13.1",
+    "npm": "^6.14.4",
     "react": "16.13.1",
     "react-dom": "16.13.1",
     "reactstrap": "^8.4.1",
@@ -46,6 +49,7 @@
     "yup": "^0.28.3"
   },
   "devDependencies": {
+    "@next/bundle-analyzer": "^9.3.5",
     "@types/mapbox-gl": "^1.9.0",
     "@types/node": "^13.7.4",
     "@types/react": "^16.9.23",

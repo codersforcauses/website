@@ -12,7 +12,7 @@ import {
   TabContent,
   TabPane
 } from 'reactstrap'
-import { Auth } from 'aws-amplify'
+import { Auth } from '@aws-amplify/auth'
 import Router from 'next/router'
 import { phemeLogin } from 'helpers/phemeLogin'
 import Title from 'components/Utils/Title'

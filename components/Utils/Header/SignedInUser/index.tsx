@@ -2,7 +2,7 @@
 import { jsx } from '@emotion/core'
 import { withTheme } from 'emotion-theming'
 import { useState } from 'react'
-import { Auth } from 'aws-amplify'
+import { Auth } from '@aws-amplify/auth'
 import {
   ButtonDropdown,
   DropdownToggle,

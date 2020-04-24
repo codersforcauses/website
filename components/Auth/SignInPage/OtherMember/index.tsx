@@ -2,7 +2,7 @@
 import { jsx } from '@emotion/core'
 import { withTheme } from 'emotion-theming'
 import { useState } from 'react'
-import { Auth } from 'aws-amplify'
+import { Auth } from '@aws-amplify/auth'
 import { Field, FormikProps, Form, withFormik } from 'formik'
 import {
   Button,
@@ -38,7 +38,9 @@ const OtherMember = (props: Props & FormikProps<FormValues>) => {
   }
   const handleSendPasswordResetCode = async email => {
     setLoading(true)
-    if (email.includes('@student.uwa.edu.au')) { setError('You cannot change the password of your UWA student account') }
+    if (email.includes('@student.uwa.edu.au')) {
+      setError('You cannot change the password of your UWA student account')
+    }
     try {
       await Auth.forgotPassword(email.trim())
       setError('')
