@@ -7,25 +7,19 @@ import { UserContext } from 'helpers/user'
 const AccountSettings = () => {
   const { user } = useContext(UserContext)
   useEffect(() => {
-    setTimeout(() => {
-      if (!user) {
-        //   Router.replace({
-        //     pathname: '/membership',
-        //     query: { name: '/account_settings' }
-        //   })
-        console.log(user)
-      }
-    }, 500)
+    if (user === null) {
+      Router.replace({
+        pathname: '/membership',
+        query: { name: '/account_settings' }
+      })
+    }
   }, [user])
-  // console.log(user)
 
-  return (
-    user && (
-      <PageContainer>
-        <AccountSettingsPage />
-      </PageContainer>
-    )
-  )
+  return user ? (
+    <PageContainer>
+      <AccountSettingsPage user={user} />
+    </PageContainer>
+  ) : null
 }
 
 export default AccountSettings

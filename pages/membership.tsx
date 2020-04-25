@@ -10,15 +10,13 @@ const Membership = () => {
     if (user) {
       Router.replace('/dashboard')
     }
-  }, [])
+  }, [user])
 
-  return (
-    !user && (
-      <PageContainer>
-        <AuthWrapper />
-      </PageContainer>
-    )
-  )
+  return !user ? (
+    <PageContainer>
+      <AuthWrapper />
+    </PageContainer>
+  ) : null
 }
 
 export default Membership

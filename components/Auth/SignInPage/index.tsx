@@ -58,7 +58,7 @@ const SignInPage = (props: {
       }
       const response = await Auth.signIn(data.username, data.password)
       setUser(response.attributes)
-      props.route ? Router.replace(props.route) : Router.push('/dashboard')
+      Router.replace(props.route ? props.route : '/dashboard')
     } catch ({ code, message }) {
       if (code === 'UserNotConfirmedException') {
         setErrors(

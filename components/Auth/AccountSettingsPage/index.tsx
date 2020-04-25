@@ -1,7 +1,6 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core'
 import { withTheme } from 'emotion-theming'
-import { useContext } from 'react'
 import { Field, FormikProps, Form, withFormik } from 'formik'
 import {
   Button,
@@ -16,32 +15,30 @@ import {
 } from 'reactstrap'
 import Title from 'components/Utils/Title'
 import Avatar from 'components/Elements/Avatar'
-import { UserContext } from 'helpers/user'
 import { styles } from './styles'
 import { validationSchema } from './validation'
 
-const mapPropsToValues = () => ({
-  firstName: '',
-  lastName: '',
-  email: '',
+const mapPropsToValues = (props: Props) => ({
+  firstName: props.user?.given_name,
+  lastName: props.user?.family_name,
+  email: props.user?.email,
   password: '',
   confirmPassword: ''
 })
 
 const BrandPage = (props: Props & FormikProps<FormValues>) => {
-  const { user } = useContext(UserContext)
   return (
     <div css={styles(props.theme)}>
       <Title typed>./account settings</Title>
       <Container>
         <Avatar
           dark
-          name={`${user?.given_name} ${user?.family_name}`} // eslint-disable-line
+          name={`${props.user?.given_name} ${props.user?.family_name}`}
           size='lg'
           className='avatar'
         />
       </Container>
-      <Container className='py-5 my-5'>
+      <Container className='py-5'>
         <Row>
           <Col lg={7}>
             <Form>
@@ -136,5 +133,6 @@ interface FormValues {
   confirmPassword: string
 }
 interface Props {
+  user: any
   theme: Object
 }

@@ -7,16 +7,14 @@ import { UserContext } from 'helpers/user'
 const Dashboard = () => {
   const { user } = useContext(UserContext)
   useEffect(() => {
-    if (!user) Router.replace('/membership')
-  }, [])
+    if (user === null) Router.replace('/membership')
+  }, [user])
 
-  return (
-    user && (
-      <PageContainer>
-        <DashboardPage />
-      </PageContainer>
-    )
-  )
+  return user ? (
+    <PageContainer>
+      <DashboardPage />
+    </PageContainer>
+  ) : null
 }
 
 export default Dashboard

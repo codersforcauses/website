@@ -67,7 +67,6 @@ const Header = (props: { theme: Object }) => {
         {user ? (
           <SignedInUser
             setUser={setUser}
-            // eslint-disable-next-line
             name={`${user?.given_name} ${user?.family_name}`}
           />
         ) : (

@@ -63,7 +63,7 @@ const SignUpPage = (props: {
       }
       const response = await Auth.signUp(data)
       // console.log(response)
-      props.route ? Router.replace(props.route) : Router.push('/dashboard')
+      Router.replace(props.route ? props.route : '/dashboard')
     } catch (error) {
       setErrors(
         error.message ||

@@ -20,7 +20,7 @@ const Avatar = ({ name, setUser, ...props }: Props) => {
 
   const handleSignOut = async () => {
     await Auth.signOut()
-    setUser(null)
+    setUser(undefined)
     Router.push('/')
   }
 
