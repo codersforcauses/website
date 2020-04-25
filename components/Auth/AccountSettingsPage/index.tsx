@@ -4,6 +4,7 @@ import { withTheme } from 'emotion-theming'
 import { Field, FormikProps, Form, withFormik } from 'formik'
 import {
   Button,
+  Jumbotron,
   Container,
   Row,
   Col,
@@ -13,7 +14,6 @@ import {
   Label,
   Input
 } from 'reactstrap'
-import Title from 'components/Utils/Title'
 import Avatar from 'components/Elements/Avatar'
 import { styles } from './styles'
 import { validationSchema } from './validation'
@@ -29,14 +29,21 @@ const mapPropsToValues = (props: Props) => ({
 const BrandPage = (props: Props & FormikProps<FormValues>) => {
   return (
     <div css={styles(props.theme)}>
-      <Title typed>./account settings</Title>
-      <Container>
+      <Jumbotron className='bg-primary rounded-0 py-5 m-0'>
+        <Container className='my-5 py-4 text-secondary monospace'>
+          ./account_settings
+        </Container>
+      </Jumbotron>
+      <Container className='d-flex align-items-center'>
         <Avatar
           dark
           name={`${props.user?.given_name} ${props.user?.family_name}`}
           size='lg'
           className='avatar'
         />
+        <div className='ml-3'>
+          {props.user?.given_name} {props.user?.family_name}
+        </div>
       </Container>
       <Container className='py-5'>
         <Row>
