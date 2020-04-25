@@ -11,6 +11,3 @@ aws-exports.js
 cypress.json
 LICENSE
 renovate.json
-
-# temp ignore dashboard route
-pages/dashboard/
