@@ -22,7 +22,7 @@ import OtherMember from './OtherMember'
 import { styles } from './styles'
 
 const SignInPage = (props: {
-  noRedirect?: boolean
+  route?: string
   signUp: Function
   theme: Object
 }) => {
@@ -58,7 +58,7 @@ const SignInPage = (props: {
       }
       const response = await Auth.signIn(data.username, data.password)
       setUser(response.attributes)
-      if (!props.noRedirect) Router.push('/dashboard')
+      props.route ? Router.replace(props.route) : Router.push('/dashboard')
     } catch ({ code, message }) {
       if (code === 'UserNotConfirmedException') {
         setErrors(

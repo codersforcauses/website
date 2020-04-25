@@ -38,10 +38,14 @@ const OtherMember = (props: Props & FormikProps<FormValues>) => {
   }
   const handleSendPasswordResetCode = async email => {
     setLoading(true)
-    if (email.includes('@student.uwa.edu.au')) {
-      setError('You cannot change the password of your UWA student account')
-    }
     try {
+      if (email.includes('@student.uwa.edu.au')) {
+        // eslint-disable-next-line
+        throw {
+          message:
+            'You cannot change the password of your UWA student account. If you wish to do so, please do change it through the UWA portal.'
+        }
+      }
       await Auth.forgotPassword(email.trim())
       setError('')
       setResetCode(true)

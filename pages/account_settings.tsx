@@ -1,17 +1,26 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
+import Router from 'next/router'
 import PageContainer from 'components/PageContainer'
 import AccountSettingsPage from 'components/Auth/AccountSettingsPage'
-import Membership from 'pages/membership'
 import { UserContext } from 'helpers/user'
 
 const AccountSettings = () => {
   const { user } = useContext(UserContext)
-  return user ? (
-    <PageContainer>
-      <AccountSettingsPage />
-    </PageContainer>
-  ) : (
-    <Membership noRedirect />
+  useEffect(() => {
+    if (!user) {
+      Router.replace({
+        pathname: '/membership',
+        query: { name: '/account_settings' }
+      })
+    }
+  }, [])
+
+  return (
+    user && (
+      <PageContainer>
+        <AccountSettingsPage />
+      </PageContainer>
+    )
   )
 }
 

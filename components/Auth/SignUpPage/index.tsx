@@ -21,7 +21,7 @@ import OtherMember from './OtherMember'
 import { styles } from './styles'
 
 const SignUpPage = (props: {
-  noRedirect?: boolean
+  route?: string
   signIn: Function
   theme: Object
 }) => {
@@ -63,7 +63,7 @@ const SignUpPage = (props: {
       }
       const response = await Auth.signUp(data)
       // console.log(response)
-      if (!props.noRedirect) Router.push('/dashboard')
+      props.route ? Router.replace(props.route) : Router.push('/dashboard')
     } catch (error) {
       setErrors(
         error.message ||
