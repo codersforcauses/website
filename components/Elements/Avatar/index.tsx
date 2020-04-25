@@ -5,20 +5,23 @@ import { getInitials } from 'helpers/user'
 import { styles } from './styles'
 
 const Avatar = ({
-  dark = true,
+  dark = false,
   round = false,
   size = 'sm',
   ...props
 }: Props) => {
-  const initials = getInitials(props.name)
+  let sizeToNum = 38
+  if (size === 'md') sizeToNum = 72
+  if (size === 'lg') sizeToNum = 144
+  if (size === 'xl') sizeToNum = 288
   return (
     <div
-      className={`d-flex align-items-center justify-content-center ml-2 monospace ${
+      className={`d-flex align-items-center justify-content-center monospace ${
         round && 'rounded-circle'
       } ${props.className}`}
-      css={styles(props.theme, size, dark, props.image)}
+      css={styles(props.theme, sizeToNum, dark, props.image)}
     >
-      {props.name && <p className='m-0'>{initials}</p>}
+      {props.name && <p className='m-0'>{getInitials(props.name)}</p>}
     </div>
   )
 }
