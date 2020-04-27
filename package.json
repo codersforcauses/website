@@ -37,7 +37,7 @@
     "emotion-normalize": "10.1.0",
     "emotion-theming": "10.0.27",
     "formik": "2.1.4",
-    "mapbox-gl": "1.9.1",
+    "mapbox-gl": "1.10.0",
     "next": "9.3.5",
     "node-sass": "4.14.0",
     "react": "16.13.1",
