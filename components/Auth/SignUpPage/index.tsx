@@ -50,8 +50,7 @@ const SignUpPage = (props: {
           process.env.PHEME_TOKEN
         )
 
-        // eslint-disable-next-line
-        if (!phemeResponse.success) throw { message: phemeResponse.message }
+        if (!phemeResponse.success) throw new Error(phemeResponse.message)
 
         const user = phemeResponse.user
 

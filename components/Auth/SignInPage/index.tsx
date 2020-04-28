@@ -49,8 +49,7 @@ const SignInPage = (props: {
           process.env.PHEME_TOKEN
         )
 
-        // eslint-disable-next-line
-        if (!phemeResponse.success) throw { message: phemeResponse.message }
+        if (!phemeResponse.success) throw new Error(phemeResponse.message)
 
         // reassign data to use values fetched from pheme login
         data.username = `${values.studentNumber}@student.uwa.edu.au`
