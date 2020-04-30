@@ -31,7 +31,7 @@
   "dependencies": {
     "@emotion/core": "10.0.28",
     "@zeit/next-sass": "1.0.1",
-    "aws-amplify": "3.0.9",
+    "aws-amplify": "3.0.10",
     "aws-amplify-react": "4.1.9",
     "bootstrap": "4.4.1",
     "emotion-normalize": "10.1.0",
