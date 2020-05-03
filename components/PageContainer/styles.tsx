@@ -72,6 +72,13 @@ export const globalStyle = theme => css`
     font-size: 6rem;
   }
 
+  .tab-nav {
+    &:hover {
+      cursor: pointer;
+      border: 1px solid ${theme.colors.primary}66;
+    }
+  }
+
   .logo {
     object-fit: contain;
     object-position: center;
