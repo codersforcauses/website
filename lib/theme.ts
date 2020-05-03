@@ -12,7 +12,7 @@ export const theme = {
     secondary: '#ffffff',
     accent: '#01f1cc',
     success: '#0070F3',
-    error: '#ff0000',
+    danger: '#ff0000',
     warning: '#F5A623'
   },
 
@@ -40,7 +40,7 @@ export interface Theme {
     secondary?: string
     accent?: string
     success?: string
-    error?: string
+    danger?: string
     warning?: string
   }
 

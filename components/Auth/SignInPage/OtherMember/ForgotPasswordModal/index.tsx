@@ -43,7 +43,7 @@ const ForgotPasswordModal = ({
       <UncontrolledAlert
         isOpen={!!error}
         toggle={closeError}
-        color='error'
+        color='danger'
         className='rounded-0'
       >
         {error}

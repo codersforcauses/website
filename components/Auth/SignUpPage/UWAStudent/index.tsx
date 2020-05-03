@@ -35,7 +35,7 @@ const UWAStudent = (props: Props & FormikProps<FormValues>) => {
       <UncontrolledAlert
         isOpen={!!props.error}
         toggle={props.closeError}
-        color='error'
+        color='danger'
         className='rounded-0'
       >
         {props.error}

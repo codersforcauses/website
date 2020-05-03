@@ -21,6 +21,7 @@ export const globalStyle = theme => css`
     color: ${theme.colors.primary};
     overflow-x: hidden;
     line-height: 1.5em;
+    overscroll-behavior-y: none;
   }
 
   // selection needs to be separated to show on chromium browsers
@@ -29,7 +30,6 @@ export const globalStyle = theme => css`
     color: ${theme.colors.primary};
     text-shadow: none;
   }
-
   ::-moz-selection {
     background: ${theme.colors.accent};
     color: ${theme.colors.primary};

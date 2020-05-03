@@ -187,7 +187,7 @@ const BrandPage = (props: { theme: Object }) => {
             </Col>
             <Col xs={12} sm={6} md={4} lg={2}>
               <ColourCard
-                color='error'
+                color='danger'
                 name='Red Alert (Alert)'
                 className='text-secondary'
               />
