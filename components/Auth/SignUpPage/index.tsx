@@ -6,6 +6,7 @@ import { Container, Carousel, CarouselItem } from 'reactstrap'
 import Title from 'components/Utils/Title'
 import Step1 from './Step1'
 import Step2 from './Step2'
+import CreditCardForm from 'components/Payments/CreditCardForm'
 
 const SignUpPage = (props: { route?: string; signIn: Function }) => {
   const [currentStep, setCurrentStep] = useState(0)
@@ -39,7 +40,6 @@ const SignUpPage = (props: { route?: string; signIn: Function }) => {
     <div>
       <Title typed>./sign-up</Title>
       <Container className='py-5 '>
-        {/* <Step1 signIn={props.signIn} nextStep={nextStep} /> */}
         <Carousel
           activeIndex={currentStep}
           interval={false}

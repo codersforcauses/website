@@ -38,7 +38,7 @@ const StripeForm = () => {
         className='rounded-0 monospace px-5'
         onClick={handleSubmit}
       >
-        Send
+        Pay
       </Button>
     </Form>
   )
