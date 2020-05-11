@@ -4,7 +4,7 @@ import Router from 'next/router'
 import PayWithCashModal from './PayWithCashModal'
 import PayWithCardModal from './PayWithCardModal'
 
-const Step1 = (props: { route?: string; previousStep: Function }) => {
+const Step1 = (props: { route?: string }) => {
   // Router.replace(props.route ? props.route : '/dashboard')
   const [cashModal, setCashModal] = useState(false)
   const [loading, setLoading] = useState(false)

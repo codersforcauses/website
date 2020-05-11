@@ -7,7 +7,7 @@ import { UserContext } from 'helpers/user'
 const AccountSettings = () => {
   const { user } = useContext(UserContext)
   useEffect(() => {
-    if (user === null) {
+    if (user === undefined) {
       Router.replace({
         pathname: '/membership',
         query: { name: '/account_settings' }

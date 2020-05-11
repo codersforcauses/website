@@ -7,7 +7,7 @@ import { UserContext } from 'helpers/user'
 const Dashboard = () => {
   const { user } = useContext(UserContext)
   useEffect(() => {
-    if (user === null) Router.replace('/membership')
+    if (user === undefined) Router.replace('/membership')
   }, [user])
 
   return user ? (

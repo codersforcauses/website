@@ -40,15 +40,21 @@ const Avatar = ({ name, setUser, ...props }: Props) => {
       </DropdownToggle>
       <DropdownMenu className='rounded-0 mt-2'>
         <DropdownItem
+          href='/dashboard'
+          className='d-flex align-items-center px-3 py-2'
+        >
+          <i className='material-icons-sharp mr-2'>dashboard</i>
+          <small>Dashboard</small>
+        </DropdownItem>
+        <DropdownItem
           href='/account_settings'
-          className='d-flex align-items-center px-3'
+          className='d-flex align-items-center px-3 py-2'
         >
           <i className='material-icons-sharp mr-2'>settings</i>
           <small>Account Settings</small>
         </DropdownItem>
-        <DropdownItem divider />
         <DropdownItem
-          className='d-flex align-items-center px-3'
+          className='d-flex align-items-center px-3 py-2'
           onClick={handleSignOut}
         >
           <i className='material-icons-sharp mr-2'>exit_to_app</i>
