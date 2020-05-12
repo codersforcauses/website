@@ -67,7 +67,7 @@
     "eslint-plugin-standard": "4.0.1",
     "husky": "4.2.5",
     "lint-staged": "10.2.2",
-    "typescript": "3.8.3",
+    "typescript": "3.9.2",
     "wait-on": "4.0.2"
   },
   "husky": {
