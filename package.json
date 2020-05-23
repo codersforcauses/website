@@ -32,7 +32,7 @@
     "@emotion/core": "10.0.28",
     "@zeit/next-sass": "1.0.1",
     "aws-amplify": "3.0.12",
-    "aws-amplify-react": "4.1.10",
+    "aws-amplify-react": "4.1.11",
     "bootstrap": "4.5.0",
     "emotion-normalize": "10.1.0",
     "emotion-theming": "10.0.27",
