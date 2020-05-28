@@ -14,7 +14,7 @@ export const styles = theme => css`
     width: 100vw;
     margin-bottom: calc(${theme.spacing[5] * -2}rem);
   }
-  ${media.md`
+  ${media.lg`
     .relative-container {
      position: relative; 
     }
