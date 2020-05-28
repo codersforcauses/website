@@ -21,6 +21,7 @@ export const globalStyle = theme => css`
     color: ${theme.colors.primary};
     overflow-x: hidden;
     line-height: 1.5em;
+    scroll-behavior: smooth;
     overscroll-behavior-y: none;
   }
 

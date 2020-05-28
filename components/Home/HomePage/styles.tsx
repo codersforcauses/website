@@ -9,6 +9,7 @@ export const styles = theme => css`
 
   .email {
     font-size: 1rem;
+    margin: 0;
   }
 
   ${media.sm`

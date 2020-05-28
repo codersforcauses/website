@@ -49,7 +49,7 @@ const Footer = (props: { theme: Object }) => (
               </Link>
             </li>
             <li>
-              <Link href='/contact'>
+              <Link href='/#_contact_us'>
                 <a>Contact us</a>
               </Link>
             </li>
