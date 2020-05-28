@@ -2,6 +2,7 @@
 import { jsx } from '@emotion/core'
 import { withTheme } from 'emotion-theming'
 import {
+  Badge,
   Button,
   Card,
   CardBody,
@@ -13,16 +14,32 @@ import Link from 'next/link'
 import { styles } from './styles'
 
 const EventCard = (props: { theme: Object }) => (
-  <Card outline color='primary' className='rounded-0' css={styles(props.theme)}>
+  <Card
+    outline
+    color='secondary'
+    className='rounded-0'
+    css={styles(props.theme)}
+  >
     <CardImg
       top
       width='100%'
       src='https://source.unsplash.com/random'
       // {props.event.logo}
       // alt={props.event.client}
-      className='img-fluid event-img'
+      className='img-fluid rounded-0 event-img'
     />
-    <CardBody>
+    <CardBody className='bg-light'>
+      <div className='mb-2'>
+        {['workshop', 'social'].map(event => (
+          <Badge
+            key={event}
+            color='white'
+            className='rounded-0 mr-2 text-muted border border-muted font-weight-light'
+          >
+            {event}
+          </Badge>
+        ))}
+      </div>
       <CardTitle className='monospace heading'>
         Essential Software Industry Skills
       </CardTitle>

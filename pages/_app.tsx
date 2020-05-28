@@ -42,7 +42,7 @@ const Website = ({ Component, pageProps }: AppProps) => {
     <User>
       <ThemeProvider theme={theme}>
         <Component {...pageProps} />
-        {process.env.NODE_ENV !== 'development' && (
+        {process.env.NODE_ENV === 'production' && (
           <>
             <div id='fb-root' />
             <div
@@ -62,7 +62,7 @@ const Website = ({ Component, pageProps }: AppProps) => {
 Website.getInitialProps = async appContext => {
   const appProps = await App.getInitialProps(appContext)
 
-  return { ...appProps }
+  return appProps
 }
 
 export default Website

@@ -18,7 +18,7 @@ const ProjectCards = (props: { theme }) => {
         >
           <Link href={project.purl}>
             <a className='text-decoration-none'>
-              <Card outline color='secondary'>
+              <Card outline color='secondary' className='bg-light'>
                 <CardImg
                   top
                   width='100%'
@@ -27,9 +27,9 @@ const ProjectCards = (props: { theme }) => {
                   alt={project.client}
                   className='project-img img-fluid'
                 />
-                <div className='mt-3 d-flex align-items-center'>
+                <div className='d-flex align-items-center'>
                   <div className='bg-primary'>
-                    <i className='material-icons-sharp text-secondary p-2'>
+                    <i className='material-icons-sharp text-secondary p-3'>
                       {project.icon}
                     </i>
                   </div>
