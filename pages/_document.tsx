@@ -1,5 +1,6 @@
 import React from 'react'
 import Document, { Head, Html, Main, NextScript } from 'next/document'
+import { extractCritical } from 'emotion-server'
 
 class MyDocument extends Document {
   static async getInitialProps(ctx) {
@@ -12,8 +13,20 @@ class MyDocument extends Document {
       })
 
     const initialProps = await Document.getInitialProps(ctx)
+    const styles = extractCritical(initialProps.html)
 
-    return initialProps
+    return {
+      ...initialProps,
+      styles: (
+        <>
+          {initialProps.styles}
+          <style
+            data-emotion-css={styles.ids.join(' ')}
+            dangerouslySetInnerHTML={{ __html: styles.css }}
+          />
+        </>
+      )
+    }
   }
 
   render() {
@@ -31,11 +44,11 @@ class MyDocument extends Document {
             href='https://fonts.googleapis.com/'
             crossOrigin=''
           />
-          <link
+          {/* <link
             rel='preconnect'
             href='https://kit-free.fontawesome.com'
             crossOrigin=''
-          />
+          /> */}
           <link
             rel='preconnect'
             href='https://connect.facebook.net'
@@ -51,7 +64,7 @@ class MyDocument extends Document {
           <link rel='dns-prefetch' href='//fonts.gstatic.com/' />
           <link rel='dns-prefetch' href='//api.mapbox.com' />
           <link rel='dns-prefetch' href='//fonts.googleapis.com/' />
-          <link rel='dns-prefetch' href='//kit-free.fontawesome.com' />
+          {/* <link rel='dns-prefetch' href='//kit-free.fontawesome.com' /> */}
           <link rel='dns-prefetch' href='//connect.facebook.net' />
           <link rel='dns-prefetch' href='//scontent.fper5-1.fna.fbcdn.net' />
           <link rel='dns-prefetch' href='//unsplash.it' />
@@ -63,17 +76,23 @@ class MyDocument extends Document {
           />
 
           {/* Font Awesome */}
-          <script
+          {/* <script
             src='https://kit.fontawesome.com/249aebb7ef.js'
             crossOrigin='anonymous'
             defer
+          /> */}
+
+          <meta name='author' content='Coders for Causes' />
+          <meta
+            name='viewport'
+            content='width=device-width, initial-scale=1, shrink-to-fit=no'
           />
           <link rel='icon' href='/favicon-light.png' type='image/png' />
         </Head>
         <body>
           <Main />
+          <NextScript />
         </body>
-        <NextScript />
       </Html>
     )
   }

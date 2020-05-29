@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core'
-import { withTheme } from 'emotion-theming'
+import { useTheme } from 'emotion-theming'
 import { useState } from 'react'
 import { Field, FormikProps, Form, withFormik } from 'formik'
 import {
@@ -24,8 +24,11 @@ const mapPropsToValues = () => ({
 
 const UWAStudent = (props: Props & FormikProps<FormValues>) => {
   const [passwordVisible, setPasswordVisible] = useState(false)
+
+  const theme = useTheme()
+
   return (
-    <Form css={styles(props.theme)}>
+    <Form css={styles(theme)}>
       <UncontrolledAlert
         isOpen={!!props.error}
         toggle={props.closeError}
@@ -101,13 +104,11 @@ const UWAStudent = (props: Props & FormikProps<FormValues>) => {
   )
 }
 
-export default withTheme(
-  withFormik<Props, FormValues>({
-    handleSubmit: (values, bag) => bag.props.handleSubmit(values, bag),
-    mapPropsToValues,
-    validationSchema
-  })(UWAStudent)
-)
+export default withFormik<Props, FormValues>({
+  handleSubmit: (values, bag) => bag.props.handleSubmit(values, bag),
+  mapPropsToValues,
+  validationSchema
+})(UWAStudent)
 
 interface FormValues {
   studentNumber: string
@@ -118,5 +119,4 @@ interface Props {
   closeError: Function
   error: string
   loading: Boolean
-  theme: Object
 }

@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core'
-import { withTheme } from 'emotion-theming'
+import { useTheme } from 'emotion-theming'
 import { useContext, useState } from 'react'
 import {
   Navbar,
@@ -17,8 +17,12 @@ import HeaderItem, { HeaderItemContent } from './HeaderItem'
 import { styles } from './styles'
 import { UserContext } from 'helpers/user'
 
-const Header = (props: { theme: Object }) => {
+const Header = () => {
   const [open, setOpen] = useState(false)
+
+  const { user, setUser } = useContext(UserContext)
+
+  const theme = useTheme()
 
   const links: HeaderItemContent[] = [
     { href: '/about', text: 'About' },
@@ -28,8 +32,6 @@ const Header = (props: { theme: Object }) => {
 
   const toggleOpen = () => setOpen(!open)
 
-  const { user, setUser } = useContext(UserContext)
-
   return (
     <Navbar
       dark
@@ -37,7 +39,7 @@ const Header = (props: { theme: Object }) => {
       color='primary'
       expand='md'
       className='text-secondary py-3 fixed-top shadow-sm'
-      css={styles(props.theme)}
+      css={styles(theme)}
     >
       <Container>
         <Nav className='justify-content-start' tag='div'>
@@ -85,4 +87,4 @@ const Header = (props: { theme: Object }) => {
   )
 }
 
-export default withTheme(Header)
+export default Header

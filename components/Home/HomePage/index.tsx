@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core'
-import { withTheme } from 'emotion-theming'
+import { useTheme } from 'emotion-theming'
 import { useState } from 'react'
 import { Jumbotron, Button, Collapse, Container, Row, Col } from 'reactstrap'
 import constants from 'data/constants.json'
@@ -12,11 +12,13 @@ import { styles } from './styles'
 import ContactForm from '../ContactForm'
 import Link from 'next/link'
 
-const HomePage = (props: { theme: Object }) => {
+const HomePage = () => {
   const [contactOpen, setContactOpen] = useState(false)
 
+  const theme = useTheme()
+
   return (
-    <div css={styles(props.theme)}>
+    <div css={styles(theme)}>
       <Jumbotron className='hero bg-primary text-secondary d-flex align-items-center rounded-0 monospace'>
         <Container>
           <h1 className='mb-4'>
@@ -99,4 +101,4 @@ const HomePage = (props: { theme: Object }) => {
   )
 }
 
-export default withTheme(HomePage)
+export default HomePage

@@ -58,10 +58,6 @@ export const globalStyle = theme => css`
     color: ${theme.colors.primary};
   }
 
-  .font-weight-black {
-    font-weight: 900;
-  }
-
   .modal-content {
     border-radius: 0;
   }

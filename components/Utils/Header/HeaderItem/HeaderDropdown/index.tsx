@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core'
-import { withTheme } from 'emotion-theming'
+import { useTheme } from 'emotion-theming'
 import { useState } from 'react'
 import Link from 'next/link'
 import { DropdownMenu, DropdownItem, Dropdown } from 'reactstrap'
@@ -10,6 +10,8 @@ import { styles } from './styles'
 
 const HeaderDropdown = ({ items, href, text, ...props }: Props) => {
   const [isOpen, updateIsOpen] = useState(false)
+  const theme = useTheme()
+
   return (
     <Dropdown
       {...props}
@@ -19,7 +21,7 @@ const HeaderDropdown = ({ items, href, text, ...props }: Props) => {
       onBlur={() => updateIsOpen(false)}
       toggle={() => updateIsOpen(!isOpen)}
       isOpen={isOpen}
-      css={styles(props.theme)}
+      css={styles(theme)}
     >
       <DropdownToggle nav className='header-dropdown-toggle'>
         <Link href={href}>
@@ -44,7 +46,6 @@ interface Props {
   }>
   text: string
   href: string
-  theme: Object
 }
 
-export default withTheme(HeaderDropdown)
+export default HeaderDropdown

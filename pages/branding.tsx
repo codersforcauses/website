@@ -1,11 +1,19 @@
 import React from 'react'
-import PageContainer from 'components/PageContainer'
 import BrandPage from 'components/Brand/BrandPage'
+import Head from 'next/head'
 
 const Branding = () => (
-  <PageContainer>
+  <>
+    <Head>
+      <title>Branding: Coders for Causes</title>
+      <meta
+        name='description'
+        content='Coders for Causes branding. Looking to use our logos, fonts, or colours for something? Please follow the guidelines laid out.'
+      />
+    </Head>
+
     <BrandPage />
-  </PageContainer>
+  </>
 )
 
 export default Branding

@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core'
-import { withTheme } from 'emotion-theming'
+import { useTheme } from 'emotion-theming'
 import { useState } from 'react'
 import { Field, FormikProps, Form, withFormik } from 'formik'
 import {
@@ -25,8 +25,10 @@ const mapPropsToValues = () => ({
 const UWAStudent = (props: Props & FormikProps<FormValues>) => {
   const [passwordVisible, setPasswordVisible] = useState(false)
 
+  const theme = useTheme()
+
   return (
-    <Form css={styles(props.theme)}>
+    <Form css={styles(theme)}>
       <UncontrolledAlert color='success' className='rounded-0'>
         If you are a UWA student, you can sign up using your pheme login
         credentials. If not or you wish to join using another email, please
@@ -107,13 +109,11 @@ const UWAStudent = (props: Props & FormikProps<FormValues>) => {
   )
 }
 
-export default withTheme(
-  withFormik<Props, FormValues>({
-    handleSubmit: (values, bag) => bag.props.handleSubmit(values, bag),
-    mapPropsToValues,
-    validationSchema
-  })(UWAStudent)
-)
+export default withFormik<Props, FormValues>({
+  handleSubmit: (values, bag) => bag.props.handleSubmit(values, bag),
+  mapPropsToValues,
+  validationSchema
+})(UWAStudent)
 
 interface FormValues {
   studentNumber: string
@@ -124,5 +124,4 @@ interface Props {
   closeError: Function
   error: string
   loading: Boolean
-  theme: Object
 }

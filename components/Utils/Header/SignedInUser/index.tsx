@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core'
-import { withTheme } from 'emotion-theming'
+import { useTheme } from 'emotion-theming'
 import { useState } from 'react'
 import { Auth } from '@aws-amplify/auth'
 import {
@@ -15,6 +15,8 @@ import { styles } from './styles'
 
 const Avatar = ({ name, setUser, ...props }: Props) => {
   const [dropdown, setDropdown] = useState(false)
+
+  const theme = useTheme()
 
   const initials = getInitials(name)
 
@@ -33,7 +35,7 @@ const Avatar = ({ name, setUser, ...props }: Props) => {
         <p className='m-0 d-none d-md-block'>{name && name}</p>
         <div
           className='d-flex align-items-center justify-content-center ml-2 monospace rounded-circle'
-          css={styles(props.theme, props.image)}
+          css={styles(theme, props.image)}
         >
           {name && <p className='m-0'>{initials}</p>}
         </div>
@@ -65,11 +67,10 @@ const Avatar = ({ name, setUser, ...props }: Props) => {
   )
 }
 
-export default withTheme(Avatar)
+export default Avatar
 
 interface Props {
   name?: string
   image?: string
   setUser: Function
-  theme: Object
 }

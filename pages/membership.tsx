@@ -1,9 +1,9 @@
 import React, { useState, useContext, useEffect } from 'react'
 import { useRouter } from 'next/router'
-import PageContainer from 'components/PageContainer'
 import SignInPage from 'components/Auth/SignInPage'
 import SignUpPage from 'components/Auth/SignUpPage'
 import { UserContext } from 'helpers/user'
+import Head from 'next/head'
 
 const Membership = () => {
   const [isSignUp, setIsSignUp] = useState(false)
@@ -19,13 +19,20 @@ const Membership = () => {
   }, [user])
 
   return !user ? (
-    <PageContainer>
+    <>
+      <Head>
+        <title>Membership: Coders for Causes</title>
+        <meta
+          name='description'
+          content='Create an account or sign in to Coders for Causes.'
+        />
+      </Head>
       {isSignUp ? (
         <SignUpPage route={nextRoute} signIn={setIsSignUp} />
       ) : (
         <SignInPage route={nextRoute} signUp={setIsSignUp} />
       )}
-    </PageContainer>
+    </>
   ) : null
 }
 

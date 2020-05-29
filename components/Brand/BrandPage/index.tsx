@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core'
-import { withTheme } from 'emotion-theming'
+import { useTheme } from 'emotion-theming'
 import { useState } from 'react'
 import { Jumbotron, Container, Row, Col, Card, Input } from 'reactstrap'
 import Title from 'components/Utils/Title'
@@ -8,10 +8,13 @@ import LogoCard from '../LogoCard'
 import ColourCard from '../ColourCard'
 import { styles } from './styles'
 
-const BrandPage = (props: { theme: Object }) => {
+const BrandPage = () => {
   const [typographyText, setTypographyText] = useState('Coders for Causes')
+
+  const theme = useTheme()
+
   return (
-    <div css={styles(props.theme)}>
+    <div css={styles(theme)}>
       <Title typed>./branding</Title>
       <Container className='py-5 my-5'>
         <Row>
@@ -199,4 +202,4 @@ const BrandPage = (props: { theme: Object }) => {
   )
 }
 
-export default withTheme(BrandPage)
+export default BrandPage

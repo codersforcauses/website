@@ -1,6 +1,5 @@
 import React, { useContext, useEffect } from 'react'
 import Router from 'next/router'
-import PageContainer from 'components/PageContainer'
 import DashboardPage from 'components/Dashboard/DashboardPage'
 import { UserContext } from 'helpers/user'
 
@@ -10,11 +9,7 @@ const Dashboard = () => {
     if (user === undefined) Router.replace('/membership')
   }, [user])
 
-  return user ? (
-    <PageContainer>
-      <DashboardPage />
-    </PageContainer>
-  ) : null
+  return user ? <DashboardPage /> : null
 }
 
 export default Dashboard

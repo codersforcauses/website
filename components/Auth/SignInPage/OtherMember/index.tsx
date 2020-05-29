@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core'
-import { withTheme } from 'emotion-theming'
+import { useTheme } from 'emotion-theming'
 import { useState } from 'react'
 import { Auth } from '@aws-amplify/auth'
 import { Field, FormikProps, Form, withFormik } from 'formik'
@@ -31,6 +31,8 @@ const OtherMember = (props: Props & FormikProps<FormValues>) => {
   const [resetCode, setResetCode] = useState(false)
 
   const [error, setError] = useState('')
+
+  const theme = useTheme()
 
   const closeModal = () => {
     setForgotPassword(false)
@@ -77,7 +79,7 @@ const OtherMember = (props: Props & FormikProps<FormValues>) => {
   const changeStep = () => setResetCode(!resetCode)
 
   return (
-    <Form css={styles(props.theme)}>
+    <Form css={styles(theme)}>
       <UncontrolledAlert
         isOpen={!!props.error}
         toggle={props.closeError}
@@ -174,13 +176,11 @@ const OtherMember = (props: Props & FormikProps<FormValues>) => {
   )
 }
 
-export default withTheme(
-  withFormik<Props, FormValues>({
-    handleSubmit: (values, bag) => bag.props.handleSubmit(values, bag),
-    mapPropsToValues,
-    validationSchema
-  })(OtherMember)
-)
+export default withFormik<Props, FormValues>({
+  handleSubmit: (values, bag) => bag.props.handleSubmit(values, bag),
+  mapPropsToValues,
+  validationSchema
+})(OtherMember)
 
 interface FormValues {
   email: string
@@ -191,5 +191,4 @@ interface Props {
   closeError: Function
   error: string
   loading: Boolean
-  theme: Object
 }

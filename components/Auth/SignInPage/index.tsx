@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core'
-import { withTheme } from 'emotion-theming'
+import { useTheme } from 'emotion-theming'
 import { useState, useContext } from 'react'
 import { Auth } from '@aws-amplify/auth'
 import {
@@ -21,16 +21,14 @@ import UWAStudent from './UWAStudent'
 import OtherMember from './OtherMember'
 import { styles } from './styles'
 
-const SignInPage = (props: {
-  route?: string
-  signUp: Function
-  theme: Object
-}) => {
+const SignInPage = (props: { route?: string; signUp: Function }) => {
   const [isUWAStudent, setIsUWAStudent] = useState(true)
   const [loading, setLoading] = useState(false)
   const [errors, setErrors] = useState('')
 
   const { setUser } = useContext(UserContext)
+
+  const theme = useTheme()
 
   const closeError = () => setErrors('')
 
@@ -74,7 +72,7 @@ const SignInPage = (props: {
   }
 
   return (
-    <div css={styles(props.theme)}>
+    <div css={styles(theme)}>
       <Title typed>./sign-in</Title>
       <Container className='py-5 '>
         <Row>
@@ -151,4 +149,4 @@ const SignInPage = (props: {
   )
 }
 
-export default withTheme(SignInPage)
+export default SignInPage

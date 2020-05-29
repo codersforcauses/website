@@ -1,6 +1,5 @@
 import React, { useContext, useEffect } from 'react'
 import Router from 'next/router'
-import PageContainer from 'components/PageContainer'
 import AccountSettingsPage from 'components/Auth/AccountSettingsPage'
 import { UserContext } from 'helpers/user'
 
@@ -15,11 +14,7 @@ const AccountSettings = () => {
     }
   }, [user])
 
-  return user ? (
-    <PageContainer>
-      <AccountSettingsPage user={user} />
-    </PageContainer>
-  ) : null
+  return user ? <AccountSettingsPage user={user} /> : null
 }
 
 export default AccountSettings

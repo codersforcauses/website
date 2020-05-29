@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core'
-import { withTheme } from 'emotion-theming'
+import { useTheme } from 'emotion-theming'
 import { Field, FormikProps, Form, withFormik } from 'formik'
 import {
   Button,
@@ -27,8 +27,10 @@ const mapPropsToValues = (props: Props) => ({
 })
 
 const BrandPage = (props: Props & FormikProps<FormValues>) => {
+  const theme = useTheme()
+
   return (
-    <div css={styles(props.theme)}>
+    <div css={styles(theme)}>
       <Jumbotron className='bg-primary rounded-0 py-5 m-0'>
         <Container className='my-5 py-4 text-secondary monospace'>
           ./account_settings
@@ -124,13 +126,11 @@ const BrandPage = (props: Props & FormikProps<FormValues>) => {
   )
 }
 
-export default withTheme(
-  withFormik<Props, FormValues>({
-    handleSubmit: async values => {},
-    mapPropsToValues,
-    validationSchema
-  })(BrandPage)
-)
+export default withFormik<Props, FormValues>({
+  handleSubmit: async values => {},
+  mapPropsToValues,
+  validationSchema
+})(BrandPage)
 
 interface FormValues {
   firstName: string
@@ -141,5 +141,4 @@ interface FormValues {
 }
 interface Props {
   user: any
-  theme: Object
 }

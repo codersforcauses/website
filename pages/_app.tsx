@@ -1,12 +1,18 @@
+/** @jsx jsx */
 import App, { AppProps } from 'next/app'
 import { ThemeProvider } from 'emotion-theming'
-import React, { useContext, useEffect } from 'react'
+import { CacheProvider, Global, jsx } from '@emotion/core'
+import { cache } from 'emotion'
+import { useEffect } from 'react'
 import { Auth } from '@aws-amplify/auth'
 import User from 'components/Auth/User'
 import { initAnalytics } from 'helpers/analytics'
 import { initMessenger } from 'helpers/messenger'
 import { theme } from 'lib/theme'
+import { globalStyle } from 'GlobalStyles'
 import 'theme.scss'
+import Header from 'components/Utils/Header'
+import Footer from 'components/Utils/Footer'
 
 Auth.configure({
   aws_project_region: process.env.AMPLIFY_AWS_COGNITO_REGION,
@@ -41,19 +47,26 @@ const Website = ({ Component, pageProps }: AppProps) => {
   return (
     <User>
       <ThemeProvider theme={theme}>
-        <Component {...pageProps} />
-        {process.env.NODE_ENV === 'production' && (
-          <>
-            <div id='fb-root' />
-            <div
-              className='fb-customerchat'
-              data-theme_color='#000000'
-              data-page_id='700598980115471'
-              data-logged_in_greeting='Hi there! How can we help you?'
-              data-logged_out_greeting='Please log in to chat with us'
-            />
-          </>
-        )}
+        <CacheProvider value={cache}>
+          <Global styles={globalStyle(theme)} />
+          <Header />
+          <main className='main'>
+            <Component {...pageProps} />
+          </main>
+          <Footer />
+          {process.env.NODE_ENV === 'production' && (
+            <>
+              <div id='fb-root' />
+              <div
+                className='fb-customerchat'
+                data-theme_color='#000000'
+                data-page_id='700598980115471'
+                data-logged_in_greeting='Hi there! How can we help you?'
+                data-logged_out_greeting='Please log in to chat with us'
+              />
+            </>
+          )}
+        </CacheProvider>
       </ThemeProvider>
     </User>
   )
