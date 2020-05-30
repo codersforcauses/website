@@ -21,7 +21,7 @@ const Membership = () => {
   return !user ? (
     <>
       <Head>
-        <title>Membership: Coders for Causes</title>
+        <title>Membership | Coders for Causes</title>
         <meta
           name='description'
           content='Create an account or sign in to Coders for Causes.'

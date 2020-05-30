@@ -77,7 +77,7 @@ const HomePage = () => {
                 </a>
                 <Button
                   outline
-                  size='sm'
+                  size='lg'
                   color='secondary'
                   className='rounded-0 mt-4'
                   onClick={() => setContactOpen(true)}
