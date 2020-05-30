@@ -1,6 +1,6 @@
 import React from 'react'
-import HomePage from 'components/Home/HomePage'
 import Head from 'next/head'
+import HomePage from 'components/Home/HomePage'
 
 const index = () => (
   <>

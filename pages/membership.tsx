@@ -1,9 +1,9 @@
 import React, { useState, useContext, useEffect } from 'react'
+import Head from 'next/head'
 import { useRouter } from 'next/router'
 import SignInPage from 'components/Auth/SignInPage'
 import SignUpPage from 'components/Auth/SignUpPage'
 import { UserContext } from 'helpers/user'
-import Head from 'next/head'
 
 const Membership = () => {
   const [isSignUp, setIsSignUp] = useState(false)

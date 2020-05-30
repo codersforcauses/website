@@ -1,6 +1,6 @@
 import React from 'react'
-import BrandPage from 'components/Brand/BrandPage'
 import Head from 'next/head'
+import BrandPage from 'components/Brand/BrandPage'
 
 const Branding = () => (
   <>
