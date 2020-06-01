@@ -79,7 +79,8 @@ export const globalStyle = theme => css`
   .logo {
     object-fit: contain;
     object-position: center;
-    max-width: 100px;
+    max-height: 100px;
+    width: 100%;
 
     transition: 0.3s;
     filter: grayscale(100%) contrast(0.2) brightness(1.1);

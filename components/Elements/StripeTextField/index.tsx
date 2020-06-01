@@ -1,13 +1,15 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core'
-import { withTheme } from 'emotion-theming'
+import { useTheme } from 'emotion-theming'
 import { useState } from 'react'
 import { CardElement } from '@stripe/react-stripe-js'
-import { FormGroup, FormFeedback, FormText, Label, Input } from 'reactstrap'
+import { FormGroup, FormFeedback, FormText, Label } from 'reactstrap'
 import { Theme } from 'lib/theme'
 
-const StripeTextField = (props: Props) => {
+const StripeTextField = () => {
   const [error, setError] = useState('')
+  const theme: Theme = useTheme()
+
   const handleChange = event => {
     if (event.error) setError(event.error.message)
     else setError('')
@@ -22,7 +24,7 @@ const StripeTextField = (props: Props) => {
     },
     style: {
       base: {
-        color: props.theme.colors.primary,
+        color: theme.colors.primary,
         fontFamily:
           '"IBM Plex Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif',
         fontSmoothing: 'antialiased',
@@ -51,8 +53,4 @@ const StripeTextField = (props: Props) => {
   )
 }
 
-export default withTheme(StripeTextField)
-
-interface Props {
-  theme: Theme
-}
+export default StripeTextField

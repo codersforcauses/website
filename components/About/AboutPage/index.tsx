@@ -37,7 +37,7 @@ const AboutPage = () => {
           className='py-5 bg-secondary rounded-0 d-md-flex'
         >
           <Row className='d-flex align-items-center'>
-            <Col xs={12} lg={5}>
+            <Col xs={12} lg={6}>
               <h2 className='header'>We build software for charities</h2>
               <p className='lead m-lg-0'>
                 Coders for Causes is a not for profit organisation that empowers
@@ -49,9 +49,9 @@ const AboutPage = () => {
                 information.
               </p>
             </Col>
-            <div className='map'>
+            <Col xs={12} lg={6} className='pr-0 map'>
               <Map />
-            </div>
+            </Col>
           </Row>
         </Container>
       </div>

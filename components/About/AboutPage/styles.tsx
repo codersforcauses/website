@@ -9,23 +9,28 @@ export const styles = theme => css`
   .pad {
     padding: 6.6rem 0;
   }
+  .relative-container {
+    position: relative; 
+  }
   .map {
     height: 250px;
     width: 100vw;
     margin-bottom: calc(${theme.spacing[5] * -2}rem);
+
+    position: relative;
+    // left: 0;
+    right: 0;
+    // bottom: 0;
   }
+
   ${media.lg`
-    .relative-container {
-     position: relative; 
-    }
     .map {
       height:100%;
       width: 50vw;
 
       position: absolute;
-      right: 0;
       top: 0;
-      bottom: 0;
+      left: auto;
     }
   `}
 `

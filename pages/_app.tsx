@@ -3,16 +3,17 @@ import App, { AppProps } from 'next/app'
 import { ThemeProvider } from 'emotion-theming'
 import { CacheProvider, Global, jsx } from '@emotion/core'
 import { cache } from 'emotion'
-import { useEffect } from 'react'
+import { useEffect, useContext } from 'react'
 import { Auth } from '@aws-amplify/auth'
 import User from 'components/Auth/User'
+import Header from 'components/Utils/Header'
+import Footer from 'components/Utils/Footer'
 import { initAnalytics } from 'helpers/analytics'
 import { initMessenger } from 'helpers/messenger'
+import { UserContext } from 'helpers/user'
 import { theme } from 'lib/theme'
 import { globalStyle } from 'GlobalStyles'
 import 'theme.scss'
-import Header from 'components/Utils/Header'
-import Footer from 'components/Utils/Footer'
 
 Auth.configure({
   aws_project_region: process.env.AMPLIFY_AWS_COGNITO_REGION,
@@ -28,7 +29,7 @@ Auth.configure({
       'profile',
       'aws.cognito.signin.user.admin'
     ],
-    redirectSignIn: `${process.env.BASE_URL}/signin/`,
+    redirectSignIn: `${process.env.BASE_URL}/membership/`,
     redirectSignOut: process.env.BASE_URL,
     responseType: 'token'
   },
@@ -36,9 +37,26 @@ Auth.configure({
   authenticationFlowType: 'USER_PASSWORD_AUTH'
 })
 
+const AddOns = () => {
+  const { user } = useContext(UserContext)
+
+  return process.env.NODE_ENV === 'production' && (
+    <>
+      <div id='fb-root' />
+      <div
+        className='fb-customerchat'
+        data-theme_color='#000000'
+        data-page_id='700598980115471'
+        data-logged_in_greeting={`Hi ${user?.given_name}! How can we help you?`}
+        data-logged_out_greeting='Please log in to chat with us'
+      />
+    </>
+  )
+}
+
 const Website = ({ Component, pageProps }: AppProps) => {
   useEffect(() => {
-    if (process.env.NODE_ENV !== 'development') {
+    if (process.env.NODE_ENV === 'production') {
       initAnalytics('2423121134')
       initMessenger()
     }
@@ -54,18 +72,7 @@ const Website = ({ Component, pageProps }: AppProps) => {
             <Component {...pageProps} />
           </main>
           <Footer />
-          {process.env.NODE_ENV === 'production' && (
-            <>
-              <div id='fb-root' />
-              <div
-                className='fb-customerchat'
-                data-theme_color='#000000'
-                data-page_id='700598980115471'
-                data-logged_in_greeting='Hi there! How can we help you?'
-                data-logged_out_greeting='Please log in to chat with us'
-              />
-            </>
-          )}
+          <AddOns />
         </CacheProvider>
       </ThemeProvider>
     </User>

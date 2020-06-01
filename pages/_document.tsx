@@ -3,7 +3,7 @@ import Document, { Head, Html, Main, NextScript } from 'next/document'
 import { extractCritical } from 'emotion-server'
 
 class MyDocument extends Document {
-  static async getInitialProps(ctx) {
+  static async getInitialProps (ctx) {
     const originalRenderPage = ctx.renderPage
 
     ctx.renderPage = () =>
@@ -29,7 +29,7 @@ class MyDocument extends Document {
     }
   }
 
-  render() {
+  render () {
     return (
       <Html lang='en'>
         <Head>
@@ -43,11 +43,6 @@ class MyDocument extends Document {
             href='https://fonts.googleapis.com/'
             crossOrigin=''
           />
-          {/* <link
-            rel='preconnect'
-            href='https://kit-free.fontawesome.com'
-            crossOrigin=''
-          /> */}
           <link
             rel='preconnect'
             href='https://connect.facebook.net'
@@ -57,7 +52,6 @@ class MyDocument extends Document {
 
           <link rel='dns-prefetch' href='//fonts.gstatic.com/' />
           <link rel='dns-prefetch' href='//fonts.googleapis.com/' />
-          {/* <link rel='dns-prefetch' href='//kit-free.fontawesome.com' /> */}
           <link rel='dns-prefetch' href='//connect.facebook.net' />
           <link rel='dns-prefetch' href='//unsplash.it' />
 
@@ -66,13 +60,6 @@ class MyDocument extends Document {
             href='https://fonts.googleapis.com/css?family=IBM+Plex+Mono|IBM+Plex+Sans|Material+Icons+Sharp&display=swap'
             rel='stylesheet'
           />
-
-          {/* Font Awesome */}
-          {/* <script
-            src='https://kit.fontawesome.com/249aebb7ef.js'
-            crossOrigin='anonymous'
-            defer
-          /> */}
 
           <meta name='author' content='Coders for Causes' />
           <meta
