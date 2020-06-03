@@ -50,7 +50,7 @@
     "@types/mapbox-gl": "1.10.2",
     "@types/node": "13.13.9",
     "@types/react": "16.9.35",
-    "@types/yup": "0.29.1",
+    "@types/yup": "0.29.2",
     "@typescript-eslint/parser": "2.34.0",
     "commitizen": "4.1.2",
     "cypress": "4.7.0",
