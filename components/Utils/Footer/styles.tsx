@@ -9,6 +9,17 @@ export const styles = theme => css`
   .legal {
     max-width: 500px;
   }
+  .legal,
+  .social {
+    button {
+      &:first-of-type {
+        padding-left: 0;
+      }
+      &:last-of-type {
+        padding-right: 0;
+      }
+    }
+  }
 
   ${media.md`
     .social {

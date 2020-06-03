@@ -88,8 +88,11 @@ const ContactForm = (props: Props & FormikProps<FormValues>) => {
         <FormFeedback>{props.errors.organisationName}</FormFeedback>
         {!props.errors.organisationName && (
           <FormText>
-            If you do not have a name for your organisation, then please enter
-            'N/A'.
+            {/* Added span as reactstrap injects classes after classes declared in FormText */}
+            <span className='text-secondary'>
+              If you do not have a name for your organisation, then please enter
+              'N/A'.
+            </span>
           </FormText>
         )}
       </FormGroup>

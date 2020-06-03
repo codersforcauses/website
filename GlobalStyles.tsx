@@ -90,4 +90,65 @@ export const globalStyle = theme => css`
       // cursor: pointer;
     }
   }
+
+  .legal-content {
+    font-size: 14px;
+    counter-reset: paragraph;
+
+    .list-heading,
+    li {
+      position: relative;
+    }
+    .list-heading:after {
+      counter-increment: paragraph;
+      content: counter(paragraph, decimal-leading-zero) '';
+      position: absolute;
+      padding-right: 1rem;
+      right: 100%;
+      top: 0;
+    }
+
+    .list-heading:before {
+      content: '';
+      display: block;
+      width: 2px;
+      height: 100%;
+      background-color: ${theme.colors.primary};
+      position: absolute;
+      left: -10px;
+      top: 0px;
+    }
+
+    ol {
+      counter-reset: section;
+      > li {
+        list-style: none;
+
+        &:before {
+          counter-increment: section;
+          content: counters(paragraph, '') '.' counters(section, '.') ' ';
+          position: absolute;
+          padding-right: 1rem;
+          right: 100%;
+          top: 0;
+        }
+      }
+    }
+  }
+
+  .changelog {
+    font-size: 14px;
+    position: relative;
+
+    &:before {
+      content: '';
+      display: block;
+      width: 2px;
+      height: 100%;
+      background-color: ${theme.colors.primary};
+      position: absolute;
+      left: 0px;
+      top: 0px;
+    }
+  }
 `

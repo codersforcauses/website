@@ -1,13 +1,26 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core'
 import { useTheme } from 'emotion-theming'
+import { useState } from 'react'
 import { Button, Container, Row, Col } from 'reactstrap'
 import Link from 'next/link'
-import { styles } from './styles'
+import dynamic from 'next/dynamic'
 import SocialIcons from 'components/Elements/SocialIcons'
+import { styles } from './styles'
+
+const TermsModal = dynamic(() => import('./TermsModal'))
+const PrivacyModal = dynamic(() => import('./PrivacyModal'))
+const SecurityModal = dynamic(() => import('./SecurityModal'))
+const ConstitutionModal = dynamic(() => import('./ConstitutionModal'))
 
 const Footer = () => {
+  const [termsModal, setTermsModal] = useState(false)
+  const [privacyModal, setPrivacyModal] = useState(false)
+  const [securityModal, setSecurityModal] = useState(false)
+  const [constitutionModal, setConstitutionModal] = useState(false)
   const theme = useTheme()
+
+  const newTab = url => window.open(url, '_blank')
 
   return (
     <footer
@@ -95,35 +108,112 @@ const Footer = () => {
               </li>
               <li>
                 <Link href='/about'>
-                  <a>Past events</a>
+                  <Button color='link' className='text-secondary p-0'>
+                    Past events
+                  </Button>
                 </Link>
               </li>
             </ul>
           </Col>
         </Row>
         <Row className='mt-4'>
-          <Col xs={12} md={7}>
+          <Col xs={12} md={7} className='d-md-flex align-items-center'>
+            <p className='my-0 mr-3 mr-lg-4 monospace copyright'>
+              &copy; {new Date().getFullYear()} Coders for Causes
+            </p>
             <div className='d-flex align-items-center justify-content-between legal'>
-              <p className='my-0 mr-3 monospace copyright'>
-                &copy; {new Date().getFullYear()} Coders for Causes
-              </p>
-              <Button size='sm' color='link' className='text-secondary'>Terms</Button>
-              <Button size='sm' color='link' className='text-secondary'>Privacy</Button>
-              <Button size='sm' color='link' className='text-secondary'>Security</Button>
+              <Button
+                size='sm'
+                color='link'
+                className='text-secondary'
+                onClick={() => setTermsModal(true)}
+              >
+                Terms
+              </Button>
+              <Button
+                size='sm'
+                color='link'
+                className='text-secondary'
+                onClick={() => setPrivacyModal(true)}
+              >
+                Privacy
+              </Button>
+              <Button
+                size='sm'
+                color='link'
+                className='text-secondary'
+                onClick={() => setSecurityModal(true)}
+              >
+                Security
+              </Button>
+              <Button
+                size='sm'
+                color='link'
+                className='text-secondary'
+                onClick={() => setConstitutionModal(true)}
+              >
+                Constitution
+              </Button>
             </div>
+            <TermsModal
+              isOpen={termsModal}
+              closeModal={() => setTermsModal(false)}
+            />
+            <PrivacyModal
+              isOpen={privacyModal}
+              closeModal={() => setPrivacyModal(false)}
+            />
+            <SecurityModal
+              isOpen={securityModal}
+              closeModal={() => setSecurityModal(false)}
+            />
+            <ConstitutionModal
+              isOpen={constitutionModal}
+              closeModal={() => setConstitutionModal(false)}
+            />
           </Col>
           <Col xs={12} md={5} className='d-md-flex flex-row-reverse'>
             <div className='d-flex align-items-center justify-content-between flex-grow-1 social'>
-              <Button size='sm' color='link' className='text-secondary' onClick={() => window.open('https://github.com/codersforcauses', '_blank')}>
+              <Button
+                size='sm'
+                color='link'
+                className='text-secondary'
+                onClick={() => newTab('https://github.com/codersforcauses')}
+              >
                 <SocialIcons icon='github' dimensions={20} fill='secondary' />
               </Button>
-              <Button size='sm' color='link' className='text-secondary' onClick={() => window.open('https://www.facebook.com/codersforcauses', '_blank')}>
+              <Button
+                size='sm'
+                color='link'
+                className='text-secondary'
+                onClick={() => newTab('https://discord.com/invite/zW3hjwY')}
+              >
+                <SocialIcons icon='discord' dimensions={20} fill='secondary' />
+              </Button>
+              <Button
+                size='sm'
+                color='link'
+                className='text-secondary'
+                onClick={() =>
+                  newTab('https://www.facebook.com/codersforcauses')}
+              >
                 <SocialIcons icon='facebook' dimensions={20} fill='secondary' />
               </Button>
-              <Button size='sm' color='link' className='text-secondary' onClick={() => window.open('https://www.linkedin.com/company/coders-for-causes/', '_blank')}>
+              <Button
+                size='sm'
+                color='link'
+                className='text-secondary'
+                onClick={() =>
+                  newTab('https://www.linkedin.com/company/coders-for-causes/')}
+              >
                 <SocialIcons icon='linkedin' dimensions={20} fill='secondary' />
               </Button>
-              <Button size='sm' color='link' className='text-secondary' onClick={() => window.open('https://twitter.com/codersforcauses', '_blank')}>
+              <Button
+                size='sm'
+                color='link'
+                className='text-secondary'
+                onClick={() => newTab('https://twitter.com/codersforcauses')}
+              >
                 <SocialIcons icon='twitter' dimensions={20} fill='secondary' />
               </Button>
             </div>
