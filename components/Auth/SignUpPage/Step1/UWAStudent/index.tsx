@@ -19,7 +19,8 @@ import { validationSchema } from './validation'
 
 const mapPropsToValues = () => ({
   studentNumber: '',
-  password: ''
+  password: '',
+  isGuildMember: false
 })
 
 const UWAStudent = (props: Props & FormikProps<FormValues>) => {
@@ -93,12 +94,32 @@ const UWAStudent = (props: Props & FormikProps<FormValues>) => {
           <FormFeedback>{props.errors.password}</FormFeedback>
         </InputGroup>
       </FormGroup>
+      <FormGroup check className='mb-3'>
+        <Label check>
+          <Input
+            type='checkbox'
+            tag={Field}
+            disabled={props.loading}
+            id='isGuildMember'
+            name='isGuildMember'
+            value={props.values.isGuildMember}
+          />
+          I am a{' '}
+          <a
+            href='https://www.uwastudentguild.com/the-guild/join-us'
+            target='_blank'
+            rel='noopener noreferrer'
+          >
+            UWA Guild Member
+          </a>
+        </Label>
+      </FormGroup>
       <Button
         type='submit'
         size='lg'
         color='primary'
         disabled={props.loading}
-        className='rounded-0 monospace px-4 d-flex align-items-center'
+        className='rounded-0 px-4 d-flex align-items-center monospace'
       >
         Sign Up
         {props.loading && (
@@ -118,6 +139,7 @@ export default withFormik<Props, FormValues>({
 interface FormValues {
   studentNumber: string
   password: string
+  isGuildMember: boolean
 }
 interface Props {
   handleSubmit: Function
