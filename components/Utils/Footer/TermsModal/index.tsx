@@ -39,10 +39,16 @@ const TermsModal = ({
           <h5 className='list-heading'>Signing up</h5>
           <ol className='pl-4'>
             <li>
-              n order to use most Services, you must register for or
-              authenticate into a Mapbox account. When you use our application
+              In order to use most Services, you must register for or
+              authenticate into a Coders for Causes account. When you use our application
               program interfaces (APIs), each request to an API must include one
               of your account's unique API keys.
+            </li>
+            <li>
+              You must ensure that that user username and password is kept confidential.
+              You will accept responsibility for all activities that occur under your username or password.
+              We may disable your username and password if you breach any of the policies or terms governing your use of our website
+              or any other contractual obligation you owe to us.
             </li>
           </ol>
         </div>
