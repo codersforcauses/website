@@ -49,7 +49,7 @@
   "devDependencies": {
     "@types/mapbox-gl": "1.10.4",
     "@types/node": "13.13.12",
-    "@types/react": "16.9.36",
+    "@types/react": "16.9.37",
     "@types/yup": "0.29.3",
     "@typescript-eslint/parser": "2.34.0",
     "commitizen": "4.1.2",
