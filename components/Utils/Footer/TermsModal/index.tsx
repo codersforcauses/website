@@ -65,6 +65,17 @@ const TermsModal = ({
             </li>
           </ol>
         </div>
+        <div className='pl-4 ml-1'>
+          <h5 className='list-heading'>Acceptable Use</h5>
+          <ol className='pl-4'>
+            <li>
+              You must use the website in a lawful manner, and must obey all laws,
+              rules, and regulations (“Laws”) applicable to your use of the website.
+              As applicable, this may include compliance with both domestic and international Laws.
+            </li>
+          </ol>
+        </div>
+
       </ModalBody>
     </Modal>
   )
