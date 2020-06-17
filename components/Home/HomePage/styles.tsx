@@ -7,6 +7,11 @@ export const styles = theme => css`
     height: 30vh;
   }
 
+  .lead {
+    /* font-size: calc([minimum size] + ([maximum size] - [minimum size]) * ((100vw - [minimum viewport width]) / ([maximum viewport width] - [minimum viewport width]))); */
+   font-size: calc(14px + (26 - 14) * ((100vw - 300px) / (1600 - 300)));
+    }
+
   .call {
     height:40vh
   }
