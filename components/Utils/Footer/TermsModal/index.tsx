@@ -95,6 +95,22 @@ const TermsModal = ({
             </li>
           </ol>
         </div>
+        <div className='pl-4 ml-1'>
+          <h5 className='list-heading'>Right to Amend</h5>
+          <ol className='pl-4'>
+            <li>
+              We have the right to change or add to the terms of this Agreement at any time,
+              and to change, delete, discontinue, or impose conditions on use
+              of the Services by posting such changes on our website or any other website
+              we maintain or own. We may provide you with Notice of any changes
+              through the Dashboard, via email, or through other means. Your use
+              of the Services, APIs, or Data after we publish any such changes
+              on our website, constitutes your acceptance of the terms of
+              the modified Agreement.
+            </li>
+          </ol>
+        </div>
+
       </ModalBody>
     </Modal>
   )
