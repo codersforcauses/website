@@ -41,7 +41,7 @@ const TermsModal = ({
             <li>
               In order to use most Services, you must register for or
               authenticate into a Coders for Causes account. When you use our application
-              program interfaces (APIs), each request to an API must include one
+              program interfaces ("API"), each request to an API must include one
               of your account's unique API keys.
             </li>
             <li>
@@ -49,6 +49,17 @@ const TermsModal = ({
               You will accept responsibility for all activities that occur under your username or password.
               We may disable your username and password if you breach any of the policies or terms governing your use of our website
               or any other contractual obligation you owe to us.
+            </li>
+          </ol>
+        </div>
+        <div className='pl-4 ml-1'>
+          <h5 className='list-heading'>Services</h5>
+          <ol className='pl-4'>
+            <li>
+              CFC may provide you services including, but not limted to, the attendence and participation in events.
+            </li>
+            <li>
+              CFC reserves the exclusive right to terminate your access to these services upon violation of the terms.
             </li>
           </ol>
         </div>
@@ -76,7 +87,7 @@ const TermsModal = ({
           </ol>
         </div>
         <div className='pl-4 ml-1'>
-          <h5 className='list-heading'>APIs and Dashboard</h5>
+          <h5 className='list-heading'>APIs</h5>
           <ol className='pl-4'>
             <li>
               CFC has developed and provides access to the APIs that may be used to access various services.
