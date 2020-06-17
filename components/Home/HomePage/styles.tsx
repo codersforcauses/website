@@ -3,8 +3,12 @@ import { media } from '../../../lib/mediaQueries'
 
 export const styles = theme => css`
   .hero {
-    margin-top: 64px;
-    height: 500px;
+    margin-top: 5px;
+    height: 30vh;
+  }
+
+  .call {
+    height:40vh
   }
 
   .email {

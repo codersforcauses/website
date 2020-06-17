@@ -29,7 +29,7 @@ const HomePage = (props: { theme: Object }) => (
         </h1>
       </Container>
     </Jumbotron>
-    <Container className='py-5 my-5'>
+    <Container className='call py-5 my-5'>
       <h2 className='font-weight-bold mb-4'>We are developers.</h2>
       <p className='lead'>
         Coders for Causes are a group of developers that empower charities and
