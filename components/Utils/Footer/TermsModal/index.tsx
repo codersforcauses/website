@@ -75,7 +75,15 @@ const TermsModal = ({
             </li>
           </ol>
         </div>
-
+        <div className='pl-4 ml-1'>
+          <h5 className='list-heading'>APIs and Dashboard</h5>
+          <ol className='pl-4'>
+            <li>
+              CFC has developed and provides access to the APIs that may be used to access various services.
+              You may use the APIs solely as described in the Documentation.
+            </li>
+          </ol>
+        </div>
       </ModalBody>
     </Modal>
   )
