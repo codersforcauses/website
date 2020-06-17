@@ -52,6 +52,19 @@ const TermsModal = ({
             </li>
           </ol>
         </div>
+        <div className='pl-4 ml-1'>
+          <h5 className='list-heading'>Copyright and Trademarks</h5>
+          <ol className='pl-4'>
+            <li>
+              All documents on this site incorporate a link clarifying the copyright status of the document.
+              This link appears at the foot of the page, along with the CFC contact details.
+            </li>
+            <li>
+              CFC holds the copyright to all original material produced and displayed on this site.
+              Users may not copy or reproduce the original material displayed on this site without the express written consent of CFC.
+            </li>
+          </ol>
+        </div>
       </ModalBody>
     </Modal>
   )
