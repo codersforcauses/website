@@ -10,6 +10,10 @@ const Branding = () => (
         name='description'
         content='Coders for Causes branding. Looking to use our logos, fonts, or colours for something? Please follow the guidelines laid out.'
       />
+      <meta
+        property='og:image'
+        content='https://og-social-cards.dankestkush.vercel.app/**.%2Fbranding**.png?theme=dark&md=1&fontSize=125px&images=https%3A%2F%2Fwebsite.codersforcauses.org%2Flogo%2Fcfc_logo_white_full.svg'
+      />
     </Head>
 
     <BrandPage />
