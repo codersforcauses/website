@@ -14,6 +14,7 @@ const Branding = () => (
         property='og:image'
         content='https://og-social-cards.dankestkush.vercel.app/**.%2Fbranding**.png?theme=dark&md=1&fontSize=125px&images=https%3A%2F%2Fwebsite.codersforcauses.org%2Flogo%2Fcfc_logo_white_full.svg'
       />
+      <meta property='og:site_name' content='Coders for Causes' />
     </Head>
 
     <BrandPage />
