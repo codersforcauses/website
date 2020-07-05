@@ -39,7 +39,7 @@ const HomePage = (props: { theme: Object }) => (
         Work with us&nbsp;&nbsp;&raquo;
       </Button>
     </Container>
-    <Container className='my-5'>
+    <Container className='my-5 mb-5'>
       <Row>
         <Col xs={12} tag='h3' className='header m-0'>
           Our Services
@@ -47,7 +47,7 @@ const HomePage = (props: { theme: Object }) => (
       </Row>
       <Services />
     </Container>
-    <Container>
+    <Container className='my-5 mb-5'>
       <Row>
         <Col xs={12} tag='h3' className='header m-0'>
           Our Clients
