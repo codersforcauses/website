@@ -29,7 +29,7 @@ const HomePage = (props: { theme: Object }) => (
         </h1>
       </Container>
     </Jumbotron>
-    <Container className='py-5 my-5'>
+    <Container className='call py-4 mb-5'>
       <h2 className='font-weight-bold mb-4'>We build software for charities.</h2>
       <p className='lead'>
         Our goal is to empower charities and non-profit organisations by providing them solutions to their technical problems.

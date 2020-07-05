@@ -33,7 +33,7 @@ const Header = (props: { theme: Object }) => {
       tag='header'
       color='primary'
       expand='md'
-      className='text-secondary py-3 fixed-top shadow-sm'
+      className='text-secondary py-4 fixed-top shadow-sm'
       css={styles(props.theme)}
     >
       <Container>

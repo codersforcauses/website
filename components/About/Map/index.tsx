@@ -50,7 +50,7 @@ const Map = (props: { theme: Object }) => {
     const initializeMap = ({ setMap, mapContainer }) => {
       const map = new mapboxgl.Map({
         container: mapContainer.current,
-        style: 'mapbox://styles/mapbox/light-v10?optimize=true',
+        style: 'mapbox://styles/mapbox/light-v10',
         center: UWA_COORDS,
         minZoom: 9,
         zoom: 9,
