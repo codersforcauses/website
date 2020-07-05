@@ -6,6 +6,11 @@ export const styles = theme => css`
     margin-top: 5px;
     height: 30vh;
   }
+  
+  .header {
+    font-weight: bolder;
+    margin-bottom: 1.2rem;
+  }
 
   .lead {
     /* font-size: calc([minimum size] + ([maximum size] - [minimum size]) * ((100vw - [minimum viewport width]) / ([maximum viewport width] - [minimum viewport width]))); */
