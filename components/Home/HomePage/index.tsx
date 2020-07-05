@@ -39,14 +39,22 @@ const HomePage = (props: { theme: Object }) => (
         Work with us&nbsp;&nbsp;&raquo;
       </Button>
     </Container>
-    <Container className='py-5 my-5'>
+    <Container className='my-5'>
+      <Row>
+        <Col xs={12} tag='h3' className='header m-0'>
+          Our Services
+        </Col>
+      </Row>
       <Services />
     </Container>
-    <div className='bg-light'>
-      <Container>
-        <Clients />
-      </Container>
-    </div>
+    <Container>
+      <Row>
+        <Col xs={12} tag='h3' className='header m-0'>
+          Our Clients
+        </Col>
+      </Row>
+      <Clients />
+    </Container>
     <div className='py-5 bg-primary text-secondary'>
       <Container className='py-5'>
         <Row>

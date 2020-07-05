@@ -13,10 +13,6 @@ export const styles = theme => css`
     line-height: calc(1.3em + (1.5 - 1.2) * ((100vw - 300px)/(1600 - 300)));
     }
 
-  .call {
-    height:40vh
-  }
-
   .email {
     font-size: 1rem;
   }
