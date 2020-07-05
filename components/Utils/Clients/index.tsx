@@ -16,7 +16,9 @@ const Clients = () => (
         key={client.name}
         className='d-flex align-items-center mb-4 mb-md-0 justify-content-center'
       >
-        <img src={client.logo} alt={client.name} className='img-fluid logo' />
+        <a href={client.repo} target='_blank' rel='noopener noreferrer'>
+          <img src={client.logo} alt={client.name} className='img-fluid logo' width='100' height='100' />
+        </a>
       </Col>
     ))}
   </Row>

@@ -2,21 +2,25 @@
   {
     "logo": "/clients/ignite_logo.svg",
     "color": "",
-    "name": "Ignite Mentoring"
+    "name": "Ignite Mentoring",
+    "repo": "https://github.com/codersforcauses/Ignite-Mentoring"
   },
   {
     "logo": "/clients/tlg_logo.svg",
     "color": "",
-    "name": "Teach Learn Grow"
+    "name": "Teach Learn Grow",
+    "repo": "https://github.com/codersforcauses/teach-learn-grow"
   },
   {
     "logo": "/clients/p2s_logo.svg",
     "color": "",
-    "name": "P2S Rugbyworks"
+    "name": "P2S Rugbyworks",
+    "repo": "https://github.com/codersforcauses/p2s-frontend"
   },
   {
     "logo": "/clients/anglicare_logo.svg",
     "color": "",
-    "name": "Anglicare WA"
+    "name": "Anglicare WA",
+    "repo": "https://www.homefornow.org.au/"
   }
 ]
