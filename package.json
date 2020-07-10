@@ -68,7 +68,7 @@
     "husky": "4.2.5",
     "lint-staged": "10.2.11",
     "typescript": "3.9.6",
-    "wait-on": "4.0.2"
+    "wait-on": "5.1.0"
   },
   "husky": {
     "hooks": {
