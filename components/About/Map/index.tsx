@@ -13,7 +13,7 @@ const property3D: mapboxgl.Layer = {
   type: 'fill-extrusion',
   minzoom: 17.5,
   paint: {
-    'fill-extrusion-color': '#333',
+    'fill-extrusion-color': '#333', // #bbb for dark mode
     // use an 'interpolate' expression to add a smooth transition effect to the
     // buildings as the user zooms in
     'fill-extrusion-height': [
