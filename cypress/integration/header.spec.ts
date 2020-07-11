@@ -8,22 +8,22 @@ describe('Test Desktop Navbar', () => {
 
   it('should be able to navigate home page', () => {
     cy.get('[id="Home"]').click()
-    cy.contains('./Innovation with a mission')
+    cy.contains('Let\'s talk.')
   })
 
   it('should be able to navigate to /about', () => {
     cy.get('[data-tid="nav-About"]').click()
-    cy.contains('./about')
+    cy.contains('Meet the Team')
   })
 
   it('should be able to navigate to /events', () => {
     cy.get('[data-tid="nav-Events"]').click()
-    cy.contains('./events')
+    cy.contains('Workshops')
   })
 
   it('should be able to navigate to /projects', () => {
     cy.get('[data-tid="nav-Projects"]').click()
-    cy.contains('./projects')
+    cy.contains('Ignite Mentoring')
   })
 })
 
@@ -37,7 +37,7 @@ describe('Test Mobile Navbar', () => {
 
   it('should be able to navigate home page', () => {
     cy.get('[id="Home"]').click()
-    cy.contains('./Innovation with a mission')
+    cy.contains('Let\'s talk.')
   })
 
   it('should be able to navigate to /about', () => {
