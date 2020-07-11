@@ -8,8 +8,9 @@ export const styles = theme => css`
   }
 
   .lead {
-    font-size: clamp(14px, 3vmin, 16px);
-    line-height: 1.4;
+    font-size: clamp(18px, 3vmin, 22px);
+    line-height: 1.6;
+    margin-bottom: 24px;
   }
 
   .call {
