@@ -64,7 +64,7 @@ const Step1 = (props: { signIn: Function; nextStep: Function }) => {
   return (
     <Row>
       <Col xs={12} tag='p'>
-        Already have an account? Sign in&nbsp;
+        Already have an account?&nbsp;
         <a
           href=''
           onClick={e => {
@@ -72,9 +72,9 @@ const Step1 = (props: { signIn: Function; nextStep: Function }) => {
             props.signIn(false)
           }}
         >
-          here
+          Sign in
         </a>
-        !
+        .
       </Col>
       <Col md={6}>
         <Nav tabs className='border-0'>
