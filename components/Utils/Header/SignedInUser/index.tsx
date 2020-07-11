@@ -13,7 +13,7 @@ import Router from 'next/router'
 import { getInitials } from 'helpers/user'
 import { styles } from './styles'
 
-const Avatar = ({ name, setUser, ...props }: Props) => {
+const UserMenu = ({ name, setUser, ...props }: Props) => {
   const [dropdown, setDropdown] = useState(false)
 
   const theme = useTheme()
@@ -67,7 +67,7 @@ const Avatar = ({ name, setUser, ...props }: Props) => {
   )
 }
 
-export default Avatar
+export default UserMenu
 
 interface Props {
   name?: string
