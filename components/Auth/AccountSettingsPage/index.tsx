@@ -26,7 +26,7 @@ const mapPropsToValues = (props: Props) => ({
   confirmPassword: ''
 })
 
-const BrandPage = (props: Props & FormikProps<FormValues>) => {
+const AccountSettingsPage = (props: Props & FormikProps<FormValues>) => {
   const theme = useTheme()
 
   return (
@@ -130,7 +130,7 @@ export default withFormik<Props, FormValues>({
   handleSubmit: async values => {},
   mapPropsToValues,
   validationSchema
-})(BrandPage)
+})(AccountSettingsPage)
 
 interface FormValues {
   firstName: string
