@@ -49,11 +49,11 @@ const AboutPage = () => {
                 information.
               </p>
             </Col>
-            <Col xs={12} lg={6} className='pr-0 map'>
-              <Map />
-            </Col>
           </Row>
         </Container>
+        <div className='map'>
+          <Map />
+        </div>
       </div>
 
       <Jumbotron id='_meet_the_team' className='m-0 p-0'>
