@@ -36,15 +36,9 @@ const AboutPage = (props: { theme: Object }) => (
       >
         <Row className='d-flex align-items-center'>
           <Col xs={12} lg={5}>
-            <h2 className='header'>We build software for charities</h2>
+            <h2 className='header'>Who are we?</h2>
             <p className='lead m-lg-0'>
-              Coders for Causes is a not for profit organisation that empowers
-              charities and other not for profit organisations by connecting
-              them with university students to develop technical solutions. We
-              are a student-run club based in Perth, Western Australia with a
-              wide range of clients. Whether you are looking for technical
-              advice or a long term project, get in touch with us for more
-              information.
+              We are a group of developers studying at the University of Western Australia. We are student powered and all of our members are volunteers dedicated to building quality software.
             </p>
           </Col>
           <div className='map'>
