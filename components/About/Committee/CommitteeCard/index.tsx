@@ -25,7 +25,12 @@ const CommitteeCard = ({
 
   return (
     <Card inverse className='border-0 rounded-0' css={styles(theme)}>
-      <CardImg width='100%' src={src} alt={alt} className='rounded-0' />
+      <CardImg
+        width='100%'
+        src={src}
+        alt={alt}
+        className='rounded-0 flex-grow-1'
+      />
       <CardImgOverlay className='bg-primary card-overlay'>
         <CardTitle className='font-weight-bolder text-monospace'>
           {name}

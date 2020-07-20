@@ -1,16 +1,15 @@
-import React from 'react'
-import { Row, Col } from 'reactstrap'
+/** @jsx jsx */
+import { jsx } from '@emotion/core'
 import { committee } from 'data/committee.json'
 import CommitteeCard from './CommitteeCard'
+import { styles } from './styles'
 
 const Committee = () => (
-  <Row>
+  <div className='mt-3' css={styles()}>
     {committee.map(member => (
-      <Col xs={6} lg={4} key={member.name} className='mt-3 pt-3'>
-        <CommitteeCard item={member} />
-      </Col>
+      <CommitteeCard item={member} key={member.name} />
     ))}
-  </Row>
+  </div>
 )
 
 export default Committee
