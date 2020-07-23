@@ -48,7 +48,7 @@
   },
   "devDependencies": {
     "@types/mapbox-gl": "1.11.1",
-    "@types/node": "13.13.14",
+    "@types/node": "13.13.15",
     "@types/react": "16.9.43",
     "@types/yup": "0.29.3",
     "@typescript-eslint/parser": "3.7.0",
