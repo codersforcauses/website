@@ -6,34 +6,29 @@ describe('Test Footer', () => {
     cy.visit('/')
   })
 
-  it('first column', () => {
-    cy.get('.footer').find('img').should('be.visible')
-    cy.get('.footer')
-      .contains('Copyright')
-      .contains('Coders for Causes')
+  it('has branding', () => {
+    cy.get('[data-cy=footer]')
+      .find('img')
       .should('be.visible')
-    cy.get('.footer').contains('Made with ').should('be.visible')
+
+    cy.get('[data-cy=footer]')
+      .get('.copyright')
+      .contains('Copyright')
+      .should('be.visible')
   })
 
-  it('second column', () => {
-    cy.get('.footer').contains('About us').should('be.visible')
-    cy.get('.footer').contains('What we do').click()
-    cy.contains('We build software for charities').should('be.visible')
-    // cy.get('.footer').contains('Made with ').should('be.visible')
+  it('has navigation to /branding', () => {
+    cy.get('[data-cy=branding]').click()
+    cy.url().should('include', '/branding')
   })
 
-  // it('should be able to navigate to /about', () => {
-  //   cy.get('[data-tid="nav-About"]').click()
-  //   cy.contains('./about')
-  // })
+  it('has navigation to /contact', () => {
+    cy.get('[data-cy=contact]').click()
+    cy.url().should('include', '/contact')
+  })
 
-  // it('should be able to navigate to /events', () => {
-  //   cy.get('[data-tid="nav-Events"]').click()
-  //   cy.contains('./events')
-  // })
-
-  // it('should be able to navigate to /projects', () => {
-  //   cy.get('[data-tid="nav-Projects"]').click()
-  //   cy.contains('./projects')
-  // })
+  it('has navigation to /projects', () => {
+    cy.get('[data-cy=projects]').click()
+    cy.url().should('include', '/projects')
+  })
 })

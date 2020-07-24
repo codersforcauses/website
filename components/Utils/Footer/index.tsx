@@ -7,8 +7,7 @@ import { styles } from './styles'
 
 const Footer = (props: { theme: Object }) => (
   <footer
-    className='bg-primary text-secondary py-5 footer'
-    css={styles(props.theme)}
+    className='bg-primary text-secondary py-5 footer' css={styles(props.theme)} data-cy='footer'
   >
     <Container>
       <Row>
@@ -22,7 +21,7 @@ const Footer = (props: { theme: Object }) => (
               alt='Coders for Causes wordmark'
               className='img-fluid w-75 mb-1'
             />
-            <p className='mb-1 monospace copyright'>
+            <p className='mb-1 monospace copyright' data-cy='copyrightnotice'>
               Copyright &copy; {new Date().getFullYear()} Coders for Causes
             </p>
           </div>
@@ -45,12 +44,12 @@ const Footer = (props: { theme: Object }) => (
             </li>
             <li>
               <Link href='/branding'>
-                <a>Our branding</a>
+                <a data-cy='branding'>Our branding</a>
               </Link>
             </li>
             <li>
               <Link href='/contact'>
-                <a>Contact us</a>
+                <a data-cy='contact'>Contact us</a>
               </Link>
             </li>
           </ul>
@@ -65,7 +64,7 @@ const Footer = (props: { theme: Object }) => (
             </li>
             <li>
               <Link href='/projects'>
-                <a>Previous projects</a>
+                <a data-cy='projects'>Previous projects</a>
               </Link>
             </li>
           </ul>
