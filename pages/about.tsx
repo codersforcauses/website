@@ -15,6 +15,10 @@ const About = () => (
         content='https://og-social-cards.dankestkush.vercel.app/**.%2Fabout**.png?theme=dark&md=1&fontSize=125px&images=https%3A%2F%2Fwebsite.codersforcauses.org%2Flogo%2Fcfc_logo_white_full.svg'
       />
       <meta property='og:site_name' content='Coders for Causes' />
+
+      <meta property='og:title' content='Who are we?' />
+      <meta property='og:description' content='A group of students who develop technical solutions for charities and other not for profit organisations.' />
+
       <link rel='preconnect' href='https://api.mapbox.com' crossOrigin='' />
       <link rel='dns-prefetch' href='//api.mapbox.com' />
 
