@@ -2,7 +2,6 @@
 
 describe('Test desktop element visibility', () => {
   beforeEach(() => {
-    cy.clearLocalStorage()
     cy.visit('/')
   })
 

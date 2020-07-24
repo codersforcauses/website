@@ -19,7 +19,6 @@ const navTest = [
 
 describe('Test Desktop Navbar', () => {
   beforeEach(() => {
-    cy.clearLocalStorage()
     cy.visit('/')
   })
 
@@ -29,7 +28,6 @@ describe('Test Desktop Navbar', () => {
 
 describe('Test Mobile Navbar', () => {
   beforeEach(() => {
-    cy.clearLocalStorage()
     cy.viewport('iphone-5')
     cy.visit('/')
     cy.get('[id="Menu"]').click()

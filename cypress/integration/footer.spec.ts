@@ -2,7 +2,6 @@
 
 describe('Test Footer', () => {
   beforeEach(() => {
-    cy.clearLocalStorage()
     cy.visit('/')
   })
 
