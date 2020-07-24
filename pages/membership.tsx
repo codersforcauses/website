@@ -24,7 +24,7 @@ const Membership = () => {
       <Head>
         <title>Membership | Coders for Causes</title>
         <Seo
-          name='Become a Memeber'
+          title='Become a Member'
           description='Sign in using your student credentials or register a new account.'
           image='https://og-social-cards.dankestkush.vercel.app/**.%2Fmembership**.png?theme=dark&md=1&fontSize=125px&images=https%3A%2F%2Fwebsite.codersforcauses.org%2Flogo%2Fcfc_logo_white_full.svg'
         />
