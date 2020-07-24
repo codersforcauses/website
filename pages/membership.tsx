@@ -30,6 +30,8 @@ const Membership = () => {
           property='og:image'
           content='https://og-social-cards.dankestkush.vercel.app/**.%2Fmembership**.png?theme=dark&md=1&fontSize=125px&images=https%3A%2F%2Fwebsite.codersforcauses.org%2Flogo%2Fcfc_logo_white_full.svg'
         />
+        <meta property='og:title' content='Become a member' />
+        <meta property='og:description' content='Sign in using your student credentials or register a fresh account.' />
         <meta property='og:site_name' content='Coders for Causes' />
       </Head>
       {isSignUp ? (
