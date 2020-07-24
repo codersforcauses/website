@@ -16,7 +16,7 @@ const About = () => (
       />
       <meta property='og:site_name' content='Coders for Causes' />
 
-      <meta property='og:title' content='Who are we?' />
+      <meta property='og:title' content='About Us' />
       <meta property='og:description' content='A group of students who develop technical solutions for charities and other not for profit organisations.' />
 
       <link rel='preconnect' href='https://api.mapbox.com' crossOrigin='' />
