@@ -1,5 +1,6 @@
 import React, { useState, useContext, useEffect } from 'react'
 import Head from 'next/head'
+import Seo from 'components/Utils/SEO'
 import { useRouter } from 'next/router'
 import SignInPage from 'components/Auth/SignInPage'
 import SignUpPage from 'components/Auth/SignUpPage'
@@ -22,17 +23,11 @@ const Membership = () => {
     <>
       <Head>
         <title>Membership | Coders for Causes</title>
-        <meta
-          name='description'
-          content='Create an account or sign in to Coders for Causes.'
+        <Seo
+          name='Become a Memeber'
+          description='Sign in using your student credentials or register a new account.'
+          image='https://og-social-cards.dankestkush.vercel.app/**.%2Fmembership**.png?theme=dark&md=1&fontSize=125px&images=https%3A%2F%2Fwebsite.codersforcauses.org%2Flogo%2Fcfc_logo_white_full.svg'
         />
-        <meta
-          property='og:image'
-          content='https://og-social-cards.dankestkush.vercel.app/**.%2Fmembership**.png?theme=dark&md=1&fontSize=125px&images=https%3A%2F%2Fwebsite.codersforcauses.org%2Flogo%2Fcfc_logo_white_full.svg'
-        />
-        <meta property='og:title' content='Become a member' />
-        <meta property='og:description' content='Sign in using your student credentials or register a fresh account.' />
-        <meta property='og:site_name' content='Coders for Causes' />
       </Head>
       {isSignUp ? (
         <SignUpPage route={nextRoute} signIn={setIsSignUp} />
