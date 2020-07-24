@@ -38,7 +38,9 @@ const Header = () => {
       tag='header'
       color='primary'
       expand='md'
-      className='text-secondary py-3 fixed-top shadow-sm'
+      className={`text-secondary py-3 fixed-top shadow-sm ${
+        open && 'border-bottom border-secondary'
+      }`}
       css={styles(theme)}
     >
       <Container>
@@ -46,19 +48,21 @@ const Header = () => {
           <NavbarToggler
             id='Menu'
             onClick={toggleOpen}
-            className='mr-5 d-flex d-md-none align-items-center px-0 ml-sm-3 border-0'
+            className='mr-3 d-flex d-md-none align-items-center px-0 ml-sm-3 border-0'
           >
-            <i className='material-icons-sharp text-secondary'>menu</i>
+            <i className='material-icons-sharp text-secondary'>
+              {open ? 'close' : 'menu'}
+            </i>
           </NavbarToggler>
           <NavbarBrand
             href='/'
             id='Home'
             title='Home'
-            className='mr-md-5 brand font-weight-bold monospace'
+            className='mr-md-5 py-0 brand font-weight-bold monospace'
           >
             cfc
           </NavbarBrand>
-          <Collapse navbar isOpen={open} className='pl-3 pl-md-0'>
+          <Collapse navbar isOpen={open} className='pl-4 ml-2 pl-md-0'>
             <Nav navbar>
               {links.map(link => (
                 <HeaderItem item={link} key={link.text} />
@@ -75,6 +79,7 @@ const Header = () => {
           <Link href='/membership'>
             <Button
               outline
+              size='sm'
               color='secondary'
               className='d-none d-md-block rounded-0'
             >

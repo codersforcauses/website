@@ -59,8 +59,8 @@ const HomePage = () => {
       <Container className='py-5 my-md-5'>
         <Services />
       </Container>
-      <div className='py-5 bg-primary text-secondary'>
-        <Container id='_contact_us' className='pt-5 pb-0 pb-md-5'>
+      <div className='pt-5 pb-md-5 bg-primary text-secondary'>
+        <Container id='_contact_us' className='pt-md-5 pb-0 pb-md-5'>
           <Row className='mt-lg-5'>
             <Col md={8} className='d-flex flex-column justify-content-center'>
               <h1 className={`display-3 mt-0 mb-${contactOpen ? '0' : '3'}`}>

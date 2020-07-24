@@ -13,6 +13,7 @@ export const globalStyle = theme => css`
       Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif,
       'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol',
       'Noto Color Emoji';
+    font-size: clamp(14px, 5vmin, 16px);
   }
 
   html,
@@ -31,15 +32,10 @@ export const globalStyle = theme => css`
     color: ${theme.colors.primary};
     text-shadow: none;
   }
-  ::-moz-selection {
-    background: ${theme.colors.accent};
-    color: ${theme.colors.primary};
-    text-shadow: none;
-  }
 
   .main {
-    margin-top: 72px;
-    min-height: calc(100vh - (72px + 236px));
+    margin-top: 64px;
+    min-height: calc(100vh - (64px + 236px));
   }
 
   /*
@@ -47,7 +43,7 @@ export const globalStyle = theme => css`
     This also means all ID's must be prefixed by '_'.
   */
   [id^='_'] {
-    scroll-margin-top: 72px;
+    scroll-margin-top: 64px;
   }
 
   .monospace {
