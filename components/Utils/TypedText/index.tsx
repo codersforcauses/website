@@ -20,5 +20,5 @@ export default ({ text }: { text: Array<string> }) => {
     }
   }, [])
 
-  return <span data-cy='typer' ref={typedText} />
+  return <span ref={typedText} data-cy='typer' />
 }

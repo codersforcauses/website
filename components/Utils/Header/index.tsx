@@ -48,9 +48,9 @@ const Header = (props: { theme: Object }) => {
           <NavbarBrand
             href='/'
             id='Home'
-            data-cy='nav-Home'
             title='Home'
             className='mr-md-5 brand font-weight-bold monospace'
+            data-cy='nav-Home'
           >
             cfc
           </NavbarBrand>
