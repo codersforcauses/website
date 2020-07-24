@@ -8,7 +8,7 @@ import { styles } from './styles'
 const HeaderLink = ({ href, text, ...props }: Props) => (
   <span css={styles(props.theme)}>
     <Link href={href}>
-      <NavLink className='header-link' data-tid={`nav-${text}`}>
+      <NavLink className='header-link' data-cy={`nav-${text}`}>
         {text}
       </NavLink>
     </Link>

@@ -12,7 +12,7 @@ export default ({ text }: { text: Array<string> }) => {
       backSpeed: 30,
       backDelay: 2000,
       cursorChar: '\u258B',
-      loop: true,
+      loop: true
     })
 
     return () => {
@@ -20,5 +20,5 @@ export default ({ text }: { text: Array<string> }) => {
     }
   }, [])
 
-  return <span ref={typedText} />
+  return <span data-cy='typer' ref={typedText} />
 }
