@@ -1,18 +1,24 @@
 /// <reference path="../support/index.d.ts" />
 
 const testNavButton = (buttonId: string, url: string) => {
-  cy.get(`[data-cy=nav-${buttonId}]`)
-    .click()
-  cy.url().should('eq', Cypress.config().baseUrl + `${url}`);
+  cy.get(`[data-cy=nav-${buttonId}]`).click()
+  cy.url().should('eq', Cypress.config().baseUrl + `${url}`)
 }
 
-const createNavTest = (msg: string, buttonId: string, url: string) => it(msg, () => { testNavButton(buttonId, url) })
+const createNavTest = (msg: string, buttonId: string, url: string) =>
+  it(msg, () => {
+    testNavButton(buttonId, url)
+  })
 
 const navigationTests = () => {
   createNavTest('should be able to navigate home page', 'Home', '/')
   createNavTest('should be able to navigate to /about', 'About', '/about')
   createNavTest('should be able to navigate to /events', 'Events', '/events')
-  createNavTest('should be able to navigate to /projects', 'Projects', '/projects')
+  createNavTest(
+    'should be able to navigate to /projects',
+    'Projects',
+    '/projects'
+  )
 }
 
 describe('Test Desktop Navbar', () => {
@@ -21,7 +27,6 @@ describe('Test Desktop Navbar', () => {
   })
 
   navigationTests()
-
 })
 
 describe('Test Mobile Navbar', () => {
@@ -32,5 +37,4 @@ describe('Test Mobile Navbar', () => {
   })
 
   navigationTests()
-
 })

@@ -7,7 +7,9 @@ import { styles } from './styles'
 
 const Footer = (props: { theme: Object }) => (
   <footer
-    className='bg-primary text-secondary py-5 footer' css={styles(props.theme)} data-cy='footer'
+    className='bg-primary text-secondary py-5 footer'
+    css={styles(props.theme)}
+    data-cy='footer'
   >
     <Container>
       <Row>

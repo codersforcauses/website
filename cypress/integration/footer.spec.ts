@@ -6,9 +6,7 @@ describe('Test Footer', () => {
   })
 
   it('has branding', () => {
-    cy.get('[data-cy=footer]')
-      .find('img')
-      .should('be.visible')
+    cy.get('[data-cy=footer]').find('img').should('be.visible')
 
     cy.get('[data-cy=footer]')
       .get('.copyright')
