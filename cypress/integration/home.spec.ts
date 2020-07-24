@@ -1,9 +1,21 @@
 /// <reference path="../support/index.d.ts" />
 
-// import fake from 'faker'
+describe('Test desktop element visibility', () => {
+  beforeEach(() => {
+    cy.clearLocalStorage()
+    cy.visit('/')
+  })
 
-describe('Desktop Login Test', () => {
-  // const email = fake.internet.email()
+  it('smiley should wink on mouseover', () => {
+    cy.get('.face')
+      .contains(':)')
+    cy.get('.face')
+      .trigger('mouseover')
+      .contains(';)')
+  })
+})
+
+// const email = fake.internet.email()
   // const pass = fake.internet.password(8)
   // beforeEach(() => {
   //   cy.clearLocalStorage()
@@ -31,4 +43,3 @@ describe('Desktop Login Test', () => {
   // // it('Logs user in, pass', () => {
   // //   cy.login();
   // // });
-})

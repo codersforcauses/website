@@ -6,7 +6,8 @@ const testNavButton = (buttonId: string, url: string) => {
   cy.url().should('eq', Cypress.config().baseUrl + `${url}`);
 }
 
-const createNavTest = (msg: string, buttonId: string, url: string) => () => it(msg, () => { testNavButton(buttonId, url) })
+const createNavTest = (msg: string, buttonId: string, url: string) =>
+  () => it(msg, () => { testNavButton(buttonId, url) })
 
 const navTest = [
   createNavTest('should be able to navigate home page', 'Home', '/'),
