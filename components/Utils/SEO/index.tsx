@@ -1,9 +1,9 @@
 import React from 'react'
 
 type SEOProps = {
-    title: string,
-    image: string,
-    description: string
+  title: string
+  image: string
+  description: string
 }
 
 const SEO = ({ title, image, description }: SEOProps) => {
