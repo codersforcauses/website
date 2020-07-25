@@ -14,6 +14,7 @@ import { UserContext } from 'helpers/user'
 import { theme } from 'lib/theme'
 import { globalStyle } from 'GlobalStyles'
 import 'theme.scss'
+import { Alert, Container } from 'reactstrap'
 
 Auth.configure({
   aws_project_region: process.env.AMPLIFY_AWS_COGNITO_REGION,
@@ -40,18 +41,20 @@ Auth.configure({
 const AddOns = () => {
   const { user } = useContext(UserContext)
 
-  return process.env.NODE_ENV === 'production' && (
+  return process.env.NODE_ENV === 'production' ? (
     <>
       <div id='fb-root' />
       <div
         className='fb-customerchat'
         data-theme_color='#000000'
         data-page_id='700598980115471'
-        data-logged_in_greeting={`Hi ${user?.given_name}! How can we help you?`}
-        data-logged_out_greeting='Please log in to chat with us'
+        data-logged_in_greeting={`Hi ${
+          user?.given_name ?? 'there'
+        }! How can we help you?`}
+        data-logged_out_greeting='Please log into facebook to chat with us'
       />
     </>
-  )
+  ) : null
 }
 
 const Website = ({ Component, pageProps }: AppProps) => {
@@ -69,6 +72,27 @@ const Website = ({ Component, pageProps }: AppProps) => {
           <Global styles={globalStyle(theme)} />
           <Header />
           <main className='main'>
+            {/* TODO remove once MVP is finished */}
+            <Alert
+              color='warning'
+              className='fixed-top rounded-0 px-0 py-md-3 border border-warning'
+              style={{ marginTop: '64px', zIndex: 2 }}
+            >
+              <Container>
+                This website is still under development. Not everything may
+                work, but feel free to look around. If you want to check out the
+                old website,{' '}
+                <a
+                  href='https://codersforcauses.org/landing'
+                  target='_blank'
+                  rel='noreferrer noopener'
+                  className='alert-link'
+                >
+                  click here
+                </a>
+                .
+              </Container>
+            </Alert>
             <Component {...pageProps} />
           </main>
           <Footer />
