@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import Router from 'next/router'
 import {
   Row,
   Col,
@@ -13,6 +14,7 @@ import { phemeLogin } from 'helpers/phemeLogin'
 import UWAStudent from './UWAStudent'
 import OtherMember from './OtherMember'
 
+// eslint-disable-next-line react/no-unused-prop-types
 const Step1 = (props: { signIn: Function; nextStep: Function }) => {
   const [isUWAStudent, setIsUWAStudent] = useState(true)
   const [loading, setLoading] = useState(false)
@@ -51,7 +53,8 @@ const Step1 = (props: { signIn: Function; nextStep: Function }) => {
       }
       const response = await Auth.signUp(data)
       // console.log(response)
-      props.nextStep()
+      // props.nextStep()
+      Router.push('/')
     } catch (error) {
       setErrors(
         error.message ||

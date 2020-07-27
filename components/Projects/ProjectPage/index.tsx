@@ -70,7 +70,7 @@ const ProjectPage = () => {
             </div>
             <div>
               <h4 className='font-weight-black mb-4'>Members</h4>
-              <TechList />
+              {/* <TechList /> */}
             </div>
           </Col>
           <Col lg={3}>
