@@ -76,7 +76,7 @@ const Website = ({ Component, pageProps }: AppProps) => {
             <Alert
               color='warning'
               className='fixed-top rounded-0 px-0 py-md-3 border border-warning'
-              style={{ marginTop: '64px', zIndex: 2 }}
+              style={{ marginTop: '64px', zIndex: 3 }}
             >
               <Container>
                 This website is still under development. Not everything may

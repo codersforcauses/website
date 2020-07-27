@@ -1,137 +1,136 @@
 {
   "committee": [
     {
-      "name": "Jeremiah Pinto",
+      "name": "Drew Alexander",
       "position": "President",
       "about": "",
       "social": {
         "email": "president@codersforcauses.org",
-        "discord": "Smooth Jezz",
-        "github": "https://github.com/JeremiahPinto",
-        "linkedin": "https://www.linkedin.com/in/jeremiah-pinto/"
-      },
-      "picture": {
-        "src": "/committee/jeremiahdp.png",
-        "alt": "CFC President"
-      }
-    },
-    {
-      "name": "Drew Alexander",
-      "position": "Vice President",
-      "about": "",
-      "social": {
-        "email": "vicepresident@codersforcauses.org",
         "discord": "Drubi",
         "github": "https://github.com/Drewbi",
         "linkedin": "https://www.linkedin.com/in/drew-alexander-29397317a/"
       },
       "picture": {
         "src": "/committee/drewdp.png",
-        "alt": "CFC Vice-President"
-      }
-    },
-    {
-      "name": "Ekin Bukulmez",
-      "position": "Secretary",
-      "about": "",
-      "social": {
-        "email": "secretary@codersforcauses.org",
-        "discord": "Elysian",
-        "github": "https://github.com/blaiddyd",
-        "linkedin": "https://www.linkedin.com/in/ekinbukulmez/"
-      },
-      "picture": {
-        "src": "https://avatars0.githubusercontent.com/u/37198910?s=400&v=4",
-        "alt": "CFC Secretary"
-      }
-    },
-    {
-      "name": "David Yu",
-      "position": "Treasurer",
-      "about": "",
-      "social": {
-        "email": "treasurer@codersforcauses.org",
-        "discord": "davidyu112311234",
-        "github": "https://github.com/noobling",
-        "linkedin": "https://www.linkedin.com/in/david-yu-australia/"
-      },
-      "picture": {
-        "src": "https://avatars3.githubusercontent.com/u/23206864?s=400&v=4",
-        "alt": "CFC Treasurer"
+        "alt": "CFC President"
       }
     },
     {
       "name": "Innocent Muisha",
-      "position": "Client Officer",
+      "position": "Vice President",
       "about": "",
       "social": {
-        "email": "clientofficer@codersforcauses.org",
+        "email": "vicepresident@codersforcauses.org",
         "discord": "Eagle-i",
         "github": "https://github.com/innocentmm",
         "linkedin": "https://www.linkedin.com/in/innocent-muisha-00958615a/"
       },
       "picture": {
         "src": "/committee/innocentdp.png",
-        "alt": "CFC Client Officer"
+        "alt": "CFC Vice President"
       }
     },
     {
-      "name": "Minh Le",
-      "position": "Marketing Officer",
+      "name": "Daphne Yu",
+      "position": "Secretary",
       "about": "",
       "social": {
-        "email": "publicity@codersforcauses.org",
-        "discord": "Minhocent Bystander",
-        "github": "https://github.com/Pixeladed",
-        "linkedin": "https://www.linkedin.com/in/vietminhle/"
+        "email": "secretary@codersforcauses.org",
+        "discord": "MerlinTheWizard",
+        "github": "https://github.com/definitelyDaphne",
+        "linkedin": "https://www.linkedin.com/in/daphne-yu-81101916b/"
       },
       "picture": {
-        "src": "/committee/minhdp.png",
-        "alt": "CFC Marketing Officer"
+        "src": "https://avatars2.githubusercontent.com/u/49707328?s=400&u=f907c644c6ebcaf1aac7e18eacfb4b562e333f17&v=4",
+        "alt": "CFC Secretary"
       }
     },
     {
       "name": "Thai Nguyen",
-      "position": "Ordinary Committee Member",
+      "position": "Treasurer",
       "about": "",
       "social": {
-        "email": "committee@codersforcauses.org",
-        "discord": "Tai",
+        "email": "treasurer@codersforcauses.org",
+        "discord": "t",
         "github": "https://github.com/thaingu",
         "linkedin": "https://www.linkedin.com/in/thai-nguyen-8b6098183/"
       },
       "picture": {
         "src": "https://avatars0.githubusercontent.com/u/34293984?s=400&v=4",
-        "alt": "CFC OCM"
+        "alt": "CFC Treasurer"
       }
     },
     {
-      "name": "Jong Kyung Kim",
+      "name": "Jeremiah Pinto",
+      "position": "Technical Lead",
+      "about": "",
+      "social": {
+        "email": "techlead@codersforcauses.org",
+        "discord": "Smooth Jezz",
+        "github": "https://github.com/JeremiahPinto",
+        "linkedin": "https://www.linkedin.com/in/jeremiah-pinto/"
+      },
+      "picture": {
+        "src": "/committee/jeremiahdp.png",
+        "alt": "CFC Tech Lead"
+      }
+    },
+    {
+      "name": "Mila Zhang",
+      "position": "Marketing Officer",
+      "about": "",
+      "social": {
+        "email": "publicity@codersforcauses.org",
+        "discord": "Mila",
+        "github": "https://github.com/milayue",
+        "linkedin": "https://www.linkedin.com/in/mila-zhang-736b2b198/"
+      },
+      "picture": {
+        "src": "https://avatars2.githubusercontent.com/u/53566946?s=460&u=873f2d729f4c231e48335e85db1d0eef86c41f8c&v=4",
+        "alt": "CFC Marketing Officer"
+      }
+    },
+    {
+      "name": "Frinze Lapuz",
       "position": "Ordinary Committee Member",
       "about": "",
       "social": {
         "email": "committee@codersforcauses.org",
-        "discord": "Happy Dust",
-        "github": "https://github.com/JKKim98",
-        "linkedin": "https://www.linkedin.com/in/jkkim98/"
+        "discord": "Frinze Lapuz",
+        "github": "https://github.com/frinzekt",
+        "linkedin": "https://www.linkedin.com/in/frinze-erin-lapuz/"
       },
       "picture": {
-        "src": "/committee/jongdp.png",
+        "src": "https://avatars3.githubusercontent.com/u/44391389?s=460&u=b455fca141a0e007d3a36fed8f0f6f88c323b9fe&v=4",
         "alt": "CFC OCM"
       }
     },
     {
-      "name": "Joshua Milambo",
+      "name": "Frank Sgro",
       "position": "Ordinary Committee Member",
       "about": "",
       "social": {
         "email": "committee@codersforcauses.org",
-        "discord": "Joshua Milambo",
-        "github": "https://github.com/Papajmil",
-        "linkedin": "https://www.linkedin.com/in/joshua-milambo-8298aa163/"
+        "discord": "frankg",
+        "github": "https://github.com/franksgro",
+        "linkedin": "https://www.linkedin.com/in/frank-sgro/"
       },
       "picture": {
-        "src": "/committee/joshdp.png",
+        "src": "https://avatars0.githubusercontent.com/u/57307730?s=400&v=4",
+        "alt": "CFC OCM"
+      }
+    },
+    {
+      "name": "Michael Nefiodovas",
+      "position": "Ordinary Committee Member",
+      "about": "",
+      "social": {
+        "email": "committee@codersforcauses.org",
+        "discord": "Cursor",
+        "github": "https://github.com/MouseAndKeyboard"
+      },
+      "picture": {
+        "src": "https://avatars1.githubusercontent.com/u/31727915?s=460&u=396e0b1154fa5b765c0d0123b4632c0a49e72cd4&v=4",
         "alt": "CFC OCM"
       }
     }
