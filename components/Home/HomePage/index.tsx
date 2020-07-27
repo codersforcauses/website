@@ -2,7 +2,17 @@
 import { jsx } from '@emotion/core'
 import { useTheme } from 'emotion-theming'
 import { useState } from 'react'
-import { Jumbotron, Button, Collapse, Container, Row, Col } from 'reactstrap'
+import Link from 'next/link'
+import {
+  Jumbotron,
+  Button,
+  Collapse,
+  Container,
+  Row,
+  Col,
+  Toast,
+  ToastBody
+} from 'reactstrap'
 import constants from 'data/constants.json'
 import TypedText from 'components/Utils/TypedText'
 import Clients from 'components/Utils/Clients'
@@ -10,15 +20,52 @@ import Services from '../Services'
 import Face from '../Face'
 import { styles } from './styles'
 import ContactForm from '../ContactForm'
-import Link from 'next/link'
 
 const HomePage = () => {
   const [contactOpen, setContactOpen] = useState(false)
+  const [loadContact, setLoadContact] = useState(false)
+  const [toastMessage, setToastMessage] = useState(null)
 
   const theme = useTheme()
 
+  const handleContactSubmit = async values => {
+    try {
+      setLoadContact(true)
+      const response = await fetch('https://formspree.io/mrgyryzj', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        mode: 'cors',
+        body: JSON.stringify(values)
+      })
+      if ((await response.status) === 200) {
+        setContactOpen(false)
+        setToastMessage({
+          status: 'success',
+          message:
+            'Your query has been submitted to us, we will get back to you as soon as we can.'
+        })
+      }
+    } catch (error) {
+      setToastMessage({
+        status: 'danger',
+        message: 'Your message was unable to be sent, please try again'
+      })
+    } finally {
+      setLoadContact(false)
+      setTimeout(() => {
+        setToastMessage(null)
+      }, 6000)
+    }
+  }
+
   return (
     <div css={styles(theme)}>
+      <Toast
+        isOpen={!!toastMessage}
+        className={`toast m-0 rounded-0 text-white bg-${toastMessage?.status}`}
+      >
+        <ToastBody>{toastMessage?.message}</ToastBody>
+      </Toast>
       <Jumbotron className='hero bg-primary text-secondary d-flex align-items-center rounded-0 monospace'>
         <Container>
           <h1 className='mb-4'>
@@ -91,7 +138,11 @@ const HomePage = () => {
             </Col>
             <Col md={8}>
               <Collapse isOpen={contactOpen}>
-                <ContactForm handleCloseForm={() => setContactOpen(false)} />
+                <ContactForm
+                  loading={loadContact}
+                  handleCloseForm={() => setContactOpen(false)}
+                  handleSubmit={handleContactSubmit}
+                />
               </Collapse>
             </Col>
           </Row>

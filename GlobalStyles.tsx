@@ -87,6 +87,13 @@ export const globalStyle = theme => css`
     }
   }
 
+  .toast {
+    position: fixed;
+    inset: auto 1rem 1rem auto;
+    max-width: 320px;
+    z-index: 10;
+  }
+
   .legal-content {
     font-size: 14px;
     counter-reset: paragraph;
