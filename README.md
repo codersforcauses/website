@@ -9,3 +9,11 @@
 # Coders for Causes website
 
 This repo contains the source for Coders for Causes website.
+
+## Getting started 🚀
+
+### Frontend
+
+0. Get the `.env` off existing member of project
+1. `yarn`
+2. `yarn dev`
