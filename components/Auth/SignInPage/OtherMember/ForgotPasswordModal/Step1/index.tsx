@@ -9,7 +9,7 @@ import {
   Label,
   Input
 } from 'reactstrap'
-import Spinner from '../../../../../Elements/Spinner'
+import Spinner from 'components/Elements/Spinner'
 
 const Step1 = (props: Props & FormikProps<FormValues>) => (
   <Form>
@@ -21,6 +21,7 @@ const Step1 = (props: Props & FormikProps<FormValues>) => (
         type='email'
         bsSize='lg'
         tag={Field}
+        disabled={props.loading}
         placeholder='hello@codersforcauses.org'
         id='email'
         name='email'
@@ -37,9 +38,9 @@ const Step1 = (props: Props & FormikProps<FormValues>) => (
       <Button
         size='lg'
         color='primary'
-        disabled={!props.values.email}
-        onClick={() => props.submit(props.values.email)}
+        disabled={!props.values.email || props.loading}
         className='rounded-0 monospace px-4 d-flex align-items-center'
+        onClick={() => props.submit(props.values.email)}
       >
         Send
         {props.loading && (

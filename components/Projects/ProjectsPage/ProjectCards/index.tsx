@@ -1,14 +1,16 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core'
-import { withTheme } from 'emotion-theming'
+import { useTheme } from 'emotion-theming'
 import { Row, Col, Card, CardImg, CardTitle } from 'reactstrap'
 import Link from 'next/link'
-import projects from '../../../../data/projects.json'
+import projects from 'data/projects.json'
 import { styles } from './styles'
 
-const ProjectCards = (props: { theme }) => {
+const ProjectCards = () => {
+  const theme = useTheme()
+
   return (
-    <Row css={styles(props.theme)}>
+    <Row css={styles(theme)}>
       {projects.map(project => (
         <Col
           xs={12}
@@ -18,7 +20,7 @@ const ProjectCards = (props: { theme }) => {
         >
           <Link href={project.purl}>
             <a className='text-decoration-none'>
-              <Card outline color='secondary'>
+              <Card outline color='secondary' className='bg-light'>
                 <CardImg
                   top
                   width='100%'
@@ -27,9 +29,9 @@ const ProjectCards = (props: { theme }) => {
                   alt={project.client}
                   className='project-img img-fluid'
                 />
-                <div className='mt-3 d-flex align-items-center'>
+                <div className='d-flex align-items-center'>
                   <div className='bg-primary'>
-                    <i className='material-icons-sharp text-secondary p-2'>
+                    <i className='material-icons-sharp text-secondary p-3'>
                       {project.icon}
                     </i>
                   </div>
@@ -46,4 +48,4 @@ const ProjectCards = (props: { theme }) => {
   )
 }
 
-export default withTheme(ProjectCards)
+export default ProjectCards

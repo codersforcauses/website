@@ -6,8 +6,9 @@ export const styles = (theme, size, dark, image) => css`
   border: 1px solid ${theme.colors[!dark ? 'primary' : 'secondary']};
 
   padding: 0.25rem;
-  height: 38px;
-  width: 38px;
+  height: ${size}px;
+  width: ${size}px;
+  font-size: ${size / 2}px;
 
   ${!!image &&
   `

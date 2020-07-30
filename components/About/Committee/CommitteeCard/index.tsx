@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core'
-import { withTheme } from 'emotion-theming'
+import { useTheme } from 'emotion-theming'
 import {
   Card,
   CardImg,
@@ -28,46 +28,53 @@ const CommitteeCard = ({
     about,
     social,
     picture: { src, alt }
-  },
-  ...props
-}: Props) => (
-  <Card inverse className='border-0 rounded-0' css={styles(props.theme)}>
-    <CardImg width='100%' src={src} alt={alt} className='rounded-0' />
-    <CardImgOverlay className='bg-primary card-overlay'>
-      <CardTitle className='font-weight-bolder text-monospace'>
-        {name}
-      </CardTitle>
-      <CardSubtitle className='mb-1'>{position}</CardSubtitle>
-      <CardText className='mb-1'>{about}</CardText>
-      <CardText className='mb-1'>
-        <a
-          href={'mailto:' + social.email}
-          className='text-muted'
-          title={social.email}
-        >
-          <i className='fas fa-envelope icon' />
-        </a>
-        {Object.keys(social)
-          .filter(key => key !== 'email')
-          .map(item => (
-            <a
-              key={item}
-              target='_blank'
-              rel='noopener noreferrer'
-              href={social[item]}
-              className='text-muted'
-            >
-              {iconMap[item]}
-            </a>
-          ))}
-      </CardText>
-    </CardImgOverlay>
-  </Card>
-)
+  }
+}: Props) => {
+  const theme = useTheme()
+
+  return (
+    <Card inverse className='border-0 rounded-0' css={styles(theme)}>
+      <CardImg
+        width='100%'
+        src={src}
+        alt={alt}
+        className='rounded-0 flex-grow-1'
+      />
+      <CardImgOverlay className='bg-primary card-overlay'>
+        <CardTitle className='font-weight-bolder text-monospace'>
+          {name}
+        </CardTitle>
+        <CardSubtitle className='mb-1'>{position}</CardSubtitle>
+        <CardText className='mb-1'>{about}</CardText>
+        <CardText className='mb-1'>
+          <a
+            href={'mailto:' + social.email}
+            className='text-muted'
+            title={social.email}
+          >
+            <i className='fas fa-envelope icon' />
+          </a>
+          {Object.keys(social)
+            .filter(key => key !== 'email')
+            .map(item => (
+              <a
+                key={item}
+                target='_blank'
+                rel='noopener noreferrer'
+                href={social[item]}
+                className='text-muted'
+              >
+                {iconMap[item]}
+              </a>
+            ))}
+        </CardText>
+      </CardImgOverlay>
+    </Card>
+  )
+}
 
 interface Props extends CardProps {
   item: CardItemContent
-  theme: Object
 }
 
 interface Social {
@@ -94,4 +101,4 @@ export interface CardItemContent {
   picture: Picture
 }
 
-export default withTheme(CommitteeCard)
+export default CommitteeCard

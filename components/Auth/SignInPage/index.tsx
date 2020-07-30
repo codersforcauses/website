@@ -1,8 +1,8 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core'
-import { withTheme } from 'emotion-theming'
-import { useState } from 'react'
-import { Auth } from 'aws-amplify'
+import { useTheme } from 'emotion-theming'
+import { useState, useContext } from 'react'
+import { Auth } from '@aws-amplify/auth'
 import {
   Container,
   Row,
@@ -13,18 +13,22 @@ import {
   TabContent,
   TabPane
 } from 'reactstrap'
-import Link from 'next/link'
 import Router from 'next/router'
-import Title from '../../Utils/Title'
-import { phemeLogin } from '../../../helpers/phemeLogin'
+import { phemeLogin } from 'helpers/phemeLogin'
+import { UserContext } from 'helpers/user'
+import Title from 'components/Utils/Title'
 import UWAStudent from './UWAStudent'
 import OtherMember from './OtherMember'
 import { styles } from './styles'
 
-const SignInPage = (props: { theme: Object }) => {
+const SignInPage = (props: { route?: string; signUp: Function }) => {
   const [isUWAStudent, setIsUWAStudent] = useState(true)
   const [loading, setLoading] = useState(false)
   const [errors, setErrors] = useState('')
+
+  const { setUser } = useContext(UserContext)
+
+  const theme = useTheme()
 
   const closeError = () => setErrors('')
 
@@ -43,16 +47,15 @@ const SignInPage = (props: { theme: Object }) => {
           process.env.PHEME_TOKEN
         )
 
-        // eslint-disable-next-line
-        if (!phemeResponse.success) throw { message: phemeResponse.message }
+        if (!phemeResponse.success) throw new Error(phemeResponse.message)
 
         // reassign data to use values fetched from pheme login
         data.username = `${values.studentNumber}@student.uwa.edu.au`
         data.password = `${values.studentNumber}${process.env.PHEME_SALT}`
       }
       const response = await Auth.signIn(data.username, data.password)
-      // console.log(response)
-      Router.push('/dashboard')
+      setUser(response.attributes)
+      Router.replace(props.route ? props.route : '/dashboard')
     } catch ({ code, message }) {
       if (code === 'UserNotConfirmedException') {
         setErrors(
@@ -69,21 +72,28 @@ const SignInPage = (props: { theme: Object }) => {
   }
 
   return (
-    <div css={styles(props.theme)}>
+    <div css={styles(theme)}>
       <Title typed>./sign-in</Title>
       <Container className='py-5 '>
         <Row>
           <Col xs={12} tag='p'>
-            Don't have an account? Create one&nbsp;
-            <Link href='/signup'>
-              <a>here</a>
-            </Link>
-            !
+            Don't have an account?&nbsp;
+            <a
+              href=''
+              onClick={e => {
+                e.preventDefault()
+                props.signUp(true)
+              }}
+            >
+              Create one
+            </a>
+            .
           </Col>
           <Col md={6}>
             <Nav tabs className='border-0'>
               <NavItem className='mr-2'>
                 <NavLink
+                  disabled={loading}
                   className={`signin-tab rounded-0 ${
                     isUWAStudent && 'border-primary'
                   }`}
@@ -94,6 +104,7 @@ const SignInPage = (props: { theme: Object }) => {
               </NavItem>
               <NavItem>
                 <NavLink
+                  disabled={loading}
                   className={`signin-tab rounded-0 ${
                     !isUWAStudent && 'border-primary'
                   }`}
@@ -138,4 +149,4 @@ const SignInPage = (props: { theme: Object }) => {
   )
 }
 
-export default withTheme(SignInPage)
+export default SignInPage

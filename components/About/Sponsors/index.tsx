@@ -1,7 +1,7 @@
 import React from 'react'
 import { Row, Col } from 'reactstrap'
-import { randomise } from '../../../helpers/array'
-import sponsors from '../../../data/sponsors.json'
+import { randomise } from 'helpers/array'
+import sponsors from 'data/sponsors.json'
 
 const sponsorsSample = sponsors
   .sort(randomise)
@@ -14,7 +14,7 @@ const Sponsors = () => (
         xs={3}
         md={2}
         key={sponsor.name}
-        className='d-flex align-items-center mb-4 mb-md-0 justify-content-center'
+        className='d-flex align-items-center m-0 justify-content-center'
       >
         <img src={sponsor.logo} alt={sponsor.name} className='img-fluid logo' />
       </Col>

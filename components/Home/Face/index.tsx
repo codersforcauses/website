@@ -5,7 +5,7 @@ const Face = () => {
 
   return (
     <h1
-      className='display-1 face flex-shrink-1'
+      className='display-1 my-0 d-flex align-items-center'
       onMouseEnter={() => setFace(';)')}
       onMouseLeave={() => setFace(':)')}
     >

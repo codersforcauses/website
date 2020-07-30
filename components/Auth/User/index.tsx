@@ -1,38 +1,47 @@
-import React, { useEffect, useMemo, useState } from 'react'
-import { Auth } from 'aws-amplify'
-import { UserProvider } from '../../../helpers/user'
+import React, { FunctionComponent, useEffect, useState } from 'react'
+import { Auth } from '@aws-amplify/auth'
+import { UserProvider } from 'helpers/user'
 
-// @ts-ignore
-const User = props =>
-  useMemo(() => {
-    const [load, setLoad] = useState(false)
-    const [user, setUser] = useState(null)
+/**
+ * The initial value being set to `undefined` or `null` here is important.
+ * `undefined` is set to initialize the user object, whereas
+ * `null` is used to make the distinction that the network request failed.
+ * This important difference is used to redirect users if they are
+ * authenticated, have a failed request, or the check hasn't happened yet.
+ */
+const User: FunctionComponent = ({ children }) => {
+  const [user, setUser] = useState(undefined)
 
-    // console.log(typeof props)
-
-    try {
-      setLoad(true)
-      useEffect(() => {
-        const auth = async () => {
+  try {
+    useEffect(() => {
+      const auth = async () => {
+        try {
           const session = await Auth.currentSession()
-          return !session ? null : session.getIdToken().decodePayload()
+          setUser(session.getIdToken().decodePayload())
+        } catch (error) {
+          setUser(null)
         }
-        auth().then(aws => (aws ? setUser(aws.sub) : setUser(null)))
-      }, [])
+      }
+      if (!user) auth()
+    }, [])
+    // console.log(user)
 
-      // query user data here
-      // TODO
+    // query user data here when backend is built
+    // TODO
 
-      return (
-        <UserProvider value={{ user: user, setUser: setUser, loading: load }}>
-          {props.children}
-        </UserProvider>
-      )
-    } catch (error) {
-      return <>{props.children}</>
-    } finally {
-      setLoad(false)
-    }
-  }, [])
+    return (
+      <UserProvider
+        value={{
+          user: user,
+          setUser: setUser
+        }}
+      >
+        {children}
+      </UserProvider>
+    )
+  } catch (error) {
+    return <>{children}</>
+  }
+}
 
 export default User
