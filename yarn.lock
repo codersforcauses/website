@@ -96,7 +96,7 @@
     "@aws-amplify/api-graphql" "^1.1.4"
     "@aws-amplify/api-rest" "^1.1.4"
 
-"@aws-amplify/auth@^3.2.5", "@aws-amplify/auth@^3.3.3":
+"@aws-amplify/auth@3.3.3", "@aws-amplify/auth@^3.3.3":
   version "3.3.3"
   resolved "https://registry.yarnpkg.com/@aws-amplify/auth/-/auth-3.3.3.tgz#481c140b464b4cc3a025e523a82a7f42e3c95a1e"
   integrity sha512-IyvjCC4WApw77Z1SpOAqba48t2jayiv59eW2bTkuRAB+nSicXWywHiTyuBz/N/duLftJQSzyFNEUijDu2qsw/Q==
@@ -2615,7 +2615,7 @@
   resolved "https://registry.yarnpkg.com/@mapbox/whoots-js/-/whoots-js-3.1.0.tgz#497c67a1cef50d1a2459ba60f315e448d2ad87fe"
   integrity sha512-Es6WcD0nO5l+2BOQS4uLfNPYQaNDfbot3X1XUoloz+x0mPDS3eeORZJl06HXjwBG1fOGwCRnzK88LMdxKRrd6Q==
 
-"@next/bundle-analyzer@^9.3.5":
+"@next/bundle-analyzer@9.5.1":
   version "9.5.1"
   resolved "https://registry.yarnpkg.com/@next/bundle-analyzer/-/bundle-analyzer-9.5.1.tgz#4c0431299d351851c675a4ca3cfc0f87242ec52c"
   integrity sha512-31fI4DUn6auGjpBwaEQA7ChqP84IbTN5a+KJ4QaILavZIdwQdxvUSzZfrBX3mAwxjuwUCbAcDN3jw8nh+eO4eg==
@@ -2686,14 +2686,14 @@
   resolved "https://registry.yarnpkg.com/@sinonjs/text-encoding/-/text-encoding-0.7.1.tgz#8da5c6530915653f3a1f38fd5f101d8c3f8079c5"
   integrity sha512-+iTbntw2IZPb/anVDbypzfQa+ay64MW0Zo8aJ8gZPWMMK6/OubMVb6lUPMagqjOPnmtauXnFCACVl3O7ogjeqQ==
 
-"@stripe/react-stripe-js@^1.1.2":
+"@stripe/react-stripe-js@1.1.2":
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/@stripe/react-stripe-js/-/react-stripe-js-1.1.2.tgz#a7f5ef5b4d7dc7fa723501b706644414cfe6dcba"
   integrity sha512-07hu8RJXwWKGbvdvd1yt1cYvGtDB8jFX+q10f7FQuItUt9rlSo0am3WIx845iMHANiYgxyRb1PS201Yle9xxPQ==
   dependencies:
     prop-types "^15.7.2"
 
-"@stripe/stripe-js@^1.5.0":
+"@stripe/stripe-js@1.8.0":
   version "1.8.0"
   resolved "https://registry.yarnpkg.com/@stripe/stripe-js/-/stripe-js-1.8.0.tgz#100f102d757cd024f94635dba231993554c8cfba"
   integrity sha512-VsIohJw70LIdB4b621RN6pTyw49ZMy+QjB81fl+Psu5X5ppiq/c+rG0F+XKHSVpp4JZRNDkQnsOGeuHow0aluA==
@@ -5264,7 +5264,7 @@ emotion-normalize@10.1.0:
   resolved "https://registry.yarnpkg.com/emotion-normalize/-/emotion-normalize-10.1.0.tgz#b4cfd2f7d37b9eafb3b0d5ee7dc4fbb83f18e68f"
   integrity sha512-Z+rz3Eep8tUgtBKT13/rEpci+ZbCadRovEmILuLB9IEpq4FdNpXjm7MVeJqG4iBRGw4tKmIq06lYgjeC6oEnag==
 
-emotion-server@^10.0.27:
+emotion-server@10.0.27:
   version "10.0.27"
   resolved "https://registry.yarnpkg.com/emotion-server/-/emotion-server-10.0.27.tgz#ea654342fdf9f5d8cd1793f5a6594159485a3806"
   integrity sha512-ypISBMkgZD7dgP6Y0QhZlqazxffpowcEWlZHKLADVazdxY5iXjZbd1UvovdpfDRjbj4EBxwKkltog3NzuSBavA==
@@ -5280,7 +5280,7 @@ emotion-theming@10.0.27:
     "@emotion/weak-memoize" "0.2.5"
     hoist-non-react-statics "^3.3.0"
 
-emotion@^10.0.27:
+emotion@10.0.27:
   version "10.0.27"
   resolved "https://registry.yarnpkg.com/emotion/-/emotion-10.0.27.tgz#f9ca5df98630980a23c819a56262560562e5d75e"
   integrity sha512-2xdDzdWWzue8R8lu4G76uWX5WhyQuzATon9LmNeCy/2BHVC6dsEpfhN1a0qhELgtDVdjyEA6J8Y/VlI5ZnaH0g==
@@ -8881,7 +8881,7 @@ pnp-webpack-plugin@1.6.4:
   dependencies:
     ts-pnp "^1.1.6"
 
-polished@^3.6.5:
+polished@3.6.5:
   version "3.6.5"
   resolved "https://registry.yarnpkg.com/polished/-/polished-3.6.5.tgz#dbefdde64c675935ec55119fe2a2ab627ca82e9c"
   integrity sha512-VwhC9MlhW7O5dg/z7k32dabcAFW1VI2+7fSe8cE/kXcfL7mVdoa5UxciYGW2sJU78ldDLT6+ROEKIZKFNTnUXQ==
