@@ -9,7 +9,7 @@ describe('Test Footer', () => {
     cy.get('[data-cy=footer]').find('img').should('be.visible')
 
     cy.get('[data-cy=footer]')
-      .get('.copyright')
+      .get('[data-cy=copyrightnotice]')
       .contains('Copyright')
       .should('be.visible')
   })
