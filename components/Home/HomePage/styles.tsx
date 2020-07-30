@@ -8,7 +8,7 @@ export const styles = theme => css`
   }
 
   .email {
-    font-size: 1rem;
+    font-size: 1.2rem;
     margin: 0;
   }
 

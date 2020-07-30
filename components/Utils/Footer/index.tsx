@@ -125,7 +125,7 @@ const Footer = () => {
               <Button
                 size='sm'
                 color='link'
-                className='text-secondary'
+                className='text-secondary px-0 mx-2'
                 onClick={() => setTermsModal(true)}
               >
                 Terms
@@ -133,7 +133,7 @@ const Footer = () => {
               <Button
                 size='sm'
                 color='link'
-                className='text-secondary'
+                className='text-secondary px-0 mx-2'
                 onClick={() => setPrivacyModal(true)}
               >
                 Privacy
@@ -141,7 +141,7 @@ const Footer = () => {
               <Button
                 size='sm'
                 color='link'
-                className='text-secondary'
+                className='text-secondary px-0 mx-2'
                 onClick={() => setSecurityModal(true)}
               >
                 Security
@@ -149,7 +149,7 @@ const Footer = () => {
               <Button
                 size='sm'
                 color='link'
-                className='text-secondary'
+                className='text-secondary px-0 mx-2'
                 onClick={() => setConstitutionModal(true)}
               >
                 Constitution
@@ -177,7 +177,7 @@ const Footer = () => {
               <Button
                 size='sm'
                 color='link'
-                className='text-secondary'
+                className='text-secondary p-0 mx-2'
                 onClick={() => newTab('https://github.com/codersforcauses')}
               >
                 <SocialIcons icon='github' dimensions={20} fill='secondary' />
@@ -185,7 +185,7 @@ const Footer = () => {
               <Button
                 size='sm'
                 color='link'
-                className='text-secondary'
+                className='text-secondary p-0 mx-2'
                 onClick={() => newTab('https://discord.com/invite/zW3hjwY')}
               >
                 <SocialIcons icon='discord' dimensions={20} fill='secondary' />
@@ -193,7 +193,7 @@ const Footer = () => {
               <Button
                 size='sm'
                 color='link'
-                className='text-secondary'
+                className='text-secondary p-0 mx-2'
                 onClick={() =>
                   newTab('https://www.facebook.com/codersforcauses')}
               >
@@ -202,7 +202,7 @@ const Footer = () => {
               <Button
                 size='sm'
                 color='link'
-                className='text-secondary'
+                className='text-secondary p-0 mx-2'
                 onClick={() =>
                   newTab('https://www.linkedin.com/company/coders-for-causes/')}
               >
@@ -211,7 +211,7 @@ const Footer = () => {
               <Button
                 size='sm'
                 color='link'
-                className='text-secondary'
+                className='text-secondary p-0 mx-2'
                 onClick={() => newTab('https://twitter.com/codersforcauses')}
               >
                 <SocialIcons icon='twitter' dimensions={20} fill='secondary' />

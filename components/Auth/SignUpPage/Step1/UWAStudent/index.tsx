@@ -98,7 +98,6 @@ const UWAStudent = (props: Props & FormikProps<FormValues>) => {
         <Label check>
           <Input
             type='checkbox'
-            tag={Field}
             disabled={props.loading}
             id='isGuildMember'
             name='isGuildMember'

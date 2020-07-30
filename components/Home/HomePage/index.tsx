@@ -114,14 +114,16 @@ const HomePage = () => {
                 Let's talk.
               </h1>
               <Collapse isOpen={!contactOpen}>
-                <a
-                  href={`mailto:${constants.email}`}
-                  target='_blank'
-                  rel='noreferrer noopener'
-                  className='text-secondary'
-                >
-                  <h3 className='email'>{constants.email}</h3>
-                </a>
+                <div>
+                  <a
+                    href={`mailto:${constants.email}`}
+                    target='_blank'
+                    rel='noreferrer noopener'
+                    className='text-secondary email monospace'
+                  >
+                    {constants.email}
+                  </a>
+                </div>
                 <Button
                   outline
                   size='lg'

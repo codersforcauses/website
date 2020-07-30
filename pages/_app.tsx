@@ -21,19 +21,6 @@ Auth.configure({
   aws_cognito_region: process.env.AMPLIFY_AWS_COGNITO_REGION,
   aws_user_pools_id: process.env.AMPLIFY_AWS_COGNITO_USER_POOLS_ID,
   aws_user_pools_web_client_id: process.env.AMPLIFY_AWS_COGNITO_WEB_CLIENT_ID,
-  oauth: {
-    domain: process.env.AMPLIFY_OAUTH_DOMAIN,
-    scope: [
-      'phone',
-      'email',
-      'openid',
-      'profile',
-      'aws.cognito.signin.user.admin'
-    ],
-    redirectSignIn: `${process.env.BASE_URL}/membership/`,
-    redirectSignOut: process.env.BASE_URL,
-    responseType: 'token'
-  },
   federationTarget: 'COGNITO_USER_POOLS',
   authenticationFlowType: 'USER_PASSWORD_AUTH'
 })
@@ -80,15 +67,14 @@ const Website = ({ Component, pageProps }: AppProps) => {
             >
               <Container>
                 This website is still under development. Not everything may
-                work, but feel free to look around. If you want to check out the
-                old website,{' '}
+                work, but feel free to look around. Here's a link to the{' '}
                 <a
                   href='https://codersforcauses.org/landing'
                   target='_blank'
                   rel='noreferrer noopener'
                   className='alert-link'
                 >
-                  click here
+                  old website
                 </a>
                 .
               </Container>

@@ -32,8 +32,8 @@ const Avatar = ({
 export default Avatar
 
 interface Props {
-  dark?: Boolean
-  round?: Boolean
+  dark?: boolean
+  round?: boolean
   name?: string
   image?: string
   size?: string

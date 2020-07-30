@@ -3,15 +3,7 @@ import Document, { Head, Html, Main, NextScript } from 'next/document'
 import { extractCritical } from 'emotion-server'
 
 class MyDocument extends Document {
-  static async getInitialProps (ctx) {
-    const originalRenderPage = ctx.renderPage
-
-    ctx.renderPage = () =>
-      originalRenderPage({
-        enhanceApp: App => App,
-        enhanceComponent: Component => Component
-      })
-
+  static async getInitialProps(ctx) {
     const initialProps = await Document.getInitialProps(ctx)
     const styles = extractCritical(initialProps.html)
 
@@ -29,7 +21,7 @@ class MyDocument extends Document {
     }
   }
 
-  render () {
+  render() {
     return (
       <Html lang='en'>
         <Head>

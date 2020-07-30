@@ -54,6 +54,12 @@ export const globalStyle = theme => css`
     color: ${theme.colors.primary};
   }
 
+  a:focus,
+  button:focus {
+    outline: 1px dotted ${theme.colors.accent} !important;
+    outline-offset: 0.25rem !important;
+  }
+
   .modal-content {
     border-radius: 0;
   }
