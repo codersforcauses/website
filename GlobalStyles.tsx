@@ -26,7 +26,6 @@ export const globalStyle = theme => css`
     overscroll-behavior-y: none;
   }
 
-  // selection needs to be separated to show on chromium browsers
   ::selection {
     background: ${theme.colors.accent};
     color: ${theme.colors.primary};

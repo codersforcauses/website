@@ -62,7 +62,7 @@ const Website = ({ Component, pageProps }: AppProps) => {
             {/* TODO remove once MVP is finished */}
             <Alert
               color='warning'
-              className='fixed-top rounded-0 px-0 py-md-3 border border-warning'
+              className='fixed-top rounded-0 px-0 py-md-3'
               style={{ marginTop: '64px', zIndex: 3 }}
             >
               <Container>
