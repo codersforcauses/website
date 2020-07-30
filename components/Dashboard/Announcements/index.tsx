@@ -1,30 +1,6 @@
 import React, { useState } from 'react'
-// import { ListGroup, ListGroupItem } from 'reactstrap'
 import { Alert } from 'reactstrap'
 import announcements from 'data/announcements.json'
-
-// const Announcement = (props: { text: string; time: string }) => {
-//   return (
-//     <ListGroupItem className='d-flex flex-column rounded-0 px-0'>
-//       <p className='m-0'>{props.text}</p>
-//       <small className='align-self-end text-muted'>{props.time}</small>
-//     </ListGroupItem>
-//   )
-// }
-
-// const Announcements = () => {
-//   return (
-//     <ListGroup flush>
-//       {announcements.length > 0 ? (
-//         announcements.map(data => (
-//           <Announcement text={data.text} time={data.time} />
-//         ))
-//       ) : (
-//         <p className='m-0 text-muted'>No announcements to show</p>
-//       )}
-//     </ListGroup>
-//   )
-// }
 
 const Announcement = (props: { text: string; time: string }) => {
   const [visible, setVisible] = useState(true)
