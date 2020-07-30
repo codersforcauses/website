@@ -12,6 +12,15 @@ import {
 } from 'reactstrap'
 import { styles } from './styles'
 
+const iconMap = {
+  github: <i className='fab fa-github-square icon' />,
+  gitlab: <i className='fab fa-gitlab icon' />,
+  bitbucket: <i className='fab fa-bitbucket icon' />,
+  linkedin: <i className='fab fa-linkedin icon' />,
+  facebook: <i className='fab fa-facebook icon' />,
+  twitter: <i className='fab fa-twitter-square icon' />
+}
+
 const CommitteeCard = ({
   item: {
     name,
@@ -38,66 +47,19 @@ const CommitteeCard = ({
         >
           <i className='fas fa-envelope icon' />
         </a>
-        {social.github && (
-          <a
-            target='_blank'
-            rel='noopener noreferrer'
-            href={social.github}
-            className='text-muted'
-          >
-            <i className='fab fa-github-square icon' />
-          </a>
-        )}
-        {social.gitlab && (
-          <a
-            target='_blank'
-            rel='noopener noreferrer'
-            href={social.gitlab}
-            className='text-muted'
-          >
-            <i className='fab fa-gitlab icon' />
-          </a>
-        )}
-        {social.bitbucket && (
-          <a
-            target='_blank'
-            rel='noopener noreferrer'
-            href={social.bitbucket}
-            className='text-muted'
-          >
-            <i className='fab fa-bitbucket icon' />
-          </a>
-        )}
-        {social.linkedin && (
-          <a
-            target='_blank'
-            rel='noopener noreferrer'
-            href={social.linkedin}
-            className='text-muted'
-          >
-            <i className='fab fa-linkedin icon' />
-          </a>
-        )}
-        {social.facebook && (
-          <a
-            target='_blank'
-            rel='noopener noreferrer'
-            href={social.facebook}
-            className='text-muted'
-          >
-            <i className='fab fa-facebook icon' />
-          </a>
-        )}
-        {social.twitter && (
-          <a
-            target='_blank'
-            rel='noopener noreferrer'
-            href={social.twitter}
-            className='text-muted'
-          >
-            <i className='fab fa-twitter-square icon' />
-          </a>
-        )}
+        {Object.keys(social)
+          .filter(key => key !== 'email')
+          .map(item => (
+            <a
+              key={item}
+              target='_blank'
+              rel='noopener noreferrer'
+              href={social[item]}
+              className='text-muted'
+            >
+              {iconMap[item]}
+            </a>
+          ))}
       </CardText>
     </CardImgOverlay>
   </Card>

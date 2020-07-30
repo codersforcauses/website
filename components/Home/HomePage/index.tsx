@@ -8,6 +8,7 @@ import TypedText from '../../Utils/TypedText'
 import Face from '../Face'
 import constants from '../../../data/constants.json'
 import { styles } from './styles'
+import Link from 'next/link'
 
 const HomePage = (props: { theme: Object }) => (
   <div css={styles(props.theme)}>
@@ -30,13 +31,20 @@ const HomePage = (props: { theme: Object }) => (
       </Container>
     </Jumbotron>
     <Container className='call py-4 mb-5'>
-      <h2 className='font-weight-bold mb-4'>We build software for charities.</h2>
+      <h2 className='font-weight-bold mb-4'>
+        We build software for charities.
+      </h2>
       <p className='lead'>
-        Our goal is to empower charities and non-profit organisations by providing them solutions to their technical problems. We work with student volunteers to design and build websites, web applications and software to meet the needs of our community.
+        Our goal is to empower charities and non-profit organisations by
+        providing them solutions to their technical problems. We work with
+        student volunteers to design and build websites, web applications and
+        software to meet the needs of our community.
       </p>
-      <Button size='lg' color='primary' className='rounded-0'>
-        Work with us&nbsp;&nbsp;&raquo;
-      </Button>
+      <Link href='/contact'>
+        <Button size='lg' color='primary' className='rounded-0'>
+          Work with us&nbsp;&nbsp;&raquo;
+        </Button>
+      </Link>
     </Container>
     <div className='bg-light'>
       <Container>
