@@ -14,6 +14,7 @@ import {
   UncontrolledAlert
 } from 'reactstrap'
 import Spinner from 'components/Elements/Spinner'
+import Checkbox from 'components/Elements/Checkbox'
 import { styles } from './styles'
 import { validationSchema } from './validation'
 
@@ -94,25 +95,24 @@ const UWAStudent = (props: Props & FormikProps<FormValues>) => {
           <FormFeedback>{props.errors.password}</FormFeedback>
         </InputGroup>
       </FormGroup>
-      <FormGroup check className='mb-3'>
-        <Label check>
-          <Input
-            type='checkbox'
-            disabled={props.loading}
-            id='isGuildMember'
-            name='isGuildMember'
-            value={props.values.isGuildMember}
-          />
-          I am a{' '}
-          <a
-            href='https://www.uwastudentguild.com/the-guild/join-us'
-            target='_blank'
-            rel='noopener noreferrer'
-          >
-            UWA Guild Member
-          </a>
-        </Label>
-      </FormGroup>
+      <Checkbox
+        name='isGuildMember'
+        value={props.values.isGuildMember}
+        disabled={props.loading}
+        invalid={props.errors.isGuildMember && props.touched.isGuildMember}
+        className='mb-3'
+        onBlur={props.handleBlur}
+        onChange={props.handleChange}
+      >
+        I am a&nbsp;
+        <a
+          href='https://www.uwastudentguild.com/the-guild/join-us'
+          target='_blank'
+          rel='noopener noreferrer'
+        >
+          UWA Guild Member
+        </a>
+      </Checkbox>
       <Button
         type='submit'
         size='lg'
