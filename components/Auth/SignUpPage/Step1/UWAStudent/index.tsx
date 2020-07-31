@@ -97,7 +97,7 @@ const UWAStudent = (props: Props & FormikProps<FormValues>) => {
       </FormGroup>
       <Checkbox
         name='isGuildMember'
-        value={props.values.isGuildMember}
+        checked={props.values.isGuildMember}
         disabled={props.loading}
         invalid={props.errors.isGuildMember && props.touched.isGuildMember}
         className='mb-3'

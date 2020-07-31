@@ -2,13 +2,14 @@
 import { jsx } from '@emotion/core'
 import { useTheme } from 'emotion-theming'
 import { FormGroup, Label, Input } from 'reactstrap'
+import { Field } from 'formik'
 import { styles } from './styles'
 
 const Checkbox = ({
   children,
   color = 'primary',
   reverse,
-  value,
+  checked,
   ...props
 }: Props) => {
   const theme = useTheme()
@@ -18,7 +19,7 @@ const Checkbox = ({
       css={styles(
         theme,
         color,
-        value,
+        checked,
         props.dark,
         props.disabled,
         props.invalid
@@ -26,12 +27,12 @@ const Checkbox = ({
     >
       <Label className='m-0'>
         {reverse && children}
-        <Input type='checkbox' id={props.name} checked={value} {...props} />
+        <Input type='checkbox' tag={Field} id={props.name} {...props} />
         <i
           aria-hidden
           className={`material-icons-sharp m${reverse ? 'l' : 'r'}-1`}
         >
-          {value ? 'check_box' : 'check_box_outline_blank'}
+          {checked ? 'check_box' : 'check_box_outline_blank'}
         </i>
         {!reverse && children}
       </Label>
@@ -42,16 +43,14 @@ const Checkbox = ({
 export default Checkbox
 
 interface Props {
+  checked: boolean
   children: any
   className?: string
   color?: string
   dark?: boolean
   disabled?: Boolean
   invalid?: boolean
-  id?: string
-  name?: string
+  name: string
   reverse?: boolean
-  value?: boolean
-  onBlur?: Function
-  onChange?: Function
+  value?: string
 }
