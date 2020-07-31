@@ -101,8 +101,6 @@ const UWAStudent = (props: Props & FormikProps<FormValues>) => {
         disabled={props.loading}
         invalid={props.errors.isGuildMember && props.touched.isGuildMember}
         className='mb-3'
-        onBlur={props.handleBlur}
-        onChange={props.handleChange}
       >
         I am a&nbsp;
         <a
