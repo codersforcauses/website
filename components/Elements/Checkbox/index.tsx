@@ -27,7 +27,10 @@ const Checkbox = ({
       <Label className='m-0'>
         {reverse && children}
         <Input type='checkbox' id={props.name} checked={value} {...props} />
-        <i className={`material-icons-sharp m${reverse ? 'l' : 'r'}-1`}>
+        <i
+          aria-hidden
+          className={`material-icons-sharp m${reverse ? 'l' : 'r'}-1`}
+        >
           {value ? 'check_box' : 'check_box_outline_blank'}
         </i>
         {!reverse && children}
