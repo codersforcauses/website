@@ -1,17 +1,20 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core'
-import { withTheme } from 'emotion-theming'
+import { useTheme } from 'emotion-theming'
 import { useState } from 'react'
 import { Jumbotron, Container, Row, Col, Card, Input } from 'reactstrap'
-import Title from '../../Utils/Title'
+import Title from 'components/Utils/Title'
 import LogoCard from '../LogoCard'
 import ColourCard from '../ColourCard'
 import { styles } from './styles'
 
-const BrandPage = (props: { theme: Object }) => {
+const BrandPage = () => {
   const [typographyText, setTypographyText] = useState('Coders for Causes')
+
+  const theme = useTheme()
+
   return (
-    <div css={styles(props.theme)}>
+    <div css={styles(theme)}>
       <Title typed>./branding</Title>
       <Container className='py-5 my-5'>
         <Row>
@@ -122,9 +125,10 @@ const BrandPage = (props: { theme: Object }) => {
                 </div>
                 <Input
                   type='textarea'
+                  plaintext
                   value={typographyText}
                   onChange={({ target: { value } }) => setTypographyText(value)}
-                  className='big mt-3 mb-0 p-0 bg-transparent rounded-0 border-0 text-primary'
+                  className='big mt-3'
                 />
               </Card>
             </Col>
@@ -148,9 +152,10 @@ const BrandPage = (props: { theme: Object }) => {
                 </div>
                 <Input
                   type='textarea'
+                  plaintext
                   value={typographyText}
                   onChange={({ target: { value } }) => setTypographyText(value)}
-                  className='big mt-3 mb-0 p-0 bg-transparent rounded-0 border-0 text-primary'
+                  className='big mt-3'
                 />
               </Card>
             </Col>
@@ -185,7 +190,7 @@ const BrandPage = (props: { theme: Object }) => {
             </Col>
             <Col xs={12} sm={6} md={4} lg={2}>
               <ColourCard
-                color='error'
+                color='danger'
                 name='Red Alert (Alert)'
                 className='text-secondary'
               />
@@ -197,4 +202,4 @@ const BrandPage = (props: { theme: Object }) => {
   )
 }
 
-export default withTheme(BrandPage)
+export default BrandPage

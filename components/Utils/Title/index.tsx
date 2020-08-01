@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core'
-import { withTheme } from 'emotion-theming'
+import { useTheme } from 'emotion-theming'
 import { Jumbotron, Container } from 'reactstrap'
 import TypedText from '../TypedText'
 import { styles } from './styles'
@@ -11,19 +11,22 @@ const Title = ({
   ...props
 }: {
   children: string
-  theme: Object
   typed?: boolean
-}) => (
-  <Jumbotron
-    className='bg-primary text-secondary d-flex align-items-center rounded-0 mb-0 monospace'
-    css={styles(props.theme)}
-  >
-    <Container>
-      <h1 className='mb-4'>
-        {typed ? <TypedText text={[children]} /> : children}
-      </h1>
-    </Container>
-  </Jumbotron>
-)
+}) => {
+  const theme = useTheme()
 
-export default withTheme(Title)
+  return (
+    <Jumbotron
+      className='bg-primary text-secondary d-flex align-items-center rounded-0 mb-0 monospace'
+      css={styles(theme)}
+    >
+      <Container>
+        <h1 className='mb-4'>
+          {typed ? <TypedText text={[children]} /> : children}
+        </h1>
+      </Container>
+    </Jumbotron>
+  )
+}
+
+export default Title

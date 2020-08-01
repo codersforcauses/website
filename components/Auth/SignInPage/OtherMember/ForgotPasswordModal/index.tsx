@@ -1,10 +1,10 @@
-/** @jsx jsx */
-import { jsx } from '@emotion/core'
+import React from 'react'
 import { FormikProps, withFormik } from 'formik'
 import {
   Modal,
   ModalHeader,
   ModalBody,
+  Button,
   Alert,
   UncontrolledAlert
 } from 'reactstrap'
@@ -28,35 +28,42 @@ const ForgotPasswordModal = ({
   handleSendPasswordResetCode,
   handlePasswordReset,
   ...props
-}: Props & FormikProps<FormValues>) => (
-  <Modal centered isOpen={isOpen} toggle={closeModal}>
-    <ModalHeader
-      toggle={closeModal}
-      className='bg-transparent border-0 font-weight-bold pb-0'
-    >
-      Forgot Password?
-    </ModalHeader>
-    <ModalBody>
-      <Alert isOpen={isResetStep} color='success' className='rounded-0'>
-        We've sent you an email with a verification code
-      </Alert>
-      <UncontrolledAlert
-        isOpen={!!error}
-        toggle={closeError}
-        color='error'
-        className='rounded-0'
+}: Props & FormikProps<FormValues>) => {
+  const closeBtn = (
+    <Button color='link' className='p-0' onClick={closeModal}>
+      <i className='material-icons-sharp'>close</i>
+    </Button>
+  )
+  return (
+    <Modal centered isOpen={isOpen} toggle={closeModal}>
+      <ModalHeader
+        toggle={closeModal}
+        close={closeBtn}
+        className='bg-transparent border-0 font-weight-bold pb-0'
       >
-        {error}
-      </UncontrolledAlert>
-      {isResetStep ? (
-        <Step2 {...props} />
-      ) : (
-        <Step1 {...props} submit={handleSendPasswordResetCode} />
-      )}
-    </ModalBody>
-  </Modal>
-)
-
+        Forgot Password?
+      </ModalHeader>
+      <ModalBody>
+        <Alert isOpen={isResetStep} color='success' className='rounded-0'>
+          We've sent you an email with a verification code
+        </Alert>
+        <UncontrolledAlert
+          isOpen={!!error}
+          toggle={closeError}
+          color='danger'
+          className='rounded-0'
+        >
+          {error}
+        </UncontrolledAlert>
+        {isResetStep ? (
+          <Step2 {...props} />
+        ) : (
+          <Step1 {...props} submit={handleSendPasswordResetCode} />
+        )}
+      </ModalBody>
+    </Modal>
+  )
+}
 export default withFormik<Props, FormValues>({
   handleSubmit: (values, bag) => bag.props.handlePasswordReset(values, bag),
   mapPropsToValues,

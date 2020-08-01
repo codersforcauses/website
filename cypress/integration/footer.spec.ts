@@ -28,4 +28,11 @@ describe('Test Footer', () => {
     cy.get('[data-cy=projects]').click()
     cy.url().should('include', '/projects')
   })
+  
+  it('should have content', () => {
+    cy.get('[data-cy=footer]').contains('Terms').should('be.visible')
+    cy.get('[data-cy=footer]').contains('Privacy').should('be.visible')
+    cy.get('[data-cy=footer]').contains('Security').should('be.visible')
+    cy.get('[data-cy=footer]').contains('Constitution').should('be.visible')
+  })
 })

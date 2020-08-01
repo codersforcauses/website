@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core'
-import { withTheme } from 'emotion-theming'
+import { useTheme } from 'emotion-theming'
 import { useState } from 'react'
 import { Field, FormikProps, Form, withFormik } from 'formik'
 import {
@@ -13,20 +13,23 @@ import {
   FormFeedback,
   UncontrolledAlert
 } from 'reactstrap'
-import Spinner from '../../../Elements/Spinner'
+import Spinner from 'components/Elements/Spinner'
 import { styles } from './styles'
 import { validationSchema } from './validation'
 
 const mapPropsToValues = () => ({
   studentNumber: '',
-  password: ''
+  password: '',
+  isGuildMember: false
 })
 
 const UWAStudent = (props: Props & FormikProps<FormValues>) => {
   const [passwordVisible, setPasswordVisible] = useState(false)
 
+  const theme = useTheme()
+
   return (
-    <Form css={styles(props.theme)}>
+    <Form css={styles(theme)}>
       <UncontrolledAlert color='success' className='rounded-0'>
         If you are a UWA student, you can sign up using your pheme login
         credentials. If not or you wish to join using another email, please
@@ -35,7 +38,7 @@ const UWAStudent = (props: Props & FormikProps<FormValues>) => {
       <UncontrolledAlert
         isOpen={!!props.error}
         toggle={props.closeError}
-        color='error'
+        color='danger'
         className='rounded-0'
       >
         {props.error}
@@ -48,6 +51,7 @@ const UWAStudent = (props: Props & FormikProps<FormValues>) => {
           type='text'
           bsSize='lg'
           tag={Field}
+          disabled={props.loading}
           placeholder='211234567'
           id='studentNumber'
           name='studentNumber'
@@ -66,6 +70,7 @@ const UWAStudent = (props: Props & FormikProps<FormValues>) => {
             type={passwordVisible ? 'text' : 'password'}
             bsSize='lg'
             tag={Field}
+            disabled={props.loading}
             placeholder='********'
             id='password'
             name='password'
@@ -77,6 +82,7 @@ const UWAStudent = (props: Props & FormikProps<FormValues>) => {
             <Button
               outline
               color='primary'
+              disabled={props.loading}
               className='rounded-0 border-left-0 d-flex align-items-center justify-content-center'
               onClick={() => setPasswordVisible(!passwordVisible)}
             >
@@ -88,11 +94,31 @@ const UWAStudent = (props: Props & FormikProps<FormValues>) => {
           <FormFeedback>{props.errors.password}</FormFeedback>
         </InputGroup>
       </FormGroup>
+      <FormGroup check className='mb-3'>
+        <Label check>
+          <Input
+            type='checkbox'
+            disabled={props.loading}
+            id='isGuildMember'
+            name='isGuildMember'
+            value={props.values.isGuildMember}
+          />
+          I am a{' '}
+          <a
+            href='https://www.uwastudentguild.com/the-guild/join-us'
+            target='_blank'
+            rel='noopener noreferrer'
+          >
+            UWA Guild Member
+          </a>
+        </Label>
+      </FormGroup>
       <Button
         type='submit'
         size='lg'
         color='primary'
-        className='rounded-0 monospace px-4 d-flex align-items-center'
+        disabled={props.loading}
+        className='rounded-0 px-4 d-flex align-items-center monospace'
       >
         Sign Up
         {props.loading && (
@@ -103,22 +129,20 @@ const UWAStudent = (props: Props & FormikProps<FormValues>) => {
   )
 }
 
-export default withTheme(
-  withFormik<Props, FormValues>({
-    handleSubmit: (values, bag) => bag.props.handleSubmit(values, bag),
-    mapPropsToValues,
-    validationSchema
-  })(UWAStudent)
-)
+export default withFormik<Props, FormValues>({
+  handleSubmit: (values, bag) => bag.props.handleSubmit(values, bag),
+  mapPropsToValues,
+  validationSchema
+})(UWAStudent)
 
 interface FormValues {
   studentNumber: string
   password: string
+  isGuildMember: boolean
 }
 interface Props {
   handleSubmit: Function
   closeError: Function
   error: string
   loading: Boolean
-  theme: Object
 }

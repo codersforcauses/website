@@ -1,8 +1,8 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core'
-import { withTheme } from 'emotion-theming'
+import { useTheme } from 'emotion-theming'
 import { useState } from 'react'
-import { Auth } from 'aws-amplify'
+import { Auth } from '@aws-amplify/auth'
 import { Field, FormikProps, Form, withFormik } from 'formik'
 import {
   Button,
@@ -14,8 +14,8 @@ import {
   InputGroupAddon,
   UncontrolledAlert
 } from 'reactstrap'
+import Spinner from 'components/Elements/Spinner'
 import ForgotPasswordModal from './ForgotPasswordModal'
-import Spinner from '../../../Elements/Spinner'
 import { styles } from './styles'
 import { validationSchema } from './validation'
 
@@ -32,6 +32,8 @@ const OtherMember = (props: Props & FormikProps<FormValues>) => {
 
   const [error, setError] = useState('')
 
+  const theme = useTheme()
+
   const closeModal = () => {
     setForgotPassword(false)
     setResetCode(false)
@@ -39,6 +41,11 @@ const OtherMember = (props: Props & FormikProps<FormValues>) => {
   const handleSendPasswordResetCode = async email => {
     setLoading(true)
     try {
+      if (email.includes('@student.uwa.edu.au')) {
+        throw new Error(
+          'You cannot change the password of your UWA student account. If you wish to do so, please do change it through the UWA portal.'
+        )
+      }
       await Auth.forgotPassword(email.trim())
       setError('')
       setResetCode(true)
@@ -72,11 +79,11 @@ const OtherMember = (props: Props & FormikProps<FormValues>) => {
   const changeStep = () => setResetCode(!resetCode)
 
   return (
-    <Form css={styles(props.theme)}>
+    <Form css={styles(theme)}>
       <UncontrolledAlert
         isOpen={!!props.error}
         toggle={props.closeError}
-        color='error'
+        color='danger'
         className='rounded-0'
       >
         {props.error}
@@ -89,6 +96,7 @@ const OtherMember = (props: Props & FormikProps<FormValues>) => {
           type='email'
           bsSize='lg'
           tag={Field}
+          disabled={props.loading}
           placeholder='hello@codersforcauses.org'
           id='email'
           name='email'
@@ -107,6 +115,7 @@ const OtherMember = (props: Props & FormikProps<FormValues>) => {
             type={passwordVisible ? 'text' : 'password'}
             bsSize='lg'
             tag={Field}
+            disabled={props.loading}
             placeholder='********'
             id='password'
             name='password'
@@ -118,6 +127,7 @@ const OtherMember = (props: Props & FormikProps<FormValues>) => {
             <Button
               outline
               color='primary'
+              disabled={props.loading}
               className='rounded-0 border-left-0 d-flex align-items-center justify-content-center'
               onClick={() => setPasswordVisible(!passwordVisible)}
             >
@@ -134,6 +144,7 @@ const OtherMember = (props: Props & FormikProps<FormValues>) => {
           type='submit'
           size='lg'
           color='primary'
+          disabled={props.loading}
           className='rounded-0 monospace px-4 d-flex align-items-center'
         >
           Sign in
@@ -143,6 +154,7 @@ const OtherMember = (props: Props & FormikProps<FormValues>) => {
         </Button>
         <Button
           color='link'
+          disabled={props.loading}
           onClick={() => setForgotPassword(true)}
           className='ml-3'
         >
@@ -164,13 +176,11 @@ const OtherMember = (props: Props & FormikProps<FormValues>) => {
   )
 }
 
-export default withTheme(
-  withFormik<Props, FormValues>({
-    handleSubmit: (values, bag) => bag.props.handleSubmit(values, bag),
-    mapPropsToValues,
-    validationSchema
-  })(OtherMember)
-)
+export default withFormik<Props, FormValues>({
+  handleSubmit: (values, bag) => bag.props.handleSubmit(values, bag),
+  mapPropsToValues,
+  validationSchema
+})(OtherMember)
 
 interface FormValues {
   email: string
@@ -181,5 +191,4 @@ interface Props {
   closeError: Function
   error: string
   loading: Boolean
-  theme: Object
 }

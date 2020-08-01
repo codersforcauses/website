@@ -1,7 +1,7 @@
 import { css } from '@emotion/core'
 
 export const styles = theme => css`
-  min-height: 5vh;
+  min-height: 64px;
 
   .brand {
     line-height: 1.8rem;

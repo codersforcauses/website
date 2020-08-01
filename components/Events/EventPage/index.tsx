@@ -1,14 +1,17 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core'
-import { withTheme } from 'emotion-theming'
+import { useTheme } from 'emotion-theming'
 import { useState } from 'react'
 import { Button, Container, Row, Col } from 'reactstrap'
 import { styles } from './styles'
 
-const EventPage = (props: { theme: Object }) => {
+const EventPage = () => {
   const [isPaid, setIsPaid] = useState(true)
+
+  const theme = useTheme()
+
   return (
-    <div css={styles(props.theme, 'https://source.unsplash.com/random')}>
+    <div css={styles(theme, 'https://source.unsplash.com/random')}>
       <div className='bg-primary mt-5 py-5 bg text-secondary monospace'>
         <Container className='mt-5 pt-5'>
           <h5 className='my-5'>./Workshop</h5>
@@ -101,4 +104,4 @@ const EventPage = (props: { theme: Object }) => {
   )
 }
 
-export default withTheme(EventPage)
+export default EventPage

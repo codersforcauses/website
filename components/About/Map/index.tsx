@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core'
-import { withTheme } from 'emotion-theming'
+import { useTheme } from 'emotion-theming'
 import { useState, useEffect, useRef } from 'react'
 import mapboxgl from 'mapbox-gl'
 import { styles } from './styles'
@@ -13,7 +13,7 @@ const property3D: mapboxgl.Layer = {
   type: 'fill-extrusion',
   minzoom: 17.5,
   paint: {
-    'fill-extrusion-color': '#333',
+    'fill-extrusion-color': '#333', // #bbb for dark mode
     // use an 'interpolate' expression to add a smooth transition effect to the
     // buildings as the user zooms in
     'fill-extrusion-height': [
@@ -38,9 +38,11 @@ const property3D: mapboxgl.Layer = {
   }
 }
 
-const Map = (props: { theme: Object }) => {
+const Map = () => {
   const [map, setMap] = useState(null)
   const mapContainer = useRef(null)
+
+  const theme = useTheme()
 
   useEffect(() => {
     mapboxgl.accessToken = process.env.MAPBOX_API
@@ -102,9 +104,7 @@ const Map = (props: { theme: Object }) => {
     if (!map) initializeMap({ setMap, mapContainer })
   }, [map, property3D])
 
-  return (
-    <div ref={el => (mapContainer.current = el)} css={styles(props.theme)} />
-  )
+  return <div ref={el => (mapContainer.current = el)} css={styles(theme)} />
 }
 
-export default withTheme(Map)
+export default Map

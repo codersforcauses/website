@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core'
-import { withTheme } from 'emotion-theming'
+import { useTheme } from 'emotion-theming'
 import { useState } from 'react'
 import { Field, FormikProps, Form, withFormik } from 'formik'
 import {
@@ -15,7 +15,7 @@ import {
   Row,
   Col
 } from 'reactstrap'
-import Spinner from '../../../Elements/Spinner'
+import Spinner from 'components/Elements/Spinner'
 import { styles } from './styles'
 import { validationSchema } from './validation'
 
@@ -30,57 +30,61 @@ const mapPropsToValues = () => ({
 const OtherMember = (props: Props & FormikProps<FormValues>) => {
   const [passwordVisible, setPasswordVisible] = useState(false)
 
+  const theme = useTheme()
+
   return (
-    <Form css={styles(props.theme)}>
+    <Form css={styles(theme)}>
       <UncontrolledAlert
         isOpen={!!props.error}
         toggle={props.closeError}
-        color='error'
+        color='danger'
         className='rounded-0'
       >
         {props.error}
       </UncontrolledAlert>
+      <Row form>
+        <Col md={6}>
+          <FormGroup>
+            <Label for='firstName' className='monospace'>
+              First Name
+            </Label>
+            <Input
+              type='text'
+              bsSize='lg'
+              tag={Field}
+              disabled={props.loading}
+              placeholder='John'
+              id='firstName'
+              name='firstName'
+              value={props.values.firstName}
+              invalid={props.errors.firstName && props.touched.firstName}
+              className='rounded-0 text-primary border-primary'
+            />
+            <FormFeedback>{props.errors.firstName}</FormFeedback>
+          </FormGroup>
+        </Col>
+        <Col md={6}>
+          <FormGroup>
+            <Label for='lastName' className='monospace'>
+              Last Name
+            </Label>
+            <Input
+              type='text'
+              bsSize='lg'
+              tag={Field}
+              disabled={props.loading}
+              placeholder='Doe'
+              id='lastName'
+              name='lastName'
+              value={props.values.lastName}
+              invalid={props.errors.lastName && props.touched.lastName}
+              className='rounded-0 text-primary border-primary'
+            />
+            <FormFeedback>{props.errors.lastName}</FormFeedback>
+          </FormGroup>
+        </Col>
+      </Row>
       <FormGroup>
-        <Row form>
-          <Col md={6}>
-            <FormGroup>
-              <Label for='firstName' className='monospace'>
-                First Name
-              </Label>
-              <Input
-                type='text'
-                bsSize='lg'
-                tag={Field}
-                placeholder='John'
-                id='firstName'
-                name='firstName'
-                value={props.values.firstName}
-                invalid={props.errors.firstName && props.touched.firstName}
-                className='rounded-0 text-primary border-primary'
-              />
-              <FormFeedback>{props.errors.firstName}</FormFeedback>
-            </FormGroup>
-          </Col>
-          <Col md={6}>
-            <FormGroup>
-              <Label for='lastName' className='monospace'>
-                Last Name
-              </Label>
-              <Input
-                type='text'
-                bsSize='lg'
-                tag={Field}
-                placeholder='Doe'
-                id='lastName'
-                name='lastName'
-                value={props.values.lastName}
-                invalid={props.errors.lastName && props.touched.lastName}
-                className='rounded-0 text-primary border-primary'
-              />
-              <FormFeedback>{props.errors.lastName}</FormFeedback>
-            </FormGroup>
-          </Col>
-        </Row>
         <Label for='email' className='monospace'>
           Email
         </Label>
@@ -88,6 +92,7 @@ const OtherMember = (props: Props & FormikProps<FormValues>) => {
           type='email'
           bsSize='lg'
           tag={Field}
+          disabled={props.loading}
           placeholder='hello@codersforcauses.org'
           id='email'
           name='email'
@@ -108,6 +113,7 @@ const OtherMember = (props: Props & FormikProps<FormValues>) => {
                 type={passwordVisible ? 'text' : 'password'}
                 bsSize='lg'
                 tag={Field}
+                disabled={props.loading}
                 placeholder='********'
                 id='password'
                 name='password'
@@ -119,6 +125,7 @@ const OtherMember = (props: Props & FormikProps<FormValues>) => {
                 <Button
                   outline
                   color='primary'
+                  disabled={props.loading}
                   className='rounded-0 border-left-0 d-flex align-items-center justify-content-center'
                   onClick={() => setPasswordVisible(!passwordVisible)}
                 >
@@ -141,6 +148,7 @@ const OtherMember = (props: Props & FormikProps<FormValues>) => {
                 type={passwordVisible ? 'text' : 'password'}
                 bsSize='lg'
                 tag={Field}
+                disabled={props.loading}
                 placeholder='********'
                 id='confirmPassword'
                 name='confirmPassword'
@@ -154,6 +162,7 @@ const OtherMember = (props: Props & FormikProps<FormValues>) => {
                 <Button
                   outline
                   color='primary'
+                  disabled={props.loading}
                   className='rounded-0 border-left-0 d-flex align-items-center justify-content-center'
                   onClick={() => setPasswordVisible(!passwordVisible)}
                 >
@@ -171,6 +180,7 @@ const OtherMember = (props: Props & FormikProps<FormValues>) => {
         type='submit'
         size='lg'
         color='primary'
+        disabled={props.loading}
         className='rounded-0 monospace px-4 d-flex align-items-center'
       >
         Sign Up
@@ -182,13 +192,11 @@ const OtherMember = (props: Props & FormikProps<FormValues>) => {
   )
 }
 
-export default withTheme(
-  withFormik<Props, FormValues>({
-    handleSubmit: (values, bag) => bag.props.handleSubmit(values, bag),
-    mapPropsToValues,
-    validationSchema
-  })(OtherMember)
-)
+export default withFormik<Props, FormValues>({
+  handleSubmit: (values, bag) => bag.props.handleSubmit(values, bag),
+  mapPropsToValues,
+  validationSchema
+})(OtherMember)
 
 interface FormValues {
   firstName: string
@@ -202,5 +210,4 @@ interface Props {
   closeError: Function
   error: string
   loading: Boolean
-  theme: Object
 }

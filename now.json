@@ -1,5 +1,4 @@
 {
-  "name": "cfc-website",
   "version": 2,
   "public": false,
   "builds": [{ "src": "next.config.js", "use": "@now/next" }],

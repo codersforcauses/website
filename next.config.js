@@ -1,7 +1,9 @@
-const withSass = require('@zeit/next-sass')
 const Dotenv = require('dotenv-webpack')
+const withBundleAnalyzer = require('@next/bundle-analyzer')({
+  enabled: process.env.ANALYZE === 'true'
+})
 
-module.exports = withSass({
+module.exports = withBundleAnalyzer({
   webpack: config => {
     config.plugins.push(new Dotenv({ silent: true }))
     return config

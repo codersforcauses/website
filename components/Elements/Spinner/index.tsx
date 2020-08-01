@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core'
-import { withTheme } from 'emotion-theming'
+import { useTheme } from 'emotion-theming'
 import { Spinner as BootstrapSpinner } from 'reactstrap'
 import { styles } from './styles'
 
@@ -15,13 +15,12 @@ const Spinner = ({
   type?: string
   className?: string
   style?: Object
-  theme: Object
-}) => (
-  <BootstrapSpinner
-    color={color}
-    {...props}
-    css={styles(props.theme, border)}
-  />
-)
+}) => {
+  const theme = useTheme()
 
-export default withTheme(Spinner)
+  return (
+    <BootstrapSpinner color={color} {...props} css={styles(theme, border)} />
+  )
+}
+
+export default Spinner

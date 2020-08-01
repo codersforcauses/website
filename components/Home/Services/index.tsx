@@ -1,5 +1,6 @@
+import React from 'react'
 import { Row, Col, Card, CardBody } from 'reactstrap'
-import services from '../../../data/services.json'
+import services from 'data/services.json'
 
 const Service = (props: {
   icon: string
@@ -7,7 +8,7 @@ const Service = (props: {
   description: string
 }) => (
   <Card className='text-center border-0'>
-    <CardBody>
+    <CardBody className='px-0'>
       <i className='material-icons-sharp md-lg'>{props.icon}</i>
       <h4 className='mt-4 font-weight-bold'>{props.title}</h4>
       <p className='mb-0'>{props.description}</p>

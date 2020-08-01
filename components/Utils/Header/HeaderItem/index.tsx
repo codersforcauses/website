@@ -1,8 +1,7 @@
 import React from 'react'
-import { NavItemProps } from 'reactstrap'
+import { NavItemProps, NavItem } from 'reactstrap'
 import HeaderDropdown from './HeaderDropdown'
 import HeaderLink from './HeaderLink'
-import NavItem from 'reactstrap/lib/NavItem'
 
 const HeaderItem = ({ item: { href, text, items }, ...props }: Props) => (
   <NavItem {...props}>
