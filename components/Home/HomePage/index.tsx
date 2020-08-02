@@ -136,7 +136,7 @@ const HomePage = () => {
               </Collapse>
             </Col>
             <Col sm={4} className='d-none d-md-flex flex-row-reverse'>
-              <Face data-cy='face' />
+              <Face />
             </Col>
             <Col md={8}>
               <Collapse isOpen={contactOpen}>
