@@ -6,7 +6,7 @@ describe('Test desktop element visibility', () => {
   })
 
   it('smiley should wink on mouseover', () => {
-    cy.get('.face').contains(':)')
-    cy.get('.face').trigger('mouseover').contains(';)')
+    cy.get('[data-cy=face]').contains(':)')
+    cy.get('[data-cy=face]').trigger('mouseover').contains(';)')
   })
 })

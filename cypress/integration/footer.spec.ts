@@ -10,18 +10,11 @@ describe('Test Footer', () => {
 
     cy.get('[data-cy=footer]')
       .get('[data-cy=copyrightnotice]')
-      .contains('Copyright')
-      .should('be.visible')
   })
 
   it('has navigation to /branding', () => {
     cy.get('[data-cy=branding]').click()
     cy.url().should('include', '/branding')
-  })
-
-  it('has navigation to /contact', () => {
-    cy.get('[data-cy=contact]').click()
-    cy.url().should('include', '/contact')
   })
 
   it('has navigation to /projects', () => {
