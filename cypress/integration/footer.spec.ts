@@ -13,15 +13,15 @@ describe('Test Footer', () => {
   })
 
   it('has navigation to /branding', () => {
-    cy.get('[data-cy=branding]').click()
+    cy.get('[data-cy=branding]').click({ force: true })
     cy.url().should('include', '/branding')
   })
 
   it('has navigation to /projects', () => {
-    cy.get('[data-cy=projects]').click()
+    cy.get('[data-cy=projects]').click({ force: true })
     cy.url().should('include', '/projects')
   })
-  
+
   it('should have content', () => {
     cy.get('[data-cy=footer]').contains('Terms').should('be.visible')
     cy.get('[data-cy=footer]').contains('Privacy').should('be.visible')
