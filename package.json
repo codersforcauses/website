@@ -51,7 +51,7 @@
     "react-dom": "16.13.1",
     "reactstrap": "8.5.1",
     "typed.js": "2.0.11",
-    "yup": "0.29.2"
+    "yup": "0.29.3"
   },
   "devDependencies": {
     "@next/bundle-analyzer": "9.5.1",
