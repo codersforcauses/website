@@ -13,6 +13,7 @@ export const globalStyle = theme => css`
       Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif,
       'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol',
       'Noto Color Emoji';
+    font-size: clamp(14px, 5vmin, 16px);
   }
 
   html,
@@ -25,21 +26,15 @@ export const globalStyle = theme => css`
     overscroll-behavior-y: none;
   }
 
-  // selection needs to be separated to show on chromium browsers
   ::selection {
-    background: ${theme.colors.accent};
-    color: ${theme.colors.primary};
-    text-shadow: none;
-  }
-  ::-moz-selection {
     background: ${theme.colors.accent};
     color: ${theme.colors.primary};
     text-shadow: none;
   }
 
   .main {
-    margin-top: 72px;
-    min-height: calc(100vh - (72px + 236px));
+    margin-top: 64px;
+    min-height: calc(100vh - (64px + 236px));
   }
 
   /*
@@ -47,7 +42,7 @@ export const globalStyle = theme => css`
     This also means all ID's must be prefixed by '_'.
   */
   [id^='_'] {
-    scroll-margin-top: 72px;
+    scroll-margin-top: 64px;
   }
 
   .monospace {
@@ -56,6 +51,12 @@ export const globalStyle = theme => css`
 
   input {
     color: ${theme.colors.primary};
+  }
+
+  a:focus,
+  button:focus {
+    outline: 1px dotted ${theme.colors.accent} !important;
+    outline-offset: 0.25rem !important;
   }
 
   .modal-content {
@@ -89,6 +90,13 @@ export const globalStyle = theme => css`
       filter: none;
       // cursor: pointer;
     }
+  }
+
+  .toast {
+    position: fixed;
+    inset: auto 1rem 1rem auto;
+    max-width: 320px;
+    z-index: 10;
   }
 
   .legal-content {

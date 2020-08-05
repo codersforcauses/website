@@ -12,6 +12,7 @@ import {
   Label,
   Input
 } from 'reactstrap'
+import Spinner from 'components/Elements/Spinner'
 import { styles } from './styles'
 import { validationSchema } from './validation'
 
@@ -39,6 +40,7 @@ const ContactForm = (props: Props & FormikProps<FormValues>) => {
               bsSize='lg'
               tag={Field}
               placeholder='John'
+              disabled={props.loading}
               id='firstName'
               name='firstName'
               value={props.values.firstName}
@@ -58,6 +60,7 @@ const ContactForm = (props: Props & FormikProps<FormValues>) => {
               bsSize='lg'
               tag={Field}
               placeholder='Doe'
+              disabled={props.loading}
               id='lastName'
               name='lastName'
               value={props.values.lastName}
@@ -77,6 +80,7 @@ const ContactForm = (props: Props & FormikProps<FormValues>) => {
           bsSize='lg'
           tag={Field}
           placeholder='Coders for Causes'
+          disabled={props.loading}
           id='organisationName'
           name='organisationName'
           value={props.values.organisationName}
@@ -105,6 +109,7 @@ const ContactForm = (props: Props & FormikProps<FormValues>) => {
           bsSize='lg'
           tag={Field}
           placeholder='hello@codersforcauses.org'
+          disabled={props.loading}
           id='email'
           name='email'
           value={props.values.email}
@@ -121,6 +126,7 @@ const ContactForm = (props: Props & FormikProps<FormValues>) => {
           type='textarea'
           bsSize='lg'
           placeholder='Write a short message here to get things started'
+          disabled={props.loading}
           id='message'
           name='message'
           value={props.values.message}
@@ -137,13 +143,18 @@ const ContactForm = (props: Props & FormikProps<FormValues>) => {
           outline
           size='lg'
           color='secondary'
-          className='rounded-0 monospace px-5'
+          disabled={props.loading}
+          className='rounded-0 monospace px-5 d-flex align-items-center'
         >
           Send
+          {props.loading && (
+            <Spinner color='secondary' size='sm' className='ml-2' />
+          )}
         </Button>
         <Button
           size='lg'
           color='link'
+          disabled={props.loading}
           className='rounded-0 monospace px-5 text-secondary'
           onClick={props.handleCloseForm}
         >
@@ -155,7 +166,7 @@ const ContactForm = (props: Props & FormikProps<FormValues>) => {
 }
 
 export default withFormik<Props, FormValues>({
-  handleSubmit: async values => {},
+  handleSubmit: (values, bag) => bag.props.handleSubmit(values, bag),
   mapPropsToValues,
   validationSchema
 })(ContactForm)
@@ -168,5 +179,7 @@ interface FormValues {
   message: string
 }
 interface Props {
+  loading: boolean
   handleCloseForm: Function
+  handleSubmit: Function
 }

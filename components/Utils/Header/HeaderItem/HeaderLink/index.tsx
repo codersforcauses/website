@@ -11,7 +11,10 @@ const HeaderLink = ({ href, text }: Props) => {
   return (
     <span css={styles(theme)}>
       <Link href={href}>
-        <NavLink className='header-link' data-tid={`nav-${text}`}>
+        <NavLink
+          className='header-link p-0 m-2 my-md-0 '
+          data-tid={`nav-${text}`}
+        >
           {text}
         </NavLink>
       </Link>

@@ -7,9 +7,7 @@ const Clients = () => {
   const [clientList, setClientList] = useState([])
 
   useEffect(() => {
-    setClientList(clients
-      .sort(randomise)
-      .slice(0, Math.min(4, clients.length)))
+    setClientList(clients.sort(randomise).slice(0, Math.min(4, clients.length)))
   }, [])
 
   return (

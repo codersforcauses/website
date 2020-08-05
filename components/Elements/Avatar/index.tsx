@@ -4,17 +4,19 @@ import { useTheme } from 'emotion-theming'
 import { getInitials } from 'helpers/user'
 import { styles } from './styles'
 
+const sizeToNum = {
+  sm: 38,
+  md: 72,
+  lg: 144,
+  xl: 288
+}
+
 const Avatar = ({
   dark = false,
   round = false,
   size = 'sm',
   ...props
 }: Props) => {
-  let sizeToNum = 38
-  if (size === 'md') sizeToNum = 72
-  if (size === 'lg') sizeToNum = 144
-  if (size === 'xl') sizeToNum = 288
-
   const theme = useTheme()
 
   return (
@@ -22,7 +24,7 @@ const Avatar = ({
       className={`d-flex align-items-center justify-content-center monospace ${
         round && 'rounded-circle'
       } ${props.className}`}
-      css={styles(theme, sizeToNum, dark, props.image)}
+      css={styles(theme, sizeToNum[size], dark, props.image)}
     >
       {props.name && <p className='m-0'>{getInitials(props.name)}</p>}
     </div>
@@ -32,8 +34,8 @@ const Avatar = ({
 export default Avatar
 
 interface Props {
-  dark?: Boolean
-  round?: Boolean
+  dark?: boolean
+  round?: boolean
   name?: string
   image?: string
   size?: string

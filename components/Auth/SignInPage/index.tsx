@@ -77,7 +77,7 @@ const SignInPage = (props: { route?: string; signUp: Function }) => {
       <Container className='py-5 '>
         <Row>
           <Col xs={12} tag='p'>
-            Don't have an account? Create one&nbsp;
+            Don't have an account?&nbsp;
             <a
               href=''
               onClick={e => {
@@ -85,9 +85,9 @@ const SignInPage = (props: { route?: string; signUp: Function }) => {
                 props.signUp(true)
               }}
             >
-              here
+              Create one
             </a>
-            !
+            .
           </Col>
           <Col md={6}>
             <Nav tabs className='border-0'>

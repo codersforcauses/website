@@ -12,25 +12,20 @@ export const styles = theme => css`
   .relative-container {
     position: relative; 
   }
+
   .map {
     height: 250px;
     width: 100vw;
-    margin-bottom: calc(${theme.spacing[5] * -2}rem);
-
-    position: relative;
-    // left: 0;
-    right: 0;
-    // bottom: 0;
+    margin-bottom: calc(${theme.spacing[5] * -1}rem);
   }
 
   ${media.lg`
     .map {
       height:100%;
       width: 50vw;
-
       position: absolute;
       top: 0;
-      left: auto;
+      right: 0;
     }
   `}
 `

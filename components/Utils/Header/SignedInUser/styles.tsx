@@ -6,8 +6,8 @@ export const styles = (theme, image) => css`
   border: 1px solid ${theme.colors.secondary};
 
   padding: 0.25rem;
-  height: 38px;
-  width: 38px;
+  height: 30px;
+  width: 30px;
 
   ${image &&
   `

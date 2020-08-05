@@ -13,10 +13,10 @@ export const styles = theme => css`
   .social {
     button {
       &:first-of-type {
-        padding-left: 0;
+        margin-left: 0 !important;
       }
       &:last-of-type {
-        padding-right: 0;
+        margin-right: 0 !important;
       }
     }
   }

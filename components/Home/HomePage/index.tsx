@@ -2,7 +2,17 @@
 import { jsx } from '@emotion/core'
 import { useTheme } from 'emotion-theming'
 import { useState } from 'react'
-import { Jumbotron, Button, Collapse, Container, Row, Col } from 'reactstrap'
+import Link from 'next/link'
+import {
+  Jumbotron,
+  Button,
+  Collapse,
+  Container,
+  Row,
+  Col,
+  Toast,
+  ToastBody
+} from 'reactstrap'
 import constants from 'data/constants.json'
 import TypedText from 'components/Utils/TypedText'
 import Clients from 'components/Utils/Clients'
@@ -10,15 +20,52 @@ import Services from '../Services'
 import Face from '../Face'
 import { styles } from './styles'
 import ContactForm from '../ContactForm'
-import Link from 'next/link'
 
 const HomePage = () => {
   const [contactOpen, setContactOpen] = useState(false)
+  const [loadContact, setLoadContact] = useState(false)
+  const [toastMessage, setToastMessage] = useState(null)
 
   const theme = useTheme()
 
+  const handleContactSubmit = async values => {
+    try {
+      setLoadContact(true)
+      const response = await fetch('https://formspree.io/mrgyryzj', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        mode: 'cors',
+        body: JSON.stringify(values)
+      })
+      if ((await response.status) === 200) {
+        setContactOpen(false)
+        setToastMessage({
+          status: 'success',
+          message:
+            'Your query has been submitted to us, we will get back to you as soon as we can.'
+        })
+      }
+    } catch (error) {
+      setToastMessage({
+        status: 'danger',
+        message: 'Your message was unable to be sent, please try again'
+      })
+    } finally {
+      setLoadContact(false)
+      setTimeout(() => {
+        setToastMessage(null)
+      }, 6000)
+    }
+  }
+
   return (
     <div css={styles(theme)}>
+      <Toast
+        isOpen={!!toastMessage}
+        className={`toast m-0 rounded-0 text-white bg-${toastMessage?.status}`}
+      >
+        <ToastBody>{toastMessage?.message}</ToastBody>
+      </Toast>
       <Jumbotron className='hero bg-primary text-secondary d-flex align-items-center rounded-0 monospace'>
         <Container>
           <h1 className='mb-4'>
@@ -37,7 +84,7 @@ const HomePage = () => {
           </h1>
         </Container>
       </Jumbotron>
-      <Container className='py-5 my-5'>
+      <Container className='py-5 my-md-5'>
         <h2 className='font-weight-bold mb-4'>We are developers.</h2>
         <p className='lead'>
           Coders for Causes are a group of developers that empower charities and
@@ -56,25 +103,27 @@ const HomePage = () => {
           <Clients />
         </Container>
       </div>
-      <Container className='py-5 my-5'>
+      <Container className='py-5 my-md-5'>
         <Services />
       </Container>
-      <div className='py-5 bg-primary text-secondary'>
-        <Container id='_contact_us' className='pt-5 pb-0 pb-md-5'>
+      <div className='pt-5 pb-md-5 bg-primary text-secondary'>
+        <Container id='_contact_us' className='pt-md-5 pb-0 pb-md-5'>
           <Row className='mt-lg-5'>
             <Col md={8} className='d-flex flex-column justify-content-center'>
               <h1 className={`display-3 mt-0 mb-${contactOpen ? '0' : '3'}`}>
                 Let's talk.
               </h1>
               <Collapse isOpen={!contactOpen}>
-                <a
-                  href={`mailto:${constants.email}`}
-                  target='_blank'
-                  rel='noreferrer noopener'
-                  className='text-secondary'
-                >
-                  <h3 className='email'>{constants.email}</h3>
-                </a>
+                <div>
+                  <a
+                    href={`mailto:${constants.email}`}
+                    target='_blank'
+                    rel='noreferrer noopener'
+                    className='text-secondary email monospace'
+                  >
+                    {constants.email}
+                  </a>
+                </div>
                 <Button
                   outline
                   size='lg'
@@ -91,7 +140,11 @@ const HomePage = () => {
             </Col>
             <Col md={8}>
               <Collapse isOpen={contactOpen}>
-                <ContactForm handleCloseForm={() => setContactOpen(false)} />
+                <ContactForm
+                  loading={loadContact}
+                  handleCloseForm={() => setContactOpen(false)}
+                  handleSubmit={handleContactSubmit}
+                />
               </Collapse>
             </Col>
           </Row>
