@@ -48,7 +48,7 @@ const HomePage = () => {
     } catch (error) {
       setToastMessage({
         status: 'danger',
-        message: 'Your message was unable to be sent, please try again'
+        message: 'Your message was unable to be sent, please try again.'
       })
     } finally {
       setLoadContact(false)
