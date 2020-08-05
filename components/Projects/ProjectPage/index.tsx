@@ -18,6 +18,26 @@ const impact: Array<string> = [
   'Risk mitigation'
 ]
 
+const Impact = ({
+  impact,
+  ...props
+}: {
+  impact: Array<string>
+  className: string
+}) => (
+  <div {...props}>
+    <h4 className='mb-3 font-weight-bold monospace'>Potential impact</h4>
+    <ul className='p-0'>
+      {impact.map((text: string, i: number) => (
+        <li key={i} className='d-flex align-items-center pr-3 my-2'>
+          <i className='material-icons-sharp mr-3'>check_circle</i>
+          {text}
+        </li>
+      ))}
+    </ul>
+  </div>
+)
+
 const ProjectPage = () => {
   const theme = useTheme()
 
@@ -63,7 +83,16 @@ const ProjectPage = () => {
                 laborum ipsum voluptatum excepturi aliquid cum, commodi rem ad
                 repudiandae! Possimus, facilis minima. Tempore!
               </p>
+              <Button
+                outline
+                color='primary'
+                size='lg'
+                className='rounded-0 d-lg-none'
+              >
+                Visit Website
+              </Button>
             </div>
+            <Impact impact={impact} className='d-lg-none mb-5' />
             <div className='mb-5'>
               <h3 className='font-weight-black mb-4'>Technologies used</h3>
               <TechList />
@@ -91,19 +120,7 @@ const ProjectPage = () => {
                 Visit Website
               </Button>
             </div>
-            <div>
-              <h4 className='mb-3 font-weight-bold monospace'>
-                Potential impact
-              </h4>
-              <ul className='p-0'>
-                {impact.map((text: string, i: number) => (
-                  <li key={i} className='d-flex align-items-center pr-3 my-2'>
-                    <i className='material-icons-sharp mr-3'>check_circle</i>
-                    {text}
-                  </li>
-                ))}
-              </ul>
-            </div>
+            <Impact impact={impact} className='d-none d-lg-block' />
           </Col>
         </Row>
       </Container>
