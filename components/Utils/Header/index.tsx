@@ -59,6 +59,7 @@ const Header = () => {
             id='Home'
             title='Home'
             className='mr-md-5 py-0 brand font-weight-bold monospace'
+            data-cy='nav-Home'
           >
             cfc
           </NavbarBrand>

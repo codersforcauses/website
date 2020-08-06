@@ -1,57 +1,31 @@
 /// <reference path="../support/index.d.ts" />
 
+const testNavButton = (buttonId: string, url: string) => {
+  cy.get(`[data-cy=nav-${buttonId}]`).click()
+  cy.url().should('eq', Cypress.config().baseUrl + `${url}`)
+}
+
+const navigationTests = () => {
+  it('should be able to navigate home page', () => testNavButton('Home', '/'))
+  it('should be able to navigate to /about', () => testNavButton('About', '/about'))
+  it('should be able to navigate to /events', () => testNavButton('Events', '/events'))
+  it('should be able to navigate to /projects', () => testNavButton( 'Projects', '/projects'))
+}
+
 describe('Test Desktop Navbar', () => {
   beforeEach(() => {
-    cy.clearLocalStorage()
     cy.visit('/')
   })
 
-  it('should be able to navigate home page', () => {
-    cy.get('[id="Home"]').click()
-    cy.contains('Let\'s talk.')
-  })
-
-  it('should be able to navigate to /about', () => {
-    cy.get('[data-tid="nav-About"]').click()
-    cy.contains('Meet the Team')
-  })
-
-  it('should be able to navigate to /events', () => {
-    cy.get('[data-tid="nav-Events"]').click()
-    cy.contains('Workshops')
-  })
-
-  it('should be able to navigate to /projects', () => {
-    cy.get('[data-tid="nav-Projects"]').click()
-    cy.contains('Ignite Mentoring')
-  })
+  navigationTests()
 })
 
 describe('Test Mobile Navbar', () => {
   beforeEach(() => {
-    cy.clearLocalStorage()
     cy.viewport('iphone-5')
     cy.visit('/')
     cy.get('[id="Menu"]').click()
   })
 
-  it('should be able to navigate home page', () => {
-    cy.get('[id="Home"]').click()
-    cy.contains('Let\'s talk.')
-  })
-
-  it('should be able to navigate to /about', () => {
-    cy.get('[data-tid="nav-About"]').click()
-    cy.contains('Meet the Team')
-  })
-
-  it('should be able to navigate to /events', () => {
-    cy.get('[data-tid="nav-Events"]').click()
-    cy.contains('Workshops')
-  })
-
-  it('should be able to navigate to /projects', () => {
-    cy.get('[data-tid="nav-Projects"]').click()
-    cy.contains('Ignite Mentoring')
-  })
+  navigationTests()
 })

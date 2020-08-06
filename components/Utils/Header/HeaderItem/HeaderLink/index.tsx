@@ -13,7 +13,7 @@ const HeaderLink = ({ href, text }: Props) => {
       <Link href={href}>
         <NavLink
           className='header-link p-0 m-2 my-md-0 '
-          data-tid={`nav-${text}`}
+          data-cy={`nav-${text}`}
         >
           {text}
         </NavLink>

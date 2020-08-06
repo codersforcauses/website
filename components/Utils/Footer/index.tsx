@@ -26,6 +26,7 @@ const Footer = () => {
     <footer
       className='bg-primary text-secondary pt-5 pb-2 footer'
       css={styles(theme)}
+      data-cy='footer'
     >
       <Container>
         <Row>
@@ -63,14 +64,14 @@ const Footer = () => {
               </li>
               <li>
                 <Link href='/branding'>
-                  <Button color='link' className='text-secondary p-0'>
+                  <Button color='link' className='text-secondary p-0' data-cy='branding'>
                     Our branding
                   </Button>
                 </Link>
               </li>
               <li>
                 <Link href='/#_contact_us'>
-                  <Button color='link' className='text-secondary p-0'>
+                  <Button color='link' className='text-secondary p-0' data-cy='contact'>
                     Contact us
                   </Button>
                 </Link>
@@ -89,7 +90,7 @@ const Footer = () => {
               </li>
               <li>
                 <Link href='/projects'>
-                  <Button color='link' className='text-secondary p-0'>
+                  <Button color='link' className='text-secondary p-0' data-cy='projects'>
                     Previous projects
                   </Button>
                 </Link>
@@ -118,7 +119,7 @@ const Footer = () => {
         </Row>
         <Row className='mt-4'>
           <Col xs={12} md={7} className='d-md-flex align-items-center'>
-            <p className='my-0 mr-3 mr-lg-4 monospace copyright'>
+            <p className='my-0 mr-3 mr-lg-4 monospace copyright' data-cy='copyrightnotice'>
               &copy; {new Date().getFullYear()} Coders for Causes
             </p>
             <div className='d-flex align-items-center justify-content-between legal'>
