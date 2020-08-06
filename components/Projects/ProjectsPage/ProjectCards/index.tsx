@@ -27,7 +27,7 @@ const ProjectCards = () => {
                   src='https://source.unsplash.com/random'
                   // {project.logo}
                   alt={project.client}
-                  className='project-img img-fluid'
+                  className='project-img img-fluid rounded-0'
                 />
                 <div className='d-flex align-items-center'>
                   <div className='bg-primary'>
