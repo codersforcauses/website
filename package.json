@@ -37,7 +37,7 @@
     "@zeit/next-sass": "1.0.1",
     "aws-amplify": "3.0.22",
     "aws-amplify-react": "4.1.21",
-    "bootstrap": "4.5.1",
+    "bootstrap": "4.5.2",
     "emotion": "10.0.27",
     "emotion-normalize": "10.1.0",
     "emotion-server": "10.0.27",
