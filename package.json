@@ -36,7 +36,7 @@
     "@stripe/stripe-js": "1.8.0",
     "@zeit/next-sass": "1.0.1",
     "aws-amplify": "3.0.23",
-    "aws-amplify-react": "4.1.21",
+    "aws-amplify-react": "4.1.22",
     "bootstrap": "4.5.2",
     "emotion": "10.0.27",
     "emotion-normalize": "10.1.0",
