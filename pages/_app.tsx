@@ -67,16 +67,7 @@ const Website = ({ Component, pageProps }: AppProps) => {
             >
               <Container>
                 This website is still under development. Not everything may
-                work, but feel free to look around. Here's a link to the{' '}
-                <a
-                  href='https://codersforcauses.org/landing'
-                  target='_blank'
-                  rel='noreferrer noopener'
-                  className='alert-link'
-                >
-                  old website
-                </a>
-                .
+                work, but feel free to look around.
               </Container>
             </Alert>
             <Component {...pageProps} />
