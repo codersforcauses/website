@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react'
 import Typed from 'typed.js'
 
-export default ({ text }: { text: Array<string> }) => {
+const TypedText = ({ text }: { text: Array<string> }) => {
   let typed: Typed
   const typedText: any = useRef<HTMLSpanElement>()
 
@@ -22,3 +22,5 @@ export default ({ text }: { text: Array<string> }) => {
 
   return <span ref={typedText} data-cy='typer' />
 }
+
+export default TypedText
