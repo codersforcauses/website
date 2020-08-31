@@ -27,7 +27,12 @@ const Header = () => {
   const links: HeaderItemContent[] = [
     { href: '/about', text: 'About' },
     { href: '/projects', text: 'Projects' },
-    { href: '/events', text: 'Events' }
+    { href: '/events', text: 'Events' },
+    {
+      href: 'https://guides.codersforcauses.org/',
+      text: 'Guides',
+      isExternal: true
+    }
   ]
 
   const toggleOpen = () => setOpen(!open)
