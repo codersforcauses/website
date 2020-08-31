@@ -98,15 +98,17 @@ const EventPage = () => {
             Upcoming
           </Button>
         </ButtonGroup>
-        {eventList.map(({ date, events }) => (
-          <div key={date} css={eventStyles(theme, date)}>
-            <div className='d-flex flex-column ml-3 ml-md-5 pl-lg-5'>
-              {events.map(event => (
-                <EventCard key={event.slug} className='mb-4' {...event} />
-              ))}
+        <div className='events'>
+          {eventList.map(({ date, events }) => (
+            <div key={date} css={eventStyles(theme, date)}>
+              <div className='d-flex flex-column ml-3 ml-md-5 pl-lg-5'>
+                {events.map(event => (
+                  <EventCard key={event.slug} className='mb-4' {...event} />
+                ))}
+              </div>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </Container>
     </div>
   )

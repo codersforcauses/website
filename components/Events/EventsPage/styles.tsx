@@ -9,6 +9,9 @@ export const styles = theme => css`
   .pad {
     padding: 6.6rem 0;
   }
+  .events > div:last-of-type {
+    margin: 0;
+  }
 `
 
 export const eventStyles = (theme, date) => css`
