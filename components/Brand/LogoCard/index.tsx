@@ -40,7 +40,17 @@ const LogoCard = (props: {
         >
           .svg
         </a>
-        <i className='material-icons-sharp flex-grow-1'>get_app</i>
+        <span className='flex-grow-1'>
+          <a
+            download
+            href={props.png}
+            target='_blank'
+            rel='noopener noreferrer'
+            className={props.dark && 'text-secondary'}
+          >
+            <i className='material-icons-sharp'>get_app</i>
+          </a>
+        </span>
       </CardFooter>
     </Card>
   )
