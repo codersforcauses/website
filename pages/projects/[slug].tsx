@@ -3,11 +3,12 @@ import Head from 'next/head'
 import { useRouter } from 'next/router'
 import ProjectPage from 'components/Projects/ProjectPage'
 import projects from 'data/projects.json'
+import type { ProjectType } from 'components/Projects/ProjectPage'
 
 const Project = () => {
   const router = useRouter()
   const { slug } = router.query
-  const project = projects.find((project) => project.id === slug)
+  const project: ProjectType = projects.find(project => project.id === slug)
   return (
     <>
       <Head>

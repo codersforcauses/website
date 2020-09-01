@@ -16,10 +16,10 @@
     ],
     "desc": "lorem lorem lorem lorem lorem lorem lorem lorem lorem lorem lorem lorem",
     "tech": [
-      {"name": "HTML"},
-      {"name": "CSS"},
-      {"name": "JavaScript"},
-      {"name": "Heroku"}
+      {"name": "HTML", "icon": "menu"},
+      {"name": "CSS", "icon": "menu"},
+      {"name": "JavaScript", "icon": "menu"},
+      {"name": "Heroku", "icon": "menu"}
     ],
     "members": [
       "David Yu",
@@ -45,10 +45,10 @@
     ],
     "desc": "lorem lorem lorem lorem lorem lorem lorem lorem lorem lorem lorem lorem",
     "tech": [
-      {"name": "HTML"},
-      {"name": "CSS"},
-      {"name": "JavaScript"},
-      {"name": "Heroku"}
+      {"name": "HTML", "icon": "menu"},
+      {"name": "CSS", "icon": "menu"},
+      {"name": "JavaScript", "icon": "menu"},
+      {"name": "Heroku", "icon": "menu"}
     ],
     "members": [
       "David Yu",
@@ -74,10 +74,10 @@
     ],
     "desc": "lorem lorem lorem lorem lorem lorem lorem lorem lorem lorem lorem lorem",
     "tech": [
-      {"name": "HTML"},
-      {"name": "CSS"},
-      {"name": "JavaScript"},
-      {"name": "Heroku"}
+      {"name": "HTML", "icon": "menu"},
+      {"name": "CSS", "icon": "menu"},
+      {"name": "JavaScript", "icon": "menu"},
+      {"name": "Heroku", "icon": "menu"}
     ],
     "members": [
       "David Yu",
@@ -103,10 +103,10 @@
     ],
     "desc": "lorem lorem lorem lorem lorem lorem lorem lorem lorem lorem lorem lorem",
     "tech": [
-      {"name": "HTML"},
-      {"name": "CSS"},
-      {"name": "JavaScript"},
-      {"name": "Heroku"}
+      {"name": "HTML", "icon": "menu"},
+      {"name": "CSS", "icon": "menu"},
+      {"name": "JavaScript", "icon": "menu"},
+      {"name": "Heroku", "icon": "menu"}
     ],
     "members": [
       "David Yu",

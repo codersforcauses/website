@@ -35,7 +35,6 @@ const ProjectPage = ({ data }: Props) => {
           <Col lg={9}>
             <div className='mb-5'>
               <h1 className='display-4 m-0 mb-4 monospace'>{data.name}</h1>
-
               <Row className='align-items-center mb-4 d-lg-none monospace'>
                 <Col xs={6} className='d-flex align-items-center'>
                   <i className='material-icons-sharp mr-3'>{data.icon}</i>
@@ -46,7 +45,6 @@ const ProjectPage = ({ data }: Props) => {
                   {data.date}
                 </Col>
               </Row>
-
               <p>
                 {data.desc}
               </p>
@@ -57,8 +55,8 @@ const ProjectPage = ({ data }: Props) => {
             </div>
             <div>
               <h4 className='font-weight-black mb-4'>Members</h4>
-              {data.members.map((member: string, i: number) => (
-                <p key={i}>{member}</p>
+              {data.members.map((member: string) => (
+                <p key={member}>{member}</p>
               ))}
             </div>
           </Col>
@@ -103,8 +101,28 @@ const ProjectPage = ({ data }: Props) => {
   )
 }
 
+interface ProjectType {
+  id: string
+  icon: string
+  img: string
+  name: string
+  client: string
+  type: string
+  date: string
+  purl: string
+  url: string
+  impact: string[]
+  desc: string
+  tech: {
+    name: string
+    icon: string
+  }[]
+  members: string[]
+}
+
 interface Props {
-  data: any
+  data: ProjectType
 }
 
 export default ProjectPage
+export type { ProjectType }
