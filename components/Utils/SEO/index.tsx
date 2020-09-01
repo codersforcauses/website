@@ -4,9 +4,10 @@ type SEOProps = {
   title: string
   image: string
   description: string
+  page?: string
 }
 
-const SEO = ({ title, image, description }: SEOProps) => {
+const SEO = ({ title, image, description, ...props }: SEOProps) => {
   return (
     <>
       <meta name='description' content={description} />
@@ -15,7 +16,10 @@ const SEO = ({ title, image, description }: SEOProps) => {
       <meta name='twitter:title' content={title} />
       <meta name='twitter:description' content={description} />
       <meta name='twitter:image' content={image} />
-      <meta property='og:url' content='https://codersforcauses.org' />
+      <meta
+        property='og:url'
+        content={`https://codersforcauses.org/${props?.page}`}
+      />
       <meta property='og:title' content={title} />
       <meta property='og:description' content={description} />
       <meta property='og:image' content={image} />
