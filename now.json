@@ -3,7 +3,7 @@
   "public": false,
   "builds": [{ "src": "next.config.js", "use": "@now/next" }],
   "env": {
-    "BASE_URL": "https://website-git-website-template.dankestkush.now.sh/",
+    "BASE_URL": "https://codersforcauses.org/",
     "MAPBOX_API": "@cfc-website-temp-mapbox-api",
     "PHEME_URL": "@cfc-website-pheme-url",
     "PHEME_TOKEN": "@cfc-website-pheme-token",
@@ -15,7 +15,7 @@
   },
   "build": {
     "env": {
-      "BASE_URL": "https://website-git-website-template.dankestkush.now.sh/",
+      "BASE_URL": "https://codersforcauses.org/",
       "MAPBOX_API": "@cfc-website-temp-mapbox-api",
       "PHEME_URL": "@cfc-website-pheme-url",
       "PHEME_TOKEN": "@cfc-website-pheme-token",

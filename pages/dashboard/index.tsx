@@ -19,7 +19,7 @@ const Dashboard = () => {
           title='Dashboard'
           page='dashboard'
           description='Get updates and access to CFC material.'
-          image='https://og-social-cards.dankestkush.vercel.app/**.%2Fdashboard**.png?theme=dark&md=1&fontSize=125px&images=https%3A%2F%codersforcauses.org%2Flogo%2Fcfc_logo_white_full.svg'
+          image='https://og-social-cards.vercel.app/**.%2Fdashboard**.png?theme=dark&md=1&fontSize=125px&images=https%3A%2Fcodersforcauses.org%2Flogo%2Fcfc_logo_white_full.svg'
         />
       </Head>
       <DashboardPage />
