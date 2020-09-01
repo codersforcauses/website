@@ -1,5 +1,6 @@
 [
   {
+    "id": "ignitementoring",
     "icon": "computer",
     "img": "static/projects/ignitementoring.png",
     "name": "Ignite Mentoring",
@@ -13,8 +14,13 @@
       "Promote organisational transparency",
       "Risk mitigation"
     ],
-    "desc": "it's all ogre now",
-    "tech": ["HTML", "CSS", "JavaScript", "Heroku"],
+    "desc": "lorem lorem lorem lorem lorem lorem lorem lorem lorem lorem lorem lorem",
+    "tech": [
+      {"name": "HTML"},
+      {"name": "CSS"},
+      {"name": "JavaScript"},
+      {"name": "Heroku"}
+    ],
     "members": [
       "David Yu",
       "Innocent Muisha",
@@ -23,6 +29,7 @@
     ]
   },
   {
+    "id": "teachlearngrow",
     "icon": "devices",
     "img": "static/projects/ignitementoring.png",
     "name": "Teach Learn Grow",
@@ -36,8 +43,13 @@
       "Promote organisational transparency",
       "Risk mitigation"
     ],
-    "desc": "it's all ogre now",
-    "tech": ["HTML", "CSS", "JavaScript", "Heroku"],
+    "desc": "lorem lorem lorem lorem lorem lorem lorem lorem lorem lorem lorem lorem",
+    "tech": [
+      {"name": "HTML"},
+      {"name": "CSS"},
+      {"name": "JavaScript"},
+      {"name": "Heroku"}
+    ],
     "members": [
       "David Yu",
       "Innocent Muisha",
@@ -46,8 +58,9 @@
     ]
   },
   {
+    "id": "p2srugby",
     "icon": "devices",
-    "img": "static/projects/ignitementoring.png",
+    "img": "https://source.unsplash.com/random",
     "name": "P2S Rugbyworks",
     "client": "Ignite Mentoring",
     "type": "Web Development",
@@ -59,8 +72,13 @@
       "Promote organisational transparency",
       "Risk mitigation"
     ],
-    "desc": "it's all ogre now",
-    "tech": ["HTML", "CSS", "JavaScript", "Heroku"],
+    "desc": "lorem lorem lorem lorem lorem lorem lorem lorem lorem lorem lorem lorem",
+    "tech": [
+      {"name": "HTML"},
+      {"name": "CSS"},
+      {"name": "JavaScript"},
+      {"name": "Heroku"}
+    ],
     "members": [
       "David Yu",
       "Innocent Muisha",
@@ -69,6 +87,7 @@
     ]
   },
   {
+    "id": "anglicarewa",
     "icon": "devices",
     "img": "static/projects/ignitementoring.png",
     "name": "Anglicare WA",
@@ -82,8 +101,13 @@
       "Promote organisational transparency",
       "Risk mitigation"
     ],
-    "desc": "it's all ogre now",
-    "tech": ["HTML", "CSS", "JavaScript", "Heroku"],
+    "desc": "lorem lorem lorem lorem lorem lorem lorem lorem lorem lorem lorem lorem",
+    "tech": [
+      {"name": "HTML"},
+      {"name": "CSS"},
+      {"name": "JavaScript"},
+      {"name": "Heroku"}
+    ],
     "members": [
       "David Yu",
       "Innocent Muisha",
