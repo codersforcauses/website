@@ -17,6 +17,15 @@ const SEO = ({ title, image, description, page }: SEOProps) => {
       <meta name='twitter:description' content={description} />
       <meta name='twitter:image' content={image} />
       <meta
+        property='twitter:url'
+        content={
+          page
+            ? `https://codersforcauses.org/${page}`
+            : 'https://codersforcauses.org'
+        }
+      />
+      <meta property='og:type' content='website' />
+      <meta
         property='og:url'
         content={
           page
