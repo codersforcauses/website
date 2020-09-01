@@ -20,4 +20,8 @@ const TechList = ({ data }: Props) => {
   )
 }
 
+interface Props {
+  data: any
+}
+
 export default TechList

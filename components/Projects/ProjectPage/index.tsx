@@ -103,4 +103,8 @@ const ProjectPage = ({ data }: Props) => {
   )
 }
 
+interface Props {
+  data: any
+}
+
 export default ProjectPage
