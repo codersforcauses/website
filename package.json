@@ -56,7 +56,7 @@
   "devDependencies": {
     "@next/bundle-analyzer": "9.5.2",
     "@types/mapbox-gl": "1.11.2",
-    "@types/node": "13.13.15",
+    "@types/node": "13.13.16",
     "@types/react": "16.9.48",
     "@types/yup": "0.29.6",
     "@typescript-eslint/parser": "3.10.1",
