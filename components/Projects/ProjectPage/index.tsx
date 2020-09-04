@@ -10,6 +10,7 @@ import {
   Col
 } from 'reactstrap'
 import TechList from './TechList'
+import type { Tech } from './TechList'
 import { styles } from './styles'
 
 const ProjectPage = ({ data }: Props) => {
@@ -111,13 +112,10 @@ interface ProjectType {
   date: string
   purl: string
   url: string
-  impact: string[]
+  impact: Array<string>
   desc: string
-  tech: {
-    name: string
-    icon: string
-  }[]
-  members: string[]
+  tech: Array<Tech>
+  members: Array<string>
 }
 
 interface Props {

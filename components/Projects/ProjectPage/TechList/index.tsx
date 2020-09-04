@@ -24,7 +24,8 @@ interface Tech {
   icon: string
 }
 interface Props {
-  data: any
+  data: Array<Tech>
 }
 
 export default TechList
+export type { Tech }
