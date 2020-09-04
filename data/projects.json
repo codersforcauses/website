@@ -61,29 +61,30 @@
     "id": "p2srugby",
     "icon": "devices",
     "img": "https://source.unsplash.com/random",
-    "name": "P2S Rugbyworks",
-    "client": "Ignite Mentoring",
+    "name": "P2S Rugbyworks Web-application",
+    "client": "P2S Rugbyworks",
     "type": "Web Development",
     "date": "February 2019",
     "purl": "/projects/p2srugby",
     "url": "https://codersforcauses.github.io/ignite-mentoring-2018/",
     "impact": [
-      "Improve process efficiency",
-      "Promote organisational transparency",
-      "Risk mitigation"
+      "Increase organisational transparency",
+      "Streamline administrative process",
+      "Easy data visualisation"
     ],
-    "desc": "lorem lorem lorem lorem lorem lorem lorem lorem lorem lorem lorem lorem",
+    "desc": "The P2S RUGBYWORKS organisation runs a long-term skills development program for at risk youth. They help by mentoring them during sports and activities sessions. The project aims to transform the organisations previously paper-based review system into a webapp for simple data collection and storage.\nThe app allows coaches to log in, take attendence of students, and submit performance reviews for the session. Admins can log in and monitor student progress and coach reports.",
     "tech": [
-      {"name": "HTML", "icon": "menu"},
-      {"name": "CSS", "icon": "menu"},
-      {"name": "JavaScript", "icon": "menu"},
-      {"name": "Heroku", "icon": "menu"}
+      {"name": "Vue.js", "icon": "vuejs"},
+      {"name": "Vuetify", "icon": "vuetify"},
+      {"name": "Feathers", "icon": "feather"},
+      {"name": "MongoDB", "icon": "database"},
+      {"name": "JWT Authentication", "icon": "sheild-lock"}
     ],
     "members": [
-      "David Yu",
-      "Innocent Muisha",
-      "Jong Kyung Kim",
-      "Daniel Jacobs"
+      "Jeremiah Pinto",
+      "Ben Chidlow",
+      "Drew Alexander",
+      "Luke Stagoll"
     ]
   },
   {
