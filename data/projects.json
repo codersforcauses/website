@@ -57,6 +57,37 @@
       "Daniel Jacobs"
     ]
   },
+    {
+    "id": "Home2Health",
+    "icon": "devices",
+    "img": "static/projects/home2health.png",
+    "name": "Home2Health Forum",
+    "client": "Home2Health",
+    "type": "Web Development",
+    "date": "May 2019",
+    "purl": "/projects/home2health",
+    "url": "https://codersforcauses.github.io/ignite-mentoring-2018/",
+    "impact": [
+      "Raise awareness for homelessness",
+      "Facilitate communications and sharing of resources",
+    ],
+    "desc": "With over 80 different organisations involved, this project is lead by researchers at the UWA School of Population Health to creating a multi-purpose website to not only host their research, but to create a forum for discussion, and collaboration, for professionals and individuals, to tackle the growing issues surrounding homelessness and health in Australia, and beyond.\nThe website consists of resource pages and allows the creations of blog posts that facilitates the communication and discussion of findings of the Home2Health research group and professionals regarding homeless health care.",
+    "tech": [
+      {"name": "MongoDB", "icon": "database"},
+      {"name": "Express", "icon": "server"},
+      {"name": "React", "icon": "react"},
+      {"name": "NodeJS", "icon": "node"}
+    ],
+    "members": [
+      "David Yu",
+      "Innocent Muisha",
+      "Jong Kyung Kim",
+      "Frinze Lapuz",
+      "Mila Zhang",
+      "Han Yit Tsin Choo",
+      "Shazza"
+    ]
+  },
   {
     "id": "p2srugby",
     "icon": "devices",
