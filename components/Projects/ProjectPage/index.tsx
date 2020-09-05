@@ -13,6 +13,15 @@ import TechList from './TechList'
 import type { Tech } from './TechList'
 import { styles } from './styles'
 
+const parseDescription = (text) => {
+  const array = text.split('\n')
+  return (array.map((element) => (
+    <>
+      <p>{element}</p>
+    </>
+  )))
+}
+
 const ProjectPage = ({ data }: Props) => {
   const theme = useTheme()
 
@@ -47,14 +56,40 @@ const ProjectPage = ({ data }: Props) => {
                 </Col>
               </Row>
               <p>
-                {data.desc}
+                {parseDescription(data.desc)}
               </p>
+              <div className='d-lg-none mt-2'>
+                {data.url &&
+                  <Button
+                    tag='a'
+                    outline
+                    color='primary'
+                    size='lg'
+                    className='rounded-0 mr-3'
+                    href={data.url}
+                    target='_blank'
+                  >
+                    Visit Website
+                  </Button>}
+                {data.source &&
+                  <Button
+                    tag='a'
+                    outline
+                    color='primary'
+                    size='lg'
+                    className='rounded-0'
+                    href={data.source}
+                    target='_blank'
+                  >
+                    View Source
+                  </Button>}
+              </div>
             </div>
             <div className='mb-5'>
               <h3 className='font-weight-black mb-4'>Technologies used</h3>
               <TechList data={data.tech} />
             </div>
-            <div>
+            <div className='mb-5'>
               <h4 className='font-weight-black mb-4'>Members</h4>
               {data.members.map((member: string) => (
                 <p key={member}>{member}</p>
@@ -73,10 +108,11 @@ const ProjectPage = ({ data }: Props) => {
               </div>
               {data.url &&
                 <Button
+                  tag='a'
                   outline
                   color='primary'
                   size='lg'
-                  className='rounded-0 my-lg-5'
+                  className='rounded-0 mt-3'
                   href={data.url}
                   target='_blank'
                 >
@@ -84,10 +120,11 @@ const ProjectPage = ({ data }: Props) => {
                 </Button>}
               {data.source &&
                 <Button
+                  tag='a'
                   outline
                   color='primary'
                   size='lg'
-                  className='rounded-0 my-lg-5'
+                  className='rounded-0 mt-3'
                   href={data.source}
                   target='_blank'
                 >
