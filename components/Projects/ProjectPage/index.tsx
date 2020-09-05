@@ -71,16 +71,28 @@ const ProjectPage = ({ data }: Props) => {
                 <i className='material-icons-sharp mr-3'>date_range</i>
                 {data.date}
               </div>
-              <Button
-                outline
-                color='primary'
-                size='lg'
-                className='rounded-0 my-lg-5'
-                href={data.url}
-                target='_blank'
-              >
-                Visit Website
-              </Button>
+              {data.url &&
+                <Button
+                  outline
+                  color='primary'
+                  size='lg'
+                  className='rounded-0 my-lg-5'
+                  href={data.url}
+                  target='_blank'
+                >
+                  Visit Website
+                </Button>}
+              {data.source &&
+                <Button
+                  outline
+                  color='primary'
+                  size='lg'
+                  className='rounded-0 my-lg-5'
+                  href={data.source}
+                  target='_blank'
+                >
+                  View Source
+                </Button>}
             </div>
             <div>
               <h4 className='mb-3 font-weight-bold monospace'>
@@ -112,6 +124,7 @@ interface ProjectType {
   date: string
   purl: string
   url: string
+  source: string
   impact: Array<string>
   desc: string
   tech: Array<Tech>

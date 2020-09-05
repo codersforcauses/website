@@ -5,6 +5,11 @@ import { Theme } from 'lib/theme'
 
 // Taken from https://materialdesignicons.com/
 const iconsList = {
+  code: {
+    viewbox: '0 0 24 24',
+    path:
+      'M14.6,16.6L19.2,12L14.6,7.4L16,6L22,12L16,18L14.6,16.6M9.4,16.6L4.8,12L9.4,7.4L8,6L2,12L8,18L9.4,16.6Z'
+  },
   database: {
     viewbox: '0 0 24 24',
     path:
@@ -54,17 +59,18 @@ const iconsList = {
 
 const BrandIcons = ({ dimensions, fill, icon }: Props) => {
   const theme: Theme = useTheme()
+  const iconData = iconsList[icon] || iconsList.code
   return (
     <svg
       fill={theme.colors[fill]}
       height={dimensions}
       width={dimensions}
-      viewBox={iconsList[icon].viewbox}
+      viewBox={iconData.viewbox}
       aria-label={icon}
       role='img'
     >
       <title>{icon}</title>
-      <path d={iconsList[icon].path} />
+      <path d={iconData.path} />
     </svg>
   )
 }

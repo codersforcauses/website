@@ -61,12 +61,12 @@
     "id": "p2srugby",
     "icon": "devices",
     "img": "https://source.unsplash.com/random",
-    "name": "P2S Rugbyworks Web-application",
+    "name": "P2S Rugbyworks Admin Website",
     "client": "P2S Rugbyworks",
     "type": "Web Development",
     "date": "February 2019",
     "purl": "/projects/p2srugby",
-    "url": "https://codersforcauses.github.io/ignite-mentoring-2018/",
+    "source": "https://github.com/codersforcauses/p2s-frontend",
     "impact": [
       "Increase organisational transparency",
       "Streamline administrative process",
@@ -82,7 +82,9 @@
       "Jeremiah Pinto",
       "Ben Chidlow",
       "Drew Alexander",
-      "Luke Stagoll"
+      "Luke Stagoll",
+      "Sanath More",
+      "Ekin Bukulmez"
     ]
   },
   {
