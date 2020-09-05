@@ -160,8 +160,8 @@ interface ProjectType {
   type: string
   date: string
   purl: string
-  url: string
-  source: string
+  url?: string
+  source?: string
   impact: Array<string>
   desc: string
   tech: Array<Tech>
