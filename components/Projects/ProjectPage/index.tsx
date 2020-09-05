@@ -13,14 +13,10 @@ import TechList from './TechList'
 import type { Tech } from './TechList'
 import { styles } from './styles'
 
-const parseDescription = (text) => {
-  const array = text.split('\n')
-  return (array.map((element) => (
-    <>
-      <p>{element}</p>
-    </>
+const parseDescription = (text) => (
+  text.split('\n').map((para) => (
+    <p key={para}>{para}</p>
   )))
-}
 
 const ProjectPage = ({ data }: Props) => {
   const theme = useTheme()

@@ -75,7 +75,7 @@ const BrandIcons = ({ dimensions, fill, icon }: Props) => {
   )
 }
 
-type Brand = keyof typeof iconsList
+type Brand = keyof typeof iconsList | string
 
 interface Props {
   icon: Brand

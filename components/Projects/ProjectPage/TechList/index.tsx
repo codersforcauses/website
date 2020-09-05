@@ -22,7 +22,7 @@ const TechList = ({ data }: Props) => {
 }
 
 interface Tech {
-  name: string,
+  name: string
   icon: Brand
 }
 interface Props {
