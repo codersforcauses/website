@@ -103,7 +103,7 @@ const ProjectPage = ({ data }: Props) => {
             </div>
             <Impact impact={data.impact} className='d-lg-none mb-5' />
             <div className='mb-5'>
-              <h3 className='font-weight-black mb-4'>Technologies used</h3>
+              <h4 className='font-weight-black mb-4'>Technologies used</h4>
               <TechList data={data.tech} />
             </div>
             <div className='mb-5'>
