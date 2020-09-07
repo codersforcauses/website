@@ -18,6 +18,26 @@ const parseDescription = (text) => (
     <p key={para}>{para}</p>
   )))
 
+const Impact = ({
+  impact,
+  ...props
+}: {
+  impact: Array<string>
+  className: string
+}) => (
+  <div {...props}>
+    <h4 className='mb-3 font-weight-bold monospace'>Potential impact</h4>
+    <ul className='p-0'>
+      {impact.map((text: string, i: number) => (
+        <li key={i} className='d-flex align-items-center pr-3 my-2'>
+          <i className='material-icons-sharp mr-3'>check_circle</i>
+          {text}
+        </li>
+      ))}
+    </ul>
+  </div>
+)
+
 const ProjectPage = ({ data }: Props) => {
   const theme = useTheme()
 
@@ -81,6 +101,7 @@ const ProjectPage = ({ data }: Props) => {
                   </Button>}
               </div>
             </div>
+            <Impact impact={data.impact} className='d-lg-none mb-5' />
             <div className='mb-5'>
               <h3 className='font-weight-black mb-4'>Technologies used</h3>
               <TechList data={data.tech} />
@@ -127,19 +148,7 @@ const ProjectPage = ({ data }: Props) => {
                   View Source
                 </Button>}
             </div>
-            <div>
-              <h4 className='mb-3 font-weight-bold monospace'>
-                Potential impact
-              </h4>
-              <ul className='p-0'>
-                {data.impact.map((text: string, i: number) => (
-                  <li key={i} className='d-flex align-items-center pr-3 my-2'>
-                    <i className='material-icons-sharp mr-3'>check_circle</i>
-                    {text}
-                  </li>
-                ))}
-              </ul>
-            </div>
+            <Impact impact={data.impact} className='d-none d-lg-block' />
           </Col>
         </Row>
       </Container>
