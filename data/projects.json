@@ -2,6 +2,7 @@
   {
     "id": "ignitementoring",
     "icon": "computer",
+    "logo": "ignite1.png",
     "img": "ignite1.png",
     "name": "Ignite Mentoring",
     "client": "Ignite Mentoring",
@@ -31,6 +32,7 @@
   {
     "id": "home2health",
     "icon": "devices",
+    "logo": "home2health1.png",
     "img": "home2health2.png",
     "name": "Home2Health Forum",
     "client": "Home2Health",
@@ -62,6 +64,7 @@
   {
     "id": "p2srugby",
     "icon": "devices",
+    "logo": "p2s2.png",
     "img": "p2s2.png",
     "name": "P2S Rugbyworks Admin Website",
     "client": "P2S Rugbyworks",
@@ -92,6 +95,7 @@
   {
     "id": "foguwa",
     "icon": "devices",
+    "logo": "foguwa1.png",
     "img": "foguwa2.png",
     "name": "Friends of Grounds Tour Map",
     "client": "Friends of Grounds UWA",
@@ -120,6 +124,7 @@
   {
     "id": "anglicarewa",
     "icon": "devices",
+    "logo": "anglicare1.png",
     "img": "anglicare1.png",
     "name": "Anglicare WA",
     "client": "Ignite Mentoring",

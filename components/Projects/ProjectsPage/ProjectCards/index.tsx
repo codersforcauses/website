@@ -18,7 +18,7 @@ const ProjectCards = () => {
               <CardImg
                 top
                 width='100%'
-                src={`projects/${project.img}`}
+                src={`projects/${project.logo}`}
                 alt={project.client}
                 className='project-img img-fluid'
               />
