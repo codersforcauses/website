@@ -6,6 +6,7 @@ export const styles = theme => css`
   grid-gap: 1.5rem;
 
   .project-img {
-    max-height: 20rem;
+    height: 20rem;
+    object-fit: contain;
   }
 `
