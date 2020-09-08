@@ -8,7 +8,7 @@ export const styles = (theme, image) => css`
 
   .bg {
     background-image: url('${image}');
-    background-size: cover;
+    background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
   }
