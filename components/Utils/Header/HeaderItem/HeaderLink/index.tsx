@@ -11,13 +11,14 @@ const HeaderLink = ({ href, text, isExternal }: Props) => {
   return (
     <span css={styles(theme)}>
       {isExternal ? (
-        <a href={href} target='_blank' rel='noreferrer noopener'>
-          <NavLink
-            className='header-link p-0 m-2 my-md-0 '
-            data-cy={`nav-${text}`}
-          >
-            {text}
-          </NavLink>
+        <a
+          href={href}
+          target='_blank'
+          rel='noreferrer noopener'
+          className='header-link p-0 m-2 my-md-0 '
+          data-cy={`nav-${text}`}
+        >
+          {text}
         </a>
       ) : (
         <Link href={href}>
