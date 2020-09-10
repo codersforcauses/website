@@ -15,7 +15,7 @@ const HeaderLink = ({ href, text, isExternal }: Props) => {
           href={href}
           target='_blank'
           rel='noreferrer noopener'
-          className='header-link p-0 m-2 my-md-0 '
+          className='header-link p-0 m-2 my-md-0 nav-link'
           data-cy={`nav-${text}`}
         >
           {text}
