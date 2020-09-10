@@ -39,6 +39,7 @@ const AddOns = () => {
           user?.given_name ?? 'there'
         }! How can we help you?`}
         data-logged_out_greeting='Please log into facebook to chat with us'
+        data-greeting_dialog_display='hide'
       />
     </>
   ) : null
