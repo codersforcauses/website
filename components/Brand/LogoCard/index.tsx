@@ -22,25 +22,29 @@ const LogoCard = (props: {
       <div className={`${props.main ? 'image' : 'image-alternate'} logo-img`} />
       <CardFooter className='border-0 d-flex flex-row-reverse download-links px-1 px-sm-2 px-md-3 bg-transparent'>
         <a
-          download
-          href={props.png}
-          target='_blank'
-          rel='noopener noreferrer'
+          href=''
+          download={props.png}
           className={props.dark && 'text-secondary'}
         >
           .png
         </a>
         &ensp;
         <a
-          download
-          href={props.svg}
-          target='_blank'
-          rel='noopener noreferrer'
+          href=''
+          download={props.svg}
           className={props.dark && 'text-secondary'}
         >
           .svg
         </a>
-        <i className='material-icons-sharp flex-grow-1'>get_app</i>
+        <span className='flex-grow-1'>
+          <a
+            href=''
+            download={props.png}
+            className={props.dark && 'text-secondary'}
+          >
+            <i className='material-icons-sharp'>get_app</i>
+          </a>
+        </span>
       </CardFooter>
     </Card>
   )

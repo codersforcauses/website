@@ -27,7 +27,12 @@ const Header = () => {
   const links: HeaderItemContent[] = [
     { href: '/about', text: 'About' },
     { href: '/projects', text: 'Projects' },
-    { href: '/events', text: 'Events' }
+    { href: '/events', text: 'Events' },
+    {
+      href: 'https://guides.codersforcauses.org/',
+      text: 'Guides',
+      isExternal: true
+    }
   ]
 
   const toggleOpen = () => setOpen(!open)
@@ -71,23 +76,25 @@ const Header = () => {
             </Nav>
           </Collapse>
         </Nav>
-        {user ? (
-          <SignedInUser
-            setUser={setUser}
-            name={`${user?.given_name} ${user?.family_name}`}
-          />
-        ) : (
-          <Link href='/membership'>
-            <Button
-              outline
-              size='sm'
-              color='secondary'
-              className='d-none d-md-block rounded-0'
-            >
-              Membership
-            </Button>
-          </Link>
-        )}
+        {
+          user ? (
+            <SignedInUser
+              setUser={setUser}
+              name={`${user?.given_name} ${user?.family_name}`}
+            />
+          ) : null
+          // <Link href='/membership'>
+          //   <Button
+          //     outline
+          //     size='sm'
+          //     color='secondary'
+          //     className='d-none d-md-block rounded-0'
+          //   >
+          //     Membership
+          //   </Button>
+          // </Link>
+          // eslint-disable-next-line react/jsx-curly-newline
+        }
       </Container>
     </Navbar>
   )

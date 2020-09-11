@@ -9,7 +9,7 @@ module.exports = withBundleAnalyzer({
     return config
   },
   env: process.env.NODE_ENV !== 'development' && {
-    BASE_URL: 'https://website-git-website-template.dankestkush.now.sh/',
+    BASE_URL: 'https://codersforcauses.org/',
     MAPBOX_API: process.env.MAPBOX_API,
     PHEME_URL: process.env.PHEME_URL,
     PHEME_TOKEN: process.env.PHEME_TOKEN,

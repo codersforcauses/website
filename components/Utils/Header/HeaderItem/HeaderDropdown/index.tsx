@@ -31,7 +31,11 @@ const HeaderDropdown = ({ items, href, text, ...props }: Props) => {
       <DropdownMenu className='header-dropdown-menu'>
         {items.map(item => (
           <DropdownItem key={item.href}>
-            <HeaderLink href={item.href} text={item.text} />
+            <HeaderLink
+              href={item.href}
+              text={item.text}
+              isExternal={item.isExternal}
+            />
           </DropdownItem>
         ))}
       </DropdownMenu>
@@ -43,6 +47,7 @@ interface Props {
   items: Array<{
     href: string
     text: string
+    isExternal?: boolean
   }>
   text: string
   href: string

@@ -3,12 +3,15 @@ import { NavItemProps, NavItem } from 'reactstrap'
 import HeaderDropdown from './HeaderDropdown'
 import HeaderLink from './HeaderLink'
 
-const HeaderItem = ({ item: { href, text, items }, ...props }: Props) => (
+const HeaderItem = ({
+  item: { href, text, isExternal = false, items },
+  ...props
+}: Props) => (
   <NavItem {...props}>
     {items ? (
       <HeaderDropdown items={items} href={href} text={text} />
     ) : (
-      <HeaderLink href={href} text={text} />
+      <HeaderLink href={href} text={text} isExternal={isExternal} />
     )}
   </NavItem>
 )
@@ -20,6 +23,7 @@ interface Props extends NavItemProps {
 export interface HeaderItemContent {
   href: string
   text: string
+  isExternal?: boolean
   items?: HeaderItemContent[]
 }
 
