@@ -25,4 +25,4 @@ const Clients = () => {
     </Row>
   )
 }
-export default Clients
+export default React.memo(Clients)
