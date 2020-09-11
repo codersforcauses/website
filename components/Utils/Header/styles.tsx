@@ -4,7 +4,7 @@ export const styles = theme => css`
   min-height: 64px;
 
   .brand {
-    line-height: 1.8rem;
+    line-height: 2;
   }
 
   .icon {

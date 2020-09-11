@@ -32,13 +32,17 @@ const UserMenu = ({ name, setUser, ...props }: Props) => {
         color='primary'
         className='d-flex align-items-center rounded-0 p-0'
       >
-        <p className='m-0 d-none d-md-block'>{name && name}</p>
-        <div
-          className='d-flex align-items-center justify-content-center ml-2 monospace rounded-circle'
-          css={styles(theme, props.image)}
-        >
-          {name && <p className='m-0'>{initials}</p>}
-        </div>
+        {name && (
+          <>
+            <p className='m-0 d-none d-md-block'>{name}</p>
+            <div
+              className='d-flex align-items-center justify-content-center ml-2 monospace rounded-circle'
+              css={styles(theme, props.image)}
+            >
+              <p className='m-0'>{initials}</p>
+            </div>
+          </>
+        )}
       </DropdownToggle>
       <DropdownMenu className='rounded-0 mt-2'>
         <DropdownItem

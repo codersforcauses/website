@@ -49,7 +49,7 @@ const Header = () => {
       css={styles(theme)}
     >
       <Container>
-        <Nav className='justify-content-start' tag='div'>
+        <Nav tag='div'>
           <NavbarToggler
             id='Menu'
             onClick={toggleOpen}
@@ -63,7 +63,7 @@ const Header = () => {
             href='/'
             id='Home'
             title='Home'
-            className='mr-md-5 py-0 brand font-weight-bold monospace'
+            className='mr-md-5 py-0 user-select-none font-weight-bold monospace brand'
             data-cy='nav-Home'
           >
             cfc
