@@ -107,18 +107,22 @@
       "Showcasing of UWA's flora",
       "Increased community engagment"
     ],
-    "desc": "lorem lorem lorem lorem lorem lorem lorem lorem lorem lorem lorem lorem",
+    "desc": "The Friends of the Grounds UWA hosts campus tour event to encourage the University and wider WA community to take an active interest in UWA’s plant species on the grounds.\nThe project works toward developing a map-based application for user to track their real time location during the tour as an additional source of information. Users can click on any specific plant in areas to learn more about the plant. Admins will be able to create, edit and delete the plant information and its location in the admin console.",
     "tech": [
-      {"name": "HTML", "icon": "menu"},
-      {"name": "CSS", "icon": "menu"},
-      {"name": "JavaScript", "icon": "menu"},
-      {"name": "Heroku", "icon": "menu"}
+      {"name": "MongoDB", "icon": "database"},
+      {"name": "Vue.js", "icon": "vue"},
+      {"name": "NodeJS", "icon": "node"},
+      {"name": "Express.js", "icon": "server"},
+      {"name": "NuxtJS", "icon": "menu"},
+      {"name": "Vuetify", "icon": "menu"}
     ],
     "members": [
-      "David Yu",
+      "Jeremiah Pinto",
+      "Thai Nguyen",
       "Innocent Muisha",
-      "Jong Kyung Kim",
-      "Daniel Jacobs"
+      "Drew Alexander",
+      "Daphne Yu",
+      "Victor John Wilson"
     ]
   },
   {
