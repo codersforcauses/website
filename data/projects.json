@@ -107,7 +107,7 @@
       "Showcasing of UWA's flora",
       "Increased community engagment"
     ],
-    "desc": "The Friends of the Grounds UWA hosts campus tour event to encourage the University and wider WA community to take an active interest in UWA’s plant species on the grounds.\nThe project works toward developing a map-based application for user to track their real time location during the tour as an additional source of information. Users can click on any specific plant in areas to learn more about the plant. Admins will be able to create, edit and delete the plant information and its location in the admin console.",
+    "desc": "The Friends of the Grounds UWA host campus tours to encourage the University and wider WA community to take an active interest in UWA’s flora on the grounds.\nThe project aims to develop a map-based application for users to know their location during the tour or as they explore the campus independantly. Users can click on plants on the map to learn more about them. Admins will be able to create, edit and delete the plant information and its location in the admin console.",
     "tech": [
       {"name": "MongoDB", "icon": "database"},
       {"name": "Vue.js", "icon": "vue"},
