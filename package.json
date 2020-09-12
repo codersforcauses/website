@@ -63,7 +63,7 @@
     "commitizen": "4.2.1",
     "cypress": "5.1.0",
     "dotenv-webpack": "2.0.0",
-    "eslint": "7.7.0",
+    "eslint": "7.8.1",
     "eslint-config-standard": "14.1.1",
     "eslint-config-standard-react": "9.2.0",
     "eslint-plugin-cypress": "2.11.1",
