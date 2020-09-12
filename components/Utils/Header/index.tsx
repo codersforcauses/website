@@ -14,6 +14,7 @@ import {
 import Link from 'next/link'
 import SignedInUser from './SignedInUser'
 import HeaderItem, { HeaderItemContent } from './HeaderItem'
+import DarkToggle from './DarkToggle'
 import { styles } from './styles'
 import { UserContext } from 'helpers/user'
 
@@ -95,6 +96,7 @@ const Header = () => {
           // </Link>
           // eslint-disable-next-line react/jsx-curly-newline
         }
+        <DarkToggle />
       </Container>
     </Navbar>
   )
