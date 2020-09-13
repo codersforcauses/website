@@ -1,4 +1,10 @@
-import React, { FunctionComponent, useEffect, useState } from 'react'
+import React, {
+  FunctionComponent,
+  memo,
+  useEffect,
+  useMemo,
+  useState
+} from 'react'
 import { Auth } from '@aws-amplify/auth'
 import { UserProvider } from 'helpers/user'
 
@@ -29,19 +35,12 @@ const User: FunctionComponent = ({ children }) => {
     // query user data here when backend is built
     // TODO
 
-    return (
-      <UserProvider
-        value={{
-          user: user,
-          setUser: setUser
-        }}
-      >
-        {children}
-      </UserProvider>
-    )
+    const userValue = useMemo(() => ({ user, setUser }), [user])
+
+    return <UserProvider value={userValue}>{children}</UserProvider>
   } catch (error) {
     return <>{children}</>
   }
 }
 
-export default User
+export default memo(User)
