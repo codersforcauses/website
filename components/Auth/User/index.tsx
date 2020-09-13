@@ -1,10 +1,4 @@
-import React, {
-  FunctionComponent,
-  memo,
-  useEffect,
-  useMemo,
-  useState
-} from 'react'
+import React, { FunctionComponent, useEffect, useMemo, useState } from 'react'
 import { Auth } from '@aws-amplify/auth'
 import { UserProvider } from 'helpers/user'
 
@@ -43,4 +37,4 @@ const User: FunctionComponent = ({ children }) => {
   }
 }
 
-export default memo(User)
+export default User
