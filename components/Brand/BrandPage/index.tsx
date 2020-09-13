@@ -1,8 +1,9 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core'
 import { useTheme } from 'emotion-theming'
-import { useState } from 'react'
+import { useState, useContext } from 'react'
 import { Jumbotron, Container, Row, Col, Card, Input } from 'reactstrap'
+import { DarkContext } from 'helpers/user'
 import Title from 'components/Utils/Title'
 import LogoCard from '../LogoCard'
 import ColourCard from '../ColourCard'
@@ -10,11 +11,11 @@ import { styles } from './styles'
 
 const BrandPage = () => {
   const [typographyText, setTypographyText] = useState('Coders for Causes')
-
+  const isDark = useContext(DarkContext)
   const theme = useTheme()
 
   return (
-    <div css={styles(theme)}>
+    <div css={styles(theme, isDark)}>
       <Title typed>./branding</Title>
       <Container className='py-5 my-5'>
         <Row>
@@ -96,7 +97,7 @@ const BrandPage = () => {
           </Col>
         </Row>
       </Container>
-      <Jumbotron className='m-0 px-0 py-5 rounded-0'>
+      <Jumbotron className='m-0 px-0 py-5 rounded-0 secondary-bg'>
         <Container>
           <Row className='mb-5'>
             <Col xs={12} tag='h3' className='mb-3 font-weight-bold'>
@@ -109,7 +110,7 @@ const BrandPage = () => {
               <Card
                 body
                 outline
-                color='primary'
+                color={isDark ? 'secondary' : 'primary'}
                 className='bg-transparent rounded-0'
               >
                 <div className='d-flex align-items-center justify-content-between'>
@@ -120,7 +121,7 @@ const BrandPage = () => {
                     rel='noreferrer noopener'
                     title='Link to font'
                   >
-                    <i className='material-icons-sharp'>link</i>
+                    <i className={`material-icons-sharp text-${isDark ? 'secondary' : 'primary'}`}>link</i>
                   </a>
                 </div>
                 <Input
@@ -128,7 +129,7 @@ const BrandPage = () => {
                   plaintext
                   value={typographyText}
                   onChange={({ target: { value } }) => setTypographyText(value)}
-                  className='big mt-3'
+                  className={`big mt-3 text-${isDark ? 'muted' : 'dark'}`}
                 />
               </Card>
             </Col>
@@ -136,7 +137,7 @@ const BrandPage = () => {
               <Card
                 body
                 outline
-                color='primary'
+                color={isDark ? 'secondary' : 'primary'}
                 className='bg-transparent rounded-0'
               >
                 <div className='d-flex align-items-center justify-content-between'>
@@ -147,7 +148,7 @@ const BrandPage = () => {
                     rel='noreferrer noopener'
                     title='Link to font'
                   >
-                    <i className='material-icons-sharp'>link</i>
+                    <i className={`material-icons-sharp text-${isDark ? 'secondary' : 'primary'}`}>link</i>
                   </a>
                 </div>
                 <Input
@@ -155,7 +156,7 @@ const BrandPage = () => {
                   plaintext
                   value={typographyText}
                   onChange={({ target: { value } }) => setTypographyText(value)}
-                  className='big mt-3'
+                  className={`big mt-3 text-${isDark ? 'muted' : 'dark'}`}
                 />
               </Card>
             </Col>
@@ -173,10 +174,18 @@ const BrandPage = () => {
               />
             </Col>
             <Col xs={12} sm={6} md={4} lg={2}>
-              <ColourCard color='secondary' name='All White (Secondary)' />
+              <ColourCard
+                color='secondary'
+                name='All White (Secondary)'
+                className='text-primary'
+              />
             </Col>
             <Col xs={12} sm={6} md={4} lg={2}>
-              <ColourCard color='accent' name='Electric Teal (Accent)' />
+              <ColourCard
+                color='accent'
+                name='Electric Teal (Accent)'
+                className='text-primary'
+              />
             </Col>
             <Col xs={12} sm={6} md={4} lg={2}>
               <ColourCard
@@ -186,7 +195,11 @@ const BrandPage = () => {
               />
             </Col>
             <Col xs={12} sm={6} md={4} lg={2}>
-              <ColourCard color='warning' name='Signal Yellow (Warning)' />
+              <ColourCard
+                color='warning'
+                name='Signal Yellow (Warning)'
+                className='text-secondary'
+              />
             </Col>
             <Col xs={12} sm={6} md={4} lg={2}>
               <ColourCard
