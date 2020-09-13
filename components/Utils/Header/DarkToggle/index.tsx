@@ -1,20 +1,20 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core'
 import { useTheme } from 'emotion-theming'
-import { useState, useContext } from 'react'
+import { useContext } from 'react'
 import { Button } from 'reactstrap'
 import { styles } from './styles'
 import { DarkContext } from 'helpers/user'
 
-const DarkToggle = (props) => {
+const DarkToggle = (props: { handleDarkToggle: Function }) => {
   const theme = useTheme()
-  const [isDark, setDark] = useState(false)
-  const toggleDark = () => setDark(previousDark => !previousDark)
+  const isDark = useContext(DarkContext)
 
   return (
-    <Button color='link' onClick={toggleDark}>
-      <i css={styles(theme)} className='material-icons-sharp'>
-        {isDark ? 'wb_sunny' : 'nights_stay'}
+    <Button color='link' className='py-0 h-100' onClick={props.handleDarkToggle}>
+      <i css={styles(theme, isDark)} className='material-icons-sharp d-flex align-items-center justify-content-center'>
+        <span className='light-icon'>wb_sunny</span>
+        <span className='dark-icon'>nights_stay</span>
       </i>
     </Button>
   )

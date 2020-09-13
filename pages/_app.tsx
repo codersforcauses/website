@@ -3,7 +3,7 @@ import App, { AppProps } from 'next/app'
 import { ThemeProvider } from 'emotion-theming'
 import { CacheProvider, Global, jsx } from '@emotion/core'
 import { cache } from 'emotion'
-import { useEffect, useContext } from 'react'
+import { useEffect, useContext, useCallback, useState } from 'react'
 import { Auth } from '@aws-amplify/auth'
 import User from 'components/Auth/User'
 import Header from 'components/Utils/Header'
@@ -45,6 +45,13 @@ const AddOns = () => {
 }
 
 const Website = ({ Component, pageProps }: AppProps) => {
+  const [isDark, setDark] = useState(false)
+  const toggleDark = useCallback(() => setDark(previousDark => !previousDark), [])
+
+  useEffect(() => {
+    setDark(window.matchMedia('(prefers-color-scheme: dark)')?.matches)
+  }, [])
+
   useEffect(() => {
     if (process.env.NODE_ENV === 'production') {
       initAnalytics('2423121134')
@@ -52,18 +59,13 @@ const Website = ({ Component, pageProps }: AppProps) => {
     }
   }, [])
 
-  let darkTheme = false
-  useEffect(() => {
-    darkTheme = window.matchMedia('(prefers-color-scheme: dark)').matches
-  }, [])
-
   return (
     <User>
-      <DarkProvider value={{ dark: darkTheme }}>
+      <DarkProvider value={isDark}>
         <ThemeProvider theme={theme}>
           <CacheProvider value={cache}>
             <Global styles={globalStyle(theme)} />
-            <Header />
+            <Header handleDarkToggle={toggleDark} />
             <main className='main'>
               {/* TODO remove once MVP is finished */}
               <Alert

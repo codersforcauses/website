@@ -18,7 +18,7 @@ import DarkToggle from './DarkToggle'
 import { styles } from './styles'
 import { UserContext } from 'helpers/user'
 
-const Header = () => {
+const Header = (props: {handleDarkToggle: Function}) => {
   const [open, setOpen] = useState(false)
 
   const { user, setUser } = useContext(UserContext)
@@ -96,7 +96,7 @@ const Header = () => {
           // </Link>
           // eslint-disable-next-line react/jsx-curly-newline
         }
-        <DarkToggle />
+        <DarkToggle {...props} />
       </Container>
     </Navbar>
   )

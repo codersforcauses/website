@@ -1,6 +1,22 @@
 import { css } from '@emotion/core'
 
-export const styles = theme => css`
-    color: ${theme.colors.secondary} !important;
-    cursor: pointer;
+export const styles = (theme, isDark) => css`
+    color: white;
+    position: relative;
+    width: 24px;
+    height: 24px;
+
+    .light-icon {
+        opacity: ${isDark ? 0 : 100};
+        transition: all 0.2s;
+        position: absolute;
+        left: 0px;
+    }
+
+    .dark-icon {
+        opacity: ${isDark ? 100 : 0};
+        transition: all 0.2s; 
+        position: absolute;
+        left: 0px;
+    }
 `
