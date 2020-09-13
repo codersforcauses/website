@@ -45,11 +45,11 @@ const AddOns = () => {
 }
 
 const Website = ({ Component, pageProps }: AppProps) => {
-  const [isDark, setDark] = useState(false)
-  const toggleDark = useCallback(() => setDark(previousDark => !previousDark), [])
+  const [isDark, setDark] = useState(undefined)
+  const toggleDark = useCallback(() => { setDark(previousDark => !previousDark) }, [])
 
   useEffect(() => {
-    setDark(window.matchMedia('(prefers-color-scheme: dark)')?.matches)
+    setDark((localStorage.getItem('dark-theme') ?? (window.matchMedia('(prefers-color-scheme: dark)')?.matches).toString()) === 'true')
   }, [])
 
   useEffect(() => {
@@ -64,7 +64,7 @@ const Website = ({ Component, pageProps }: AppProps) => {
       <DarkProvider value={isDark}>
         <ThemeProvider theme={theme}>
           <CacheProvider value={cache}>
-            <Global styles={globalStyle(theme)} />
+            <Global styles={globalStyle(theme, isDark)} />
             <Header handleDarkToggle={toggleDark} />
             <main className='main'>
               {/* TODO remove once MVP is finished */}

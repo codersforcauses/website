@@ -7,14 +7,14 @@ export const styles = (theme, isDark) => css`
     height: 24px;
 
     .light-icon {
-        opacity: ${isDark ? 0 : 100};
+        opacity: ${isDark ? 100 : 0};
         transition: all 0.2s;
         position: absolute;
         left: 0px;
     }
 
     .dark-icon {
-        opacity: ${isDark ? 100 : 0};
+        opacity: ${isDark ? 0 : 100};
         transition: all 0.2s; 
         position: absolute;
         left: 0px;

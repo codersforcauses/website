@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core'
 import { useTheme } from 'emotion-theming'
-import { useContext } from 'react'
+import { useContext, useEffect } from 'react'
 import { Button } from 'reactstrap'
 import { styles } from './styles'
 import { DarkContext } from 'helpers/user'
@@ -9,6 +9,10 @@ import { DarkContext } from 'helpers/user'
 const DarkToggle = (props: { handleDarkToggle: Function }) => {
   const theme = useTheme()
   const isDark = useContext(DarkContext)
+
+  useEffect(() => {
+    if (isDark !== undefined) localStorage.setItem('dark-theme', isDark.toString())
+  }, [isDark])
 
   return (
     <Button color='link' className='py-0 h-100' onClick={props.handleDarkToggle}>
