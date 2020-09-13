@@ -1,6 +1,8 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core'
 import { useTheme } from 'emotion-theming'
+import { useContext } from 'react'
+import { DarkContext } from 'helpers/user'
 import { Container, Jumbotron, Row, Col } from 'reactstrap'
 import Head from 'next/head'
 import dynamic from 'next/dynamic'
@@ -15,9 +17,10 @@ import { styles } from './styles'
 const Map = dynamic(() => import('../Map'), { ssr: false })
 
 const AboutPage = () => {
+  const isDark = useContext(DarkContext)
   const theme = useTheme()
   return (
-    <div css={styles(theme)}>
+    <div css={styles(theme, isDark)}>
       <Head>
         <script
           async
@@ -34,10 +37,10 @@ const AboutPage = () => {
       <div className='relative-container py-5'>
         <Container
           id='_what_we_do'
-          className='py-5 bg-secondary rounded-0 d-md-flex'
+          className='py-5 rounded-0 d-md-flex'
         >
           <Row className='d-flex align-items-center'>
-            <Col xs={12} lg={6}>
+            <Col xs={12} lg={6} className='pr-lg-5'>
               <h2 className='header'>We build software for charities</h2>
               <p className='lead m-lg-0'>
                 Coders for Causes is a not for profit organisation that empowers
@@ -56,7 +59,7 @@ const AboutPage = () => {
         </div>
       </div>
 
-      <Jumbotron id='_meet_the_team' className='m-0 p-0'>
+      <Jumbotron id='_meet_the_team' className='m-0 p-0 secondary-bg'>
         <Container className='rounded-0 py-5'>
           <h3 className='m-0'>Meet the Team</h3>
           <Committee />

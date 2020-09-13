@@ -1,11 +1,16 @@
 import { css } from '@emotion/core'
 import { media } from 'lib/mediaQueries'
 
-export const styles = theme => css`
+export const styles = (theme, isDark) => css`
   .header {
     font-weight: bolder;
     margin-bottom: 1.2rem;
   }
+
+  .secondary-bg {
+    background: ${theme.colors[isDark ? 'primary' : 'light']};
+  }
+
   .pad {
     padding: 6.6rem 0;
   }

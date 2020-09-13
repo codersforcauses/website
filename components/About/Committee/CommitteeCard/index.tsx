@@ -21,6 +21,34 @@ const iconMap = {
   twitter: <i className='fab fa-twitter-square icon' />
 }
 
+interface Social {
+  email: string
+  discord: string
+  github?: string
+  gitlab?: string
+  bitbucket?: string
+  linkedin?: string
+  facebook?: string
+  twitter?: string
+}
+
+interface Picture {
+  src: string
+  alt: string
+}
+
+export interface CardItemContent {
+  name: string
+  position: string
+  about: string
+  social: Social
+  picture: Picture
+}
+
+interface Props extends CardProps {
+  item: CardItemContent
+}
+
 const CommitteeCard = ({
   item: {
     name,
@@ -40,7 +68,7 @@ const CommitteeCard = ({
         alt={alt}
         className='rounded-0 flex-grow-1'
       />
-      <CardImgOverlay className='bg-primary card-overlay'>
+      <CardImgOverlay className='bg-primary card-overlay rounded-0'>
         <CardTitle className='font-weight-bolder text-monospace'>
           {name}
         </CardTitle>
@@ -71,34 +99,6 @@ const CommitteeCard = ({
       </CardImgOverlay>
     </Card>
   )
-}
-
-interface Props extends CardProps {
-  item: CardItemContent
-}
-
-interface Social {
-  email: string
-  discord: string
-  github?: string
-  gitlab?: string
-  bitbucket?: string
-  linkedin?: string
-  facebook?: string
-  twitter?: string
-}
-
-interface Picture {
-  src: string
-  alt: string
-}
-
-export interface CardItemContent {
-  name: string
-  position: string
-  about: string
-  social: Social
-  picture: Picture
 }
 
 export default CommitteeCard

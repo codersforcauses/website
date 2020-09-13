@@ -1,9 +1,10 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core'
 import { useTheme } from 'emotion-theming'
-import { useState, useEffect, useRef } from 'react'
+import { useContext, useEffect, useState, useRef } from 'react'
 import mapboxgl from 'mapbox-gl'
 import { styles } from './styles'
+import { DarkContext } from 'helpers/user'
 
 const property3D: mapboxgl.Layer = {
   id: '3d-buildings',
@@ -43,6 +44,7 @@ const Map = () => {
   const mapContainer = useRef(null)
 
   const theme = useTheme()
+  const isDark = useContext(DarkContext)
 
   useEffect(() => {
     mapboxgl.accessToken = process.env.MAPBOX_API
@@ -103,6 +105,8 @@ const Map = () => {
 
     if (!map) initializeMap({ setMap, mapContainer })
   }, [map, property3D])
+
+  useEffect(() => { if (map) map?.setStyle(`mapbox://styles/mapbox/${isDark ? 'dark' : 'light'}-v10`) }, [isDark, map])
 
   return <div ref={el => (mapContainer.current = el)} css={styles(theme)} />
 }
