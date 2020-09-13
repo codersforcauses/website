@@ -2,8 +2,8 @@ import { css } from '@emotion/core'
 
 export const styles = theme => css`
   .signin-tab {
+    background: transparent;
     &:hover {
-      cursor: pointer;
       border: 1px solid ${theme.colors.primary}66;
     }
   }

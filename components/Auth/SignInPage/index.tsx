@@ -1,10 +1,11 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core'
 import { useTheme } from 'emotion-theming'
-import { useState, useContext } from 'react'
+import { useState, useContext, useCallback } from 'react'
 import { Auth } from '@aws-amplify/auth'
 import {
   Container,
+  Button,
   Row,
   Col,
   Nav,
@@ -30,9 +31,18 @@ const SignInPage = (props: { route?: string; signUp: Function }) => {
 
   const theme = useTheme()
 
-  const closeError = () => setErrors('')
+  const closeError = useCallback(() => setErrors(''), [])
+  const goToSignUpPage = useCallback(
+    e => {
+      e.preventDefault()
+      props.signUp(true)
+    },
+    [props.signUp]
+  )
+  const setUWAStudent = useCallback(() => setIsUWAStudent(true), [])
+  const setNotUWAStudent = useCallback(() => setIsUWAStudent(false), [])
 
-  const handleSubmit = async values => {
+  const handleSubmit = useCallback(async values => {
     setLoading(true)
     const data = {
       username: values.email,
@@ -69,7 +79,7 @@ const SignInPage = (props: { route?: string; signUp: Function }) => {
     } finally {
       setLoading(false)
     }
-  }
+  }, [])
 
   return (
     <div css={styles(theme)}>
@@ -78,15 +88,13 @@ const SignInPage = (props: { route?: string; signUp: Function }) => {
         <Row>
           <Col xs={12} tag='p'>
             Don't have an account?&nbsp;
-            <a
-              href=''
-              onClick={e => {
-                e.preventDefault()
-                props.signUp(true)
-              }}
+            <Button
+              color='link'
+              className='px-0 mt-n1 rounded-0'
+              onClick={goToSignUpPage}
             >
               Create one
-            </a>
+            </Button>
             .
           </Col>
           <Col md={6}>
@@ -94,10 +102,11 @@ const SignInPage = (props: { route?: string; signUp: Function }) => {
               <NavItem className='mr-2'>
                 <NavLink
                   disabled={loading}
+                  tag='button'
                   className={`signin-tab rounded-0 ${
-                    isUWAStudent && 'border-primary'
+                    isUWAStudent ? 'border-primary' : null
                   }`}
-                  onClick={() => setIsUWAStudent(true)}
+                  onClick={setUWAStudent}
                 >
                   UWA Student
                 </NavLink>
@@ -105,10 +114,11 @@ const SignInPage = (props: { route?: string; signUp: Function }) => {
               <NavItem>
                 <NavLink
                   disabled={loading}
+                  tag='button'
                   className={`signin-tab rounded-0 ${
-                    !isUWAStudent && 'border-primary'
+                    !isUWAStudent ? 'border-primary' : null
                   }`}
-                  onClick={() => setIsUWAStudent(false)}
+                  onClick={setNotUWAStudent}
                 >
                   Email Sign-in
                 </NavLink>

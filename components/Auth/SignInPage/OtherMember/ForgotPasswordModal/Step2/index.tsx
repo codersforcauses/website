@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core'
-import { useState } from 'react'
+import { useCallback, useState } from 'react'
 import { Field, FormikProps, Form } from 'formik'
 import {
   Button,
@@ -16,6 +16,10 @@ import Spinner from 'components/Elements/Spinner'
 
 const Step2 = (props: Props & FormikProps<FormValues>) => {
   const [passwordVisible, setPasswordVisible] = useState(false)
+  const setPassVisible = useCallback(
+    () => setPasswordVisible(prev => !prev),
+    []
+  )
   return (
     <Form>
       <FormGroup>
@@ -80,7 +84,7 @@ const Step2 = (props: Props & FormikProps<FormValues>) => {
               color='primary'
               disabled={props.loading}
               className='rounded-0 border-left-0 d-flex align-items-center justify-content-center'
-              onClick={() => setPasswordVisible(!passwordVisible)}
+              onClick={setPassVisible}
             >
               <i className='material-icons-sharp'>
                 {passwordVisible ? 'visibility' : 'visibility_off'}
@@ -115,7 +119,7 @@ const Step2 = (props: Props & FormikProps<FormValues>) => {
               color='primary'
               disabled={props.loading}
               className='rounded-0 border-left-0 d-flex align-items-center justify-content-center'
-              onClick={() => setPasswordVisible(!passwordVisible)}
+              onClick={setPassVisible}
             >
               <i className='material-icons-sharp'>
                 {passwordVisible ? 'visibility' : 'visibility_off'}
