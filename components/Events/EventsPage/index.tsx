@@ -84,7 +84,7 @@ const EventPage = () => {
           <Button
             outline={!eventPast}
             color='primary'
-            className='rounded-0 monospace px-4'
+            className='rounded-0 text-monospace px-4'
             onClick={() => setEventPast(true)}
           >
             Past
@@ -92,7 +92,7 @@ const EventPage = () => {
           <Button
             outline={eventPast}
             color='primary'
-            className='rounded-0 monospace px-3'
+            className='rounded-0 text-monospace px-3'
             onClick={() => setEventPast(false)}
           >
             Upcoming

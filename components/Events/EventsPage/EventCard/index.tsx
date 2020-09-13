@@ -38,7 +38,7 @@ const EventCard = (props: any) => {
             </Badge>
           ))}
         </div>
-        <CardTitle className='monospace heading'>{props.title}</CardTitle>
+        <CardTitle className='text-monospace heading'>{props.title}</CardTitle>
         <CardSubtitle className='mb-2'>Time: {props.time}</CardSubtitle>
         <CardSubtitle className='mb-2'>Location: {props.location}</CardSubtitle>
         <CardText className='smaller'>{props.desc}</CardText>

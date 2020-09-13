@@ -39,7 +39,7 @@ const StripeTextField = () => {
   }
   return (
     <FormGroup>
-      <Label for='card-element' className='monospace'>
+      <Label for='card-element' className='text-monospace'>
         Card Details
       </Label>
       <CardElement

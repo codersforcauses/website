@@ -57,7 +57,7 @@ const PayWithCashModal = ({
         </UncontrolledAlert>
         <Form>
           <FormGroup>
-            <Label for='masterPassword' className='monospace'>
+            <Label for='masterPassword' className='text-monospace'>
               Master Password
             </Label>
             <InputGroup>
@@ -95,7 +95,7 @@ const PayWithCashModal = ({
             type='submit'
             size='lg'
             color='primary'
-            className='rounded-0 monospace px-5'
+            className='rounded-0 text-monospace px-5'
           >
             Verify
           </Button>

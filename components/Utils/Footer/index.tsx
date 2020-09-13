@@ -41,12 +41,12 @@ const Footer = () => {
                 className='img-fluid w-75 mb-1'
               />
             </div>
-            <p className='monospace m-0'>
+            <p className='text-monospace m-0'>
               <small>Made with &#10084;</small>
             </p>
           </Col>
           <Col md={3}>
-            <h4 className='mb-3'>About us</h4>
+            <p className='mb-3 text-larger text-monospace'>About us</p>
             <ul className='list-unstyled m-md-0'>
               <li>
                 <Link href='/about#_what_we_do'>
@@ -64,14 +64,22 @@ const Footer = () => {
               </li>
               <li>
                 <Link href='/branding'>
-                  <Button color='link' className='text-secondary p-0' data-cy='branding'>
+                  <Button
+                    color='link'
+                    className='text-secondary p-0'
+                    data-cy='branding'
+                  >
                     Our branding
                   </Button>
                 </Link>
               </li>
               <li>
                 <Link href='/#_contact_us'>
-                  <Button color='link' className='text-secondary p-0' data-cy='contact'>
+                  <Button
+                    color='link'
+                    className='text-secondary p-0'
+                    data-cy='contact'
+                  >
                     Contact us
                   </Button>
                 </Link>
@@ -79,7 +87,7 @@ const Footer = () => {
             </ul>
           </Col>
           <Col md={3}>
-            <h4 className='mb-3'>Projects</h4>
+            <p className='mb-3 text-larger text-monospace'>Projects</p>
             <ul className='list-unstyled m-md-0'>
               <li>
                 <Link href='/projects'>
@@ -90,7 +98,11 @@ const Footer = () => {
               </li>
               <li>
                 <Link href='/projects'>
-                  <Button color='link' className='text-secondary p-0' data-cy='projects'>
+                  <Button
+                    color='link'
+                    className='text-secondary p-0'
+                    data-cy='projects'
+                  >
                     Previous projects
                   </Button>
                 </Link>
@@ -98,7 +110,7 @@ const Footer = () => {
             </ul>
           </Col>
           <Col md={3}>
-            <h4 className='mb-3'>Events</h4>
+            <p className='mb-3 text-larger text-monospace'>Events</p>
             <ul className='list-unstyled m-0'>
               <li>
                 <Link href='/about'>
@@ -119,7 +131,10 @@ const Footer = () => {
         </Row>
         <Row className='mt-4'>
           <Col xs={12} md={7} className='d-md-flex align-items-center'>
-            <p className='my-0 mr-3 mr-lg-4 monospace copyright' data-cy='copyrightnotice'>
+            <p
+              className='my-0 mr-3 mr-lg-4 text-monospace copyright'
+              data-cy='copyrightnotice'
+            >
               &copy; {new Date().getFullYear()} Coders for Causes
             </p>
             <div className='d-flex align-items-center justify-content-between legal'>
@@ -196,7 +211,8 @@ const Footer = () => {
                 color='link'
                 className='text-secondary p-0 mx-2'
                 onClick={() =>
-                  newTab('https://www.facebook.com/codersforcauses')}
+                  newTab('https://www.facebook.com/codersforcauses')
+                }
               >
                 <SocialIcons icon='facebook' dimensions={20} fill='secondary' />
               </Button>
@@ -205,7 +221,8 @@ const Footer = () => {
                 color='link'
                 className='text-secondary p-0 mx-2'
                 onClick={() =>
-                  newTab('https://www.linkedin.com/company/coders-for-causes/')}
+                  newTab('https://www.linkedin.com/company/coders-for-causes/')
+                }
               >
                 <SocialIcons icon='linkedin' dimensions={20} fill='secondary' />
               </Button>

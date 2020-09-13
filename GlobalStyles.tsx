@@ -45,10 +45,6 @@ export const globalStyle = theme => css`
     scroll-margin-top: 64px;
   }
 
-  .monospace {
-    font-family: 'IBM Plex Mono';
-  }
-
   input {
     color: ${theme.colors.primary};
   }
@@ -71,8 +67,8 @@ export const globalStyle = theme => css`
   }
 
   .tab-nav {
+    background: transparent;
     &:hover {
-      cursor: pointer;
       border: 1px solid ${theme.colors.primary}66;
     }
   }

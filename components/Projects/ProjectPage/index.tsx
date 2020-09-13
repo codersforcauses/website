@@ -40,9 +40,11 @@ const ProjectPage = () => {
           </Col>
           <Col lg={9}>
             <div className='mb-5'>
-              <h1 className='display-4 m-0 mb-4 monospace'>Ignite Mentoring</h1>
+              <h1 className='display-4 m-0 mb-4 text-monospace'>
+                Ignite Mentoring
+              </h1>
 
-              <Row className='align-items-center mb-4 d-lg-none monospace'>
+              <Row className='align-items-center mb-4 d-lg-none text-monospace'>
                 <Col xs={6} className='d-flex align-items-center'>
                   <i className='material-icons-sharp mr-3'>devices</i>
                   Web Development
@@ -73,7 +75,7 @@ const ProjectPage = () => {
             </div>
           </Col>
           <Col lg={3}>
-            <div className='d-none d-lg-block mb-5 monospace'>
+            <div className='d-none d-lg-block mb-5 text-monospace'>
               <div className='d-flex align-items-center py-3'>
                 <i className='material-icons-sharp mr-3'>devices</i>
                 Web Development
@@ -92,7 +94,7 @@ const ProjectPage = () => {
               </Button>
             </div>
             <div>
-              <h4 className='mb-3 font-weight-bold monospace'>
+              <h4 className='mb-3 font-weight-bold text-monospace'>
                 Potential impact
               </h4>
               <ul className='p-0'>

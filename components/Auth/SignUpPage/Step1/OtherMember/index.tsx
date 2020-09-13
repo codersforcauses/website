@@ -45,7 +45,7 @@ const OtherMember = (props: Props & FormikProps<FormValues>) => {
       <Row form>
         <Col md={6}>
           <FormGroup>
-            <Label for='firstName' className='monospace'>
+            <Label for='firstName' className='text-monospace'>
               First Name
             </Label>
             <Input
@@ -65,7 +65,7 @@ const OtherMember = (props: Props & FormikProps<FormValues>) => {
         </Col>
         <Col md={6}>
           <FormGroup>
-            <Label for='lastName' className='monospace'>
+            <Label for='lastName' className='text-monospace'>
               Last Name
             </Label>
             <Input
@@ -85,7 +85,7 @@ const OtherMember = (props: Props & FormikProps<FormValues>) => {
         </Col>
       </Row>
       <FormGroup>
-        <Label for='email' className='monospace'>
+        <Label for='email' className='text-monospace'>
           Email
         </Label>
         <Input
@@ -105,7 +105,7 @@ const OtherMember = (props: Props & FormikProps<FormValues>) => {
       <Row form>
         <Col md={6}>
           <FormGroup>
-            <Label for='password' className='monospace'>
+            <Label for='password' className='text-monospace'>
               Password
             </Label>
             <InputGroup>
@@ -140,7 +140,7 @@ const OtherMember = (props: Props & FormikProps<FormValues>) => {
         </Col>
         <Col md={6}>
           <FormGroup>
-            <Label for='confirmPassword' className='monospace'>
+            <Label for='confirmPassword' className='text-monospace'>
               Confirm Password
             </Label>
             <InputGroup>
@@ -181,7 +181,7 @@ const OtherMember = (props: Props & FormikProps<FormValues>) => {
         size='lg'
         color='primary'
         disabled={props.loading}
-        className='rounded-0 monospace px-4 d-flex align-items-center'
+        className='rounded-0 text-monospace px-4 d-flex align-items-center'
       >
         Sign Up
         {props.loading && (

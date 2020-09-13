@@ -66,7 +66,7 @@ const HomePage = () => {
       >
         <ToastBody>{toastMessage?.message}</ToastBody>
       </Toast>
-      <Jumbotron className='hero bg-primary text-secondary d-flex align-items-center rounded-0 monospace'>
+      <Jumbotron className='hero bg-primary text-secondary d-flex align-items-center rounded-0 text-monospace'>
         <Container>
           <h1 className='mb-4'>
             <TypedText
@@ -119,7 +119,7 @@ const HomePage = () => {
                     href={`mailto:${constants.email}`}
                     target='_blank'
                     rel='noreferrer noopener'
-                    className='text-secondary email monospace'
+                    className='text-secondary email text-monospace'
                   >
                     {constants.email}
                   </a>

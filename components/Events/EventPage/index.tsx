@@ -12,7 +12,7 @@ const EventPage = () => {
 
   return (
     <div css={styles(theme, 'https://source.unsplash.com/random')}>
-      <div className='bg-primary mt-5 py-5 bg text-secondary monospace'>
+      <div className='bg-primary mt-5 py-5 bg text-secondary text-monospace'>
         <Container className='mt-5 pt-5'>
           <h5 className='my-5'>./Workshop</h5>
           <h1 className='display-4 m-0 event-main-head'>
@@ -72,7 +72,7 @@ const EventPage = () => {
             </div>
           </Col>
         </Row>
-        <Row noGutters className='text-secondary monospace'>
+        <Row noGutters className='text-secondary text-monospace'>
           <Col
             md={3}
             className='bg-primary px-5 pt-5 pb-md-5 d-flex align-items-center justify-content-center'

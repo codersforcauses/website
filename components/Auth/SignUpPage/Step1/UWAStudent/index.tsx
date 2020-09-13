@@ -44,7 +44,7 @@ const UWAStudent = (props: Props & FormikProps<FormValues>) => {
         {props.error}
       </UncontrolledAlert>
       <FormGroup>
-        <Label for='studentNumber' className='monospace'>
+        <Label for='studentNumber' className='text-monospace'>
           UWA Student Number
         </Label>
         <Input
@@ -62,7 +62,7 @@ const UWAStudent = (props: Props & FormikProps<FormValues>) => {
         <FormFeedback>{props.errors.studentNumber}</FormFeedback>
       </FormGroup>
       <FormGroup>
-        <Label for='password' className='monospace'>
+        <Label for='password' className='text-monospace'>
           Password
         </Label>
         <InputGroup>
@@ -118,7 +118,7 @@ const UWAStudent = (props: Props & FormikProps<FormValues>) => {
         size='lg'
         color='primary'
         disabled={props.loading}
-        className='rounded-0 px-4 d-flex align-items-center monospace'
+        className='rounded-0 px-4 d-flex align-items-center text-monospace'
       >
         Sign Up
         {props.loading && (

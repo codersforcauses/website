@@ -19,7 +19,7 @@ const Step1 = (props: Props & FormikProps<FormValues>) => {
   return (
     <Form>
       <FormGroup>
-        <Label for='email' className='monospace'>
+        <Label for='email' className='text-monospace'>
           Email
         </Label>
         <Input
@@ -44,7 +44,7 @@ const Step1 = (props: Props & FormikProps<FormValues>) => {
           size='lg'
           color='primary'
           disabled={!props.values.email || props.loading}
-          className='rounded-0 monospace px-4 d-flex align-items-center'
+          className='rounded-0 text-monospace px-4 d-flex align-items-center'
           onClick={handleSubmit}
         >
           Send

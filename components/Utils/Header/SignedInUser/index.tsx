@@ -36,7 +36,7 @@ const UserMenu = ({ name, setUser, ...props }: Props) => {
           <>
             <p className='m-0 d-none d-md-block'>{name}</p>
             <div
-              className='d-flex align-items-center justify-content-center ml-2 monospace rounded-circle'
+              className='d-flex align-items-center justify-content-center ml-2 text-monospace rounded-circle'
               css={styles(theme, props.image)}
             >
               <p className='m-0'>{initials}</p>

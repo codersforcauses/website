@@ -97,7 +97,7 @@ const OtherMember = (props: Props & FormikProps<FormValues>) => {
         {props.error}
       </UncontrolledAlert>
       <FormGroup>
-        <Label for='email' className='monospace'>
+        <Label for='email' className='text-monospace'>
           Email
         </Label>
         <Input
@@ -115,7 +115,7 @@ const OtherMember = (props: Props & FormikProps<FormValues>) => {
         <FormFeedback>{props.errors.email}</FormFeedback>
       </FormGroup>
       <FormGroup>
-        <Label for='password' className='monospace'>
+        <Label for='password' className='text-monospace'>
           Password
         </Label>
         <InputGroup>
@@ -153,7 +153,7 @@ const OtherMember = (props: Props & FormikProps<FormValues>) => {
           size='lg'
           color='primary'
           disabled={props.loading}
-          className='rounded-0 monospace px-4 d-flex align-items-center'
+          className='rounded-0 text-monospace px-4 d-flex align-items-center'
         >
           Sign in
           {props.loading && (

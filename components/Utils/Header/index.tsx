@@ -63,7 +63,7 @@ const Header = () => {
             href='/'
             id='Home'
             title='Home'
-            className='mr-md-5 py-0 user-select-none font-weight-bold monospace brand'
+            className='mr-md-5 py-0 user-select-none font-weight-bold text-monospace brand'
             data-cy='nav-Home'
           >
             cfc

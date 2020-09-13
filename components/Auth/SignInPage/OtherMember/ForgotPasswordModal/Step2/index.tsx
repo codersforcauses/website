@@ -23,7 +23,7 @@ const Step2 = (props: Props & FormikProps<FormValues>) => {
   return (
     <Form>
       <FormGroup>
-        <Label for='email' className='monospace'>
+        <Label for='email' className='text-monospace'>
           Email
         </Label>
         <Input
@@ -41,7 +41,7 @@ const Step2 = (props: Props & FormikProps<FormValues>) => {
         <FormFeedback>{props.errors.email}</FormFeedback>
       </FormGroup>
       <FormGroup>
-        <Label for='email' className='monospace'>
+        <Label for='email' className='text-monospace'>
           Verification Code
         </Label>
         <Input
@@ -62,7 +62,7 @@ const Step2 = (props: Props & FormikProps<FormValues>) => {
         )}
       </FormGroup>
       <FormGroup>
-        <Label for='password' className='monospace'>
+        <Label for='password' className='text-monospace'>
           New Password
         </Label>
         <InputGroup>
@@ -95,7 +95,7 @@ const Step2 = (props: Props & FormikProps<FormValues>) => {
         </InputGroup>
       </FormGroup>
       <FormGroup>
-        <Label for='confirmPassword' className='monospace'>
+        <Label for='confirmPassword' className='text-monospace'>
           Confirm New Password
         </Label>
         <InputGroup>
@@ -135,7 +135,7 @@ const Step2 = (props: Props & FormikProps<FormValues>) => {
           size='lg'
           color='primary'
           disabled={props.loading}
-          className='rounded-0 monospace px-4 d-flex align-items-center'
+          className='rounded-0 text-monospace px-4 d-flex align-items-center'
         >
           Send
           {props.loading && (
