@@ -1,6 +1,8 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core'
 import { useTheme } from 'emotion-theming'
+import { useContext } from 'react'
+import { DarkContext } from 'helpers/user'
 import {
   Button,
   Breadcrumb,
@@ -19,10 +21,11 @@ const impact: Array<string> = [
 ]
 
 const ProjectPage = () => {
+  const isDark = useContext(DarkContext)
   const theme = useTheme()
 
   return (
-    <div css={styles(theme, 'https://source.unsplash.com/random')}>
+    <div css={styles(theme, 'https://source.unsplash.com/random', isDark)}>
       <div className='bg-primary pad bg'>
         <Container className='my-5 py-5' />
       </div>
@@ -30,10 +33,18 @@ const ProjectPage = () => {
         <Row>
           <Col xs={12}>
             <Breadcrumb tag='nav' className='breadcrumbs'>
-              <BreadcrumbItem tag='a' href='/projects'>
+              <BreadcrumbItem
+                tag='a'
+                href='/projects'
+                className={`text-${isDark ? 'secondary' : 'primary'}`}
+              >
                 Projects
               </BreadcrumbItem>
-              <BreadcrumbItem active tag='span' className='active-tab'>
+              <BreadcrumbItem
+                active
+                tag='span'
+                className='active-tab text-muted'
+              >
                 Ignite Mentoring
               </BreadcrumbItem>
             </Breadcrumb>
@@ -66,7 +77,7 @@ const ProjectPage = () => {
             </div>
             <div className='mb-5'>
               <h3 className='font-weight-black mb-4'>Technologies used</h3>
-              <TechList />
+              <TechList isDark={isDark} />
             </div>
             <div>
               <h4 className='font-weight-black mb-4'>Members</h4>
@@ -84,7 +95,7 @@ const ProjectPage = () => {
               </div>
               <Button
                 outline
-                color='primary'
+                color={isDark ? 'secondary' : 'primary'}
                 size='lg'
                 className='rounded-0 my-lg-5'
               >
