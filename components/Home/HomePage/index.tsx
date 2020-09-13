@@ -1,7 +1,8 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core'
 import { useTheme } from 'emotion-theming'
-import { useState } from 'react'
+import { useState, useContext } from 'react'
+import { DarkContext } from 'helpers/user'
 import Link from 'next/link'
 import {
   Jumbotron,
@@ -25,6 +26,7 @@ const HomePage = () => {
   const [contactOpen, setContactOpen] = useState(false)
   const [loadContact, setLoadContact] = useState(false)
   const [toastMessage, setToastMessage] = useState(null)
+  const isDark = useContext(DarkContext)
 
   const theme = useTheme()
 
@@ -59,7 +61,7 @@ const HomePage = () => {
   }
 
   return (
-    <div css={styles(theme)}>
+    <div css={styles(theme, isDark)}>
       <Toast
         isOpen={!!toastMessage}
         className={`toast m-0 rounded-0 text-white bg-${toastMessage?.status}`}
@@ -84,28 +86,32 @@ const HomePage = () => {
           </h1>
         </Container>
       </Jumbotron>
-      <Container className='py-5 my-md-5'>
-        <h2 className='font-weight-bold mb-4'>We are developers.</h2>
-        <p className='lead'>
-          Coders for Causes are a group of developers that empower charities and
-          non-profit organisations by providing them solutions to their
-          technical problems. We are student powered and all of our members are
-          volunteers dedicated to providing you the best results.
-        </p>
-        <Link href='#_contact_us'>
-          <Button size='lg' color='primary' className='rounded-0'>
-            Work with us&nbsp;&nbsp;&raquo;
-          </Button>
-        </Link>
-      </Container>
-      <div className='bg-light'>
+      <div className='primary-bg'>
+        <Container className='py-5 my-md-5'>
+          <h2 className='font-weight-bold mb-4'>We are developers.</h2>
+          <p className='lead'>
+            Coders for Causes are a group of developers that empower charities and
+            non-profit organisations by providing them solutions to their
+            technical problems. We are student powered and all of our members are
+            volunteers dedicated to providing you the best results.
+          </p>
+          <Link href='#_contact_us'>
+            <Button size='lg' color={isDark ? 'secondary' : 'primary'} outline={isDark} className='rounded-0'>
+              Work with us&nbsp;&nbsp;&raquo;
+            </Button>
+          </Link>
+        </Container>
+      </div>
+      <div className='secondary-bg'>
         <Container>
           <Clients />
         </Container>
       </div>
-      <Container className='py-5 my-md-5'>
-        <Services />
-      </Container>
+      <div className='primary-bg'>
+        <Container className='py-5 my-md-5'>
+          <Services />
+        </Container>
+      </div>
       <div className='pt-5 pb-md-5 bg-primary text-secondary'>
         <Container id='_contact_us' className='pt-md-5 pb-0 pb-md-5'>
           <Row className='mt-lg-5'>

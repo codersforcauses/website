@@ -1,4 +1,5 @@
-import React from 'react'
+/** @jsx jsx */
+import { jsx } from '@emotion/core'
 import { Row, Col, Card, CardBody } from 'reactstrap'
 import services from 'data/services.json'
 
@@ -7,7 +8,7 @@ const Service = (props: {
   title: string
   description: string
 }) => (
-  <Card className='text-center border-0'>
+  <Card className='text-center border-0 bg-transparent'>
     <CardBody className='px-0'>
       <i className='material-icons-sharp md-lg'>{props.icon}</i>
       <h4 className='mt-4 font-weight-bold'>{props.title}</h4>
