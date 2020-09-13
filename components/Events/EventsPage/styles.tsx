@@ -14,8 +14,8 @@ export const styles = theme => css`
   }
 `
 
-export const eventStyles = (theme, date) => css`
-  border-left: 1px solid ${theme.colors.primary}50;
+export const eventStyles = (theme, isDark, date) => css`
+  border-left: 1px solid ${theme.colors[isDark ? 'secondary' : 'primary']}50;
   margin: 0 0 2.5rem;
   position: relative;
 
@@ -23,7 +23,7 @@ export const eventStyles = (theme, date) => css`
     content: '${date}';
     font-size: 1.25rem;
     font-family: 'IBM Plex Mono', monospace;
-    background-color: ${theme.colors.secondary};
+    background-color: ${theme.colors[isDark ? 'darkBg' : 'secondary']};
     position: absolute;
     top: -30px;
     padding: 0 0 2.5rem;
