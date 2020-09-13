@@ -43,6 +43,7 @@ const Footer = () => {
             </div>
             <p className='monospace m-0'>
               <small>Made with &#10084;</small>
+              <small css={{ color: 'black' }}> by Jeremiah</small>
             </p>
           </Col>
           <Col md={3}>

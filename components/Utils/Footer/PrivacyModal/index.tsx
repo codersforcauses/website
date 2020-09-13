@@ -1,15 +1,20 @@
-import React from 'react'
+/** @jsx jsx */
+import { jsx } from '@emotion/core'
+import { useContext } from 'react'
 import {
   Modal,
   ModalHeader,
   ModalBody,
   Button
 } from 'reactstrap'
+import { DarkContext } from 'helpers/user'
 
 const PrivacyModal = ({ isOpen, closeModal }: { isOpen: Boolean; closeModal: Function }) => {
+  const isDark = useContext(DarkContext)
+
   const closeBtn = (
     <Button color='link' className='p-0' onClick={closeModal}>
-      <i className='material-icons-sharp'>close</i>
+      <i className={`material-icons-sharp ${isDark ? 'text-white' : 'text-black'}`}>close</i>
     </Button>
   )
   return (
@@ -21,7 +26,9 @@ const PrivacyModal = ({ isOpen, closeModal }: { isOpen: Boolean; closeModal: Fun
       >
         Privacy Policy
       </ModalHeader>
-      <ModalBody />
+      <ModalBody>
+        <p>We will keep your data safe.</p>
+      </ModalBody>
     </Modal>
   )
 }
