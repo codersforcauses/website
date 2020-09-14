@@ -21,5 +21,5 @@ module.exports = withBundleAnalyzer({
       process.env.AMPLIFY_AWS_COGNITO_WEB_CLIENT_ID,
     AMPLIFY_OAUTH_DOMAIN: process.env.AMPLIFY_OAUTH_DOMAIN
   },
-  'experimental.modern': true
+  experimental: { modern: true }
 })
