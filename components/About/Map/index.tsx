@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core'
 import { useTheme } from 'emotion-theming'
-import { useState, useEffect, useRef } from 'react'
+import { memo, useState, useEffect, useRef } from 'react'
 import mapboxgl from 'mapbox-gl'
 import { styles } from './styles'
 
@@ -107,4 +107,4 @@ const Map = () => {
   return <div ref={el => (mapContainer.current = el)} css={styles(theme)} />
 }
 
-export default Map
+export default memo(Map)
