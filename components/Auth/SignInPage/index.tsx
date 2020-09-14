@@ -1,7 +1,4 @@
-/** @jsx jsx */
-import { jsx } from '@emotion/core'
-import { useTheme } from 'emotion-theming'
-import { useState, useContext, useCallback } from 'react'
+import React, { useState, useContext, useCallback } from 'react'
 import { Auth } from '@aws-amplify/auth'
 import {
   Container,
@@ -20,7 +17,6 @@ import { UserContext } from 'helpers/user'
 import Title from 'components/Utils/Title'
 import UWAStudent from './UWAStudent'
 import OtherMember from './OtherMember'
-import { styles } from './styles'
 
 const SignInPage = (props: { route?: string; signUp: Function }) => {
   const [isUWAStudent, setIsUWAStudent] = useState(true)
@@ -28,8 +24,6 @@ const SignInPage = (props: { route?: string; signUp: Function }) => {
   const [errors, setErrors] = useState('')
 
   const { setUser } = useContext(UserContext)
-
-  const theme = useTheme()
 
   const closeError = useCallback(() => setErrors(''), [])
   const goToSignUpPage = useCallback(
@@ -82,7 +76,7 @@ const SignInPage = (props: { route?: string; signUp: Function }) => {
   }, [])
 
   return (
-    <div css={styles(theme)}>
+    <div>
       <Title typed>./sign-in</Title>
       <Container className='py-5 '>
         <Row>
@@ -103,7 +97,7 @@ const SignInPage = (props: { route?: string; signUp: Function }) => {
                 <NavLink
                   disabled={loading}
                   tag='button'
-                  className={`signin-tab rounded-0 ${
+                  className={`tab-nav rounded-0 ${
                     isUWAStudent ? 'border-primary' : null
                   }`}
                   onClick={setUWAStudent}
@@ -115,7 +109,7 @@ const SignInPage = (props: { route?: string; signUp: Function }) => {
                 <NavLink
                   disabled={loading}
                   tag='button'
-                  className={`signin-tab rounded-0 ${
+                  className={`tab-nav rounded-0 ${
                     !isUWAStudent ? 'border-primary' : null
                   }`}
                   onClick={setNotUWAStudent}

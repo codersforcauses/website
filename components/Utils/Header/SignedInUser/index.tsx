@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core'
 import { useTheme } from 'emotion-theming'
-import { useState } from 'react'
+import { useState, useMemo, useCallback } from 'react'
 import { Auth } from '@aws-amplify/auth'
 import {
   ButtonDropdown,
@@ -18,16 +18,17 @@ const UserMenu = ({ name, setUser, ...props }: Props) => {
 
   const theme = useTheme()
 
-  const initials = getInitials(name)
+  const toggleDropdown = useCallback(() => setDropdown(prev => !prev), [])
+  const initials = useMemo(() => getInitials(name), [name])
 
-  const handleSignOut = async () => {
+  const handleSignOut = useCallback(async () => {
     await Auth.signOut()
     setUser(undefined)
     Router.push('/')
-  }
+  }, [])
 
   return (
-    <ButtonDropdown isOpen={dropdown} toggle={() => setDropdown(!dropdown)}>
+    <ButtonDropdown isOpen={dropdown} toggle={toggleDropdown}>
       <DropdownToggle
         color='primary'
         className='d-flex align-items-center rounded-0 p-0'

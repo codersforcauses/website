@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useCallback, useState } from 'react'
 import Router from 'next/router'
 import {
   Row,
@@ -20,9 +20,11 @@ const Step1 = (props: { signIn: Function; nextStep: Function }) => {
   const [loading, setLoading] = useState(false)
   const [errors, setErrors] = useState('')
 
-  const closeError = () => setErrors('')
+  const closeError = useCallback(() => setErrors(''), [])
+  const setUWAStudent = useCallback(() => setIsUWAStudent(true), [])
+  const setNotUWAStudent = useCallback(() => setIsUWAStudent(false), [])
 
-  const handleSubmit = async values => {
+  const handleSubmit = useCallback(async values => {
     setLoading(true)
     const data = {
       username: values?.email,
@@ -63,7 +65,7 @@ const Step1 = (props: { signIn: Function; nextStep: Function }) => {
     } finally {
       setLoading(false)
     }
-  }
+  }, [])
   return (
     <Row>
       <Col xs={12} tag='p'>
@@ -84,10 +86,11 @@ const Step1 = (props: { signIn: Function; nextStep: Function }) => {
           <NavItem className='mr-2'>
             <NavLink
               disabled={loading}
+              tag='button'
               className={`tab-nav rounded-0 ${
-                isUWAStudent && 'border-primary'
+                isUWAStudent ? 'border-primary' : null
               }`}
-              onClick={() => setIsUWAStudent(true)}
+              onClick={setUWAStudent}
             >
               UWA Student
             </NavLink>
@@ -95,10 +98,11 @@ const Step1 = (props: { signIn: Function; nextStep: Function }) => {
           <NavItem>
             <NavLink
               disabled={loading}
+              tag='button'
               className={`tab-nav rounded-0 ${
-                !isUWAStudent && 'border-primary'
+                !isUWAStudent ? 'border-primary' : null
               }`}
-              onClick={() => setIsUWAStudent(false)}
+              onClick={setNotUWAStudent}
             >
               Email Sign-up
             </NavLink>
