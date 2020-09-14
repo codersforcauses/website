@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 import { Modal, ModalHeader, ModalBody, Button } from 'reactstrap'
 
 const ConstitutionModal = ({
@@ -8,10 +8,13 @@ const ConstitutionModal = ({
   isOpen: Boolean
   closeModal: Function
 }) => {
-  const closeBtn = (
-    <Button color='link' className='p-0' onClick={closeModal}>
-      <i className='material-icons-sharp'>close</i>
-    </Button>
+  const closeBtn = useMemo(
+    () => (
+      <Button color='link' className='p-0' onClick={closeModal}>
+        <i className='material-icons-sharp'>close</i>
+      </Button>
+    ),
+    [closeModal]
   )
   return (
     <Modal centered scrollable size='lg' isOpen={isOpen} toggle={closeModal}>

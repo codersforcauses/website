@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core'
 import { useTheme } from 'emotion-theming'
-import { useState } from 'react'
+import { useState, useCallback } from 'react'
 import { Container, Button, ButtonGroup } from 'reactstrap'
 import Title from 'components/Utils/Title'
 import EventCard from './EventCard'
@@ -76,6 +76,9 @@ const EventPage = () => {
   const theme = useTheme()
   const [eventPast, setEventPast] = useState(false)
 
+  const toggleEventPast = useCallback(() => setEventPast(true), [])
+  const toggleEventUpcoming = useCallback(() => setEventPast(false), [])
+
   return (
     <div css={styles(theme)}>
       <Title typed>./events</Title>
@@ -85,7 +88,7 @@ const EventPage = () => {
             outline={!eventPast}
             color='primary'
             className='rounded-0 text-monospace px-4'
-            onClick={() => setEventPast(true)}
+            onClick={toggleEventPast}
           >
             Past
           </Button>
@@ -93,7 +96,7 @@ const EventPage = () => {
             outline={eventPast}
             color='primary'
             className='rounded-0 text-monospace px-3'
-            onClick={() => setEventPast(false)}
+            onClick={toggleEventUpcoming}
           >
             Upcoming
           </Button>

@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core'
 import { useTheme } from 'emotion-theming'
-import { useState } from 'react'
+import { useState, useCallback } from 'react'
 import Link from 'next/link'
 import {
   Jumbotron,
@@ -28,7 +28,9 @@ const HomePage = () => {
 
   const theme = useTheme()
 
-  const handleContactSubmit = async values => {
+  const toggleContactOn = useCallback(() => setContactOpen(true), [])
+  const toggleContactOff = useCallback(() => setContactOpen(false), [])
+  const handleContactSubmit = useCallback(async values => {
     try {
       setLoadContact(true)
       const response = await fetch('https://formspree.io/mrgyryzj', {
@@ -56,7 +58,7 @@ const HomePage = () => {
         setToastMessage(null)
       }, 6000)
     }
-  }
+  }, [])
 
   return (
     <div css={styles(theme)}>
@@ -129,7 +131,7 @@ const HomePage = () => {
                   size='lg'
                   color='secondary'
                   className='rounded-0 mt-4'
-                  onClick={() => setContactOpen(true)}
+                  onClick={toggleContactOn}
                 >
                   Contact us
                 </Button>
@@ -142,7 +144,7 @@ const HomePage = () => {
               <Collapse isOpen={contactOpen}>
                 <ContactForm
                   loading={loadContact}
-                  handleCloseForm={() => setContactOpen(false)}
+                  handleCloseForm={toggleContactOff}
                   handleSubmit={handleContactSubmit}
                 />
               </Collapse>

@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core'
 import { useTheme } from 'emotion-theming'
-import { useContext, useState } from 'react'
+import { useContext, useState, useCallback } from 'react'
 import {
   Navbar,
   NavbarBrand,
@@ -12,10 +12,10 @@ import {
   NavbarToggler
 } from 'reactstrap'
 import Link from 'next/link'
+import { UserContext } from 'helpers/user'
 import SignedInUser from './SignedInUser'
 import HeaderItem, { HeaderItemContent } from './HeaderItem'
 import { styles } from './styles'
-import { UserContext } from 'helpers/user'
 
 const Header = () => {
   const [open, setOpen] = useState(false)
@@ -35,7 +35,7 @@ const Header = () => {
     }
   ]
 
-  const toggleOpen = () => setOpen(!open)
+  const toggleOpen = useCallback(() => setOpen(open => !open), [])
 
   return (
     <Navbar

@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core'
 import { useTheme } from 'emotion-theming'
-import { useState } from 'react'
+import { useState, useCallback } from 'react'
 import { CardElement } from '@stripe/react-stripe-js'
 import { FormGroup, FormFeedback, FormText, Label } from 'reactstrap'
 import { Theme } from 'lib/theme'
@@ -10,10 +10,10 @@ const StripeTextField = () => {
   const [error, setError] = useState('')
   const theme: Theme = useTheme()
 
-  const handleChange = event => {
+  const handleChange = useCallback(event => {
     if (event.error) setError(event.error.message)
     else setError('')
-  }
+  }, [])
 
   const CARD_ELEMENT_OPTIONS = {
     hidePostalCode: true,

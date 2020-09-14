@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core'
 import { useTheme } from 'emotion-theming'
-import { useState } from 'react'
+import { useState, useCallback } from 'react'
 import { Button, Container, Row, Col } from 'reactstrap'
 import Link from 'next/link'
 import dynamic from 'next/dynamic'
@@ -20,7 +20,42 @@ const Footer = () => {
   const [constitutionModal, setConstitutionModal] = useState(false)
   const theme = useTheme()
 
-  const newTab = url => window.open(url, '_blank')
+  const newTab = useCallback(url => window.open(url, '_blank'), [])
+  const openGithub = useCallback(
+    () => newTab('https://github.com/codersforcauses'),
+    []
+  )
+  const openDiscord = useCallback(
+    () => newTab('https://discord.com/invite/zW3hjwY'),
+    []
+  )
+  const openFB = useCallback(
+    () => newTab('https://www.facebook.com/codersforcauses'),
+    []
+  )
+  const openLinkedIn = useCallback(
+    () => newTab('https://www.linkedin.com/company/coders-for-causes/'),
+    []
+  )
+  const openTwitter = useCallback(
+    () => newTab('https://twitter.com/codersforcauses'),
+    []
+  )
+
+  const openTermsModal = useCallback(() => setTermsModal(true), [])
+  const closeTermsModal = useCallback(() => setTermsModal(false), [])
+  const openPrivacyModal = useCallback(() => setPrivacyModal(true), [])
+  const closePrivacyModal = useCallback(() => setPrivacyModal(false), [])
+  const openSecurityModal = useCallback(() => setSecurityModal(true), [])
+  const closeSecurityModal = useCallback(() => setSecurityModal(false), [])
+  const openConstitutionModal = useCallback(
+    () => setConstitutionModal(true),
+    []
+  )
+  const closeConstitutionModal = useCallback(
+    () => setConstitutionModal(false),
+    []
+  )
 
   return (
     <footer
@@ -142,7 +177,7 @@ const Footer = () => {
                 size='sm'
                 color='link'
                 className='text-secondary px-0 mx-2'
-                onClick={() => setTermsModal(true)}
+                onClick={openTermsModal}
               >
                 Terms
               </Button>
@@ -150,7 +185,7 @@ const Footer = () => {
                 size='sm'
                 color='link'
                 className='text-secondary px-0 mx-2'
-                onClick={() => setPrivacyModal(true)}
+                onClick={openPrivacyModal}
               >
                 Privacy
               </Button>
@@ -158,7 +193,7 @@ const Footer = () => {
                 size='sm'
                 color='link'
                 className='text-secondary px-0 mx-2'
-                onClick={() => setSecurityModal(true)}
+                onClick={openSecurityModal}
               >
                 Security
               </Button>
@@ -166,26 +201,23 @@ const Footer = () => {
                 size='sm'
                 color='link'
                 className='text-secondary px-0 mx-2'
-                onClick={() => setConstitutionModal(true)}
+                onClick={openConstitutionModal}
               >
                 Constitution
               </Button>
             </div>
-            <TermsModal
-              isOpen={termsModal}
-              closeModal={() => setTermsModal(false)}
-            />
+            <TermsModal isOpen={termsModal} closeModal={closeTermsModal} />
             <PrivacyModal
               isOpen={privacyModal}
-              closeModal={() => setPrivacyModal(false)}
+              closeModal={closePrivacyModal}
             />
             <SecurityModal
               isOpen={securityModal}
-              closeModal={() => setSecurityModal(false)}
+              closeModal={closeSecurityModal}
             />
             <ConstitutionModal
               isOpen={constitutionModal}
-              closeModal={() => setConstitutionModal(false)}
+              closeModal={closeConstitutionModal}
             />
           </Col>
           <Col xs={12} md={5} className='d-md-flex flex-row-reverse'>
@@ -194,7 +226,7 @@ const Footer = () => {
                 size='sm'
                 color='link'
                 className='text-secondary p-0 mx-2'
-                onClick={() => newTab('https://github.com/codersforcauses')}
+                onClick={openGithub}
               >
                 <SocialIcons icon='github' dimensions={20} fill='secondary' />
               </Button>
@@ -202,7 +234,7 @@ const Footer = () => {
                 size='sm'
                 color='link'
                 className='text-secondary p-0 mx-2'
-                onClick={() => newTab('https://discord.com/invite/zW3hjwY')}
+                onClick={openDiscord}
               >
                 <SocialIcons icon='discord' dimensions={20} fill='secondary' />
               </Button>
@@ -210,9 +242,7 @@ const Footer = () => {
                 size='sm'
                 color='link'
                 className='text-secondary p-0 mx-2'
-                onClick={() =>
-                  newTab('https://www.facebook.com/codersforcauses')
-                }
+                onClick={openFB}
               >
                 <SocialIcons icon='facebook' dimensions={20} fill='secondary' />
               </Button>
@@ -220,9 +250,7 @@ const Footer = () => {
                 size='sm'
                 color='link'
                 className='text-secondary p-0 mx-2'
-                onClick={() =>
-                  newTab('https://www.linkedin.com/company/coders-for-causes/')
-                }
+                onClick={openLinkedIn}
               >
                 <SocialIcons icon='linkedin' dimensions={20} fill='secondary' />
               </Button>
@@ -230,7 +258,7 @@ const Footer = () => {
                 size='sm'
                 color='link'
                 className='text-secondary p-0 mx-2'
-                onClick={() => newTab('https://twitter.com/codersforcauses')}
+                onClick={openTwitter}
               >
                 <SocialIcons icon='twitter' dimensions={20} fill='secondary' />
               </Button>
