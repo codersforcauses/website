@@ -1,14 +1,4 @@
 {
-  "presets": [
-    [
-      "next/babel",
-      {
-        "preset-env": {
-          "useBuiltIns": false,
-          "targets": "Chrome >= 60, Safari >= 10.1, iOS >= 10.3, Firefox >= 54, Edge >= 15"
-        }
-      }
-    ]
-  ],
+  "presets": ["next/babel"],
   "plugins": [["emotion"]]
 }
