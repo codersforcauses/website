@@ -10,7 +10,9 @@ const Service = (props: {
   <Card className='text-center border-0'>
     <CardBody className='px-0'>
       <i className='material-icons-sharp md-lg'>{props.icon}</i>
-      <h4 className='mt-4 font-weight-bold'>{props.title}</h4>
+      <p className='mt-4 font-weight-bold text-monospace text-larger'>
+        {props.title}
+      </p>
       <p className='mb-0'>{props.description}</p>
     </CardBody>
   </Card>

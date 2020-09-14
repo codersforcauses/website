@@ -2,9 +2,6 @@ import { css } from '@emotion/core'
 import { media } from 'lib/mediaQueries'
 
 export const styles = theme => css`
-  .text-larger {
-    font-size: 1.5rem;
-  }
   .copyright {
     font-size: 0.64rem;
     line-height: 1.2;

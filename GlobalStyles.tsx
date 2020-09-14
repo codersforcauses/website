@@ -59,6 +59,9 @@ export const globalStyle = theme => css`
     border-radius: 0;
   }
 
+  .text-larger {
+    font-size: 1.5rem;
+  }
   .md-lg {
     font-size: 4rem;
   }
