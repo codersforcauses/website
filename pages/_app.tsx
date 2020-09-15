@@ -50,6 +50,10 @@ const Website = ({ Component, pageProps }: AppProps) => {
     if (process.env.NODE_ENV === 'production') {
       initAnalytics('2423121134')
       initMessenger()
+      setTimeout(() => {
+        document.getElementsByTagName('iframe')[0].title =
+          'Coders for Causes FaceBook Messenger Plugin'
+      }, 2000)
     }
   }, [])
 
