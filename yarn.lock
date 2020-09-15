@@ -98,7 +98,17 @@
     "@aws-amplify/api-graphql" "^1.2.2"
     "@aws-amplify/api-rest" "^1.2.2"
 
-"@aws-amplify/auth@3.4.2", "@aws-amplify/auth@^3.4.2":
+"@aws-amplify/auth@3.4.3":
+  version "3.4.3"
+  resolved "https://registry.yarnpkg.com/@aws-amplify/auth/-/auth-3.4.3.tgz#4470f8f2019c5d109887b402f4be3c13232abdd1"
+  integrity sha512-6IT8RI50j/cRyv+540uwl/8WRV46N6KjgtZ6Pn/bfCkdS6f+e0zExL44/wgd9zG0xBxsNpX1tj1WClouYOjN2A==
+  dependencies:
+    "@aws-amplify/cache" "^3.1.28"
+    "@aws-amplify/core" "^3.5.3"
+    amazon-cognito-identity-js "^4.4.0"
+    crypto-js "^3.3.0"
+
+"@aws-amplify/auth@^3.4.2":
   version "3.4.2"
   resolved "https://registry.yarnpkg.com/@aws-amplify/auth/-/auth-3.4.2.tgz#9eb76ddcf3ab8eedc0f60db83601ab277ec763bb"
   integrity sha512-robElnT09sdYEuK1Clx7sQcE1UulwfXW+PMrnwzGrg2Gj/FS5kL7sl6I8q6M7cFX3y7PYhfym0KiQATXWIN26g==
@@ -115,10 +125,33 @@
   dependencies:
     "@aws-amplify/core" "^3.5.2"
 
+"@aws-amplify/cache@^3.1.28":
+  version "3.1.28"
+  resolved "https://registry.yarnpkg.com/@aws-amplify/cache/-/cache-3.1.28.tgz#7270c193ab9f472f2b47deab4f6ef00ea3a40e74"
+  integrity sha512-jwuxHdcvSebnb8kx/BzwMbp2bXT0rvYxNcBjCxZBq2LTjFkXs15O+9a9FXj+LRtI/KeOEGKX7pbuwnktKmzhWA==
+  dependencies:
+    "@aws-amplify/core" "^3.5.3"
+
 "@aws-amplify/core@^3.5.2":
   version "3.5.2"
   resolved "https://registry.yarnpkg.com/@aws-amplify/core/-/core-3.5.2.tgz#d731ed1de566111cb5c63399158ae0f298fc8ccf"
   integrity sha512-wSVyaOuhik5aCfKpIyYvNZFOY6LomKKIQE3Y3zeMwVFzV/JYl+x2GEBt6QJU6vZVNXY0z8dWnO4RfFA9RAlnaQ==
+  dependencies:
+    "@aws-crypto/sha256-js" "1.0.0-alpha.0"
+    "@aws-sdk/client-cognito-identity" "1.0.0-gamma.8"
+    "@aws-sdk/credential-provider-cognito-identity" "1.0.0-gamma.8"
+    "@aws-sdk/node-http-handler" "1.0.0-gamma.7"
+    "@aws-sdk/types" "1.0.0-gamma.6"
+    "@aws-sdk/util-hex-encoding" "1.0.0-gamma.6"
+    "@aws-sdk/util-user-agent-browser" "1.0.0-gamma.7"
+    universal-cookie "^4.0.3"
+    url "^0.11.0"
+    zen-observable-ts "0.8.19"
+
+"@aws-amplify/core@^3.5.3":
+  version "3.5.3"
+  resolved "https://registry.yarnpkg.com/@aws-amplify/core/-/core-3.5.3.tgz#db5c157682b2eddd42f50f9c984008bb35d5b351"
+  integrity sha512-DfXuDdOk1AO+Ur8AwSrMkVLiqMxxpboQM9CTOhj+CfRKAEVQbwLNGjd3H4sBE4WBUeuoPjZQ7HqDkaCE8Jv0bA==
   dependencies:
     "@aws-crypto/sha256-js" "1.0.0-alpha.0"
     "@aws-sdk/client-cognito-identity" "1.0.0-gamma.8"
