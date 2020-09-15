@@ -41,6 +41,7 @@ export interface Theme {
     primary?: string
     secondary?: string
     darkBg?: string
+    lightBg?: string
     accent?: string
     success?: string
     danger?: string
