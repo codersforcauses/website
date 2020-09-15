@@ -3341,10 +3341,10 @@ atob@^2.1.2:
   resolved "https://registry.yarnpkg.com/atob/-/atob-2.1.2.tgz#6d9517eb9e030d2436666651e86bd9f6f13533c9"
   integrity sha512-Wm6ukoaOGJi/73p/cl2GvLjTI5JM1k/O14isD73YML8StrH/7/lRFgmg8nICZgD3bZZvjwCGxtMOD3wWNAu8cg==
 
-aws-amplify-react@4.2.3:
-  version "4.2.3"
-  resolved "https://registry.yarnpkg.com/aws-amplify-react/-/aws-amplify-react-4.2.3.tgz#6a5cd3514fcc09763499b923a22ff90651f788fd"
-  integrity sha512-9lr5r5uYvtwSWHJ0zuIPvmsW9gIgNPe6czGAIbpBuI1G9OEU18CqFbI68novfPtfV8viDeK+DMwpmQ4+2OR3uA==
+aws-amplify-react@4.2.4:
+  version "4.2.4"
+  resolved "https://registry.yarnpkg.com/aws-amplify-react/-/aws-amplify-react-4.2.4.tgz#7263e62b1fe2205010c936b870876b9195fd9dfe"
+  integrity sha512-UcXGU9UbYCzQ3nRorvnJfYRPI9NBpYdjOZMRzvXwRJ64ZzdQ3nrxmbGm5C49YroYSjqKXmwL1jBC6HZEsSoiZQ==
   dependencies:
     qrcode.react "^0.8.0"
     regenerator-runtime "^0.11.1"
