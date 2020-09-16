@@ -53,27 +53,27 @@
   dependencies:
     cross-fetch "3.0.5"
 
-"@aws-amplify/auth@3.4.2":
-  version "3.4.2"
-  resolved "https://registry.yarnpkg.com/@aws-amplify/auth/-/auth-3.4.2.tgz#9eb76ddcf3ab8eedc0f60db83601ab277ec763bb"
-  integrity sha512-robElnT09sdYEuK1Clx7sQcE1UulwfXW+PMrnwzGrg2Gj/FS5kL7sl6I8q6M7cFX3y7PYhfym0KiQATXWIN26g==
+"@aws-amplify/auth@3.4.3":
+  version "3.4.3"
+  resolved "https://registry.yarnpkg.com/@aws-amplify/auth/-/auth-3.4.3.tgz#4470f8f2019c5d109887b402f4be3c13232abdd1"
+  integrity sha512-6IT8RI50j/cRyv+540uwl/8WRV46N6KjgtZ6Pn/bfCkdS6f+e0zExL44/wgd9zG0xBxsNpX1tj1WClouYOjN2A==
   dependencies:
-    "@aws-amplify/cache" "^3.1.27"
-    "@aws-amplify/core" "^3.5.2"
+    "@aws-amplify/cache" "^3.1.28"
+    "@aws-amplify/core" "^3.5.3"
     amazon-cognito-identity-js "^4.4.0"
     crypto-js "^3.3.0"
 
-"@aws-amplify/cache@^3.1.27":
-  version "3.1.27"
-  resolved "https://registry.yarnpkg.com/@aws-amplify/cache/-/cache-3.1.27.tgz#a83af874ff3f98e13c2ae01f0faff3495d878115"
-  integrity sha512-g9WGSaTXZQQw9KInmc7t4EimwU5cTociHdE8CKXk4uvA/jJs9dmSWv2dNhyXgK87WM+uw2ddc/q++4Ubl45uXA==
+"@aws-amplify/cache@^3.1.28":
+  version "3.1.28"
+  resolved "https://registry.yarnpkg.com/@aws-amplify/cache/-/cache-3.1.28.tgz#7270c193ab9f472f2b47deab4f6ef00ea3a40e74"
+  integrity sha512-jwuxHdcvSebnb8kx/BzwMbp2bXT0rvYxNcBjCxZBq2LTjFkXs15O+9a9FXj+LRtI/KeOEGKX7pbuwnktKmzhWA==
   dependencies:
-    "@aws-amplify/core" "^3.5.2"
+    "@aws-amplify/core" "^3.5.3"
 
-"@aws-amplify/core@^3.5.2":
-  version "3.5.2"
-  resolved "https://registry.yarnpkg.com/@aws-amplify/core/-/core-3.5.2.tgz#d731ed1de566111cb5c63399158ae0f298fc8ccf"
-  integrity sha512-wSVyaOuhik5aCfKpIyYvNZFOY6LomKKIQE3Y3zeMwVFzV/JYl+x2GEBt6QJU6vZVNXY0z8dWnO4RfFA9RAlnaQ==
+"@aws-amplify/core@^3.5.3":
+  version "3.5.3"
+  resolved "https://registry.yarnpkg.com/@aws-amplify/core/-/core-3.5.3.tgz#db5c157682b2eddd42f50f9c984008bb35d5b351"
+  integrity sha512-DfXuDdOk1AO+Ur8AwSrMkVLiqMxxpboQM9CTOhj+CfRKAEVQbwLNGjd3H4sBE4WBUeuoPjZQ7HqDkaCE8Jv0bA==
   dependencies:
     "@aws-crypto/sha256-js" "1.0.0-alpha.0"
     "@aws-sdk/client-cognito-identity" "1.0.0-gamma.8"
@@ -1862,10 +1862,10 @@
   dependencies:
     "@types/geojson" "*"
 
-"@types/node@13.13.19":
-  version "13.13.19"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-13.13.19.tgz#f4165496e66e3da37b9e136887db446795e00c5b"
-  integrity sha512-IVsULCpTdafcHhBDLYEPnV5l15xV0q065zvOHC1ZmzFYaBCMzku078eXnazoSG8907vZjRgEN/EQjku7GwwFyQ==
+"@types/node@13.13.20":
+  version "13.13.20"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-13.13.20.tgz#8196a4db574220fc50e2e54f250ad51179bd0a03"
+  integrity sha512-1kx55tU3AvGX2Cjk2W4GMBxbgIz892V+X10S2gUreIAq8qCWgaQH+tZBOWc0bi2BKFhQt+CX0BTx28V9QPNa+A==
 
 "@types/object-assign@^4.0.30":
   version "4.0.30"
@@ -2952,9 +2952,9 @@ camelcase@^2.0.0:
   integrity sha1-fB0W1nmhu+WcoCys7PsBHiAfWh8=
 
 caniuse-lite@^1.0.30001093, caniuse-lite@^1.0.30001113, caniuse-lite@^1.0.30001125:
-  version "1.0.30001129"
-  resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30001129.tgz#e6514b94c0ef50f98cf7476daa91228ddd2ef7bc"
-  integrity sha512-9945fTVKS810DZITpsAbuhQG7Lam0tEfVbZlsBaCFZaszepbryrArS05PWmJSBQ6mta+v9iz0pUIAbW1eBILIg==
+  version "1.0.30001131"
+  resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30001131.tgz#afad8a28fc2b7a0d3ae9407e71085a0ead905d54"
+  integrity sha512-4QYi6Mal4MMfQMSqGIRPGbKIbZygeN83QsWq1ixpUwvtfgAZot5BrCKzGygvZaV+CnELdTwD0S4cqUNozq7/Cw==
 
 caseless@~0.12.0:
   version "0.12.0"
@@ -3620,10 +3620,10 @@ cyclist@^1.0.1:
   resolved "https://registry.yarnpkg.com/cyclist/-/cyclist-1.0.1.tgz#596e9698fd0c80e12038c2b82d6eb1b35b6224d9"
   integrity sha1-WW6WmP0MgOEgOMK4LW6xs1tiJNk=
 
-cypress@5.1.0:
-  version "5.1.0"
-  resolved "https://registry.yarnpkg.com/cypress/-/cypress-5.1.0.tgz#979e9ff3e0acd792eefd365bf104046479a9643b"
-  integrity sha512-craPRO+Viu4268s7eBvX5VJW8aBYcAQT+EwEccQSMY+eH1ZPwnxIgyDlmMWvxLVX9SkWxOlZbEycPyzanQScBQ==
+cypress@5.2.0:
+  version "5.2.0"
+  resolved "https://registry.yarnpkg.com/cypress/-/cypress-5.2.0.tgz#6902efd90703242a2539f0623c6e1118aff01f95"
+  integrity sha512-9S2spcrpIXrQ+CQIKHsjRoLQyRc2ehB06clJXPXXp1zyOL/uZMM3Qc20ipNki4CcNwY0nBTQZffPbRpODeGYQg==
   dependencies:
     "@cypress/listr-verbose-renderer" "^0.4.1"
     "@cypress/request" "^2.88.5"
@@ -4013,9 +4013,9 @@ ejs@^2.6.1:
   integrity sha512-7vmuyh5+kuUyJKePhQfRQBhXV5Ce+RnaeeQArKu1EAMpL3WbgMt5WG6uQZpEVvYSSsxMXRKOewtDk9RaTKXRlA==
 
 electron-to-chromium@^1.3.488, electron-to-chromium@^1.3.564:
-  version "1.3.567"
-  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.3.567.tgz#7a404288952ac990e447a7a86470d460ea953b8f"
-  integrity sha512-1aKkw0Hha1Bw9JA5K5PT5eFXC/TXbkJvUfNSNEciPUMgSIsRJZM1hF2GUEAGZpAbgvd8En21EA+Lv820KOhvqA==
+  version "1.3.570"
+  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.3.570.tgz#3f5141cc39b4e3892a276b4889980dabf1d29c7f"
+  integrity sha512-Y6OCoVQgFQBP5py6A/06+yWxUZHDlNr/gNDGatjH8AZqXl8X0tE4LfjLJsXGz/JmWJz8a6K7bR1k+QzZ+k//fg==
 
 elegant-spinner@^1.0.1:
   version "1.0.1"
