@@ -17,7 +17,8 @@ const User: FunctionComponent = ({ children }) => {
       const auth = async () => {
         try {
           const session = await Auth.currentSession()
-          setUser(session.getIdToken().decodePayload())
+          const id = session.getIdToken()
+          setUser({ ...id.decodePayload(), jwt_token: id.getJwtToken() })
         } catch (error) {
           setUser(null)
         }
