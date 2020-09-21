@@ -1,6 +1,4 @@
-/** @jsx jsx */
-import { jsx } from '@emotion/core'
-import { useContext } from 'react'
+import React, { useContext } from 'react'
 import { Modal, ModalHeader, ModalBody, Button } from 'reactstrap'
 import { DarkContext } from 'helpers/user'
 
