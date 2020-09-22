@@ -37,8 +37,8 @@ const Step1 = (props: { signIn: Function; nextStep: Function }) => {
         const phemeResponse = await phemeLogin(
           values.studentNumber,
           values.password,
-          `${process.env.PHEME_URL}api/login`,
-          process.env.PHEME_TOKEN
+          `${process.env.NEXT_PUBLIC_PHEME_URL}api/login`,
+          process.env.NEXT_PUBLIC_PHEME_TOKEN
         )
 
         if (!phemeResponse.success) throw new Error(phemeResponse.message)
@@ -47,7 +47,7 @@ const Step1 = (props: { signIn: Function; nextStep: Function }) => {
 
         // reassign data to use values fetched from pheme login
         data.username = `${values.studentNumber}@student.uwa.edu.au`
-        data.password = `${values.studentNumber}${process.env.PHEME_SALT}`
+        data.password = `${values.studentNumber}${process.env.NEXT_PUBLIC_PHEME_SALT}`
         data.attributes.given_name = user.firstname.split(' ')[0]
         data.attributes.family_name = user.lastname
       }
