@@ -4,7 +4,7 @@ import { Elements } from '@stripe/react-stripe-js'
 import StripeForm from './StripeForm'
 
 const CreditCardForm = () => (
-  <Elements stripe={loadStripe(process.env.STRIPE_KEY)}>
+  <Elements stripe={loadStripe(process.env.NEXT_PUBLIC_STRIPE_KEY)}>
     <StripeForm />
   </Elements>
 )

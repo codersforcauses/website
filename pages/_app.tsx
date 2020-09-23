@@ -17,10 +17,11 @@ import 'theme.scss'
 import { Alert, Container } from 'reactstrap'
 
 Auth.configure({
-  aws_project_region: process.env.AMPLIFY_AWS_COGNITO_REGION,
-  aws_cognito_region: process.env.AMPLIFY_AWS_COGNITO_REGION,
-  aws_user_pools_id: process.env.AMPLIFY_AWS_COGNITO_USER_POOLS_ID,
-  aws_user_pools_web_client_id: process.env.AMPLIFY_AWS_COGNITO_WEB_CLIENT_ID,
+  aws_project_region: process.env.NEXT_PUBLIC_AMPLIFY_AWS_COGNITO_REGION,
+  aws_cognito_region: process.env.NEXT_PUBLIC_AMPLIFY_AWS_COGNITO_REGION,
+  aws_user_pools_id: process.env.NEXT_PUBLIC_AMPLIFY_AWS_COGNITO_USER_POOLS_ID,
+  aws_user_pools_web_client_id:
+    process.env.NEXT_PUBLIC_AMPLIFY_AWS_COGNITO_WEB_CLIENT_ID,
   federationTarget: 'COGNITO_USER_POOLS',
   authenticationFlowType: 'USER_PASSWORD_AUTH'
 })
