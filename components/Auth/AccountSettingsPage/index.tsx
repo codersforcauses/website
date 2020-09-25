@@ -17,6 +17,8 @@ import {
 import Avatar from 'components/Elements/Avatar'
 import { styles } from './styles'
 import { validationSchema } from './validation'
+import { useContext } from 'react'
+import { DarkContext } from 'helpers/user'
 
 const mapPropsToValues = (props: Props) => ({
   firstName: props.user?.given_name,
@@ -28,7 +30,7 @@ const mapPropsToValues = (props: Props) => ({
 
 const AccountSettingsPage = (props: Props & FormikProps<FormValues>) => {
   const theme = useTheme()
-
+  const isDark = useContext(DarkContext)
   return (
     <div css={styles(theme)}>
       <Jumbotron className='bg-primary rounded-0 py-5 m-0'>
@@ -113,7 +115,8 @@ const AccountSettingsPage = (props: Props & FormikProps<FormValues>) => {
               <Button
                 type='submit'
                 size='lg'
-                color='primary'
+                outline={isDark}
+                color={isDark ? 'secondary' : 'primary'}
                 className='rounded-0 monospace'
               >
                 Update

@@ -15,7 +15,8 @@ import {
 } from 'reactstrap'
 import Router from 'next/router'
 import { phemeLogin } from 'helpers/phemeLogin'
-import { UserContext } from 'helpers/user'
+import { UserContext, DarkContext } from 'helpers/user'
+
 import Title from 'components/Utils/Title'
 import UWAStudent from './UWAStudent'
 import OtherMember from './OtherMember'
@@ -27,6 +28,7 @@ const SignInPage = (props: { route?: string; signUp: Function }) => {
   const [errors, setErrors] = useState('')
 
   const { setUser } = useContext(UserContext)
+  const isDark = useContext(DarkContext)
 
   const theme = useTheme()
 
@@ -72,7 +74,7 @@ const SignInPage = (props: { route?: string; signUp: Function }) => {
   }
 
   return (
-    <div css={styles(theme)}>
+    <div css={styles(theme, isDark)}>
       <Title typed>./sign-in</Title>
       <Container className='py-5 '>
         <Row>
@@ -84,6 +86,7 @@ const SignInPage = (props: { route?: string; signUp: Function }) => {
                 e.preventDefault()
                 props.signUp(true)
               }}
+              className={`text-${isDark ? 'secondary' : 'primary'}`}
             >
               Create one
             </a>
@@ -94,8 +97,8 @@ const SignInPage = (props: { route?: string; signUp: Function }) => {
               <NavItem className='mr-2'>
                 <NavLink
                   disabled={loading}
-                  className={`signin-tab rounded-0 ${
-                    isUWAStudent && 'border-primary'
+                  className={`signin-tab rounded-0 text-${isDark ? 'secondary' : 'primary'} ${
+                    isUWAStudent && `border-${isDark ? 'secondary text-secondary' : 'primary text-primary'}`
                   }`}
                   onClick={() => setIsUWAStudent(true)}
                 >
@@ -105,8 +108,8 @@ const SignInPage = (props: { route?: string; signUp: Function }) => {
               <NavItem>
                 <NavLink
                   disabled={loading}
-                  className={`signin-tab rounded-0 ${
-                    !isUWAStudent && 'border-primary'
+                  className={`signin-tab rounded-0 text-${isDark ? 'secondary' : 'primary'} ${
+                    !isUWAStudent && `border-${isDark ? 'secondary text-secondary' : 'primary text-primary'}`
                   }`}
                   onClick={() => setIsUWAStudent(false)}
                 >
