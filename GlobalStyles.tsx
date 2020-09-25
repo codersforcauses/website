@@ -19,8 +19,8 @@ export const globalStyle = (theme, isDark) => css`
 
   html,
   body {
-    background: ${isDark ? theme.colors.darkBg : theme.colors.secondary};
-    color: ${isDark ? theme.colors.secondary : theme.colors.primary};
+    background: ${theme.colors[isDark ? 'darkBg' : 'secondary']};
+    color: ${theme.colors[isDark ? 'secondary' : 'primary']};
     overflow-x: hidden;
     line-height: 1.5em;
     scroll-behavior: smooth;
