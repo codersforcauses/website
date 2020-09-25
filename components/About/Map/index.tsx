@@ -47,7 +47,7 @@ const Map = () => {
   const isDark = useContext(DarkContext)
 
   useEffect(() => {
-    mapboxgl.accessToken = process.env.MAPBOX_API
+    mapboxgl.accessToken = process.env.NEXT_PUBLIC_MAPBOX_API
 
     const UWA_COORDS: [number, number] = [115.816986, -31.98097] // [lng, lat]
 
