@@ -159,7 +159,7 @@ const OtherMember = (props: Props & FormikProps<FormValues>) => {
           color='link'
           disabled={props.loading}
           onClick={() => setForgotPassword(true)}
-          className={`ml-3 ${isDark ? 'text-secondary' : 'text-primary'}`}
+          className={`ml-3 text-${isDark ? 'secondary' : 'primary'}`}
         >
           Forgot Password?
         </Button>

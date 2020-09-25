@@ -98,7 +98,7 @@ const SignInPage = (props: { route?: string; signUp: Function }) => {
                 <NavLink
                   disabled={loading}
                   className={`signin-tab rounded-0 text-${isDark ? 'secondary' : 'primary'} ${
-                    isUWAStudent && `border-${isDark ? 'secondary text-secondary' : 'primary text-primary'}`
+                    isUWAStudent && `${isDark ? 'border-secondary text-secondary' : 'border-primary text-primary'}`
                   }`}
                   onClick={() => setIsUWAStudent(true)}
                 >
@@ -109,7 +109,7 @@ const SignInPage = (props: { route?: string; signUp: Function }) => {
                 <NavLink
                   disabled={loading}
                   className={`signin-tab rounded-0 text-${isDark ? 'secondary' : 'primary'} ${
-                    !isUWAStudent && `border-${isDark ? 'secondary text-secondary' : 'primary text-primary'}`
+                    !isUWAStudent && `${isDark ? 'border-secondary text-secondary' : 'border-primary text-primary'}`
                   }`}
                   onClick={() => setIsUWAStudent(false)}
                 >
