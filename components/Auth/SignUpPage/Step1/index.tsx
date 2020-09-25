@@ -75,7 +75,7 @@ const Step1 = (props: { signIn: Function; nextStep: Function }) => {
             e.preventDefault()
             props.signIn(false)
           }}
-          className={`${isDark ? 'text-secondary' : 'text-primary'}`}
+          className={`text-${isDark ? 'secondary' : 'primary'}`}
         >
           Sign in
         </a>
@@ -88,7 +88,7 @@ const Step1 = (props: { signIn: Function; nextStep: Function }) => {
               outline={isDark}
               disabled={loading}
               className={`tab-nav rounded-0 text-${isDark ? 'secondary' : 'primary'} ${
-                isUWAStudent && `border-${isDark ? 'secondary text-secondary' : 'primary text-primary'}`
+                isUWAStudent && `${isDark ? 'border-secondary text-secondary' : 'border-primary text-primary'}`
               }`}
               onClick={() => setIsUWAStudent(true)}
             >
@@ -99,7 +99,7 @@ const Step1 = (props: { signIn: Function; nextStep: Function }) => {
             <NavLink
               disabled={loading}
               className={`tab-nav rounded-0 text-${isDark ? 'secondary' : 'primary'} ${
-                !isUWAStudent && `border-${isDark ? 'secondary text-secondary' : 'primary text-primary'}`
+                !isUWAStudent && `${isDark ? 'border-secondary text-secondary' : 'border-primary text-primary'}`
               }`}
               onClick={() => setIsUWAStudent(false)}
             >
