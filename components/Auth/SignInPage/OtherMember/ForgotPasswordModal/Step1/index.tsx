@@ -10,49 +10,56 @@ import {
   Input
 } from 'reactstrap'
 import Spinner from 'components/Elements/Spinner'
+import { useContext } from 'react'
+import { DarkContext } from 'helpers/user'
 
-const Step1 = (props: Props & FormikProps<FormValues>) => (
-  <Form>
-    <FormGroup>
-      <Label for='email' className='monospace'>
-        Email
-      </Label>
-      <Input
-        type='email'
-        bsSize='lg'
-        tag={Field}
-        disabled={props.loading}
-        placeholder='hello@codersforcauses.org'
-        id='email'
-        name='email'
-        value={props.values.email}
-        invalid={props.errors.email && props.touched.email}
-        className='rounded-0 text-primary border-primary'
-      />
-      <FormFeedback>{props.errors.email}</FormFeedback>
-      {!props.errors.email && (
-        <FormText>We'll send you an email with a reset code</FormText>
-      )}
-    </FormGroup>
-    <div className='d-flex align-items-center'>
-      <Button
-        size='lg'
-        color='primary'
-        disabled={!props.values.email || props.loading}
-        className='rounded-0 monospace px-4 d-flex align-items-center'
-        onClick={() => props.submit(props.values.email)}
-      >
-        Send
-        {props.loading && (
-          <Spinner color='secondary' size='sm' className='ml-2' />
+const Step1 = (props: Props & FormikProps<FormValues>) => {
+  const isDark = useContext(DarkContext)
+
+  return (
+    <Form>
+      <FormGroup>
+        <Label for='email' className='monospace'>
+          Email
+        </Label>
+        <Input
+          type='email'
+          bsSize='lg'
+          tag={Field}
+          disabled={props.loading}
+          placeholder='hello@codersforcauses.org'
+          id='email'
+          name='email'
+          value={props.values.email}
+          invalid={props.errors.email && props.touched.email}
+          className='rounded-0 text-primary border-primary'
+        />
+        <FormFeedback>{props.errors.email}</FormFeedback>
+        {!props.errors.email && (
+          <FormText>We'll send you an email with a reset code</FormText>
         )}
-      </Button>
-      <Button color='link' onClick={props.handleChangeStep} className='ml-3'>
-        Have a reset code?
-      </Button>
-    </div>
-  </Form>
-)
+      </FormGroup>
+      <div className='d-flex align-items-center'>
+        <Button
+          size='lg'
+          outline={isDark}
+          color={isDark ? 'secondary' : 'primary'}
+          disabled={!props.values.email || props.loading}
+          className='rounded-0 monospace px-4 d-flex align-items-center'
+          onClick={() => props.submit(props.values.email)}
+        >
+          Send
+          {props.loading && (
+            <Spinner color='secondary' size='sm' className='ml-2' />
+          )}
+        </Button>
+        <Button color='link' onClick={props.handleChangeStep} className={`ml-3 text-${isDark ? 'secondary' : 'primary'}`}>
+          Have a reset code?
+        </Button>
+      </div>
+    </Form>
+  )
+}
 
 export default Step1
 

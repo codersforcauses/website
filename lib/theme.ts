@@ -10,6 +10,8 @@ export const theme = {
   colors: {
     primary: '#000000',
     secondary: '#ffffff',
+    darkBg: '#111111',
+    lightBg: '#f8f9fa',
     accent: '#01f1cc',
     success: '#0070F3',
     danger: '#ff0000',
@@ -38,6 +40,8 @@ export interface Theme {
   colors?: {
     primary?: string
     secondary?: string
+    darkBg?: string
+    lightBg?: string
     accent?: string
     success?: string
     danger?: string

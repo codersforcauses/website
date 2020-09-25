@@ -1,6 +1,7 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core'
 import { useTheme } from 'emotion-theming'
+import { useContext } from 'react'
 import { Field, FormikProps, Form, withFormik } from 'formik'
 import {
   Button,
@@ -15,6 +16,7 @@ import {
   Input
 } from 'reactstrap'
 import Avatar from 'components/Elements/Avatar'
+import { DarkContext } from 'helpers/user'
 import { styles } from './styles'
 import { validationSchema } from './validation'
 
@@ -28,7 +30,7 @@ const mapPropsToValues = (props: Props) => ({
 
 const AccountSettingsPage = (props: Props & FormikProps<FormValues>) => {
   const theme = useTheme()
-
+  const isDark = useContext(DarkContext)
   return (
     <div css={styles(theme)}>
       <Jumbotron className='bg-primary rounded-0 py-5 m-0'>
@@ -113,7 +115,8 @@ const AccountSettingsPage = (props: Props & FormikProps<FormValues>) => {
               <Button
                 type='submit'
                 size='lg'
-                color='primary'
+                outline={isDark}
+                color={isDark ? 'secondary' : 'primary'}
                 className='rounded-0 monospace'
               >
                 Update

@@ -1,11 +1,12 @@
 import { css } from '@emotion/core'
 import emotionNormalize from 'emotion-normalize'
 
-export const globalStyle = theme => css`
+export const globalStyle = (theme, isDark) => css`
   ${emotionNormalize}
 
-  * {
+  *, *::before, *::after {
     box-sizing: border-box;
+    transition: background 0.3s, border 0.3s;
   }
 
   :root {
@@ -18,12 +19,13 @@ export const globalStyle = theme => css`
 
   html,
   body {
-    background: ${theme.colors.secondary};
-    color: ${theme.colors.primary};
+    background: ${theme.colors[isDark ? 'darkBg' : 'secondary']};
+    color: ${theme.colors[isDark ? 'secondary' : 'primary']};
     overflow-x: hidden;
     line-height: 1.5em;
     scroll-behavior: smooth;
     overscroll-behavior-y: none;
+    transition: background 0.3s, border 0.3s;
   }
 
   ::selection {
@@ -43,6 +45,10 @@ export const globalStyle = theme => css`
   */
   [id^='_'] {
     scroll-margin-top: 64px;
+  }
+
+  .modal-content {
+    background-color: ${theme.colors[isDark ? 'darkBg' : 'secondary']};
   }
 
   .monospace {
@@ -121,7 +127,7 @@ export const globalStyle = theme => css`
       display: block;
       width: 2px;
       height: 100%;
-      background-color: ${theme.colors.primary};
+      background-color: ${theme.colors[isDark ? 'secondary' : 'primary']};
       position: absolute;
       left: -10px;
       top: 0px;
@@ -153,7 +159,7 @@ export const globalStyle = theme => css`
       display: block;
       width: 2px;
       height: 100%;
-      background-color: ${theme.colors.primary};
+      background-color: ${theme.colors[isDark ? 'secondary' : 'primary']};
       position: absolute;
       left: 0px;
       top: 0px;

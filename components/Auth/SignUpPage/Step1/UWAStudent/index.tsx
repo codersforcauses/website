@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core'
 import { useTheme } from 'emotion-theming'
-import { useState } from 'react'
+import { useContext, useState } from 'react'
 import { Field, FormikProps, Form, withFormik } from 'formik'
 import {
   Button,
@@ -14,6 +14,7 @@ import {
   UncontrolledAlert
 } from 'reactstrap'
 import Spinner from 'components/Elements/Spinner'
+import { DarkContext } from 'helpers/user'
 import { styles } from './styles'
 import { validationSchema } from './validation'
 
@@ -27,7 +28,7 @@ const UWAStudent = (props: Props & FormikProps<FormValues>) => {
   const [passwordVisible, setPasswordVisible] = useState(false)
 
   const theme = useTheme()
-
+  const isDark = useContext(DarkContext)
   return (
     <Form css={styles(theme)}>
       <UncontrolledAlert color='success' className='rounded-0'>
@@ -83,7 +84,7 @@ const UWAStudent = (props: Props & FormikProps<FormValues>) => {
               outline
               color='primary'
               disabled={props.loading}
-              className='rounded-0 border-left-0 d-flex align-items-center justify-content-center'
+              className='rounded-0 border-left-0 text-primary bg-secondary d-flex align-items-center justify-content-center'
               onClick={() => setPasswordVisible(!passwordVisible)}
             >
               <i className='material-icons-sharp'>
@@ -108,6 +109,7 @@ const UWAStudent = (props: Props & FormikProps<FormValues>) => {
             href='https://www.uwastudentguild.com/the-guild/join-us'
             target='_blank'
             rel='noopener noreferrer'
+            className={`text-${isDark ? 'secondary' : 'primary'}`}
           >
             UWA Guild Member
           </a>
@@ -116,7 +118,8 @@ const UWAStudent = (props: Props & FormikProps<FormValues>) => {
       <Button
         type='submit'
         size='lg'
-        color='primary'
+        outline={isDark}
+        color={isDark ? 'secondary' : 'primary'}
         disabled={props.loading}
         className='rounded-0 px-4 d-flex align-items-center monospace'
       >

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import Router from 'next/router'
 import {
   Row,
@@ -11,6 +11,7 @@ import {
 } from 'reactstrap'
 import { Auth } from '@aws-amplify/auth'
 import { phemeLogin } from 'helpers/phemeLogin'
+import { DarkContext } from 'helpers/user'
 import UWAStudent from './UWAStudent'
 import OtherMember from './OtherMember'
 
@@ -19,7 +20,7 @@ const Step1 = (props: { signIn: Function; nextStep: Function }) => {
   const [isUWAStudent, setIsUWAStudent] = useState(true)
   const [loading, setLoading] = useState(false)
   const [errors, setErrors] = useState('')
-
+  const isDark = useContext(DarkContext)
   const closeError = () => setErrors('')
 
   const handleSubmit = async values => {
@@ -74,6 +75,7 @@ const Step1 = (props: { signIn: Function; nextStep: Function }) => {
             e.preventDefault()
             props.signIn(false)
           }}
+          className={`text-${isDark ? 'secondary' : 'primary'}`}
         >
           Sign in
         </a>
@@ -83,9 +85,10 @@ const Step1 = (props: { signIn: Function; nextStep: Function }) => {
         <Nav tabs className='border-0'>
           <NavItem className='mr-2'>
             <NavLink
+              outline={isDark}
               disabled={loading}
-              className={`tab-nav rounded-0 ${
-                isUWAStudent && 'border-primary'
+              className={`tab-nav rounded-0 text-${isDark ? 'secondary' : 'primary'} ${
+                isUWAStudent && `${isDark ? 'border-secondary text-secondary' : 'border-primary text-primary'}`
               }`}
               onClick={() => setIsUWAStudent(true)}
             >
@@ -95,8 +98,8 @@ const Step1 = (props: { signIn: Function; nextStep: Function }) => {
           <NavItem>
             <NavLink
               disabled={loading}
-              className={`tab-nav rounded-0 ${
-                !isUWAStudent && 'border-primary'
+              className={`tab-nav rounded-0 text-${isDark ? 'secondary' : 'primary'} ${
+                !isUWAStudent && `${isDark ? 'border-secondary text-secondary' : 'border-primary text-primary'}`
               }`}
               onClick={() => setIsUWAStudent(false)}
             >
