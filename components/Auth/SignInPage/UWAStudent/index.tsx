@@ -2,7 +2,6 @@
 import { jsx } from '@emotion/core'
 import { useTheme } from 'emotion-theming'
 import { useState, useContext } from 'react'
-import { DarkContext } from 'helpers/user'
 import { Field, FormikProps, Form, withFormik } from 'formik'
 import {
   Button,
@@ -15,6 +14,7 @@ import {
   UncontrolledAlert
 } from 'reactstrap'
 import Spinner from 'components/Elements/Spinner'
+import { DarkContext } from 'helpers/user'
 import { styles } from './styles'
 import { validationSchema } from './validation'
 

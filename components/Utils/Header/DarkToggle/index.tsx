@@ -3,8 +3,8 @@ import { jsx } from '@emotion/core'
 import { useTheme } from 'emotion-theming'
 import { useContext, useEffect } from 'react'
 import { Button } from 'reactstrap'
-import { styles } from './styles'
 import { DarkContext } from 'helpers/user'
+import { styles } from './styles'
 
 const DarkToggle = (props: { handleDarkToggle: Function }) => {
   const theme = useTheme()

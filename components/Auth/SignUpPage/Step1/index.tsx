@@ -11,9 +11,9 @@ import {
 } from 'reactstrap'
 import { Auth } from '@aws-amplify/auth'
 import { phemeLogin } from 'helpers/phemeLogin'
+import { DarkContext } from 'helpers/user'
 import UWAStudent from './UWAStudent'
 import OtherMember from './OtherMember'
-import { DarkContext } from 'helpers/user'
 
 // eslint-disable-next-line react/no-unused-prop-types
 const Step1 = (props: { signIn: Function; nextStep: Function }) => {

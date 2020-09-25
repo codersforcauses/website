@@ -3,9 +3,9 @@ import { useContext } from 'react'
 import { jsx } from '@emotion/core'
 import { useTheme } from 'emotion-theming'
 import { Row, Col, Card, CardImg, CardTitle } from 'reactstrap'
-import { DarkContext } from 'helpers/user'
 import Link from 'next/link'
 import projects from 'data/projects.json'
+import { DarkContext } from 'helpers/user'
 import { styles } from './styles'
 
 const ProjectCards = () => {

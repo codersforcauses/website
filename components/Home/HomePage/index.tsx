@@ -2,7 +2,6 @@
 import { jsx } from '@emotion/core'
 import { useTheme } from 'emotion-theming'
 import { useState, useContext } from 'react'
-import { DarkContext } from 'helpers/user'
 import Link from 'next/link'
 import {
   Jumbotron,
@@ -17,6 +16,7 @@ import {
 import constants from 'data/constants.json'
 import TypedText from 'components/Utils/TypedText'
 import Clients from 'components/Utils/Clients'
+import { DarkContext } from 'helpers/user'
 import Services from '../Services'
 import Face from '../Face'
 import { styles } from './styles'

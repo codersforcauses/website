@@ -3,8 +3,8 @@ import { jsx } from '@emotion/core'
 import { useTheme } from 'emotion-theming'
 import { useContext, useEffect, useState, useRef } from 'react'
 import mapboxgl from 'mapbox-gl'
-import { styles } from './styles'
 import { DarkContext } from 'helpers/user'
+import { styles } from './styles'
 
 const property3D: mapboxgl.Layer = {
   id: '3d-buildings',

@@ -16,9 +16,9 @@ import {
   Col
 } from 'reactstrap'
 import Spinner from 'components/Elements/Spinner'
+import { DarkContext } from 'helpers/user'
 import { styles } from './styles'
 import { validationSchema } from './validation'
-import { DarkContext } from 'helpers/user'
 
 const mapPropsToValues = () => ({
   firstName: '',

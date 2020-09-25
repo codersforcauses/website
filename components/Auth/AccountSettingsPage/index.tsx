@@ -1,6 +1,7 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core'
 import { useTheme } from 'emotion-theming'
+import { useContext } from 'react'
 import { Field, FormikProps, Form, withFormik } from 'formik'
 import {
   Button,
@@ -15,10 +16,9 @@ import {
   Input
 } from 'reactstrap'
 import Avatar from 'components/Elements/Avatar'
+import { DarkContext } from 'helpers/user'
 import { styles } from './styles'
 import { validationSchema } from './validation'
-import { useContext } from 'react'
-import { DarkContext } from 'helpers/user'
 
 const mapPropsToValues = (props: Props) => ({
   firstName: props.user?.given_name,
