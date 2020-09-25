@@ -6,7 +6,8 @@ export const globalStyle = (theme, isDark) => css`
 
   *, *::before, *::after {
     box-sizing: border-box;
-    transition: background 0.5s, color 0.5s, border 0.5s;
+    -moz-transition: color 0.5s;
+    transition: background 0.5s, border 0.5s;
   }
 
   :root {
@@ -25,7 +26,8 @@ export const globalStyle = (theme, isDark) => css`
     line-height: 1.5em;
     scroll-behavior: smooth;
     overscroll-behavior-y: none;
-    transition: background 0.5s, color 0.5s, border 0.5s;
+    -moz-transition: color 0.5s;
+    transition: background 0.5s, border 0.5s;
   }
 
   ::selection {
