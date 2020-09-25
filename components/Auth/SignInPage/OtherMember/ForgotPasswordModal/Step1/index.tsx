@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core'
-import { useCallback } from 'react'
+import { useCallback, useContext } from 'react'
 import { Field, FormikProps, Form } from 'formik'
 import {
   Button,
@@ -11,8 +11,10 @@ import {
   Input
 } from 'reactstrap'
 import Spinner from 'components/Elements/Spinner'
+import { DarkContext } from 'helpers/user'
 
 const Step1 = (props: Props & FormikProps<FormValues>) => {
+  const isDark = useContext(DarkContext)
   const handleSubmit = useCallback(() => props.submit(props.values.email), [
     props.values.email
   ])
@@ -42,7 +44,8 @@ const Step1 = (props: Props & FormikProps<FormValues>) => {
       <div className='d-flex align-items-center'>
         <Button
           size='lg'
-          color='primary'
+          outline={isDark}
+          color={isDark ? 'secondary' : 'primary'}
           disabled={!props.values.email || props.loading}
           className='rounded-0 text-monospace px-4 d-flex align-items-center'
           onClick={handleSubmit}
@@ -52,7 +55,11 @@ const Step1 = (props: Props & FormikProps<FormValues>) => {
             <Spinner color='secondary' size='sm' className='ml-2' />
           )}
         </Button>
-        <Button color='link' onClick={props.handleChangeStep} className='ml-3'>
+        <Button
+          color='link'
+          onClick={props.handleChangeStep}
+          className={`ml-3 text-${isDark ? 'secondary' : 'primary'}`}
+        >
           Have a reset code?
         </Button>
       </div>

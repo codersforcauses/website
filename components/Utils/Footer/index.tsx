@@ -78,6 +78,7 @@ const Footer = () => {
             </div>
             <p className='text-monospace m-0'>
               <small>Made with &#10084;</small>
+              <small className='text-primary'> by Jeremiah</small>
             </p>
           </Col>
           <Col md={3}>

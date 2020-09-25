@@ -12,7 +12,7 @@ const ProjectsPage = () => {
   return (
     <div css={styles(theme)}>
       <Title typed>./projects</Title>
-      <Container id='#' className='my-5 py-5 px-1 bg-secondary rounded-0'>
+      <Container id='#' className='my-5 py-5 px-1 rounded-0'>
         <ProjectCards />
       </Container>
     </div>

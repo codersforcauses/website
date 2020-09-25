@@ -7,7 +7,7 @@ const Service = (props: {
   title: string
   description: string
 }) => (
-  <Card className='text-center border-0'>
+  <Card className='text-center border-0 bg-transparent'>
     <CardBody className='px-0'>
       <i className='material-icons-sharp md-lg'>{props.icon}</i>
       <p className='mt-4 font-weight-bold text-monospace text-larger'>

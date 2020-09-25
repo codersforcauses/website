@@ -13,7 +13,8 @@ import {
 } from 'reactstrap'
 import Router from 'next/router'
 import { phemeLogin } from 'helpers/phemeLogin'
-import { UserContext } from 'helpers/user'
+import { UserContext, DarkContext } from 'helpers/user'
+
 import Title from 'components/Utils/Title'
 import UWAStudent from './UWAStudent'
 import OtherMember from './OtherMember'
@@ -24,6 +25,7 @@ const SignInPage = (props: { route?: string; signUp: Function }) => {
   const [errors, setErrors] = useState('')
 
   const { setUser } = useContext(UserContext)
+  const isDark = useContext(DarkContext)
 
   const closeError = useCallback(() => setErrors(''), [])
   const goToSignUpPage = useCallback(
@@ -47,15 +49,15 @@ const SignInPage = (props: { route?: string; signUp: Function }) => {
         const phemeResponse = await phemeLogin(
           values.studentNumber,
           values.password,
-          `${process.env.PHEME_URL}api/login`,
-          process.env.PHEME_TOKEN
+          `${process.env.NEXT_PUBLIC_PHEME_URL}api/login`,
+          process.env.NEXT_PUBLIC_PHEME_TOKEN
         )
 
         if (!phemeResponse.success) throw new Error(phemeResponse.message)
 
         // reassign data to use values fetched from pheme login
         data.username = `${values.studentNumber}@student.uwa.edu.au`
-        data.password = `${values.studentNumber}${process.env.PHEME_SALT}`
+        data.password = `${values.studentNumber}${process.env.NEXT_PUBLIC_PHEME_SALT}`
       }
       const response = await Auth.signIn(data.username, data.password)
       setUser(response.attributes)
@@ -84,7 +86,9 @@ const SignInPage = (props: { route?: string; signUp: Function }) => {
             Don't have an account?&nbsp;
             <Button
               color='link'
-              className='px-0 mt-n1 rounded-0'
+              className={`px-0 mt-n1 rounded-0 text-${
+                isDark ? 'secondary' : 'primary'
+              }`}
               onClick={goToSignUpPage}
             >
               Create one
@@ -97,8 +101,16 @@ const SignInPage = (props: { route?: string; signUp: Function }) => {
                 <NavLink
                   disabled={loading}
                   tag='button'
-                  className={`tab-nav rounded-0 ${
-                    isUWAStudent ? 'border-primary' : null
+                  className={`tab-nav rounded-0 text-${
+                    isDark ? 'secondary' : 'primary'
+                  } ${
+                    isUWAStudent
+                      ? `${
+                          isDark
+                            ? 'border-secondary text-secondary'
+                            : 'border-primary text-primary'
+                        }`
+                      : null
                   }`}
                   onClick={setUWAStudent}
                 >
@@ -109,8 +121,16 @@ const SignInPage = (props: { route?: string; signUp: Function }) => {
                 <NavLink
                   disabled={loading}
                   tag='button'
-                  className={`tab-nav rounded-0 ${
-                    !isUWAStudent ? 'border-primary' : null
+                  className={`tab-nav rounded-0 text-${
+                    isDark ? 'secondary' : 'primary'
+                  } ${
+                    !isUWAStudent
+                      ? `${
+                          isDark
+                            ? 'border-secondary text-secondary'
+                            : 'border-primary text-primary'
+                        }`
+                      : null
                   }`}
                   onClick={setNotUWAStudent}
                 >

@@ -1,16 +1,19 @@
 /** @jsx jsx */
+import { useContext } from 'react'
 import { jsx } from '@emotion/core'
 import { useTheme } from 'emotion-theming'
 import { Row, Col, Card, CardImg, CardTitle } from 'reactstrap'
 import Link from 'next/link'
 import projects from 'data/projects.json'
+import { DarkContext } from 'helpers/user'
 import { styles } from './styles'
 
 const ProjectCards = () => {
+  const isDark = useContext(DarkContext)
   const theme = useTheme()
 
   return (
-    <Row css={styles(theme)}>
+    <Row css={styles(theme, isDark)}>
       {projects.map(project => (
         <Col
           xs={12}
@@ -20,14 +23,14 @@ const ProjectCards = () => {
         >
           <Link href={project.purl}>
             <a className='text-decoration-none'>
-              <Card outline color='secondary' className='bg-light'>
+              <Card className='secondary-bg rounded-0 border-0'>
                 <CardImg
                   top
                   width='100%'
                   src='https://source.unsplash.com/random'
                   // {project.logo}
                   alt={project.client}
-                  className='project-img img-fluid'
+                  className='project-img img-fluid rounded-0'
                 />
                 <div className='d-flex align-items-center'>
                   <div className='bg-primary'>
@@ -35,7 +38,11 @@ const ProjectCards = () => {
                       {project.icon}
                     </i>
                   </div>
-                  <CardTitle className='font-weight-bold ml-3 mb-0 text-primary text-monospace'>
+                  <CardTitle
+                    className={`font-weight-bold ml-3 mb-0 text-${
+                      isDark ? 'white' : 'black'
+                    } text-monospace`}
+                  >
                     {project.name}
                   </CardTitle>
                 </div>

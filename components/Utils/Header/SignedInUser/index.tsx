@@ -31,7 +31,7 @@ const UserMenu = ({ name, setUser, ...props }: Props) => {
     <ButtonDropdown isOpen={dropdown} toggle={toggleDropdown}>
       <DropdownToggle
         color='primary'
-        className='d-flex align-items-center rounded-0 p-0'
+        className='d-flex align-items-center rounded-0 p-0 ml-2'
       >
         {name && (
           <>

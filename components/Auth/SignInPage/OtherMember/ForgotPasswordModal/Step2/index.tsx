@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core'
-import { useCallback, useState } from 'react'
+import { useCallback, useContext, useState } from 'react'
 import { Field, FormikProps, Form } from 'formik'
 import {
   Button,
@@ -13,13 +13,17 @@ import {
   InputGroupAddon
 } from 'reactstrap'
 import Spinner from 'components/Elements/Spinner'
+import { DarkContext } from 'helpers/user'
 
 const Step2 = (props: Props & FormikProps<FormValues>) => {
   const [passwordVisible, setPasswordVisible] = useState(false)
+  const isDark = useContext(DarkContext)
+
   const setPassVisible = useCallback(
     () => setPasswordVisible(prev => !prev),
     []
   )
+
   return (
     <Form>
       <FormGroup>
@@ -83,7 +87,7 @@ const Step2 = (props: Props & FormikProps<FormValues>) => {
               outline
               color='primary'
               disabled={props.loading}
-              className='rounded-0 border-left-0 d-flex align-items-center justify-content-center'
+              className='rounded-0 border-left-0 text-primary bg-secondary d-flex align-items-center justify-content-center'
               onClick={setPassVisible}
             >
               <i className='material-icons-sharp'>
@@ -118,7 +122,7 @@ const Step2 = (props: Props & FormikProps<FormValues>) => {
               outline
               color='primary'
               disabled={props.loading}
-              className='rounded-0 border-left-0 d-flex align-items-center justify-content-center'
+              className='rounded-0 border-left-0 text-primary bg-secondary d-flex align-items-center justify-content-center'
               onClick={setPassVisible}
             >
               <i className='material-icons-sharp'>
@@ -133,7 +137,8 @@ const Step2 = (props: Props & FormikProps<FormValues>) => {
         <Button
           type='submit'
           size='lg'
-          color='primary'
+          outline={isDark}
+          color={isDark ? 'secondary' : 'primary'}
           disabled={props.loading}
           className='rounded-0 text-monospace px-4 d-flex align-items-center'
         >

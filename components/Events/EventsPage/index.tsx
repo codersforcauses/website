@@ -1,9 +1,10 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core'
 import { useTheme } from 'emotion-theming'
-import { useState, useCallback } from 'react'
+import { useCallback, useContext, useState } from 'react'
 import { Container, Button, ButtonGroup } from 'reactstrap'
 import Title from 'components/Utils/Title'
+import { DarkContext } from 'helpers/user'
 import EventCard from './EventCard'
 import { styles, eventStyles } from './styles'
 
@@ -73,8 +74,9 @@ const eventList = [
 ]
 
 const EventPage = () => {
-  const theme = useTheme()
   const [eventPast, setEventPast] = useState(false)
+  const theme = useTheme()
+  const isDark = useContext(DarkContext)
 
   const toggleEventPast = useCallback(() => setEventPast(true), [])
   const toggleEventUpcoming = useCallback(() => setEventPast(false), [])
@@ -82,11 +84,11 @@ const EventPage = () => {
   return (
     <div css={styles(theme)}>
       <Title typed>./events</Title>
-      <Container className='my-md-5 py-5 bg-secondary rounded-0'>
+      <Container className='my-md-5 py-5 bg-transparent rounded-0'>
         <ButtonGroup className='mb-5'>
           <Button
             outline={!eventPast}
-            color='primary'
+            color={isDark ? 'secondary' : 'primary'}
             className='rounded-0 text-monospace px-4'
             onClick={toggleEventPast}
           >
@@ -94,7 +96,7 @@ const EventPage = () => {
           </Button>
           <Button
             outline={eventPast}
-            color='primary'
+            color={isDark ? 'secondary' : 'primary'}
             className='rounded-0 text-monospace px-3'
             onClick={toggleEventUpcoming}
           >
@@ -103,7 +105,7 @@ const EventPage = () => {
         </ButtonGroup>
         <div className='events'>
           {eventList.map(({ date, events }) => (
-            <div key={date} css={eventStyles(theme, date)}>
+            <div key={date} css={eventStyles(theme, isDark, date)}>
               <div className='d-flex flex-column ml-3 ml-md-5 pl-lg-5'>
                 {events.map(event => (
                   <EventCard key={event.slug} className='mb-4' {...event} />

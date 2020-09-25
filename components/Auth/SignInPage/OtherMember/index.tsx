@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core'
 import { useTheme } from 'emotion-theming'
-import { useCallback, useState } from 'react'
+import { useCallback, useContext, useState } from 'react'
 import { Auth } from '@aws-amplify/auth'
 import { Field, FormikProps, Form, withFormik } from 'formik'
 import {
@@ -15,6 +15,7 @@ import {
   UncontrolledAlert
 } from 'reactstrap'
 import Spinner from 'components/Elements/Spinner'
+import { DarkContext } from 'helpers/user'
 import ForgotPasswordModal from './ForgotPasswordModal'
 import { styles } from './styles'
 import { validationSchema } from './validation'
@@ -29,6 +30,8 @@ const OtherMember = (props: Props & FormikProps<FormValues>) => {
   const [loading, setLoading] = useState(false)
   const [forgotPassword, setForgotPassword] = useState(false)
   const [resetCode, setResetCode] = useState(false)
+  const isDark = useContext(DarkContext)
+
   const [error, setError] = useState('')
 
   const theme = useTheme()
@@ -136,7 +139,7 @@ const OtherMember = (props: Props & FormikProps<FormValues>) => {
               outline
               color='primary'
               disabled={props.loading}
-              className='rounded-0 border-left-0 d-flex align-items-center justify-content-center'
+              className='rounded-0 border-left-0 d-flex text-primary bg-secondary align-items-center justify-content-center'
               onClick={setPassVisible}
             >
               <i className='material-icons-sharp'>
@@ -151,7 +154,8 @@ const OtherMember = (props: Props & FormikProps<FormValues>) => {
         <Button
           type='submit'
           size='lg'
-          color='primary'
+          outline={isDark}
+          color={isDark ? 'secondary' : 'primary'}
           disabled={props.loading}
           className='rounded-0 text-monospace px-4 d-flex align-items-center'
         >
@@ -164,7 +168,7 @@ const OtherMember = (props: Props & FormikProps<FormValues>) => {
           color='link'
           disabled={props.loading}
           onClick={openModal}
-          className='ml-3 rounded-0'
+          className={`ml-3 rounded-0 text-${isDark ? 'secondary' : 'primary'}`}
         >
           Forgot Password?
         </Button>

@@ -15,9 +15,10 @@ import Link from 'next/link'
 import { UserContext } from 'helpers/user'
 import SignedInUser from './SignedInUser'
 import HeaderItem, { HeaderItemContent } from './HeaderItem'
+import DarkToggle from './DarkToggle'
 import { styles } from './styles'
 
-const Header = () => {
+const Header = (props: { handleDarkToggle: Function }) => {
   const [open, setOpen] = useState(false)
 
   const { user, setUser } = useContext(UserContext)
@@ -76,25 +77,27 @@ const Header = () => {
             </Nav>
           </Collapse>
         </Nav>
-        {
-          user ? (
-            <SignedInUser
-              setUser={setUser}
-              name={`${user?.given_name} ${user?.family_name}`}
-            />
-          ) : null
-          // <Link href='/membership'>
-          //   <Button
-          //     outline
-          //     size='sm'
-          //     color='secondary'
-          //     className='d-none d-md-block rounded-0'
-          //   >
-          //     Membership
-          //   </Button>
-          // </Link>
-          // eslint-disable-next-line react/jsx-curly-newline
-        }
+        <div>
+          <DarkToggle {...props} />
+          {
+            user ? (
+              <SignedInUser
+                setUser={setUser}
+                name={`${user?.given_name} ${user?.family_name}`}
+              />
+            ) : null
+            // <Link href='/membership'>
+            //   <Button
+            //     outline
+            //     size='sm'
+            //     color='secondary'
+            //     className='d-none d-md-block rounded-0'
+            //   >
+            //     Membership
+            //   </Button>
+            // </Link>
+          }
+        </div>
       </Container>
     </Navbar>
   )

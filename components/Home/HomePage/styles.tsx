@@ -1,7 +1,15 @@
 import { css } from '@emotion/core'
 import { media } from 'lib/mediaQueries'
 
-export const styles = theme => css`
+export const styles = (theme, isDark) => css`
+  .primary-bg {
+    background: ${theme.colors[isDark ? 'darkBg' : 'secondary']};
+  }
+
+  .secondary-bg {
+    background: ${theme.colors[isDark ? 'primary' : 'light']};
+  }
+  
   .hero {
     height: 50vh;
     margin: 0;

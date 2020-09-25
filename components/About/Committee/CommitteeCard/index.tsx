@@ -40,7 +40,7 @@ const CommitteeCard = ({
         alt={alt}
         className='rounded-0 flex-grow-1'
       />
-      <CardImgOverlay className='bg-primary card-overlay'>
+      <CardImgOverlay className='bg-primary card-overlay rounded-0'>
         <CardTitle className='font-weight-bolder text-monospace'>
           {name}
         </CardTitle>
@@ -73,10 +73,6 @@ const CommitteeCard = ({
   )
 }
 
-interface Props extends CardProps {
-  item: CardItemContent
-}
-
 interface Social {
   email: string
   discord: string
@@ -99,6 +95,10 @@ export interface CardItemContent {
   about: string
   social: Social
   picture: Picture
+}
+
+interface Props extends CardProps {
+  item: CardItemContent
 }
 
 export default CommitteeCard
