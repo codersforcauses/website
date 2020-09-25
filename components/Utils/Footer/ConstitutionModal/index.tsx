@@ -13,7 +13,7 @@ const ConstitutionModal = ({
 
   const closeBtn = (
     <Button color='link' className='p-0 d-flex align-items-center' onClick={closeModal}>
-      <i className={`material-icons-sharp ${isDark ? 'text-white' : 'text-black'}`}>close</i>
+      <i className={`material-icons-sharp text-${isDark ? 'white' : 'black'}`}>close</i>
     </Button>
   )
   return (

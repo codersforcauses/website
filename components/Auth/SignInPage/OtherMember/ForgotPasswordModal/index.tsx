@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { FormikProps, withFormik } from 'formik'
 import {
   Modal,
@@ -11,6 +11,7 @@ import {
 import Step1 from './Step1'
 import Step2 from './Step2'
 import { validationSchema } from './validation'
+import { DarkContext } from 'helpers/user'
 
 const mapPropsToValues = () => ({
   email: '',
@@ -29,8 +30,10 @@ const ForgotPasswordModal = ({
   handlePasswordReset,
   ...props
 }: Props & FormikProps<FormValues>) => {
+  const isDark = useContext(DarkContext)
+
   const closeBtn = (
-    <Button color='link' className='p-0' onClick={closeModal}>
+    <Button color='link' className={`p-0 text-${isDark ? 'secondary' : 'primary'}`} onClick={closeModal}>
       <i className='material-icons-sharp'>close</i>
     </Button>
   )

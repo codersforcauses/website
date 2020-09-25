@@ -12,7 +12,7 @@ const PrivacyModal = ({ isOpen, closeModal }: { isOpen: Boolean; closeModal: Fun
 
   const closeBtn = (
     <Button color='link' className='p-0' onClick={closeModal}>
-      <i className={`material-icons-sharp ${isDark ? 'text-white' : 'text-black'}`}>close</i>
+      <i className={`material-icons-sharp text-${isDark ? 'white' : 'black'}`}>close</i>
     </Button>
   )
   return (

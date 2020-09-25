@@ -12,7 +12,7 @@ const SecurityModal = ({ isOpen, closeModal }: { isOpen: Boolean; closeModal: Fu
 
   const closeBtn = (
     <Button color='link' className='p-0' onClick={closeModal}>
-      <i className={`material-icons-sharp ${isDark ? 'text-white' : 'text-black'}`}>close</i>
+      <i className={`material-icons-sharp text-${isDark ? 'white' : 'black'}`}>close</i>
     </Button>
   )
   return (
