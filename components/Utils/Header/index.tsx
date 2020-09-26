@@ -60,15 +60,15 @@ const Header = (props: { handleDarkToggle: Function }) => {
               {open ? 'close' : 'menu'}
             </i>
           </NavbarToggler>
-          <NavbarBrand
-            href='/'
-            id='Home'
-            title='Home'
-            className='mr-md-5 py-0 user-select-none font-weight-bold text-monospace brand'
-            data-cy='nav-Home'
-          >
-            cfc
-          </NavbarBrand>
+          <Link href='/' passHref>
+            <NavbarBrand
+              id='Home'
+              className='mr-md-5 py-0 user-select-none font-weight-bold text-monospace brand'
+              data-cy='nav-Home'
+            >
+              cfc
+            </NavbarBrand>
+          </Link>
           <Collapse navbar isOpen={open} className='pl-4 ml-2 pl-md-0'>
             <Nav navbar>
               {links.map(link => (
