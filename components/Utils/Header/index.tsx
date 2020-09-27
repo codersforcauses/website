@@ -18,7 +18,7 @@ import DarkToggle from './DarkToggle'
 import { styles } from './styles'
 import { UserContext } from 'helpers/user'
 
-const Header = (props: {handleDarkToggle: Function}) => {
+const Header = (props: { handleDarkToggle: Function }) => {
   const [open, setOpen] = useState(false)
 
   const { user, setUser } = useContext(UserContext)
@@ -81,7 +81,7 @@ const Header = (props: {handleDarkToggle: Function}) => {
           user ? (
             <SignedInUser
               setUser={setUser}
-              name={`${user?.given_name} ${user?.family_name}`}
+              name={`${user?.firstName} ${user?.lastName}`}
             />
           ) : null
           // <Link href='/membership'>

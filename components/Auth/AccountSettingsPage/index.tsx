@@ -21,8 +21,8 @@ import { styles } from './styles'
 import { validationSchema } from './validation'
 
 const mapPropsToValues = (props: Props) => ({
-  firstName: props.user?.given_name,
-  lastName: props.user?.family_name,
+  firstName: props.user?.firstName,
+  lastName: props.user?.lastName,
   email: props.user?.email,
   password: '',
   confirmPassword: ''
@@ -41,12 +41,12 @@ const AccountSettingsPage = (props: Props & FormikProps<FormValues>) => {
       <Container className='d-flex align-items-center'>
         <Avatar
           dark
-          name={`${props.user?.given_name} ${props.user?.family_name}`}
+          name={`${props.user?.firstName} ${props.user?.lastName}`}
           size='lg'
           className='avatar'
         />
         <div className='ml-3'>
-          {props.user?.given_name} {props.user?.family_name}
+          {props.user?.firstName} {props.user?.lastName}
         </div>
       </Container>
       <Container className='py-5'>
