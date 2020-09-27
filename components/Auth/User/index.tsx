@@ -16,19 +16,28 @@ const User: FunctionComponent = ({ children }) => {
     useEffect(() => {
       const auth = async () => {
         try {
+          // query cognito
           const session = await Auth.currentSession()
           const id = session.getIdToken()
-          setUser({ ...id.decodePayload(), jwt_token: id.getJwtToken() })
+
+          // query backend
+          const response = await fetch(
+            `${process.env.NEXT_PUBLIC_API_URL}users?awsSub=${
+              id.decodePayload().sub
+            }`
+          )
+          const {
+            data: [user]
+          } = await response.json()
+          delete user.__v
+
+          setUser({ ...user, jwt_token: id.getJwtToken() })
         } catch (error) {
           setUser(null)
         }
       }
       if (!user) auth()
     }, [])
-    // console.log(user)
-
-    // query user data here when backend is built
-    // TODO
 
     return (
       <UserProvider
