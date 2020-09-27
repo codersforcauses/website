@@ -52,8 +52,22 @@ const Step1 = (props: { signIn: Function; nextStep: Function }) => {
         data.attributes.given_name = user.firstname.split(' ')[0]
         data.attributes.family_name = user.lastname
       }
-      const response = await Auth.signUp(data)
-      // console.log(response)
+
+      const cognitoResponse = await Auth.signUp(data)
+
+      await fetch(`${process.env.NEXT_PUBLIC_API_URL}users`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        mode: 'cors',
+        body: JSON.stringify({
+          firstName: data.attributes.given_name,
+          lastName: data.attributes.family_name,
+          email: data.username,
+          awsSub: cognitoResponse.userSub,
+          isGuildMember: values?.isGuildMember ?? false
+        })
+      })
+
       // props.nextStep()
       Router.push('/')
     } catch (error) {
@@ -87,8 +101,15 @@ const Step1 = (props: { signIn: Function; nextStep: Function }) => {
             <NavLink
               outline={isDark}
               disabled={loading}
-              className={`tab-nav rounded-0 text-${isDark ? 'secondary' : 'primary'} ${
-                isUWAStudent && `${isDark ? 'border-secondary text-secondary' : 'border-primary text-primary'}`
+              className={`tab-nav rounded-0 text-${
+                isDark ? 'secondary' : 'primary'
+              } ${
+                isUWAStudent &&
+                `${
+                  isDark
+                    ? 'border-secondary text-secondary'
+                    : 'border-primary text-primary'
+                }`
               }`}
               onClick={() => setIsUWAStudent(true)}
             >
@@ -98,8 +119,15 @@ const Step1 = (props: { signIn: Function; nextStep: Function }) => {
           <NavItem>
             <NavLink
               disabled={loading}
-              className={`tab-nav rounded-0 text-${isDark ? 'secondary' : 'primary'} ${
-                !isUWAStudent && `${isDark ? 'border-secondary text-secondary' : 'border-primary text-primary'}`
+              className={`tab-nav rounded-0 text-${
+                isDark ? 'secondary' : 'primary'
+              } ${
+                !isUWAStudent &&
+                `${
+                  isDark
+                    ? 'border-secondary text-secondary'
+                    : 'border-primary text-primary'
+                }`
               }`}
               onClick={() => setIsUWAStudent(false)}
             >
