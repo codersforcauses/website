@@ -5,6 +5,7 @@ import { CacheProvider, Global, jsx } from '@emotion/core'
 import { cache } from 'emotion'
 import { useEffect, useContext, useCallback, useState } from 'react'
 import { Auth } from '@aws-amplify/auth'
+import { SWRConfig } from 'swr'
 import User from 'components/Auth/User'
 import Header from 'components/Utils/Header'
 import Footer from 'components/Utils/Footer'
@@ -47,10 +48,17 @@ const AddOns = () => {
 
 const Website = ({ Component, pageProps }: AppProps) => {
   const [isDark, setDark] = useState(undefined)
-  const toggleDark = useCallback(() => { setDark(previousDark => !previousDark) }, [])
+  const toggleDark = useCallback(() => {
+    setDark(previousDark => !previousDark)
+  }, [])
 
   useEffect(() => {
-    setDark((localStorage.getItem('dark-theme') ?? (window.matchMedia('(prefers-color-scheme: dark)')?.matches).toString()) === 'true')
+    setDark(
+      (localStorage.getItem('dark-theme') ??
+        window
+          .matchMedia('(prefers-color-scheme: dark)')
+          ?.matches.toString()) === 'true'
+    )
   }, [])
 
   useEffect(() => {
@@ -61,32 +69,41 @@ const Website = ({ Component, pageProps }: AppProps) => {
   }, [])
 
   return (
-    <User>
-      <DarkProvider value={isDark}>
-        <ThemeProvider theme={theme}>
-          <CacheProvider value={cache}>
-            <Global styles={globalStyle(theme, isDark)} />
-            <Header handleDarkToggle={toggleDark} />
-            <main className='main'>
-              {/* TODO remove once MVP is finished */}
-              <Alert
-                color='warning'
-                className='fixed-top rounded-0 px-0 py-md-3'
-                style={{ marginTop: '64px', zIndex: 3 }}
-              >
-                <Container>
-                  This website is still under development. Not everything may
-                  work, but feel free to look around.
-                </Container>
-              </Alert>
-              <Component {...pageProps} />
-            </main>
-            <Footer />
-            <AddOns />
-          </CacheProvider>
-        </ThemeProvider>
-      </DarkProvider>
-    </User>
+    <SWRConfig
+      value={{
+        fetcher: (endpoint: string) =>
+          fetch(`${process.env.NEXT_PUBLIC_API_URL}${endpoint}`).then(res =>
+            res.json()
+          )
+      }}
+    >
+      <User>
+        <DarkProvider value={isDark}>
+          <ThemeProvider theme={theme}>
+            <CacheProvider value={cache}>
+              <Global styles={globalStyle(theme, isDark)} />
+              <Header handleDarkToggle={toggleDark} />
+              <main className='main'>
+                {/* TODO remove once MVP is finished */}
+                <Alert
+                  color='warning'
+                  className='fixed-top rounded-0 px-0 py-md-3'
+                  style={{ marginTop: '64px', zIndex: 3 }}
+                >
+                  <Container>
+                    This website is still under development. Not everything may
+                    work, but feel free to look around.
+                  </Container>
+                </Alert>
+                <Component {...pageProps} />
+              </main>
+              <Footer />
+              <AddOns />
+            </CacheProvider>
+          </ThemeProvider>
+        </DarkProvider>
+      </User>
+    </SWRConfig>
   )
 }
 
