@@ -61,13 +61,13 @@ const Header = (props: { handleDarkToggle: Function }) => {
             </i>
           </NavbarToggler>
           <Link href='/' passHref>
-            <NavbarBrand
+            <a
               id='Home'
-              className='mr-md-5 py-0 user-select-none font-weight-bold text-monospace brand'
+              className='mr-md-5 py-0 user-select-none font-weight-bold text-monospace brand navbar-brand'
               data-cy='nav-Home'
             >
               cfc
-            </NavbarBrand>
+            </a>
           </Link>
           <Collapse navbar isOpen={open} className='pl-4 ml-2 pl-md-0'>
             <Nav navbar>
