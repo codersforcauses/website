@@ -1,13 +1,17 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 import { Button, Modal, ModalHeader, ModalBody } from 'reactstrap'
 import CreditCardForm from 'components/Payments/CreditCardForm'
 
 const PayWithCardModal = ({ isOpen, closeModal }: Props) => {
-  const closeBtn = (
-    <Button color='link' className='p-0' onClick={closeModal}>
-      <i className='material-icons-sharp'>close</i>
-    </Button>
+  const closeBtn = useMemo(
+    () => (
+      <Button color='link' className='p-0' onClick={closeModal}>
+        <i className='material-icons-sharp'>close</i>
+      </Button>
+    ),
+    [closeModal]
   )
+
   return (
     <Modal centered isOpen={isOpen} toggle={closeModal}>
       <ModalHeader

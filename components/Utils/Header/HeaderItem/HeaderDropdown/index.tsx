@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core'
 import { useTheme } from 'emotion-theming'
-import { useState } from 'react'
+import { useState, useCallback } from 'react'
 import Link from 'next/link'
 import { DropdownMenu, DropdownItem, Dropdown } from 'reactstrap'
 import DropdownToggle from 'reactstrap/lib/DropdownToggle'
@@ -12,14 +12,17 @@ const HeaderDropdown = ({ items, href, text, ...props }: Props) => {
   const [isOpen, updateIsOpen] = useState(false)
   const theme = useTheme()
 
+  const toggleUpdateOn = useCallback(() => updateIsOpen(true), [])
+  const toggleUpdateOff = useCallback(() => updateIsOpen(false), [])
+  const toggleUpdate = useCallback(() => updateIsOpen(isOpen => !isOpen), [])
   return (
     <Dropdown
       {...props}
-      onMouseOver={() => updateIsOpen(true)}
-      onFocus={() => updateIsOpen(true)}
-      onMouseLeave={() => updateIsOpen(false)}
-      onBlur={() => updateIsOpen(false)}
-      toggle={() => updateIsOpen(!isOpen)}
+      onMouseOver={toggleUpdateOn}
+      onFocus={toggleUpdateOn}
+      onMouseLeave={toggleUpdateOff}
+      onBlur={toggleUpdateOff}
+      toggle={toggleUpdate}
       isOpen={isOpen}
       css={styles(theme)}
     >

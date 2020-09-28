@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useMemo, useCallback } from 'react'
 import { Form, Field, FormikProps, withFormik } from 'formik'
 import {
   Modal,
@@ -27,10 +27,17 @@ const PayWithCashModal = ({
   ...props
 }: Props & FormikProps<FormValues>) => {
   const [passwordVisible, setPasswordVisible] = useState(false)
-  const closeBtn = (
-    <Button color='link' className='p-0' onClick={closeModal}>
-      <i className='material-icons-sharp'>close</i>
-    </Button>
+  const closeBtn = useMemo(
+    () => (
+      <Button color='link' className='p-0' onClick={closeModal}>
+        <i className='material-icons-sharp'>close</i>
+      </Button>
+    ),
+    [closeModal]
+  )
+  const setPassVisible = useCallback(
+    () => setPasswordVisible(prev => !prev),
+    []
   )
 
   return (
@@ -57,7 +64,7 @@ const PayWithCashModal = ({
         </UncontrolledAlert>
         <Form>
           <FormGroup>
-            <Label for='masterPassword' className='monospace'>
+            <Label for='masterPassword' className='text-monospace'>
               Master Password
             </Label>
             <InputGroup>
@@ -81,7 +88,7 @@ const PayWithCashModal = ({
                   color='primary'
                   disabled={props.loading}
                   className='rounded-0 border-left-0 d-flex align-items-center justify-content-center'
-                  onClick={() => setPasswordVisible(!passwordVisible)}
+                  onClick={setPassVisible}
                 >
                   <i className='material-icons-sharp'>
                     {passwordVisible ? 'visibility' : 'visibility_off'}
@@ -95,7 +102,7 @@ const PayWithCashModal = ({
             type='submit'
             size='lg'
             color='primary'
-            className='rounded-0 monospace px-5'
+            className='rounded-0 text-monospace px-5'
           >
             Verify
           </Button>

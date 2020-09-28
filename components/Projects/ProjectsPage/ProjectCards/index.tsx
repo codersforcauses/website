@@ -38,7 +38,11 @@ const ProjectCards = () => {
                       {project.icon}
                     </i>
                   </div>
-                  <CardTitle className={`font-weight-bold ml-3 mb-0 text-${isDark ? 'white' : 'black'} monospace`}>
+                  <CardTitle
+                    className={`font-weight-bold ml-3 mb-0 text-${
+                      isDark ? 'white' : 'black'
+                    } text-monospace`}
+                  >
                     {project.name}
                   </CardTitle>
                 </div>
