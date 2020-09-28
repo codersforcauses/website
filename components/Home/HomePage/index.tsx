@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core'
 import { useTheme } from 'emotion-theming'
-import { useState } from 'react'
+import { useCallback, useContext, useState } from 'react'
 import Link from 'next/link'
 import {
   Jumbotron,
@@ -16,6 +16,7 @@ import {
 import constants from 'data/constants.json'
 import TypedText from 'components/Utils/TypedText'
 import Clients from 'components/Utils/Clients'
+import { DarkContext } from 'helpers/user'
 import Services from '../Services'
 import Face from '../Face'
 import { styles } from './styles'
@@ -25,10 +26,13 @@ const HomePage = () => {
   const [contactOpen, setContactOpen] = useState(false)
   const [loadContact, setLoadContact] = useState(false)
   const [toastMessage, setToastMessage] = useState(null)
+  const isDark = useContext(DarkContext)
 
   const theme = useTheme()
 
-  const handleContactSubmit = async values => {
+  const toggleContactOn = useCallback(() => setContactOpen(true), [])
+  const toggleContactOff = useCallback(() => setContactOpen(false), [])
+  const handleContactSubmit = useCallback(async values => {
     try {
       setLoadContact(true)
       const response = await fetch('https://formspree.io/mrgyryzj', {
@@ -56,17 +60,17 @@ const HomePage = () => {
         setToastMessage(null)
       }, 6000)
     }
-  }
+  }, [])
 
   return (
-    <div css={styles(theme)}>
+    <div css={styles(theme, isDark)}>
       <Toast
         isOpen={!!toastMessage}
         className={`toast m-0 rounded-0 text-white bg-${toastMessage?.status}`}
       >
         <ToastBody>{toastMessage?.message}</ToastBody>
       </Toast>
-      <Jumbotron className='hero bg-primary text-secondary d-flex align-items-center rounded-0 monospace'>
+      <Jumbotron className='hero bg-primary text-secondary d-flex align-items-center rounded-0 text-monospace'>
         <Container>
           <h1 className='mb-4'>
             <TypedText
@@ -84,28 +88,37 @@ const HomePage = () => {
           </h1>
         </Container>
       </Jumbotron>
-      <Container className='py-5 my-md-5'>
-        <h2 className='font-weight-bold mb-4'>We are developers.</h2>
-        <p className='lead'>
-          Coders for Causes are a group of developers that empower charities and
-          non-profit organisations by providing them solutions to their
-          technical problems. We are student powered and all of our members are
-          volunteers dedicated to providing you the best results.
-        </p>
-        <Link href='#_contact_us'>
-          <Button size='lg' color='primary' className='rounded-0'>
-            Work with us&nbsp;&nbsp;&raquo;
-          </Button>
-        </Link>
-      </Container>
-      <div className='bg-light'>
+      <div className='primary-bg'>
+        <Container className='py-5 my-md-5'>
+          <h2 className='font-weight-bold mb-4'>We are developers.</h2>
+          <p className='lead'>
+            Coders for Causes are a group of developers that empower charities
+            and non-profit organisations by providing them solutions to their
+            technical problems. We are student powered and all of our members
+            are volunteers dedicated to providing you the best results.
+          </p>
+          <Link href='#_contact_us'>
+            <Button
+              size='lg'
+              color={isDark ? 'secondary' : 'primary'}
+              outline={isDark}
+              className='rounded-0'
+            >
+              Work with us&nbsp;&nbsp;&raquo;
+            </Button>
+          </Link>
+        </Container>
+      </div>
+      <div className='secondary-bg'>
         <Container>
           <Clients />
         </Container>
       </div>
-      <Container className='py-5 my-md-5'>
-        <Services />
-      </Container>
+      <div className='primary-bg'>
+        <Container className='py-5 my-md-5'>
+          <Services />
+        </Container>
+      </div>
       <div className='pt-5 pb-md-5 bg-primary text-secondary'>
         <Container id='_contact_us' className='pt-md-5 pb-0 pb-md-5'>
           <Row className='mt-lg-5'>
@@ -119,7 +132,7 @@ const HomePage = () => {
                     href={`mailto:${constants.email}`}
                     target='_blank'
                     rel='noreferrer noopener'
-                    className='text-secondary email monospace'
+                    className='text-secondary email text-monospace'
                   >
                     {constants.email}
                   </a>
@@ -129,7 +142,7 @@ const HomePage = () => {
                   size='lg'
                   color='secondary'
                   className='rounded-0 mt-4'
-                  onClick={() => setContactOpen(true)}
+                  onClick={toggleContactOn}
                 >
                   Contact us
                 </Button>
@@ -142,7 +155,7 @@ const HomePage = () => {
               <Collapse isOpen={contactOpen}>
                 <ContactForm
                   loading={loadContact}
-                  handleCloseForm={() => setContactOpen(false)}
+                  handleCloseForm={toggleContactOff}
                   handleSubmit={handleContactSubmit}
                 />
               </Collapse>

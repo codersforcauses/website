@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core'
 import { useTheme } from 'emotion-theming'
-import { useState } from 'react'
+import { useCallback, useContext, useState } from 'react'
 import { Field, FormikProps, Form, withFormik } from 'formik'
 import {
   Button,
@@ -14,6 +14,7 @@ import {
   UncontrolledAlert
 } from 'reactstrap'
 import Spinner from 'components/Elements/Spinner'
+import { DarkContext } from 'helpers/user'
 import { styles } from './styles'
 import { validationSchema } from './validation'
 
@@ -25,8 +26,13 @@ const mapPropsToValues = () => ({
 
 const UWAStudent = (props: Props & FormikProps<FormValues>) => {
   const [passwordVisible, setPasswordVisible] = useState(false)
-
+  const isDark = useContext(DarkContext)
   const theme = useTheme()
+
+  const setPassVisible = useCallback(
+    () => setPasswordVisible(prev => !prev),
+    []
+  )
 
   return (
     <Form css={styles(theme)}>
@@ -44,7 +50,7 @@ const UWAStudent = (props: Props & FormikProps<FormValues>) => {
         {props.error}
       </UncontrolledAlert>
       <FormGroup>
-        <Label for='studentNumber' className='monospace'>
+        <Label for='studentNumber' className='text-monospace'>
           UWA Student Number
         </Label>
         <Input
@@ -62,7 +68,7 @@ const UWAStudent = (props: Props & FormikProps<FormValues>) => {
         <FormFeedback>{props.errors.studentNumber}</FormFeedback>
       </FormGroup>
       <FormGroup>
-        <Label for='password' className='monospace'>
+        <Label for='password' className='text-monospace'>
           Password
         </Label>
         <InputGroup>
@@ -83,8 +89,8 @@ const UWAStudent = (props: Props & FormikProps<FormValues>) => {
               outline
               color='primary'
               disabled={props.loading}
-              className='rounded-0 border-left-0 d-flex align-items-center justify-content-center'
-              onClick={() => setPasswordVisible(!passwordVisible)}
+              className='rounded-0 border-left-0 text-primary bg-secondary d-flex align-items-center justify-content-center'
+              onClick={setPassVisible}
             >
               <i className='material-icons-sharp'>
                 {passwordVisible ? 'visibility' : 'visibility_off'}
@@ -108,6 +114,7 @@ const UWAStudent = (props: Props & FormikProps<FormValues>) => {
             href='https://www.uwastudentguild.com/the-guild/join-us'
             target='_blank'
             rel='noopener noreferrer'
+            className={`text-${isDark ? 'secondary' : 'primary'}`}
           >
             UWA Guild Member
           </a>
@@ -116,9 +123,10 @@ const UWAStudent = (props: Props & FormikProps<FormValues>) => {
       <Button
         type='submit'
         size='lg'
-        color='primary'
+        outline={isDark}
+        color={isDark ? 'secondary' : 'primary'}
         disabled={props.loading}
-        className='rounded-0 px-4 d-flex align-items-center monospace'
+        className='rounded-0 px-4 d-flex align-items-center text-monospace'
       >
         Sign Up
         {props.loading && (

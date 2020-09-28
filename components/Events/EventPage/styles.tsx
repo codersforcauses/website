@@ -1,7 +1,7 @@
 import { css } from '@emotion/core'
 import { media } from 'lib/mediaQueries'
 
-export const styles = (theme, url) => css`
+export const styles = (theme, isDark) => css`
   .text {
     font-size: 0.8rem;
     line-height: 1.3;
@@ -22,7 +22,7 @@ export const styles = (theme, url) => css`
       width: 50%;
     }
     .workshop-border {
-      border-left: 1rem solid ${theme.colors.secondary};
+      border-left: 1rem solid ${theme.colors[isDark ? 'darkBg' : 'secondary']};
     }
   `}
 `

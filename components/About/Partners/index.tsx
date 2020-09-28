@@ -22,4 +22,4 @@ const Partners = () => (
   </Row>
 )
 
-export default Partners
+export default React.memo(Partners)

@@ -1,18 +1,19 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core'
 import { useTheme } from 'emotion-theming'
-import { useState } from 'react'
+import { useState, useContext } from 'react'
 import { Button, Container, Row, Col } from 'reactstrap'
+import { DarkContext } from 'helpers/user'
 import { styles } from './styles'
 
 const EventPage = () => {
   const [isPaid, setIsPaid] = useState(true)
-
+  const isDark = useContext(DarkContext)
   const theme = useTheme()
 
   return (
-    <div css={styles(theme, 'https://source.unsplash.com/random')}>
-      <div className='bg-primary mt-5 py-5 bg text-secondary monospace'>
+    <div css={styles(theme, isDark)}>
+      <div className='bg-primary mt-5 py-5 bg text-secondary text-monospace'>
         <Container className='mt-5 pt-5'>
           <h5 className='my-5'>./Workshop</h5>
           <h1 className='display-4 m-0 event-main-head'>
@@ -31,9 +32,6 @@ const EventPage = () => {
             className='mb-4 mb-md-0 img-fluid'
           />
           <Col xs={12} md={6} lg={{ size: 6, offset: 1 }}>
-            <h4 className='mb-3 font-weight-bold event-head'>
-              Essential Software Industry Skills
-            </h4>
             <p className='m-0'>
               Lorem ipsum dolor sit amet consectetur, adipisicing elit. Possimus
               tempore quia deserunt praesentium maiores optio blanditiis
@@ -45,7 +43,11 @@ const EventPage = () => {
               facilis minima. Tempore!
             </p>
             {isPaid && (
-              <Button color='primary' className='rounded-0 mt-3'>
+              <Button
+                color={isDark ? 'secondary' : 'primary'}
+                outline={isDark}
+                className='rounded-0 mt-3'
+              >
                 Buy tickets &raquo;
               </Button>
             )}
@@ -72,7 +74,7 @@ const EventPage = () => {
             </div>
           </Col>
         </Row>
-        <Row noGutters className='text-secondary monospace'>
+        <Row noGutters className='text-secondary text-monospace'>
           <Col
             md={3}
             className='bg-primary px-5 pt-5 pb-md-5 d-flex align-items-center justify-content-center'

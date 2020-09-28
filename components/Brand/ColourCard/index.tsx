@@ -14,7 +14,7 @@ const ColourCard = (props: {
 
   return (
     <Card
-      className={`rounded-0 border-0 w-100 justify-content-between monospace ${props.className}`}
+      className={`rounded-0 border-0 w-100 justify-content-between text-monospace ${props.className}`}
       css={styles(theme, props.color)}
     >
       <CardHeader className='bg-transparent border-0'>{props.name}</CardHeader>

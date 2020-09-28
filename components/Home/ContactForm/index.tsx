@@ -32,7 +32,7 @@ const ContactForm = (props: Props & FormikProps<FormValues>) => {
       <Row form>
         <Col md={6}>
           <FormGroup>
-            <Label for='firstName' className='monospace'>
+            <Label for='firstName' className='text-monospace'>
               First Name
             </Label>
             <Input
@@ -52,7 +52,7 @@ const ContactForm = (props: Props & FormikProps<FormValues>) => {
         </Col>
         <Col md={6}>
           <FormGroup>
-            <Label for='lastName' className='monospace'>
+            <Label for='lastName' className='text-monospace'>
               Last Name
             </Label>
             <Input
@@ -72,7 +72,7 @@ const ContactForm = (props: Props & FormikProps<FormValues>) => {
         </Col>
       </Row>
       <FormGroup>
-        <Label for='organisationName' className='monospace'>
+        <Label for='organisationName' className='text-monospace'>
           Organisation Name
         </Label>
         <Input
@@ -101,7 +101,7 @@ const ContactForm = (props: Props & FormikProps<FormValues>) => {
         )}
       </FormGroup>
       <FormGroup>
-        <Label for='email' className='monospace'>
+        <Label for='email' className='text-monospace'>
           Email
         </Label>
         <Input
@@ -119,7 +119,7 @@ const ContactForm = (props: Props & FormikProps<FormValues>) => {
         <FormFeedback>{props.errors.email}</FormFeedback>
       </FormGroup>
       <FormGroup>
-        <Label for='message' className='monospace'>
+        <Label for='message' className='text-monospace'>
           Message
         </Label>
         <Input
@@ -144,7 +144,7 @@ const ContactForm = (props: Props & FormikProps<FormValues>) => {
           size='lg'
           color='secondary'
           disabled={props.loading}
-          className='rounded-0 monospace px-5 d-flex align-items-center'
+          className='rounded-0 text-monospace px-5 d-flex align-items-center'
         >
           Send
           {props.loading && (
@@ -155,7 +155,7 @@ const ContactForm = (props: Props & FormikProps<FormValues>) => {
           size='lg'
           color='link'
           disabled={props.loading}
-          className='rounded-0 monospace px-5 text-secondary'
+          className='rounded-0 text-monospace px-5 text-secondary'
           onClick={props.handleCloseForm}
         >
           Close

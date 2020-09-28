@@ -22,8 +22,9 @@ const AccountSettings = () => {
         <title>Account Settings | Coders for Causes</title>
         <Seo
           title='Edit your account'
+          page='account_settings'
           description='Customise your personal preferences and settings'
-          image='https://og-social-cards.dankestkush.vercel.app/**.%2Fsettings**.png?theme=dark&md=1&fontSize=125px&images=https%3A%2F%codersforcauses.org%2Flogo%2Fcfc_logo_white_full.svg'
+          image='https://og-social-cards.vercel.app/**.%2Fsettings**.png?theme=dark&md=1&fontSize=125px&images=https%3A%2Fcodersforcauses.org%2Flogo%2Fcfc_logo_white_full.svg'
         />
       </Head>
       <AccountSettingsPage user={user} />

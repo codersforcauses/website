@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core'
 import { useTheme } from 'emotion-theming'
-import { useState } from 'react'
+import { useCallback, useContext, useState } from 'react'
 import { Auth } from '@aws-amplify/auth'
 import { Field, FormikProps, Form, withFormik } from 'formik'
 import {
@@ -15,6 +15,7 @@ import {
   UncontrolledAlert
 } from 'reactstrap'
 import Spinner from 'components/Elements/Spinner'
+import { DarkContext } from 'helpers/user'
 import ForgotPasswordModal from './ForgotPasswordModal'
 import { styles } from './styles'
 import { validationSchema } from './validation'
@@ -29,16 +30,23 @@ const OtherMember = (props: Props & FormikProps<FormValues>) => {
   const [loading, setLoading] = useState(false)
   const [forgotPassword, setForgotPassword] = useState(false)
   const [resetCode, setResetCode] = useState(false)
+  const isDark = useContext(DarkContext)
 
   const [error, setError] = useState('')
 
   const theme = useTheme()
 
-  const closeModal = () => {
+  const closeError = useCallback(() => setError(''), [])
+  const setPassVisible = useCallback(
+    () => setPasswordVisible(prev => !prev),
+    []
+  )
+  const openModal = useCallback(() => setForgotPassword(true), [])
+  const closeModal = useCallback(() => {
     setForgotPassword(false)
     setResetCode(false)
-  }
-  const handleSendPasswordResetCode = async email => {
+  }, [])
+  const handleSendPasswordResetCode = useCallback(async email => {
     setLoading(true)
     try {
       if (email.includes('@student.uwa.edu.au')) {
@@ -58,25 +66,28 @@ const OtherMember = (props: Props & FormikProps<FormValues>) => {
     } finally {
       setLoading(false)
     }
-  }
-  const handleResetCodeSubmit = async ({ email, code, password }) => {
-    setLoading(true)
-    try {
-      await Auth.forgotPasswordSubmit(
-        email.trim(),
-        code.trim(),
-        password.trim()
-      )
-    } catch ({ message }) {
-      setError(message)
-    } finally {
-      setLoading(false)
-      setError('')
-      setResetCode(false)
-      setForgotPassword(false)
-    }
-  }
-  const changeStep = () => setResetCode(!resetCode)
+  }, [])
+  const handleResetCodeSubmit = useCallback(
+    async ({ email, code, password }) => {
+      setLoading(true)
+      try {
+        await Auth.forgotPasswordSubmit(
+          email.trim(),
+          code.trim(),
+          password.trim()
+        )
+      } catch ({ message }) {
+        setError(message)
+      } finally {
+        setLoading(false)
+        setError('')
+        setResetCode(false)
+        setForgotPassword(false)
+      }
+    },
+    []
+  )
+  const changeStep = useCallback(() => setResetCode(prev => !prev), [])
 
   return (
     <Form css={styles(theme)}>
@@ -89,7 +100,7 @@ const OtherMember = (props: Props & FormikProps<FormValues>) => {
         {props.error}
       </UncontrolledAlert>
       <FormGroup>
-        <Label for='email' className='monospace'>
+        <Label for='email' className='text-monospace'>
           Email
         </Label>
         <Input
@@ -107,7 +118,7 @@ const OtherMember = (props: Props & FormikProps<FormValues>) => {
         <FormFeedback>{props.errors.email}</FormFeedback>
       </FormGroup>
       <FormGroup>
-        <Label for='password' className='monospace'>
+        <Label for='password' className='text-monospace'>
           Password
         </Label>
         <InputGroup>
@@ -128,8 +139,8 @@ const OtherMember = (props: Props & FormikProps<FormValues>) => {
               outline
               color='primary'
               disabled={props.loading}
-              className='rounded-0 border-left-0 d-flex align-items-center justify-content-center'
-              onClick={() => setPasswordVisible(!passwordVisible)}
+              className='rounded-0 border-left-0 d-flex text-primary bg-secondary align-items-center justify-content-center'
+              onClick={setPassVisible}
             >
               <i className='material-icons-sharp'>
                 {passwordVisible ? 'visibility' : 'visibility_off'}
@@ -143,9 +154,10 @@ const OtherMember = (props: Props & FormikProps<FormValues>) => {
         <Button
           type='submit'
           size='lg'
-          color='primary'
+          outline={isDark}
+          color={isDark ? 'secondary' : 'primary'}
           disabled={props.loading}
-          className='rounded-0 monospace px-4 d-flex align-items-center'
+          className='rounded-0 text-monospace px-4 d-flex align-items-center'
         >
           Sign in
           {props.loading && (
@@ -155,8 +167,8 @@ const OtherMember = (props: Props & FormikProps<FormValues>) => {
         <Button
           color='link'
           disabled={props.loading}
-          onClick={() => setForgotPassword(true)}
-          className='ml-3'
+          onClick={openModal}
+          className={`ml-3 rounded-0 text-${isDark ? 'secondary' : 'primary'}`}
         >
           Forgot Password?
         </Button>
@@ -164,7 +176,7 @@ const OtherMember = (props: Props & FormikProps<FormValues>) => {
       <ForgotPasswordModal
         loading={loading}
         error={error}
-        closeError={() => setError('')}
+        closeError={closeError}
         isOpen={forgotPassword}
         isResetStep={resetCode}
         handleChangeStep={changeStep}

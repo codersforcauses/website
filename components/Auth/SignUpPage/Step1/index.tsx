@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useCallback, useContext, useState } from 'react'
 import Router from 'next/router'
 import {
   Row,
@@ -11,6 +11,7 @@ import {
 } from 'reactstrap'
 import { Auth } from '@aws-amplify/auth'
 import { phemeLogin } from 'helpers/phemeLogin'
+import { DarkContext } from 'helpers/user'
 import UWAStudent from './UWAStudent'
 import OtherMember from './OtherMember'
 
@@ -20,9 +21,13 @@ const Step1 = (props: { signIn: Function; nextStep: Function }) => {
   const [loading, setLoading] = useState(false)
   const [errors, setErrors] = useState('')
 
-  const closeError = () => setErrors('')
+  const isDark = useContext(DarkContext)
 
-  const handleSubmit = async values => {
+  const closeError = useCallback(() => setErrors(''), [])
+  const setUWAStudent = useCallback(() => setIsUWAStudent(true), [])
+  const setNotUWAStudent = useCallback(() => setIsUWAStudent(false), [])
+
+  const handleSubmit = useCallback(async values => {
     setLoading(true)
     const data = {
       username: values?.email,
@@ -37,8 +42,8 @@ const Step1 = (props: { signIn: Function; nextStep: Function }) => {
         const phemeResponse = await phemeLogin(
           values.studentNumber,
           values.password,
-          `${process.env.PHEME_URL}api/login`,
-          process.env.PHEME_TOKEN
+          `${process.env.NEXT_PUBLIC_PHEME_URL}api/login`,
+          process.env.NEXT_PUBLIC_PHEME_TOKEN
         )
 
         if (!phemeResponse.success) throw new Error(phemeResponse.message)
@@ -47,7 +52,7 @@ const Step1 = (props: { signIn: Function; nextStep: Function }) => {
 
         // reassign data to use values fetched from pheme login
         data.username = `${values.studentNumber}@student.uwa.edu.au`
-        data.password = `${values.studentNumber}${process.env.PHEME_SALT}`
+        data.password = `${values.studentNumber}${process.env.NEXT_PUBLIC_PHEME_SALT}`
         data.attributes.given_name = user.firstname.split(' ')[0]
         data.attributes.family_name = user.lastname
       }
@@ -63,7 +68,7 @@ const Step1 = (props: { signIn: Function; nextStep: Function }) => {
     } finally {
       setLoading(false)
     }
-  }
+  }, [])
   return (
     <Row>
       <Col xs={12} tag='p'>
@@ -74,6 +79,7 @@ const Step1 = (props: { signIn: Function; nextStep: Function }) => {
             e.preventDefault()
             props.signIn(false)
           }}
+          className={`text-${isDark ? 'secondary' : 'primary'}`}
         >
           Sign in
         </a>
@@ -83,11 +89,21 @@ const Step1 = (props: { signIn: Function; nextStep: Function }) => {
         <Nav tabs className='border-0'>
           <NavItem className='mr-2'>
             <NavLink
+              outline={isDark}
               disabled={loading}
-              className={`tab-nav rounded-0 ${
-                isUWAStudent && 'border-primary'
+              tag='button'
+              className={`tab-nav rounded-0 text-${
+                isDark ? 'secondary' : 'primary'
+              } ${
+                isUWAStudent
+                  ? `${
+                      isDark
+                        ? 'border-secondary text-secondary'
+                        : 'border-primary text-primary'
+                    }`
+                  : null
               }`}
-              onClick={() => setIsUWAStudent(true)}
+              onClick={setUWAStudent}
             >
               UWA Student
             </NavLink>
@@ -95,10 +111,19 @@ const Step1 = (props: { signIn: Function; nextStep: Function }) => {
           <NavItem>
             <NavLink
               disabled={loading}
-              className={`tab-nav rounded-0 ${
-                !isUWAStudent && 'border-primary'
+              tag='button'
+              className={`tab-nav rounded-0 text-${
+                isDark ? 'secondary' : 'primary'
+              } ${
+                !isUWAStudent
+                  ? `${
+                      isDark
+                        ? 'border-secondary text-secondary'
+                        : 'border-primary text-primary'
+                    }`
+                  : null
               }`}
-              onClick={() => setIsUWAStudent(false)}
+              onClick={setNotUWAStudent}
             >
               Email Sign-up
             </NavLink>

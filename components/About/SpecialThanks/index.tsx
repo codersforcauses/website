@@ -22,4 +22,4 @@ const SpecialThanks = () => (
   </Row>
 )
 
-export default SpecialThanks
+export default React.memo(SpecialThanks)

@@ -22,4 +22,4 @@ const Sponsors = () => (
   </Row>
 )
 
-export default Sponsors
+export default React.memo(Sponsors)

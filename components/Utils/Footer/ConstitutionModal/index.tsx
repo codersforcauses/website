@@ -1,5 +1,6 @@
-import React from 'react'
+import React, { useContext, useMemo } from 'react'
 import { Modal, ModalHeader, ModalBody, Button } from 'reactstrap'
+import { DarkContext } from 'helpers/user'
 
 const ConstitutionModal = ({
   isOpen,
@@ -8,10 +9,23 @@ const ConstitutionModal = ({
   isOpen: Boolean
   closeModal: Function
 }) => {
-  const closeBtn = (
-    <Button color='link' className='p-0' onClick={closeModal}>
-      <i className='material-icons-sharp'>close</i>
-    </Button>
+  const isDark = useContext(DarkContext)
+
+  const closeBtn = useMemo(
+    () => (
+      <Button
+        color='link'
+        className='p-0 d-flex align-items-center text-decoration-none'
+        onClick={closeModal}
+      >
+        <i
+          className={`material-icons-sharp text-${isDark ? 'white' : 'black'}`}
+        >
+          close
+        </i>
+      </Button>
+    ),
+    [closeModal, isDark]
   )
   return (
     <Modal centered scrollable size='lg' isOpen={isOpen} toggle={closeModal}>

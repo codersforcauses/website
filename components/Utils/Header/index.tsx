@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core'
 import { useTheme } from 'emotion-theming'
-import { useContext, useState } from 'react'
+import { useContext, useState, useCallback } from 'react'
 import {
   Navbar,
   NavbarBrand,
@@ -12,12 +12,13 @@ import {
   NavbarToggler
 } from 'reactstrap'
 import Link from 'next/link'
+import { UserContext } from 'helpers/user'
 import SignedInUser from './SignedInUser'
 import HeaderItem, { HeaderItemContent } from './HeaderItem'
+import DarkToggle from './DarkToggle'
 import { styles } from './styles'
-import { UserContext } from 'helpers/user'
 
-const Header = () => {
+const Header = (props: { handleDarkToggle: Function }) => {
   const [open, setOpen] = useState(false)
 
   const { user, setUser } = useContext(UserContext)
@@ -35,7 +36,7 @@ const Header = () => {
     }
   ]
 
-  const toggleOpen = () => setOpen(!open)
+  const toggleOpen = useCallback(() => setOpen(open => !open), [])
 
   return (
     <Navbar
@@ -49,7 +50,7 @@ const Header = () => {
       css={styles(theme)}
     >
       <Container>
-        <Nav className='justify-content-start' tag='div'>
+        <Nav tag='div'>
           <NavbarToggler
             id='Menu'
             onClick={toggleOpen}
@@ -59,15 +60,15 @@ const Header = () => {
               {open ? 'close' : 'menu'}
             </i>
           </NavbarToggler>
-          <NavbarBrand
-            href='/'
-            id='Home'
-            title='Home'
-            className='mr-md-5 py-0 brand font-weight-bold monospace'
-            data-cy='nav-Home'
-          >
-            cfc
-          </NavbarBrand>
+          <Link href='/' passHref>
+            <NavbarBrand
+              id='Home'
+              className='mr-md-5 py-0 user-select-none font-weight-bold text-monospace brand'
+              data-cy='nav-Home'
+            >
+              cfc
+            </NavbarBrand>
+          </Link>
           <Collapse navbar isOpen={open} className='pl-4 ml-2 pl-md-0'>
             <Nav navbar>
               {links.map(link => (
@@ -76,25 +77,27 @@ const Header = () => {
             </Nav>
           </Collapse>
         </Nav>
-        {
-          user ? (
-            <SignedInUser
-              setUser={setUser}
-              name={`${user?.given_name} ${user?.family_name}`}
-            />
-          ) : null
-          // <Link href='/membership'>
-          //   <Button
-          //     outline
-          //     size='sm'
-          //     color='secondary'
-          //     className='d-none d-md-block rounded-0'
-          //   >
-          //     Membership
-          //   </Button>
-          // </Link>
-          // eslint-disable-next-line react/jsx-curly-newline
-        }
+        <div>
+          <DarkToggle {...props} />
+          {
+            user ? (
+              <SignedInUser
+                setUser={setUser}
+                name={`${user?.given_name} ${user?.family_name}`}
+              />
+            ) : null
+            // <Link href='/membership'>
+            //   <Button
+            //     outline
+            //     size='sm'
+            //     color='secondary'
+            //     className='d-none d-md-block rounded-0'
+            //   >
+            //     Membership
+            //   </Button>
+            // </Link>
+          }
+        </div>
       </Container>
     </Navbar>
   )

@@ -1,6 +1,7 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core'
 import { useTheme } from 'emotion-theming'
+import { useContext } from 'react'
 import { Field, FormikProps, Form, withFormik } from 'formik'
 import {
   Button,
@@ -15,6 +16,7 @@ import {
   Input
 } from 'reactstrap'
 import Avatar from 'components/Elements/Avatar'
+import { DarkContext } from 'helpers/user'
 import { styles } from './styles'
 import { validationSchema } from './validation'
 
@@ -28,11 +30,11 @@ const mapPropsToValues = (props: Props) => ({
 
 const AccountSettingsPage = (props: Props & FormikProps<FormValues>) => {
   const theme = useTheme()
-
+  const isDark = useContext(DarkContext)
   return (
     <div css={styles(theme)}>
       <Jumbotron className='bg-primary rounded-0 py-5 m-0'>
-        <Container className='my-5 py-4 text-secondary monospace'>
+        <Container className='my-5 py-4 text-secondary text-monospace'>
           ./account_settings
         </Container>
       </Jumbotron>
@@ -54,7 +56,7 @@ const AccountSettingsPage = (props: Props & FormikProps<FormValues>) => {
               <Row form>
                 <Col md={6}>
                   <FormGroup>
-                    <Label for='firstName' className='monospace'>
+                    <Label for='firstName' className='text-monospace'>
                       First Name
                     </Label>
                     <Input
@@ -75,7 +77,7 @@ const AccountSettingsPage = (props: Props & FormikProps<FormValues>) => {
                 </Col>
                 <Col md={6}>
                   <FormGroup>
-                    <Label for='lastName' className='monospace'>
+                    <Label for='lastName' className='text-monospace'>
                       Last Name
                     </Label>
                     <Input
@@ -94,7 +96,7 @@ const AccountSettingsPage = (props: Props & FormikProps<FormValues>) => {
                 </Col>
               </Row>
               <FormGroup>
-                <Label for='email' className='monospace'>
+                <Label for='email' className='text-monospace'>
                   Email
                 </Label>
                 <Input
@@ -113,8 +115,9 @@ const AccountSettingsPage = (props: Props & FormikProps<FormValues>) => {
               <Button
                 type='submit'
                 size='lg'
-                color='primary'
-                className='rounded-0 monospace'
+                outline={isDark}
+                color={isDark ? 'secondary' : 'primary'}
+                className='rounded-0 text-monospace'
               >
                 Update
               </Button>

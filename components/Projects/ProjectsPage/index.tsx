@@ -37,7 +37,7 @@ const ProjectsPage = () => {
   return (
     <div css={styles(theme)}>
       <Title typed>./projects</Title>
-      <Container id='#' className='my-5 py-5 bg-secondary rounded-0'>
+      <Container id='#' className='my-5 py-5 rounded-0'>
         <Row>
           <Col lg={9}>
             <ProjectCards />

@@ -1,6 +1,7 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core'
 import { useTheme } from 'emotion-theming'
+import { useContext } from 'react'
 import {
   Button,
   Breadcrumb,
@@ -9,6 +10,7 @@ import {
   Row,
   Col
 } from 'reactstrap'
+import { DarkContext } from 'helpers/user'
 import TechList from './TechList'
 import type { Tech } from './TechList'
 import { styles } from './styles'
@@ -39,10 +41,11 @@ const Impact = ({
 )
 
 const ProjectPage = ({ data }: Props) => {
+  const isDark = useContext(DarkContext)
   const theme = useTheme()
 
   return (
-    <div css={styles(theme, data.img)}>
+    <div css={styles(theme, data.img, isDark)}>
       <div className='bg-primary pad bg'>
         <Container className='my-5 py-5' />
       </div>
@@ -50,7 +53,11 @@ const ProjectPage = ({ data }: Props) => {
         <Row>
           <Col xs={12}>
             <Breadcrumb tag='nav' className='breadcrumbs'>
-              <BreadcrumbItem tag='a' href='/projects'>
+              <BreadcrumbItem
+                tag='a'
+                href='/projects'
+                className={`text-${isDark ? 'secondary' : 'primary'}`}
+              >
                 Projects
               </BreadcrumbItem>
               <BreadcrumbItem active tag='span' className='active-tab'>
@@ -104,7 +111,7 @@ const ProjectPage = ({ data }: Props) => {
             <Impact impact={data.impact} className='d-lg-none mb-5' />
             <div className='mb-5'>
               <h4 className='font-weight-black mb-4'>Technologies used</h4>
-              <TechList data={data.tech} />
+              <TechList isDark={isDark} data={data.tech} />
             </div>
             <div className='mb-5'>
               <h4 className='font-weight-black mb-4'>Members</h4>
@@ -114,7 +121,7 @@ const ProjectPage = ({ data }: Props) => {
             </div>
           </Col>
           <Col lg={3}>
-            <div className='d-none d-lg-block mb-5 monospace'>
+            <div className='d-none d-lg-block mb-5 text-monospace'>
               <div className='d-flex align-items-center py-3'>
                 <i className='material-icons-sharp mr-3'>devices</i>
                 {data.type}
@@ -127,7 +134,7 @@ const ProjectPage = ({ data }: Props) => {
                 <Button
                   tag='a'
                   outline
-                  color='primary'
+                  color={isDark ? 'secondary' : 'primary'}
                   size='lg'
                   className='rounded-0 mt-3'
                   href={data.url}

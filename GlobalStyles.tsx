@@ -1,11 +1,12 @@
 import { css } from '@emotion/core'
 import emotionNormalize from 'emotion-normalize'
 
-export const globalStyle = theme => css`
+export const globalStyle = (theme, isDark) => css`
   ${emotionNormalize}
 
-  * {
+  *, *::before, *::after {
     box-sizing: border-box;
+    transition: background 0.3s, border 0.3s;
   }
 
   :root {
@@ -18,12 +19,13 @@ export const globalStyle = theme => css`
 
   html,
   body {
-    background: ${theme.colors.secondary};
-    color: ${theme.colors.primary};
+    background: ${theme.colors[isDark ? 'darkBg' : 'secondary']};
+    color: ${theme.colors[isDark ? 'secondary' : 'primary']};
     overflow-x: hidden;
     line-height: 1.5em;
     scroll-behavior: smooth;
     overscroll-behavior-y: none;
+    transition: background 0.3s, border 0.3s;
   }
 
   ::selection {
@@ -45,10 +47,6 @@ export const globalStyle = theme => css`
     scroll-margin-top: 64px;
   }
 
-  .monospace {
-    font-family: 'IBM Plex Mono';
-  }
-
   input {
     color: ${theme.colors.primary};
   }
@@ -61,8 +59,12 @@ export const globalStyle = theme => css`
 
   .modal-content {
     border-radius: 0;
+    background-color: ${theme.colors[isDark ? 'darkBg' : 'secondary']};
   }
 
+  .text-larger {
+    font-size: 1.5rem;
+  }
   .md-lg {
     font-size: 4rem;
   }
@@ -71,9 +73,9 @@ export const globalStyle = theme => css`
   }
 
   .tab-nav {
+    background: transparent;
     &:hover {
-      cursor: pointer;
-      border: 1px solid ${theme.colors.primary}66;
+      border: 1px solid ${theme.colors[isDark ? 'secondary' : 'primary']}66 !important;
     }
   }
 
@@ -88,7 +90,7 @@ export const globalStyle = theme => css`
 
     &:hover {
       filter: none;
-      // cursor: pointer;
+      /* cursor: pointer; */
     }
   }
 
@@ -121,7 +123,7 @@ export const globalStyle = theme => css`
       display: block;
       width: 2px;
       height: 100%;
-      background-color: ${theme.colors.primary};
+      background-color: ${theme.colors[isDark ? 'secondary' : 'primary']};
       position: absolute;
       left: -10px;
       top: 0px;
@@ -153,7 +155,7 @@ export const globalStyle = theme => css`
       display: block;
       width: 2px;
       height: 100%;
-      background-color: ${theme.colors.primary};
+      background-color: ${theme.colors[isDark ? 'secondary' : 'primary']};
       position: absolute;
       left: 0px;
       top: 0px;

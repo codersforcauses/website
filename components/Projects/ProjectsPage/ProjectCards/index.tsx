@@ -1,42 +1,56 @@
 /** @jsx jsx */
+import { useContext } from 'react'
 import { jsx } from '@emotion/core'
 import { useTheme } from 'emotion-theming'
 import { Row, Col, Card, CardImg, CardTitle } from 'reactstrap'
 import Link from 'next/link'
 import projects from 'data/projects.json'
+import { DarkContext } from 'helpers/user'
 import { styles } from './styles'
 
 const ProjectCards = () => {
+  const isDark = useContext(DarkContext)
   const theme = useTheme()
 
   return (
-    <div css={styles(theme)}>
+    <Row css={styles(theme, isDark)}>
       {projects.map(project => (
-        <Link href={project.purl} key={project.name}>
-          <a className='text-decoration-none'>
-            <Card outline color='secondary' className='bg-light'>
-              <CardImg
-                top
-                width='100%'
-                src={`projects/${project.logo}`}
-                alt={project.client}
-                className='project-img img-fluid'
-              />
-              <div className='d-flex align-items-center'>
-                <div className='bg-primary'>
-                  <i className='material-icons-sharp text-secondary p-3'>
-                    {project.icon}
-                  </i>
+        <Col
+          xs={12}
+          md={6}
+          key={project.name}
+          className='align-items-center justify-content-center mb-5 px-4 space'
+        >
+          <Link href={project.purl}>
+            <a className='text-decoration-none'>
+              <Card className='secondary-bg rounded-0 border-0'>
+                <CardImg
+                  top
+                  width='100%'
+                  src={`projects/${project.logo}`}
+                  alt={project.client}
+                  className='project-img img-fluid rounded-0'
+                />
+                <div className='d-flex align-items-center'>
+                  <div className='bg-primary'>
+                    <i className='material-icons-sharp text-secondary p-3'>
+                      {project.icon}
+                    </i>
+                  </div>
+                  <CardTitle
+                    className={`font-weight-bold ml-3 mb-0 text-${
+                      isDark ? 'secondary' : 'primary'
+                    } text-monospace`}
+                  >
+                    {project.name}
+                  </CardTitle>
                 </div>
-                <CardTitle className='font-weight-bold ml-3 mb-0 text-primary monospace'>
-                  {project.name}
-                </CardTitle>
-              </div>
-            </Card>
-          </a>
-        </Link>
+              </Card>
+            </a>
+          </Link>
+        </Col>
       ))}
-    </div>
+    </Row>
   )
 }
 
