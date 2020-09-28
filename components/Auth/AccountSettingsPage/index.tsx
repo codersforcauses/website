@@ -16,6 +16,7 @@ import {
   Input
 } from 'reactstrap'
 import Avatar from 'components/Elements/Avatar'
+import Socials from './Socials'
 import { DarkContext } from 'helpers/user'
 import { styles } from './styles'
 import { validationSchema } from './validation'
@@ -122,6 +123,9 @@ const AccountSettingsPage = (props: Props & FormikProps<FormValues>) => {
                 Update
               </Button>
             </Form>
+          </Col>
+          <Col lg={{ size: 4, offset: 1 }}>
+            <Socials />
           </Col>
         </Row>
       </Container>
