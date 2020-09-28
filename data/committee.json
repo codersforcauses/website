@@ -11,7 +11,7 @@
         "linkedin": "https://www.linkedin.com/in/drew-alexander-29397317a/"
       },
       "picture": {
-        "src": "/committee/drewdp.png",
+        "src": "/committee/drewdp_20.jpg",
         "alt": "CFC President"
       }
     },
@@ -26,7 +26,7 @@
         "linkedin": "https://www.linkedin.com/in/innocent-muisha-00958615a/"
       },
       "picture": {
-        "src": "/committee/innocentdp.png",
+        "src": "/committee/innocentdp_20.jpg",
         "alt": "CFC Vice President"
       }
     },
@@ -41,7 +41,7 @@
         "linkedin": "https://www.linkedin.com/in/daphne-yu-81101916b/"
       },
       "picture": {
-        "src": "https://avatars2.githubusercontent.com/u/49707328?s=400&u=f907c644c6ebcaf1aac7e18eacfb4b562e333f17&v=4",
+        "src": "/committee/daphdp_20.jpg",
         "alt": "CFC Secretary"
       }
     },
@@ -56,7 +56,7 @@
         "linkedin": "https://www.linkedin.com/in/thai-nguyen-8b6098183/"
       },
       "picture": {
-        "src": "https://avatars0.githubusercontent.com/u/34293984?s=400&v=4",
+        "src": "/committee/thaidp_20.jpg",
         "alt": "CFC Treasurer"
       }
     },
@@ -71,7 +71,7 @@
         "linkedin": "https://www.linkedin.com/in/jeremiah-pinto/"
       },
       "picture": {
-        "src": "/committee/jeremiahdp.png",
+        "src": "/committee/jerrydp_20.jpg",
         "alt": "CFC Tech Lead"
       }
     },
@@ -86,7 +86,7 @@
         "linkedin": "https://www.linkedin.com/in/mila-zhang-736b2b198/"
       },
       "picture": {
-        "src": "https://avatars2.githubusercontent.com/u/53566946?s=460&u=873f2d729f4c231e48335e85db1d0eef86c41f8c&v=4",
+        "src": "/committee/miladp_20.jpg",
         "alt": "CFC Marketing Officer"
       }
     },
@@ -101,7 +101,7 @@
         "linkedin": "https://www.linkedin.com/in/frinze-erin-lapuz/"
       },
       "picture": {
-        "src": "https://avatars3.githubusercontent.com/u/44391389?s=460&u=b455fca141a0e007d3a36fed8f0f6f88c323b9fe&v=4",
+        "src": "/committee/frinzedp_20.jpg",
         "alt": "CFC OCM"
       }
     },
@@ -116,7 +116,7 @@
         "linkedin": "https://www.linkedin.com/in/frank-sgro/"
       },
       "picture": {
-        "src": "https://avatars0.githubusercontent.com/u/57307730?s=400&v=4",
+        "src": "/committee/frankdp_20.jpg",
         "alt": "CFC OCM"
       }
     },
@@ -130,7 +130,7 @@
         "github": "https://github.com/MouseAndKeyboard"
       },
       "picture": {
-        "src": "https://avatars1.githubusercontent.com/u/31727915?s=460&u=396e0b1154fa5b765c0d0123b4632c0a49e72cd4&v=4",
+        "src": "/committee/michaeldp_20.jpg",
         "alt": "CFC OCM"
       }
     }
