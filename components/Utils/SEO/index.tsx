@@ -39,6 +39,10 @@ const SEO = ({ title, image, description, page }: SEOProps) => {
       <meta property='og:image:width' content='512' />
       <meta property='og:image:height' content='293' />
       <meta property='og:site_name' content='Coders for Causes' />
+      <meta
+        name='viewport'
+        content='width=device-width, initial-scale=1, shrink-to-fit=no'
+      />
     </>
   )
 }

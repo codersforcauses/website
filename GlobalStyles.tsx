@@ -47,14 +47,6 @@ export const globalStyle = (theme, isDark) => css`
     scroll-margin-top: 64px;
   }
 
-  .modal-content {
-    background-color: ${theme.colors[isDark ? 'darkBg' : 'secondary']};
-  }
-
-  .monospace {
-    font-family: 'IBM Plex Mono';
-  }
-
   input {
     color: ${theme.colors.primary};
   }
@@ -67,8 +59,12 @@ export const globalStyle = (theme, isDark) => css`
 
   .modal-content {
     border-radius: 0;
+    background-color: ${theme.colors[isDark ? 'darkBg' : 'secondary']};
   }
 
+  .text-larger {
+    font-size: 1.5rem;
+  }
   .md-lg {
     font-size: 4rem;
   }
@@ -77,9 +73,9 @@ export const globalStyle = (theme, isDark) => css`
   }
 
   .tab-nav {
+    background: transparent;
     &:hover {
-      cursor: pointer;
-      border: 1px solid ${theme.colors.primary}66;
+      border: 1px solid ${theme.colors[isDark ? 'secondary' : 'primary']}66 !important;
     }
   }
 
@@ -94,7 +90,7 @@ export const globalStyle = (theme, isDark) => css`
 
     &:hover {
       filter: none;
-      // cursor: pointer;
+      /* cursor: pointer; */
     }
   }
 

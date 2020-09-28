@@ -40,6 +40,7 @@ const AddOns = () => {
           user?.given_name ?? 'there'
         }! How can we help you?`}
         data-logged_out_greeting='Please log into facebook to chat with us'
+        data-greeting_dialog_display='fade'
       />
     </>
   ) : null
@@ -64,6 +65,10 @@ const Website = ({ Component, pageProps }: AppProps) => {
     if (process.env.NODE_ENV === 'production') {
       initAnalytics('2423121134')
       initMessenger()
+      setTimeout(() => {
+        document.getElementsByTagName('iframe')[0].title =
+          'Coders for Causes FaceBook Messenger Plugin'
+      }, 2000)
     }
   }, [])
 
@@ -95,12 +100,6 @@ const Website = ({ Component, pageProps }: AppProps) => {
       </DarkProvider>
     </User>
   )
-}
-
-Website.getInitialProps = async appContext => {
-  const appProps = await App.getInitialProps(appContext)
-
-  return appProps
 }
 
 export default Website

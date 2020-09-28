@@ -21,8 +21,8 @@ const Avatar = ({
 
   return (
     <div
-      className={`d-flex align-items-center justify-content-center monospace ${
-        round && 'rounded-circle'
+      className={`d-flex align-items-center justify-content-center text-monospace ${
+        round ? 'rounded-circle' : null
       } ${props.className}`}
       css={styles(theme, sizeToNum[size], dark, props.image)}
     >

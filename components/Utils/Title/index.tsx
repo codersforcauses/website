@@ -17,7 +17,7 @@ const Title = ({
 
   return (
     <Jumbotron
-      className='bg-primary text-secondary d-flex align-items-center rounded-0 mb-0 monospace'
+      className='bg-primary text-secondary d-flex align-items-center rounded-0 mb-0 text-monospace'
       css={styles(theme)}
     >
       <Container>

@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useCallback, useContext, useState } from 'react'
 import Router from 'next/router'
 import {
   Row,
@@ -20,10 +20,14 @@ const Step1 = (props: { signIn: Function; nextStep: Function }) => {
   const [isUWAStudent, setIsUWAStudent] = useState(true)
   const [loading, setLoading] = useState(false)
   const [errors, setErrors] = useState('')
-  const isDark = useContext(DarkContext)
-  const closeError = () => setErrors('')
 
-  const handleSubmit = async values => {
+  const isDark = useContext(DarkContext)
+
+  const closeError = useCallback(() => setErrors(''), [])
+  const setUWAStudent = useCallback(() => setIsUWAStudent(true), [])
+  const setNotUWAStudent = useCallback(() => setIsUWAStudent(false), [])
+
+  const handleSubmit = useCallback(async values => {
     setLoading(true)
     const data = {
       username: values?.email,
@@ -78,7 +82,7 @@ const Step1 = (props: { signIn: Function; nextStep: Function }) => {
     } finally {
       setLoading(false)
     }
-  }
+  }, [])
   return (
     <Row>
       <Col xs={12} tag='p'>
@@ -101,17 +105,19 @@ const Step1 = (props: { signIn: Function; nextStep: Function }) => {
             <NavLink
               outline={isDark}
               disabled={loading}
+              tag='button'
               className={`tab-nav rounded-0 text-${
                 isDark ? 'secondary' : 'primary'
               } ${
-                isUWAStudent &&
-                `${
-                  isDark
-                    ? 'border-secondary text-secondary'
-                    : 'border-primary text-primary'
-                }`
+                isUWAStudent
+                  ? `${
+                      isDark
+                        ? 'border-secondary text-secondary'
+                        : 'border-primary text-primary'
+                    }`
+                  : null
               }`}
-              onClick={() => setIsUWAStudent(true)}
+              onClick={setUWAStudent}
             >
               UWA Student
             </NavLink>
@@ -119,17 +125,19 @@ const Step1 = (props: { signIn: Function; nextStep: Function }) => {
           <NavItem>
             <NavLink
               disabled={loading}
+              tag='button'
               className={`tab-nav rounded-0 text-${
                 isDark ? 'secondary' : 'primary'
               } ${
-                !isUWAStudent &&
-                `${
-                  isDark
-                    ? 'border-secondary text-secondary'
-                    : 'border-primary text-primary'
-                }`
+                !isUWAStudent
+                  ? `${
+                      isDark
+                        ? 'border-secondary text-secondary'
+                        : 'border-primary text-primary'
+                    }`
+                  : null
               }`}
-              onClick={() => setIsUWAStudent(false)}
+              onClick={setNotUWAStudent}
             >
               Email Sign-up
             </NavLink>

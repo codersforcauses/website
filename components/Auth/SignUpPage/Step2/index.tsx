@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useCallback } from 'react'
 import { Row, Col, Card, CardText, Button } from 'reactstrap'
 import Router from 'next/router'
 import PayWithCashModal from './PayWithCashModal'
@@ -9,14 +9,17 @@ const Step1 = (props: { route?: string }) => {
   const [cashModal, setCashModal] = useState(false)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
-
   const [cardModal, setCardModal] = useState(false)
 
-  const closeCashModal = () => {
+  const closeError = useCallback(() => setError(''), [])
+  const openCashModal = useCallback(() => setCashModal(true), [])
+  const closeCashModal = useCallback(() => {
     setError('')
     setCashModal(false)
-  }
-  const handleCashPayment = async ({ masterPassword }) => {
+  }, [])
+  const openCardModal = useCallback(() => setCardModal(true), [])
+  const closeCardModal = useCallback(() => setCardModal(false), [])
+  const handleCashPayment = useCallback(async ({ masterPassword }) => {
     setLoading(true)
     try {
       // TODO: verify password with server
@@ -25,7 +28,7 @@ const Step1 = (props: { route?: string }) => {
     } finally {
       setLoading(false)
     }
-  }
+  }, [])
 
   return (
     <Row>
@@ -52,11 +55,7 @@ const Step1 = (props: { route?: string }) => {
             <i className='material-icons-sharp md-xl'>monetization_on</i>
           </CardText>
 
-          <Button
-            color='primary'
-            className='rounded-0'
-            onClick={() => setCashModal(true)}
-          >
+          <Button color='primary' className='rounded-0' onClick={openCashModal}>
             Pay with Cash
           </Button>
           <PayWithCashModal
@@ -64,7 +63,7 @@ const Step1 = (props: { route?: string }) => {
             closeModal={closeCashModal}
             loading={loading}
             error={error}
-            closeError={() => setError('')}
+            closeError={closeError}
             handleCashPayment={handleCashPayment}
           />
         </Card>
@@ -78,14 +77,11 @@ const Step1 = (props: { route?: string }) => {
           <Button
             color='secondary'
             className='rounded-0'
-            onClick={() => setCardModal(true)}
+            onClick={openCardModal}
           >
             Pay with Card Online
           </Button>
-          <PayWithCardModal
-            isOpen={cardModal}
-            closeModal={() => setCardModal(false)}
-          />
+          <PayWithCardModal isOpen={cardModal} closeModal={closeCardModal} />
         </Card>
       </Col>
       <Col className='mt-4 d-flex justify-content-end'>

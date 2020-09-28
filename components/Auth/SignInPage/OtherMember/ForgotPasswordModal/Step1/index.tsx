@@ -1,5 +1,6 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core'
+import { useCallback, useContext } from 'react'
 import { Field, FormikProps, Form } from 'formik'
 import {
   Button,
@@ -10,16 +11,17 @@ import {
   Input
 } from 'reactstrap'
 import Spinner from 'components/Elements/Spinner'
-import { useContext } from 'react'
 import { DarkContext } from 'helpers/user'
 
 const Step1 = (props: Props & FormikProps<FormValues>) => {
   const isDark = useContext(DarkContext)
-
+  const handleSubmit = useCallback(() => props.submit(props.values.email), [
+    props.values.email
+  ])
   return (
     <Form>
       <FormGroup>
-        <Label for='email' className='monospace'>
+        <Label for='email' className='text-monospace'>
           Email
         </Label>
         <Input
@@ -45,15 +47,19 @@ const Step1 = (props: Props & FormikProps<FormValues>) => {
           outline={isDark}
           color={isDark ? 'secondary' : 'primary'}
           disabled={!props.values.email || props.loading}
-          className='rounded-0 monospace px-4 d-flex align-items-center'
-          onClick={() => props.submit(props.values.email)}
+          className='rounded-0 text-monospace px-4 d-flex align-items-center'
+          onClick={handleSubmit}
         >
           Send
           {props.loading && (
             <Spinner color='secondary' size='sm' className='ml-2' />
           )}
         </Button>
-        <Button color='link' onClick={props.handleChangeStep} className={`ml-3 text-${isDark ? 'secondary' : 'primary'}`}>
+        <Button
+          color='link'
+          onClick={props.handleChangeStep}
+          className={`ml-3 text-${isDark ? 'secondary' : 'primary'}`}
+        >
           Have a reset code?
         </Button>
       </div>

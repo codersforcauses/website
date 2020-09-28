@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core'
 import { withTheme } from 'emotion-theming'
-import { useState } from 'react'
+import { useCallback, useState } from 'react'
 import { Container, Carousel, CarouselItem } from 'reactstrap'
 import Title from 'components/Utils/Title'
 import Step1 from './Step1'
@@ -11,20 +11,21 @@ const SignUpPage = (props: { route?: string; signIn: Function }) => {
   const [currentStep, setCurrentStep] = useState(0)
   const [animating, setAnimating] = useState(false)
 
-  const nextStep = () => {
+  const nextStep = useCallback(() => {
     if (animating) return
     setCurrentStep(1)
-  }
-
-  const previousStep = () => {
+  }, [animating])
+  const previousStep = useCallback(() => {
     if (animating) return
     setCurrentStep(0)
-  }
+  }, [animating])
+  const carouselExiting = useCallback(() => setAnimating(true), [])
+  const carouselExited = useCallback(() => setAnimating(false), [])
 
   const steps = [0, 1].map(index => (
     <CarouselItem
-      onExiting={() => setAnimating(true)}
-      onExited={() => setAnimating(false)}
+      onExiting={carouselExiting}
+      onExited={carouselExited}
       key={index}
     >
       {currentStep === 0 ? (

@@ -5,8 +5,8 @@
     {
       "files": ["*.ts", "*.tsx"],
       "rules": {
-        "no-unused-vars": ["off"],
-        "no-undef": ["off"],
+        "no-unused-vars": "off",
+        "no-undef": "off",
         "space-before-function-paren": "off",
         "camelcase": "off",
         "no-use-before-define": "off"

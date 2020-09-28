@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useEffect, useState } from 'react'
+import React, { FunctionComponent, useEffect, useMemo, useState } from 'react'
 import { Auth } from '@aws-amplify/auth'
 import { UserProvider } from 'helpers/user'
 
@@ -39,16 +39,9 @@ const User: FunctionComponent = ({ children }) => {
       if (!user) auth()
     }, [])
 
-    return (
-      <UserProvider
-        value={{
-          user: user,
-          setUser: setUser
-        }}
-      >
-        {children}
-      </UserProvider>
-    )
+    const userValue = useMemo(() => ({ user, setUser }), [user])
+
+    return <UserProvider value={userValue}>{children}</UserProvider>
   } catch (error) {
     return <>{children}</>
   }

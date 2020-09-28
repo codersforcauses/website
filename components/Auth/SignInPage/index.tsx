@@ -1,10 +1,8 @@
-/** @jsx jsx */
-import { jsx } from '@emotion/core'
-import { useTheme } from 'emotion-theming'
-import { useState, useContext } from 'react'
+import React, { useState, useContext, useCallback } from 'react'
 import { Auth } from '@aws-amplify/auth'
 import {
   Container,
+  Button,
   Row,
   Col,
   Nav,
@@ -20,7 +18,6 @@ import { UserContext, DarkContext } from 'helpers/user'
 import Title from 'components/Utils/Title'
 import UWAStudent from './UWAStudent'
 import OtherMember from './OtherMember'
-import { styles } from './styles'
 
 const SignInPage = (props: { route?: string; signUp: Function }) => {
   const [isUWAStudent, setIsUWAStudent] = useState(true)
@@ -30,11 +27,18 @@ const SignInPage = (props: { route?: string; signUp: Function }) => {
   const { setUser } = useContext(UserContext)
   const isDark = useContext(DarkContext)
 
-  const theme = useTheme()
+  const closeError = useCallback(() => setErrors(''), [])
+  const goToSignUpPage = useCallback(
+    e => {
+      e.preventDefault()
+      props.signUp(true)
+    },
+    [props.signUp]
+  )
+  const setUWAStudent = useCallback(() => setIsUWAStudent(true), [])
+  const setNotUWAStudent = useCallback(() => setIsUWAStudent(false), [])
 
-  const closeError = () => setErrors('')
-
-  const handleSubmit = async values => {
+  const handleSubmit = useCallback(async values => {
     setLoading(true)
     const data = {
       username: values.email,
@@ -71,25 +75,24 @@ const SignInPage = (props: { route?: string; signUp: Function }) => {
     } finally {
       setLoading(false)
     }
-  }
+  }, [])
 
   return (
-    <div css={styles(theme, isDark)}>
+    <div>
       <Title typed>./sign-in</Title>
       <Container className='py-5 '>
         <Row>
           <Col xs={12} tag='p'>
             Don't have an account?&nbsp;
-            <a
-              href=''
-              onClick={e => {
-                e.preventDefault()
-                props.signUp(true)
-              }}
-              className={`text-${isDark ? 'secondary' : 'primary'}`}
+            <Button
+              color='link'
+              className={`px-0 mt-n1 rounded-0 text-${
+                isDark ? 'secondary' : 'primary'
+              }`}
+              onClick={goToSignUpPage}
             >
               Create one
-            </a>
+            </Button>
             .
           </Col>
           <Col md={6}>
@@ -97,10 +100,19 @@ const SignInPage = (props: { route?: string; signUp: Function }) => {
               <NavItem className='mr-2'>
                 <NavLink
                   disabled={loading}
-                  className={`signin-tab rounded-0 text-${isDark ? 'secondary' : 'primary'} ${
-                    isUWAStudent && `${isDark ? 'border-secondary text-secondary' : 'border-primary text-primary'}`
+                  tag='button'
+                  className={`tab-nav rounded-0 text-${
+                    isDark ? 'secondary' : 'primary'
+                  } ${
+                    isUWAStudent
+                      ? `${
+                          isDark
+                            ? 'border-secondary text-secondary'
+                            : 'border-primary text-primary'
+                        }`
+                      : null
                   }`}
-                  onClick={() => setIsUWAStudent(true)}
+                  onClick={setUWAStudent}
                 >
                   UWA Student
                 </NavLink>
@@ -108,10 +120,19 @@ const SignInPage = (props: { route?: string; signUp: Function }) => {
               <NavItem>
                 <NavLink
                   disabled={loading}
-                  className={`signin-tab rounded-0 text-${isDark ? 'secondary' : 'primary'} ${
-                    !isUWAStudent && `${isDark ? 'border-secondary text-secondary' : 'border-primary text-primary'}`
+                  tag='button'
+                  className={`tab-nav rounded-0 text-${
+                    isDark ? 'secondary' : 'primary'
+                  } ${
+                    !isUWAStudent
+                      ? `${
+                          isDark
+                            ? 'border-secondary text-secondary'
+                            : 'border-primary text-primary'
+                        }`
+                      : null
                   }`}
-                  onClick={() => setIsUWAStudent(false)}
+                  onClick={setNotUWAStudent}
                 >
                   Email Sign-in
                 </NavLink>
