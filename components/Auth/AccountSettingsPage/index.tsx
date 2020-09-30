@@ -132,7 +132,7 @@ const AccountSettingsPage = (props: Props & FormikProps<FormValues>) => {
                   invalid={props.errors.bio && props.touched.bio}
                   className='rounded-0 text-primary border-primary text-area'
                 />
-                <FormText className='counter'>
+                <FormText className='counter user-select-none'>
                   {props.values.bio.length}/2048
                 </FormText>
                 <FormFeedback>{props.errors.bio}</FormFeedback>
@@ -142,6 +142,7 @@ const AccountSettingsPage = (props: Props & FormikProps<FormValues>) => {
                 <Label check>
                   <Input
                     type='radio'
+                    tag={Field}
                     name='gender'
                     value='male'
                     checked={props.values.gender}
@@ -151,6 +152,7 @@ const AccountSettingsPage = (props: Props & FormikProps<FormValues>) => {
                 <Label check>
                   <Input
                     type='radio'
+                    tag={Field}
                     name='gender'
                     value='female'
                     checked={props.values.gender}
@@ -160,6 +162,7 @@ const AccountSettingsPage = (props: Props & FormikProps<FormValues>) => {
                 <Label check>
                   <Input
                     type='radio'
+                    tag={Field}
                     name='gender'
                     value='other'
                     checked={props.values.gender}

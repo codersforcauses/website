@@ -26,7 +26,9 @@ const Avatar = ({
       } ${props.className}`}
       css={styles(theme, sizeToNum[size], dark, props.image)}
     >
-      {props.name && <p className='m-0'>{getInitials(props.name)}</p>}
+      {props.name && (
+        <p className='m-0 user-select-none'>{getInitials(props.name)}</p>
+      )}
     </div>
   )
 }
