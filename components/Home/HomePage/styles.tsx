@@ -7,7 +7,7 @@ export const styles = (theme, isDark) => css`
   }
 
   .secondary-bg {
-    background: ${theme.colors[isDark ? 'primary' : 'light']};
+    background: ${theme.colors[isDark ? 'primary' : 'lightBg']};
   }
   
   .hero {
