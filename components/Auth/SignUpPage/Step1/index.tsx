@@ -68,7 +68,8 @@ const Step1 = (props: { signIn: Function; nextStep: Function }) => {
           lastName: data.attributes.family_name,
           email: data.username,
           awsSub: cognitoResponse.userSub,
-          isGuildMember: values?.isGuildMember ?? false
+          isGuildMember: values?.isGuildMember ?? false,
+          signUpType: isUWAStudent ? 'pheme' : 'email'
         })
       })
 
