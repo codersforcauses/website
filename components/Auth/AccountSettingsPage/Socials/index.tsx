@@ -1,5 +1,6 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core'
+import { memo } from 'react'
 import SocialsConnected, { SocialsConnectedProps } from './SocialConnected'
 import { style } from './styles'
 
@@ -7,7 +8,8 @@ const icons: Array<SocialsConnectedProps> = [
   {
     name: 'GitHub',
     icon: 'github',
-    color: '#24292e'
+    color: '#24292e',
+    socialLink: 'username'
   },
   {
     name: 'GitLab',
@@ -18,28 +20,38 @@ const icons: Array<SocialsConnectedProps> = [
     name: 'Bitbucket',
     icon: 'bitbucket',
     color: '#0052cc'
+    // socialLink: 'username'
   },
   {
     name: 'LinkedIn',
     icon: 'linkedin',
     color: '#2977c9',
-    dimensions: 20
+    dimensions: 20,
+    socialLink: 'username'
   },
   {
     name: 'Discord',
     icon: 'discord',
-    color: '#7289da'
+    color: '#7289da',
+    socialLink: 'username'
   }
 ]
+
+const compare = (a: SocialsConnectedProps, b: SocialsConnectedProps) => {
+  if (typeof a.socialLink === 'string') return -1
+  if (typeof a.socialLink !== 'string') return 1
+  return 0
+}
+
 const Socials = () => (
   <>
     <p>Link Socials</p>
     <div css={style}>
-      {icons.map(icon => (
+      {icons.sort(compare).map(icon => (
         <SocialsConnected key={icon.name} {...icon} />
       ))}
     </div>
   </>
 )
 
-export default Socials
+export default memo(Socials)
