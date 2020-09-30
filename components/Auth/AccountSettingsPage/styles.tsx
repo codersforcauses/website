@@ -8,6 +8,12 @@ export const styles = theme => css`
   .text-area {
     min-height: 10rem;
   }
+  .counter {
+    float: right;
+    position: absolute;
+    bottom: 0;
+    right: 1rem;
+  }
 
   ${media.sm`
   `}

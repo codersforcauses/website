@@ -22,9 +22,12 @@ import { styles } from './styles'
 import { validationSchema } from './validation'
 
 const mapPropsToValues = (props: Props) => ({
-  firstName: props.user?.firstName,
-  lastName: props.user?.lastName,
-  email: props.user?.email,
+  firstName: props.user?.firstName ?? '',
+  lastName: props.user?.lastName ?? '',
+  email: props.user?.email ?? '',
+  bio: props.user?.bio ?? '',
+  gender: props.user?.gender ?? 'other',
+  isGuildMember: props.user?.isGuildMember ?? false,
   password: '',
   confirmPassword: ''
 })
@@ -113,6 +116,77 @@ const AccountSettingsPage = (props: Props & FormikProps<FormValues>) => {
                 />
                 <FormFeedback>{props.errors.email}</FormFeedback>
               </FormGroup>
+              <FormGroup className='position-relative'>
+                <Label for='message' className='text-monospace'>
+                  Bio
+                </Label>
+                <Input
+                  type='textarea'
+                  bsSize='lg'
+                  placeholder='Tell us about yourself'
+                  id='bio'
+                  name='bio'
+                  value={props.values.bio}
+                  onChange={props.handleChange}
+                  onBlur={props.handleBlur}
+                  invalid={props.errors.bio && props.touched.bio}
+                  className='rounded-0 text-primary border-primary text-area'
+                />
+                <FormText className='counter'>
+                  {props.values.bio.length}/2048
+                </FormText>
+                <FormFeedback>{props.errors.bio}</FormFeedback>
+              </FormGroup>
+              <FormGroup className='d-flex align-items-center justify-content-between text-monospace'>
+                Gender:
+                <Label check>
+                  <Input
+                    type='radio'
+                    name='gender'
+                    value='male'
+                    checked={props.values.gender}
+                  />
+                  Male
+                </Label>
+                <Label check>
+                  <Input
+                    type='radio'
+                    name='gender'
+                    value='female'
+                    checked={props.values.gender}
+                  />
+                  Female
+                </Label>
+                <Label check>
+                  <Input
+                    type='radio'
+                    name='gender'
+                    value='other'
+                    checked={props.values.gender}
+                  />
+                  Other
+                </Label>
+              </FormGroup>
+              <FormGroup check className='mb-3'>
+                <Label check>
+                  <Input
+                    type='checkbox'
+                    tag={Field}
+                    id='isGuildMember'
+                    name='isGuildMember'
+                    checked={props.values.isGuildMember}
+                  />
+                  I am a{' '}
+                  <a
+                    href='https://www.uwastudentguild.com/the-guild/join-us'
+                    target='_blank'
+                    rel='noopener noreferrer'
+                    className={`text-${isDark ? 'secondary' : 'primary'}`}
+                  >
+                    UWA Guild Member
+                  </a>
+                </Label>
+              </FormGroup>
               <Button
                 type='submit'
                 size='lg'
@@ -145,6 +219,9 @@ interface FormValues {
   email: string
   password: string
   confirmPassword: string
+  bio: string
+  gender: 'male' | 'female' | 'other'
+  isGuildMember: boolean
 }
 interface Props {
   user: any
