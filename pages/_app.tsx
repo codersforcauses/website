@@ -1,10 +1,11 @@
 /** @jsx jsx */
-import App, { AppProps } from 'next/app'
+import { AppProps } from 'next/app'
 import { ThemeProvider } from 'emotion-theming'
 import { CacheProvider, Global, jsx } from '@emotion/core'
 import { cache } from 'emotion'
 import { useEffect, useContext, useCallback, useState } from 'react'
 import { Auth } from '@aws-amplify/auth'
+import dayjs from 'dayjs'
 import User from 'components/Auth/User'
 import Header from 'components/Utils/Header'
 import Footer from 'components/Utils/Footer'
@@ -13,8 +14,11 @@ import { initMessenger } from 'helpers/messenger'
 import { UserContext, DarkProvider } from 'helpers/user'
 import { theme } from 'lib/theme'
 import { globalStyle } from 'GlobalStyles'
+import 'dayjs/locale/en-au'
 import 'theme.scss'
 import { Alert, Container } from 'reactstrap'
+
+dayjs.locale('en-au')
 
 Auth.configure({
   aws_project_region: process.env.NEXT_PUBLIC_AMPLIFY_AWS_COGNITO_REGION,
