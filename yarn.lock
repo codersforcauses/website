@@ -53,27 +53,27 @@
   dependencies:
     cross-fetch "3.0.5"
 
-"@aws-amplify/auth@3.4.5":
-  version "3.4.5"
-  resolved "https://registry.yarnpkg.com/@aws-amplify/auth/-/auth-3.4.5.tgz#c321a6dfc6eae16090966806e328b18ba430b23f"
-  integrity sha512-8XwYhWZiqnEg7+zEYmktR55rtRRuF0Zz5X35m5ses/5oVIBwt/55xC+agwWvNTbPVqk2usCqwEm0wXE9Fnt3pQ==
+"@aws-amplify/auth@3.4.6":
+  version "3.4.6"
+  resolved "https://registry.yarnpkg.com/@aws-amplify/auth/-/auth-3.4.6.tgz#a5d4587d4d9e8f3b5228b965b43fff4a8a951812"
+  integrity sha512-iWSA8Bc42aN5fvkzGsZj8UcObpPSV/MFtls0fDgj5+sVelZoJGN03G7MG7mCz2XiVW0Fz6bTxIIquWe03MryrQ==
   dependencies:
-    "@aws-amplify/cache" "^3.1.30"
-    "@aws-amplify/core" "^3.5.5"
+    "@aws-amplify/cache" "^3.1.31"
+    "@aws-amplify/core" "^3.6.0"
     amazon-cognito-identity-js "^4.4.0"
     crypto-js "^3.3.0"
 
-"@aws-amplify/cache@^3.1.30":
-  version "3.1.30"
-  resolved "https://registry.yarnpkg.com/@aws-amplify/cache/-/cache-3.1.30.tgz#17c62359152f0823663f20edae50910ee2187657"
-  integrity sha512-oROcshQFIaMswD2IsZz2s9byn7wo7FIYJiMPkWCMJeBW9SVHLcVkhYm2uMqiE9+SEg++oTlrV41DVmLvKzEDNg==
+"@aws-amplify/cache@^3.1.31":
+  version "3.1.31"
+  resolved "https://registry.yarnpkg.com/@aws-amplify/cache/-/cache-3.1.31.tgz#9c66faad4918337031e30bee2f2f5b9ac595e8f6"
+  integrity sha512-qcjfoP99l36Hq2vpYhX5ZvCqlX2xmAsKvhWTKmPwkwiB0QufV7/amgP2fVsotiFRWXVpln/Qxbk51aEcf8oSzA==
   dependencies:
-    "@aws-amplify/core" "^3.5.5"
+    "@aws-amplify/core" "^3.6.0"
 
-"@aws-amplify/core@^3.5.5":
-  version "3.5.5"
-  resolved "https://registry.yarnpkg.com/@aws-amplify/core/-/core-3.5.5.tgz#401a4d72b91f2e08be69a825ce256e27bd8938d5"
-  integrity sha512-GBAuOGG5p5EqEU4zWFBnI5TrMZLLm2fsOItN+YY2qNDgtK8QE5jZ/0HAYQ9vD+ykRYmN4K3h57wFAWFKIpWYtw==
+"@aws-amplify/core@^3.6.0":
+  version "3.6.0"
+  resolved "https://registry.yarnpkg.com/@aws-amplify/core/-/core-3.6.0.tgz#d6330e7fa86ad89ffcf463c954e07e916074e3f8"
+  integrity sha512-CZVGFgsXHerG3GXW2Z4vRoSjN0rsC/HnCTz/7lvzBWwqXIgpwsM4nKYZxscN5+fDF46QiDa2UInCjBxo/BExkw==
   dependencies:
     "@aws-crypto/sha256-js" "1.0.0-alpha.0"
     "@aws-sdk/client-cognito-identity" "1.0.0-gamma.8"
