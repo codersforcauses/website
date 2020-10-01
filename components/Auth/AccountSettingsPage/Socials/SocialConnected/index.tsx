@@ -12,7 +12,7 @@ const SocialsConnected = ({
   fill = 'secondary',
   socialLink,
   ...props
-}: SocialsConnectedProps) => {
+}: SocialsConnectedProps & { isEditing: boolean }) => {
   const isDark = useContext(DarkContext)
   return socialLink ? (
     <div
@@ -28,9 +28,11 @@ const SocialsConnected = ({
         className='icon'
       />
       {socialLink}
-      <Button outline color='danger' className='rounded-0 delete'>
-        <i className='material-icons-sharp'>delete_outline</i>
-      </Button>
+      {props.isEditing && (
+        <Button outline color='danger' className='rounded-0 delete'>
+          <i className='material-icons-sharp'>delete_outline</i>
+        </Button>
+      )}
     </div>
   ) : (
     <Button

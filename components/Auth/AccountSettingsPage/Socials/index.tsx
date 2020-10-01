@@ -43,12 +43,12 @@ const compare = (a: SocialsConnectedProps, b: SocialsConnectedProps) => {
   return 0
 }
 
-const Socials = () => (
+const Socials = ({ isEditing }: { isEditing: boolean }) => (
   <>
     <p>Link Socials</p>
     <div css={style}>
       {icons.sort(compare).map(icon => (
-        <SocialsConnected key={icon.name} {...icon} />
+        <SocialsConnected key={icon.name} {...icon} isEditing={isEditing} />
       ))}
     </div>
   </>

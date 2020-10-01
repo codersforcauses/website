@@ -15,11 +15,15 @@ import {
   Label,
   Input
 } from 'reactstrap'
+import dayjs from 'dayjs'
+import localeData from 'dayjs/plugin/localeData'
 import Avatar from 'components/Elements/Avatar'
 import Socials from './Socials'
 import { DarkContext } from 'helpers/user'
 import { styles } from './styles'
 import { validationSchema } from './validation'
+
+dayjs.extend(localeData)
 
 const mapPropsToValues = (props: Props) => ({
   firstName: props.user?.firstName ?? '',
@@ -28,9 +32,40 @@ const mapPropsToValues = (props: Props) => ({
   bio: props.user?.bio ?? '',
   gender: props.user?.gender ?? 'other',
   isGuildMember: props.user?.isGuildMember ?? false,
+  dob: {
+    day: 1,
+    month: 'January',
+    year: 2000
+  },
   password: '',
   confirmPassword: ''
 })
+
+const Days = () => (
+  <>
+    {new Array(31).fill(0).map((el, index) => (
+      <option key={index}>{index + 1}</option>
+    ))}
+  </>
+)
+const Months = () => (
+  <>
+    {dayjs.months().map(el => (
+      <option key={el}>{el}</option>
+    ))}
+  </>
+)
+
+// generate years since 1970
+const Years = () => (
+  <>
+    {Array.from({ length: dayjs().diff('1970', 'y') }, (_, i) => 1970 + i)
+      .sort((a, b) => b - a)
+      .map(el => (
+        <option key={el}>{el}</option>
+      ))}
+  </>
+)
 
 const AccountSettingsPage = (props: Props & FormikProps<FormValues>) => {
   const theme = useTheme()
@@ -137,6 +172,56 @@ const AccountSettingsPage = (props: Props & FormikProps<FormValues>) => {
                 </FormText>
                 <FormFeedback>{props.errors.bio}</FormFeedback>
               </FormGroup>
+              <FormGroup className='position-relative'>
+                <Label for='message' className='text-monospace'>
+                  Date of Birth
+                </Label>
+                <Row form>
+                  <Col xs={3}>
+                    <Input
+                      type='select'
+                      bsSize='lg'
+                      id='day'
+                      name='dob.day'
+                      value={props.values.dob.day}
+                      onChange={props.handleChange}
+                      onBlur={props.handleBlur}
+                      className='rounded-0 text-primary border-primary'
+                    >
+                      <Days />
+                    </Input>
+                  </Col>
+                  <Col xs={5}>
+                    <Input
+                      type='select'
+                      bsSize='lg'
+                      id='month'
+                      name='dob.month'
+                      value={props.values.dob.month}
+                      onChange={props.handleChange}
+                      onBlur={props.handleBlur}
+                      className='rounded-0 text-primary border-primary'
+                    >
+                      <Months />
+                    </Input>
+                  </Col>
+                  <Col xs={4}>
+                    <Input
+                      type='select'
+                      bsSize='lg'
+                      id='year'
+                      name='dob.year'
+                      value={props.values.dob.year}
+                      onChange={props.handleChange}
+                      onBlur={props.handleBlur}
+                      className='rounded-0 text-primary border-primary'
+                    >
+                      <Years />
+                    </Input>
+                  </Col>
+                </Row>
+                <FormFeedback>{props.errors.dob}</FormFeedback>
+              </FormGroup>
               <FormGroup className='d-flex align-items-center justify-content-between text-monospace'>
                 Gender:
                 <Label check>
@@ -202,7 +287,7 @@ const AccountSettingsPage = (props: Props & FormikProps<FormValues>) => {
             </Form>
           </Col>
           <Col lg={{ size: 4, offset: 1 }}>
-            <Socials />
+            <Socials isEditing={false} />
           </Col>
         </Row>
       </Container>
@@ -220,11 +305,59 @@ interface FormValues {
   firstName: string
   lastName: string
   email: string
+  bio: string
   password: string
   confirmPassword: string
-  bio: string
-  gender: 'male' | 'female' | 'other'
   isGuildMember: boolean
+  gender: 'male' | 'female' | 'other'
+  dob: {
+    day:
+      | 1
+      | 2
+      | 3
+      | 4
+      | 5
+      | 6
+      | 7
+      | 8
+      | 9
+      | 10
+      | 11
+      | 12
+      | 13
+      | 14
+      | 15
+      | 16
+      | 17
+      | 18
+      | 19
+      | 20
+      | 21
+      | 22
+      | 23
+      | 24
+      | 25
+      | 26
+      | 27
+      | 28
+      | 29
+      | 30
+      | 31
+    month:
+      | 'January'
+      | 'February'
+      | 'March'
+      | 'April'
+      | 'May'
+      | 'June'
+      | 'July'
+      | 'August'
+      | 'September'
+      | 'October'
+      | 'November'
+      | 'December'
+    year: number
+  }
 }
 interface Props {
   user: any
