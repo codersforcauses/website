@@ -11,7 +11,7 @@ const Dashboard = () => {
     if (user === undefined) Router.replace('/membership')
   }, [user])
 
-  return user ? (
+  return (
     <>
       <Head>
         <title>Dashboard | Coders for Causes</title>
@@ -22,9 +22,9 @@ const Dashboard = () => {
           image='https://og-social-cards.vercel.app/**.%2Fdashboard**.png?theme=dark&md=1&fontSize=125px&images=https%3A%2Fcodersforcauses.org%2Flogo%2Fcfc_logo_white_full.svg'
         />
       </Head>
-      <DashboardPage />
+      {user && <DashboardPage />}
     </>
-  ) : null
+  )
 }
 
 export default Dashboard
