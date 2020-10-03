@@ -59,8 +59,23 @@ const SignInPage = (props: { route?: string; signUp: Function }) => {
         data.username = `${values.studentNumber}@student.uwa.edu.au`
         data.password = `${values.studentNumber}${process.env.NEXT_PUBLIC_PHEME_SALT}`
       }
-      const response = await Auth.signIn(data.username, data.password)
-      setUser(response.attributes)
+      const cognitoResponse = await Auth.signIn(data.username, data.password)
+
+      // query backend
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}users?awsSub=${cognitoResponse.attributes.sub}`
+      )
+      const {
+        data: [user]
+      } = await response.json()
+      delete user.__v
+
+      setUser({
+        ...user,
+        name: `${user.firstName} ${user.lastName}`,
+        jwt_token: cognitoResponse.signInUserSession.idToken.jwtToken
+      })
+
       Router.replace(props.route ? props.route : '/dashboard')
     } catch ({ code, message }) {
       if (code === 'UserNotConfirmedException') {
