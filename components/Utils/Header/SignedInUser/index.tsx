@@ -54,7 +54,7 @@ const UserMenu = ({ name, setUser, ...props }: Props) => {
           <small>Dashboard</small>
         </DropdownItem>
         <DropdownItem
-          href='/account_settings'
+          href={`/profile/${props.id}`}
           className='d-flex align-items-center px-3 py-2'
         >
           <i className='material-icons-sharp mr-2'>settings</i>
@@ -75,6 +75,7 @@ const UserMenu = ({ name, setUser, ...props }: Props) => {
 export default UserMenu
 
 interface Props {
+  id: string
   name?: string
   image?: string
   setUser: Function

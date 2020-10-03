@@ -81,10 +81,7 @@ const Header = (props: { handleDarkToggle: Function }) => {
           <DarkToggle {...props} />
           {
             user ? (
-              <SignedInUser
-                setUser={setUser}
-                name={`${user?.firstName} ${user?.lastName}`}
-              />
+              <SignedInUser setUser={setUser} name={user.name} id={user._id} />
             ) : null
             // <Link href='/membership'>
             //   <Button
