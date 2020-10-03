@@ -34,7 +34,7 @@ const SocialsConnected = ({
         </Button>
       )}
     </div>
-  ) : (
+  ) : props.isEditing ? (
     <Button
       block
       size='lg'
@@ -49,7 +49,7 @@ const SocialsConnected = ({
       />
       {props.name}
     </Button>
-  )
+  ) : null
 }
 
 export default memo(SocialsConnected)
