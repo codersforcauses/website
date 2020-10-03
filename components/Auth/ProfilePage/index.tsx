@@ -5,7 +5,7 @@ import { useCallback, useContext, useState } from 'react'
 import { Jumbotron, Container, Row, Col, Button } from 'reactstrap'
 import dayjs from 'dayjs'
 import Avatar from 'components/Elements/Avatar'
-import { DarkContext } from 'helpers/user'
+import { DarkContext, User } from 'helpers/user'
 import EditDetails from './EditDetails'
 import Socials from './Socials'
 import { styles } from './styles'
@@ -31,13 +31,15 @@ const ProfilePage = (props: Props) => {
             <div className='ml-3'>
               {props.user?.firstName} {props.user?.lastName}
             </div>
-            <Button
-              color='link'
-              className={`rounded-0 text-${isDark ? 'secondary' : 'primary'}`}
-              onClick={toggleEdit}
-            >
-              <i className='material-icons-sharp'>edit</i>
-            </Button>
+            {props.canEdit && (
+              <Button
+                color='link'
+                className={`rounded-0 text-${isDark ? 'secondary' : 'primary'}`}
+                onClick={toggleEdit}
+              >
+                <i className='material-icons-sharp'>edit</i>
+              </Button>
+            )}
           </>
         )}
       </Container>
@@ -65,5 +67,6 @@ const ProfilePage = (props: Props) => {
 export default ProfilePage
 
 interface Props {
-  user: any
+  user: User
+  canEdit: boolean
 }
