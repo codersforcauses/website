@@ -35,6 +35,7 @@ const Step2 = (props: Props & FormikProps<FormValues>) => {
           bsSize='lg'
           tag={Field}
           disabled={props.loading}
+          autoComplete='email'
           placeholder='hello@codersforcauses.org'
           id='email'
           name='email'
@@ -52,8 +53,10 @@ const Step2 = (props: Props & FormikProps<FormValues>) => {
           type='text'
           bsSize='lg'
           tag={Field}
+          inputMode='numeric'
+          autoComplete='one-time-code'
           disabled={props.loading}
-          placeholder='0000'
+          placeholder='000000'
           id='code'
           name='code'
           value={props.values.code}
@@ -74,6 +77,7 @@ const Step2 = (props: Props & FormikProps<FormValues>) => {
             type={passwordVisible ? 'text' : 'password'}
             bsSize='lg'
             tag={Field}
+            autoComplete='new-password'
             disabled={props.loading}
             placeholder='********'
             id='password'
@@ -107,6 +111,7 @@ const Step2 = (props: Props & FormikProps<FormValues>) => {
             type={passwordVisible ? 'text' : 'password'}
             bsSize='lg'
             tag={Field}
+            autoComplete='new-password'
             disabled={props.loading}
             placeholder='********'
             id='confirmPassword'

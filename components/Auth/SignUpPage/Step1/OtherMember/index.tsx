@@ -58,6 +58,7 @@ const OtherMember = (props: Props & FormikProps<FormValues>) => {
               type='text'
               bsSize='lg'
               tag={Field}
+              autoComplete='given-name'
               disabled={props.loading}
               placeholder='John'
               id='firstName'
@@ -78,6 +79,7 @@ const OtherMember = (props: Props & FormikProps<FormValues>) => {
               type='text'
               bsSize='lg'
               tag={Field}
+              autoComplete='family-name'
               disabled={props.loading}
               placeholder='Doe'
               id='lastName'
@@ -98,6 +100,7 @@ const OtherMember = (props: Props & FormikProps<FormValues>) => {
           type='email'
           bsSize='lg'
           tag={Field}
+          autoComplete='email'
           disabled={props.loading}
           placeholder='hello@codersforcauses.org'
           id='email'
@@ -119,6 +122,7 @@ const OtherMember = (props: Props & FormikProps<FormValues>) => {
                 type={passwordVisible ? 'text' : 'password'}
                 bsSize='lg'
                 tag={Field}
+                autoComplete='new-password'
                 disabled={props.loading}
                 placeholder='********'
                 id='password'
@@ -154,6 +158,7 @@ const OtherMember = (props: Props & FormikProps<FormValues>) => {
                 type={passwordVisible ? 'text' : 'password'}
                 bsSize='lg'
                 tag={Field}
+                autoComplete='new-password'
                 disabled={props.loading}
                 placeholder='********'
                 id='confirmPassword'
