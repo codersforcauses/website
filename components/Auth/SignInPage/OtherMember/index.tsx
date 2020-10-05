@@ -48,10 +48,18 @@ const OtherMember = (props: Props & FormikProps<FormValues>) => {
   }, [])
   const handleSendPasswordResetCode = useCallback(async email => {
     setLoading(true)
+
     try {
-      if (email.includes('@student.uwa.edu.au')) {
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}users?email=${email}&$select[]=signUpType`
+      )
+      const {
+        data: [member]
+      } = await response.json()
+
+      if (member.signUpType === 'pheme') {
         throw new Error(
-          'You cannot change the password of your UWA student account. If you wish to do so, please do change it through the UWA portal.'
+          'You cannot change the password of your UWA student account. If you wish to do so, please do change it through the UWA portal and wait at least 1 hour before you try again.'
         )
       }
       await Auth.forgotPassword(email.trim())
