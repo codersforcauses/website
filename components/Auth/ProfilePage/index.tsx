@@ -3,7 +3,6 @@ import { jsx } from '@emotion/core'
 import { useTheme } from 'emotion-theming'
 import { useCallback, useContext, useState } from 'react'
 import { Jumbotron, Container, Row, Col, Button } from 'reactstrap'
-import dayjs from 'dayjs'
 import Avatar from 'components/Elements/Avatar'
 import { DarkContext, User } from 'helpers/user'
 import EditDetails from './EditDetails'
@@ -51,7 +50,29 @@ const ProfilePage = (props: Props) => {
             ) : (
               <>
                 {props.user?.bio && <p>{props.user?.bio}</p>}
-                <p>hello</p>
+                <p>
+                  Jeremiah Pinto is a god tier programmer and software
+                  developer, he writes the cleanest code at Coders For Causes .
+                  But he is not a great programmer and is not known for it. When
+                  people hear that he is a god tier programmer they assume that
+                  he is the best developer, but they don't know about his
+                  programming background. I was lucky enough to meet him at a
+                  conference and got a chance to speak at a conference about
+                  computer security, security conferences have really helped me
+                  learn about security. After that I started to work with him
+                  and started to learn about his work for Coders For Causes.
+                  After a while I started to share and help with his development
+                  work. At Coders For Causes I learned a lot about software
+                  security. We use SELinux security to enforce what is allowed
+                  by SELinux, this helps us to write better software, secure it,
+                  and protect users from security flaws. Jeremiah has a lot of
+                  code for Coders For Causes and a lot of work that he
+                  contributes to Coders For Causes from a security standpoint.
+                  We also use his Code of Conduct which is a great template in
+                  terms of code style. Some of the code he produces for Coders
+                  For Causes is considered dirty and shouldn't see the light of
+                  day, but I love it.
+                </p>
               </>
             )}
           </Col>

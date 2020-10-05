@@ -38,7 +38,7 @@ const mapPropsToValues = (props: Props) => ({
 
 const Days = () => (
   <>
-    {new Array(31).fill(0).map((el, index) => (
+    {new Array(31).fill(0).map((_, index) => (
       <option key={index}>{index + 1}</option>
     ))}
   </>
