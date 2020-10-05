@@ -57,8 +57,8 @@ const UserMenu = ({ name, setUser, ...props }: Props) => {
           href={`/profile/${props.id}`}
           className='d-flex align-items-center px-3 py-2'
         >
-          <i className='material-icons-sharp mr-2'>settings</i>
-          <small>Account Settings</small>
+          <i className='material-icons-sharp mr-2'>person</i>
+          <small>My profile</small>
         </DropdownItem>
         <DropdownItem
           className='d-flex align-items-center px-3 py-2'
