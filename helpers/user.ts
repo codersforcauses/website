@@ -1,6 +1,9 @@
 import { Context, createContext } from 'react'
 
-export const UserContext: Context<any> = createContext({
+export const UserContext: Context<{
+  user: any
+  setUser: any
+}> = createContext({
   user: undefined,
   setUser: () => {}
 })
@@ -28,6 +31,7 @@ export interface User {
   name?: string
   email: string
   awsSub: string
+  bio: string
   socials: Array<any>
   services: Array<any>
   createdAt: string
