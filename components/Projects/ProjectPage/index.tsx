@@ -45,7 +45,7 @@ const ProjectPage = ({ data }: Props) => {
   const theme = useTheme()
 
   return (
-    <div css={styles(theme, data.img, isDark)}>
+    <div css={styles(theme, isDark, data.img)}>
       <div className='bg-primary pad bg'>
         <Container className='my-5 py-5' />
       </div>
@@ -86,7 +86,7 @@ const ProjectPage = ({ data }: Props) => {
                   <Button
                     tag='a'
                     outline
-                    color='primary'
+                    color={isDark ? 'secondary' : 'primary'}
                     size='lg'
                     className='rounded-0 mr-3'
                     href={data.url}
@@ -98,7 +98,7 @@ const ProjectPage = ({ data }: Props) => {
                   <Button
                     tag='a'
                     outline
-                    color='primary'
+                    color={isDark ? 'secondary' : 'primary'}
                     size='lg'
                     className='rounded-0'
                     href={data.source}
@@ -146,7 +146,7 @@ const ProjectPage = ({ data }: Props) => {
                 <Button
                   tag='a'
                   outline
-                  color='primary'
+                  color={isDark ? 'secondary' : 'primary'}
                   size='lg'
                   className='rounded-0 mt-3'
                   href={data.source}
