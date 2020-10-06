@@ -1,14 +1,10 @@
 import React from 'react'
 import Head from 'next/head'
-import { useRouter } from 'next/router'
 import ProjectPage from 'components/Projects/ProjectPage'
 import projects from 'data/projects.json'
 import type { ProjectType } from 'components/Projects/ProjectPage'
 
-const Project = () => {
-  const router = useRouter()
-  const { slug } = router.query
-  const project: ProjectType = projects.find(project => project.id === slug)
+const Project = ({ project }: { project: ProjectType }) => {
   return (
     <>
       <Head>
@@ -21,6 +17,13 @@ const Project = () => {
       <ProjectPage data={project} />
     </>
   )
+}
+
+export const getServerSideProps = ({ params }) => {
+  const project: ProjectType = projects.find(project => project.id === params.slug)
+  return {
+    props: { project }
+  }
 }
 
 export default Project
