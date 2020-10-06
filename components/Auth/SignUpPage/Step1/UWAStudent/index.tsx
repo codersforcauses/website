@@ -57,6 +57,7 @@ const UWAStudent = (props: Props & FormikProps<FormValues>) => {
           type='text'
           bsSize='lg'
           tag={Field}
+          autoComplete='username'
           disabled={props.loading}
           placeholder='211234567'
           id='studentNumber'

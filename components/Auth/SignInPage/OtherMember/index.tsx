@@ -115,6 +115,7 @@ const OtherMember = (props: Props & FormikProps<FormValues>) => {
           type='email'
           bsSize='lg'
           tag={Field}
+          autoComplete='email'
           disabled={props.loading}
           placeholder='hello@codersforcauses.org'
           id='email'
