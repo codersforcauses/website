@@ -286,7 +286,7 @@ interface FormValues {
   password: string
   confirmPassword: string
   isGuildMember: boolean
-  gender: 'male' | 'female' | 'other'
+  gender: string
   dob: {
     day: number
     month: string
