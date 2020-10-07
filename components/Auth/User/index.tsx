@@ -29,11 +29,9 @@ const User: FunctionComponent = ({ children }) => {
           const {
             data: [user]
           } = await response.json()
-          delete user.__v
 
           setUser({
             ...user,
-            name: `${user.firstName} ${user.lastName}`,
             jwt_token: id.getJwtToken()
           })
         } catch (error) {

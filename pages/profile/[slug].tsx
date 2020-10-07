@@ -32,9 +32,8 @@ export const getServerSideProps = async ({ params }) => {
   const {
     data: [user]
   } = await res.json()
-  delete user.__v
   return {
-    props: { user: { ...user, name: `${user.firstName} ${user.lastName}` } }
+    props: { user }
   }
 }
 

@@ -70,11 +70,9 @@ const SignInPage = (props: { route?: string; signUp: Function }) => {
         const {
           data: [user]
         } = await response.json()
-        delete user.__v
 
         setUser({
           ...user,
-          name: `${user.firstName} ${user.lastName}`,
           jwt_token: cognitoResponse.signInUserSession.idToken.jwtToken
         })
 
