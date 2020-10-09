@@ -51,6 +51,10 @@ export const globalStyle = (theme, isDark) => css`
     color: ${theme.colors.primary};
   }
 
+  .form-control:disabled {
+    opacity: 0.6;
+  }
+
   a:focus,
   button:focus {
     outline: 1px dotted ${theme.colors.accent} !important;
