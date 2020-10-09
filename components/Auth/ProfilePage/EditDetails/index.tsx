@@ -1,7 +1,4 @@
-/** @jsx jsx */
-import { jsx } from '@emotion/core'
-import { useTheme } from 'emotion-theming'
-import { useContext } from 'react'
+import React, { useContext } from 'react'
 import { Field, FormikProps, Form, withFormik } from 'formik'
 import {
   Button,
@@ -11,16 +8,18 @@ import {
   FormFeedback,
   FormText,
   Label,
-  Input
+  Input,
+  UncontrolledAlert
 } from 'reactstrap'
 import dayjs from 'dayjs'
 import localeData from 'dayjs/plugin/localeData'
+import Spinner from 'components/Elements/Spinner'
 import { DarkContext, User } from 'helpers/user'
 import { validationSchema } from './validation'
 
 dayjs.extend(localeData)
 
-const mapPropsToValues = (props: Props) => ({
+const mapPropsToValues = (props: Props): FormValues => ({
   firstName: props.user?.firstName ?? '',
   lastName: props.user?.lastName ?? '',
   email: props.user?.email ?? '',
@@ -31,9 +30,7 @@ const mapPropsToValues = (props: Props) => ({
     day: 1,
     month: 'January',
     year: 2000
-  },
-  password: '',
-  confirmPassword: ''
+  }
 })
 
 const Days = () => (
@@ -62,11 +59,20 @@ const Years = () => (
   </>
 )
 
-const isEditing = (props: Props & FormikProps<FormValues>) => {
+const EditDetails = (props: Props & FormikProps<FormValues>) => {
   const isDark = useContext(DarkContext)
+  const isPheme = props.user.signUpType === 'pheme'
 
   return (
     <Form>
+      <UncontrolledAlert
+        isOpen={!!props.error}
+        toggle={props.closeError}
+        color='danger'
+        className='rounded-0'
+      >
+        {props.error}
+      </UncontrolledAlert>
       <Row form>
         <Col md={6}>
           <FormGroup>
@@ -118,10 +124,18 @@ const isEditing = (props: Props & FormikProps<FormValues>) => {
           placeholder='hello@codersforcauses.org'
           id='email'
           name='email'
+          disabled={isPheme}
           value={props.values.email}
           invalid={props.errors.email && props.touched.email}
-          className='rounded-0 text-primary border-primary'
+          className={`rounded-0 text-primary border-primary ${
+            isPheme ? 'user-select-none' : null
+          }`}
         />
+        {isPheme && (
+          <FormText className='user-select-none'>
+            This field is disabled due to pheme sign-up
+          </FormText>
+        )}
         <FormFeedback>{props.errors.email}</FormFeedback>
       </FormGroup>
       <FormGroup className='position-relative'>
@@ -141,7 +155,7 @@ const isEditing = (props: Props & FormikProps<FormValues>) => {
           className='rounded-0 text-primary border-primary text-area'
         />
         <FormText className='counter user-select-none'>
-          {props.values.bio.length}/2048
+          {props.values.bio.length}/512
         </FormText>
         <FormFeedback>{props.errors.bio}</FormFeedback>
       </FormGroup>
@@ -254,7 +268,7 @@ const isEditing = (props: Props & FormikProps<FormValues>) => {
           size='lg'
           outline={isDark}
           color={isDark ? 'secondary' : 'primary'}
-          className='rounded-0 text-monospace'
+          className='rounded-0 text-monospace px-4 d-flex align-items-center'
         >
           Update
         </Button>
@@ -267,24 +281,25 @@ const isEditing = (props: Props & FormikProps<FormValues>) => {
           onClick={props.handleCancel}
         >
           Cancel
+          {props.loading && (
+            <Spinner color='secondary' size='sm' className='ml-2' />
+          )}
         </Button>
       </div>
     </Form>
   )
 }
 export default withFormik<Props, FormValues>({
-  handleSubmit: async values => {},
+  handleSubmit: (values, bag) => bag.props.handleSubmit(values, bag),
   mapPropsToValues,
   validationSchema
-})(isEditing)
+})(EditDetails)
 
 interface FormValues {
   firstName: string
   lastName: string
   email: string
   bio: string
-  password: string
-  confirmPassword: string
   isGuildMember: boolean
   gender: string
   dob: {
@@ -295,5 +310,9 @@ interface FormValues {
 }
 interface Props {
   user: User
+  loading: boolean
+  error: string
+  closeError: Function
   handleCancel: Function
+  handleSubmit: Function
 }

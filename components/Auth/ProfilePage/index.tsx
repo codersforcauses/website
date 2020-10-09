@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core'
 import { useTheme } from 'emotion-theming'
-import { useCallback, useContext, useState } from 'react'
+import { memo, useCallback, useContext, useState } from 'react'
 import { Jumbotron, Container, Row, Col, Button } from 'reactstrap'
 import Avatar from 'components/Elements/Avatar'
 import { DarkContext, User } from 'helpers/user'
@@ -11,10 +11,30 @@ import { styles } from './styles'
 
 const ProfilePage = (props: Props) => {
   const [editing, setEditing] = useState(false)
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState('')
   const theme = useTheme()
   const isDark = useContext(DarkContext)
 
   const toggleEdit = useCallback(() => setEditing(prev => !prev), [])
+  const closeError = useCallback(() => setError(''), [])
+  const handleSubmit = useCallback(async values => {
+    setLoading(true)
+    try {
+      // const res = await fetch(
+      //   `${process.env.NEXT_PUBLIC_API_URL}users/${props.user._id}`
+      // )
+      // const {
+      //   data: [user]
+      // } = await res.json()
+      // console.log(values, props.user._id)
+    } catch ({ message }) {
+      setError(message)
+    } finally {
+      setLoading(false)
+      setError('')
+    }
+  }, [])
 
   return (
     <div css={styles(theme)}>
@@ -46,7 +66,14 @@ const ProfilePage = (props: Props) => {
         <Row>
           <Col lg={7}>
             {editing ? (
-              <EditDetails user={props.user} handleCancel={toggleEdit} />
+              <EditDetails
+                user={props.user}
+                loading={loading}
+                error={error}
+                closeError={closeError}
+                handleCancel={toggleEdit}
+                handleSubmit={handleSubmit}
+              />
             ) : (
               <>
                 {props.user?.bio && <p>{props.user?.bio}</p>}
