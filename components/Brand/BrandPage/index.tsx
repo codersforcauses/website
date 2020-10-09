@@ -106,7 +106,7 @@ const BrandPage = () => {
             <Col xs={12} tag='p'>
               You can test our fonts below. Click on the text to edit it.
             </Col>
-            <Col xs={6} className='monospace'>
+            <Col xs={6} className='text-monospace'>
               <Card
                 body
                 outline

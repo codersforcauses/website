@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core'
 import { useTheme } from 'emotion-theming'
-import { useState, useContext } from 'react'
+import { useCallback, useContext, useState } from 'react'
 import { Field, FormikProps, Form, withFormik } from 'formik'
 import {
   Button,
@@ -29,6 +29,11 @@ const UWAStudent = (props: Props & FormikProps<FormValues>) => {
 
   const theme = useTheme()
 
+  const setPassVisible = useCallback(
+    () => setPasswordVisible(prev => !prev),
+    []
+  )
+
   return (
     <Form css={styles(theme)}>
       <UncontrolledAlert
@@ -40,7 +45,7 @@ const UWAStudent = (props: Props & FormikProps<FormValues>) => {
         {props.error}
       </UncontrolledAlert>
       <FormGroup>
-        <Label for='studentNumber' className='monospace'>
+        <Label for='studentNumber' className='text-monospace'>
           UWA Student Number
         </Label>
         <Input
@@ -58,7 +63,7 @@ const UWAStudent = (props: Props & FormikProps<FormValues>) => {
         <FormFeedback>{props.errors.studentNumber}</FormFeedback>
       </FormGroup>
       <FormGroup>
-        <Label for='password' className='monospace'>
+        <Label for='password' className='text-monospace'>
           Password
         </Label>
         <InputGroup>
@@ -80,7 +85,7 @@ const UWAStudent = (props: Props & FormikProps<FormValues>) => {
               color='primary'
               disabled={props.loading}
               className='rounded-0 border-left-0 text-primary bg-secondary d-flex align-items-center justify-content-center'
-              onClick={() => setPasswordVisible(!passwordVisible)}
+              onClick={setPassVisible}
             >
               <i className='material-icons-sharp'>
                 {passwordVisible ? 'visibility' : 'visibility_off'}
@@ -96,7 +101,7 @@ const UWAStudent = (props: Props & FormikProps<FormValues>) => {
         outline={isDark}
         color={isDark ? 'secondary' : 'primary'}
         disabled={props.loading}
-        className='rounded-0 monospace px-4 d-flex align-items-center'
+        className='rounded-0 text-monospace px-4 d-flex align-items-center'
       >
         Sign in
         {props.loading && (

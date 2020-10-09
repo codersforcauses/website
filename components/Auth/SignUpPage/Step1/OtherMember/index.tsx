@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core'
 import { useTheme } from 'emotion-theming'
-import { useContext, useState } from 'react'
+import { useCallback, useContext, useState } from 'react'
 import { Field, FormikProps, Form, withFormik } from 'formik'
 import {
   Button,
@@ -33,6 +33,11 @@ const OtherMember = (props: Props & FormikProps<FormValues>) => {
   const isDark = useContext(DarkContext)
   const theme = useTheme()
 
+  const setPassVisible = useCallback(
+    () => setPasswordVisible(prev => !prev),
+    []
+  )
+
   return (
     <Form css={styles(theme)}>
       <UncontrolledAlert
@@ -46,7 +51,7 @@ const OtherMember = (props: Props & FormikProps<FormValues>) => {
       <Row form>
         <Col md={6}>
           <FormGroup>
-            <Label for='firstName' className='monospace'>
+            <Label for='firstName' className='text-monospace'>
               First Name
             </Label>
             <Input
@@ -66,7 +71,7 @@ const OtherMember = (props: Props & FormikProps<FormValues>) => {
         </Col>
         <Col md={6}>
           <FormGroup>
-            <Label for='lastName' className='monospace'>
+            <Label for='lastName' className='text-monospace'>
               Last Name
             </Label>
             <Input
@@ -86,7 +91,7 @@ const OtherMember = (props: Props & FormikProps<FormValues>) => {
         </Col>
       </Row>
       <FormGroup>
-        <Label for='email' className='monospace'>
+        <Label for='email' className='text-monospace'>
           Email
         </Label>
         <Input
@@ -106,7 +111,7 @@ const OtherMember = (props: Props & FormikProps<FormValues>) => {
       <Row form>
         <Col md={6}>
           <FormGroup>
-            <Label for='password' className='monospace'>
+            <Label for='password' className='text-monospace'>
               Password
             </Label>
             <InputGroup>
@@ -128,7 +133,7 @@ const OtherMember = (props: Props & FormikProps<FormValues>) => {
                   color='primary'
                   disabled={props.loading}
                   className='rounded-0 border-left-0 text-primary bg-secondary d-flex align-items-center justify-content-center'
-                  onClick={() => setPasswordVisible(!passwordVisible)}
+                  onClick={setPassVisible}
                 >
                   <i className='material-icons-sharp'>
                     {passwordVisible ? 'visibility' : 'visibility_off'}
@@ -141,7 +146,7 @@ const OtherMember = (props: Props & FormikProps<FormValues>) => {
         </Col>
         <Col md={6}>
           <FormGroup>
-            <Label for='confirmPassword' className='monospace'>
+            <Label for='confirmPassword' className='text-monospace'>
               Confirm Password
             </Label>
             <InputGroup>
@@ -165,7 +170,7 @@ const OtherMember = (props: Props & FormikProps<FormValues>) => {
                   color='primary'
                   disabled={props.loading}
                   className='rounded-0 border-left-0 text-primary bg-secondary d-flex align-items-center justify-content-center'
-                  onClick={() => setPasswordVisible(!passwordVisible)}
+                  onClick={setPassVisible}
                 >
                   <i className='material-icons-sharp'>
                     {passwordVisible ? 'visibility' : 'visibility_off'}
@@ -183,7 +188,7 @@ const OtherMember = (props: Props & FormikProps<FormValues>) => {
         outline={isDark}
         color={isDark ? 'secondary' : 'primary'}
         disabled={props.loading}
-        className='rounded-0 monospace px-4 d-flex align-items-center'
+        className='rounded-0 text-monospace px-4 d-flex align-items-center'
       >
         Sign Up
         {props.loading && (

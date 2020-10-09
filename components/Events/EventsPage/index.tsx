@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core'
 import { useTheme } from 'emotion-theming'
-import { useContext, useState } from 'react'
+import { useCallback, useContext, useState } from 'react'
 import { Container, Button, ButtonGroup } from 'reactstrap'
 import Title from 'components/Utils/Title'
 import { DarkContext } from 'helpers/user'
@@ -78,6 +78,9 @@ const EventPage = () => {
   const theme = useTheme()
   const isDark = useContext(DarkContext)
 
+  const toggleEventPast = useCallback(() => setEventPast(true), [])
+  const toggleEventUpcoming = useCallback(() => setEventPast(false), [])
+
   return (
     <div css={styles(theme)}>
       <Title typed>./events</Title>
@@ -86,16 +89,16 @@ const EventPage = () => {
           <Button
             outline={!eventPast}
             color={isDark ? 'secondary' : 'primary'}
-            className='rounded-0 monospace px-4'
-            onClick={() => setEventPast(true)}
+            className='rounded-0 text-monospace px-4'
+            onClick={toggleEventPast}
           >
             Past
           </Button>
           <Button
             outline={eventPast}
             color={isDark ? 'secondary' : 'primary'}
-            className='rounded-0 monospace px-3'
-            onClick={() => setEventPast(false)}
+            className='rounded-0 text-monospace px-3'
+            onClick={toggleEventUpcoming}
           >
             Upcoming
           </Button>

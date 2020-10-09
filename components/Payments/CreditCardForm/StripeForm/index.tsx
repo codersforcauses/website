@@ -35,7 +35,7 @@ const StripeForm = () => {
         type='submit'
         size='lg'
         color='primary'
-        className='rounded-0 monospace px-5'
+        className='rounded-0 text-monospace px-5'
         onClick={handleSubmit}
       >
         Pay

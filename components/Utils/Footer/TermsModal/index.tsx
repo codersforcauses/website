@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useMemo } from 'react'
 import { Modal, ModalHeader, ModalBody, Button } from 'reactstrap'
 import { DarkContext } from 'helpers/user'
 
@@ -11,11 +11,23 @@ const TermsModal = ({
 }) => {
   const isDark = useContext(DarkContext)
 
-  const closeBtn = (
-    <Button color='link' className='p-0 d-flex align-items-center' onClick={closeModal}>
-      <i className={`material-icons-sharp text-${isDark ? 'white' : 'black'}`}>close</i>
-    </Button>
+  const closeBtn = useMemo(
+    () => (
+      <Button
+        color='link'
+        className='p-0 d-flex align-items-center text-decoration-none'
+        onClick={closeModal}
+      >
+        <i
+          className={`material-icons-sharp text-${isDark ? 'white' : 'black'}`}
+        >
+          close
+        </i>
+      </Button>
+    ),
+    [closeModal, isDark]
   )
+
   return (
     <Modal centered scrollable size='lg' isOpen={isOpen} toggle={closeModal}>
       <ModalHeader
@@ -27,7 +39,6 @@ const TermsModal = ({
       </ModalHeader>
       <ModalBody className='legal-content pl-4'>
         <div className='ml-2'>
-
           <p>Welcome to Coders for Causes! We're glad you're here.</p>
           <p>
             This website, www.codersforcauses.org (the "<strong>site</strong>"),
@@ -45,15 +56,17 @@ const TermsModal = ({
             <ol className='pl-4'>
               <li>
                 In order to use most Services, you must register for or
-                authenticate into a Coders for Causes account. When you use our application
-                program interfaces ("API"), each request to an API must include one
-                of your account's unique API keys.
+                authenticate into a Coders for Causes account. When you use our
+                application program interfaces ("API"), each request to an API
+                must include one of your account's unique API keys.
               </li>
               <li>
-                You must ensure that that user username and password is kept confidential.
-                You will accept responsibility for all activities that occur under your username or password.
-                We may disable your username and password if you breach any of the policies or terms governing your use of our website
-                or any other contractual obligation you owe to us.
+                You must ensure that that user username and password is kept
+                confidential. You will accept responsibility for all activities
+                that occur under your username or password. We may disable your
+                username and password if you breach any of the policies or terms
+                governing your use of our website or any other contractual
+                obligation you owe to us.
               </li>
             </ol>
           </div>
@@ -61,10 +74,12 @@ const TermsModal = ({
             <h5 className='list-heading'>Services</h5>
             <ol className='pl-4'>
               <li>
-                CFC may provide you services including, but not limted to, the attendence and participation in events.
+                CFC may provide you services including, but not limted to, the
+                attendence and participation in events.
               </li>
               <li>
-                CFC reserves the exclusive right to terminate your access to these services upon violation of the terms.
+                CFC reserves the exclusive right to terminate your access to
+                these services upon violation of the terms.
               </li>
             </ol>
           </div>
@@ -72,12 +87,15 @@ const TermsModal = ({
             <h5 className='list-heading'>Copyright and Trademarks</h5>
             <ol className='pl-4'>
               <li>
-                All documents on this site incorporate a link clarifying the copyright status of the document.
-                This link appears at the foot of the page, along with the CFC contact details.
+                All documents on this site incorporate a link clarifying the
+                copyright status of the document. This link appears at the foot
+                of the page, along with the CFC contact details.
               </li>
               <li>
-                CFC holds the copyright to all original material produced and displayed on this site.
-                Users may not copy or reproduce the original material displayed on this site without the express written consent of CFC.
+                CFC holds the copyright to all original material produced and
+                displayed on this site. Users may not copy or reproduce the
+                original material displayed on this site without the express
+                written consent of CFC.
               </li>
             </ol>
           </div>
@@ -85,9 +103,10 @@ const TermsModal = ({
             <h5 className='list-heading'>Acceptable Use</h5>
             <ol className='pl-4'>
               <li>
-                You must use the website in a lawful manner, and must obey all laws,
-                rules, and regulations (“Laws”) applicable to your use of the website.
-                As applicable, this may include compliance with both domestic and international Laws.
+                You must use the website in a lawful manner, and must obey all
+                laws, rules, and regulations (“Laws”) applicable to your use of
+                the website. As applicable, this may include compliance with
+                both domestic and international Laws.
               </li>
             </ol>
           </div>
@@ -95,8 +114,9 @@ const TermsModal = ({
             <h5 className='list-heading'>APIs</h5>
             <ol className='pl-4'>
               <li>
-                CFC has developed and provides access to the APIs that may be used to access various services.
-                You may use the APIs solely as described in the Documentation.
+                CFC has developed and provides access to the APIs that may be
+                used to access various services. You may use the APIs solely as
+                described in the Documentation.
               </li>
             </ol>
           </div>
@@ -104,14 +124,15 @@ const TermsModal = ({
             <h5 className='list-heading'>Right to Amend</h5>
             <ol className='pl-4'>
               <li>
-                We have the right to change or add to the terms of this Agreement at any time,
-                and to change, delete, discontinue, or impose conditions on use
-                of the Services by posting such changes on our website or any other website
-                we maintain or own. We may provide you with Notice of any changes
-                through the Dashboard, via email, or through other means. Your use
-                of the Services, APIs, or Data after we publish any such changes
-                on our website, constitutes your acceptance of the terms of
-                the modified Agreement.
+                We have the right to change or add to the terms of this
+                Agreement at any time, and to change, delete, discontinue, or
+                impose conditions on use of the Services by posting such changes
+                on our website or any other website we maintain or own. We may
+                provide you with Notice of any changes through the Dashboard,
+                via email, or through other means. Your use of the Services,
+                APIs, or Data after we publish any such changes on our website,
+                constitutes your acceptance of the terms of the modified
+                Agreement.
               </li>
             </ol>
           </div>
