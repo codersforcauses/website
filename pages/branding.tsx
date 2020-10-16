@@ -1,19 +1,15 @@
 import React from 'react'
-import Head from 'next/head'
-import Seo from 'components/Utils/SEO'
+import Meta from 'components/Utils/Meta'
 import BrandPage from 'components/Brand/BrandPage'
 
 const Branding = () => (
   <>
-    <Head>
-      <title>Branding | Coders for Causes</title>
-      <Seo
-        title='Branding'
-        page='branding'
-        description='Logos, colour schemes, icons and more...'
-        image='https://og-social-cards.vercel.app/**.%2Fbranding**.png?theme=dark&md=1&fontSize=125px&images=https%3A%2Fcodersforcauses.org%2Flogo%2Fcfc_logo_white_full.svg'
-      />
-    </Head>
+    <Meta
+      title='Branding'
+      page='branding'
+      description='Logos, colour schemes, icons and more...'
+      image='https://og-social-cards.vercel.app/**.%2Fbranding**.png?theme=dark&md=1&fontSize=125px&images=https%3A%2Fcodersforcauses.org%2Flogo%2Fcfc_logo_white_full.svg'
+    />
 
     <BrandPage />
   </>
