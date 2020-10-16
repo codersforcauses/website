@@ -21,7 +21,8 @@ const Membership = () => {
   return (
     <>
       <Meta
-        title='Become a Member'
+        name='Become a Member'
+        title='Membership'
         page='membership'
         description='Sign in using your student credentials or register a new account.'
         image='https://og-social-cards.vercel.app/**.%2Fmembership**.png?theme=dark&md=1&fontSize=125px&images=https%3A%2Fcodersforcauses.org%2Flogo%2Fcfc_logo_white_full.svg'

@@ -1,6 +1,5 @@
 import React, { useContext } from 'react'
-import Head from 'next/head'
-import Seo from 'components/Utils/SEO'
+import Meta from 'components/Utils/Meta'
 import ProfilePage from 'components/Auth/ProfilePage'
 import { User, UserContext } from 'helpers/user'
 
@@ -9,17 +8,15 @@ const Profile = ({ user }: { user: User }) => {
 
   return (
     <>
-      <Head>
-        <title>{user?.name}'s Profile | Coders for Causes</title>
-        <Seo
-          title='Edit your account'
-          page={`${user.name}'s profile`}
-          description={`View ${user.name}'s profile and their linked accounts`}
-          image={`https://og-social-cards.vercel.app/**.%2F${encodeURIComponent(
-            `${user.firstName.toLowerCase()}'s profile`
-          )}**.png?theme=dark&md=1&fontSize=125px&images=https%3A%2Fcodersforcauses.org%2Flogo%2Fcfc_logo_white_full.svg`}
-        />
-      </Head>
+      <Meta
+        title={`${user.name}'s Profile`}
+        name={`${user.name}'s Profile`}
+        page={`profile/${user._id}`}
+        description={`View ${user.name}'s profile and their linked accounts`}
+        image={`https://og-social-cards.vercel.app/**.%2F${encodeURIComponent(
+          `${user.firstName.toLowerCase()}'s profile`
+        )}**.png?theme=dark&md=1&fontSize=125px&images=https%3A%2Fcodersforcauses.org%2Flogo%2Fcfc_logo_white_full.svg`}
+      />
       <ProfilePage user={user} canEdit={currentUser?._id === user._id} />
     </>
   )
