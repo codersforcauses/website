@@ -1,5 +1,6 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core'
+import { random } from 'cypress/types/lodash'
 import { useTheme } from 'emotion-theming'
 import {
   Card,
@@ -21,6 +22,13 @@ const iconMap = {
   twitter: <i className='fab fa-twitter-square icon' />
 }
 
+const replaceImage = (src: string, nameList: Array<string>, prob: number) => {
+  if (nameList.some((name: string) => src.includes(name)) && Math.random() < prob) {
+    return src.split('.')[0].concat('-1').concat('.jpg')
+  }
+  return src
+}
+
 const CommitteeCard = ({
   item: {
     name,
@@ -36,7 +44,7 @@ const CommitteeCard = ({
     <Card inverse className='border-0 rounded-0' css={styles(theme)}>
       <CardImg
         width='100%'
-        src={src}
+        src={replaceImage(src, ['jerry'], 0.05)}
         alt={alt}
         className='rounded-0 flex-grow-1'
       />
