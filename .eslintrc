@@ -9,7 +9,8 @@
         "no-undef": "off",
         "space-before-function-paren": "off",
         "camelcase": "off",
-        "no-use-before-define": "off"
+        "no-use-before-define": "off",
+        "react/no-unused-prop-types": [1]
       }
     }
   ]
