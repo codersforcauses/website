@@ -55,7 +55,7 @@
     "@types/node": "13.13.28",
     "@types/react": "16.9.53",
     "@types/yup": "0.29.8",
-    "@typescript-eslint/parser": "4.5.0",
+    "@typescript-eslint/parser": "4.4.0",
     "commitizen": "4.2.2",
     "cypress": "5.4.0",
     "eslint": "7.9.0",
