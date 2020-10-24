@@ -1,32 +1,35 @@
 [
   {
-    "id": "ignitementoring",
-    "icon": "computer",
-    "logo": "ignite1.png",
-    "img": "ignite2.png",
-    "name": "Ignite Mentoring",
-    "client": "Ignite Mentoring",
-    "type": "Web Development",
-    "date": "February 2019",
-    "purl": "/projects/ignitementoring",
-    "url": "https://codersforcauses.github.io/ignite-mentoring-2018/",
+    "id": "foguwa",
+    "icon": "devices",
+    "logo": "foguwa1.png",
+    "img": "foguwa2.png",
+    "name": "Friends of Grounds Tour Map",
+    "client": "Friends of Grounds UWA",
+    "type": "Mobile PWA",
+    "date": "May 2019",
+    "purl": "/projects/foguwa",
+    "source": "https://github.com/foguwa/",
     "impact": [
-      "Improve process efficiency",
-      "Promote organisational transparency",
-      "Risk mitigation"
+      "Showcasing of UWA's flora",
+      "Increased community engagment"
     ],
-    "desc": "lorem lorem lorem lorem lorem lorem lorem lorem lorem lorem lorem lorem",
+    "desc": "The Friends of the Grounds UWA host campus tours to encourage the University and wider WA community to take an active interest in UWA’s flora on the grounds.\nThe project aims to develop a map-based application for users to know their location during the tour or as they explore the campus independantly. Users can click on plants on the map to learn more about them. Admins will be able to create, edit and delete the plant information and its location in the admin console.",
     "tech": [
-      {"name": "HTML", "icon": "menu"},
-      {"name": "CSS", "icon": "menu"},
-      {"name": "JavaScript", "icon": "menu"},
-      {"name": "Heroku", "icon": "menu"}
+      {"name": "MongoDB", "icon": "database"},
+      {"name": "Vue.js", "icon": "vue"},
+      {"name": "NodeJS", "icon": "node"},
+      {"name": "Express.js", "icon": "server"},
+      {"name": "NuxtJS", "icon": "menu"},
+      {"name": "Vuetify", "icon": "menu"}
     ],
     "members": [
-      "David Yu",
+      "Jeremiah Pinto",
+      "Thai Nguyen",
       "Innocent Muisha",
-      "Jong Kyung Kim",
-      "Daniel Jacobs"
+      "Drew Alexander",
+      "Daphne Yu",
+      "Victor John Wilson"
     ]
   },
   {
@@ -69,7 +72,7 @@
     "name": "P2S Rugbyworks Admin Website",
     "client": "P2S Rugbyworks",
     "type": "Web Development",
-    "date": "February 2019",
+    "date": "December 2018",
     "purl": "/projects/p2srugby",
     "source": "https://github.com/codersforcauses/p2s-frontend",
     "impact": [
@@ -93,55 +96,22 @@
     ]
   },
   {
-    "id": "foguwa",
-    "icon": "devices",
-    "logo": "foguwa1.png",
-    "img": "foguwa2.png",
-    "name": "Friends of Grounds Tour Map",
-    "client": "Friends of Grounds UWA",
-    "type": "Mobile PWA",
-    "date": "May 2019",
-    "purl": "/projects/foguwa",
-    "source": "https://github.com/foguwa/",
-    "impact": [
-      "Showcasing of UWA's flora",
-      "Increased community engagment"
-    ],
-    "desc": "The Friends of the Grounds UWA host campus tours to encourage the University and wider WA community to take an active interest in UWA’s flora on the grounds.\nThe project aims to develop a map-based application for users to know their location during the tour or as they explore the campus independantly. Users can click on plants on the map to learn more about them. Admins will be able to create, edit and delete the plant information and its location in the admin console.",
-    "tech": [
-      {"name": "MongoDB", "icon": "database"},
-      {"name": "Vue.js", "icon": "vue"},
-      {"name": "NodeJS", "icon": "node"},
-      {"name": "Express.js", "icon": "server"},
-      {"name": "NuxtJS", "icon": "menu"},
-      {"name": "Vuetify", "icon": "menu"}
-    ],
-    "members": [
-      "Jeremiah Pinto",
-      "Thai Nguyen",
-      "Innocent Muisha",
-      "Drew Alexander",
-      "Daphne Yu",
-      "Victor John Wilson"
-    ]
-  },
-  {
-    "id": "anglicarewa",
-    "icon": "devices",
-    "logo": "anglicare1.png",
-    "img": "anglicare1.png",
-    "name": "Anglicare WA",
+    "id": "ignitementoring",
+    "icon": "computer",
+    "logo": "ignite1.png",
+    "img": "ignite2.png",
+    "name": "Ignite Mentoring",
     "client": "Ignite Mentoring",
     "type": "Web Development",
-    "date": "February 2019",
-    "purl": "/projects/anglicarewa",
+    "date": "December 2018",
+    "purl": "/projects/ignitementoring",
     "url": "https://codersforcauses.github.io/ignite-mentoring-2018/",
+    "source": "https://github.com/codersforcauses/ignite-mentoring-2018",
     "impact": [
-      "Improve process efficiency",
-      "Promote organisational transparency",
-      "Risk mitigation"
+      "Reduce organisational workload",
+      "Increase program scalability"
     ],
-    "desc": "lorem lorem lorem lorem lorem lorem lorem lorem lorem lorem lorem lorem",
+    "desc": "The purpose of this project was to provide Ignite Mentoring a web based tool that allocates it's mentors to classes while learning the basics of web development. ",
     "tech": [
       {"name": "HTML", "icon": "menu"},
       {"name": "CSS", "icon": "menu"},
@@ -153,6 +123,41 @@
       "Innocent Muisha",
       "Jong Kyung Kim",
       "Daniel Jacobs"
+    ]
+  },
+  {
+    "id": "anglicarewa",
+    "icon": "devices",
+    "logo": "anglicare1.png",
+    "img": "anglicare1.png",
+    "name": "Home For Now",
+    "client": "Anglicare",
+    "type": "Web Development",
+    "date": "February 2019",
+    "purl": "/projects/homefornow",
+    "url": "https://codersforcauses.github.io/ignite-mentoring-2018/",
+    "source": "https://github.com/codersforcauses/Homefornow",
+    "impact": [
+      "Reduce stess of finding accomodation",
+      "Reduction in organisational costs",
+      "Simpler and more transparent process"
+    ],
+    "desc": "A simple responsive web application that allows homeless youths to easily search for available accommodation then to quickly make a booking. Accommodation providers are provided with a simple interface to enter and track their bed vacancies plus a platform to receive accommodation enquiries.",
+    "tech": [
+      {"name": "Express", "icon": "server"},
+      {"name": "MongoDB", "icon": "database"},
+      {"name": "NodeJS", "icon": "node"}
+    ],
+    "members": [
+      "Alex Arnold",
+      "Thai Nguyen",
+      "Ben Chidlow",
+      "Jeremiah Pinto",
+      "James Li",
+      "Neosh A. Sheikh",
+      "Abrar Amin",
+      "Matthew Stagoll",
+      "David Yu"
     ]
   }
 ]
