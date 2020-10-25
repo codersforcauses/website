@@ -2,13 +2,11 @@
 import { jsx } from '@emotion/core'
 import { useTheme } from 'emotion-theming'
 import { UncontrolledCollapse, Button, CardBody, Card } from 'reactstrap'
-import { Theme } from 'lib/theme'
 import { styles } from './styles'
 import { DarkContext } from 'helpers/user'
 import { useContext,useState } from 'react'
 
 const ToggleBtn = (props: any)=>{
-    const theme = useTheme()
     const isDark = useContext(DarkContext)
     const [isOpen,setIsopen]=  useState(false)
 
@@ -17,7 +15,7 @@ const ToggleBtn = (props: any)=>{
     }
 
     return(
-        <Button id="toggler" outline={isDark} color={isDark ? 'secondary' : 'primary'} className='rounded-0' style={{ maxHeight: '3em',minWidth:'40px'}} onClick={toggle}>
+        <Button id={props.id} outline={isDark} color={isDark ? 'secondary' : 'primary'} className='rounded-0' style={{ maxHeight: '3em',minWidth:'40px'}} onClick={toggle}>
             {isOpen? '-':'+'}
         </Button>
     )
@@ -33,25 +31,22 @@ const QuestionCard = (props: any) => {
                 className={`rounded-0 border-0 ${props.className}`}
                 css={styles(theme, isDark)}
                 >
-                <CardBody style={{display:'flex',justifyContent:'space-between',alignItems:'center'}}>
+                <CardBody className='d-flex justify-content-between align-items-center'>
                     <h4>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Nesciunt magni, voluptas debitis
-                    similique porro a molestias consequuntur earum odio officiis natus, amet hic, iste sed
-                    dignissimos esse fuga! Minus, alias.
+                        {`Q${props.num}: ${props.description}`}
                     </h4>
-                    <ToggleBtn />
+                    <ToggleBtn id={props.id}/>
                 </CardBody>
             </Card>
             
-            <UncontrolledCollapse toggler="#toggler">
+            <UncontrolledCollapse toggler={`#${props.id}`}>
+                {console.log(props.id)}
                 <Card
                     className={`rounded-0 border-0 ${props.className}`}
                     css={styles(theme, isDark)}
                     >
                     <CardBody>
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Nesciunt magni, voluptas debitis
-                        similique porro a molestias consequuntur earum odio officiis natus, amet hic, iste sed
-                        dignissimos esse fuga! Minus, alias.
+                        {props.answer}
                     </CardBody>
                 </Card>
             </UncontrolledCollapse>
