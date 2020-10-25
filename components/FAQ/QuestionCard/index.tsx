@@ -15,7 +15,7 @@ const ToggleBtn = (props: any)=>{
     }
 
     return(
-        <Button id={props.id} outline={isDark} color={isDark ? 'secondary' : 'primary'} className='rounded-0' style={{ maxHeight: '3em',minWidth:'40px'}} onClick={toggle}>
+        <Button id={props.id} outline={isDark} color={isDark ? 'secondary' : 'primary'} className='rounded-0' style={{ height: '40px',minWidth:'40px'}} onClick={toggle}>
             {isOpen? '-':'+'}
         </Button>
     )
@@ -30,6 +30,7 @@ const QuestionCard = (props: any) => {
             <Card
                 className={`rounded-0 border-0 ${props.className}`}
                 css={styles(theme, isDark)}
+                style={{backgroundColor:'transparent'}}
                 >
                 <CardBody className='d-flex justify-content-between align-items-center'>
                     <h4>
@@ -44,9 +45,9 @@ const QuestionCard = (props: any) => {
                 <Card
                     className={`rounded-0 border-0 ${props.className}`}
                     css={styles(theme, isDark)}
+                    style={{ backgroundColor: 'transparent' }}
                     >
-                    <CardBody>
-                        {props.answer}
+                    <CardBody dangerouslySetInnerHTML={{__html:props.answer}}>
                     </CardBody>
                 </Card>
             </UncontrolledCollapse>
