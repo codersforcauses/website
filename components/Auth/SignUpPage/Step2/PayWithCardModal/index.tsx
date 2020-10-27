@@ -1,4 +1,5 @@
-import React, { useMemo } from 'react'
+import * as React from 'react'
+import { useMemo } from 'react'
 import { Button, Modal, ModalHeader, ModalBody } from 'reactstrap'
 import CreditCardForm from 'components/Payments/CreditCardForm'
 

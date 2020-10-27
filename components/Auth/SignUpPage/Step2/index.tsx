@@ -1,4 +1,5 @@
-import React, { useState, useCallback } from 'react'
+import * as React from 'react'
+import { useState, useCallback } from 'react'
 import { Row, Col, Card, CardText, Button } from 'reactstrap'
 import Router from 'next/router'
 import PayWithCashModal from './PayWithCashModal'

@@ -1,4 +1,5 @@
-import React, { ReactNode } from 'react'
+import * as React from 'react'
+import { ReactNode } from 'react'
 import Head from 'next/head'
 
 const Meta = ({ title, page, description, image, children }: MetaProps) => {

@@ -1,4 +1,4 @@
-import React from 'react'
+import * as React from 'react'
 import AboutPage from 'components/About/AboutPage'
 import Meta from 'components/Utils/Meta'
 

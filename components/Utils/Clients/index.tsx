@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from 'react'
+import * as React from 'react'
+import { useEffect, useState } from 'react'
 import { Row, Col } from 'reactstrap'
 import { randomise } from 'helpers/array'
 import clients from 'data/clients.json'

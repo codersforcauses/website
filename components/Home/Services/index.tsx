@@ -1,4 +1,4 @@
-import React from 'react'
+import * as React from 'react'
 import { Row, Col, Card, CardBody } from 'reactstrap'
 import services from 'data/services.json'
 

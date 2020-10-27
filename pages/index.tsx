@@ -1,4 +1,4 @@
-import React from 'react'
+import * as React from 'react'
 import Meta from 'components/Utils/Meta'
 import HomePage from 'components/Home/HomePage'
 

@@ -1,4 +1,5 @@
-import React, { useState, useContext, useEffect } from 'react'
+import * as React from 'react'
+import { useState, useContext, useEffect } from 'react'
 import Meta from 'components/Utils/Meta'
 import { useRouter } from 'next/router'
 import SignInPage from 'components/Auth/SignInPage'

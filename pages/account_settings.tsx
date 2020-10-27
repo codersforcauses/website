@@ -1,4 +1,5 @@
-import React, { useContext, useEffect } from 'react'
+import * as React from 'react'
+import { useContext, useEffect } from 'react'
 import Router from 'next/router'
 import Head from 'next/head'
 // import Seo from 'components/Utils/SEO'

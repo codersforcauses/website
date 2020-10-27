@@ -1,4 +1,5 @@
-import React, { useContext, useMemo } from 'react'
+import * as React from 'react'
+import { useContext, useMemo } from 'react'
 import { Modal, ModalHeader, ModalBody, Button } from 'reactstrap'
 import { DarkContext } from 'helpers/user'
 

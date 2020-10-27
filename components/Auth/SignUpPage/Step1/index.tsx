@@ -1,4 +1,5 @@
-import React, { useCallback, useContext, useState } from 'react'
+import * as React from 'react'
+import { useCallback, useContext, useState } from 'react'
 import Router from 'next/router'
 import {
   Row,
