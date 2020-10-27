@@ -57,7 +57,7 @@
     "@types/yup": "0.29.8",
     "@typescript-eslint/parser": "4.6.0",
     "commitizen": "4.2.2",
-    "cypress": "5.4.0",
+    "cypress": "5.5.0",
     "eslint": "7.12.0",
     "eslint-config-standard": "15.0.0",
     "eslint-config-standard-react": "9.2.0",
