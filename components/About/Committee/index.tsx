@@ -1,5 +1,3 @@
-/** @jsx jsx */
-import { jsx } from '@emotion/core'
 import { committee } from 'data/committee.json'
 import CommitteeCard from './CommitteeCard'
 import { styles } from './styles'

@@ -1,5 +1,3 @@
-/** @jsx jsx */
-import { jsx } from '@emotion/core'
 import { useTheme } from 'emotion-theming'
 import { useState, useContext } from 'react'
 import { Button, Container, Row, Col } from 'reactstrap'

@@ -1,4 +1,3 @@
-/** @jsx jsx */
 import App, { AppProps } from 'next/app'
 import { ThemeProvider } from 'emotion-theming'
 import { CacheProvider, Global, jsx } from '@emotion/core'

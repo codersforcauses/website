@@ -1,5 +1,3 @@
-/** @jsx jsx */
-import { jsx } from '@emotion/core'
 import { useTheme } from 'emotion-theming'
 import { Spinner as BootstrapSpinner } from 'reactstrap'
 import { styles } from './styles'

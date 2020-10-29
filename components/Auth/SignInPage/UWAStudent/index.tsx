@@ -1,5 +1,3 @@
-/** @jsx jsx */
-import { jsx } from '@emotion/core'
 import { useTheme } from 'emotion-theming'
 import { useCallback, useContext, useState } from 'react'
 import { Field, FormikProps, Form, withFormik } from 'formik'
