@@ -32,7 +32,7 @@ const questionList = [
     {
         id:'stack_choice',
         description:'What stack do you normally use for your projects?',
-        answer:'We work with Javascript, Typescript and Node. Framework will most likely be Vue and Nuxt.js with express, or React with Next.js'
+        answer:'We work with Javascript, Typescript and Node. Frameworks will likely be either Vue with Nuxt.js or React with Next.js and an Express backend.'
     },
     {
         id:'inexperienced_newbie',
