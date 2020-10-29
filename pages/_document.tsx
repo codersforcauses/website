@@ -1,4 +1,3 @@
-import * as React from 'react'
 import Document, { Head, Html, Main, NextScript } from 'next/document'
 import { extractCritical } from 'emotion-server'
 

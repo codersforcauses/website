@@ -1,4 +1,3 @@
-import * as React from 'react'
 import { useState } from 'react'
 import { Alert } from 'reactstrap'
 import announcements from 'data/announcements.json'
@@ -24,18 +23,20 @@ const Announcement = (props: { text: string; time: string; type: string }) => {
 const Announcements = () => {
   return (
     <>
-      {announcements.length > 0 ? (
-        announcements.map((data, i) => (
-          <Announcement
-            key={i}
-            text={data.text}
-            time={data.time}
-            type={data?.type}
-          />
-        ))
-      ) : (
-        <p className='m-0 text-muted'>No announcements to show</p>
-      )}
+      {announcements.length > 0
+        ? (
+            announcements.map((data, i) => (
+              <Announcement
+                key={i}
+                text={data.text}
+                time={data.time}
+                type={data?.type}
+              />
+            ))
+          )
+        : (
+          <p className='m-0 text-muted'>No announcements to show</p>
+          )}
     </>
   )
 }

@@ -1,4 +1,3 @@
-import * as React from 'react'
 import { useState } from 'react'
 import { CardElement, useElements, useStripe } from '@stripe/react-stripe-js'
 import { Button, Form, UncontrolledAlert } from 'reactstrap'

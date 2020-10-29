@@ -1,4 +1,3 @@
-import * as React from 'react'
 import { NavItemProps, NavItem } from 'reactstrap'
 import HeaderDropdown from './HeaderDropdown'
 import HeaderLink from './HeaderLink'
@@ -8,11 +7,13 @@ const HeaderItem = ({
   ...props
 }: Props) => (
   <NavItem {...props}>
-    {items ? (
-      <HeaderDropdown items={items} href={href} text={text} />
-    ) : (
-      <HeaderLink href={href} text={text} isExternal={isExternal} />
-    )}
+    {items
+      ? (
+        <HeaderDropdown items={items} href={href} text={text} />
+        )
+      : (
+        <HeaderLink href={href} text={text} isExternal={isExternal} />
+        )}
   </NavItem>
 )
 

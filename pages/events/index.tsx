@@ -1,4 +1,3 @@
-import * as React from 'react'
 import Meta from 'components/Utils/Meta'
 import EventsPage from 'components/Events/EventsPage'
 

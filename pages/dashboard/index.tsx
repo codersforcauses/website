@@ -1,4 +1,3 @@
-import * as React from 'react'
 import { useContext, useEffect } from 'react'
 import Router from 'next/router'
 import Meta from 'components/Utils/Meta'
@@ -11,17 +10,19 @@ const Dashboard = () => {
     if (user === undefined) Router.replace('/membership')
   }, [user])
 
-  return user ? (
-    <>
-      <Meta
-        title='Dashboard'
-        page='dashboard'
-        description='Get updates and access to CFC material.'
-        image='https://og-social-cards.vercel.app/**.%2Fdashboard**.png?theme=dark&md=1&fontSize=125px&images=https%3A%2Fcodersforcauses.org%2Flogo%2Fcfc_logo_white_full.svg'
-      />
-      {user && <DashboardPage />}
-    </>
-  ) : null
+  return user
+    ? (
+      <>
+        <Meta
+          title='Dashboard'
+          page='dashboard'
+          description='Get updates and access to CFC material.'
+          image='https://og-social-cards.vercel.app/**.%2Fdashboard**.png?theme=dark&md=1&fontSize=125px&images=https%3A%2Fcodersforcauses.org%2Flogo%2Fcfc_logo_white_full.svg'
+        />
+        {user && <DashboardPage />}
+      </>
+      )
+    : null
 }
 
 export default Dashboard

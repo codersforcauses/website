@@ -1,4 +1,3 @@
-import * as React from 'react'
 import Head from 'next/head'
 import EventPage from 'components/Events/EventPage'
 
