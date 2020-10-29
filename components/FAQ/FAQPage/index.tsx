@@ -12,7 +12,7 @@ const questionList = [
     {
         id:'external_member_signup',
         description:'Who can sign up to be CFC member?',
-        answer:'Our membership is not limited to UWA student. Everybody who has a heart for software dev is welcome to be part of us.'
+        answer:'Our membership is not limited to UWA students. Everyone with an interest in software development is welcome to join.'
     },
     {
         id:'membership_fee',
