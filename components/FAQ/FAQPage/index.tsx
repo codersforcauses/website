@@ -47,7 +47,7 @@ const questionList = [
     {
         id:'volunteer_hour_credit',
         description:'Can I get credit from the university for the volunteer hours I contributed towards the project?',
-        answer:'You certainly can. Please fill out the Google form after your session and we will evaluate, sum up hour and submit for you. ***this needs more***'
+        answer:'You certainly can. During the project we will show you how to submit your hours to us for accreditation via Guild Volunteering.'
     },
     {
         id:'summer_project_expectation',
