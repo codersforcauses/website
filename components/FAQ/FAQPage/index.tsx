@@ -22,7 +22,7 @@ const questionList = [
     {
         id:'project_duration',
         description:'Do projects run during semester as well?',
-        answer:'Our project is open source, so feel free to contribute whenever. If you need help to start the project, please reach out to committee we are happy to help.'
+        answer:'Our projects are open source, so feel free to contribute whenever. If you need help getting started on a project, please reach out to our committee, we are happy to help.'
     },
     {
         id:'during_semester',
