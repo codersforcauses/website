@@ -17,7 +17,7 @@ const questionList = [
     {
         id:'membership_fee',
         description:'How much does it cost to become a member?',
-        answer:'$5 :) either via <a target="_blank" href="https://cfcmemberships.getqpay.com/">Qpay<\/a> or contact our friendly committee.'
+        answer:'$5 :) either via <a target="_blank" href="https://cfcmemberships.getqpay.com/">Qpay<\/a> or contact our friendly committee. This is needed to participate in our projects and provides discounts for our paid events.'
     },
     {
         id:'project_duration',
