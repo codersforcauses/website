@@ -26,7 +26,7 @@ const questionList = [
     },
     {
         id:'during_semester',
-        description:'What do you offer during semester then?',
+        description:'What do you offer during semester?',
         answer:'We run workshop and event during semester.'
     },
     {
