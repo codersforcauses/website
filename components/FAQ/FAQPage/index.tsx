@@ -56,7 +56,7 @@ const questionList = [
     },
     {
         id:'apply_project',
-        description:'I\'m very interested in summer project, how do I apply?',
+        description:'I\'m interested in the summer projects, how do I apply?',
         answer:'Visit this <a target="_blank" href="https://forms.gle/jmQ6xXwbfDUBWno18">Google form<\/a>, fill out your detail and answer some short question and we will get back to you to arrange an interview if you\'re success. Applications close November 6th 11:59pm'
     }
 ]
