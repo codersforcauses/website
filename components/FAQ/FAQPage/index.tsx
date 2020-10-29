@@ -36,7 +36,7 @@ const questionList = [
     },
     {
         id:'inexperienced_newbie',
-        description:'Is it recommended to apply if I don\'t have any experience with html/css/javascript?',
+        description:'Should I apply if I don\'t have any experience with HTML/CSS/Javascript?',
         answer: 'It\'s strongly recommended but not necessary. The reason for that is we work with technologies that build on top of those basic language. Without knowing the basic, it might be hard to grasp the concept. If you would like some guidance for learning, feel free to head to #coding-resources section in our Discord server! '
     },
     {
