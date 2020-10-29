@@ -21,7 +21,7 @@ const questionList = [
     },
     {
         id:'project_duration',
-        description:'Do you guys run projects during semester as well?',
+        description:'Do projects run during semester as well?',
         answer:'Our project is open source, so feel free to contribute whenever. If you need help to start the project, please reach out to committee we are happy to help.'
     },
     {
