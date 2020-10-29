@@ -42,7 +42,7 @@ const questionList = [
     {
         id:'hour_committed',
         description:'How many hours do I have to contribute per week towards the project?',
-        answer:'This is completely up to you. We understand that people might be busy sometimes during the holiday and this is volunteer work, so we won\' force people to commit certain hours. However we will ask your availability during our applicant interview to get a rough idea, which help to plan and schedule our project resources and timeline.'
+        answer:'This is completely up to you. We understand that people might be busy sometimes during the holidays and this is volunteer work, so we won\'t force people to commit to certain hours. However we will ask your availability during our applicant interview to get a rough idea, which helps us to plan and schedule our project resources and timeline.'
     },
     {
         id:'volunteer_hour_credit',
