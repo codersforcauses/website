@@ -27,7 +27,7 @@ const questionList = [
     {
         id:'during_semester',
         description:'What do you offer during semester?',
-        answer:'We run workshop and event during semester.'
+        answer:'We run technical workshops, social events and industry events during semester.'
     },
     {
         id:'stack_choice',
