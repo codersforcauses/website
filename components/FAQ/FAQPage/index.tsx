@@ -52,7 +52,7 @@ const questionList = [
     {
         id:'summer_project_expectation',
         description:'What exactly will be expected from me to participate in the summer projects?',
-        answer:'The project group will meet at campus every 1-2 weeks, days to be decides by each group\'s availability. You can get help from team members, talk about the design or do code review with other member during this session. We also invite industry partner to give short talks/workshops to get you familiarised with industry software practice.'
+        answer:'The project group will meet at campus 2 times per week, depending on each group\'s availability. During this time, you can get help from your mentors, learn about technical details or work on the project with other members. We will also invite industry partners to give short talks/workshops to get you familiarised with industry software practice.'
     },
     {
         id:'apply_project',
