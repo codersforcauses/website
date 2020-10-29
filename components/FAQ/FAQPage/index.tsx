@@ -12,32 +12,32 @@ const questionList = [
     {
         id:'external_member_signup',
         description:'Who can sign up to be CFC member?',
-        answer:'Our membership is not limited to UWA student. Everybody who has a heart for software dev is welcome to be part of us.'
+        answer:'Our membership is not limited to UWA students. Everyone with an interest in software development is welcome to join.'
     },
     {
         id:'membership_fee',
-        description:'How much do I pay to be a member?',
-        answer:'$5 :) either via <a target="_blank" href="https://cfcmemberships.getqpay.com/">Qpay<\/a> or contact our friendly committee.'
+        description:'How much does it cost to become a member?',
+        answer:'$5 :) either via <a target="_blank" href="https://cfcmemberships.getqpay.com/">Qpay<\/a> or contact our friendly committee. This is needed to participate in our projects and provides discounts for our paid events.'
     },
     {
         id:'project_duration',
-        description:'Do you guys run projects during semester as well?',
-        answer:'Our project is open source, so feel free to contribute whenever. If you need help to start the project, please reach out to committee we are happy to help.'
+        description:'Do projects run during semester as well?',
+        answer:'Our projects are open source, so feel free to contribute whenever. If you need help getting started on a project, please reach out to our committee, we are happy to help.'
     },
     {
         id:'during_semester',
-        description:'What do you offer during semester then?',
-        answer:'We run workshop and event during semester.'
+        description:'What do you offer during semester?',
+        answer:'We run technical workshops, social events and industry events during semester.'
     },
     {
         id:'stack_choice',
-        description:'What stack do you guys intend on using for project?',
-        answer:'We work with Javascript, Typescript and Node. Framework will most likely be Vue and Nuxt.js with express, or React with Next.js'
+        description:'What stack do you normally use for your projects?',
+        answer:'We work with Javascript, Typescript and Node. Frameworks will likely be either Vue with Nuxt.js or React with Next.js and an Express backend.'
     },
     {
         id:'inexperienced_newbie',
-        description:'Is it recommended to apply if I don\'t have any experience with html/css/javascript?',
-        answer: 'It\'s strongly recommended but not necessary. The reason for that is we work with technologies that build on top of those basic language. Without knowing the basic, it might be hard to grasp the concept. If you would like some guidance for learning, feel free to head to #coding-resources section in our Discord server! '
+        description:'Should I apply if I don\'t have any experience with HTML/CSS/Javascript?',
+        answer: 'It\'s strongly recommended but not necessary. The reason for that is we work with technologies that build on top of those basic fundamentals. Without knowing the basics, it might be hard to grasp more difficult concepts. If you would like some guidance on where to start, head to the #coding-resources section in our Discord server! '
     },
     {
         id:'hour_committed',
