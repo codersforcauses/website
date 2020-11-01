@@ -31,7 +31,7 @@
   },
   "dependencies": {
     "@aws-amplify/auth": "3.4.9",
-    "@emotion/core": "10.0.35",
+    "@emotion/core": "10.1.0",
     "@stripe/react-stripe-js": "1.1.2",
     "bootstrap": "4.5.3",
     "@stripe/stripe-js": "1.11.0",
