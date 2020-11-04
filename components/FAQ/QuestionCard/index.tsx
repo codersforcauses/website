@@ -6,7 +6,7 @@ import { styles } from './styles'
 import { DarkContext } from 'helpers/user'
 import { useContext, useState } from 'react'
 
-const ToggleBtn = (props: any) => {
+const ToggleBtn = ({ id }: { id: string }) => {
   const isDark = useContext(DarkContext)
   const [isOpen, setIsopen] = useState(false)
 
@@ -15,13 +15,20 @@ const ToggleBtn = (props: any) => {
   }
 
   return (
-    <Button id={props.id} outline={isDark} color={isDark ? 'secondary' : 'primary'} className='rounded-0' style={{ height: '40px', minWidth: '40px' }} onClick={toggle}>
+    <Button
+      id={id}
+      outline={isDark}
+      color={isDark ? 'secondary' : 'primary'}
+      className='rounded-0'
+      style={{ height: '40px', minWidth: '40px', marginLeft: '20px' }}
+      onClick={toggle}
+    >
       {isOpen ? '-' : '+'}
     </Button>
   )
 }
 
-const QuestionCard = (props: any) => {
+const QuestionCard = (props: questionProps) => {
   const theme = useTheme()
   const isDark = useContext(DarkContext)
 
@@ -32,26 +39,32 @@ const QuestionCard = (props: any) => {
         css={styles(theme, isDark)}
         style={{ backgroundColor: 'transparent' }}
       >
-        <CardBody className='d-flex justify-content-between align-items-center'>
+        <CardBody className='d-flex justify-content-between'>
           <h4>
-            {`Q${props.num}: ${props.description}`}
+            {`Q: ${props.description}`}
           </h4>
           <ToggleBtn id={props.id} />
         </CardBody>
       </Card>
 
       <UncontrolledCollapse toggler={`#${props.id}`}>
-        {console.log(props.id)}
         <Card
           className={`rounded-0 border-0 ${props.className}`}
           css={styles(theme, isDark)}
           style={{ backgroundColor: 'transparent' }}
         >
-          <CardBody dangerouslySetInnerHTML={{ __html: props.answer }} />
+          <CardBody dangerouslySetInnerHTML={{ __html: '<b>A:</b> ' + props.answer }} />
         </Card>
       </UncontrolledCollapse>
     </div>
   )
+}
+
+interface questionProps {
+  id: string,
+  description: string,
+  answer: string,
+  className?: string
 }
 
 export default QuestionCard
