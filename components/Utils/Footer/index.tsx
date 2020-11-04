@@ -143,6 +143,17 @@ const Footer = () => {
                   </Button>
                 </Link>
               </li>
+              <li>
+                <Link href='/faq'>
+                  <Button
+                    color='link'
+                    className='text-secondary p-0'
+                    data-cy='faq'
+                  >
+                    Frequently Asked Questions
+                  </Button>
+                </Link>
+              </li>
             </ul>
           </Col>
           <Col md={3}>
