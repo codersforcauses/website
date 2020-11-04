@@ -2,28 +2,28 @@
 import { jsx } from '@emotion/core'
 import { useTheme } from 'emotion-theming'
 import { useContext } from 'react'
-import { Container} from 'reactstrap'
+import { Container } from 'reactstrap'
 import Title from 'components/Utils/Title'
 import { DarkContext } from 'helpers/user'
 import { styles } from './styles'
 import QuestionCard from '../QuestionCard'
-import questionList from 'data/questionList.json'
+import questionList from 'data/faq.json'
 
 const FAQPage = () => {
-    const isDark = useContext(DarkContext)
-    const theme = useTheme()
+  const isDark = useContext(DarkContext)
+  const theme = useTheme()
 
-    return (
-        <div css={styles(theme, isDark)}>
-            <Title typed>./frequently asked questions</Title>
-            <Container className='pt-2 pb-5 my-5'>
-                {questionList.map((question,index)=>(
-                    <QuestionCard description={question.description} answer={question.answer} key={question.id} id={question.id} num={index+1}/>
-                )
-                )}
-            </Container>
-        </div>
-    )
+  return (
+    <div css={styles(theme, isDark)}>
+      <Title typed>./frequently asked questions</Title>
+      <Container className='pt-2 pb-5 my-5'>
+        {questionList.map((question, index) => (
+          <QuestionCard description={question.description} answer={question.answer} key={question.id} id={question.id} num={index + 1} />
+        )
+        )}
+      </Container>
+    </div>
+  )
 }
 
 export default FAQPage
