@@ -1,7 +1,7 @@
 [
     {
         "id":"external_member_signup",
-        "description":"Who can sign up to be CFC member?",
+        "description":"Who can sign up to be a CFC member?",
         "answer":"Our membership is not limited to UWA students. Everyone with an interest in software development is welcome to join."
     },
     {
