@@ -1,6 +1,5 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core'
-import { random } from 'cypress/types/lodash'
 import { useTheme } from 'emotion-theming'
 import {
   Card,
