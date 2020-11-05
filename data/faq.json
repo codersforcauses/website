@@ -1,0 +1,52 @@
+[
+    {
+        "id":"external_member_signup",
+        "description":"Who can sign up to be a CFC member?",
+        "answer":"Our membership is not limited to UWA students. Everyone with an interest in software development is welcome to join."
+    },
+    {
+        "id":"membership_fee",
+        "description":"How much does it cost to become a member?",
+        "answer":"$5 :) either via <a target='_blank' href='https://cfcmemberships.getqpay.com/'>Qpay<\/a> or contact our friendly committee. This is needed to participate in our projects and provides discounts for our paid events."
+    },
+    {
+        "id":"project_duration",
+        "description":"Do projects run during semester as well?",
+        "answer":"Our projects are open source, so feel free to contribute whenever. If you need help getting started on a project, please reach out to our committee, we are happy to help."
+    },
+    {
+        "id":"during_semester",
+        "description":"What do you offer during semester?",
+        "answer":"We run technical workshops, social events and industry events during semester."
+    },
+    {
+        "id":"stack_choice",
+        "description":"What stack do you normally use for your projects?",
+        "answer":"We work with Javascript, Typescript and Node. Frameworks will likely be either Vue with Nuxt.js or React with Next.js and an Express backend."
+    },
+    {
+        "id":"inexperienced_newbie",
+        "description":"Should I apply if I don't have any experience with HTML/CSS/Javascript?",
+        "answer": "It's strongly recommended but not necessary. The reason for that is we work with technologies that build on top of those basic fundamentals. Without knowing the basics, it might be hard to grasp more difficult concepts. If you would like some guidance on where to start, head to the #coding-resources section in our Discord server! <a target='_blank' href='https://discord.com/invite/zW3hjwY'>Join CFC Discord<\/a>"
+    },
+    {
+        "id":"hour_committed",
+        "description":"How many hours do I have to contribute per week towards the project?",
+        "answer":"This is completely up to you. We understand that people might be busy sometimes during the holidays and this is volunteer work, so we won't force people to commit to certain hours. However we will ask your availability during our applicant interview to get a rough idea, which helps us to plan and schedule our project resources and timeline."
+    },
+    {
+        "id":"volunteer_hour_credit",
+        "description":"Can I get credit from the university for the volunteer hours I contributed towards the project?",
+        "answer":"You certainly can. During the project we will show you how to submit your hours to us for accreditation via Guild Volunteering."
+    },
+    {
+        "id":"summer_project_expectation",
+        "description":"What exactly will be expected from me to participate in the summer projects?",
+        "answer":"The project group will meet at campus 2 times per week, depending on each group's availability. During this time, you can get help from your mentors, learn about technical details or work on the project with other members. We will also invite industry partners to give short talks/workshops to get you familiarised with industry software practice."
+    },
+    {
+        "id":"apply_project",
+        "description":"I'm interested in the summer projects, how do I apply?",
+        "answer":"Visit this <a target='_blank' href='https://forms.gle/jmQ6xXwbfDUBWno18'>Google form<\/a>, fill out your details and answer some short questions and we will get back to you to arrange an interview if you're successful. Applications close November 6th 11: 59pm."
+    }
+]
