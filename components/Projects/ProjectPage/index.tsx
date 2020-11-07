@@ -15,8 +15,8 @@ import TechList from './TechList'
 import type { Tech } from './TechList'
 import { styles } from './styles'
 
-const parseDescription = (text) => (
-  text.split('\n').map((para) => (
+const parseDescription = text => (
+  text.split('\n').map(para => (
     <p key={para}>{para}</p>
   )))
 
