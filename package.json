@@ -33,7 +33,7 @@
     "@aws-amplify/auth": "3.4.17",
     "@emotion/core": "10.1.1",
     "@stripe/react-stripe-js": "1.1.2",
-    "bootstrap": "4.5.3",
+    "bootstrap": "4.6.0",
     "@stripe/stripe-js": "1.11.0",
     "emotion": "10.0.27",
     "emotion-normalize": "10.1.0",
