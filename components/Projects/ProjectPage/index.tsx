@@ -3,7 +3,6 @@ import { jsx } from '@emotion/core'
 import { useTheme } from 'emotion-theming'
 import { useContext } from 'react'
 import {
-  Button,
   Breadcrumb,
   BreadcrumbItem,
   Container,
@@ -14,6 +13,7 @@ import { DarkContext } from 'helpers/user'
 import TechList from './TechList'
 import type { Tech } from './TechList'
 import { styles } from './styles'
+import WebsiteButton from './Button'
 
 const parseDescription = text => (
   text.split('\n').map(para => (
@@ -83,29 +83,18 @@ const ProjectPage = ({ data }: Props) => {
               </p>
               <div className='d-lg-none mt-2'>
                 {data.url &&
-                  <Button
-                    tag='a'
-                    outline
-                    color={isDark ? 'secondary' : 'primary'}
-                    size='lg'
-                    className='rounded-0 mr-3'
-                    href={data.url}
-                    target='_blank'
-                  >
-                    Visit Website
-                  </Button>}
+                  <WebsiteButton
+                    dark={isDark}
+                    link={data.url}
+                    text='Visit Website'
+                    classes='mr-3'
+                  />}
                 {data.source &&
-                  <Button
-                    tag='a'
-                    outline
-                    color={isDark ? 'secondary' : 'primary'}
-                    size='lg'
-                    className='rounded-0'
-                    href={data.source}
-                    target='_blank'
-                  >
-                    View Source
-                  </Button>}
+                  <WebsiteButton
+                    dark={isDark}
+                    link={data.source}
+                    text='Visit Source'
+                  />}
               </div>
             </div>
             <Impact impact={data.impact} className='d-lg-none mb-5' />
@@ -131,29 +120,19 @@ const ProjectPage = ({ data }: Props) => {
                 {data.date}
               </div>
               {data.url &&
-                <Button
-                  tag='a'
-                  outline
-                  color={isDark ? 'secondary' : 'primary'}
-                  size='lg'
-                  className='rounded-0 mt-3'
-                  href={data.url}
-                  target='_blank'
-                >
-                  Visit Website
-                </Button>}
+                <WebsiteButton
+                  dark={isDark}
+                  link={data.url}
+                  text='Visit Website'
+                  classes='mt-3'
+                />}
               {data.source &&
-                <Button
-                  tag='a'
-                  outline
-                  color={isDark ? 'secondary' : 'primary'}
-                  size='lg'
-                  className='rounded-0 mt-3'
-                  href={data.source}
-                  target='_blank'
-                >
-                  View Source
-                </Button>}
+                <WebsiteButton
+                  dark={isDark}
+                  link={data.source}
+                  text='Visit Source'
+                  classes='mt-3'
+                />}
             </div>
             <Impact impact={data.impact} className='d-none d-lg-block' />
           </Col>
