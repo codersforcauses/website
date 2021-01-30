@@ -27,8 +27,7 @@ const ProjectCards = () => {
                 <CardImg
                   top
                   width='100%'
-                  src='https://source.unsplash.com/random'
-                  // {project.logo}
+                  src={`projects/${project.logo}`}
                   alt={project.client}
                   className='project-img img-fluid rounded-0'
                 />
@@ -40,7 +39,7 @@ const ProjectCards = () => {
                   </div>
                   <CardTitle
                     className={`font-weight-bold ml-3 mb-0 text-${
-                      isDark ? 'white' : 'black'
+                      isDark ? 'secondary' : 'primary'
                     } text-monospace`}
                   >
                     {project.name}
