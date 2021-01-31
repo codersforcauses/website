@@ -160,14 +160,14 @@ const Footer = () => {
             <p className='mb-3 text-larger text-monospace'>Events</p>
             <ul className='list-unstyled m-0'>
               <li>
-                <Link href='/about'>
+                <Link href='/events'>
                   <Button color='link' className='text-secondary p-0'>
                     Upcoming events
                   </Button>
                 </Link>
               </li>
               <li>
-                <Link href='/about'>
+                <Link href='/events'>
                   <Button color='link' className='text-secondary p-0'>
                     Past events
                   </Button>
