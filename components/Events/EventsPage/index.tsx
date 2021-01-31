@@ -1,10 +1,11 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core'
 import { useTheme } from 'emotion-theming'
-import { useCallback, useContext, useState, useMemo } from 'react'
+import { useEffect, useCallback, useContext, useState, useMemo } from 'react'
 import { Container, Button, ButtonGroup } from 'reactstrap'
 import day from 'dayjs'
 import customParseFormat from 'dayjs/plugin/customParseFormat'
+import { useRouter } from 'next/router'
 import Title from 'components/Utils/Title'
 import { DarkContext } from 'helpers/user'
 import EventCard from './EventCard'
@@ -13,11 +14,17 @@ import eventList from '../../../data/events.json'
 day.extend(customParseFormat)
 
 const EventPage = () => {
+  const router = useRouter()
   const [eventPast, setEventPast] = useState(false)
   const theme = useTheme()
   const isDark = useContext(DarkContext)
 
+  useEffect(() => {
+    setEventPast(router?.query?.past !== undefined)
+  }, [router?.query?.past])
+
   const toggleEventPast = useCallback(() => setEventPast(true), [])
+
   const toggleEventUpcoming = useCallback(() => setEventPast(false), [])
 
   const events = useMemo(() => eventList.filter((event) => {
@@ -25,7 +32,6 @@ const EventPage = () => {
     if (eventPast) return date.isBefore(day())
     else return date.isAfter(day()) || date.isSame(day())
   }).sort((event1, event2) => {
-    console.log(event1)
     const date1 = day(event1.date + event1.time, 'DD/MM/YYh:mma')
     const date2 = day(event2.date + event2.time, 'DD/MM/YYh:mma')
     if (date1.isAfter(date2, 'day')) return eventPast ? -1 : 1
