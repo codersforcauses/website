@@ -24,6 +24,8 @@ export const theme = {
     3: 1,
     4: 1.5,
     5: 3,
+    6: 4.5,
+    7: 6,
     auto: 'auto'
   }
 }
@@ -54,6 +56,8 @@ export interface Theme {
     3?: number
     4?: number
     5?: number
+    6?: number
+    7?: number
     auto?: string
   }
 }

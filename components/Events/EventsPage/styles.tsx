@@ -31,6 +31,16 @@ export const eventStyles = (theme, isDark, date) => css`
 
   ${media.md`
     &:before {
+      transform: rotate(90deg);
+      top:0;
+      left: -60px;
+    }
+  `}
+
+  ${media.lg`
+    &:before {
+      transform: none;
+      font-size: 1.25rem;
       top:0;
       left: -30px;
     }
