@@ -13,7 +13,7 @@ import { DarkContext } from 'helpers/user'
 import TechList from './TechList'
 import type { Tech } from './TechList'
 import { styles } from './styles'
-import WebsiteButton from './Button'
+import WebsiteButton from './button'
 
 const parseDescription = text => (
   text.split('\n').map(para => (
