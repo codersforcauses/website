@@ -34,9 +34,6 @@ const EventPage = () => {
     else return 0
   }), [eventList, eventPast])
 
-  console.log(eventPast ? 'Searching Past Events' : 'Searching Upcoming Events')
-  console.log(events)
-
   return (
     <div css={styles(theme)}>
       <Title typed>./events</Title>

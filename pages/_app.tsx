@@ -29,7 +29,8 @@ Auth.configure({
 const AddOns = () => {
   const { user } = useContext(UserContext)
 
-  return process.env.NODE_ENV === 'production' ? (
+  return process.env.NODE_ENV === 'production'
+    ? (
     <>
       <div id='fb-root' />
       <div
@@ -43,7 +44,8 @@ const AddOns = () => {
         data-greeting_dialog_display='fade'
       />
     </>
-  ) : null
+      )
+    : null
 }
 
 const Website = ({ Component, pageProps }: AppProps) => {
@@ -81,7 +83,7 @@ const Website = ({ Component, pageProps }: AppProps) => {
             <Header handleDarkToggle={toggleDark} />
             <main className='main'>
               {/* TODO remove once MVP is finished */}
-              <Alert
+              {/* <Alert
                 color='warning'
                 className='fixed-top rounded-0 px-0 py-md-3'
                 style={{ marginTop: '64px', zIndex: 3 }}
@@ -90,7 +92,7 @@ const Website = ({ Component, pageProps }: AppProps) => {
                   This website is still under development. Not everything may
                   work, but feel free to look around.
                 </Container>
-              </Alert>
+              </Alert> */}
               <Component {...pageProps} />
             </main>
             <Footer />

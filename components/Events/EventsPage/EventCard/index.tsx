@@ -43,11 +43,11 @@ const EventCard = (props: any) => {
         <CardSubtitle className='mb-2'>Time: {props.time}</CardSubtitle>
         <CardSubtitle className='mb-2'>Location: {props.location}</CardSubtitle>
         <CardText className='smaller'>{props.desc}</CardText>
-        <Link href={`/events/${props.slug}`}>
+        {/* <Link href={`/events/${props.slug}`}>
           <Button outline={isDark} color={isDark ? 'secondary' : 'primary'} className='rounded-0'>
             Learn more
           </Button>
-        </Link>
+        </Link> */}
       </CardBody>
     </Card>
   )
