@@ -30,7 +30,7 @@
     "cypress:run": "cypress run"
   },
   "dependencies": {
-    "@aws-amplify/auth": "3.4.25",
+    "@aws-amplify/auth": "3.4.26",
     "@emotion/core": "10.1.1",
     "@stripe/react-stripe-js": "1.4.0",
     "@stripe/stripe-js": "1.13.1",
