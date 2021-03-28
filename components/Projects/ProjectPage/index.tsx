@@ -1,31 +1,41 @@
-/** @jsx jsx */
-import { jsx } from '@emotion/core'
-import { useTheme } from 'emotion-theming'
+import { useTheme } from '@emotion/react'
 import { useContext } from 'react'
-import {
-  Button,
-  Breadcrumb,
-  BreadcrumbItem,
-  Container,
-  Row,
-  Col
-} from 'reactstrap'
+import { Breadcrumb, BreadcrumbItem, Container, Row, Col } from 'reactstrap'
 import { DarkContext } from 'helpers/user'
 import TechList from './TechList'
+import type { Tech } from './TechList'
 import { styles } from './styles'
+import WebsiteButton from './button'
 
-const impact: Array<string> = [
-  'Improve process efficiency',
-  'Promote organisational transparency',
-  'Risk mitigation'
-]
+const parseDescription = text =>
+  text.split('\n').map(para => <p key={para}>{para}</p>)
 
-const ProjectPage = () => {
+const Impact = ({
+  impact,
+  ...props
+}: {
+  impact: Array<string>
+  className: string
+}) => (
+  <div {...props}>
+    <h4 className='mb-3 font-weight-bold monospace'>Potential impact</h4>
+    <ul className='p-0'>
+      {impact.map((text: string, i: number) => (
+        <li key={i} className='d-flex align-items-center pr-3 my-2'>
+          <i className='material-icons-sharp mr-3'>check_circle</i>
+          {text}
+        </li>
+      ))}
+    </ul>
+  </div>
+)
+
+const ProjectPage = ({ data }: Props) => {
   const isDark = useContext(DarkContext)
   const theme = useTheme()
 
   return (
-    <div css={styles(theme, 'https://source.unsplash.com/random', isDark)}>
+    <div css={styles(theme, isDark, data.img)}>
       <div className='bg-primary pad bg'>
         <Container className='my-5 py-5' />
       </div>
@@ -40,83 +50,83 @@ const ProjectPage = () => {
               >
                 Projects
               </BreadcrumbItem>
-              <BreadcrumbItem
-                active
-                tag='span'
-                className='active-tab text-muted'
-              >
-                Ignite Mentoring
+              <BreadcrumbItem active tag='span' className='active-tab'>
+                {data.name}
               </BreadcrumbItem>
             </Breadcrumb>
           </Col>
           <Col lg={9}>
             <div className='mb-5'>
-              <h1 className='display-4 m-0 mb-4 text-monospace'>
-                Ignite Mentoring
-              </h1>
-
-              <Row className='align-items-center mb-4 d-lg-none text-monospace'>
+              <h1 className='display-4 m-0 mb-4 monospace'>{data.name}</h1>
+              <Row className='align-items-center mb-4 d-lg-none monospace'>
                 <Col xs={6} className='d-flex align-items-center'>
-                  <i className='material-icons-sharp mr-3'>devices</i>
-                  Web Development
+                  <i className='material-icons-sharp mr-3'>{data.icon}</i>
+                  {data.type}
                 </Col>
                 <Col xs={6} className='d-flex align-items-center'>
                   <i className='material-icons-sharp mr-3'>date_range</i>
-                  February 2019
+                  {data.date}
                 </Col>
               </Row>
-
-              <p>
-                Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-                Possimus tempore quia deserunt praesentium maiores optio
-                blanditiis voluptas labore repellat, excepturi, quidem aliquid
-                eum soluta unde ipsum repellendus molestias consectetur
-                eligendi! Lorem ipsum dolor sit, amet consectetur adipisicing
-                elit. Eius, reiciendis a adipisci sequi placeat porro eum
-                laborum ipsum voluptatum excepturi aliquid cum, commodi rem ad
-                repudiandae! Possimus, facilis minima. Tempore!
-              </p>
+              <p>{parseDescription(data.desc)}</p>
+              <div className='d-lg-none mt-2'>
+                {data.url && (
+                  <WebsiteButton
+                    dark={isDark}
+                    link={data.url}
+                    text='Visit Website'
+                    classes='mr-3'
+                  />
+                )}
+                {data.source && (
+                  <WebsiteButton
+                    dark={isDark}
+                    link={data.source}
+                    text='Visit Source'
+                  />
+                )}
+              </div>
+            </div>
+            <Impact impact={data.impact} className='d-lg-none mb-5' />
+            <div className='mb-5'>
+              <h4 className='font-weight-black mb-4'>Technologies used</h4>
+              <TechList isDark={isDark} data={data.tech} />
             </div>
             <div className='mb-5'>
-              <h3 className='font-weight-black mb-4'>Technologies used</h3>
-              <TechList isDark={isDark} />
-            </div>
-            <div>
               <h4 className='font-weight-black mb-4'>Members</h4>
+              {data.members.map((member: string) => (
+                <p key={member}>{member}</p>
+              ))}
             </div>
           </Col>
           <Col lg={3}>
             <div className='d-none d-lg-block mb-5 text-monospace'>
               <div className='d-flex align-items-center py-3'>
                 <i className='material-icons-sharp mr-3'>devices</i>
-                Web Development
+                {data.type}
               </div>
               <div className='d-flex align-items-center py-3'>
                 <i className='material-icons-sharp mr-3'>date_range</i>
-                February 2019
+                {data.date}
               </div>
-              <Button
-                outline
-                color={isDark ? 'secondary' : 'primary'}
-                size='lg'
-                className='rounded-0 my-lg-5'
-              >
-                Visit Website
-              </Button>
+              {data.url && (
+                <WebsiteButton
+                  dark={isDark}
+                  link={data.url}
+                  text='Visit Website'
+                  classes='mt-3'
+                />
+              )}
+              {data.source && (
+                <WebsiteButton
+                  dark={isDark}
+                  link={data.source}
+                  text='Visit Source'
+                  classes='mt-3'
+                />
+              )}
             </div>
-            <div>
-              <h4 className='mb-3 font-weight-bold text-monospace'>
-                Potential impact
-              </h4>
-              <ul className='p-0'>
-                {impact.map((text: string, i: number) => (
-                  <li key={i} className='d-flex align-items-center pr-3 my-2'>
-                    <i className='material-icons-sharp mr-3'>check_circle</i>
-                    {text}
-                  </li>
-                ))}
-              </ul>
-            </div>
+            <Impact impact={data.impact} className='d-none d-lg-block' />
           </Col>
         </Row>
       </Container>
@@ -124,4 +134,26 @@ const ProjectPage = () => {
   )
 }
 
+interface ProjectType {
+  id: string
+  icon: string
+  img: string
+  name: string
+  client: string
+  type: string
+  date: string
+  purl: string
+  url?: string
+  source?: string
+  impact: Array<string>
+  desc: string
+  tech: Array<Tech>
+  members: Array<string>
+}
+
+interface Props {
+  data: ProjectType
+}
+
 export default ProjectPage
+export type { ProjectType }

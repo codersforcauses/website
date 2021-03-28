@@ -1,6 +1,4 @@
-/** @jsx jsx */
-import { jsx } from '@emotion/core'
-import { useTheme } from 'emotion-theming'
+import { useTheme } from '@emotion/react'
 import { memo, useCallback, useContext, useState } from 'react'
 import { Jumbotron, Container, Row, Col, Button } from 'reactstrap'
 import Avatar from 'components/Elements/Avatar'
@@ -65,7 +63,8 @@ const ProfilePage = (props: Props) => {
       <Container className='py-5'>
         <Row>
           <Col lg={7}>
-            {editing ? (
+            {editing
+              ? (
               <EditDetails
                 user={props.user}
                 loading={loading}
@@ -74,7 +73,8 @@ const ProfilePage = (props: Props) => {
                 handleCancel={toggleEdit}
                 handleSubmit={handleSubmit}
               />
-            ) : (
+                )
+              : (
               <>
                 {props.user?.bio && <p>{props.user?.bio}</p>}
                 <p>
@@ -101,7 +101,7 @@ const ProfilePage = (props: Props) => {
                   day, but I love it.
                 </p>
               </>
-            )}
+                )}
           </Col>
           <Col lg={{ size: 4, offset: 1 }}>
             <Socials isEditing={editing} />

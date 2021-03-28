@@ -1,4 +1,4 @@
-import { css } from '@emotion/core'
+import { css } from '@emotion/react'
 import emotionNormalize from 'emotion-normalize'
 
 export const globalStyle = (theme, isDark) => css`

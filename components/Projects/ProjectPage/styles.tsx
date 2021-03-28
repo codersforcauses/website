@@ -1,6 +1,6 @@
-import { css } from '@emotion/core'
+import { css } from '@emotion/react'
 
-export const styles = (theme, image, isDark) => css`
+export const styles = (theme, isDark, image) => css`
   .pad {
     padding: 7rem 0;
     min-height: calc(60vh - 72px);
@@ -8,7 +8,7 @@ export const styles = (theme, image, isDark) => css`
 
   .bg {
     background-image: url('${image}');
-    background-size: cover;
+    background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
   }

@@ -1,7 +1,5 @@
-/** @jsx jsx */
 import { useContext } from 'react'
-import { jsx } from '@emotion/core'
-import { useTheme } from 'emotion-theming'
+import { useTheme } from '@emotion/react'
 import { Row, Col, Card, CardImg, CardTitle } from 'reactstrap'
 import Link from 'next/link'
 import projects from 'data/projects.json'
@@ -27,8 +25,7 @@ const ProjectCards = () => {
                 <CardImg
                   top
                   width='100%'
-                  src='https://source.unsplash.com/random'
-                  // {project.logo}
+                  src={`projects/${project.logo}`}
                   alt={project.client}
                   className='project-img img-fluid rounded-0'
                 />
@@ -40,7 +37,7 @@ const ProjectCards = () => {
                   </div>
                   <CardTitle
                     className={`font-weight-bold ml-3 mb-0 text-${
-                      isDark ? 'white' : 'black'
+                      isDark ? 'secondary' : 'primary'
                     } text-monospace`}
                   >
                     {project.name}

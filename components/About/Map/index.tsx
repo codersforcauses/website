@@ -1,6 +1,4 @@
-/** @jsx jsx */
-import { jsx } from '@emotion/core'
-import { useTheme } from 'emotion-theming'
+import { useTheme } from '@emotion/react'
 import { memo, useContext, useEffect, useState, useRef } from 'react'
 import mapboxgl from 'mapbox-gl'
 import { DarkContext } from 'helpers/user'
@@ -107,8 +105,9 @@ const Map = () => {
   }, [map, property3D])
 
   useEffect(() => {
-    if (map)
+    if (map) {
       map?.setStyle(`mapbox://styles/mapbox/${isDark ? 'dark' : 'light'}-v10`)
+    }
   }, [isDark, map])
 
   return <div ref={el => (mapContainer.current = el)} css={styles(theme)} />

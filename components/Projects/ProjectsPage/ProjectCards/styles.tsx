@@ -1,4 +1,4 @@
-import { css } from '@emotion/core'
+import { css } from '@emotion/react'
 import { media } from 'lib/mediaQueries'
 
 export const styles = (theme, isDark) => css`
@@ -7,7 +7,8 @@ export const styles = (theme, isDark) => css`
   }
 
   .project-img {
-    max-height: 20rem;
+    height: 20rem;
+    object-fit: contain;
   }
 
   .secondary-bg {

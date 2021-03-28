@@ -1,4 +1,4 @@
-import { css } from '@emotion/core'
+import { css } from '@emotion/react'
 import { media } from 'lib/mediaQueries'
 
 export const styles = (theme, isDark) => css`
@@ -15,7 +15,7 @@ export const styles = (theme, isDark) => css`
     padding: 6.6rem 0;
   }
   .relative-container {
-    position: relative; 
+    position: relative;
   }
 
   .map {

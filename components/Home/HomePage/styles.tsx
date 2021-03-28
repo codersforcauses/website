@@ -1,4 +1,4 @@
-import { css } from '@emotion/core'
+import { css } from '@emotion/react'
 import { media } from 'lib/mediaQueries'
 
 export const styles = (theme, isDark) => css`
@@ -9,7 +9,7 @@ export const styles = (theme, isDark) => css`
   .secondary-bg {
     background: ${theme.colors[isDark ? 'primary' : 'lightBg']};
   }
-  
+
   .hero {
     height: 50vh;
     margin: 0;

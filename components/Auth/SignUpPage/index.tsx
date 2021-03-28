@@ -1,5 +1,4 @@
-/** @jsx jsx */
-import { jsx } from '@emotion/core'
+import { jsx } from '@emotion/react'
 import { withTheme } from 'emotion-theming'
 import { useCallback, useState } from 'react'
 import { Container, Carousel, CarouselItem } from 'reactstrap'
@@ -28,11 +27,13 @@ const SignUpPage = (props: { route?: string; signIn: Function }) => {
       onExited={carouselExited}
       key={index}
     >
-      {currentStep === 0 ? (
+      {currentStep === 0
+        ? (
         <Step1 signIn={props.signIn} nextStep={nextStep} />
-      ) : (
+          )
+        : (
         <Step2 route={props.route} />
-      )}
+          )}
     </CarouselItem>
   ))
 

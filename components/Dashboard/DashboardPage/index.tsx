@@ -1,6 +1,4 @@
-/** @jsx jsx */
-import { jsx } from '@emotion/core'
-import { useTheme } from 'emotion-theming'
+import { useTheme } from '@emotion/react'
 import { Container, Row, Col } from 'reactstrap'
 import Title from 'components/Utils/Title'
 import Announcements from '../Announcements'

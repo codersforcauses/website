@@ -1,5 +1,4 @@
-/** @jsx jsx */
-import { jsx } from '@emotion/core'
+import { jsx } from '@emotion/react'
 import { memo, useContext } from 'react'
 import { Button } from 'reactstrap'
 import SocialIcons, { iconsList } from 'components/Elements/SocialIcons'
@@ -14,7 +13,8 @@ const SocialsConnected = ({
   ...props
 }: SocialsConnectedProps & { isEditing: boolean }) => {
   const isDark = useContext(DarkContext)
-  return socialLink ? (
+  return socialLink
+    ? (
     <div
       className={`rounded-0 py-2 px-4 position-relative d-flex align-items-center justify-content-center text-${
         isDark ? 'secondary' : 'primary'
@@ -34,7 +34,9 @@ const SocialsConnected = ({
         </Button>
       )}
     </div>
-  ) : props.isEditing ? (
+      )
+    : props.isEditing
+      ? (
     <Button
       block
       size='lg'
@@ -49,7 +51,8 @@ const SocialsConnected = ({
       />
       {props.name}
     </Button>
-  ) : null
+        )
+      : null
 }
 
 export default memo(SocialsConnected)

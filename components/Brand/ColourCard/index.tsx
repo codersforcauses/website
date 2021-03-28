@@ -1,6 +1,4 @@
-/** @jsx jsx */
-import { jsx } from '@emotion/core'
-import { useTheme } from 'emotion-theming'
+import { useTheme } from '@emotion/react'
 import { Card, CardHeader, CardFooter } from 'reactstrap'
 import { Theme } from 'lib/theme'
 import { styles } from './styles'

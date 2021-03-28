@@ -1,6 +1,4 @@
-/** @jsx jsx */
-import { jsx } from '@emotion/core'
-import { useTheme } from 'emotion-theming'
+import { useTheme } from '@emotion/react'
 import { useState, useContext } from 'react'
 import { Jumbotron, Container, Row, Col, Card, Input } from 'reactstrap'
 import Title from 'components/Utils/Title'
@@ -121,7 +119,13 @@ const BrandPage = () => {
                     rel='noreferrer noopener'
                     title='Link to font'
                   >
-                    <i className={`material-icons-sharp text-${isDark ? 'secondary' : 'primary'}`}>link</i>
+                    <i
+                      className={`material-icons-sharp text-${
+                        isDark ? 'secondary' : 'primary'
+                      }`}
+                    >
+                      link
+                    </i>
                   </a>
                 </div>
                 <Input
@@ -148,7 +152,13 @@ const BrandPage = () => {
                     rel='noreferrer noopener'
                     title='Link to font'
                   >
-                    <i className={`material-icons-sharp text-${isDark ? 'secondary' : 'primary'}`}>link</i>
+                    <i
+                      className={`material-icons-sharp text-${
+                        isDark ? 'secondary' : 'primary'
+                      }`}
+                    >
+                      link
+                    </i>
                   </a>
                 </div>
                 <Input

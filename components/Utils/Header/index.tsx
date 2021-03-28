@@ -1,6 +1,4 @@
-/** @jsx jsx */
-import { jsx } from '@emotion/core'
-import { useTheme } from 'emotion-theming'
+import { useTheme } from '@emotion/react'
 import { useContext, useState, useCallback } from 'react'
 import {
   Navbar,
@@ -80,9 +78,11 @@ const Header = (props: { handleDarkToggle: Function }) => {
         <div>
           <DarkToggle {...props} />
           {
-            user ? (
+            user
+              ? (
               <SignedInUser setUser={setUser} name={user.name} id={user._id} />
-            ) : null
+                )
+              : null
             // <Link href='/membership'>
             //   <Button
             //     outline

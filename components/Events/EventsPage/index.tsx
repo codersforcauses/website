@@ -1,85 +1,48 @@
-/** @jsx jsx */
-import { jsx } from '@emotion/core'
-import { useTheme } from 'emotion-theming'
-import { useCallback, useContext, useState } from 'react'
+import { useTheme } from '@emotion/react'
+import { useEffect, useCallback, useContext, useState, useMemo } from 'react'
 import { Container, Button, ButtonGroup } from 'reactstrap'
+import day from 'dayjs'
+import customParseFormat from 'dayjs/plugin/customParseFormat'
+import { useRouter } from 'next/router'
 import Title from 'components/Utils/Title'
 import { DarkContext } from 'helpers/user'
 import EventCard from './EventCard'
 import { styles, eventStyles } from './styles'
-
-const eventList = [
-  {
-    date: '20/10',
-    events: [
-      {
-        slug: 'essential_software_industry_skills',
-        tags: ['workshop', 'social'],
-        title: 'Essential Software Industry Skills',
-        image: {
-          src: 'https://source.unsplash.com/random',
-          alt: 'Random Image'
-        },
-        time: '5:30pm',
-        location: 'UWA Reid Library',
-        desc:
-          "Some quick example text to build on the card title and make up the bulk of the card's content."
-      },
-      {
-        slug: 'feathers_workshop',
-        tags: ['workshop', 'social'],
-        title: 'Feathers Workshop',
-        image: {
-          src: 'https://source.unsplash.com/random',
-          alt: 'Random Image'
-        },
-        time: '5:30pm',
-        location: 'UWA Reid Library',
-        desc:
-          "Some quick example text to build on the card title and make up the bulk of the card's content."
-      }
-    ]
-  },
-  {
-    date: '21/10',
-    events: [
-      {
-        slug: 'essential_software_industry_skills',
-        tags: ['workshop', 'social'],
-        title: 'Essential Software Industry Skills',
-        image: {
-          src: 'https://source.unsplash.com/random',
-          alt: 'Random Image'
-        },
-        time: '5:30pm',
-        location: 'UWA Reid Library',
-        desc:
-          "Some quick example text to build on the card title and make up the bulk of the card's content."
-      },
-      {
-        slug: 'feathers_workshop',
-        tags: ['workshop', 'social'],
-        title: 'Feathers Workshop',
-        image: {
-          src: 'https://source.unsplash.com/random',
-          alt: 'Random Image'
-        },
-        time: '5:30pm',
-        location: 'UWA Reid Library',
-        desc:
-          "Some quick example text to build on the card title and make up the bulk of the card's content."
-      }
-    ]
-  }
-]
+import eventList from '../../../data/events.json'
+day.extend(customParseFormat)
 
 const EventPage = () => {
+  const router = useRouter()
   const [eventPast, setEventPast] = useState(false)
   const theme = useTheme()
   const isDark = useContext(DarkContext)
 
+  useEffect(() => {
+    setEventPast(router?.query?.past !== undefined)
+  }, [router?.query?.past])
+
   const toggleEventPast = useCallback(() => setEventPast(true), [])
+
   const toggleEventUpcoming = useCallback(() => setEventPast(false), [])
+
+  const events = useMemo(
+    () =>
+      eventList
+        .filter(event => {
+          const date = day(event.date, 'DD/MM/YY')
+          if (eventPast) return date.isBefore(day())
+          else return date.isAfter(day()) || date.isSame(day())
+        })
+        .sort((event1, event2) => {
+          const date1 = day(event1.date + event1.time, 'DD/MM/YYh:mma')
+          const date2 = day(event2.date + event2.time, 'DD/MM/YYh:mma')
+          if (date1.isAfter(date2, 'day')) return eventPast ? -1 : 1
+          if (date1.isBefore(date2, 'day')) return eventPast ? 1 : -1
+          if (date1.isSame(date2, 'day')) return date1.isBefore(date2) ? -1 : 1
+          else return 0
+        }),
+    [eventList, eventPast]
+  )
 
   return (
     <div css={styles(theme)}>
@@ -104,12 +67,13 @@ const EventPage = () => {
           </Button>
         </ButtonGroup>
         <div className='events'>
-          {eventList.map(({ date, events }) => (
-            <div key={date} css={eventStyles(theme, isDark, date)}>
+          {events.map(event => (
+            <div
+              key={event.date + event.time}
+              css={eventStyles(theme, isDark, event.date)}
+            >
               <div className='d-flex flex-column ml-3 ml-md-5 pl-lg-5'>
-                {events.map(event => (
-                  <EventCard key={event.slug} className='mb-4' {...event} />
-                ))}
+                <EventCard key={event.slug} className='mb-4' {...event} />
               </div>
             </div>
           ))}

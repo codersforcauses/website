@@ -1,6 +1,4 @@
-/** @jsx jsx */
-import { jsx } from '@emotion/core'
-import { useTheme } from 'emotion-theming'
+import { useTheme } from '@emotion/react'
 import { useContext } from 'react'
 import {
   Badge,
@@ -33,7 +31,9 @@ const EventCard = (props: any) => {
             <Badge
               key={tag}
               color='white'
-              className={`rounded-0 mr-2 font-weight-light border border-${isDark ? 'dark' : 'muted'} text-muted`}
+              className={`rounded-0 mr-2 font-weight-light border border-${
+                isDark ? 'dark' : 'muted'
+              } text-muted`}
             >
               {tag}
             </Badge>
@@ -43,11 +43,11 @@ const EventCard = (props: any) => {
         <CardSubtitle className='mb-2'>Time: {props.time}</CardSubtitle>
         <CardSubtitle className='mb-2'>Location: {props.location}</CardSubtitle>
         <CardText className='smaller'>{props.desc}</CardText>
-        <Link href={`/events/${props.slug}`}>
+        {/* <Link href={`/events/${props.slug}`}>
           <Button outline={isDark} color={isDark ? 'secondary' : 'primary'} className='rounded-0'>
             Learn more
           </Button>
-        </Link>
+        </Link> */}
       </CardBody>
     </Card>
   )

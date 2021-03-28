@@ -1,6 +1,4 @@
-/** @jsx jsx */
-import { jsx } from '@emotion/core'
-import { useTheme } from 'emotion-theming'
+import { useTheme } from '@emotion/react'
 import Link from 'next/link'
 import NavLink from 'reactstrap/lib/NavLink'
 import { styles } from './styles'
@@ -10,7 +8,8 @@ const HeaderLink = ({ href, text, isExternal }: Props) => {
 
   return (
     <span css={styles(theme)}>
-      {isExternal ? (
+      {isExternal
+        ? (
         <a
           href={href}
           target='_blank'
@@ -20,7 +19,8 @@ const HeaderLink = ({ href, text, isExternal }: Props) => {
         >
           {text}
         </a>
-      ) : (
+          )
+        : (
         <Link href={href}>
           <NavLink
             className='header-link p-0 m-2 my-md-0 '
@@ -29,7 +29,7 @@ const HeaderLink = ({ href, text, isExternal }: Props) => {
             {text}
           </NavLink>
         </Link>
-      )}
+          )}
     </span>
   )
 }

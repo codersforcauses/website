@@ -1,6 +1,4 @@
-/** @jsx jsx */
-import { jsx } from '@emotion/core'
-import { useTheme } from 'emotion-theming'
+import { useTheme } from '@emotion/react'
 import { useState, useCallback } from 'react'
 import Link from 'next/link'
 import { DropdownMenu, DropdownItem, Dropdown } from 'reactstrap'

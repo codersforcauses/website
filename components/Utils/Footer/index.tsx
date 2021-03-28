@@ -1,6 +1,4 @@
-/** @jsx jsx */
-import { jsx } from '@emotion/core'
-import { useTheme } from 'emotion-theming'
+import { useTheme } from '@emotion/react'
 import { useState, useCallback } from 'react'
 import { Button, Container, Row, Col } from 'reactstrap'
 import Link from 'next/link'
@@ -143,20 +141,31 @@ const Footer = () => {
                   </Button>
                 </Link>
               </li>
+              <li>
+                <Link href='/faq'>
+                  <Button
+                    color='link'
+                    className='text-secondary p-0'
+                    data-cy='faq'
+                  >
+                    Frequently Asked Questions
+                  </Button>
+                </Link>
+              </li>
             </ul>
           </Col>
           <Col md={3}>
             <p className='mb-3 text-larger text-monospace'>Events</p>
             <ul className='list-unstyled m-0'>
               <li>
-                <Link href='/about'>
+                <Link href='/events?upcoming'>
                   <Button color='link' className='text-secondary p-0'>
                     Upcoming events
                   </Button>
                 </Link>
               </li>
               <li>
-                <Link href='/about'>
+                <Link href='/events?past'>
                   <Button color='link' className='text-secondary p-0'>
                     Past events
                   </Button>

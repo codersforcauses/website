@@ -1,6 +1,4 @@
-/** @jsx jsx */
-import { jsx } from '@emotion/core'
-import { useTheme } from 'emotion-theming'
+import { useTheme } from '@emotion/react'
 import { useContext } from 'react'
 import { Container, Jumbotron, Row, Col } from 'reactstrap'
 import Head from 'next/head'
@@ -30,10 +28,7 @@ const AboutPage = () => {
 
       <Title typed>./about</Title>
       <div className='relative-container py-5'>
-        <Container
-          id='_what_we_do'
-          className='py-5 rounded-0 d-md-flex'
-        >
+        <Container id='_what_we_do' className='py-5 rounded-0 d-md-flex'>
           <Row className='d-flex align-items-center'>
             <Col xs={12} lg={6} className='pr-lg-5'>
               <h2 className='header'>We build software for charities</h2>

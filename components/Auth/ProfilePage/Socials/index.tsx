@@ -1,5 +1,4 @@
-/** @jsx jsx */
-import { jsx } from '@emotion/core'
+import { jsx } from '@emotion/react'
 import { memo } from 'react'
 import SocialsConnected, { SocialsConnectedProps } from './SocialConnected'
 import { style } from './styles'

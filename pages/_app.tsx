@@ -1,8 +1,5 @@
-/** @jsx jsx */
+import { ThemeProvider, Global } from '@emotion/react'
 import { AppProps } from 'next/app'
-import { ThemeProvider } from 'emotion-theming'
-import { CacheProvider, Global, jsx } from '@emotion/core'
-import { cache } from 'emotion'
 import { useEffect, useContext, useCallback, useState } from 'react'
 import { Auth } from '@aws-amplify/auth'
 import dayjs from 'dayjs'
@@ -33,21 +30,23 @@ Auth.configure({
 const AddOns = () => {
   const { user } = useContext(UserContext)
 
-  return process.env.NODE_ENV === 'production' ? (
-    <>
-      <div id='fb-root' />
-      <div
-        className='fb-customerchat'
-        data-theme_color='#000000'
-        data-page_id='700598980115471'
-        data-logged_in_greeting={`Hi ${
-          user?.given_name ?? 'there'
-        }! How can we help you?`}
-        data-logged_out_greeting='Please log into facebook to chat with us'
-        data-greeting_dialog_display='fade'
-      />
-    </>
-  ) : null
+  return (
+    process.env.NODE_ENV === 'production' && (
+      <>
+        <div id='fb-root' />
+        <div
+          className='fb-customerchat'
+          data-theme_color='#000000'
+          data-page_id='700598980115471'
+          data-logged_in_greeting={`Hi ${
+            user?.given_name ?? 'there'
+          }! How can we help you?`}
+          data-logged_out_greeting='Please log into facebook to chat with us'
+          data-greeting_dialog_display='fade'
+        />
+      </>
+    )
+  )
 }
 
 const Website = ({ Component, pageProps }: AppProps) => {
@@ -80,12 +79,11 @@ const Website = ({ Component, pageProps }: AppProps) => {
     <User>
       <DarkProvider value={isDark}>
         <ThemeProvider theme={theme}>
-          <CacheProvider value={cache}>
-            <Global styles={globalStyle(theme, isDark)} />
-            <Header handleDarkToggle={toggleDark} />
-            <main className='main'>
-              {/* TODO remove once MVP is finished */}
-              <Alert
+          <Global styles={globalStyle(theme, isDark)} />
+          <Header handleDarkToggle={toggleDark} />
+          <main className='main'>
+            {/* TODO remove once MVP is finished */}
+            {/* <Alert
                 color='warning'
                 className='fixed-top rounded-0 px-0 py-md-3'
                 style={{ marginTop: '64px', zIndex: 3 }}
@@ -94,12 +92,11 @@ const Website = ({ Component, pageProps }: AppProps) => {
                   This website is still under development. Not everything may
                   work, but feel free to look around.
                 </Container>
-              </Alert>
-              <Component {...pageProps} />
-            </main>
-            <Footer />
-            <AddOns />
-          </CacheProvider>
+              </Alert> */}
+            <Component {...pageProps} />
+          </main>
+          <Footer />
+          <AddOns />
         </ThemeProvider>
       </DarkProvider>
     </User>
