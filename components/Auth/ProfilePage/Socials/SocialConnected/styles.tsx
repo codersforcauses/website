@@ -25,7 +25,7 @@ export const connectedStyle = color => css`
     left: 1.5rem;
   }
 
-  .delete {
+  .icon-button {
     display: flex;
     align-items: center;
     justify-content: center;

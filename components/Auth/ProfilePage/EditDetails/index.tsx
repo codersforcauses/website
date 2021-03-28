@@ -1,7 +1,8 @@
-import React, { useContext } from 'react'
+import React, { useCallback, useContext, useState } from 'react'
 import { Field, FormikProps, Form, withFormik } from 'formik'
 import {
   Button,
+  Collapse,
   Row,
   Col,
   FormGroup,
@@ -16,6 +17,7 @@ import localeData from 'dayjs/plugin/localeData'
 import Spinner from 'components/Elements/Spinner'
 import { DarkContext, User } from 'helpers/user'
 import { validationSchema } from './validation'
+import Socials from '../Socials'
 
 dayjs.extend(localeData)
 
@@ -60,6 +62,9 @@ const Years = () => (
 )
 
 const EditDetails = (props: Props & FormikProps<FormValues>) => {
+  const [isSocialOpen, setIsSocialOpen] = useState(false)
+  const toggle = useCallback(() => setIsSocialOpen(prev => !prev), [])
+
   const isDark = useContext(DarkContext)
   const isPheme = props.user.signUpType === 'pheme'
 
@@ -262,6 +267,32 @@ const EditDetails = (props: Props & FormikProps<FormValues>) => {
           </a>
         </Label>
       </FormGroup>
+      <Collapse isOpen={!isSocialOpen}>
+        <Button
+          block
+          size='lg'
+          color='success'
+          className='rounded-0 text-monospace px-4 mb-4 d-lg-none'
+          onClick={toggle}
+        >
+          Link Socials
+        </Button>
+      </Collapse>
+      <Collapse isOpen={isSocialOpen}>
+        <Socials isEditing />
+        <div className='my-3 d-flex flex-row-reverse'>
+          <Button
+            size='lg'
+            color='link'
+            className={`rounded-0 text-monospace text-${
+              isDark ? 'secondary' : 'primary'
+            }`}
+            onClick={toggle}
+          >
+            Close
+          </Button>
+        </div>
+      </Collapse>
       <div className='d-flex align-items-center justify-content-between'>
         <Button
           type='submit'

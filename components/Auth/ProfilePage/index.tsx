@@ -103,7 +103,10 @@ const ProfilePage = (props: Props) => {
               </>
                 )}
           </Col>
-          <Col lg={{ size: 4, offset: 1 }}>
+          <Col
+            lg={{ size: 4, offset: 1 }}
+            className={editing && 'd-none d-lg-block'}
+          >
             <Socials isEditing={editing} />
           </Col>
         </Row>
