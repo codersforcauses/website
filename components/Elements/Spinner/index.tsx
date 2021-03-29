@@ -1,3 +1,4 @@
+/** @jsxImportSource @emotion/react */
 import { useTheme } from '@emotion/react'
 import { Spinner as BootstrapSpinner } from 'reactstrap'
 import { styles } from './styles'

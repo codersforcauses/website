@@ -1,3 +1,4 @@
+/** @jsxImportSource @emotion/react */
 import { useTheme } from '@emotion/react'
 import { Jumbotron, Container } from 'reactstrap'
 import TypedText from '../TypedText'

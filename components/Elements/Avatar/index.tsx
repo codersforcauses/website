@@ -1,3 +1,4 @@
+/** @jsxImportSource @emotion/react */
 import { useTheme } from '@emotion/react'
 import { getInitials } from 'helpers/user'
 import { styles } from './styles'

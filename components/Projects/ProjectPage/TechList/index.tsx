@@ -1,3 +1,4 @@
+/** @jsxImportSource @emotion/react */
 import { useTheme } from '@emotion/react'
 import BrandIcon from 'components/Elements/BrandIcons'
 import type { Brand } from 'components/Elements/BrandIcons'

@@ -1,4 +1,5 @@
 import { useContext } from 'react'
+/** @jsxImportSource @emotion/react */
 import { useTheme } from '@emotion/react'
 import { Row, Col, Card, CardImg, CardTitle } from 'reactstrap'
 import Link from 'next/link'

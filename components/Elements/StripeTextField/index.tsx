@@ -1,3 +1,4 @@
+/** @jsxImportSource @emotion/react */
 import { useTheme } from '@emotion/react'
 import { useState, useCallback } from 'react'
 import { CardElement } from '@stripe/react-stripe-js'

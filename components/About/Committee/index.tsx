@@ -1,4 +1,4 @@
-import { jsx } from '@emotion/react'
+/** @jsxImportSource @emotion/react */
 import { committee } from 'data/committee.json'
 import CommitteeCard from './CommitteeCard'
 import { styles } from './styles'

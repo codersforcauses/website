@@ -1,3 +1,4 @@
+/** @jsxImportSource @emotion/react */
 import { useTheme } from '@emotion/react'
 import { useContext, useState, useCallback } from 'react'
 import {
@@ -78,11 +79,9 @@ const Header = (props: { handleDarkToggle: Function }) => {
         <div>
           <DarkToggle {...props} />
           {
-            user
-              ? (
+            user ? (
               <SignedInUser setUser={setUser} name={user.name} id={user._id} />
-                )
-              : null
+            ) : null
             // <Link href='/membership'>
             //   <Button
             //     outline

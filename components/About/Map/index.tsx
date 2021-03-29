@@ -1,10 +1,11 @@
+/** @jsxImportSource @emotion/react */
 import { useTheme } from '@emotion/react'
 import { memo, useContext, useEffect, useState, useRef } from 'react'
 import mapboxgl from 'mapbox-gl'
 import { DarkContext } from 'helpers/user'
 import { styles } from './styles'
 
-const property3D: mapboxgl.Layer = {
+const property3D: mapboxgl.AnyLayer = {
   id: '3d-buildings',
   source: 'composite',
   'source-layer': 'building',

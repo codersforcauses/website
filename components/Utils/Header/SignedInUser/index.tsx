@@ -1,3 +1,4 @@
+/** @jsxImportSource @emotion/react */
 import { useTheme } from '@emotion/react'
 import { useState, useMemo, useCallback } from 'react'
 import { Auth } from '@aws-amplify/auth'
