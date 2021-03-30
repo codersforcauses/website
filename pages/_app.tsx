@@ -1,18 +1,20 @@
 import { ThemeProvider, Global } from '@emotion/react'
 import { AppProps } from 'next/app'
-import { useEffect, useContext, useCallback, useState } from 'react'
+import dynamic from 'next/dynamic'
+import { useEffect, useCallback, useState } from 'react'
 import { Auth } from '@aws-amplify/auth'
 import dayjs from 'dayjs'
 import User from 'components/Auth/User'
 import Header from 'components/Utils/Header'
 import Footer from 'components/Utils/Footer'
 import { initMessenger } from 'helpers/messenger'
-import { UserContext, DarkProvider } from 'helpers/user'
+import { DarkProvider } from 'helpers/user'
 import { theme } from 'lib/theme'
 import { globalStyle } from 'GlobalStyles'
 import 'dayjs/locale/en-au'
 import 'theme.scss'
 import { Alert, Container } from 'reactstrap'
+const AddOns = dynamic(() => import('../components/Utils/AddOns'))
 
 dayjs.locale('en-au')
 
@@ -24,28 +26,6 @@ Auth.configure({
     process.env.NEXT_PUBLIC_AMPLIFY_AWS_COGNITO_WEB_CLIENT_ID,
   authenticationFlowType: 'USER_PASSWORD_AUTH'
 })
-
-const AddOns = () => {
-  const { user } = useContext(UserContext)
-
-  return (
-    process.env.NODE_ENV === 'production' && (
-      <>
-        <div id='fb-root' />
-        <div
-          className='fb-customerchat'
-          data-theme_color='#000000'
-          data-page_id='700598980115471'
-          data-logged_in_greeting={`Hi ${
-            user?.given_name ?? 'there'
-          }! How can we help you?`}
-          data-logged_out_greeting='Please log into facebook to chat with us'
-          data-greeting_dialog_display='fade'
-        />
-      </>
-    )
-  )
-}
 
 const Website = ({ Component, pageProps }: AppProps) => {
   const [isDark, setDark] = useState(undefined)
