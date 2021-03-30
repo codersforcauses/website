@@ -32,10 +32,11 @@
   },
   "dependencies": {
     "@aws-amplify/auth": "3.4.29",
-    "@emotion/react": "^11.1.5",
+    "@emotion/react": "11.1.5",
     "@stripe/react-stripe-js": "1.4.0",
     "@stripe/stripe-js": "1.13.2",
     "bootstrap": "4.6.0",
+    "critters": "0.0.10",
     "dayjs": "1.10.4",
     "emotion-normalize": "11.0.1",
     "formik": "2.2.6",
