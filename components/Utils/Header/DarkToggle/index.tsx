@@ -24,8 +24,8 @@ const DarkToggle = (props: { handleDarkToggle: () => void }) => {
         css={styles(theme, isDark)}
         className='material-icons-sharp d-flex align-items-center justify-content-center'
       >
-        <span className='light-icon'>wb_sunny</span>
-        <span className='dark-icon'>nights_stay</span>
+        <span className='light-icon'>light_mode</span>
+        <span className='dark-icon'>dark_mode</span>
       </i>
     </Button>
   )
