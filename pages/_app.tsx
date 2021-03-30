@@ -6,7 +6,6 @@ import dayjs from 'dayjs'
 import User from 'components/Auth/User'
 import Header from 'components/Utils/Header'
 import Footer from 'components/Utils/Footer'
-import { initAnalytics } from 'helpers/analytics'
 import { initMessenger } from 'helpers/messenger'
 import { UserContext, DarkProvider } from 'helpers/user'
 import { theme } from 'lib/theme'
@@ -65,7 +64,6 @@ const Website = ({ Component, pageProps }: AppProps) => {
 
   useEffect(() => {
     if (process.env.NODE_ENV === 'production') {
-      initAnalytics('2423121134')
       initMessenger()
       setTimeout(() => {
         document.getElementsByTagName('iframe')[0].title =
