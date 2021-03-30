@@ -1,18 +1,22 @@
 import { DarkContext } from 'helpers/user'
-import React, { useContext } from 'react'
+import { useContext } from 'react'
 import { Modal, ModalHeader, ModalBody, Button } from 'reactstrap'
 
 const ProjectDevelopmentModal = ({
   isOpen,
   closeModal
 }: {
-  isOpen: Boolean
-  closeModal: Function
+  isOpen: boolean
+  closeModal: () => void
 }) => {
   const isDark = useContext(DarkContext)
 
   const closeBtn = (
-    <Button color='link' className={`p-0 text-${isDark ? 'secondary' : 'primary'}`} onClick={closeModal}>
+    <Button
+      color='link'
+      className={`p-0 text-${isDark ? 'secondary' : 'primary'}`}
+      onClick={closeModal}
+    >
       <i className='material-icons-sharp'>close</i>
     </Button>
   )

@@ -1,10 +1,9 @@
-/** @jsx jsx */
-import { jsx } from '@emotion/core'
-import { useTheme } from 'emotion-theming'
+/** @jsxImportSource @emotion/react */
+import { useTheme } from '@emotion/react'
 import { Theme } from 'lib/theme'
 
 // Taken from https://materialdesignicons.com/
-const iconsList = {
+export const iconsList = {
   bitbucket: {
     viewbox: '0 0 24 24',
     path:
@@ -47,7 +46,7 @@ const iconsList = {
   }
 }
 
-const SocialIcons = ({ dimensions, fill, icon }: Props) => {
+const SocialIcons = ({ dimensions, fill, icon, ...props }: Props) => {
   const theme: Theme = useTheme()
   return (
     <svg
@@ -57,6 +56,7 @@ const SocialIcons = ({ dimensions, fill, icon }: Props) => {
       viewBox={iconsList[icon].viewbox}
       aria-label={icon}
       role='img'
+      {...props}
     >
       <title>{icon}</title>
       <path d={iconsList[icon].path} />
@@ -70,4 +70,5 @@ interface Props {
   icon: keyof typeof iconsList
   dimensions: number
   fill: keyof Theme['colors']
+  className?: string
 }

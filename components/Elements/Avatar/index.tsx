@@ -1,6 +1,5 @@
-/** @jsx jsx */
-import { jsx } from '@emotion/core'
-import { useTheme } from 'emotion-theming'
+/** @jsxImportSource @emotion/react */
+import { useTheme } from '@emotion/react'
 import { getInitials } from 'helpers/user'
 import { styles } from './styles'
 
@@ -26,7 +25,9 @@ const Avatar = ({
       } ${props.className}`}
       css={styles(theme, sizeToNum[size], dark, props.image)}
     >
-      {props.name && <p className='m-0'>{getInitials(props.name)}</p>}
+      {props.name && (
+        <p className='m-0 user-select-none'>{getInitials(props.name)}</p>
+      )}
     </div>
   )
 }

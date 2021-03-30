@@ -1,6 +1,5 @@
-/** @jsx jsx */
-import { jsx } from '@emotion/core'
-import { useTheme } from 'emotion-theming'
+/** @jsxImportSource @emotion/react */
+import { useTheme } from '@emotion/react'
 import { useContext, useState, useCallback } from 'react'
 import {
   Navbar,
@@ -18,11 +17,9 @@ import HeaderItem, { HeaderItemContent } from './HeaderItem'
 import DarkToggle from './DarkToggle'
 import { styles } from './styles'
 
-const Header = (props: { handleDarkToggle: Function }) => {
+const Header = (props: { handleDarkToggle: () => void }) => {
   const [open, setOpen] = useState(false)
-
   const { user, setUser } = useContext(UserContext)
-
   const theme = useTheme()
 
   const links: HeaderItemContent[] = [
@@ -61,13 +58,13 @@ const Header = (props: { handleDarkToggle: Function }) => {
             </i>
           </NavbarToggler>
           <Link href='/' passHref>
-            <NavbarBrand
+            <a
               id='Home'
-              className='mr-md-5 py-0 user-select-none font-weight-bold text-monospace brand'
+              className='mr-md-5 py-0 user-select-none font-weight-bold text-monospace brand navbar-brand'
               data-cy='nav-Home'
             >
               cfc
-            </NavbarBrand>
+            </a>
           </Link>
           <Collapse navbar isOpen={open} className='pl-4 ml-2 pl-md-0'>
             <Nav navbar>
@@ -81,10 +78,7 @@ const Header = (props: { handleDarkToggle: Function }) => {
           <DarkToggle {...props} />
           {
             user ? (
-              <SignedInUser
-                setUser={setUser}
-                name={`${user?.given_name} ${user?.family_name}`}
-              />
+              <SignedInUser setUser={setUser} name={user.name} id={user._id} />
             ) : null
             // <Link href='/membership'>
             //   <Button

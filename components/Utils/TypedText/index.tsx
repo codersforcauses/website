@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react'
+import { useEffect, useRef } from 'react'
 import Typed from 'typed.js'
 
 const TypedText = ({ text }: { text: Array<string> }) => {

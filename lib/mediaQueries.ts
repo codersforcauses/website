@@ -1,4 +1,4 @@
-import { css } from '@emotion/core'
+import { css } from '@emotion/react'
 import { Breakpoints, theme } from './theme'
 
 // iterate through the sizes and create a media template

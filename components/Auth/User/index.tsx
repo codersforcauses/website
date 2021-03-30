@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useEffect, useMemo, useState } from 'react'
+import { FunctionComponent, useEffect, useMemo, useState } from 'react'
 import { Auth } from '@aws-amplify/auth'
 import { UserProvider } from 'helpers/user'
 
@@ -16,18 +16,30 @@ const User: FunctionComponent = ({ children }) => {
     useEffect(() => {
       const auth = async () => {
         try {
+          // query cognito
           const session = await Auth.currentSession()
-          setUser(session.getIdToken().decodePayload())
+          const id = session.getIdToken()
+
+          // query backend
+          const response = await fetch(
+            `${process.env.NEXT_PUBLIC_API_URL}users?awsSub=${
+              id.decodePayload().sub
+            }`
+          )
+          const {
+            data: [user]
+          } = await response.json()
+
+          setUser({
+            ...user,
+            jwt_token: id.getJwtToken()
+          })
         } catch (error) {
           setUser(null)
         }
       }
       if (!user) auth()
     }, [])
-    // console.log(user)
-
-    // query user data here when backend is built
-    // TODO
 
     const userValue = useMemo(() => ({ user, setUser }), [user])
 

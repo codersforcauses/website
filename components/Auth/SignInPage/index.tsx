@@ -1,4 +1,4 @@
-import React, { useState, useContext, useCallback } from 'react'
+import { useState, useContext, useCallback } from 'react'
 import { Auth } from '@aws-amplify/auth'
 import {
   Container,
@@ -38,44 +38,61 @@ const SignInPage = (props: { route?: string; signUp: Function }) => {
   const setUWAStudent = useCallback(() => setIsUWAStudent(true), [])
   const setNotUWAStudent = useCallback(() => setIsUWAStudent(false), [])
 
-  const handleSubmit = useCallback(async values => {
-    setLoading(true)
-    const data = {
-      username: values.email,
-      password: values.password
-    }
-    try {
-      if (isUWAStudent) {
-        const phemeResponse = await phemeLogin(
-          values.studentNumber,
-          values.password,
-          `${process.env.NEXT_PUBLIC_PHEME_URL}api/login`,
-          process.env.NEXT_PUBLIC_PHEME_TOKEN
-        )
+  const handleSubmit = useCallback(
+    async values => {
+      setLoading(true)
 
-        if (!phemeResponse.success) throw new Error(phemeResponse.message)
-
-        // reassign data to use values fetched from pheme login
-        data.username = `${values.studentNumber}@student.uwa.edu.au`
-        data.password = `${values.studentNumber}${process.env.NEXT_PUBLIC_PHEME_SALT}`
+      const data = {
+        username: values.email,
+        password: values.password
       }
-      const response = await Auth.signIn(data.username, data.password)
-      setUser(response.attributes)
-      Router.replace(props.route ? props.route : '/dashboard')
-    } catch ({ code, message }) {
-      if (code === 'UserNotConfirmedException') {
+      try {
+        if (isUWAStudent) {
+          const phemeResponse = await phemeLogin(
+            values.studentNumber,
+            values.password,
+            `${process.env.NEXT_PUBLIC_PHEME_URL}api/login`,
+            process.env.NEXT_PUBLIC_PHEME_TOKEN
+          )
+
+          if (!phemeResponse.success) throw new Error(phemeResponse.message)
+
+          // reassign data to use values fetched from pheme login
+          data.username = `${values.studentNumber}@student.uwa.edu.au`
+          data.password = `${values.studentNumber}${process.env.NEXT_PUBLIC_PHEME_SALT}`
+        }
+        const cognitoResponse = await Auth.signIn(data.username, data.password)
+
+        // query backend
+        const response = await fetch(
+          `${process.env.NEXT_PUBLIC_API_URL}users?awsSub=${cognitoResponse.attributes.sub}`
+        )
+        const {
+          data: [user]
+        } = await response.json()
+
+        setUser({
+          ...user,
+          jwt_token: cognitoResponse.signInUserSession.idToken.jwtToken
+        })
+
+        Router.replace(props.route ? props.route : '/dashboard')
+      } catch ({ code, message }) {
+        if (code === 'UserNotConfirmedException') {
+          setErrors(
+            'To login into Coders for Causes, please click on the verification link sent to your email and try again.'
+          )
+        }
         setErrors(
-          'To login into Coders for Causes, please click on the verification link sent to your email and try again.'
+          message ||
+            'An unexpected error occurred. Please refresh the page and try again.'
         )
+      } finally {
+        setLoading(false)
       }
-      setErrors(
-        message ||
-          'An unexpected error occurred. Please refresh the page and try again.'
-      )
-    } finally {
-      setLoading(false)
-    }
-  }, [])
+    },
+    [isUWAStudent]
+  )
 
   return (
     <div>

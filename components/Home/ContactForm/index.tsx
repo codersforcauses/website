@@ -1,6 +1,5 @@
-/** @jsx jsx */
-import { jsx } from '@emotion/core'
-import { useTheme } from 'emotion-theming'
+/** @jsxImportSource @emotion/react */
+import { useTheme } from '@emotion/react'
 import { Field, FormikProps, Form, withFormik } from 'formik'
 import {
   Button,
@@ -180,6 +179,6 @@ interface FormValues {
 }
 interface Props {
   loading: boolean
-  handleCloseForm: Function
-  handleSubmit: Function
+  handleCloseForm: () => void
+  handleSubmit: (values, bag) => void
 }

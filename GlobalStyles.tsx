@@ -1,4 +1,4 @@
-import { css } from '@emotion/core'
+import { css } from '@emotion/react'
 import emotionNormalize from 'emotion-normalize'
 
 export const globalStyle = (theme, isDark) => css`
@@ -49,6 +49,10 @@ export const globalStyle = (theme, isDark) => css`
 
   input {
     color: ${theme.colors.primary};
+  }
+
+  .form-control:disabled {
+    opacity: 0.6;
   }
 
   a:focus,

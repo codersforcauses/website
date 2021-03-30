@@ -1,6 +1,5 @@
-/** @jsx jsx */
-import { jsx } from '@emotion/core'
-import { useTheme } from 'emotion-theming'
+/** @jsxImportSource @emotion/react */
+import { useTheme } from '@emotion/react'
 import { useState, useContext } from 'react'
 import { Button, Container, Row, Col } from 'reactstrap'
 import { DarkContext } from 'helpers/user'

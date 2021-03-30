@@ -1,6 +1,5 @@
-/** @jsx jsx */
-import { jsx } from '@emotion/core'
-import { useTheme } from 'emotion-theming'
+/** @jsxImportSource @emotion/react */
+import { useTheme } from '@emotion/react'
 import BrandIcon from 'components/Elements/BrandIcons'
 import type { Brand } from 'components/Elements/BrandIcons'
 import { styles } from './styles'
@@ -10,9 +9,17 @@ const TechList = ({ data, isDark }: Props) => {
   return (
     <>
       {data.map((tech: Tech) => (
-        <div key={tech.name} className='d-flex align-items-center text-monospace mb-3' css={styles(theme)}>
+        <div
+          key={tech.name}
+          className='d-flex align-items-center text-monospace mb-3'
+          css={styles(theme)}
+        >
           <div className={`mr-3 bigger bg-${isDark ? 'secondary' : 'primary'}`}>
-            <BrandIcon icon={tech.icon} dimensions={32} fill={isDark ? 'primary' : 'secondary'} />
+            <BrandIcon
+              icon={tech.icon}
+              dimensions={32}
+              fill={isDark ? 'primary' : 'secondary'}
+            />
           </div>
           {tech.name}
         </div>

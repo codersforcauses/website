@@ -1,24 +1,15 @@
-/** @jsx jsx */
-import { jsx } from '@emotion/core'
-import { useTheme } from 'emotion-theming'
+/** @jsxImportSource @emotion/react */
+import { useTheme } from '@emotion/react'
 import { useContext } from 'react'
-import {
-  Breadcrumb,
-  BreadcrumbItem,
-  Container,
-  Row,
-  Col
-} from 'reactstrap'
+import { Breadcrumb, BreadcrumbItem, Container, Row, Col } from 'reactstrap'
 import { DarkContext } from 'helpers/user'
 import TechList from './TechList'
 import type { Tech } from './TechList'
 import { styles } from './styles'
 import WebsiteButton from './button'
 
-const parseDescription = text => (
-  text.split('\n').map(para => (
-    <p key={para}>{para}</p>
-  )))
+const parseDescription = text =>
+  text.split('\n').map(para => <p key={para}>{para}</p>)
 
 const Impact = ({
   impact,
@@ -78,23 +69,23 @@ const ProjectPage = ({ data }: Props) => {
                   {data.date}
                 </Col>
               </Row>
-              <p>
-                {parseDescription(data.desc)}
-              </p>
+              <p>{parseDescription(data.desc)}</p>
               <div className='d-lg-none mt-2'>
-                {data.url &&
+                {data.url && (
                   <WebsiteButton
                     dark={isDark}
                     link={data.url}
                     text='Visit Website'
                     classes='mr-3'
-                  />}
-                {data.source &&
+                  />
+                )}
+                {data.source && (
                   <WebsiteButton
                     dark={isDark}
                     link={data.source}
                     text='Visit Source'
-                  />}
+                  />
+                )}
               </div>
             </div>
             <Impact impact={data.impact} className='d-lg-none mb-5' />
@@ -119,20 +110,22 @@ const ProjectPage = ({ data }: Props) => {
                 <i className='material-icons-sharp mr-3'>date_range</i>
                 {data.date}
               </div>
-              {data.url &&
+              {data.url && (
                 <WebsiteButton
                   dark={isDark}
                   link={data.url}
                   text='Visit Website'
                   classes='mt-3'
-                />}
-              {data.source &&
+                />
+              )}
+              {data.source && (
                 <WebsiteButton
                   dark={isDark}
                   link={data.source}
                   text='Visit Source'
                   classes='mt-3'
-                />}
+                />
+              )}
             </div>
             <Impact impact={data.impact} className='d-none d-lg-block' />
           </Col>

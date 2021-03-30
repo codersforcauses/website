@@ -1,4 +1,4 @@
-import { css } from '@emotion/core'
+import { css } from '@emotion/react'
 import { media } from 'lib/mediaQueries'
 
 export const styles = theme => css`
@@ -7,6 +7,12 @@ export const styles = theme => css`
   }
   .text-area {
     min-height: 10rem;
+  }
+  .counter {
+    float: right;
+    position: absolute;
+    bottom: 0;
+    right: 1rem;
   }
 
   ${media.sm`

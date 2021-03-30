@@ -1,6 +1,3 @@
-/** @jsx jsx */
-import { jsx } from '@emotion/core'
-import { withTheme } from 'emotion-theming'
 import { useCallback, useState } from 'react'
 import { Container, Carousel, CarouselItem } from 'reactstrap'
 import Title from 'components/Utils/Title'
@@ -53,4 +50,4 @@ const SignUpPage = (props: { route?: string; signIn: Function }) => {
   )
 }
 
-export default withTheme(SignUpPage)
+export default SignUpPage

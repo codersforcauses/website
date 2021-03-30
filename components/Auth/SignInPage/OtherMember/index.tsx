@@ -1,6 +1,5 @@
-/** @jsx jsx */
-import { jsx } from '@emotion/core'
-import { useTheme } from 'emotion-theming'
+/** @jsxImportSource @emotion/react */
+import { useTheme } from '@emotion/react'
 import { useCallback, useContext, useState } from 'react'
 import { Auth } from '@aws-amplify/auth'
 import { Field, FormikProps, Form, withFormik } from 'formik'
@@ -48,10 +47,18 @@ const OtherMember = (props: Props & FormikProps<FormValues>) => {
   }, [])
   const handleSendPasswordResetCode = useCallback(async email => {
     setLoading(true)
+
     try {
-      if (email.includes('@student.uwa.edu.au')) {
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}users?email=${email}&$select[]=signUpType`
+      )
+      const {
+        data: [member]
+      } = await response.json()
+
+      if (member.signUpType === 'pheme') {
         throw new Error(
-          'You cannot change the password of your UWA student account. If you wish to do so, please do change it through the UWA portal.'
+          'You cannot change the password of your UWA student account. If you wish to do so, please do change it through the UWA portal and wait at least 1 hour before you try again.'
         )
       }
       await Auth.forgotPassword(email.trim())
@@ -107,6 +114,7 @@ const OtherMember = (props: Props & FormikProps<FormValues>) => {
           type='email'
           bsSize='lg'
           tag={Field}
+          autoComplete='email'
           disabled={props.loading}
           placeholder='hello@codersforcauses.org'
           id='email'
@@ -199,8 +207,8 @@ interface FormValues {
   password: string
 }
 interface Props {
-  handleSubmit: Function
-  closeError: Function
+  handleSubmit: (values, bag) => void
+  closeError: () => void
   error: string
-  loading: Boolean
+  loading: boolean
 }

@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useCallback } from 'react'
+import { useState, useMemo, useCallback } from 'react'
 import { Form, Field, FormikProps, withFormik } from 'formik'
 import {
   Modal,
@@ -121,10 +121,10 @@ interface FormValues {
   masterPassword: string
 }
 interface Props {
-  loading: Boolean
-  isOpen: Boolean
+  loading: boolean
+  isOpen: boolean
   error: string
-  closeError: Function
-  closeModal: Function
-  handleCashPayment: Function
+  closeError: () => void
+  closeModal: () => void
+  handleCashPayment: (values, bag) => void
 }

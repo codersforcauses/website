@@ -1,6 +1,5 @@
-/** @jsx jsx */
-import { jsx } from '@emotion/core'
-import { useTheme } from 'emotion-theming'
+/** @jsxImportSource @emotion/react */
+import { useTheme } from '@emotion/react'
 import { useContext, useState } from 'react'
 import { Button, Container, Col, Row } from 'reactstrap'
 import dynamic from 'next/dynamic'

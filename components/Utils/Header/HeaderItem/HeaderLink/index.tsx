@@ -1,6 +1,5 @@
-/** @jsx jsx */
-import { jsx } from '@emotion/core'
-import { useTheme } from 'emotion-theming'
+/** @jsxImportSource @emotion/react */
+import { useTheme } from '@emotion/react'
 import Link from 'next/link'
 import NavLink from 'reactstrap/lib/NavLink'
 import { styles } from './styles'

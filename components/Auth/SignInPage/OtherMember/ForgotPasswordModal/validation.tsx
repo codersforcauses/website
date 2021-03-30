@@ -6,8 +6,7 @@ export const validationSchema = object().shape({
     .email('You must enter a valid email address'),
   code: string()
     .required('Please enter the verification code')
-    .min(4, 'The code must contain 4 digits')
-    .max(4, 'The code must contain 4 digits'),
+    .matches(/^\d+$/, 'The verification code must be digits only'),
   password: string()
     .required('Please enter a password')
     .min(8, 'Your password must contain at least 8 characters')

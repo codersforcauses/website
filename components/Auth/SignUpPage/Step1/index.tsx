@@ -1,4 +1,4 @@
-import React, { useCallback, useContext, useState } from 'react'
+import { useCallback, useContext, useState } from 'react'
 import Router from 'next/router'
 import {
   Row,
@@ -27,48 +27,66 @@ const Step1 = (props: { signIn: Function; nextStep: Function }) => {
   const setUWAStudent = useCallback(() => setIsUWAStudent(true), [])
   const setNotUWAStudent = useCallback(() => setIsUWAStudent(false), [])
 
-  const handleSubmit = useCallback(async values => {
-    setLoading(true)
-    const data = {
-      username: values?.email,
-      password: values?.password,
-      attributes: {
-        given_name: values?.firstName,
-        family_name: values?.lastName
+  const handleSubmit = useCallback(
+    async values => {
+      setLoading(true)
+      const data = {
+        username: values?.email,
+        password: values?.password,
+        attributes: {
+          given_name: values?.firstName,
+          family_name: values?.lastName
+        }
       }
-    }
-    try {
-      if (isUWAStudent) {
-        const phemeResponse = await phemeLogin(
-          values.studentNumber,
-          values.password,
-          `${process.env.NEXT_PUBLIC_PHEME_URL}api/login`,
-          process.env.NEXT_PUBLIC_PHEME_TOKEN
+      try {
+        if (isUWAStudent) {
+          const phemeResponse = await phemeLogin(
+            values.studentNumber,
+            values.password,
+            `${process.env.NEXT_PUBLIC_PHEME_URL}api/login`,
+            process.env.NEXT_PUBLIC_PHEME_TOKEN
+          )
+
+          if (!phemeResponse.success) throw new Error(phemeResponse.message)
+
+          const user = phemeResponse.user
+
+          // reassign data to use values fetched from pheme login
+          data.username = `${values.studentNumber}@student.uwa.edu.au`
+          data.password = `${values.studentNumber}${process.env.NEXT_PUBLIC_PHEME_SALT}`
+          data.attributes.given_name = user.firstname.split(' ')[0]
+          data.attributes.family_name = user.lastname
+        }
+
+        const cognitoResponse = await Auth.signUp(data)
+
+        await fetch(`${process.env.NEXT_PUBLIC_API_URL}users`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          mode: 'cors',
+          body: JSON.stringify({
+            firstName: data.attributes.given_name,
+            lastName: data.attributes.family_name,
+            email: data.username,
+            awsSub: cognitoResponse.userSub,
+            isGuildMember: values?.isGuildMember ?? false,
+            signUpType: isUWAStudent ? 'pheme' : 'email'
+          })
+        })
+
+        // props.nextStep()
+        Router.push('/')
+      } catch (error) {
+        setErrors(
+          error.message ||
+            'An unexpected error occurred. Please refresh the page and try again.'
         )
-
-        if (!phemeResponse.success) throw new Error(phemeResponse.message)
-
-        const user = phemeResponse.user
-
-        // reassign data to use values fetched from pheme login
-        data.username = `${values.studentNumber}@student.uwa.edu.au`
-        data.password = `${values.studentNumber}${process.env.NEXT_PUBLIC_PHEME_SALT}`
-        data.attributes.given_name = user.firstname.split(' ')[0]
-        data.attributes.family_name = user.lastname
+      } finally {
+        setLoading(false)
       }
-      const response = await Auth.signUp(data)
-      // console.log(response)
-      // props.nextStep()
-      Router.push('/')
-    } catch (error) {
-      setErrors(
-        error.message ||
-          'An unexpected error occurred. Please refresh the page and try again.'
-      )
-    } finally {
-      setLoading(false)
-    }
-  }, [])
+    },
+    [isUWAStudent]
+  )
   return (
     <Row>
       <Col xs={12} tag='p'>

@@ -1,4 +1,4 @@
-import { css } from '@emotion/core'
+import { css } from '@emotion/react'
 import { media } from 'lib/mediaQueries'
 
 export const styles = (theme, isDark, image) => css`

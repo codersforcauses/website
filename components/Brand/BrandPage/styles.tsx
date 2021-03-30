@@ -1,4 +1,4 @@
-import { css } from '@emotion/core'
+import { css } from '@emotion/react'
 import { media } from 'lib/mediaQueries'
 
 export const styles = (theme, isDark) => css`
@@ -19,8 +19,6 @@ export const styles = (theme, isDark) => css`
     font-size: 2rem;
     line-height: 1.2;
   }
-
-
 
   ${media.sm`
     .email {

@@ -1,4 +1,4 @@
-import React, { useContext, useMemo } from 'react'
+import { memo, useContext, useMemo } from 'react'
 import { Modal, ModalHeader, ModalBody, Button } from 'reactstrap'
 import { DarkContext } from 'helpers/user'
 
@@ -6,8 +6,8 @@ const ConstitutionModal = ({
   isOpen,
   closeModal
 }: {
-  isOpen: Boolean
-  closeModal: Function
+  isOpen: boolean
+  closeModal: () => void
 }) => {
   const isDark = useContext(DarkContext)
 
@@ -729,4 +729,4 @@ const ConstitutionModal = ({
     </Modal>
   )
 }
-export default ConstitutionModal
+export default memo(ConstitutionModal)

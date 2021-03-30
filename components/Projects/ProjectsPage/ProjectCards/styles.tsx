@@ -1,11 +1,11 @@
-import { css } from '@emotion/core'
+import { css } from '@emotion/react'
 import { media } from 'lib/mediaQueries'
 
 export const styles = (theme, isDark) => css`
   .space:nth-last-of-type(1) {
     margin: 0 !important;
   }
-  
+
   .project-img {
     height: 20rem;
     object-fit: contain;

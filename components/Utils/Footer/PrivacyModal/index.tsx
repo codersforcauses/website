@@ -1,4 +1,4 @@
-import React, { useContext, useMemo } from 'react'
+import { useContext, useMemo } from 'react'
 import { Modal, ModalHeader, ModalBody, Button } from 'reactstrap'
 import { DarkContext } from 'helpers/user'
 
@@ -6,8 +6,8 @@ const PrivacyModal = ({
   isOpen,
   closeModal
 }: {
-  isOpen: Boolean
-  closeModal: Function
+  isOpen: boolean
+  closeModal: () => void
 }) => {
   const isDark = useContext(DarkContext)
 

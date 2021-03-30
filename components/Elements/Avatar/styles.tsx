@@ -1,4 +1,4 @@
-import { css } from '@emotion/core'
+import { css } from '@emotion/react'
 
 export const styles = (theme, size, dark, image) => css`
   background-color: ${theme.colors[dark ? 'primary' : 'secondary']};

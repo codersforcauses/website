@@ -1,26 +1,34 @@
-import React, { ReactNode } from 'react'
+import { PropsWithChildren } from 'react'
 import Head from 'next/head'
 
-const Meta = ({ title, page, description, image, children }: MetaProps) => {
+const Meta = ({
+  title,
+  name,
+  page,
+  description,
+  image,
+  children
+}: PropsWithChildren<MetaProps>) => {
   const link = page
     ? `https://codersforcauses.org/${page}`
     : 'https://codersforcauses.org'
+
   return (
     <Head>
       <title>
-        {page ? `${page.charAt(0).toUpperCase() + page.slice(1)} | ` : null}
+        {title ? `${title} | ` : null}
         Coders for Causes
       </title>
       <meta name='description' content={description} />
       <meta name='twitter:card' content='summary_large_image' />
       <meta name='twitter:creator' content='@codersforcauses' />
-      <meta name='twitter:title' content={title} />
+      <meta name='twitter:title' content={name} />
       <meta name='twitter:description' content={description} />
       <meta name='twitter:image' content={image} />
       <meta name='twitter:url' content={link} />
       <meta property='og:type' content='website' />
       <meta property='og:url' content={link} />
-      <meta property='og:title' content={title} />
+      <meta property='og:title' content={name} />
       <meta property='og:description' content={description} />
       <meta property='og:image' content={image} />
       <meta property='og:image:width' content='512' />
@@ -38,9 +46,9 @@ const Meta = ({ title, page, description, image, children }: MetaProps) => {
 export default Meta
 
 interface MetaProps {
-  title: string
+  name: string
   image: string
   description: string
+  title?: string
   page?: string
-  children?: ReactNode
 }

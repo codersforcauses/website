@@ -1,6 +1,5 @@
-/** @jsx jsx */
-import { jsx } from '@emotion/core'
-import { useTheme } from 'emotion-theming'
+/** @jsxImportSource @emotion/react */
+import { useTheme } from '@emotion/react'
 import { useState, useMemo, useCallback } from 'react'
 import { Auth } from '@aws-amplify/auth'
 import {
@@ -54,11 +53,11 @@ const UserMenu = ({ name, setUser, ...props }: Props) => {
           <small>Dashboard</small>
         </DropdownItem>
         <DropdownItem
-          href='/account_settings'
+          href={`/profile/${props.id}`}
           className='d-flex align-items-center px-3 py-2'
         >
-          <i className='material-icons-sharp mr-2'>settings</i>
-          <small>Account Settings</small>
+          <i className='material-icons-sharp mr-2'>person</i>
+          <small>My profile</small>
         </DropdownItem>
         <DropdownItem
           className='d-flex align-items-center px-3 py-2'
@@ -75,6 +74,7 @@ const UserMenu = ({ name, setUser, ...props }: Props) => {
 export default UserMenu
 
 interface Props {
+  id: string
   name?: string
   image?: string
   setUser: Function

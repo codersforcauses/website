@@ -1,6 +1,5 @@
-/** @jsx jsx */
-import { jsx } from '@emotion/core'
-import { useTheme } from 'emotion-theming'
+/** @jsxImportSource @emotion/react */
+import { useTheme } from '@emotion/react'
 import { useCallback, useContext, useState } from 'react'
 import { Field, FormikProps, Form, withFormik } from 'formik'
 import {
@@ -57,6 +56,7 @@ const UWAStudent = (props: Props & FormikProps<FormValues>) => {
           type='text'
           bsSize='lg'
           tag={Field}
+          autoComplete='username'
           disabled={props.loading}
           placeholder='211234567'
           id='studentNumber'
@@ -104,10 +104,11 @@ const UWAStudent = (props: Props & FormikProps<FormValues>) => {
         <Label check>
           <Input
             type='checkbox'
+            tag={Field}
             disabled={props.loading}
             id='isGuildMember'
             name='isGuildMember'
-            value={props.values.isGuildMember}
+            checked={props.values.isGuildMember}
           />
           I am a{' '}
           <a
@@ -149,8 +150,8 @@ interface FormValues {
   isGuildMember: boolean
 }
 interface Props {
-  handleSubmit: Function
-  closeError: Function
+  handleSubmit: (values, bag) => void
+  closeError: () => void
   error: string
-  loading: Boolean
+  loading: boolean
 }

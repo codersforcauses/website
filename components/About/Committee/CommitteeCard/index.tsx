@@ -1,6 +1,5 @@
-/** @jsx jsx */
-import { jsx } from '@emotion/core'
-import { useTheme } from 'emotion-theming'
+/** @jsxImportSource @emotion/react */
+import { useTheme } from '@emotion/react'
 import {
   Card,
   CardImg,
@@ -22,7 +21,10 @@ const iconMap = {
 }
 
 const replaceImage = (src: string, nameList: Array<string>, prob: number) => {
-  if (nameList.some((name: string) => src.includes(name)) && Math.random() < prob) {
+  if (
+    nameList.some((name: string) => src.includes(name)) &&
+    Math.random() < prob
+  ) {
     return src.split('.')[0].concat('-1').concat('.jpg')
   }
   return src

@@ -1,12 +1,11 @@
-/** @jsx jsx */
-import { jsx } from '@emotion/core'
-import { committee } from 'data/committee.json'
+/** @jsxImportSource @emotion/react */
+import data from 'data/committee.json'
 import CommitteeCard from './CommitteeCard'
 import { styles } from './styles'
 
 const Committee = () => (
   <div className='mt-3' css={styles()}>
-    {committee.map(member => (
+    {data.committee.map(member => (
       <CommitteeCard item={member} key={member.name} />
     ))}
   </div>

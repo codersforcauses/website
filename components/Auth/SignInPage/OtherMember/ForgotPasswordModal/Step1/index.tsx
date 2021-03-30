@@ -1,5 +1,3 @@
-/** @jsx jsx */
-import { jsx } from '@emotion/core'
 import { useCallback, useContext } from 'react'
 import { Field, FormikProps, Form } from 'formik'
 import {
@@ -28,6 +26,7 @@ const Step1 = (props: Props & FormikProps<FormValues>) => {
           type='email'
           bsSize='lg'
           tag={Field}
+          autoComplete='email'
           disabled={props.loading}
           placeholder='hello@codersforcauses.org'
           id='email'
@@ -73,7 +72,7 @@ interface FormValues {
   email: string
 }
 interface Props {
-  loading: Boolean
-  handleChangeStep: Function
-  submit: Function
+  loading: boolean
+  handleChangeStep: () => void
+  submit: (values) => void
 }

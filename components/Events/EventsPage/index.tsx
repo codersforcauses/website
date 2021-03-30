@@ -1,6 +1,5 @@
-/** @jsx jsx */
-import { jsx } from '@emotion/core'
-import { useTheme } from 'emotion-theming'
+/** @jsxImportSource @emotion/react */
+import { useTheme } from '@emotion/react'
 import { useEffect, useCallback, useContext, useState, useMemo } from 'react'
 import { Container, Button, ButtonGroup } from 'reactstrap'
 import day from 'dayjs'
@@ -27,18 +26,24 @@ const EventPage = () => {
 
   const toggleEventUpcoming = useCallback(() => setEventPast(false), [])
 
-  const events = useMemo(() => eventList.filter((event) => {
-    const date = day(event.date, 'DD/MM/YY')
-    if (eventPast) return date.isBefore(day())
-    else return date.isAfter(day()) || date.isSame(day())
-  }).sort((event1, event2) => {
-    const date1 = day(event1.date + event1.time, 'DD/MM/YYh:mma')
-    const date2 = day(event2.date + event2.time, 'DD/MM/YYh:mma')
-    if (date1.isAfter(date2, 'day')) return eventPast ? -1 : 1
-    if (date1.isBefore(date2, 'day')) return eventPast ? 1 : -1
-    if (date1.isSame(date2, 'day')) return date1.isBefore(date2) ? -1 : 1
-    else return 0
-  }), [eventList, eventPast])
+  const events = useMemo(
+    () =>
+      eventList
+        .filter(event => {
+          const date = day(event.date, 'DD/MM/YY')
+          if (eventPast) return date.isBefore(day())
+          else return date.isAfter(day()) || date.isSame(day())
+        })
+        .sort((event1, event2) => {
+          const date1 = day(event1.date + event1.time, 'DD/MM/YYh:mma')
+          const date2 = day(event2.date + event2.time, 'DD/MM/YYh:mma')
+          if (date1.isAfter(date2, 'day')) return eventPast ? -1 : 1
+          if (date1.isBefore(date2, 'day')) return eventPast ? 1 : -1
+          if (date1.isSame(date2, 'day')) return date1.isBefore(date2) ? -1 : 1
+          else return 0
+        }),
+    [eventList, eventPast]
+  )
 
   return (
     <div css={styles(theme)}>
@@ -63,8 +68,11 @@ const EventPage = () => {
           </Button>
         </ButtonGroup>
         <div className='events'>
-          {events.map((event) => (
-            <div key={event.date + event.time} css={eventStyles(theme, isDark, event.date)}>
+          {events.map(event => (
+            <div
+              key={event.date + event.time}
+              css={eventStyles(theme, isDark, event.date)}
+            >
               <div className='d-flex flex-column ml-3 ml-md-5 pl-lg-5'>
                 <EventCard key={event.slug} className='mb-4' {...event} />
               </div>

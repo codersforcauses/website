@@ -1,6 +1,7 @@
 {
   "extends": ["standard", "standard-react", "plugin:cypress/recommended"],
   "parser": "@typescript-eslint/parser",
+  "plugins": ["@emotion"],
   "overrides": [
     {
       "files": ["*.ts", "*.tsx"],
@@ -9,7 +10,14 @@
         "no-undef": "off",
         "space-before-function-paren": "off",
         "camelcase": "off",
-        "no-use-before-define": "off"
+        "no-use-before-define": "off",
+        "multiline-ternary": "off",
+        "react/no-unused-prop-types": "off",
+        "react/react-in-jsx-scope": "off",
+        "react/jsx-filename-extension": [
+          1,
+          { "extensions": [".js", ".jsx", ".ts", ".tsx"] }
+        ]
       }
     }
   ]

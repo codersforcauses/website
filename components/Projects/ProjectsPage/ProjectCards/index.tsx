@@ -1,7 +1,6 @@
-/** @jsx jsx */
 import { useContext } from 'react'
-import { jsx } from '@emotion/core'
-import { useTheme } from 'emotion-theming'
+/** @jsxImportSource @emotion/react */
+import { useTheme } from '@emotion/react'
 import { Row, Col, Card, CardImg, CardTitle } from 'reactstrap'
 import Link from 'next/link'
 import projects from 'data/projects.json'

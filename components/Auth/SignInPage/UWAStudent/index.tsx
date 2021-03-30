@@ -1,6 +1,5 @@
-/** @jsx jsx */
-import { jsx } from '@emotion/core'
-import { useTheme } from 'emotion-theming'
+/** @jsxImportSource @emotion/react */
+import { useTheme } from '@emotion/react'
 import { useCallback, useContext, useState } from 'react'
 import { Field, FormikProps, Form, withFormik } from 'formik'
 import {
@@ -52,6 +51,7 @@ const UWAStudent = (props: Props & FormikProps<FormValues>) => {
           type='text'
           bsSize='lg'
           tag={Field}
+          autoComplete='username'
           disabled={props.loading}
           placeholder='211234567'
           id='studentNumber'
@@ -123,8 +123,8 @@ interface FormValues {
   password: string
 }
 interface Props {
-  handleSubmit: Function
-  closeError: Function
+  handleSubmit: (values, bag) => void
+  closeError: () => void
   error: string
-  loading: Boolean
+  loading: boolean
 }

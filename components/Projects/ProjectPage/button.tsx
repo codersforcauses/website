@@ -1,8 +1,5 @@
-/** @jsx jsx */
-import { jsx } from '@emotion/core'
-import {
-  Button
-} from 'reactstrap'
+import { jsx } from '@emotion/react'
+import { Button } from 'reactstrap'
 
 const WebsiteButton = ({ dark, link, text, classes }: ButtonType) => {
   return (
@@ -21,10 +18,10 @@ const WebsiteButton = ({ dark, link, text, classes }: ButtonType) => {
 }
 
 interface ButtonType {
-  dark: Boolean,
-  link: String,
-  text: String,
-  classes?: String,
+  dark: Boolean
+  link: String
+  text: String
+  classes?: String
 }
 
 export default WebsiteButton

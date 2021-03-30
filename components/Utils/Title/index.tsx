@@ -1,6 +1,5 @@
-/** @jsx jsx */
-import { jsx } from '@emotion/core'
-import { useTheme } from 'emotion-theming'
+/** @jsxImportSource @emotion/react */
+import { useTheme } from '@emotion/react'
 import { Jumbotron, Container } from 'reactstrap'
 import TypedText from '../TypedText'
 import { styles } from './styles'

@@ -1,6 +1,5 @@
-/** @jsx jsx */
-import { jsx } from '@emotion/core'
-import { useTheme } from 'emotion-theming'
+/** @jsxImportSource @emotion/react */
+import { useTheme } from '@emotion/react'
 import { useState, useCallback } from 'react'
 import { CardElement } from '@stripe/react-stripe-js'
 import { FormGroup, FormFeedback, FormText, Label } from 'reactstrap'

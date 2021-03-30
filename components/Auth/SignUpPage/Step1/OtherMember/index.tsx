@@ -1,6 +1,5 @@
-/** @jsx jsx */
-import { jsx } from '@emotion/core'
-import { useTheme } from 'emotion-theming'
+/** @jsxImportSource @emotion/react */
+import { useTheme } from '@emotion/react'
 import { useCallback, useContext, useState } from 'react'
 import { Field, FormikProps, Form, withFormik } from 'formik'
 import {
@@ -58,6 +57,7 @@ const OtherMember = (props: Props & FormikProps<FormValues>) => {
               type='text'
               bsSize='lg'
               tag={Field}
+              autoComplete='given-name'
               disabled={props.loading}
               placeholder='John'
               id='firstName'
@@ -78,6 +78,7 @@ const OtherMember = (props: Props & FormikProps<FormValues>) => {
               type='text'
               bsSize='lg'
               tag={Field}
+              autoComplete='family-name'
               disabled={props.loading}
               placeholder='Doe'
               id='lastName'
@@ -98,6 +99,7 @@ const OtherMember = (props: Props & FormikProps<FormValues>) => {
           type='email'
           bsSize='lg'
           tag={Field}
+          autoComplete='email'
           disabled={props.loading}
           placeholder='hello@codersforcauses.org'
           id='email'
@@ -119,6 +121,7 @@ const OtherMember = (props: Props & FormikProps<FormValues>) => {
                 type={passwordVisible ? 'text' : 'password'}
                 bsSize='lg'
                 tag={Field}
+                autoComplete='new-password'
                 disabled={props.loading}
                 placeholder='********'
                 id='password'
@@ -154,6 +157,7 @@ const OtherMember = (props: Props & FormikProps<FormValues>) => {
                 type={passwordVisible ? 'text' : 'password'}
                 bsSize='lg'
                 tag={Field}
+                autoComplete='new-password'
                 disabled={props.loading}
                 placeholder='********'
                 id='confirmPassword'
@@ -213,8 +217,8 @@ interface FormValues {
   confirmPassword: string
 }
 interface Props {
-  handleSubmit: Function
-  closeError: Function
+  handleSubmit: (values, bag) => void
+  closeError: () => void
   error: string
-  loading: Boolean
+  loading: boolean
 }

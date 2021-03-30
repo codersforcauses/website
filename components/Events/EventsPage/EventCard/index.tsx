@@ -1,6 +1,5 @@
-/** @jsx jsx */
-import { jsx } from '@emotion/core'
-import { useTheme } from 'emotion-theming'
+/** @jsxImportSource @emotion/react */
+import { useTheme } from '@emotion/react'
 import { useContext } from 'react'
 import {
   Badge,
@@ -33,7 +32,9 @@ const EventCard = (props: any) => {
             <Badge
               key={tag}
               color='white'
-              className={`rounded-0 mr-2 font-weight-light border border-${isDark ? 'dark' : 'muted'} text-muted`}
+              className={`rounded-0 mr-2 font-weight-light border border-${
+                isDark ? 'dark' : 'muted'
+              } text-muted`}
             >
               {tag}
             </Badge>

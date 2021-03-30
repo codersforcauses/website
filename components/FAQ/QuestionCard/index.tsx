@@ -1,6 +1,5 @@
-/** @jsx jsx */
-import { jsx } from '@emotion/core'
-import { useTheme } from 'emotion-theming'
+/** @jsxImportSource @emotion/react */
+import { useTheme } from '@emotion/react'
 import { UncontrolledCollapse, Button, CardBody, Card } from 'reactstrap'
 import { styles } from './styles'
 import { DarkContext } from 'helpers/user'
@@ -40,9 +39,7 @@ const QuestionCard = (props: questionProps) => {
         style={{ backgroundColor: 'transparent' }}
       >
         <CardBody className='d-flex justify-content-between'>
-          <h4>
-            {`Q: ${props.description}`}
-          </h4>
+          <h4>{`Q: ${props.description}`}</h4>
           <ToggleBtn id={props.id} />
         </CardBody>
       </Card>
@@ -53,7 +50,9 @@ const QuestionCard = (props: questionProps) => {
           css={styles(theme, isDark)}
           style={{ backgroundColor: 'transparent' }}
         >
-          <CardBody dangerouslySetInnerHTML={{ __html: '<b>A:</b> ' + props.answer }} />
+          <CardBody
+            dangerouslySetInnerHTML={{ __html: '<b>A:</b> ' + props.answer }}
+          />
         </Card>
       </UncontrolledCollapse>
     </div>
@@ -61,9 +60,9 @@ const QuestionCard = (props: questionProps) => {
 }
 
 interface questionProps {
-  id: string,
-  description: string,
-  answer: string,
+  id: string
+  description: string
+  answer: string
   className?: string
 }
 
