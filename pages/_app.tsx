@@ -7,14 +7,15 @@ import dayjs from 'dayjs'
 import User from 'components/Auth/User'
 import Header from 'components/Utils/Header'
 import Footer from 'components/Utils/Footer'
-import { initMessenger } from 'helpers/messenger'
 import { DarkProvider } from 'helpers/user'
 import { theme } from 'lib/theme'
 import { globalStyle } from 'GlobalStyles'
 import 'dayjs/locale/en-au'
 import 'theme.scss'
 import { Alert, Container } from 'reactstrap'
-const AddOns = dynamic(() => import('../components/Utils/AddOns'))
+const AddOns = dynamic(() => import('../components/Utils/AddOns'), {
+  ssr: false
+})
 
 dayjs.locale('en-au')
 
@@ -40,16 +41,6 @@ const Website = ({ Component, pageProps }: AppProps) => {
           .matchMedia('(prefers-color-scheme: dark)')
           ?.matches.toString()) === 'true'
     )
-  }, [])
-
-  useEffect(() => {
-    if (process.env.NODE_ENV === 'production') {
-      initMessenger()
-      setTimeout(() => {
-        document.getElementsByTagName('iframe')[0].title =
-          'Coders for Causes FaceBook Messenger Plugin'
-      }, 2000)
-    }
   }, [])
 
   return (
