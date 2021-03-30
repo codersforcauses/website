@@ -1,4 +1,4 @@
-import { jsx } from '@emotion/react'
+/** @jsxImportSource @emotion/react */
 import { memo, useCallback, useContext, useState } from 'react'
 import { Button } from 'reactstrap'
 import SocialIcons, { iconsList } from 'components/Elements/SocialIcons'

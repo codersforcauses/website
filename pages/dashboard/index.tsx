@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react'
+import { useContext, useEffect } from 'react'
 import Router from 'next/router'
 import Meta from 'components/Utils/Meta'
 import DashboardPage from 'components/Dashboard/DashboardPage'

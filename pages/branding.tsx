@@ -1,4 +1,3 @@
-import React from 'react'
 import Meta from 'components/Utils/Meta'
 import BrandPage from 'components/Brand/BrandPage'
 

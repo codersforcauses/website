@@ -22,7 +22,7 @@ const AboutPage = () => {
     <div css={styles(theme, isDark)}>
       <Head>
         <link
-          href='https://api.mapbox.com/mapbox-gl-js/v1.8.1/mapbox-gl.css'
+          href='https://api.tiles.mapbox.com/mapbox-gl-js/v2.2.0/mapbox-gl.css'
           rel='stylesheet'
         />
       </Head>

@@ -1,4 +1,3 @@
-import { jsx } from '@emotion/react'
 import { useCallback, useContext, useState } from 'react'
 import { Field, FormikProps, Form } from 'formik'
 import {
@@ -168,6 +167,6 @@ interface FormValues {
   confirmPassword: string
 }
 interface Props {
-  loading: Boolean
-  handleChangeStep: Function
+  loading: boolean
+  handleChangeStep: () => void
 }

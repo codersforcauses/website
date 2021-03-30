@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import { useContext } from 'react'
 import Meta from 'components/Utils/Meta'
 import ProfilePage from 'components/Auth/ProfilePage'
 import { User, UserContext } from 'helpers/user'

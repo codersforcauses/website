@@ -1,4 +1,4 @@
-import { jsx } from '@emotion/react'
+/** @jsxImportSource @emotion/react */
 import { memo } from 'react'
 import SocialsConnected, { SocialsConnectedProps } from './SocialConnected'
 import { style } from './styles'

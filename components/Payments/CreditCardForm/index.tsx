@@ -1,4 +1,4 @@
-import React from 'react'
+import { memo } from 'react'
 import { loadStripe } from '@stripe/stripe-js'
 import { Elements } from '@stripe/react-stripe-js'
 import StripeForm from './StripeForm'
@@ -9,4 +9,4 @@ const CreditCardForm = () => (
   </Elements>
 )
 
-export default CreditCardForm
+export default memo(CreditCardForm)

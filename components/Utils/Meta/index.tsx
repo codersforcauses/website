@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react'
+import { PropsWithChildren } from 'react'
 import Head from 'next/head'
 
 const Meta = ({
@@ -8,7 +8,7 @@ const Meta = ({
   description,
   image,
   children
-}: MetaProps) => {
+}: PropsWithChildren<MetaProps>) => {
   const link = page
     ? `https://codersforcauses.org/${page}`
     : 'https://codersforcauses.org'
@@ -51,5 +51,4 @@ interface MetaProps {
   description: string
   title?: string
   page?: string
-  children?: ReactNode
 }

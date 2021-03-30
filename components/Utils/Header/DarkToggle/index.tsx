@@ -5,7 +5,7 @@ import { Button } from 'reactstrap'
 import { DarkContext } from 'helpers/user'
 import { styles } from './styles'
 
-const DarkToggle = (props: { handleDarkToggle: Function }) => {
+const DarkToggle = (props: { handleDarkToggle: () => void }) => {
   const theme = useTheme()
   const isDark = useContext(DarkContext)
 

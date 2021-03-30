@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useEffect, useMemo, useState } from 'react'
+import { FunctionComponent, useEffect, useMemo, useState } from 'react'
 import { Auth } from '@aws-amplify/auth'
 import { UserProvider } from 'helpers/user'
 

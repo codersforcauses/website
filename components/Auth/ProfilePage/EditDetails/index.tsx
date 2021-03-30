@@ -1,4 +1,4 @@
-import React, { useCallback, useContext, useState } from 'react'
+import { useCallback, useContext, useState } from 'react'
 import { Field, FormikProps, Form, withFormik } from 'formik'
 import {
   Button,
@@ -222,7 +222,7 @@ const EditDetails = (props: Props & FormikProps<FormValues>) => {
             tag={Field}
             name='gender'
             value='male'
-            checked={props.values.gender}
+            checked={props.values.gender === 'male'}
           />
           Male
         </Label>
@@ -232,7 +232,7 @@ const EditDetails = (props: Props & FormikProps<FormValues>) => {
             tag={Field}
             name='gender'
             value='female'
-            checked={props.values.gender}
+            checked={props.values.gender === 'female'}
           />
           Female
         </Label>
@@ -242,7 +242,7 @@ const EditDetails = (props: Props & FormikProps<FormValues>) => {
             tag={Field}
             name='gender'
             value='other'
-            checked={props.values.gender}
+            checked={props.values.gender === 'other'}
           />
           Other
         </Label>
@@ -343,7 +343,7 @@ interface Props {
   user: User
   loading: boolean
   error: string
-  closeError: Function
-  handleCancel: Function
+  closeError: () => void
+  handleCancel: () => void
   handleSubmit: Function
 }

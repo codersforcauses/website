@@ -1,4 +1,4 @@
-import React from 'react'
+import { memo } from 'react'
 import { Row, Col } from 'reactstrap'
 import { randomise } from 'helpers/array'
 import sponsors from 'data/sponsors.json'
@@ -22,4 +22,4 @@ const Sponsors = () => (
   </Row>
 )
 
-export default React.memo(Sponsors)
+export default memo(Sponsors)

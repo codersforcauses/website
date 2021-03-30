@@ -12,7 +12,7 @@
         "camelcase": "off",
         "no-use-before-define": "off",
         "multiline-ternary": "off",
-        "react/no-unused-prop-types": [1],
+        "react/no-unused-prop-types": "off",
         "react/react-in-jsx-scope": "off",
         "react/jsx-filename-extension": [
           1,

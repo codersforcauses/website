@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react'
+import { useMemo } from 'react'
 import { Button, Modal, ModalHeader, ModalBody } from 'reactstrap'
 import CreditCardForm from 'components/Payments/CreditCardForm'
 
@@ -35,6 +35,6 @@ const PayWithCardModal = ({ isOpen, closeModal }: Props) => {
 export default PayWithCardModal
 
 interface Props {
-  isOpen: Boolean
-  closeModal: Function
+  isOpen: boolean
+  closeModal: () => void
 }

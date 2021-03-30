@@ -17,11 +17,9 @@ import HeaderItem, { HeaderItemContent } from './HeaderItem'
 import DarkToggle from './DarkToggle'
 import { styles } from './styles'
 
-const Header = (props: { handleDarkToggle: Function }) => {
+const Header = (props: { handleDarkToggle: () => void }) => {
   const [open, setOpen] = useState(false)
-
   const { user, setUser } = useContext(UserContext)
-
   const theme = useTheme()
 
   const links: HeaderItemContent[] = [

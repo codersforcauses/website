@@ -1,4 +1,4 @@
-import React, { useState, useContext, useCallback } from 'react'
+import { useState, useContext, useCallback } from 'react'
 import { Auth } from '@aws-amplify/auth'
 import {
   Container,

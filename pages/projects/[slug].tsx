@@ -1,4 +1,3 @@
-import React from 'react'
 import Head from 'next/head'
 import ProjectPage from 'components/Projects/ProjectPage'
 import projects from 'data/projects.json'
@@ -20,7 +19,9 @@ const Project = ({ project }: { project: ProjectType }) => {
 }
 
 export const getServerSideProps = ({ params }) => {
-  const project: ProjectType = projects.find(project => project.id === params.slug)
+  const project: ProjectType = projects.find(
+    project => project.id === params.slug
+  )
   return {
     props: { project }
   }

@@ -1,4 +1,4 @@
-import React from 'react'
+import { memo } from 'react'
 import { Row, Col, Card, CardBody } from 'reactstrap'
 import services from 'data/services.json'
 
@@ -34,4 +34,4 @@ const Services = () => (
   </Row>
 )
 
-export default React.memo(Services)
+export default memo(Services)

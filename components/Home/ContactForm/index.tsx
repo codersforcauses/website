@@ -179,6 +179,6 @@ interface FormValues {
 }
 interface Props {
   loading: boolean
-  handleCloseForm: Function
-  handleSubmit: Function
+  handleCloseForm: () => void
+  handleSubmit: (values, bag) => void
 }

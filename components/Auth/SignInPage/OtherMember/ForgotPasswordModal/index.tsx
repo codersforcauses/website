@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import { useContext } from 'react'
 import { FormikProps, withFormik } from 'formik'
 import {
   Modal,
@@ -33,7 +33,11 @@ const ForgotPasswordModal = ({
   const isDark = useContext(DarkContext)
 
   const closeBtn = (
-    <Button color='link' className={`p-0 text-${isDark ? 'secondary' : 'primary'}`} onClick={closeModal}>
+    <Button
+      color='link'
+      className={`p-0 text-${isDark ? 'secondary' : 'primary'}`}
+      onClick={closeModal}
+    >
       <i className='material-icons-sharp'>close</i>
     </Button>
   )
@@ -80,13 +84,13 @@ interface FormValues {
   confirmPassword: string
 }
 interface Props {
-  loading: Boolean
-  isOpen: Boolean
-  isResetStep: Boolean
+  loading: boolean
+  isOpen: boolean
+  isResetStep: boolean
   error: string
-  closeError: Function
-  closeModal: Function
-  handleChangeStep: Function
-  handleSendPasswordResetCode: Function
-  handlePasswordReset: Function
+  closeError: () => void
+  closeModal: () => void
+  handleChangeStep: () => void
+  handleSendPasswordResetCode: (email) => Promise<void>
+  handlePasswordReset: (values, bag) => void
 }

@@ -150,8 +150,8 @@ interface FormValues {
   isGuildMember: boolean
 }
 interface Props {
-  handleSubmit: Function
-  closeError: Function
+  handleSubmit: (values, bag) => void
+  closeError: () => void
   error: string
-  loading: Boolean
+  loading: boolean
 }
