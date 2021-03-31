@@ -22,10 +22,6 @@ const AddOns = () => {
   const { user } = useContext(UserContext)
   useEffect(() => {
     initMessenger()
-    // setTimeout(() => {
-    //   document.getElementsByTagName('iframe')[0].title =
-    //     'Coders for Causes FaceBook Messenger Plugin'
-    // }, 2000)
   }, [])
 
   return (
