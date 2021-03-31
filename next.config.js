@@ -4,5 +4,9 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
 
 module.exports = withBundleAnalyzer({
   future: { webpack5: true },
-  experimental: { optimizeCss: true }
+  experimental: {
+    optimizeCss: true,
+    optimizeFonts: true,
+    modern: true
+  }
 })
