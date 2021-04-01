@@ -3,6 +3,7 @@ import { useTheme } from '@emotion/react'
 import { useState, useCallback } from 'react'
 import { Button, Container, Row, Col } from 'reactstrap'
 import Link from 'next/link'
+import Image from 'next/image'
 import dynamic from 'next/dynamic'
 import SocialIcons from 'components/Elements/SocialIcons'
 import { styles } from './styles'
@@ -68,13 +69,14 @@ const Footer = () => {
             md={3}
             className='mb-3 mb-md-0 d-flex flex-column justify-content-between'
           >
-            <div>
-              <img
-                src='/logo/cfc_logo_white_full.svg'
-                alt='Coders for Causes wordmark'
-                className='img-fluid w-75 mb-1'
-              />
-            </div>
+            <Image
+              src='/logo/cfc_logo_white_full.svg'
+              alt='Coders for Causes wordmark'
+              layout='responsive'
+              width='75%'
+              height='25%'
+              className='pr-5 pb-3'
+            />
             <p className='text-monospace m-0'>
               <small>Made with &#10084;</small>
               <small className='text-primary'> by Jeremiah</small>

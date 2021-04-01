@@ -1,22 +1,18 @@
 [
   {
     "logo": "/clients/ignite_logo.svg",
-    "color": "",
     "name": "Ignite Mentoring"
   },
   {
     "logo": "/clients/tlg_logo.svg",
-    "color": "",
     "name": "Teach Learn Grow"
   },
   {
     "logo": "/clients/p2s_logo.svg",
-    "color": "",
     "name": "P2S Rugbyworks"
   },
   {
     "logo": "/clients/anglicare_logo.svg",
-    "color": "",
     "name": "Anglicare WA"
   }
 ]
