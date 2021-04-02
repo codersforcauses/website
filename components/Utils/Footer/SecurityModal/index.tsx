@@ -15,7 +15,7 @@ const SecurityModal = ({
     () => (
       <Button
         color='link'
-        className='p-0 d-flex align-items-center text-decoration-none'
+        className='p-0 d-flex align-items-center text-decoration-none rounded-0'
         onClick={closeModal}
       >
         <i

@@ -75,7 +75,7 @@ const Footer = () => {
               layout='responsive'
               width='75%'
               height='25%'
-              className='pr-5 pb-3'
+              className='pr-5 pb-3 user-select-none'
             />
             <p className='text-monospace m-0'>
               <small>Made with &#10084;</small>
@@ -87,14 +87,14 @@ const Footer = () => {
             <ul className='list-unstyled m-md-0'>
               <li>
                 <Link href='/about#_what_we_do'>
-                  <Button color='link' className='text-secondary p-0'>
+                  <Button color='link' className='text-secondary p-0 rounded-0'>
                     What we do
                   </Button>
                 </Link>
               </li>
               <li>
                 <Link href='/about#_meet_the_team'>
-                  <Button color='link' className='text-secondary p-0'>
+                  <Button color='link' className='text-secondary p-0 rounded-0'>
                     Meet the team
                   </Button>
                 </Link>
@@ -103,7 +103,7 @@ const Footer = () => {
                 <Link href='/branding'>
                   <Button
                     color='link'
-                    className='text-secondary p-0'
+                    className='text-secondary p-0 rounded-0'
                     data-cy='branding'
                   >
                     Our branding
@@ -114,7 +114,7 @@ const Footer = () => {
                 <Link href='/#_contact_us'>
                   <Button
                     color='link'
-                    className='text-secondary p-0'
+                    className='text-secondary p-0 rounded-0'
                     data-cy='contact'
                   >
                     Contact us
@@ -128,7 +128,7 @@ const Footer = () => {
             <ul className='list-unstyled m-md-0'>
               <li>
                 <Link href='/projects'>
-                  <Button color='link' className='text-secondary p-0'>
+                  <Button color='link' className='text-secondary p-0 rounded-0'>
                     Our services
                   </Button>
                 </Link>
@@ -137,7 +137,7 @@ const Footer = () => {
                 <Link href='/projects'>
                   <Button
                     color='link'
-                    className='text-secondary p-0'
+                    className='text-secondary p-0 rounded-0'
                     data-cy='projects'
                   >
                     Previous projects
@@ -148,7 +148,7 @@ const Footer = () => {
                 <Link href='/faq'>
                   <Button
                     color='link'
-                    className='text-secondary p-0'
+                    className='text-secondary p-0 rounded-0'
                     data-cy='faq'
                   >
                     Frequently Asked Questions
@@ -162,14 +162,14 @@ const Footer = () => {
             <ul className='list-unstyled m-0'>
               <li>
                 <Link href='/events?upcoming'>
-                  <Button color='link' className='text-secondary p-0'>
+                  <Button color='link' className='text-secondary p-0 rounded-0'>
                     Upcoming events
                   </Button>
                 </Link>
               </li>
               <li>
                 <Link href='/events?past'>
-                  <Button color='link' className='text-secondary p-0'>
+                  <Button color='link' className='text-secondary p-0 rounded-0'>
                     Past events
                   </Button>
                 </Link>
@@ -189,7 +189,7 @@ const Footer = () => {
               <Button
                 size='sm'
                 color='link'
-                className='text-secondary px-0 mx-2'
+                className='text-secondary rounded-0 px-0 mx-2'
                 onClick={openTermsModal}
               >
                 Terms
@@ -197,7 +197,7 @@ const Footer = () => {
               <Button
                 size='sm'
                 color='link'
-                className='text-secondary px-0 mx-2'
+                className='text-secondary rounded-0 px-0 mx-2'
                 onClick={openPrivacyModal}
               >
                 Privacy
@@ -205,7 +205,7 @@ const Footer = () => {
               <Button
                 size='sm'
                 color='link'
-                className='text-secondary px-0 mx-2'
+                className='text-secondary rounded-0 px-0 mx-2'
                 onClick={openSecurityModal}
               >
                 Security
@@ -213,7 +213,7 @@ const Footer = () => {
               <Button
                 size='sm'
                 color='link'
-                className='text-secondary px-0 mx-2'
+                className='text-secondary rounded-0 px-0 mx-2'
                 onClick={openConstitutionModal}
               >
                 Constitution
@@ -238,7 +238,7 @@ const Footer = () => {
               <Button
                 size='sm'
                 color='link'
-                className='text-secondary p-0 mx-2'
+                className='text-secondary p-0 rounded-0 mx-2'
                 onClick={openGithub}
               >
                 <SocialIcons icon='github' dimensions={20} fill='secondary' />
@@ -246,7 +246,7 @@ const Footer = () => {
               <Button
                 size='sm'
                 color='link'
-                className='text-secondary p-0 mx-2'
+                className='text-secondary p-0 rounded-0 mx-2'
                 onClick={openDiscord}
               >
                 <SocialIcons icon='discord' dimensions={20} fill='secondary' />
@@ -254,7 +254,7 @@ const Footer = () => {
               <Button
                 size='sm'
                 color='link'
-                className='text-secondary p-0 mx-2'
+                className='text-secondary p-0 rounded-0 mx-2'
                 onClick={openFB}
               >
                 <SocialIcons icon='facebook' dimensions={20} fill='secondary' />
@@ -262,7 +262,7 @@ const Footer = () => {
               <Button
                 size='sm'
                 color='link'
-                className='text-secondary p-0 mx-2'
+                className='text-secondary p-0 rounded-0 mx-2'
                 onClick={openLinkedIn}
               >
                 <SocialIcons icon='linkedin' dimensions={20} fill='secondary' />
@@ -270,7 +270,7 @@ const Footer = () => {
               <Button
                 size='sm'
                 color='link'
-                className='text-secondary p-0 mx-2'
+                className='text-secondary p-0 rounded-0 mx-2'
                 onClick={openTwitter}
               >
                 <SocialIcons icon='twitter' dimensions={20} fill='secondary' />

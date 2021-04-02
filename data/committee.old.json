@@ -1,0 +1,123 @@
+{
+  "committee": [
+    {
+      "name": "Drew Alexander",
+      "position": "President",
+      "about": "",
+      "social": {
+        "email": "president@codersforcauses.org",
+        "discord": "Drubi",
+        "github": "https://github.com/Drewbi",
+        "linkedin": "https://www.linkedin.com/in/drew-alexander-29397317a/"
+      },
+      "picture": {
+        "src": "/committee/drewdp_20.jpg",
+        "alt": "CFC President"
+      }
+    },
+    {
+      "name": "Innocent Muisha",
+      "position": "Vice President",
+      "about": "",
+      "social": {
+        "email": "vicepresident@codersforcauses.org",
+        "discord": "Eagle-i",
+        "github": "https://github.com/innocentmm",
+        "linkedin": "https://www.linkedin.com/in/innocent-muisha-00958615a/"
+      },
+      "picture": {
+        "src": "/committee/innocentdp_20.jpg",
+        "alt": "CFC Vice President"
+      }
+    },
+    {
+      "name": "Daphne Yu",
+      "position": "Secretary",
+      "about": "",
+      "social": {
+        "email": "secretary@codersforcauses.org",
+        "discord": "MerlinTheWizard",
+        "github": "https://github.com/definitelyDaphne",
+        "linkedin": "https://www.linkedin.com/in/daphne-yu-81101916b/"
+      },
+      "picture": {
+        "src": "/committee/daphdp_20.jpg",
+        "alt": "CFC Secretary"
+      }
+    },
+    {
+      "name": "Thai Nguyen",
+      "position": "Treasurer",
+      "about": "",
+      "social": {
+        "email": "treasurer@codersforcauses.org",
+        "discord": "t",
+        "github": "https://github.com/thaingu",
+        "linkedin": "https://www.linkedin.com/in/thai-nguyen-8b6098183/"
+      },
+      "picture": {
+        "src": "/committee/thaidp_20.jpg",
+        "alt": "CFC Treasurer"
+      }
+    },
+    {
+      "name": "Jeremiah Pinto",
+      "position": "Technical Lead",
+      "about": "",
+      "social": {
+        "email": "techlead@codersforcauses.org",
+        "discord": "Smooth Jezz",
+        "github": "https://github.com/JeremiahPinto",
+        "linkedin": "https://www.linkedin.com/in/jeremiah-pinto/"
+      },
+      "picture": {
+        "src": "/committee/jerrydp_20.jpg",
+        "alt": "CFC Tech Lead"
+      }
+    },
+    {
+      "name": "Frinze Lapuz",
+      "position": "Ordinary Committee Member",
+      "about": "",
+      "social": {
+        "email": "committee@codersforcauses.org",
+        "discord": "Frinze Lapuz",
+        "github": "https://github.com/frinzekt",
+        "linkedin": "https://www.linkedin.com/in/frinze-erin-lapuz/"
+      },
+      "picture": {
+        "src": "/committee/frinzedp_20.jpg",
+        "alt": "CFC OCM"
+      }
+    },
+    {
+      "name": "Frank Sgro",
+      "position": "Ordinary Committee Member",
+      "about": "",
+      "social": {
+        "email": "committee@codersforcauses.org",
+        "discord": "frankg",
+        "github": "https://github.com/franksgro",
+        "linkedin": "https://www.linkedin.com/in/frank-sgro/"
+      },
+      "picture": {
+        "src": "/committee/frankdp_20.jpg",
+        "alt": "CFC OCM"
+      }
+    },
+    {
+      "name": "Michael Nefiodovas",
+      "position": "Ordinary Committee Member",
+      "about": "",
+      "social": {
+        "email": "committee@codersforcauses.org",
+        "discord": "Cursor",
+        "github": "https://github.com/MouseAndKeyboard"
+      },
+      "picture": {
+        "src": "/committee/michaeldp_20.jpg",
+        "alt": "CFC OCM"
+      }
+    }
+  ]
+}
