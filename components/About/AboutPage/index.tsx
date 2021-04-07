@@ -67,7 +67,7 @@ const AboutPage = () => {
           <Sponsors />
         </div>
         <h3 className='header m-0'>Our Partnered Clubs</h3>
-        <div className='py-5'>
+        <div className='pt-5'>
           <Partners />
         </div>
         {/* <h3 className='header m-0'>Special Thanks</h3>
