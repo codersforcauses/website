@@ -5,7 +5,7 @@ import { Button, Container, Row, Col } from 'reactstrap'
 import Link from 'next/link'
 import Image from 'next/image'
 import dynamic from 'next/dynamic'
-import SocialIcons from 'components/Elements/SocialIcons'
+import BrandIcons from 'components/Elements/BrandIcons'
 import { styles } from './styles'
 
 const TermsModal = dynamic(() => import('./TermsModal'))
@@ -241,7 +241,7 @@ const Footer = () => {
                 className='text-secondary p-0 rounded-0 mx-2'
                 onClick={openGithub}
               >
-                <SocialIcons icon='github' dimensions={20} fill='secondary' />
+                <BrandIcons icon='github' dimensions={20} fill='secondary' />
               </Button>
               <Button
                 size='sm'
@@ -249,7 +249,7 @@ const Footer = () => {
                 className='text-secondary p-0 rounded-0 mx-2'
                 onClick={openDiscord}
               >
-                <SocialIcons icon='discord' dimensions={20} fill='secondary' />
+                <BrandIcons icon='discord' dimensions={20} fill='secondary' />
               </Button>
               <Button
                 size='sm'
@@ -257,7 +257,7 @@ const Footer = () => {
                 className='text-secondary p-0 rounded-0 mx-2'
                 onClick={openFB}
               >
-                <SocialIcons icon='facebook' dimensions={20} fill='secondary' />
+                <BrandIcons icon='facebook' dimensions={20} fill='secondary' />
               </Button>
               <Button
                 size='sm'
@@ -265,7 +265,7 @@ const Footer = () => {
                 className='text-secondary p-0 rounded-0 mx-2'
                 onClick={openLinkedIn}
               >
-                <SocialIcons icon='linkedin' dimensions={20} fill='secondary' />
+                <BrandIcons icon='linkedin' dimensions={20} fill='secondary' />
               </Button>
               <Button
                 size='sm'
@@ -273,7 +273,7 @@ const Footer = () => {
                 className='text-secondary p-0 rounded-0 mx-2'
                 onClick={openTwitter}
               >
-                <SocialIcons icon='twitter' dimensions={20} fill='secondary' />
+                <BrandIcons icon='twitter' dimensions={20} fill='secondary' />
               </Button>
             </div>
           </Col>

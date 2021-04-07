@@ -11,15 +11,7 @@ import {
 } from 'reactstrap'
 import { ImageProps } from 'helpers/global'
 import { styles } from './styles'
-
-const iconMap = {
-  github: <i className='fab fa-github-square icon' />,
-  gitlab: <i className='fab fa-gitlab icon' />,
-  bitbucket: <i className='fab fa-bitbucket icon' />,
-  linkedin: <i className='fab fa-linkedin icon' />,
-  facebook: <i className='fab fa-facebook icon' />,
-  twitter: <i className='fab fa-twitter-square icon' />
-}
+import BrandIcons from 'components/Elements/BrandIcons'
 
 const replaceImage = (src: string, nameList: Array<string>, prob: number) => {
   if (
@@ -56,13 +48,13 @@ const CommitteeCard = ({
         </CardTitle>
         <CardSubtitle className='mb-1'>{position}</CardSubtitle>
         <CardText className='mb-1'>{about}</CardText>
-        <CardText className='mb-1'>
+        <CardText className='mb-1 d-flex align-items-start'>
           <a
             href={'mailto:' + social.email}
-            className='text-muted'
+            className='text-lightBg mr-2'
             title={social.email}
           >
-            <i className='fas fa-envelope icon' />
+            <span className='material-icons-sharp icon'>email</span>
           </a>
           {Object.keys(social)
             .filter(key => key !== 'email')
@@ -72,9 +64,9 @@ const CommitteeCard = ({
                 target='_blank'
                 rel='noopener noreferrer'
                 href={social[item]}
-                className='text-muted'
+                className='mr-2'
               >
-                {iconMap[item]}
+                <BrandIcons icon={item} dimensions={20} fill='lightBg' />
               </a>
             ))}
         </CardText>

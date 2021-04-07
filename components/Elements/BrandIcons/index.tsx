@@ -3,7 +3,7 @@ import { useTheme } from '@emotion/react'
 import simpleIcon from 'simple-icons'
 import { Theme } from 'lib/theme'
 
-const BrandIcons = ({ dimensions, fill, icon }: Props) => {
+const BrandIcons = ({ dimensions, fill, icon, ...props }: Props) => {
   const theme: Theme = useTheme()
   const simIcon = simpleIcon.get(icon)
   return (
@@ -14,6 +14,7 @@ const BrandIcons = ({ dimensions, fill, icon }: Props) => {
       viewBox='0 0 24 24'
       aria-label={icon}
       role='img'
+      {...props}
     >
       <title>{icon}</title>
       <path d={simIcon.path} />
@@ -25,6 +26,7 @@ interface Props {
   icon: string
   dimensions: number
   fill: keyof Theme['colors']
+  className?: string
 }
 
 export default BrandIcons

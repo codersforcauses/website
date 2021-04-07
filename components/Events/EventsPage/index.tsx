@@ -68,6 +68,9 @@ const EventPage = () => {
           </Button>
         </ButtonGroup>
         <div className='events'>
+          {events.length === 0 && (
+            <h2>{eventPast ? 'No past events' : 'No events planned yet'}</h2>
+          )}
           {events.map(event => (
             <div
               key={event.date + event.time}

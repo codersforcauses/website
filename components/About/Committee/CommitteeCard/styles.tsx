@@ -11,13 +11,6 @@ export const styles = theme => css`
   }
 
   .icon {
-    font-size: 1.4rem;
-    margin-right: 0.5rem;
-    vertical-align: middle;
-    transition: 0.3s;
-
-    &:hover {
-      color: ${theme.colors.secondary};
-    }
+    font-size: 27px;
   }
 `

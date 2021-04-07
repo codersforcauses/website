@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import { memo, useCallback, useContext, useState } from 'react'
 import { Button } from 'reactstrap'
-import SocialIcons, { iconsList } from 'components/Elements/SocialIcons'
+import BrandIcons from 'components/Elements/BrandIcons'
 import { DarkContext } from 'helpers/user'
 import { buttonStyle, connectedStyle } from './styles'
 
@@ -25,7 +25,7 @@ const SocialsConnected = ({
         }`}
         css={connectedStyle(color)}
       >
-        <SocialIcons
+        <BrandIcons
           dimensions={dimensions}
           fill={isDark ? 'secondary' : 'primary'}
           icon={props.icon}
@@ -47,7 +47,7 @@ const SocialsConnected = ({
         }`}
         css={connectedStyle(color)}
       >
-        <SocialIcons
+        <BrandIcons
           dimensions={dimensions}
           fill={isDark ? 'secondary' : 'primary'}
           icon={props.icon}
@@ -87,7 +87,7 @@ const SocialsConnected = ({
         css={buttonStyle(color)}
         onClick={toggle}
       >
-        <SocialIcons
+        <BrandIcons
           dimensions={dimensions}
           fill={fill}
           icon={props.icon}
@@ -104,7 +104,7 @@ export default memo(SocialsConnected)
 export interface SocialsConnectedProps {
   color: string
   name: string
-  icon: keyof typeof iconsList
+  icon: string
   fill?: 'primary' | 'secondary'
   dimensions?: number
   socialLink?: string | boolean
