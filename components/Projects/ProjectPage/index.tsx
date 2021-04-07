@@ -16,7 +16,7 @@ const Impact = ({
   ...props
 }: {
   impact: Array<string>
-  className: string
+  className?: string
 }) => (
   <div {...props}>
     <h4 className='mb-3 font-weight-bold monospace'>Potential impact</h4>
@@ -56,6 +56,8 @@ const ProjectPage = ({ data }: Props) => {
               </BreadcrumbItem>
             </Breadcrumb>
           </Col>
+        </Row>
+        <Row className='position-relative'>
           <Col lg={9}>
             <div className='mb-5'>
               <h1 className='display-4 m-0 mb-4 monospace'>{data.name}</h1>
@@ -69,7 +71,7 @@ const ProjectPage = ({ data }: Props) => {
                   {data.date}
                 </Col>
               </Row>
-              <p>{parseDescription(data.desc)}</p>
+              {parseDescription(data.desc)}
               <div className='d-lg-none mt-2'>
                 {data.url && (
                   <WebsiteButton
@@ -89,45 +91,47 @@ const ProjectPage = ({ data }: Props) => {
               </div>
             </div>
             <Impact impact={data.impact} className='d-lg-none mb-5' />
+            <h4 className='font-weight-black mb-4'>Technologies used</h4>
             <div className='mb-5'>
-              <h4 className='font-weight-black mb-4'>Technologies used</h4>
               <TechList isDark={isDark} data={data.tech} />
             </div>
-            <div className='mb-5'>
-              <h4 className='font-weight-black mb-4'>Members</h4>
+            <h4 className='font-weight-black mb-4'>Members</h4>
+            <ul className='members p-0 m-0'>
               {data.members.map((member: string) => (
-                <p key={member}>{member}</p>
+                <li key={member}>{member}</li>
               ))}
-            </div>
+            </ul>
           </Col>
-          <Col lg={3}>
-            <div className='d-none d-lg-block mb-5 text-monospace'>
-              <div className='d-flex align-items-center py-3'>
-                <i className='material-icons-sharp mr-3'>devices</i>
-                {data.type}
+          <Col lg={3} className='d-none d-lg-block position-relative'>
+            <div className='sticky-top'>
+              <div className='mb-5 text-monospace'>
+                <div className='d-flex align-items-center py-3'>
+                  <i className='material-icons-sharp mr-3'>devices</i>
+                  {data.type}
+                </div>
+                <div className='d-flex align-items-center py-3'>
+                  <i className='material-icons-sharp mr-3'>date_range</i>
+                  {data.date}
+                </div>
+                {data.url && (
+                  <WebsiteButton
+                    dark={isDark}
+                    link={data.url}
+                    text='Visit Website'
+                    classes='mt-3'
+                  />
+                )}
+                {data.source && (
+                  <WebsiteButton
+                    dark={isDark}
+                    link={data.source}
+                    text='Visit Source'
+                    classes='mt-3'
+                  />
+                )}
               </div>
-              <div className='d-flex align-items-center py-3'>
-                <i className='material-icons-sharp mr-3'>date_range</i>
-                {data.date}
-              </div>
-              {data.url && (
-                <WebsiteButton
-                  dark={isDark}
-                  link={data.url}
-                  text='Visit Website'
-                  classes='mt-3'
-                />
-              )}
-              {data.source && (
-                <WebsiteButton
-                  dark={isDark}
-                  link={data.source}
-                  text='Visit Source'
-                  classes='mt-3'
-                />
-              )}
+              <Impact impact={data.impact} />
             </div>
-            <Impact impact={data.impact} className='d-none d-lg-block' />
           </Col>
         </Row>
       </Container>

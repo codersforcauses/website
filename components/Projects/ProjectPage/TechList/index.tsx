@@ -1,36 +1,36 @@
 /** @jsxImportSource @emotion/react */
 import { useTheme } from '@emotion/react'
 import BrandIcon from 'components/Elements/BrandIcons'
-import type { Brand } from 'components/Elements/BrandIcons'
 import { styles } from './styles'
 
 const TechList = ({ data, isDark }: Props) => {
   const theme = useTheme()
+
   return (
-    <>
+    <div css={styles(theme)}>
       {data.map((tech: Tech) => (
         <div
           key={tech.name}
-          className='d-flex align-items-center text-monospace mb-3'
+          className='d-flex align-items-center text-monospace'
           css={styles(theme)}
         >
-          <div className={`mr-3 bigger bg-${isDark ? 'secondary' : 'primary'}`}>
+          <div className='mr-3 bigger'>
             <BrandIcon
               icon={tech.icon}
               dimensions={32}
-              fill={isDark ? 'primary' : 'secondary'}
+              fill={isDark ? 'secondary' : 'primary'}
             />
           </div>
           {tech.name}
         </div>
       ))}
-    </>
+    </div>
   )
 }
 
-interface Tech {
+export interface Tech {
   name: string
-  icon: Brand
+  icon: string
 }
 interface Props {
   data: Array<Tech>
@@ -38,4 +38,3 @@ interface Props {
 }
 
 export default TechList
-export type { Tech }
