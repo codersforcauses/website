@@ -46,7 +46,7 @@
     "react": "17.0.2",
     "react-dom": "17.0.2",
     "reactstrap": "8.9.0",
-    "simple-icons": "^4.17.0",
+    "simple-icons": "4.17.0",
     "swr": "0.5.5",
     "typed.js": "2.0.12",
     "yup": "0.32.9"
@@ -58,7 +58,7 @@
     "@types/mapbox-gl": "2.1.1",
     "@types/node": "14.14.37",
     "@types/react": "17.0.3",
-    "@types/simple-icons": "^4.14.0",
+    "@types/simple-icons": "4.14.0",
     "@types/yup": "0.29.11",
     "@typescript-eslint/parser": "4.20.0",
     "commitizen": "4.2.3",

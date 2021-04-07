@@ -1054,7 +1054,7 @@
   resolved "https://registry.yarnpkg.com/@types/scheduler/-/scheduler-0.16.1.tgz#18845205e86ff0038517aab7a18a62a6b9f71275"
   integrity sha512-EaCxbanVeyxDRTQBkdLb3Bvl/HK7PBK6UJjsSixB0iHKoWxE5uu2Q/DgtpOhPIojN0Zl1whvOd7PoHs2P0s5eA==
 
-"@types/simple-icons@^4.14.0":
+"@types/simple-icons@4.14.0":
   version "4.14.0"
   resolved "https://registry.yarnpkg.com/@types/simple-icons/-/simple-icons-4.14.0.tgz#8bfddf2f23b3128eb48c26fa29f33938e45719b3"
   integrity sha512-eMt68v8qGF42I7SODwAV56/xatcFbFtFmwlN9DPEDcVEFCk4EJfPsDiw4e4CPCRtM5BmD0B1ikSTYvtjcWW+Dw==
@@ -6131,7 +6131,7 @@ signal-exit@^3.0.0, signal-exit@^3.0.2:
   resolved "https://registry.yarnpkg.com/signal-exit/-/signal-exit-3.0.3.tgz#a1410c2edd8f077b08b4e253c8eacfcaf057461c"
   integrity sha512-VUJ49FC8U1OxwZLxIbTTrDvLnf/6TDgxZcK8wxR8zs13xpx7xbG60ndBlhNrFi2EMuFRoeDoJO7wthSLq42EjA==
 
-simple-icons@^4.17.0:
+simple-icons@4.17.0:
   version "4.17.0"
   resolved "https://registry.yarnpkg.com/simple-icons/-/simple-icons-4.17.0.tgz#87a09f6a6ffe1387445240a2e57748d527ad80e9"
   integrity sha512-AdZRFpHDuNeWrQbwLdcQp1ZyjAraUWI7kQY8Kw49qI5NNeLVN9gUupB4DSdqfD+eKH0yx4DzdrGaQjqNJOoskw==
