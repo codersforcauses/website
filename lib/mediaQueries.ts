@@ -1,10 +1,10 @@
 import { css } from '@emotion/react'
-import { Breakpoints, theme } from './theme'
+import { theme } from './theme'
 
 // iterate through the sizes and create a media template
-export const media: Breakpoints = Object.keys(theme.breakpoints).reduce(
+export const media = Object.keys(theme.breakpoints).reduce(
   (accumulator, label) => {
-    // use em in breakpoints to work properly cross-browser and support users
+    // use rem in breakpoints to work properly cross-browser and support users
     // changing their browsers font-size: https://zellwk.com/blog/media-query-units/
     const emSize = theme.breakpoints[label] / 16
     accumulator[label] = (...args) =>
