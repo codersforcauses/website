@@ -20,7 +20,7 @@ const HeaderLink = ({ href, text, isExternal }: Props) => {
           {text}
         </a>
       ) : (
-        <Link href={href}>
+        <Link href={href} passHref>
           <NavLink
             className='header-link p-0 m-2 my-md-0 '
             data-cy={`nav-${text}`}

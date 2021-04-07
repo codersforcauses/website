@@ -10,18 +10,15 @@
     "date": "May 2019",
     "purl": "/projects/foguwa",
     "source": "https://github.com/foguwa/",
-    "impact": [
-      "Showcasing of UWA's flora",
-      "Increased community engagment"
-    ],
+    "impact": ["Showcasing of UWA's flora", "Increased community engagment"],
     "desc": "The Friends of the Grounds UWA host campus tours to encourage the University and wider WA community to take an active interest in UWA’s flora on the grounds.\nThe project aims to develop a map-based application for users to know their location during the tour or as they explore the campus independantly. Users can click on plants on the map to learn more about them. Admins will be able to create, edit and delete the plant information and its location in the admin console.",
     "tech": [
-      {"name": "MongoDB", "icon": "database"},
-      {"name": "Vue.js", "icon": "vue"},
-      {"name": "NodeJS", "icon": "node"},
-      {"name": "Express.js", "icon": "server"},
-      {"name": "NuxtJS", "icon": "menu"},
-      {"name": "Vuetify", "icon": "menu"}
+      { "name": "MongoDB", "icon": "mongodb" },
+      { "name": "Vue.js", "icon": "vue-dot-js" },
+      { "name": "NodeJS", "icon": "node-dot-js" },
+      { "name": "Express.js", "icon": "express" },
+      { "name": "NuxtJS", "icon": "nuxt-dot-js" },
+      { "name": "Vuetify", "icon": "vuetify" }
     ],
     "members": [
       "Jeremiah Pinto",
@@ -49,10 +46,10 @@
     ],
     "desc": "With over 80 different organisations involved, this project is lead by researchers at the UWA School of Population Health to creating a multi-purpose website to not only host their research, but to create a forum for discussion, and collaboration, for professionals and individuals, to tackle the growing issues surrounding homelessness and health in Australia, and beyond.\nThe website consists of resource pages and allows the creations of blog posts that facilitates the communication and discussion of findings of the Home2Health research group and professionals regarding homeless health care.",
     "tech": [
-      {"name": "MongoDB", "icon": "database"},
-      {"name": "Express", "icon": "server"},
-      {"name": "React", "icon": "react"},
-      {"name": "NodeJS", "icon": "node"}
+      { "name": "MongoDB", "icon": "mongodb" },
+      { "name": "Express", "icon": "express" },
+      { "name": "Next.js", "icon": "next-dot-js" },
+      { "name": "Vercel", "icon": "vercel" }
     ],
     "members": [
       "David Yu",
@@ -82,9 +79,10 @@
     ],
     "desc": "The P2S RUGBYWORKS organisation runs a long-term skills development program for at risk youth. They help by mentoring them during sports and activities sessions. The project aims to transform the organisations previously paper-based review system into a webapp for simple data collection and storage.\nThe app allows coaches to log in, take attendence of students, and submit performance reviews for the session. Admins can log in and monitor student progress and coach reports.",
     "tech": [
-      {"name": "Vue.js", "icon": "vue"},
-      {"name": "Express.js", "icon": "server"},
-      {"name": "MongoDB", "icon": "database"}
+      { "name": "Vue.js", "icon": "vue-dot-js" },
+      { "name": "Vuetify", "icon": "vuetify" },
+      { "name": "Express", "icon": "express" },
+      { "name": "MongoDB", "icon": "mongodb" }
     ],
     "members": [
       "Jeremiah Pinto",
@@ -113,10 +111,9 @@
     ],
     "desc": "The purpose of this project was to provide Ignite Mentoring a web based tool that allocates it's mentors to classes while learning the basics of web development. ",
     "tech": [
-      {"name": "HTML", "icon": "menu"},
-      {"name": "CSS", "icon": "menu"},
-      {"name": "JavaScript", "icon": "menu"},
-      {"name": "Heroku", "icon": "menu"}
+      { "name": "HTML", "icon": "html5" },
+      { "name": "CSS", "icon": "css3" },
+      { "name": "JavaScript", "icon": "javascript" }
     ],
     "members": [
       "David Yu",
@@ -144,9 +141,11 @@
     ],
     "desc": "A simple responsive web application that allows homeless youths to easily search for available accommodation then to quickly make a booking. Accommodation providers are provided with a simple interface to enter and track their bed vacancies plus a platform to receive accommodation enquiries.",
     "tech": [
-      {"name": "Express", "icon": "server"},
-      {"name": "MongoDB", "icon": "database"},
-      {"name": "NodeJS", "icon": "node"}
+      { "name": "HTML", "icon": "html5" },
+      { "name": "CSS", "icon": "css3" },
+      { "name": "Express", "icon": "express" },
+      { "name": "MongoDB", "icon": "mongodb" },
+      { "name": "Heroku", "icon": "heroku" }
     ],
     "members": [
       "Alex Arnold",

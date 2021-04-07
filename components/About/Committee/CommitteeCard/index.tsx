@@ -9,6 +9,7 @@ import {
   CardText,
   CardProps
 } from 'reactstrap'
+import { ImageProps } from 'helpers/global'
 import { styles } from './styles'
 
 const iconMap = {
@@ -93,17 +94,12 @@ interface Social {
   twitter?: string
 }
 
-interface Picture {
-  src: string
-  alt: string
-}
-
 export interface CardItemContent {
   name: string
   position: string
   about: string
   social: Social
-  picture: Picture
+  picture: ImageProps
 }
 
 interface Props extends CardProps {

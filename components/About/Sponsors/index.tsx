@@ -1,25 +1,14 @@
 import { memo } from 'react'
-import { Row, Col } from 'reactstrap'
-import { randomise } from 'helpers/array'
+import ImageGrid from 'components/Utils/ImageGrid'
 import sponsors from 'data/sponsors.json'
 
-const sponsorsSample = sponsors
-  .sort(randomise)
-  .slice(0, Math.min(3, sponsors.length))
+const Sponsors = () => {
+  const imageList = sponsors.map(sponsor => ({
+    src: sponsor.logo,
+    alt: sponsor.name
+  }))
 
-const Sponsors = () => (
-  <Row className='justify-content-around py-5'>
-    {sponsorsSample.map(sponsor => (
-      <Col
-        xs={3}
-        md={2}
-        key={sponsor.name}
-        className='d-flex align-items-center m-0 justify-content-center'
-      >
-        <img src={sponsor.logo} alt={sponsor.name} className='img-fluid logo' />
-      </Col>
-    ))}
-  </Row>
-)
+  return <ImageGrid images={imageList} />
+}
 
 export default memo(Sponsors)

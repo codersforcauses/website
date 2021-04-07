@@ -7,6 +7,6 @@ module.exports = withBundleAnalyzer({
   experimental: {
     optimizeCss: true,
     optimizeFonts: true,
-    modern: true
+    optimizeImages: true
   }
 })

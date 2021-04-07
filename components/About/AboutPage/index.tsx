@@ -9,7 +9,7 @@ import { DarkContext } from 'helpers/user'
 import Committee from '../Committee'
 import Clients from '../../Utils/Clients'
 import Partners from '../Partners'
-import SpecialThanks from '../SpecialThanks'
+// import SpecialThanks from '../SpecialThanks'
 import Sponsors from '../Sponsors'
 import { styles } from './styles'
 
@@ -57,31 +57,23 @@ const AboutPage = () => {
         </Container>
       </Jumbotron>
 
-      <Container className='my-5'>
-        <Row>
-          <Col xs={12} tag='h3' className='header m-0'>
-            Our Clients
-          </Col>
-        </Row>
-        <Clients />
-        <Row>
-          <Col xs={12} tag='h3' className='header m-0'>
-            Our Sponsors
-          </Col>
-        </Row>
-        <Sponsors />
-        <Row>
-          <Col xs={12} tag='h3' className='header m-0'>
-            Our Partnered Clubs
-          </Col>
-        </Row>
-        <Partners />
-        <Row>
-          <Col xs={12} tag='h3' className='header m-0'>
-            Special Thanks
-          </Col>
-        </Row>
-        <SpecialThanks />
+      <Container className='my-5 py-2'>
+        <h3 className='header m-0'>Our Clients</h3>
+        <div className='py-5'>
+          <Clients />
+        </div>
+        <h3 className='header m-0'>Our Sponsors</h3>
+        <div className='py-5'>
+          <Sponsors />
+        </div>
+        <h3 className='header m-0'>Our Partnered Clubs</h3>
+        <div className='py-5'>
+          <Partners />
+        </div>
+        {/* <h3 className='header m-0'>Special Thanks</h3>
+        <div className='pt-5'>
+          <SpecialThanks />
+        </div> */}
       </Container>
     </div>
   )

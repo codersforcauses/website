@@ -17,7 +17,7 @@ const DarkToggle = (props: { handleDarkToggle: () => void }) => {
   return (
     <Button
       color='link'
-      className='py-0 h-100'
+      className='py-0 h-100 rounded-0'
       onClick={props.handleDarkToggle}
     >
       <i

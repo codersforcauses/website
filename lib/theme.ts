@@ -1,4 +1,4 @@
-export const theme = {
+export const theme: Theme = {
   breakpoints: {
     xs: 0,
     sm: 576,
@@ -31,40 +31,34 @@ export const theme = {
 }
 
 export interface Theme {
-  breakpoints?: {
-    xs?: number
-    sm?: number
-    md?: number
-    lg?: number
-    xl?: number
-  }
-
-  colors?: {
-    primary?: string
-    secondary?: string
-    darkBg?: string
-    lightBg?: string
-    accent?: string
-    success?: string
-    danger?: string
-    warning?: string
-  }
-
-  spacing?: {
-    1?: number
-    2?: number
-    3?: number
-    4?: number
-    5?: number
-    6?: number
-    7?: number
-    auto?: string
-  }
+  breakpoints?: Breakpoints
+  colors?: Colors
+  spacing?: Spacing
+}
+export interface Colors {
+  primary?: string
+  secondary?: string
+  darkBg?: string
+  lightBg?: string
+  accent?: string
+  success?: string
+  danger?: string
+  warning?: string
+}
+export interface Spacing {
+  1?: number
+  2?: number
+  3?: number
+  4?: number
+  5?: number
+  6?: number
+  7?: number
+  auto?: 'auto'
 }
 export interface Breakpoints {
-  xs?: Function
-  sm?: Function
-  md?: Function
-  lg?: Function
-  xl?: Function
+  xs?: number
+  sm?: number
+  md?: number
+  lg?: number
+  xl?: number
 }

@@ -78,7 +78,7 @@ const HomePage = () => {
                 './Programming with purpose',
                 './Do good. ^200Write code',
                 './Made with code',
-                './Made with ^500❤️',
+                './Made with ^500❤',
                 '#include git.c',
                 'class Coders extends Causes',
                 'sudo rm -rf /'
@@ -109,7 +109,7 @@ const HomePage = () => {
         </Container>
       </div>
       <div className='secondary-bg'>
-        <Container>
+        <Container className='py-5'>
           <Clients />
         </Container>
       </div>
