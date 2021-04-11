@@ -3,7 +3,6 @@ import { useTheme } from '@emotion/react'
 import { useContext, useState, useCallback } from 'react'
 import {
   Navbar,
-  NavbarBrand,
   Container,
   Nav,
   Button,
@@ -11,29 +10,34 @@ import {
   NavbarToggler
 } from 'reactstrap'
 import Link from 'next/link'
+import Router from 'next/router'
 import { UserContext } from 'helpers/user'
 import SignedInUser from './SignedInUser'
 import HeaderItem, { HeaderItemContent } from './HeaderItem'
 import DarkToggle from './DarkToggle'
 import { styles } from './styles'
 
+const links: HeaderItemContent[] = [
+  { href: '/about', text: 'About' },
+  { href: '/projects', text: 'Projects' },
+  { href: '/events', text: 'Events' },
+  {
+    href: 'https://guides.codersforcauses.org/',
+    text: 'Guides',
+    isExternal: true
+  }
+]
+
 const Header = (props: { handleDarkToggle: () => void }) => {
   const [open, setOpen] = useState(false)
   const { user, setUser } = useContext(UserContext)
   const theme = useTheme()
 
-  const links: HeaderItemContent[] = [
-    { href: '/about', text: 'About' },
-    { href: '/projects', text: 'Projects' },
-    { href: '/events', text: 'Events' },
-    {
-      href: 'https://guides.codersforcauses.org/',
-      text: 'Guides',
-      isExternal: true
-    }
-  ]
-
   const toggleOpen = useCallback(() => setOpen(open => !open), [])
+
+  Router.events.on('routeChangeStart', () => {
+    setOpen(false)
+  })
 
   return (
     <Navbar
@@ -51,7 +55,7 @@ const Header = (props: { handleDarkToggle: () => void }) => {
           <NavbarToggler
             id='Menu'
             onClick={toggleOpen}
-            className='mr-3 d-flex d-md-none align-items-center px-0 ml-sm-3 border-0'
+            className='mr-3 d-flex d-md-none align-items-center px-0 ml-sm-3 border-0 rounded-0'
           >
             <i className='material-icons-sharp text-secondary'>
               {open ? 'close' : 'menu'}
