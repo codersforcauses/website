@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { useTheme } from '@emotion/react'
-import { useState, useMemo, useCallback } from 'react'
+import { useState, useMemo, useCallback, Dispatch, SetStateAction } from 'react'
 import { Auth } from '@aws-amplify/auth'
 import {
   ButtonDropdown,
@@ -9,7 +9,7 @@ import {
   DropdownItem
 } from 'reactstrap'
 import Router from 'next/router'
-import { getInitials } from 'helpers/user'
+import { getInitials, UserProps } from 'helpers/user'
 import { styles } from './styles'
 
 const UserMenu = ({ name, setUser, ...props }: Props) => {
@@ -77,5 +77,5 @@ interface Props {
   id: string
   name?: string
   image?: string
-  setUser: Function
+  setUser: Dispatch<SetStateAction<UserProps>>
 }

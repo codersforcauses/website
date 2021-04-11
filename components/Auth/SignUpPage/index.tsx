@@ -1,10 +1,13 @@
-import { useCallback, useState } from 'react'
+import { Dispatch, SetStateAction, useCallback, useState } from 'react'
 import { Container, Carousel, CarouselItem } from 'reactstrap'
 import Title from 'components/Utils/Title'
 import Step1 from './Step1'
 import Step2 from './Step2'
 
-const SignUpPage = (props: { route?: string; signIn: Function }) => {
+const SignUpPage = (props: {
+  route?: string
+  signIn: Dispatch<SetStateAction<boolean>>
+}) => {
   const [currentStep, setCurrentStep] = useState(0)
   const [animating, setAnimating] = useState(false)
 

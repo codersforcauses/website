@@ -1,6 +1,6 @@
 import { FunctionComponent, useEffect, useMemo, useState } from 'react'
 import { Auth } from '@aws-amplify/auth'
-import { UserProvider } from 'helpers/user'
+import { UserProps, UserProvider } from 'helpers/user'
 
 /**
  * The initial value being set to `undefined` or `null` here is important.
@@ -10,7 +10,7 @@ import { UserProvider } from 'helpers/user'
  * authenticated, have a failed request, or the check hasn't happened yet.
  */
 const User: FunctionComponent = ({ children }) => {
-  const [user, setUser] = useState(undefined)
+  const [user, setUser] = useState<UserProps>(undefined)
 
   try {
     useEffect(() => {

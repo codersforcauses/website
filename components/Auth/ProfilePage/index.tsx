@@ -3,7 +3,7 @@ import { useTheme } from '@emotion/react'
 import { memo, useCallback, useContext, useState } from 'react'
 import { Jumbotron, Container, Row, Col, Button } from 'reactstrap'
 import Avatar from 'components/Elements/Avatar'
-import { DarkContext, User } from 'helpers/user'
+import { DarkContext, UserProps } from 'helpers/user'
 import EditDetails from './EditDetails'
 import Socials from './Socials'
 import { styles } from './styles'
@@ -117,6 +117,6 @@ const ProfilePage = (props: Props) => {
 export default ProfilePage
 
 interface Props {
-  user: User
+  user: UserProps
   canEdit: boolean
 }

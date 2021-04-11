@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { useTheme } from '@emotion/react'
-import { useContext, useState } from 'react'
+import { Dispatch, SetStateAction, useContext, useState } from 'react'
 import { Button, Container, Col, Row } from 'reactstrap'
 import dynamic from 'next/dynamic'
 import Title from 'components/Utils/Title'
@@ -13,12 +13,12 @@ const ClientBriefModal = dynamic(() => import('./ProjectDevelopmentModal'))
 const ProjectInfo = ({
   setClientBriefModal
 }: {
-  setClientBriefModal: Function
+  setClientBriefModal: Dispatch<SetStateAction<boolean>>
 }) => {
   const isDark = useContext(DarkContext)
 
   return (
-    <div className='mt-5'>
+    <div className='mt-5 mt-md-0'>
       <p>
         If you're a charity or non-profit looking to potentially work with us,
         we've outlined our processes below.
