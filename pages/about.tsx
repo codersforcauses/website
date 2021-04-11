@@ -12,18 +12,6 @@ const About = () => (
     >
       <link rel='preconnect' href='https://api.mapbox.com' crossOrigin='' />
       <link rel='dns-prefetch' href='//api.mapbox.com' />
-
-      <link
-        rel='preconnect'
-        href='https://kit-free.fontawesome.com'
-        crossOrigin=''
-      />
-      <link rel='dns-prefetch' href='//kit-free.fontawesome.com' />
-      <script
-        src='https://kit.fontawesome.com/249aebb7ef.js'
-        crossOrigin='anonymous'
-        defer
-      />
     </Meta>
 
     <AboutPage />

@@ -1,9 +1,9 @@
-import { Context, createContext } from 'react'
+import { createContext, Dispatch, SetStateAction } from 'react'
 
-export const UserContext: Context<{
-  user: any
-  setUser: any
-}> = createContext({
+export const UserContext = createContext<{
+  user: UserProps
+  setUser: Dispatch<SetStateAction<UserProps>>
+}>({
   user: undefined,
   setUser: () => {}
 })
@@ -19,7 +19,7 @@ export const getInitials = (name: string) => {
   return `${initialArray[0]}${initialArray[initialArray.length - 1]}`
 }
 
-export interface User {
+export interface UserProps {
   _id: string
   signUpType: string
   isGuildMember: boolean

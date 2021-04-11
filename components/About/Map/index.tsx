@@ -15,7 +15,9 @@ const Map = () => {
   useEffect(() => {
     const UWA_COORDS: [number, number] = [115.816986, -31.98097] // [lng, lat]
 
-    const styledMap = `mapbox://styles/mapbox/${isDark ? 'dark' : 'light'}-v10`
+    const styledMap = `mapbox://styles/mapbox/${
+      isDark ? 'dark' : 'light'
+    }-v10?optimize=true`
 
     const map = new mapboxgl.Map({
       container: mapContainer.current,

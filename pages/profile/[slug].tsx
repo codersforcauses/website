@@ -1,9 +1,9 @@
 import { useContext } from 'react'
 import Meta from 'components/Utils/Meta'
 import ProfilePage from 'components/Auth/ProfilePage'
-import { User, UserContext } from 'helpers/user'
+import { UserProps, UserContext } from 'helpers/user'
 
-const Profile = ({ user }: { user: User }) => {
+const Profile = ({ user }: { user: UserProps }) => {
   const { user: currentUser } = useContext(UserContext)
 
   return (
@@ -29,9 +29,7 @@ export const getServerSideProps = async ({ params }) => {
   const {
     data: [user]
   } = await res.json()
-  return {
-    props: { user }
-  }
+  return user ? { props: { user } } : { notFound: true }
 }
 
 export default Profile

@@ -1,4 +1,10 @@
-import { useCallback, useContext, useState } from 'react'
+import {
+  Dispatch,
+  SetStateAction,
+  useCallback,
+  useContext,
+  useState
+} from 'react'
 import Router from 'next/router'
 import {
   Row,
@@ -15,8 +21,10 @@ import { DarkContext } from 'helpers/user'
 import UWAStudent from './UWAStudent'
 import OtherMember from './OtherMember'
 
-// eslint-disable-next-line react/no-unused-prop-types
-const Step1 = (props: { signIn: Function; nextStep: Function }) => {
+const Step1 = (props: {
+  signIn: Dispatch<SetStateAction<boolean>>
+  nextStep: () => void
+}) => {
   const [isUWAStudent, setIsUWAStudent] = useState(true)
   const [loading, setLoading] = useState(false)
   const [errors, setErrors] = useState('')

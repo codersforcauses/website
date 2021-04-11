@@ -22,9 +22,8 @@ export const getServerSideProps = ({ params }) => {
   const project: ProjectType = projects.find(
     project => project.id === params.slug
   )
-  return {
-    props: { project }
-  }
+
+  return project ? { props: { project } } : { notFound: true }
 }
 
 export default Project

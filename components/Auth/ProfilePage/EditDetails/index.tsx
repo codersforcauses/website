@@ -15,7 +15,7 @@ import {
 import dayjs from 'dayjs'
 import localeData from 'dayjs/plugin/localeData'
 import Spinner from 'components/Elements/Spinner'
-import { DarkContext, User } from 'helpers/user'
+import { DarkContext, UserProps } from 'helpers/user'
 import { validationSchema } from './validation'
 import Socials from '../Socials'
 
@@ -340,10 +340,10 @@ interface FormValues {
   }
 }
 interface Props {
-  user: User
+  user: UserProps
   loading: boolean
   error: string
   closeError: () => void
   handleCancel: () => void
-  handleSubmit: Function
+  handleSubmit: (values, bag) => void
 }

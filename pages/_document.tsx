@@ -33,8 +33,8 @@ class MyDocument extends Document {
             rel='stylesheet'
           />
 
-          <meta name='author' content='Coders for Causes' />
           <link rel='icon' href='/favicon-light.png' type='image/png' />
+          <meta name='author' content='Coders for Causes' />
         </Head>
         <body>
           <Main />

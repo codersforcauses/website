@@ -1,4 +1,10 @@
-import { useState, useContext, useCallback } from 'react'
+import {
+  useState,
+  useContext,
+  useCallback,
+  Dispatch,
+  SetStateAction
+} from 'react'
 import { Auth } from '@aws-amplify/auth'
 import {
   Container,
@@ -19,7 +25,10 @@ import Title from 'components/Utils/Title'
 import UWAStudent from './UWAStudent'
 import OtherMember from './OtherMember'
 
-const SignInPage = (props: { route?: string; signUp: Function }) => {
+const SignInPage = (props: {
+  route?: string
+  signUp: Dispatch<SetStateAction<boolean>>
+}) => {
   const [isUWAStudent, setIsUWAStudent] = useState(true)
   const [loading, setLoading] = useState(false)
   const [errors, setErrors] = useState('')

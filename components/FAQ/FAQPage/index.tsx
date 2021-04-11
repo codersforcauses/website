@@ -14,7 +14,7 @@ const FAQPage = () => {
 
   return (
     <div css={styles(theme, isDark)}>
-      <Title typed>./FAQ</Title>
+      <Title typed>./Frequently Asked Questions</Title>
       <Container className='pt-2 pb-5 my-5'>
         {questionList.map(question => (
           <QuestionCard

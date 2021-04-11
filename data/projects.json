@@ -39,7 +39,7 @@
     "type": "Full Stack Web Development",
     "date": "May 2019",
     "purl": "/projects/home2health",
-    "url": "https://codersforcauses.github.io/ignite-mentoring-2018/",
+    "source": "https://github.com/codersforcauses/home2health",
     "impact": [
       "Raise awareness for homelessness",
       "Facilitate communications and sharing of resources"
@@ -57,7 +57,7 @@
       "Jong Kyung Kim",
       "Frinze Lapuz",
       "Mila Zhang",
-      "Han Yit Tsin Choo",
+      "Han Yit Tsin Chooi",
       "Shazza"
     ]
   },
