@@ -2,9 +2,9 @@ import { css } from '@emotion/react'
 import { media } from 'lib/mediaQueries'
 
 export const styles = (theme, isDark) => css`
-  .space:nth-last-of-type(1) {
-    margin: 0 !important;
-  }
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
 
   .project-img {
     height: 20rem;
@@ -16,8 +16,6 @@ export const styles = (theme, isDark) => css`
   }
 
   ${media.md`
-    .space:nth-last-of-type(2) {
-      margin: 0 !important;
-    }
+    grid-template-columns: 1fr 1fr;
   `}
 `

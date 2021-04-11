@@ -1,7 +1,7 @@
-import { useContext } from 'react'
 /** @jsxImportSource @emotion/react */
 import { useTheme } from '@emotion/react'
-import { Row, Col, Card, CardImg, CardTitle } from 'reactstrap'
+import { useContext } from 'react'
+import { Card, CardImg, CardTitle } from 'reactstrap'
 import Link from 'next/link'
 import projects from 'data/projects.json'
 import { DarkContext } from 'helpers/user'
@@ -12,13 +12,11 @@ const ProjectCards = () => {
   const theme = useTheme()
 
   return (
-    <Row css={styles(theme, isDark)}>
+    <div css={styles(theme, isDark)}>
       {projects.map(project => (
-        <Col
-          xs={12}
-          md={6}
+        <div
           key={project.name}
-          className='align-items-center justify-content-center mb-5 px-4 space'
+          className='align-items-center justify-content-center'
         >
           <Link href={project.purl}>
             <a className='text-decoration-none'>
@@ -47,9 +45,9 @@ const ProjectCards = () => {
               </Card>
             </a>
           </Link>
-        </Col>
+        </div>
       ))}
-    </Row>
+    </div>
   )
 }
 
