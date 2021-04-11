@@ -29,9 +29,7 @@ export const getServerSideProps = async ({ params }) => {
   const {
     data: [user]
   } = await res.json()
-  return {
-    props: { user }
-  }
+  return user ? { props: { user } } : { notFound: true }
 }
 
 export default Profile

@@ -35,8 +35,10 @@ export const globalStyle = (theme, isDark) => css`
   }
 
   .main {
+    display: grid;
     margin-top: 64px;
-    min-height: calc(100vh - (64px + 236px));
+    min-height: calc(100vh - (64px + 258.533px));
+    position: relative;
   }
 
   /*
