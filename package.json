@@ -60,7 +60,7 @@
     "@types/react": "17.0.3",
     "@types/simple-icons": "4.14.0",
     "@types/yup": "0.29.11",
-    "@typescript-eslint/parser": "4.21.0",
+    "@typescript-eslint/parser": "4.22.0",
     "commitizen": "4.2.3",
     "cypress": "7.0.1",
     "eslint": "7.23.0",
