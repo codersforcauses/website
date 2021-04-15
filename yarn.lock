@@ -2,27 +2,27 @@
 # yarn lockfile v1
 
 
-"@aws-amplify/auth@3.4.29":
-  version "3.4.29"
-  resolved "https://registry.yarnpkg.com/@aws-amplify/auth/-/auth-3.4.29.tgz#25949ac9c931047888f226ef0b787d993bd182f5"
-  integrity sha512-8Fm4XUb0YP92Hfpp2kgEetBgtfMKMAT+NRxckK+vxKTWKz5suK25J4EEOdt3DMlEY8qeDlOQpMpvt33ll0CJxg==
+"@aws-amplify/auth@3.4.30":
+  version "3.4.30"
+  resolved "https://registry.yarnpkg.com/@aws-amplify/auth/-/auth-3.4.30.tgz#9e36e1b56a431f91a92876ad819805a3ece5f87f"
+  integrity sha512-DYBDKU8JGZB8LRSVUj3BUKU/4qOcWkjfYoaVr3T3fvJvE2n2YOcXBVsYXUq24q1UlAuTfIbZQCrsbL7kBAxtAg==
   dependencies:
-    "@aws-amplify/cache" "3.1.54"
-    "@aws-amplify/core" "3.8.21"
+    "@aws-amplify/cache" "3.1.55"
+    "@aws-amplify/core" "3.8.22"
     amazon-cognito-identity-js "4.6.0"
     crypto-js "^3.3.0"
 
-"@aws-amplify/cache@3.1.54":
-  version "3.1.54"
-  resolved "https://registry.yarnpkg.com/@aws-amplify/cache/-/cache-3.1.54.tgz#a2cc06836ae3d8f2ee08d616756ff31bb4c96dcd"
-  integrity sha512-NjGCVVF7AZH477a54Y7yqmTCL/Ep7NAexV010XPLAo0GHD4QVR6il6DWpwc21LfS0E55Pr2FHPLPNZ/y+k7qAA==
+"@aws-amplify/cache@3.1.55":
+  version "3.1.55"
+  resolved "https://registry.yarnpkg.com/@aws-amplify/cache/-/cache-3.1.55.tgz#9fe1f2192e741bc27abeac29521881d9d060f8c0"
+  integrity sha512-3txk5bmC9wtijTaeKoAsype2rZiCfmYk6s8f5oiPo+dIU4a1mIliSHd8IAduKdOIbGdvJbzkzlplqXDQGJD+ng==
   dependencies:
-    "@aws-amplify/core" "3.8.21"
+    "@aws-amplify/core" "3.8.22"
 
-"@aws-amplify/core@3.8.21":
-  version "3.8.21"
-  resolved "https://registry.yarnpkg.com/@aws-amplify/core/-/core-3.8.21.tgz#cede3638098db74a919d25a2f623dbe64ef4a33f"
-  integrity sha512-yrN0/QW3O3wiihwoXOVgVt/9jphnZMOswziuzGhN5u/V3XFMdlI/uDtVyZMP4jskChlZtFEPkrI3NyoBrrT3NQ==
+"@aws-amplify/core@3.8.22":
+  version "3.8.22"
+  resolved "https://registry.yarnpkg.com/@aws-amplify/core/-/core-3.8.22.tgz#9a872772b6ac90f9474eadbcb178430739ee0bfb"
+  integrity sha512-Plw0Gr6ik223bjBch/YicIUAhYTIEc8W3hx52u8jawpGMi1bcwmNAiuMMBvlSl50edbhmPgIw24GtyZNHLYDgQ==
   dependencies:
     "@aws-crypto/sha256-js" "1.0.0-alpha.0"
     "@aws-sdk/client-cognito-identity" "3.6.1"
