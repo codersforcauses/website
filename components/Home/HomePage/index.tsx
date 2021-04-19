@@ -114,7 +114,7 @@ const HomePage = () => {
         </Container>
       </div>
       <div className='primary-bg'>
-        <Container className='py-5 my-md-5'>
+        <Container className='py-4 my-md-5'>
           <Services />
         </Container>
       </div>
