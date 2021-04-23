@@ -1,8 +1,9 @@
 /** @jsxImportSource @emotion/react */
 import { useTheme } from '@emotion/react'
 import { useContext } from 'react'
-import { Card, CardImg, CardTitle } from 'reactstrap'
+import { Card, CardTitle } from 'reactstrap'
 import Link from 'next/link'
+import Image from 'next/image'
 import projects from 'data/projects.json'
 import { DarkContext } from 'helpers/user'
 import { styles } from './styles'
@@ -21,13 +22,15 @@ const ProjectCards = () => {
           <Link href={project.purl}>
             <a className='text-decoration-none'>
               <Card className='secondary-bg rounded-0 border-0'>
-                <CardImg
-                  top
-                  width='100%'
-                  src={`projects/${project.logo}`}
-                  alt={project.client}
-                  className='project-img img-fluid rounded-0'
-                />
+                <div className='position-relative project-img'>
+                  <Image
+                    src={`/projects/${project.logo}`}
+                    alt={project.client}
+                    layout='fill'
+                    objectFit='contain'
+                    quality={90}
+                  />
+                </div>
                 <div className='d-flex align-items-center'>
                   <div className='bg-primary'>
                     <i className='material-icons-sharp text-secondary p-3'>
