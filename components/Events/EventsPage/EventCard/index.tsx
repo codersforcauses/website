@@ -26,7 +26,7 @@ const EventCard = (props: any) => {
     >
       <div className='position-relative'>
         <Image
-          eager
+          loading='eager'
           {...props.image}
           layout='fill'
           objectFit='cover'
