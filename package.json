@@ -62,7 +62,7 @@
     "@typescript-eslint/parser": "4.22.0",
     "commitizen": "4.2.3",
     "cypress": "7.1.0",
-    "eslint": "7.24.0",
+    "eslint": "7.25.0",
     "eslint-config-standard": "16.0.2",
     "eslint-config-standard-react": "11.0.1",
     "eslint-plugin-cypress": "2.11.2",
