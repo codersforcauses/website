@@ -1,5 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import { useTheme } from '@emotion/react'
+import Image from 'next/image'
+import Link from 'next/link'
 import { useContext } from 'react'
 import { Breadcrumb, BreadcrumbItem, Container, Row, Col } from 'reactstrap'
 import { DarkContext } from 'helpers/user'
@@ -36,21 +38,27 @@ const ProjectPage = ({ data }: Props) => {
   const theme = useTheme()
 
   return (
-    <div css={styles(theme, isDark, data.img)}>
-      <div className='bg-primary pad bg'>
-        <Container className='my-5 py-5' />
+    <div css={styles(theme, isDark)}>
+      <div className='bg-primary position-relative pad'>
+        <Image
+          alt={data?.alt ?? `An image of the front page of ${data.name}`}
+          src={`/projects/${data.img}`}
+          layout='fill'
+          objectFit='contain'
+        />
       </div>
       <Container className='my-5'>
         <Row>
           <Col xs={12}>
             <Breadcrumb tag='nav' className='breadcrumbs'>
-              <BreadcrumbItem
-                tag='a'
-                href='/projects'
-                className={`text-${isDark ? 'secondary' : 'primary'}`}
-              >
-                Projects
-              </BreadcrumbItem>
+              <Link href='/projects' passHref>
+                <BreadcrumbItem
+                  tag='a'
+                  className={`text-${isDark ? 'secondary' : 'primary'}`}
+                >
+                  Projects
+                </BreadcrumbItem>
+              </Link>
               <BreadcrumbItem active tag='span' className='active-tab'>
                 {data.name}
               </BreadcrumbItem>
@@ -143,6 +151,7 @@ interface ProjectType {
   id: string
   icon: string
   img: string
+  alt?: string
   name: string
   client: string
   type: string

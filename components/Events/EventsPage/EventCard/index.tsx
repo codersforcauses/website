@@ -11,6 +11,7 @@ import {
   CardTitle
 } from 'reactstrap'
 import Link from 'next/link'
+import Image from 'next/image'
 import { DarkContext } from 'helpers/user'
 import { styles } from './styles'
 
@@ -21,10 +22,16 @@ const EventCard = (props: any) => {
   return (
     <Card
       className={`rounded-0 border-0 ${props.className}`}
-      css={styles(theme, isDark, props.image?.src)}
+      css={styles(theme, isDark)}
     >
-      <div className='event-img'>
-        <span className='sr-only'>{props.image?.alt}</span>
+      <div className='position-relative'>
+        <Image
+          loading='eager'
+          {...props.image}
+          layout='fill'
+          objectFit='cover'
+          objectPosition='center top'
+        />
       </div>
       <CardBody className='px-4 py-3'>
         <div className='mb-2'>

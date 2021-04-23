@@ -1,16 +1,12 @@
 import { css } from '@emotion/react'
 import { media } from 'lib/mediaQueries'
 
-export const styles = (theme, isDark, image) => css`
+export const styles = (theme, isDark) => css`
   display: grid;
   grid-template-columns: 1fr;
   grid-template-rows: 1fr 1fr;
   background-color: ${theme.colors[isDark ? 'primary' : 'lightBg']};
 
-  .event-img {
-    width: 100%;
-    background: url(${image}) center/cover;
-  }
   .heading {
     font-size: 1.5rem;
     font-weight: bold;

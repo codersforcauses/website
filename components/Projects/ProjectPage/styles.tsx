@@ -1,9 +1,9 @@
 import { css } from '@emotion/react'
 
-export const styles = (theme, isDark, image) => css`
+export const styles = (theme, isDark) => css`
   .pad {
     padding: 7rem 0;
-    min-height: calc(60vh - 72px);
+    min-height: calc(60vh - 64px);
   }
 
   .members {
@@ -11,17 +11,6 @@ export const styles = (theme, isDark, image) => css`
     grid-template-columns: 1fr 1fr;
     gap: 0.5rem;
     list-style-type: none;
-  }
-
-  .top {
-    top: 0;
-  }
-
-  .bg {
-    background-image: url('${image}');
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center;
   }
 
   .breadcrumbs > ol {
