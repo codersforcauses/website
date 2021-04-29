@@ -3,25 +3,11 @@
   "public": false,
   "builds": [{ "src": "next.config.js", "use": "@now/next" }],
   "env": {
-    "NEXT_PUBLIC_BASE_URL": "https://codersforcauses.org/",
-    "NEXT_PUBLIC_PHEME_URL": "@cfc-website-pheme-url",
-    "NEXT_PUBLIC_PHEME_TOKEN": "@cfc-website-pheme-token",
-    "NEXT_PUBLIC_PHEME_SALT": "@cfc-website-pheme-salt",
-    "NEXT_PUBLIC_AMPLIFY_AWS_COGNITO_REGION": "@cfc-website-cognito-region",
-    "NEXT_PUBLIC_AMPLIFY_AWS_COGNITO_USER_POOLS_ID": "@cfc-website-cognito-user-pool-id",
-    "NEXT_PUBLIC_AMPLIFY_AWS_COGNITO_WEB_CLIENT_ID": "@cfc-website-cognito-web-client-id",
-    "NEXT_PUBLIC_AMPLIFY_OAUTH_DOMAIN": "@cfc-website-oauth-domain"
+    "NEXT_PUBLIC_BASE_URL": "https://codersforcauses.org/"
   },
   "build": {
     "env": {
-      "NEXT_PUBLIC_BASE_URL": "https://codersforcauses.org/",
-      "NEXT_PUBLIC_PHEME_URL": "@cfc-website-pheme-url",
-      "NEXT_PUBLIC_PHEME_TOKEN": "@cfc-website-pheme-token",
-      "NEXT_PUBLIC_PHEME_SALT": "@cfc-website-pheme-salt",
-      "NEXT_PUBLIC_AMPLIFY_AWS_COGNITO_REGION": "@cfc-website-cognito-region",
-      "NEXT_PUBLIC_AMPLIFY_AWS_COGNITO_USER_POOLS_ID": "@cfc-website-cognito-user-pool-id",
-      "NEXT_PUBLIC_AMPLIFY_AWS_COGNITO_WEB_CLIENT_ID": "@cfc-website-cognito-web-client-id",
-      "NEXT_PUBLIC_AMPLIFY_OAUTH_DOMAIN": "@cfc-website-oauth-domain"
+      "NEXT_PUBLIC_BASE_URL": "https://codersforcauses.org/"
     }
   }
 }
