@@ -46,7 +46,7 @@
     "react": "17.0.2",
     "react-dom": "17.0.2",
     "reactstrap": "8.9.0",
-    "simple-icons": "4.21.0",
+    "simple-icons": "4.22.0",
     "swr": "0.5.5",
     "typed.js": "2.0.12",
     "yup": "0.32.9"
