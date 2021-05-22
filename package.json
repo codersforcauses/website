@@ -39,7 +39,7 @@
     "critters": "0.0.10",
     "dayjs": "1.10.4",
     "emotion-normalize": "11.0.1",
-    "formik": "2.2.7",
+    "formik": "2.2.8",
     "mapbox-gl": "2.2.0",
     "mongoose": "5.12.10",
     "next": "10.2.0",
