@@ -67,7 +67,7 @@
     "@emotion/eslint-plugin": "11.2.0",
     "@typescript-eslint/parser": "4.25.0",
     "commitizen": "4.2.4",
-    "cypress": "7.3.0",
+    "cypress": "7.4.0",
     "eslint": "7.27.0",
     "eslint-config-standard": "16.0.3",
     "eslint-config-standard-react": "11.0.1",
