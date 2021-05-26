@@ -61,7 +61,7 @@
     "@types/simple-icons": "4.17.0",
     "@types/yup": "0.29.11",
     "sass": "1.34.0",
-    "typescript": "4.2.4"
+    "typescript": "4.3.2"
   },
   "optionalDependencies": {
     "@emotion/eslint-plugin": "11.2.0",
