@@ -37,7 +37,7 @@
     "@stripe/stripe-js": "1.15.0",
     "bootstrap": "4.6.0",
     "critters": "0.0.10",
-    "dayjs": "1.10.4",
+    "dayjs": "1.10.5",
     "emotion-normalize": "11.0.1",
     "formik": "2.2.8",
     "mapbox-gl": "2.2.0",
