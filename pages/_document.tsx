@@ -36,7 +36,7 @@ class MyDocument extends Document {
           <link rel='icon' href='/favicon-light.png' type='image/png' />
           <meta name='author' content='Coders for Causes' />
         </Head>
-        <body>
+        <body className='loading'>
           <Main />
           <NextScript />
         </body>

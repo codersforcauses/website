@@ -1,9 +1,7 @@
-/** @jsxImportSource @emotion/react */
 import { useTheme } from '@emotion/react'
 import { useCallback, useContext, useState } from 'react'
 import Link from 'next/link'
 import {
-  Jumbotron,
   Button,
   Collapse,
   Container,
@@ -18,7 +16,6 @@ import Clients from 'components/Utils/Clients'
 import { DarkContext } from 'helpers/user'
 import Services from '../Services'
 import Face from '../Face'
-import { styles } from './styles'
 import ContactForm from '../ContactForm'
 
 const HomePage = () => {
@@ -62,16 +59,19 @@ const HomePage = () => {
   }, [])
 
   return (
-    <div css={styles(theme, isDark)}>
+    <>
       <Toast
         isOpen={!!toastMessage}
         className={`toast m-0 rounded-0 text-white bg-${toastMessage?.status}`}
       >
         <ToastBody>{toastMessage?.message}</ToastBody>
       </Toast>
-      <Jumbotron className='hero bg-primary text-secondary d-flex align-items-center rounded-0 text-monospace'>
-        <Container>
-          <h1 className='mb-4'>
+      <div
+        className='flex items-center text-secondary bg-primary text-mono hero'
+        // className='hero bg-primary text-secondary d-flex align-items-center rounded-0 text-monospace'
+      >
+        <div className='container px-3 mx-auto'>
+          <h1>
             <TypedText
               text={[
                 './Innovation with a mission',
@@ -85,11 +85,11 @@ const HomePage = () => {
               ]}
             />
           </h1>
-        </Container>
-      </Jumbotron>
-      <div className='primary-bg'>
-        <Container className='py-5 my-md-5'>
-          <h2 className='font-weight-bold mb-4'>We are developers.</h2>
+        </div>
+      </div>
+      <div className='dark:bg-alt-dark dark:text-secondary'>
+        <div className='container px-3 py-5 mx-auto my-md-5'>
+          <h2 className='mb-4 font-weight-bold'>We are developers.</h2>
           <p className='lead'>
             Coders for Causes are a group of developers that empower charities
             and non-profit organisations by providing them solutions to their
@@ -106,20 +106,20 @@ const HomePage = () => {
               Work with us&nbsp;&nbsp;&raquo;
             </Button>
           </Link>
-        </Container>
+        </div>
       </div>
-      <div className='secondary-bg'>
-        <Container className='py-5'>
+      <div className='py-12 bg-alt-light dark:bg-primary'>
+        <div className='container px-3 mx-auto'>
           <Clients />
-        </Container>
+        </div>
       </div>
-      <div className='primary-bg'>
-        <Container className='py-4 my-md-5'>
+      <div className='dark:bg-alt-dark dark:text-secondary'>
+        <div className='container px-3 py-12 mx-auto'>
           <Services />
-        </Container>
+        </div>
       </div>
       <div className='pt-5 pb-md-5 bg-primary text-secondary'>
-        <Container id='_contact_us' className='pt-md-5 pb-0 pb-md-5'>
+        <Container id='_contact_us' className='pb-0 pt-md-5 pb-md-5'>
           <Row className='mt-lg-5'>
             <Col md={8} className='d-flex flex-column justify-content-center'>
               <h1 className={`display-3 mt-0 mb-${contactOpen ? '0' : '3'}`}>
@@ -140,14 +140,14 @@ const HomePage = () => {
                   outline
                   size='lg'
                   color='secondary'
-                  className='rounded-0 mt-4'
+                  className='mt-4 rounded-0'
                   onClick={toggleContactOn}
                 >
                   Contact us
                 </Button>
               </Collapse>
             </Col>
-            <Col sm={4} className='d-none d-md-flex flex-row-reverse'>
+            <Col sm={4} className='flex-row-reverse d-none d-md-flex'>
               <Face />
             </Col>
             <Col md={8}>
@@ -162,7 +162,7 @@ const HomePage = () => {
           </Row>
         </Container>
       </div>
-    </div>
+    </>
   )
 }
 

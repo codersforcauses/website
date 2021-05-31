@@ -1,34 +1,27 @@
-/** @jsxImportSource @emotion/react */
-import { useTheme } from '@emotion/react'
-import { useContext, useEffect } from 'react'
-import { Button } from 'reactstrap'
-import { DarkContext } from 'helpers/user'
-import { styles } from './styles'
+import { useCallback, useEffect, useState } from 'react'
+import { useTheme } from 'next-themes'
 
-const DarkToggle = (props: { handleDarkToggle: () => void }) => {
-  const theme = useTheme()
-  const isDark = useContext(DarkContext)
+const DarkToggle = () => {
+  const { theme, setTheme } = useTheme()
+  const [mounted, setMounted] = useState(false)
 
-  useEffect(() => {
-    isDark !== undefined &&
-      localStorage.setItem('dark-theme', isDark.toString())
-  }, [isDark])
+  useEffect(() => setMounted(true), [])
 
-  return (
-    <Button
-      color='link'
-      className='py-0 h-100 rounded-0'
-      onClick={props.handleDarkToggle}
-    >
-      <i
-        css={styles(theme, isDark)}
-        className='material-icons-sharp d-flex align-items-center justify-content-center'
-      >
-        <span className='light-icon'>light_mode</span>
-        <span className='dark-icon'>dark_mode</span>
-      </i>
-    </Button>
+  const changeTheme = useCallback(
+    () => setTheme(theme === 'dark' ? 'light' : 'dark'),
+    [theme]
   )
+
+  return mounted ? (
+    <button
+      className='relative grid w-8 h-8 p-1 place-items-center text-secondary'
+      onClick={changeTheme}
+    >
+      <span className='absolute transition-all duration-300 left-1 material-icons-sharp'>
+        {theme === 'dark' ? 'light_mode' : 'dark_mode'}
+      </span>
+    </button>
+  ) : null
 }
 
 export default DarkToggle

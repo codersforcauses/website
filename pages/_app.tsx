@@ -1,18 +1,20 @@
-import { ThemeProvider, Global } from '@emotion/react'
-import { AppProps } from 'next/app'
+import { ThemeProvider as EmotionTheme, Global } from '@emotion/react'
+import type { AppProps } from 'next/app'
 import dynamic from 'next/dynamic'
 import { useEffect, useCallback, useState } from 'react'
+import { ThemeProvider } from 'next-themes'
 import { Auth } from '@aws-amplify/auth'
 import dayjs from 'dayjs'
-import User from 'components/Auth/User'
-import Header from 'components/Utils/Header'
-import Footer from 'components/Utils/Footer'
-import { DarkProvider } from 'helpers/user'
-import { theme } from 'lib/theme'
-import { globalStyle } from 'GlobalStyles'
+import User from '@components/Auth/User'
+import Header from '@components/Utils/Header'
+import Footer from '@components/Utils/Footer'
+import { theme } from '@lib/theme'
+import '@styles/main.css'
+import '@styles/chrome-bug.css'
+import { globalStyle } from 'GlobalStyles' // TODO remove after reactstrap and emotion removed
 import 'dayjs/locale/en-au'
-import 'theme.scss'
-import { Alert, Container } from 'reactstrap'
+// import 'theme.scss'
+
 const AddOns = dynamic(() => import('../components/Utils/AddOns'), {
   ssr: false
 })
@@ -29,9 +31,13 @@ Auth.configure({
 })
 
 const Website = ({ Component, pageProps }: AppProps) => {
-  const [isDark, setDark] = useState(undefined)
+  const [isDark, setDark] = useState<boolean | undefined>(undefined)
   const toggleDark = useCallback(() => {
     setDark(previousDark => !previousDark)
+  }, [])
+
+  useEffect(() => {
+    document.body.classList?.remove('loading')
   }, [])
 
   useEffect(() => {
@@ -45,28 +51,17 @@ const Website = ({ Component, pageProps }: AppProps) => {
 
   return (
     <User>
-      <DarkProvider value={isDark}>
-        <ThemeProvider theme={theme}>
+      <ThemeProvider attribute='class'>
+        <EmotionTheme theme={theme}>
           <Global styles={globalStyle(theme, isDark)} />
           <Header handleDarkToggle={toggleDark} />
           <main className='main'>
-            {/* TODO remove once MVP is finished */}
-            {/* <Alert
-                color='warning'
-                className='fixed-top rounded-0 px-0 py-md-3'
-                style={{ marginTop: '64px', zIndex: 3 }}
-              >
-                <Container>
-                  This website is still under development. Not everything may
-                  work, but feel free to look around.
-                </Container>
-              </Alert> */}
             <Component {...pageProps} />
           </main>
           <Footer />
           <AddOns />
-        </ThemeProvider>
-      </DarkProvider>
+        </EmotionTheme>
+      </ThemeProvider>
     </User>
   )
 }
