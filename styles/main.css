@@ -1,0 +1,70 @@
+@tailwind base;
+
+@layer base {
+  ::selection {
+    @apply bg-accent text-primary;
+    text-shadow: none;
+  }
+}
+:root {
+  font-size: clamp(14px, 5vmin, 16px);
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+  transition: background 0.3s, border 0.3s;
+}
+
+html {
+  height: 100%;
+  touch-action: manipulation;
+  font-feature-settings: 'case' 1, 'rlig' 1, 'calt' 0;
+}
+
+html,
+body {
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+  line-height: 1.5em;
+  scroll-behavior: smooth;
+  overscroll-behavior: none;
+}
+
+@tailwind components;
+
+@layer components {
+  .main {
+    @apply relative grid mt-16;
+    min-height: calc(100vh - (64px + 258.533px));
+  }
+  .logo {
+    @apply object-contain object-center w-full transition duration-300 hover:filter-none;
+    max-height: 100px;
+    filter: grayscale(100%) contrast(0.2) brightness(1.1);
+  }
+}
+
+/*
+Offsets all ID's with prefix '_' with the height of header.
+This also means all ID's must be prefixed by '_'.
+*/
+[id^='_'] {
+  scroll-margin-top: 4rem;
+}
+
+.image-grid div {
+  min-height: 70%;
+  max-height: 80px;
+  min-width: 100%;
+  max-width: 200px;
+}
+
+.hero {
+  height: calc(50vh - 64px);
+}
+
+@tailwind utilities;
