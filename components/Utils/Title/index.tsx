@@ -1,31 +1,17 @@
-/** @jsxImportSource @emotion/react */
-import { useTheme } from '@emotion/react'
-import { Jumbotron, Container } from 'reactstrap'
 import TypedText from '../TypedText'
-import { styles } from './styles'
 
 const Title = ({
   children,
-  typed = false,
-  ...props
+  typed = false
 }: {
   children: string
   typed?: boolean
-}) => {
-  const theme = useTheme()
-
-  return (
-    <Jumbotron
-      className='bg-primary text-secondary d-flex align-items-center rounded-0 mb-0 text-monospace'
-      css={styles(theme)}
-    >
-      <Container>
-        <h1 className='mb-4'>
-          {typed ? <TypedText text={[children]} /> : children}
-        </h1>
-      </Container>
-    </Jumbotron>
-  )
-}
+}) => (
+  <div className='flex items-center py-24 font-mono text-secondary bg-primary'>
+    <div className='container px-3 mx-auto'>
+      <h1>{typed ? <TypedText text={[children]} /> : children}</h1>
+    </div>
+  </div>
+)
 
 export default Title

@@ -1,19 +1,9 @@
-import { useTheme } from '@emotion/react'
-import { useCallback, useContext, useState } from 'react'
+import { useCallback, useState } from 'react'
 import Link from 'next/link'
-import {
-  Button,
-  Collapse,
-  Container,
-  Row,
-  Col,
-  Toast,
-  ToastBody
-} from 'reactstrap'
+import { Button, Collapse, Toast, ToastBody } from 'reactstrap'
 import constants from 'data/constants.json'
 import TypedText from 'components/Utils/TypedText'
 import Clients from 'components/Utils/Clients'
-import { DarkContext } from 'helpers/user'
 import Services from '../Services'
 import Face from '../Face'
 import ContactForm from '../ContactForm'
@@ -22,9 +12,6 @@ const HomePage = () => {
   const [contactOpen, setContactOpen] = useState(false)
   const [loadContact, setLoadContact] = useState(false)
   const [toastMessage, setToastMessage] = useState(null)
-  const isDark = useContext(DarkContext)
-
-  const theme = useTheme()
 
   const toggleContactOn = useCallback(() => setContactOpen(true), [])
   const toggleContactOff = useCallback(() => setContactOpen(false), [])
@@ -71,7 +58,7 @@ const HomePage = () => {
         // className='hero bg-primary text-secondary d-flex align-items-center rounded-0 text-monospace'
       >
         <div className='container px-3 mx-auto'>
-          <h1>
+          <h1 className='font-mono font-black leading-snug'>
             <TypedText
               text={[
                 './Innovation with a mission',
@@ -88,23 +75,20 @@ const HomePage = () => {
         </div>
       </div>
       <div className='dark:bg-alt-dark dark:text-secondary'>
-        <div className='container px-3 py-5 mx-auto my-md-5'>
-          <h2 className='mb-4 font-weight-bold'>We are developers.</h2>
-          <p className='lead'>
+        <div className='container px-3 py-12 mx-auto md:py-24'>
+          <h2 className='mb-4 font-mono text-3xl font-bold'>
+            We are developers.
+          </h2>
+          <p className='mb-6 text-lg'>
             Coders for Causes are a group of developers that empower charities
             and non-profit organisations by providing them solutions to their
             technical problems. We are student powered and all of our members
             are volunteers dedicated to providing you the best results.
           </p>
-          <Link href='#_contact_us'>
-            <Button
-              size='lg'
-              color={isDark ? 'secondary' : 'primary'}
-              outline={isDark}
-              className='rounded-0'
-            >
+          <Link href='#_contact_us' passHref>
+            <a className='box-content px-4 py-2 text-xl font-bold border bg-primary text-secondary border-primary dark:bg-transparent dark:border-secondary dark:hover:bg-secondary dark:hover:text-primary'>
               Work with us&nbsp;&nbsp;&raquo;
-            </Button>
+            </a>
           </Link>
         </div>
       </div>
@@ -113,54 +97,54 @@ const HomePage = () => {
           <Clients />
         </div>
       </div>
-      <div className='dark:bg-alt-dark dark:text-secondary'>
-        <div className='container px-3 py-12 mx-auto'>
+      <div className='py-12 md:py-24 dark:bg-alt-dark dark:text-secondary'>
+        <div className='container px-3 mx-auto'>
           <Services />
         </div>
       </div>
-      <div className='pt-5 pb-md-5 bg-primary text-secondary'>
-        <Container id='_contact_us' className='pb-0 pt-md-5 pb-md-5'>
-          <Row className='mt-lg-5'>
-            <Col md={8} className='d-flex flex-column justify-content-center'>
-              <h1 className={`display-3 mt-0 mb-${contactOpen ? '0' : '3'}`}>
-                Let's talk.
-              </h1>
-              <Collapse isOpen={!contactOpen}>
-                <div>
-                  <a
-                    href={`mailto:${constants.email}`}
-                    target='_blank'
-                    rel='noreferrer noopener'
-                    className='text-secondary email text-monospace'
-                  >
-                    {constants.email}
-                  </a>
-                </div>
-                <Button
-                  outline
-                  size='lg'
-                  color='secondary'
-                  className='mt-4 rounded-0'
-                  onClick={toggleContactOn}
+      <div className='pt-12 md:pt-24 bg-primary text-secondary'>
+        <div id='_contact_us' className='container flex px-3 mx-auto'>
+          <div className='flex flex-col justify-center flex-grow'>
+            <h1
+              className={`font-mono text-7xl mt-0 ${
+                contactOpen ? 'mb-0' : 'mb-4'
+              }`}
+            >
+              Let's talk.
+            </h1>
+            <Collapse isOpen={!contactOpen}>
+              <div>
+                <a
+                  href={`mailto:${constants.email}`}
+                  target='_blank'
+                  rel='noreferrer noopener'
+                  className='font-mono text-xl md:text-3xl text-secondary hover:underline'
                 >
-                  Contact us
-                </Button>
-              </Collapse>
-            </Col>
-            <Col sm={4} className='flex-row-reverse d-none d-md-flex'>
-              <Face />
-            </Col>
-            <Col md={8}>
-              <Collapse isOpen={contactOpen}>
-                <ContactForm
-                  loading={loadContact}
-                  handleCloseForm={toggleContactOff}
-                  handleSubmit={handleContactSubmit}
-                />
-              </Collapse>
-            </Col>
-          </Row>
-        </Container>
+                  {constants.email}
+                </a>
+              </div>
+              <Button
+                outline
+                size='lg'
+                color='secondary'
+                className='mt-4 rounded-0'
+                onClick={toggleContactOn}
+              >
+                Contact us
+              </Button>
+            </Collapse>
+            <Collapse isOpen={contactOpen}>
+              <ContactForm
+                loading={loadContact}
+                handleCloseForm={toggleContactOff}
+                handleSubmit={handleContactSubmit}
+              />
+            </Collapse>
+          </div>
+          <div className='flex-row-reverse hidden md:flex'>
+            <Face />
+          </div>
+        </div>
       </div>
     </>
   )

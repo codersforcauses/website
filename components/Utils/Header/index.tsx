@@ -36,7 +36,10 @@ const Header = (props: { handleDarkToggle: () => void }) => {
     >
       <div className='container flex items-center justify-between px-3 mx-auto'>
         <div className='flex items-center md:items-end'>
-          <button className='grid p-1 mr-3 text-secondary place-center md:hidden'>
+          <button
+            className='grid p-1 mr-3 text-secondary place-center md:hidden'
+            onClick={toggleOpen}
+          >
             <span className='material-icons-sharp'>
               {open ? 'close' : 'menu'}
             </span>
@@ -44,7 +47,7 @@ const Header = (props: { handleDarkToggle: () => void }) => {
           <Link href='/' passHref>
             <a
               id='Home'
-              className='font-mono text-xl font-black no-underline select-none text-secondary md:mr-4'
+              className='font-mono text-xl font-black no-underline select-none text-secondary md:mr-12'
               data-cy='nav-Home'
             >
               cfc
@@ -55,20 +58,6 @@ const Header = (props: { handleDarkToggle: () => void }) => {
               <HeaderLink key={link.text} {...link} />
             ))}
           </nav>
-          <Transition
-            as='nav'
-            show={open}
-            enter='transition-opacity duration-75'
-            enterFrom='opacity-0'
-            enterTo='opacity-100'
-            leave='transition-opacity duration-150'
-            leaveFrom='opacity-100'
-            leaveTo='opacity-0'
-          >
-            {links.map(link => (
-              <HeaderLink key={link.text} {...link} />
-            ))}
-          </Transition>
         </div>
         <div className='flex items-end'>
           <DarkToggle />
@@ -76,19 +65,34 @@ const Header = (props: { handleDarkToggle: () => void }) => {
             user ? (
               <SignedInUser setUser={setUser} name={user.name} id={user._id} />
             ) : null
-            //         // <Link href='/membership'>
-            //         //   <Button
-            //         //     outline
-            //         //     size='sm'
-            //         //     color='secondary'
-            //         //     className='d-none d-md-block rounded-0'
-            //         //   >
-            //         //     Membership
-            //         //   </Button>
-            //         // </Link>
+            // <Link href='/membership'>
+            //   <Button
+            //     outline
+            //     size='sm'
+            //     color='secondary'
+            //     className='d-none d-md-block rounded-0'
+            //   >
+            //     Membership
+            //   </Button>
+            // </Link>
           }
         </div>
       </div>
+      <Transition
+        as='nav'
+        show={open}
+        enter='transition-all duration-75'
+        enterFrom='h-0'
+        enterTo='h-100'
+        leave='transition-all duration-150'
+        leaveFrom='h-100'
+        leaveTo='h-0'
+        className='container flex flex-col px-3 mt-3 space-y-3 ml-11'
+      >
+        {links.map(link => (
+          <HeaderLink key={link.text} {...link} />
+        ))}
+      </Transition>
     </header>
   )
 }
