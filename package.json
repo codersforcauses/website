@@ -55,7 +55,7 @@
     "@emotion/babel-plugin": "11.3.0",
     "@next/bundle-analyzer": "10.2.3",
     "@types/mapbox-gl": "2.1.2",
-    "@types/mongoose": "5.10.5",
+    "@types/mongoose": "5.11.96",
     "@types/node": "15.3.1",
     "@types/react": "17.0.9",
     "@types/simple-icons": "4.17.0",
