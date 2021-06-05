@@ -30,7 +30,7 @@ const Header = (props: { handleDarkToggle: () => void }) => {
 
   return (
     <header
-      className={`fixed inset-x-0 top-0 z-50 py-4 bg-primary ${
+      className={`fixed inset-x-0 top-0 z-30 py-4 bg-primary ${
         open && 'border-bottom border-secondary'
       }`}
     >

@@ -19,12 +19,26 @@ module.exports = {
           light: '#f8f9fa',
           dark: '#111111'
         }
+      },
+      minWidth: {
+        '1/2': '50%'
+      },
+      minHeight: {
+        '1/2': '50%'
+      },
+      zIndex: {
+        5: 5,
+        15: 15,
+        25: 25,
+        35: 35,
+        45: 45
       }
     }
   },
   variants: {
     extend: {
-      filter: ['hover']
+      filter: ['hover'],
+      margin: ['last']
     }
   },
   plugins: [require('@tailwindcss/forms')]

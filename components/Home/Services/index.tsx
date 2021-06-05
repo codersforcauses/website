@@ -7,7 +7,7 @@ const Service = (props: {
   description: string
 }) => (
   <div className='px-0 text-center bg-transparent'>
-    <span className='material-icons-sharp md-lg'>{props.icon}</span>
+    <span className='text-7xl material-icons-sharp'>{props.icon}</span>
     <p className='mt-4 font-mono text-2xl font-bold'>{props.title}</p>
     <p className='mb-0'>{props.description}</p>
   </div>

@@ -32,10 +32,10 @@ const Footer = () => {
   )
 
   return (
-    <footer className='pt-5 pb-2 bg-primary text-secondary' data-cy='footer'>
+    <footer className='pt-6 pb-3 bg-primary text-secondary' data-cy='footer'>
       <div className='container px-3 mx-auto'>
-        <div className='grid gap-4 md:grid-cols-4'>
-          <div className='flex flex-col justify-between mb-3 mb-md-0'>
+        <div className='flex flex-col md:flex-row'>
+          <div className='flex flex-col justify-between mb-3 mr-3 md:mb-0'>
             <div className='relative w-5/6 h-16 select-none'>
               <Image
                 src='/logo/cfc_logo_white_full.svg'
@@ -49,139 +49,167 @@ const Footer = () => {
               <small className='text-primary'> by Jeremiah</small>
             </p>
           </div>
-          <div>
-            <p className='mb-3 font-mono text-larger'>About us</p>
-            <ul className='list-unstyled m-md-0'>
-              <li>
-                <Link href='/about#_what_we_do'>
-                  <Button color='link' className='p-0 text-secondary rounded-0'>
-                    What we do
-                  </Button>
-                </Link>
-              </li>
-              <li>
-                <Link href='/about#_meet_the_team'>
-                  <Button color='link' className='p-0 text-secondary rounded-0'>
-                    Meet the team
-                  </Button>
-                </Link>
-              </li>
-              <li>
-                <Link href='/branding'>
+          <div className='grid flex-grow grid-cols-2 gap-6 md:grid-cols-4'>
+            <div>
+              <p className='mb-3 font-mono text-2xl'>Legal</p>
+              <ul>
+                <li>
                   <Button
+                    size='sm'
                     color='link'
-                    className='p-0 text-secondary rounded-0'
-                    data-cy='branding'
+                    className='px-0 text-secondary rounded-0'
+                    onClick={openConstitutionModal}
                   >
-                    Our branding
+                    Constitution
                   </Button>
-                </Link>
-              </li>
-              <li>
-                <Link href='/#_contact_us'>
+                </li>
+                <li>
                   <Button
+                    size='sm'
                     color='link'
-                    className='p-0 text-secondary rounded-0'
-                    data-cy='contact'
+                    className='px-0 text-secondary rounded-0'
+                    onClick={openTermsModal}
                   >
-                    Contact us
+                    Terms
                   </Button>
-                </Link>
-              </li>
-            </ul>
-          </div>
-          <div>
-            <p className='mb-3 font-mono text-larger'>Projects</p>
-            <ul>
-              <li>
-                <Link href='/projects'>
-                  <Button color='link' className='p-0 text-secondary rounded-0'>
-                    Our services
-                  </Button>
-                </Link>
-              </li>
-              <li>
-                <Link href='/projects'>
+                </li>
+                <li>
                   <Button
+                    size='sm'
                     color='link'
-                    className='p-0 text-secondary rounded-0'
-                    data-cy='projects'
+                    className='px-0 text-secondary rounded-0'
+                    onClick={openPrivacyModal}
                   >
-                    Previous projects
+                    Privacy
                   </Button>
-                </Link>
-              </li>
-              <li>
-                <Link href='/faq'>
+                </li>
+                <li>
                   <Button
+                    size='sm'
                     color='link'
-                    className='p-0 text-secondary rounded-0'
-                    data-cy='faq'
+                    className='px-0 text-secondary rounded-0'
+                    onClick={openSecurityModal}
                   >
-                    FAQ
+                    Security
                   </Button>
-                </Link>
-              </li>
-            </ul>
-          </div>
-          <div>
-            <p className='mb-3 font-mono text-larger'>Events</p>
-            <ul className='m-0 list-unstyled'>
-              <li>
-                <Link href='/events?upcoming'>
-                  <Button color='link' className='p-0 text-secondary rounded-0'>
-                    Upcoming events
-                  </Button>
-                </Link>
-              </li>
-              <li>
-                <Link href='/events?past'>
-                  <Button color='link' className='p-0 text-secondary rounded-0'>
-                    Past events
-                  </Button>
-                </Link>
-              </li>
-            </ul>
+                </li>
+              </ul>
+            </div>
+            <div>
+              <p className='mb-3 font-mono text-2xl'>About us</p>
+              <ul className='m-0'>
+                <li>
+                  <Link href='/about#_what_we_do'>
+                    <Button
+                      color='link'
+                      className='p-0 text-secondary rounded-0'
+                    >
+                      What we do
+                    </Button>
+                  </Link>
+                </li>
+                <li>
+                  <Link href='/about#_meet_the_team'>
+                    <Button
+                      color='link'
+                      className='p-0 text-secondary rounded-0'
+                    >
+                      Meet the team
+                    </Button>
+                  </Link>
+                </li>
+                <li>
+                  <Link href='/branding'>
+                    <Button
+                      color='link'
+                      className='p-0 text-secondary rounded-0'
+                      data-cy='branding'
+                    >
+                      Our branding
+                    </Button>
+                  </Link>
+                </li>
+                <li>
+                  <Link href='/#_contact_us'>
+                    <Button
+                      color='link'
+                      className='p-0 text-secondary rounded-0'
+                      data-cy='contact'
+                    >
+                      Contact us
+                    </Button>
+                  </Link>
+                </li>
+              </ul>
+            </div>
+            <div>
+              <p className='mb-3 font-mono text-2xl'>Projects</p>
+              <ul>
+                <li>
+                  <Link href='/projects'>
+                    <Button
+                      color='link'
+                      className='p-0 text-secondary rounded-0'
+                    >
+                      Our services
+                    </Button>
+                  </Link>
+                </li>
+                <li>
+                  <Link href='/projects'>
+                    <Button
+                      color='link'
+                      className='p-0 text-secondary rounded-0'
+                      data-cy='projects'
+                    >
+                      Previous projects
+                    </Button>
+                  </Link>
+                </li>
+                <li>
+                  <Link href='/faq'>
+                    <Button
+                      color='link'
+                      className='p-0 text-secondary rounded-0'
+                      data-cy='faq'
+                    >
+                      FAQ
+                    </Button>
+                  </Link>
+                </li>
+              </ul>
+            </div>
+            <div>
+              <p className='mb-3 font-mono text-2xl'>Events</p>
+              <ul>
+                <li>
+                  <Link href='/events?upcoming'>
+                    <Button
+                      color='link'
+                      className='p-0 text-secondary rounded-0'
+                    >
+                      Upcoming
+                    </Button>
+                  </Link>
+                </li>
+                <li>
+                  <Link href='/events?past'>
+                    <Button
+                      color='link'
+                      className='p-0 text-secondary rounded-0'
+                    >
+                      Past events
+                    </Button>
+                  </Link>
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
-        <div className='flex flex-col mt-5 mb-2 space-y-3 md:flex-row md:space-y-0 md:items-center md:justify-between md:space-x-3'>
+        <div className='flex flex-col mt-5 space-y-3 md:flex-row md:space-y-0 md:items-center md:justify-between md:space-x-3'>
           <p className='font-mono text-xs md:m-0' data-cy='copyrightnotice'>
             &copy; {new Date().getFullYear()} Coders for Causes
           </p>
-          <div className='flex justify-between space-x-3 md:items-center'>
-            <Button
-              size='sm'
-              color='link'
-              className='px-0 text-secondary rounded-0'
-              onClick={openTermsModal}
-            >
-              Terms
-            </Button>
-            <Button
-              size='sm'
-              color='link'
-              className='px-0 text-secondary rounded-0'
-              onClick={openPrivacyModal}
-            >
-              Privacy
-            </Button>
-            <Button
-              size='sm'
-              color='link'
-              className='px-0 text-secondary rounded-0'
-              onClick={openSecurityModal}
-            >
-              Security
-            </Button>
-            <Button
-              size='sm'
-              color='link'
-              className='px-0 text-secondary rounded-0'
-              onClick={openConstitutionModal}
-            >
-              Constitution
-            </Button>
-          </div>
           <div className='flex items-center justify-between space-x-3 md:w-48'>
             <a
               href='https://github.com/codersforcauses'

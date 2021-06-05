@@ -58,7 +58,7 @@ const HomePage = () => {
         // className='hero bg-primary text-secondary d-flex align-items-center rounded-0 text-monospace'
       >
         <div className='container px-3 mx-auto'>
-          <h1 className='font-mono font-black leading-snug'>
+          <h1 className='font-mono text-3xl font-black leading-snug'>
             <TypedText
               text={[
                 './Innovation with a mission',
