@@ -1,6 +1,6 @@
 import { useCallback, useState } from 'react'
 import Link from 'next/link'
-import { Button, Collapse, Toast, ToastBody } from 'reactstrap'
+import { Collapse, Toast, ToastBody } from 'reactstrap'
 import constants from 'data/constants.json'
 import TypedText from 'components/Utils/TypedText'
 import Clients from 'components/Utils/Clients'
@@ -86,7 +86,7 @@ const HomePage = () => {
             are volunteers dedicated to providing you the best results.
           </p>
           <Link href='#_contact_us' passHref>
-            <a className='box-content px-4 py-2 text-xl font-bold border bg-primary text-secondary border-primary dark:bg-transparent dark:border-secondary dark:hover:bg-secondary dark:hover:text-primary'>
+            <a className='px-4 py-2 text-xl font-bold border bg-primary text-secondary border-primary hover:opacity-75 focus:outline-none focus:ring-inset focus:ring focus:ring-accent dark:bg-transparent dark:border-secondary dark:hover:opacity-100 dark:hover:bg-secondary dark:hover:text-primary dark:focus:bg-secondary dark:focus:text-primary'>
               Work with us&nbsp;&nbsp;&raquo;
             </a>
           </Link>
@@ -105,33 +105,30 @@ const HomePage = () => {
       <div className='pt-12 md:pt-24 bg-primary text-secondary'>
         <div id='_contact_us' className='container flex px-3 mx-auto'>
           <div className='flex flex-col justify-center flex-grow'>
-            <h1
+            <span
               className={`font-mono text-7xl mt-0 ${
                 contactOpen ? 'mb-0' : 'mb-4'
               }`}
             >
               Let's talk.
-            </h1>
+            </span>
             <Collapse isOpen={!contactOpen}>
               <div>
                 <a
                   href={`mailto:${constants.email}`}
                   target='_blank'
                   rel='noreferrer noopener'
-                  className='font-mono text-xl md:text-3xl text-secondary hover:underline'
+                  className='font-mono text-xl md:text-3xl text-secondary hover:underline focus:outline-none focus:ring-inset focus:ring-1 focus:ring-accent focus:ring-opacity-50 focus:ring-offset-primary'
                 >
                   {constants.email}
                 </a>
               </div>
-              <Button
-                outline
-                size='lg'
-                color='secondary'
-                className='mt-4 rounded-0'
+              <button
+                className='px-4 py-2 mt-4 text-lg bg-transparent border border-secondary hover:bg-secondary hover:text-primary focus:outline-none focus:bg-secondary focus:text-primary'
                 onClick={toggleContactOn}
               >
                 Contact us
-              </Button>
+              </button>
             </Collapse>
             <Collapse isOpen={contactOpen}>
               <ContactForm

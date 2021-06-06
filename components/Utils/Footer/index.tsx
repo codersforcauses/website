@@ -1,7 +1,5 @@
 import { useState, useCallback } from 'react'
-import { Button } from 'reactstrap'
 import Link from 'next/link'
-import Image from 'next/image'
 import dynamic from 'next/dynamic'
 import BrandIcons from 'components/Elements/BrandIcons'
 
@@ -37,11 +35,10 @@ const Footer = () => {
         <div className='flex flex-col md:flex-row'>
           <div className='flex flex-col justify-between mb-3 mr-3 md:mb-0'>
             <div className='relative w-5/6 h-16 select-none'>
-              <Image
+              <img
                 src='/logo/cfc_logo_white_full.svg'
                 alt='Coders for Causes wordmark'
-                sizes='100%'
-                layout='fill'
+                className='w-auto h-full'
               />
             </div>
             <p className='m-0 font-mono'>
@@ -54,44 +51,36 @@ const Footer = () => {
               <p className='mb-3 font-mono text-2xl'>Legal</p>
               <ul>
                 <li>
-                  <Button
-                    size='sm'
-                    color='link'
-                    className='px-0 text-secondary rounded-0'
+                  <button
+                    className='text-secondary hover:underline focus:outline-none focus:ring-1 focus:ring-accent focus:ring-opacity-50 focus:ring-offset-4 focus:ring-offset-primary'
                     onClick={openConstitutionModal}
                   >
                     Constitution
-                  </Button>
+                  </button>
                 </li>
                 <li>
-                  <Button
-                    size='sm'
-                    color='link'
-                    className='px-0 text-secondary rounded-0'
+                  <button
+                    className='text-secondary hover:underline focus:outline-none focus:ring-1 focus:ring-accent focus:ring-opacity-50 focus:ring-offset-4 focus:ring-offset-primary'
                     onClick={openTermsModal}
                   >
                     Terms
-                  </Button>
+                  </button>
                 </li>
                 <li>
-                  <Button
-                    size='sm'
-                    color='link'
-                    className='px-0 text-secondary rounded-0'
+                  <button
+                    className='text-secondary hover:underline focus:outline-none focus:ring-1 focus:ring-accent focus:ring-opacity-50 focus:ring-offset-4 focus:ring-offset-primary'
                     onClick={openPrivacyModal}
                   >
                     Privacy
-                  </Button>
+                  </button>
                 </li>
                 <li>
-                  <Button
-                    size='sm'
-                    color='link'
-                    className='px-0 text-secondary rounded-0'
+                  <button
+                    className='text-secondary hover:underline focus:outline-none focus:ring-1 focus:ring-accent focus:ring-opacity-50 focus:ring-offset-4 focus:ring-offset-primary'
                     onClick={openSecurityModal}
                   >
                     Security
-                  </Button>
+                  </button>
                 </li>
               </ul>
             </div>
@@ -100,44 +89,36 @@ const Footer = () => {
               <ul className='m-0'>
                 <li>
                   <Link href='/about#_what_we_do'>
-                    <Button
-                      color='link'
-                      className='p-0 text-secondary rounded-0'
-                    >
+                    <a className='text-secondary hover:underline focus:outline-none focus:ring-1 focus:ring-accent focus:ring-opacity-50 focus:ring-offset-4 focus:ring-offset-primary'>
                       What we do
-                    </Button>
+                    </a>
                   </Link>
                 </li>
                 <li>
                   <Link href='/about#_meet_the_team'>
-                    <Button
-                      color='link'
-                      className='p-0 text-secondary rounded-0'
-                    >
+                    <a className='text-secondary hover:underline focus:outline-none focus:ring-1 focus:ring-accent focus:ring-opacity-50 focus:ring-offset-4 focus:ring-offset-primary'>
                       Meet the team
-                    </Button>
+                    </a>
                   </Link>
                 </li>
                 <li>
                   <Link href='/branding'>
-                    <Button
-                      color='link'
-                      className='p-0 text-secondary rounded-0'
+                    <a
+                      className='text-secondary hover:underline focus:outline-none focus:ring-1 focus:ring-accent focus:ring-opacity-50 focus:ring-offset-4 focus:ring-offset-primary'
                       data-cy='branding'
                     >
                       Our branding
-                    </Button>
+                    </a>
                   </Link>
                 </li>
                 <li>
                   <Link href='/#_contact_us'>
-                    <Button
-                      color='link'
-                      className='p-0 text-secondary rounded-0'
+                    <a
+                      className='text-secondary hover:underline focus:outline-none focus:ring-1 focus:ring-accent focus:ring-opacity-50 focus:ring-offset-4 focus:ring-offset-primary'
                       data-cy='contact'
                     >
                       Contact us
-                    </Button>
+                    </a>
                   </Link>
                 </li>
               </ul>
@@ -147,34 +128,29 @@ const Footer = () => {
               <ul>
                 <li>
                   <Link href='/projects'>
-                    <Button
-                      color='link'
-                      className='p-0 text-secondary rounded-0'
-                    >
+                    <a className='text-secondary hover:underline focus:outline-none focus:ring-1 focus:ring-accent focus:ring-opacity-50 focus:ring-offset-4 focus:ring-offset-primary'>
                       Our services
-                    </Button>
+                    </a>
                   </Link>
                 </li>
                 <li>
                   <Link href='/projects'>
-                    <Button
-                      color='link'
-                      className='p-0 text-secondary rounded-0'
+                    <a
+                      className='text-secondary hover:underline focus:outline-none focus:ring-1 focus:ring-accent focus:ring-opacity-50 focus:ring-offset-4 focus:ring-offset-primary'
                       data-cy='projects'
                     >
                       Previous projects
-                    </Button>
+                    </a>
                   </Link>
                 </li>
                 <li>
                   <Link href='/faq'>
-                    <Button
-                      color='link'
-                      className='p-0 text-secondary rounded-0'
+                    <a
+                      className='text-secondary hover:underline focus:outline-none focus:ring-1 focus:ring-accent focus:ring-opacity-50 focus:ring-offset-4 focus:ring-offset-primary'
                       data-cy='faq'
                     >
                       FAQ
-                    </Button>
+                    </a>
                   </Link>
                 </li>
               </ul>
@@ -184,22 +160,16 @@ const Footer = () => {
               <ul>
                 <li>
                   <Link href='/events?upcoming'>
-                    <Button
-                      color='link'
-                      className='p-0 text-secondary rounded-0'
-                    >
+                    <a className='text-secondary hover:underline focus:outline-none focus:ring-1 focus:ring-accent focus:ring-opacity-50 focus:ring-offset-4 focus:ring-offset-primary'>
                       Upcoming
-                    </Button>
+                    </a>
                   </Link>
                 </li>
                 <li>
                   <Link href='/events?past'>
-                    <Button
-                      color='link'
-                      className='p-0 text-secondary rounded-0'
-                    >
+                    <a className='text-secondary hover:underline focus:outline-none focus:ring-1 focus:ring-accent focus:ring-opacity-50 focus:ring-offset-4 focus:ring-offset-primary'>
                       Past events
-                    </Button>
+                    </a>
                   </Link>
                 </li>
               </ul>
@@ -215,7 +185,7 @@ const Footer = () => {
               href='https://github.com/codersforcauses'
               target='_blank'
               rel='noreferrer noopener'
-              className='p-1 text-secondary'
+              className='p-1 text-secondary hover:opacity-75 focus:outline-none focus:ring-inset focus:ring-1 focus:ring-accent focus:ring-opacity-50 focus:ring-offset-primary'
             >
               <BrandIcons icon='github' dimensions={20} fill='secondary' />
             </a>
@@ -223,7 +193,7 @@ const Footer = () => {
               href='https://discord.com/invite/zW3hjwY'
               target='_blank'
               rel='noreferrer noopener'
-              className='p-1 text-secondary'
+              className='p-1 text-secondary hover:opacity-75 focus:outline-none focus:ring-inset focus:ring-1 focus:ring-accent focus:ring-opacity-50 focus:ring-offset-primary'
             >
               <BrandIcons icon='discord' dimensions={20} fill='secondary' />
             </a>
@@ -231,7 +201,7 @@ const Footer = () => {
               href='https://www.facebook.com/codersforcauses'
               target='_blank'
               rel='noreferrer noopener'
-              className='p-1 text-secondary'
+              className='p-1 text-secondary hover:opacity-75 focus:outline-none focus:ring-inset focus:ring-1 focus:ring-accent focus:ring-opacity-50 focus:ring-offset-primary'
             >
               <BrandIcons icon='facebook' dimensions={20} fill='secondary' />
             </a>
@@ -239,7 +209,7 @@ const Footer = () => {
               href='https://www.linkedin.com/company/coders-for-causes/'
               target='_blank'
               rel='noreferrer noopener'
-              className='p-1 text-secondary'
+              className='p-1 text-secondary hover:opacity-75 focus:outline-none focus:ring-inset focus:ring-1 focus:ring-accent focus:ring-opacity-50 focus:ring-offset-primary'
             >
               <BrandIcons icon='linkedin' dimensions={20} fill='secondary' />
             </a>
@@ -247,7 +217,7 @@ const Footer = () => {
               href='https://twitter.com/codersforcauses'
               target='_blank'
               rel='noreferrer noopener'
-              className='p-1 text-secondary'
+              className='p-1 text-secondary hover:opacity-75 focus:outline-none focus:ring-inset focus:ring-1 focus:ring-accent focus:ring-opacity-50 focus:ring-offset-primary'
             >
               <BrandIcons icon='twitter' dimensions={20} fill='secondary' />
             </a>

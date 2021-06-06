@@ -37,7 +37,7 @@ const Modal = ({
               {heading}
             </Dialog.Title>
             <button
-              className='grid p-1 place-items-center'
+              className='grid p-1 place-items-center hover:opacity-75 focus:outline-none focus:ring-inset focus:ring-1 focus:ring-accent focus:ring-opacity-50 focus:ring-offset-primary'
               onClick={props.onClose}
             >
               <span className='material-icons-sharp'>close</span>

@@ -30,14 +30,14 @@ const Header = (props: { handleDarkToggle: () => void }) => {
 
   return (
     <header
-      className={`fixed inset-x-0 top-0 z-30 py-4 bg-primary ${
+      className={`fixed inset-x-0 top-0 z-30 py-3 bg-primary ${
         open && 'border-bottom border-secondary'
       }`}
     >
       <div className='container flex items-center justify-between px-3 mx-auto'>
         <div className='flex items-center md:items-end'>
           <button
-            className='grid p-1 mr-3 text-secondary place-center md:hidden'
+            className='grid p-1 mr-3 text-secondary place-center md:hidden hover:opacity-75 focus:outline-none focus:ring-inset focus:ring-1 focus:ring-accent focus:ring-opacity-50 focus:ring-offset-primary'
             onClick={toggleOpen}
           >
             <span className='material-icons-sharp'>
@@ -47,7 +47,7 @@ const Header = (props: { handleDarkToggle: () => void }) => {
           <Link href='/' passHref>
             <a
               id='Home'
-              className='font-mono text-xl font-black no-underline select-none text-secondary md:mr-12'
+              className='px-1 py-2 -my-2 -mr-3 font-mono text-xl font-black no-underline select-none text-secondary hover:bg-secondary hover:text-primary md:mr-12 focus:outline-none focus:bg-secondary focus:text-primary'
               data-cy='nav-Home'
             >
               cfc
@@ -59,12 +59,12 @@ const Header = (props: { handleDarkToggle: () => void }) => {
             ))}
           </nav>
         </div>
-        <div className='flex items-end'>
+        <div className='flex items-end space-x-3'>
           <DarkToggle />
           {
-            user ? (
-              <SignedInUser setUser={setUser} name={user.name} id={user._id} />
-            ) : null
+            // user ? (
+            //   <SignedInUser setUser={setUser} name={user.name} id={user._id} />
+            // ) : null
             // <Link href='/membership'>
             //   <Button
             //     outline
@@ -81,13 +81,13 @@ const Header = (props: { handleDarkToggle: () => void }) => {
       <Transition
         as='nav'
         show={open}
-        enter='transition-all duration-75'
-        enterFrom='h-0'
-        enterTo='h-100'
-        leave='transition-all duration-150'
-        leaveFrom='h-100'
-        leaveTo='h-0'
-        className='container flex flex-col px-3 mt-3 space-y-3 ml-11'
+        enter='transition-all ease-out duration-300'
+        enterFrom='opacity-0 h-0'
+        enterTo='opacity-100 h-full'
+        leave='transition-all ease-in duration-150'
+        leaveFrom='opacity-100 h-full'
+        leaveTo='opacity-0 h-0'
+        className='container flex flex-col px-3 mt-3 space-y-3 overflow-y-hidden ml-11 md:hidden'
       >
         {links.map(link => (
           <HeaderLink key={link.text} {...link} />
