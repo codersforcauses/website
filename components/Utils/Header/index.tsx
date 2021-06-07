@@ -18,7 +18,7 @@ const links: Array<HeaderItem> = [
   }
 ]
 
-const Header = (props: { handleDarkToggle: () => void }) => {
+const Header = () => {
   const [open, setOpen] = useState(false)
   const { user, setUser } = useContext(UserContext)
 
@@ -30,9 +30,12 @@ const Header = (props: { handleDarkToggle: () => void }) => {
 
   return (
     <header
-      className={`fixed inset-x-0 top-0 z-30 py-3 bg-primary ${
-        open && 'border-bottom border-secondary'
-      }`}
+      className={[
+        'fixed inset-x-0 top-0 z-30 py-3 bg-primary',
+        open ? 'border-b-2 border-secondary' : undefined
+      ]
+        .join(' ')
+        .trim()}
     >
       <div className='container flex items-center justify-between px-3 mx-auto'>
         <div className='flex items-center md:items-end'>
