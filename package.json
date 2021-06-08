@@ -31,12 +31,12 @@
     "prepare": "husky install"
   },
   "dependencies": {
-    "@aws-amplify/auth": "4.0.1",
     "@emotion/react": "11.4.0",
     "@headlessui/react": "1.2.0",
     "@stripe/react-stripe-js": "1.4.1",
     "@stripe/stripe-js": "1.15.0",
     "@tailwindcss/forms": "0.3.3",
+    "aws-amplify": "4.0.3",
     "critters": "0.0.10",
     "dayjs": "1.10.5",
     "formik": "2.2.9",

@@ -1,27 +1,14 @@
-/** @jsxImportSource @emotion/react */
-import { useTheme } from '@emotion/react'
-import { Card, CardHeader, CardFooter } from 'reactstrap'
-import { Theme } from 'lib/theme'
-import { styles } from './styles'
-
 const ColourCard = (props: {
   color: string
   name: string
   className?: string
-}) => {
-  const theme: Theme = useTheme()
-
-  return (
-    <Card
-      className={`rounded-0 border-0 w-100 justify-content-between text-monospace ${props.className}`}
-      css={styles(theme, props.color)}
-    >
-      <CardHeader className='bg-transparent border-0'>{props.name}</CardHeader>
-      <CardFooter className='bg-transparent border-0 text-uppercase'>
-        {theme?.colors[props.color]}
-      </CardFooter>
-    </Card>
-  )
-}
+}) => (
+  <div
+    className={`w-full font-black flex flex-col justify-between font-mono sm:h-40 md:h-80 ${props.className}`}
+  >
+    <p className='p-4'>{props.name}</p>
+    <p className='p-4 uppercase'>{props.color}</p>
+  </div>
+)
 
 export default ColourCard
