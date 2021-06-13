@@ -1,7 +1,7 @@
 import { useState, useCallback } from 'react'
 import Link from 'next/link'
 import dynamic from 'next/dynamic'
-import BrandIcons from 'components/Elements/BrandIcons'
+import BrandIcons from '@components/Elements/BrandIcons'
 
 const TermsModal = dynamic(() => import('./TermsModal'))
 const PrivacyModal = dynamic(() => import('./PrivacyModal'))
@@ -48,7 +48,7 @@ const Footer = () => {
           </div>
           <div className='grid flex-grow grid-cols-2 gap-6 md:grid-cols-4'>
             <div>
-              <p className='mb-3 font-mono text-2xl'>Legal</p>
+              <p className='mb-4 font-mono text-2xl'>Legal</p>
               <ul>
                 <li>
                   <button
@@ -85,7 +85,7 @@ const Footer = () => {
               </ul>
             </div>
             <div>
-              <p className='mb-3 font-mono text-2xl'>About us</p>
+              <p className='mb-4 font-mono text-2xl'>About us</p>
               <ul className='m-0'>
                 <li>
                   <Link href='/about#_what_we_do'>
@@ -124,7 +124,7 @@ const Footer = () => {
               </ul>
             </div>
             <div>
-              <p className='mb-3 font-mono text-2xl'>Projects</p>
+              <p className='mb-4 font-mono text-2xl'>Projects</p>
               <ul>
                 <li>
                   <Link href='/projects'>
@@ -156,7 +156,7 @@ const Footer = () => {
               </ul>
             </div>
             <div>
-              <p className='mb-3 font-mono text-2xl'>Events</p>
+              <p className='mb-4 font-mono text-2xl'>Events</p>
               <ul>
                 <li>
                   <Link href='/events?upcoming'>
@@ -187,7 +187,11 @@ const Footer = () => {
               rel='noreferrer noopener'
               className='p-1 text-secondary hover:opacity-75 focus:outline-none focus:ring-inset focus:ring-1 focus:ring-accent focus:ring-opacity-50 focus:ring-offset-primary'
             >
-              <BrandIcons icon='github' dimensions={20} fill='secondary' />
+              <BrandIcons
+                icon='github'
+                dimensions={20}
+                className='fill-current'
+              />
             </a>
             <a
               href='https://discord.com/invite/zW3hjwY'
@@ -195,7 +199,11 @@ const Footer = () => {
               rel='noreferrer noopener'
               className='p-1 text-secondary hover:opacity-75 focus:outline-none focus:ring-inset focus:ring-1 focus:ring-accent focus:ring-opacity-50 focus:ring-offset-primary'
             >
-              <BrandIcons icon='discord' dimensions={20} fill='secondary' />
+              <BrandIcons
+                icon='discord'
+                dimensions={20}
+                className='fill-current'
+              />
             </a>
             <a
               href='https://www.facebook.com/codersforcauses'
@@ -203,7 +211,11 @@ const Footer = () => {
               rel='noreferrer noopener'
               className='p-1 text-secondary hover:opacity-75 focus:outline-none focus:ring-inset focus:ring-1 focus:ring-accent focus:ring-opacity-50 focus:ring-offset-primary'
             >
-              <BrandIcons icon='facebook' dimensions={20} fill='secondary' />
+              <BrandIcons
+                icon='facebook'
+                dimensions={20}
+                className='fill-current'
+              />
             </a>
             <a
               href='https://www.linkedin.com/company/coders-for-causes/'
@@ -211,7 +223,11 @@ const Footer = () => {
               rel='noreferrer noopener'
               className='p-1 text-secondary hover:opacity-75 focus:outline-none focus:ring-inset focus:ring-1 focus:ring-accent focus:ring-opacity-50 focus:ring-offset-primary'
             >
-              <BrandIcons icon='linkedin' dimensions={20} fill='secondary' />
+              <BrandIcons
+                icon='linkedin'
+                dimensions={20}
+                className='fill-current'
+              />
             </a>
             <a
               href='https://twitter.com/codersforcauses'
@@ -219,7 +235,11 @@ const Footer = () => {
               rel='noreferrer noopener'
               className='p-1 text-secondary hover:opacity-75 focus:outline-none focus:ring-inset focus:ring-1 focus:ring-accent focus:ring-opacity-50 focus:ring-offset-primary'
             >
-              <BrandIcons icon='twitter' dimensions={20} fill='secondary' />
+              <BrandIcons
+                icon='twitter'
+                dimensions={20}
+                className='fill-current'
+              />
             </a>
           </div>
         </div>

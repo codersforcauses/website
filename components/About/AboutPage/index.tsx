@@ -1,82 +1,63 @@
-/** @jsxImportSource @emotion/react */
-import { useTheme } from '@emotion/react'
-import { useContext } from 'react'
-import { Container, Jumbotron, Row, Col } from 'reactstrap'
-import Head from 'next/head'
 import dynamic from 'next/dynamic'
-import Title from 'components/Utils/Title'
-import { DarkContext } from 'helpers/user'
+import Title from '@components/Utils/Title'
 import Committee from '../Committee'
 import Clients from '../../Utils/Clients'
 import Partners from '../Partners'
 // import SpecialThanks from '../SpecialThanks'
 import Sponsors from '../Sponsors'
-import { styles } from './styles'
 
 const Map = dynamic(() => import('../Map'), { ssr: false })
 
-const AboutPage = () => {
-  const isDark = useContext(DarkContext)
-  const theme = useTheme()
-  return (
-    <div css={styles(theme, isDark)}>
-      <Head>
-        <link
-          href='https://api.tiles.mapbox.com/mapbox-gl-js/v2.2.0/mapbox-gl.css'
-          rel='stylesheet'
-        />
-      </Head>
-
-      <Title typed>./about</Title>
-      <div className='relative-container py-5'>
-        <Container id='_what_we_do' className='py-5 rounded-0 d-md-flex'>
-          <Row className='d-flex align-items-center'>
-            <Col xs={12} lg={6} className='pr-lg-5'>
-              <h2 className='header'>We build software for charities</h2>
-              <p className='lead m-lg-0'>
-                Coders for Causes is a not for profit organisation that empowers
-                charities and other not for profit organisations by connecting
-                them with university students to develop technical solutions. We
-                are a student-run club based in Perth, Western Australia with a
-                wide range of clients. Whether you are looking for technical
-                advice or a long term project, get in touch with us for more
-                information.
-              </p>
-            </Col>
-          </Row>
-        </Container>
-        <div className='map'>
-          <Map />
+const AboutPage = () => (
+  <>
+    <Title typed>./about</Title>
+    <div className='relative py-12 md:py-24 bg-secondary text-primary dark:bg-alt-dark dark:text-secondary'>
+      <div id='_what_we_do' className='container px-3 mx-auto md:flex'>
+        <div className='flex items-center'>
+          <div className='lg:pr-5'>
+            <h2 className='mb-4 font-mono text-3xl font-black'>
+              We build software for charities
+            </h2>
+            <p className='text-lg'>
+              Coders for Causes is a not for profit organisation that empowers
+              charities and other not for profit organisations by connecting
+              them with university students to develop technical solutions. We
+              are a student-run club based in Perth, Western Australia with a
+              wide range of clients. Whether you are looking for technical
+              advice or a long term project, get in touch with us for more
+              information.
+            </p>
+          </div>
         </div>
       </div>
-
-      <Jumbotron id='_meet_the_team' className='m-0 p-0 secondary-bg'>
-        <Container className='rounded-0 py-5'>
-          <h3 className='m-0'>Meet the Team</h3>
-          <Committee />
-        </Container>
-      </Jumbotron>
-
-      <Container className='my-5 py-2'>
-        <h3 className='header m-0'>Our Clients</h3>
-        <div className='py-5'>
-          <Clients />
-        </div>
-        <h3 className='header m-0'>Our Sponsors</h3>
-        <div className='py-5'>
-          <Sponsors />
-        </div>
-        <h3 className='header m-0'>Our Partnered Clubs</h3>
-        <div className='pt-5'>
-          <Partners />
-        </div>
-        {/* <h3 className='header m-0'>Special Thanks</h3>
-        <div className='pt-5'>
-          <SpecialThanks />
+      {/* <div className='map'>
+          <Map />
         </div> */}
-      </Container>
     </div>
-  )
-}
+
+    <div
+      id='_meet_the_team'
+      className='py-12 md:py-24 bg-alt-light text-primary dark:bg-primary dark:text-secondary'
+    >
+      <div className='container px-3 mx-auto'>
+        <h3 className='mb-4 font-mono text-2xl font-black'>Meet the Team</h3>
+        <Committee />
+      </div>
+    </div>
+
+    <div className='py-12 bg-secondary text-primary dark:bg-alt-dark dark:text-secondary md:py-24 '>
+      <div className='container px-3 mx-auto space-y-12'>
+        <h3 className='font-mono text-2xl font-black'>Our Clients</h3>
+        <Clients />
+        <h3 className='font-mono text-2xl font-black'>Our Sponsors</h3>
+        <Sponsors />
+        <h3 className='font-mono text-2xl font-black'>Our Partnered Clubs</h3>
+        <Partners />
+        {/* <h3 className='font-mono text-2xl font-black'>Special Thanks</h3>
+          <SpecialThanks /> */}
+      </div>
+    </div>
+  </>
+)
 
 export default AboutPage

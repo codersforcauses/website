@@ -1,14 +1,9 @@
-/** @jsxImportSource @emotion/react */
-import { useTheme } from '@emotion/react'
 import simpleIcon from 'simple-icons'
-import { Theme } from 'lib/theme'
 
-const BrandIcons = ({ dimensions, fill, icon, ...props }: Props) => {
-  const theme: Theme = useTheme()
+const BrandIcons = ({ dimensions, icon, ...props }: BrandIconsProps) => {
   const simIcon = simpleIcon.get(icon)
   return (
     <svg
-      fill={theme.colors[fill]}
       height={dimensions}
       width={dimensions}
       viewBox='0 0 24 24'
@@ -22,10 +17,9 @@ const BrandIcons = ({ dimensions, fill, icon, ...props }: Props) => {
   )
 }
 
-interface Props {
+interface BrandIconsProps {
   icon: string
   dimensions: number
-  fill: keyof Theme['colors']
   className?: string
 }
 

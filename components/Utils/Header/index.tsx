@@ -1,8 +1,7 @@
-import { Transition } from '@headlessui/react'
-import { useContext, useState, useCallback } from 'react'
+import { Transition, Popover } from '@headlessui/react'
+import { Fragment, useContext } from 'react'
 import Link from 'next/link'
-import Router from 'next/router'
-import { UserContext } from 'helpers/user'
+import { UserContext } from '@helpers/user'
 import SignedInUser from './SignedInUser'
 import HeaderLink, { HeaderItem } from './HeaderLink'
 import DarkToggle from './DarkToggle'
@@ -19,84 +18,72 @@ const links: Array<HeaderItem> = [
 ]
 
 const Header = () => {
-  const [open, setOpen] = useState(false)
   const { user, setUser } = useContext(UserContext)
 
-  const toggleOpen = useCallback(() => setOpen(open => !open), [])
-
-  Router.events.on('routeChangeStart', () => {
-    setOpen(false)
-  })
-
   return (
-    <header
-      className={[
-        'fixed inset-x-0 top-0 z-30 py-3 bg-primary',
-        open ? 'border-b-2 border-secondary' : undefined
-      ]
-        .join(' ')
-        .trim()}
-    >
-      <div className='container flex items-center justify-between px-3 mx-auto'>
-        <div className='flex items-center md:items-end'>
-          <button
-            className='grid p-1 mr-3 text-secondary place-center md:hidden hover:opacity-75 focus:outline-none focus:ring-inset focus:ring-1 focus:ring-accent focus:ring-opacity-50 focus:ring-offset-primary'
-            onClick={toggleOpen}
+    <Popover as='header' className='fixed inset-x-0 top-0 z-30 py-3 bg-primary'>
+      {({ open }) => (
+        <div className='container px-3 mx-auto'>
+          <div className='flex items-center justify-between'>
+            <div className='flex items-center text-secondary md:items-end'>
+              <Popover.Button className='p-1 mr-3 material-icons-sharp text-secondary md:hidden hover:opacity-75 focus:outline-none focus:ring-inset focus:ring-1 focus:ring-accent focus:ring-opacity-50 focus:ring-offset-primary'>
+                {open ? 'close' : 'menu'}
+              </Popover.Button>
+              <Link href='/'>
+                <a
+                  id='Home'
+                  className='px-1 py-2 -my-2 -mr-3 font-mono text-xl font-black no-underline select-none text-secondary hover:bg-secondary hover:text-primary md:mr-12 focus:outline-none focus:bg-secondary focus:text-primary'
+                  data-cy='nav-Home'
+                >
+                  cfc
+                </a>
+              </Link>
+              <nav className='hidden space-x-3 md:flex'>
+                {links.map(link => (
+                  <HeaderLink key={link.text} {...link} />
+                ))}
+              </nav>
+            </div>
+            <div className='flex items-end space-x-3'>
+              <DarkToggle />
+              {
+                // user ? (
+                //   <SignedInUser setUser={setUser} name={user.name} id={user._id} />
+                // ) : null
+                // <Link href='/membership'>
+                //   <Button
+                //     outline
+                //     size='sm'
+                //     color='secondary'
+                //     className='d-none d-md-block rounded-0'
+                //   >
+                //     Membership
+                //   </Button>
+                // </Link>
+              }
+            </div>
+          </div>
+          <Transition
+            as={Fragment}
+            enter='transition ease-out duration-200'
+            enterFrom='opacity-0 translate-y-1'
+            enterTo='opacity-100 translate-y-0'
+            leave='transition ease-in duration-150'
+            leaveFrom='opacity-100 translate-y-0'
+            leaveTo='opacity-0 translate-y-1'
           >
-            <span className='material-icons-sharp'>
-              {open ? 'close' : 'menu'}
-            </span>
-          </button>
-          <Link href='/' passHref>
-            <a
-              id='Home'
-              className='px-1 py-2 -my-2 -mr-3 font-mono text-xl font-black no-underline select-none text-secondary hover:bg-secondary hover:text-primary md:mr-12 focus:outline-none focus:bg-secondary focus:text-primary'
-              data-cy='nav-Home'
+            <Popover.Panel
+              as='nav'
+              className='flex flex-col mt-3 space-y-3 ml-11 md:hidden max-w-min'
             >
-              cfc
-            </a>
-          </Link>
-          <nav className='hidden space-x-3 md:flex'>
-            {links.map(link => (
-              <HeaderLink key={link.text} {...link} />
-            ))}
-          </nav>
+              {links.map(link => (
+                <HeaderLink key={link.text} {...link} />
+              ))}
+            </Popover.Panel>
+          </Transition>
         </div>
-        <div className='flex items-end space-x-3'>
-          <DarkToggle />
-          {
-            // user ? (
-            //   <SignedInUser setUser={setUser} name={user.name} id={user._id} />
-            // ) : null
-            // <Link href='/membership'>
-            //   <Button
-            //     outline
-            //     size='sm'
-            //     color='secondary'
-            //     className='d-none d-md-block rounded-0'
-            //   >
-            //     Membership
-            //   </Button>
-            // </Link>
-          }
-        </div>
-      </div>
-      <Transition
-        as='nav'
-        show={open}
-        enter='transition-all ease-out duration-300'
-        enterFrom='opacity-0 h-0'
-        enterTo='opacity-100 h-full'
-        leave='transition-all ease-in duration-150'
-        leaveFrom='opacity-100 h-full'
-        leaveTo='opacity-0 h-0'
-        className='container flex flex-col px-3 mt-3 space-y-3 overflow-y-hidden ml-11 md:hidden'
-      >
-        {links.map(link => (
-          <HeaderLink key={link.text} {...link} />
-        ))}
-      </Transition>
-    </header>
+      )}
+    </Popover>
   )
 }
 
