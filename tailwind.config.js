@@ -15,7 +15,7 @@ module.exports = {
         danger: '#ff0000',
         warning: '#f5a623',
         alt: {
-          light: '#f8f9fa',
+          light: '#e9ecef',
           dark: '#111111'
         }
       },
