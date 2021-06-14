@@ -1,27 +1,16 @@
-import { jsx } from '@emotion/react'
-import { Button } from 'reactstrap'
-
-const WebsiteButton = ({ dark, link, text, classes }: ButtonType) => {
-  return (
-    <Button
-      tag='a'
-      outline
-      color={dark ? 'secondary' : 'primary'}
-      size='lg'
-      className={`rounded-0 ${classes}`}
-      href={link}
-      target='_blank'
-    >
-      {text}
-    </Button>
-  )
-}
+const WebsiteButton = ({ link, text }: ButtonType) => (
+  <a
+    href={link}
+    target='_blank'
+    className='grid px-4 py-2 font-mono text-lg font-black bg-transparent border place-items-center border-primary text-primary hover:bg-primary hover:text-secondary focus:bg-primary focus:text-secondary dark:border-secondary dark:text-secondary dark:hover:bg-secondary dark:hover:text-primary dark:focus:bg-secondary dark:focus:text-primary focus:outline-none'
+  >
+    {text}
+  </a>
+)
 
 interface ButtonType {
-  dark: Boolean
-  link: String
-  text: String
-  classes?: String
+  link: string
+  text: string
 }
 
 export default WebsiteButton

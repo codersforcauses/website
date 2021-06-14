@@ -6,7 +6,7 @@
     "img": "foguwa2.png",
     "name": "Friends of Grounds Tour Map",
     "client": "Friends of Grounds UWA",
-    "type": "Mobile PWA",
+    "type": "Progressive Web App",
     "date": "May 2019",
     "purl": "/projects/foguwa",
     "source": "https://github.com/foguwa/",
@@ -14,10 +14,10 @@
     "desc": "The Friends of the Grounds UWA host campus tours to encourage the University and wider WA community to take an active interest in UWA’s flora on the grounds.\nThe project aims to develop a map-based application for users to know their location during the tour or as they explore the campus independantly. Users can click on plants on the map to learn more about them. Admins will be able to create, edit and delete the plant information and its location in the admin console.",
     "tech": [
       { "name": "MongoDB", "icon": "mongodb" },
-      { "name": "Vue.js", "icon": "vue-dot-js" },
-      { "name": "NodeJS", "icon": "node-dot-js" },
-      { "name": "Express.js", "icon": "express" },
-      { "name": "NuxtJS", "icon": "nuxt-dot-js" },
+      { "name": "Vue.js", "icon": "vuedotjs" },
+      { "name": "Node.js", "icon": "nodedotjs" },
+      { "name": "Express", "icon": "express" },
+      { "name": "Nuxt.js", "icon": "nuxtdotjs" },
       { "name": "Vuetify", "icon": "vuetify" }
     ],
     "members": [
@@ -36,7 +36,7 @@
     "img": "home2health2.png",
     "name": "Home2Health Forum",
     "client": "Home2Health",
-    "type": "Full Stack Web Development",
+    "type": "Web Application",
     "date": "May 2019",
     "purl": "/projects/home2health",
     "source": "https://github.com/codersforcauses/home2health",
@@ -48,7 +48,7 @@
     "tech": [
       { "name": "MongoDB", "icon": "mongodb" },
       { "name": "Express", "icon": "express" },
-      { "name": "Next.js", "icon": "next-dot-js" },
+      { "name": "Next.js", "icon": "nextdotjs" },
       { "name": "Vercel", "icon": "vercel" }
     ],
     "members": [
@@ -68,7 +68,7 @@
     "img": "p2s1.png",
     "name": "P2S Rugbyworks Admin Website",
     "client": "P2S Rugbyworks",
-    "type": "Full Stack Web Development",
+    "type": "Web Application",
     "date": "December 2018",
     "purl": "/projects/p2srugby",
     "source": "https://github.com/codersforcauses/p2s-frontend",
@@ -79,7 +79,7 @@
     ],
     "desc": "The P2S RUGBYWORKS organisation runs a long-term skills development program for at risk youth. They help by mentoring them during sports and activities sessions. The project aims to transform the organisations previously paper-based review system into a webapp for simple data collection and storage.\nThe app allows coaches to log in, take attendence of students, and submit performance reviews for the session. Admins can log in and monitor student progress and coach reports.",
     "tech": [
-      { "name": "Vue.js", "icon": "vue-dot-js" },
+      { "name": "Vue.js", "icon": "vuedotjs" },
       { "name": "Vuetify", "icon": "vuetify" },
       { "name": "Express", "icon": "express" },
       { "name": "MongoDB", "icon": "mongodb" }
@@ -100,7 +100,7 @@
     "img": "ignite2.png",
     "name": "Ignite Mentoring",
     "client": "Ignite Mentoring",
-    "type": "Frontend Web Development",
+    "type": "Web Application",
     "date": "December 2018",
     "purl": "/projects/ignitementoring",
     "url": "https://codersforcauses.github.io/ignite-mentoring-2018/",
@@ -127,9 +127,9 @@
     "icon": "devices",
     "logo": "anglicare1.png",
     "img": "homefornow.png",
-    "name": "Home For Now",
+    "name": "HomeForNow",
     "client": "Anglicare",
-    "type": "Full Stack Web Development",
+    "type": "Web Application",
     "date": "February 2019",
     "purl": "/projects/homefornow",
     "url": "https://www.homefornow.org.au/",

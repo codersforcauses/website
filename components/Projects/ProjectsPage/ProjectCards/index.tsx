@@ -1,57 +1,37 @@
-/** @jsxImportSource @emotion/react */
-import { useTheme } from '@emotion/react'
-import { useContext } from 'react'
-import { Card, CardTitle } from 'reactstrap'
 import Link from 'next/link'
 import Image from 'next/image'
-import projects from 'data/projects.json'
-import { DarkContext } from 'helpers/user'
-import { styles } from './styles'
+import projects from '@data/projects.json'
 
-const ProjectCards = () => {
-  const isDark = useContext(DarkContext)
-  const theme = useTheme()
-
-  return (
-    <div css={styles(theme, isDark)}>
-      {projects.map(project => (
-        <div
-          key={project.name}
-          className='align-items-center justify-content-center'
-        >
-          <Link href={project.purl}>
-            <a className='text-decoration-none'>
-              <Card className='secondary-bg rounded-0 border-0'>
-                <div className='position-relative project-img'>
-                  <Image
-                    src={`/projects/${project.logo}`}
-                    alt={project.client}
-                    layout='fill'
-                    objectFit='contain'
-                    quality={90}
-                  />
-                </div>
-                <div className='d-flex align-items-center'>
-                  <div className='bg-primary'>
-                    <i className='material-icons-sharp text-secondary p-3'>
-                      {project.icon}
-                    </i>
-                  </div>
-                  <CardTitle
-                    className={`font-weight-bold ml-3 mb-0 text-${
-                      isDark ? 'secondary' : 'primary'
-                    } text-monospace`}
-                  >
-                    {project.name}
-                  </CardTitle>
-                </div>
-              </Card>
-            </a>
-          </Link>
-        </div>
-      ))}
-    </div>
-  )
-}
+const ProjectCards = () => (
+  <div className='grid flex-grow grid-cols-1 gap-6 md:grid-cols-2'>
+    {projects.map(project => (
+      <Link key={project.name} href={project.purl}>
+        <a className='focus:outline-none focus:ring focus:ring-accent hover:opacity-75'>
+          <div className='bg-alt-light dark:bg-primary'>
+            <div className='relative h-80'>
+              <Image
+                src={`/projects/${project.logo}`}
+                alt={project.client}
+                layout='fill'
+                objectFit='contain'
+                quality={90}
+              />
+            </div>
+            <div className='flex items-center space-x-4'>
+              <div className='bg-primary'>
+                <span className='p-4 material-icons-sharp text-secondary'>
+                  {project.icon}
+                </span>
+              </div>
+              <p className='font-mono font-black text-primary dark:text-secondary'>
+                {project.name}
+              </p>
+            </div>
+          </div>
+        </a>
+      </Link>
+    ))}
+  </div>
+)
 
 export default ProjectCards

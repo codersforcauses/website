@@ -1,9 +1,10 @@
 import { useCallback, useState } from 'react'
 import Link from 'next/link'
-import { Collapse, Toast, ToastBody } from 'reactstrap'
-import constants from 'data/constants.json'
-import TypedText from 'components/Utils/TypedText'
-import Clients from 'components/Utils/Clients'
+import { Collapse } from 'reactstrap'
+import constants from '@data/constants.json'
+import Toast from '@components/Elements/Toast'
+import TypedText from '@components/Utils/TypedText'
+import Clients from '@components/Utils/Clients'
 import Services from '../Services'
 import Face from '../Face'
 import ContactForm from '../ContactForm'
@@ -11,7 +12,13 @@ import ContactForm from '../ContactForm'
 const HomePage = () => {
   const [contactOpen, setContactOpen] = useState(false)
   const [loadContact, setLoadContact] = useState(false)
-  const [toastMessage, setToastMessage] = useState(null)
+  const [toastMessage, setToastMessage] = useState<ToastProps | null>({
+    status: 'success',
+    message:
+      'ugjvbfhvzjkbdfnsadfkjgahsdbfkasjgdfv akjshdfakshgdfv asdhfv sk ugjvbfhvzjkbdfnsadfkjgahsdbfkasjgdfv akjshdfakshgdfv asdhfv sk ugjvbfhvzjkbdfnsadfkjgahsdbfkasjgdfv akjshdfakshgdfv asdhfv sk'
+  })
+
+  const handleClose = useCallback(() => setToastMessage(null), [])
 
   const toggleContactOn = useCallback(() => setContactOpen(true), [])
   const toggleContactOff = useCallback(() => setContactOpen(false), [])
@@ -47,12 +54,9 @@ const HomePage = () => {
 
   return (
     <>
-      <Toast
-        isOpen={!!toastMessage}
-        className={`toast m-0 rounded-0 text-white bg-${toastMessage?.status}`}
-      >
-        <ToastBody>{toastMessage?.message}</ToastBody>
-      </Toast>
+      {/* <Toast open={!!toastMessage?.status} onClose={handleClose}>
+        {toastMessage?.message}
+      </Toast> */}
       <div
         className='flex items-center text-secondary bg-primary text-mono hero'
         // className='hero bg-primary text-secondary d-flex align-items-center rounded-0 text-monospace'
@@ -76,7 +80,7 @@ const HomePage = () => {
       </div>
       <div className='dark:bg-alt-dark dark:text-secondary'>
         <div className='container px-3 py-12 mx-auto md:py-24'>
-          <h2 className='mb-4 font-mono text-3xl font-bold'>
+          <h2 className='mb-4 font-mono text-3xl font-black'>
             We are developers.
           </h2>
           <p className='mb-6 text-lg'>
@@ -86,7 +90,7 @@ const HomePage = () => {
             are volunteers dedicated to providing you the best results.
           </p>
           <Link href='#_contact_us' passHref>
-            <a className='px-4 py-2 text-xl font-bold border bg-primary text-secondary border-primary hover:opacity-75 focus:outline-none focus:ring-inset focus:ring focus:ring-accent dark:bg-transparent dark:border-secondary dark:hover:opacity-100 dark:hover:bg-secondary dark:hover:text-primary dark:focus:bg-secondary dark:focus:text-primary'>
+            <a className='px-4 py-2 text-xl font-black border bg-primary text-secondary border-primary hover:opacity-75 focus:outline-none focus:ring-inset focus:ring focus:ring-accent dark:bg-transparent dark:border-secondary dark:hover:opacity-100 dark:hover:bg-secondary dark:hover:text-primary dark:focus:ring-opacity-0 dark:focus:bg-secondary dark:focus:text-primary'>
               Work with us&nbsp;&nbsp;&raquo;
             </a>
           </Link>
@@ -148,3 +152,8 @@ const HomePage = () => {
 }
 
 export default HomePage
+
+interface ToastProps {
+  status: 'success' | 'danger'
+  message: string
+}

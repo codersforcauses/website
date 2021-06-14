@@ -1,17 +1,15 @@
-/** @jsxImportSource @emotion/react */
-import { useTheme } from '@emotion/react'
 import Image from 'next/image'
 import Link from 'next/link'
-import { useContext } from 'react'
-import { Breadcrumb, BreadcrumbItem, Container, Row, Col } from 'reactstrap'
-import { DarkContext } from 'helpers/user'
 import TechList from './TechList'
 import type { Tech } from './TechList'
-import { styles } from './styles'
 import WebsiteButton from './button'
 
-const parseDescription = text =>
-  text.split('\n').map(para => <p key={para}>{para}</p>)
+const parseDescription = (text: string) =>
+  text.split('\n').map(para => (
+    <p key={para} className='mb-4'>
+      {para}
+    </p>
+  ))
 
 const Impact = ({
   impact,
@@ -21,11 +19,11 @@ const Impact = ({
   className?: string
 }) => (
   <div {...props}>
-    <h4 className='mb-3 font-weight-bold monospace'>Potential impact</h4>
-    <ul className='p-0'>
+    <h2 className='mb-4 font-mono text-2xl font-black'>Potential impact</h2>
+    <ul className='space-y-3'>
       {impact.map((text: string, i: number) => (
-        <li key={i} className='d-flex align-items-center pr-3 my-2'>
-          <i className='material-icons-sharp mr-3'>check_circle</i>
+        <li key={i} className='flex items-center'>
+          <span className='mr-4 material-icons-sharp'>check_circle</span>
           {text}
         </li>
       ))}
@@ -33,119 +31,94 @@ const Impact = ({
   </div>
 )
 
-const ProjectPage = ({ data }: Props) => {
-  const isDark = useContext(DarkContext)
-  const theme = useTheme()
-
-  return (
-    <div css={styles(theme, isDark)}>
-      <div className='bg-primary position-relative pad'>
-        <Image
-          alt={data?.alt ?? `An image of the front page of ${data.name}`}
-          src={`/projects/${data.img}`}
-          layout='fill'
-          objectFit='contain'
-        />
-      </div>
-      <Container className='my-5'>
-        <Row>
-          <Col xs={12}>
-            <Breadcrumb tag='nav' className='breadcrumbs'>
-              <Link href='/projects' passHref>
-                <BreadcrumbItem
-                  tag='a'
-                  className={`text-${isDark ? 'secondary' : 'primary'}`}
-                >
-                  Projects
-                </BreadcrumbItem>
-              </Link>
-              <BreadcrumbItem active tag='span' className='active-tab'>
-                {data.name}
-              </BreadcrumbItem>
-            </Breadcrumb>
-          </Col>
-        </Row>
-        <Row className='position-relative'>
-          <Col lg={9}>
-            <div className='mb-5'>
-              <h1 className='display-4 m-0 mb-4 monospace'>{data.name}</h1>
-              <Row className='align-items-center mb-4 d-lg-none monospace'>
-                <Col xs={6} className='d-flex align-items-center'>
-                  <i className='material-icons-sharp mr-3'>{data.icon}</i>
-                  {data.type}
-                </Col>
-                <Col xs={6} className='d-flex align-items-center'>
-                  <i className='material-icons-sharp mr-3'>date_range</i>
-                  {data.date}
-                </Col>
-              </Row>
-              {parseDescription(data.desc)}
-              <div className='d-lg-none mt-2'>
-                {data.url && (
-                  <WebsiteButton
-                    dark={isDark}
-                    link={data.url}
-                    text='Visit Website'
-                    classes='mr-3'
-                  />
-                )}
-                {data.source && (
-                  <WebsiteButton
-                    dark={isDark}
-                    link={data.source}
-                    text='Visit Source'
-                  />
-                )}
+const ProjectPage = ({ data }: Props) => (
+  <>
+    <div className='relative py-32 md:py-48 bg-primary'>
+      <Image
+        alt={data?.alt ?? `An image of the front page of ${data.name}`}
+        src={`/projects/${data.img}`}
+        layout='fill'
+        objectFit='contain'
+      />
+    </div>
+    <div className='py-12 bg-secondary text-primary dark:bg-alt-dark dark:text-secondary'>
+      <nav className='container px-3 mx-auto mb-4 text-sm'>
+        <Link href='/projects'>
+          <a className='text-primary dark:text-secondary hover:underline'>
+            Projects
+          </a>
+        </Link>
+        <span className='opacity-60'>{` / ${data.name}`}</span>
+      </nav>
+      <div className='container relative px-3 mx-auto lg:flex'>
+        <div className='space-y-8 lg:mr-8'>
+          <div className='space-y-4'>
+            <h1 className='mb-6 font-mono text-4xl md:text-6xl'>{data.name}</h1>
+            <div className='grid items-center grid-cols-2 font-mono lg:hidden'>
+              <div className='flex items-center'>
+                <span className='mr-3 material-icons-sharp'>{data.icon}</span>
+                {data.type}
+              </div>
+              <div className='flex items-center'>
+                <span className='mr-3 material-icons-sharp'>date_range</span>
+                {data.date}
               </div>
             </div>
-            <Impact impact={data.impact} className='d-lg-none mb-5' />
-            <h4 className='font-weight-black mb-4'>Technologies used</h4>
-            <div className='mb-5'>
-              <TechList isDark={isDark} data={data.tech} />
-            </div>
-            <h4 className='font-weight-black mb-4'>Members</h4>
-            <ul className='members p-0 m-0'>
+            {parseDescription(data.desc)}
+            {data && (
+              <div className='grid grid-cols-2 gap-4 mt-2 max-w-max lg:hidden'>
+                {data.url && (
+                  <WebsiteButton link={data.url} text='Visit Website' />
+                )}
+                {data.source && (
+                  <WebsiteButton link={data.source} text='View Source' />
+                )}
+              </div>
+            )}
+          </div>
+          <Impact impact={data.impact} className='lg:hidden' />
+          <div className='space-y-4'>
+            <h2 className='font-mono text-2xl font-black'>Technologies used</h2>
+            <TechList data={data.tech} />
+          </div>
+          <div className='space-y-4'>
+            <h2 className='font-mono text-2xl font-black'>Members</h2>
+            <ul className='grid grid-cols-2 gap-2 leading-tight'>
               {data.members.map((member: string) => (
                 <li key={member}>{member}</li>
               ))}
             </ul>
-          </Col>
-          <Col lg={3} className='d-none d-lg-block position-relative'>
-            <div className='sticky-top'>
-              <div className='mb-5 text-monospace'>
-                <div className='d-flex align-items-center py-3'>
-                  <i className='material-icons-sharp mr-3'>devices</i>
-                  {data.type}
-                </div>
-                <div className='d-flex align-items-center py-3'>
-                  <i className='material-icons-sharp mr-3'>date_range</i>
-                  {data.date}
-                </div>
-                {data.url && (
-                  <WebsiteButton
-                    dark={isDark}
-                    link={data.url}
-                    text='Visit Website'
-                    classes='mt-3'
-                  />
-                )}
-                {data.source && (
-                  <WebsiteButton
-                    dark={isDark}
-                    link={data.source}
-                    text='Visit Source'
-                    classes='mt-3'
-                  />
-                )}
-              </div>
-              <Impact impact={data.impact} />
+          </div>
+        </div>
+        <div className='hidden w-full max-w-xs space-y-8 lg:block'>
+          <div className='space-y-4 font-mono'>
+            <div className='flex items-center'>
+              <span className='mr-3 material-icons-sharp'>devices</span>
+              {data.type}
             </div>
-          </Col>
-        </Row>
-      </Container>
+            <div className='flex items-center'>
+              <span className='mr-3 material-icons-sharp' title='Start Date'>
+                date_range
+              </span>
+              {data.date}
+            </div>
+          </div>
+          {data && (
+            <div className='grid gap-4'>
+              {data.url && (
+                <WebsiteButton link={data.url} text='Visit Website' />
+              )}
+              {data.source && (
+                <WebsiteButton link={data.source} text='View Source' />
+              )}
+            </div>
+          )}
+          <Impact impact={data.impact} />
+        </div>
+      </div>
     </div>
-  )
-}
+  </>
+)
 
 interface ProjectType {
   id: string
