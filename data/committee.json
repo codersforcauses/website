@@ -9,7 +9,7 @@
       "discord": "Cursor"
     },
     "picture": {
-      "src": "/committee/michaeldp_20.jpg",
+      "src": "/committee/michaeldp_21.jpg",
       "alt": "CFC President"
     }
   },
@@ -23,7 +23,7 @@
       "discord": "Ben"
     },
     "picture": {
-      "src": "https://avatars.githubusercontent.com/u/42458831?v=4",
+      "src": "/committee/bendp_21.jpg",
       "alt": "CFC Vice President"
     }
   },
@@ -37,7 +37,7 @@
       "discord": "Beaa"
     },
     "picture": {
-      "src": "https://avatars.githubusercontent.com/u/35147007?v=4",
+      "src": "/committee/beadp_21.jpg",
       "alt": "CFC Secretary"
     }
   },
@@ -51,7 +51,7 @@
       "discord": "Han"
     },
     "picture": {
-      "src": "https://avatars.githubusercontent.com/u/56809330?v=4",
+      "src": "/committee/handp_21.jpg",
       "alt": "CFC Treasurer"
     }
   },
@@ -66,7 +66,7 @@
       "discord": "Frinze Lapuz"
     },
     "picture": {
-      "src": "/committee/frinzedp_20.jpg",
+      "src": "/committee/frinzedp_21.jpg",
       "alt": "CFC Tech Lead"
     }
   },
@@ -80,7 +80,7 @@
       "discord": "iv"
     },
     "picture": {
-      "src": "https://avatars.githubusercontent.com/u/64839317?v=4",
+      "src": "/committee/ivydp_21.jpg",
       "alt": "CFC Marketing Officer"
     }
   },
@@ -94,21 +94,7 @@
       "discord": "Eddie"
     },
     "picture": {
-      "src": "https://avatars.githubusercontent.com/u/45678264?v=4",
-      "alt": "CFC OCM"
-    }
-  },
-  {
-    "name": "Zak Morrison-Odgaard",
-    "position": "Ordinary Committee Member",
-    "about": "",
-    "social": {
-      "email": "committee@codersforcauses.org",
-      "github": "https://github.com/zvodd",
-      "discord": "Odd"
-    },
-    "picture": {
-      "src": "https://avatars.githubusercontent.com/u/684617?v=4",
+      "src": "/committee/eddiedp_21.jpg",
       "alt": "CFC OCM"
     }
   },
@@ -122,7 +108,7 @@
       "discord": "Div"
     },
     "picture": {
-      "src": "https://avatars.githubusercontent.com/u/70004128?v=4",
+      "src": "/committee/divdp_21.jpg",
       "alt": "CFC OCM"
     }
   },
@@ -136,7 +122,7 @@
       "discord": "The Doctor"
     },
     "picture": {
-      "src": "https://avatars.githubusercontent.com/u/22740095?v=4",
+      "src": "/committee/ashdp_21.jpg",
       "alt": "CFC Fresher Rep."
     }
   }
