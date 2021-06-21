@@ -2,11 +2,11 @@ import { useEffect, useRef } from 'react'
 import Typed from 'typed.js'
 
 const TypedText = ({ text }: { text: Array<string> }) => {
-  let typed: Typed
-  const typedText: any = useRef<HTMLSpanElement>()
+  const typed = useRef<Typed>()
+  const typedText = useRef<HTMLSpanElement>(null)
 
   useEffect(() => {
-    typed = new Typed(typedText.current, {
+    typed.current = new Typed(typedText.current!, {
       strings: text,
       typeSpeed: 50,
       backSpeed: 30,
@@ -15,10 +15,12 @@ const TypedText = ({ text }: { text: Array<string> }) => {
       loop: true
     })
 
+    const tempType = typed.current
+
     return () => {
-      typed.destroy()
+      tempType.destroy()
     }
-  }, [])
+  }, [text])
 
   return <span ref={typedText} data-cy='typer' />
 }

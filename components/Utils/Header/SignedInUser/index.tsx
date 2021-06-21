@@ -1,8 +1,8 @@
 import { useMemo, useCallback, Dispatch, SetStateAction } from 'react'
 import { Menu, Transition } from '@headlessui/react'
-import { Auth } from '@aws-amplify/auth'
+import { Auth } from 'aws-amplify'
 import Router from 'next/router'
-import { getInitials, UserProps } from 'helpers/user'
+import { getInitials, UserProps } from '@helpers/user'
 
 const UserMenu = ({ name, setUser, ...props }: Props) => {
   const initials = useMemo(() => getInitials(name), [name])
@@ -11,10 +11,10 @@ const UserMenu = ({ name, setUser, ...props }: Props) => {
     await Auth.signOut()
     setUser(undefined)
     Router.push('/')
-  }, [])
+  }, [setUser])
 
   return (
-    <Menu as='div' className='relative text-secondary '>
+    <Menu as='div' className='relative text-secondary'>
       {({ open }) => (
         <>
           <Menu.Button className='py-1.5 my-px border border-secondary hover:bg-secondary hover:text-primary focus:bg-secondary focus:text-primary'>
@@ -92,7 +92,7 @@ export default UserMenu
 
 interface Props {
   id: string
-  name?: string
+  name: string
   image?: string
-  setUser: Dispatch<SetStateAction<UserProps>>
+  setUser: Dispatch<SetStateAction<UserProps | undefined | null>>
 }

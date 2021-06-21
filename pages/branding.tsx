@@ -1,5 +1,5 @@
-import Meta from 'components/Utils/Meta'
-import BrandPage from 'components/Brand/BrandPage'
+import Meta from '@components/Utils/Meta'
+import BrandPage from '@components/Brand/BrandPage'
 
 const Branding = () => (
   <>

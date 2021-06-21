@@ -1,108 +1,105 @@
-/** @jsxImportSource @emotion/react */
-import { useTheme } from '@emotion/react'
-import { useState, useContext } from 'react'
-import { Button, Container, Row, Col } from 'reactstrap'
-import { DarkContext } from 'helpers/user'
-import { styles } from './styles'
+import Image from 'next/image'
+import Link from 'next/link'
+import { ImageProps } from '@helpers/global'
 
-const EventPage = () => {
-  const [isPaid, setIsPaid] = useState(true)
-  const isDark = useContext(DarkContext)
-  const theme = useTheme()
-
-  return (
-    <div css={styles(theme, isDark)}>
-      <div className='bg-primary mt-5 py-5 bg text-secondary text-monospace'>
-        <Container className='mt-5 pt-5'>
-          <h5 className='my-5'>./Workshop</h5>
-          <h1 className='display-4 m-0 event-main-head'>
-            Essential Software Industry Skills
-          </h1>
-        </Container>
+const EventPage = ({ data }: Props) => (
+  <>
+    <div className='relative z-10 py-12 space-y-24 font-mono font-black bg-primary text-secondary'>
+      <nav className='container px-3 mx-auto text-sm'>
+        <Link href='/events'>
+          <a className='text-secondary hover:underline'>Events</a>
+        </Link>
+        <span className='text-secondary text-opacity-60'>{` / ${data.title}`}</span>
+      </nav>
+      <div className='container px-3 mx-auto space-y-4'>
+        <p className='font-black capitalize'>./{data?.type ?? 'Workshop'}</p>
+        <h1 className='w-3/4 text-6xl'>{data.title}</h1>
       </div>
-      <Container className='my-5'>
-        <Row className='mb-5 pb-5'>
-          <Col
-            xs={12}
-            md={6}
-            lg={5}
-            tag='img'
-            src='https://source.unsplash.com/random'
-            className='mb-4 mb-md-0 img-fluid'
-          />
-          <Col xs={12} md={6} lg={{ size: 6, offset: 1 }}>
-            <p className='m-0'>
-              Lorem ipsum dolor sit amet consectetur, adipisicing elit. Possimus
-              tempore quia deserunt praesentium maiores optio blanditiis
-              voluptas labore repellat, excepturi, quidem aliquid eum soluta
-              unde ipsum repellendus molestias consectetur eligendi! Lorem ipsum
-              dolor sit, amet consectetur adipisicing elit. Eius, reiciendis a
-              adipisci sequi placeat porro eum laborum ipsum voluptatum
-              excepturi aliquid cum, commodi rem ad repudiandae! Possimus,
-              facilis minima. Tempore!
-            </p>
-            {isPaid && (
-              <Button
-                color={isDark ? 'secondary' : 'primary'}
-                outline={isDark}
-                className='rounded-0 mt-3'
-              >
-                Buy tickets &raquo;
-              </Button>
-            )}
-          </Col>
-        </Row>
-        <Row className='mb-5 pb-5'>
-          <Col sm={4}>
-            <h5 className='font-weight-bold'>What to bring</h5>
-            <ol className='pl-3'>
+    </div>
+    <div className='py-12 bg-secondary text-primary dark:bg-alt-dark dark:text-secondary'>
+      <div className='container px-3 mx-auto space-y-8'>
+        <div className='grid gap-4 lg:grid-cols-2'>
+          <div className='relative h-72'>
+            <Image
+              src={data.image.src}
+              alt={data.image.alt}
+              layout='fill'
+              objectFit='cover'
+            />
+          </div>
+          <div>
+            <p className='mb-6 md:text-lg'>{data.desc}</p>
+            {/* {data.isPaid && (
+                <a href='' className='px-4 py-2 text-xl filled-button'>
+                  Buy Tickets
+                </a>
+              )} */}
+          </div>
+        </div>
+        <div className='grid grid-cols-3'>
+          <div>
+            <h2 className='font-black'>What to bring</h2>
+            <ol className='list-decimal list-inside'>
               <li>Your enthusiasm</li>
               <li>Your laptop</li>
             </ol>
-          </Col>
-          <Col sm={4}>
-            <h5 className='font-weight-bold'>Where</h5>
-            <div>
+          </div>
+          <div>
+            <h2 className='font-black'>Where</h2>
+            <p>
               The Circle (Reid Library) <br /> UWA Crawley Campus
-            </div>
-          </Col>
-          <Col sm={4}>
-            <h5 className='font-weight-bold'>When</h5>
-            <div>
+            </p>
+          </div>
+          <div>
+            <h2 className='font-black'>When</h2>
+            <p>
               Tuesday 18th March <br /> 3:30pm - 4:30pm
-            </div>
-          </Col>
-        </Row>
-        <Row noGutters className='text-secondary text-monospace'>
-          <Col
-            md={3}
-            className='bg-primary px-5 pt-5 pb-md-5 d-flex align-items-center justify-content-center'
-          >
-            <i className='material-icons-sharp md-xl'>
-              {isPaid ? 'attach_money' : 'money_off'}
-            </i>
-          </Col>
-          <Col
-            md={9}
-            className='bg-primary d-flex align-items-center p-5 pt-3 pt-md-5 workshop-border'
-          >
-            <div className='px-lg-5'>
-              <h5 className='font-weight-bold mb-3'>
-                {isPaid
-                  ? 'This event is paid'
-                  : 'Our workshops are always free!'}
-              </h5>
-              <p className='text m-0'>
-                {isPaid
-                  ? 'As part of our commitment to empower students for a successful career in the software industry, Coders for Causes host this event to supercharge your career.'
-                  : 'As part of our commitment to empower students for a successful career in the software industry, Coders for Causes host free workshops covering a variety of topics to supercharge your career.'}
-              </p>
-            </div>
-          </Col>
-        </Row>
-      </Container>
+            </p>
+          </div>
+        </div>
+        <div className='grid gap-8 p-8 font-mono md:grid-cols-4 bg-primary text-secondary'>
+          <span className='grid select-none material-icons-sharp text-8xl place-self-center'>
+            {data?.isPaid ? 'attach_money' : 'money_off'}
+          </span>
+          <div className='w-10/12 space-y-4 md:col-span-3'>
+            <p className='text-xl font-black'>
+              {data?.isPaid
+                ? 'This event is paid'
+                : 'Our workshops are always free!'}
+            </p>
+            <p>
+              As part of our commitment to empower students for a successful
+              career in the software industry, Coders for Causes
+              {data?.isPaid
+                ? ' hosts this event '
+                : ' host free workshops covering a variety of topics '}
+              to supercharge your career.
+            </p>
+          </div>
+        </div>
+      </div>
     </div>
-  )
+  </>
+)
+
+export interface EventType {
+  slug: string
+  tags: Array<string>
+  title: string
+  image: ImageProps
+  date: string
+  time: {
+    start: string
+    end: string
+  }
+  location: string
+  desc: string
+  type?: 'workshop' | 'industry night' | 'social event'
+  isPaid?: boolean
+}
+
+interface Props {
+  data: EventType
 }
 
 export default EventPage

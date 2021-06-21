@@ -2,14 +2,14 @@ import { useCallback, useEffect, useState } from 'react'
 import { useTheme } from 'next-themes'
 
 const DarkToggle = () => {
-  const { resolvedTheme: theme, setTheme } = useTheme()
   const [mounted, setMounted] = useState(false)
+  const { resolvedTheme: theme, setTheme } = useTheme()
 
   useEffect(() => setMounted(true), [])
 
   const changeTheme = useCallback(
     () => setTheme(theme === 'dark' ? 'light' : 'dark'),
-    [theme]
+    [setTheme, theme]
   )
 
   return mounted ? (

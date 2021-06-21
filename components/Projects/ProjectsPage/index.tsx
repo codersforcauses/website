@@ -20,8 +20,8 @@ const ProjectsPage = () => {
           <ProjectCards />
           <div className='mt-6 lg:mt-0 lg:w-1/5 text-primary dark:text-secondary'>
             <p>
-              If you're a charity or non-profit looking to potentially work with
-              us, click on the button to see our process.
+              If you&apos;re a charity or non-profit looking to potentially work
+              with us, click on the button to see our process.
             </p>
             <button
               className='grid w-full px-4 py-2 mt-4 font-mono font-black bg-transparent border place-items-center border-primary text-primary hover:bg-primary hover:text-secondary focus:bg-primary focus:text-secondary dark:border-secondary dark:text-secondary dark:hover:bg-secondary dark:hover:text-primary dark:focus:bg-secondary dark:focus:text-primary focus:outline-none'

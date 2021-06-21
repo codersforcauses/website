@@ -1,5 +1,5 @@
-import Meta from 'components/Utils/Meta'
-import HomePage from 'components/Home/HomePage'
+import Meta from '@components/Utils/Meta'
+import HomePage from '@components/Home/HomePage'
 
 const index = () => (
   <>

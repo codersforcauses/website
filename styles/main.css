@@ -34,17 +34,27 @@ body {
   overscroll-behavior: none;
 }
 
+a,
+button {
+  touch-action: manipulation;
+}
+
 @tailwind components;
 
 @layer components {
   .main {
     @apply relative grid mt-16;
-    min-height: calc(100vh - (64px + 258.533px));
+    min-height: calc(100vh - (64px + 228px));
   }
+
   .logo {
     @apply object-contain object-center w-full transition duration-300 hover:filter-none;
     max-height: 100px;
     filter: grayscale(100%) contrast(0.2) brightness(1.1);
+  }
+
+  .filled-button {
+    @apply font-black border text-secondary border-primary bg-primary hover:bg-opacity-75 focus:outline-none focus:ring-inset focus:ring focus:ring-accent dark:border-secondary dark:bg-transparent dark:hover:bg-secondary dark:hover:text-primary dark:focus:ring-opacity-0 dark:focus:bg-secondary dark:focus:text-primary;
   }
 
   .legal-content {

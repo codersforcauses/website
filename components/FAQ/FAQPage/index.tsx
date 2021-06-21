@@ -11,9 +11,10 @@ const FAQPage = () => (
           <QuestionCard {...question} key={id} />
         ))}
         <p className='mt-6 text-xl sm:col-span-2 lg:col-span-3'>
-          Don't find what you are looking for? Find us on the{' '}
+          Don&apos;t find what you are looking for? Find us on the{' '}
           <a
             target='_blank'
+            rel='noreferrer'
             href='https://discord.com/invite/zW3hjwY'
             className='hover:underline focus:outline-none focus:ring focus:ring-accent'
           >

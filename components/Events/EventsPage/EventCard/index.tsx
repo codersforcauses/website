@@ -1,63 +1,46 @@
-/** @jsxImportSource @emotion/react */
-import { useTheme } from '@emotion/react'
-import { useContext } from 'react'
-import {
-  Badge,
-  Button,
-  Card,
-  CardBody,
-  CardText,
-  CardSubtitle,
-  CardTitle
-} from 'reactstrap'
 import Link from 'next/link'
 import Image from 'next/image'
-import { DarkContext } from 'helpers/user'
-import { styles } from './styles'
+import { EventType } from '@components/Events/EventPage'
 
-const EventCard = (props: any) => {
-  const theme = useTheme()
-  const isDark = useContext(DarkContext)
-
+const EventCard = (event: Omit<EventType, 'type'>) => {
   return (
-    <Card
-      className={`rounded-0 border-0 ${props.className}`}
-      css={styles(theme, isDark)}
-    >
-      <div className='position-relative'>
+    <div className='grid grid-cols-5 grid-rows-2 bg-alt-light lg:grid-rows-1 dark:bg-primary'>
+      <div className='relative col-span-full lg:col-span-2'>
         <Image
           loading='eager'
-          {...props.image}
+          src={event.image.src}
+          alt={event.image.alt}
           layout='fill'
           objectFit='cover'
           objectPosition='center top'
         />
       </div>
-      <CardBody className='px-4 py-3'>
-        <div className='mb-2'>
-          {props.tags?.map(tag => (
-            <Badge
+      <div className='px-6 py-4 space-y-2 col-span-full lg:col-span-3'>
+        <div className='space-x-2'>
+          {event.tags?.map(tag => (
+            <span
               key={tag}
-              color='white'
-              className={`rounded-0 mr-2 font-weight-light border border-${
-                isDark ? 'dark' : 'muted'
-              } text-muted`}
+              className='px-1 py-0.5 opacity-70 text-xs border border-primary border-opacity-25 dark:border-alt-light dark:border-opacity-30'
             >
               {tag}
-            </Badge>
+            </span>
           ))}
         </div>
-        <CardTitle className='text-monospace heading'>{props.title}</CardTitle>
-        <CardSubtitle className='mb-2'>Time: {props.time}</CardSubtitle>
-        <CardSubtitle className='mb-2'>Location: {props.location}</CardSubtitle>
-        <CardText className='smaller'>{props.desc}</CardText>
-        {/* <Link href={`/events/${props.slug}`}>
-          <Button outline={isDark} color={isDark ? 'secondary' : 'primary'} className='rounded-0'>
-            Learn more
-          </Button>
-        </Link> */}
-      </CardBody>
-    </Card>
+        <p className='font-mono text-2xl font-black'>{event.title}</p>
+        <div>
+          <p>Time: {event.time.start}</p>
+          <p>Location: {event.location}</p>
+        </div>
+        <p>{event.desc}</p>
+        <div className='pt-2'>
+          <Link href={`/events/${event.slug}`}>
+            <a className='grid px-4 py-2 font-mono font-black bg-transparent border max-w-max place-items-center border-primary text-primary hover:bg-primary hover:text-secondary focus:bg-primary focus:text-secondary dark:border-secondary dark:text-secondary dark:hover:bg-secondary dark:hover:text-primary dark:focus:bg-secondary dark:focus:text-primary focus:outline-none'>
+              Learn more
+            </a>
+          </Link>
+        </div>
+      </div>
+    </div>
   )
 }
 

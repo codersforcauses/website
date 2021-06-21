@@ -5,27 +5,15 @@ class MyDocument extends Document {
     return (
       <Html lang='en-AU'>
         <Head>
-          <link
-            rel='preconnect'
-            href='https://fonts.gstatic.com/'
-            crossOrigin=''
-          />
-          <link
-            rel='preconnect'
-            href='https://fonts.googleapis.com/'
-            crossOrigin=''
-          />
-          <link
-            rel='preconnect'
-            href='https://connect.facebook.net'
-            crossOrigin=''
-          />
-          <link rel='preconnect' href='https://unsplash.it' crossOrigin='' />
+          {process.env.NODE_ENV === 'production' && (
+            <link
+              rel='preconnect'
+              href='https://connect.facebook.net'
+              crossOrigin=''
+            />
+          )}
 
-          <link rel='dns-prefetch' href='//fonts.gstatic.com/' />
-          <link rel='dns-prefetch' href='//fonts.googleapis.com/' />
           <link rel='dns-prefetch' href='//connect.facebook.net' />
-          <link rel='dns-prefetch' href='//unsplash.it' />
 
           {/* Typefaces from Google Fonts */}
           <link

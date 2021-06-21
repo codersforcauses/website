@@ -1,7 +1,6 @@
 import Image from 'next/image'
 import Link from 'next/link'
-import TechList from './TechList'
-import type { Tech } from './TechList'
+import TechList, { Tech } from './TechList'
 import WebsiteButton from './button'
 
 const parseDescription = (text: string) =>
@@ -23,7 +22,9 @@ const Impact = ({
     <ul className='space-y-3'>
       {impact.map((text: string, i: number) => (
         <li key={i} className='flex items-center'>
-          <span className='mr-4 material-icons-sharp'>check_circle</span>
+          <span className='mr-3 select-none material-icons-sharp'>
+            check_circle
+          </span>
           {text}
         </li>
       ))}
@@ -48,7 +49,7 @@ const ProjectPage = ({ data }: Props) => (
             Projects
           </a>
         </Link>
-        <span className='opacity-60'>{` / ${data.name}`}</span>
+        <span className='text-primary text-opacity-60 dark:text-secondary dark:text-opacity-60'>{` / ${data.name}`}</span>
       </nav>
       <div className='container relative px-3 mx-auto lg:flex'>
         <div className='space-y-8 lg:mr-8'>
@@ -56,17 +57,24 @@ const ProjectPage = ({ data }: Props) => (
             <h1 className='mb-6 font-mono text-4xl md:text-6xl'>{data.name}</h1>
             <div className='grid items-center grid-cols-2 font-mono lg:hidden'>
               <div className='flex items-center'>
-                <span className='mr-3 material-icons-sharp'>{data.icon}</span>
+                <span className='mr-3 select-none material-icons-sharp'>
+                  {data.icon}
+                </span>
                 {data.type}
               </div>
               <div className='flex items-center'>
-                <span className='mr-3 material-icons-sharp'>date_range</span>
+                <span
+                  className='mr-3 select-none material-icons-sharp'
+                  title='Start Date'
+                >
+                  date_range
+                </span>
                 {data.date}
               </div>
             </div>
             {parseDescription(data.desc)}
             {data && (
-              <div className='grid grid-cols-2 gap-4 mt-2 max-w-max lg:hidden'>
+              <div className='grid grid-cols-2 gap-4 mt-2 sm:max-w-max lg:hidden'>
                 {data.url && (
                   <WebsiteButton link={data.url} text='Visit Website' />
                 )}
@@ -93,11 +101,16 @@ const ProjectPage = ({ data }: Props) => (
         <div className='hidden w-full max-w-xs space-y-8 lg:block'>
           <div className='space-y-4 font-mono'>
             <div className='flex items-center'>
-              <span className='mr-3 material-icons-sharp'>devices</span>
+              <span className='mr-3 select-none material-icons-sharp'>
+                devices
+              </span>
               {data.type}
             </div>
             <div className='flex items-center'>
-              <span className='mr-3 material-icons-sharp' title='Start Date'>
+              <span
+                className='mr-3 select-none material-icons-sharp'
+                title='Start Date'
+              >
                 date_range
               </span>
               {data.date}
@@ -120,7 +133,7 @@ const ProjectPage = ({ data }: Props) => (
   </>
 )
 
-interface ProjectType {
+export interface ProjectType {
   id: string
   icon: string
   img: string
@@ -143,4 +156,3 @@ interface Props {
 }
 
 export default ProjectPage
-export type { ProjectType }

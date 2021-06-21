@@ -1,6 +1,6 @@
 [
   {
-    "id": "foguwa",
+    "id": "FoGUWA",
     "icon": "devices",
     "logo": "foguwa1.png",
     "img": "foguwa2.png",
@@ -9,7 +9,7 @@
     "type": "Progressive Web App",
     "date": "May 2019",
     "purl": "/projects/foguwa",
-    "source": "https://github.com/foguwa/",
+    "source": "https://github.com/codersforcauses/FoGUWA",
     "impact": ["Showcasing of UWA's flora", "Increased community engagment"],
     "desc": "The Friends of the Grounds UWA host campus tours to encourage the University and wider WA community to take an active interest in UWA’s flora on the grounds.\nThe project aims to develop a map-based application for users to know their location during the tour or as they explore the campus independantly. Users can click on plants on the map to learn more about them. Admins will be able to create, edit and delete the plant information and its location in the admin console.",
     "tech": [
@@ -30,7 +30,7 @@
     ]
   },
   {
-    "id": "home2health",
+    "id": "Home2Health",
     "icon": "devices",
     "logo": "home2health1.png",
     "img": "home2health2.png",
@@ -62,7 +62,7 @@
     ]
   },
   {
-    "id": "p2srugby",
+    "id": "P2ARugbyWorks",
     "icon": "devices",
     "logo": "p2s2.png",
     "img": "p2s1.png",
@@ -94,7 +94,7 @@
     ]
   },
   {
-    "id": "ignitementoring",
+    "id": "IgniteMentoring",
     "icon": "computer",
     "logo": "ignite1.png",
     "img": "ignite2.png",
@@ -123,7 +123,7 @@
     ]
   },
   {
-    "id": "homefornow",
+    "id": "HomeForNow",
     "icon": "devices",
     "logo": "anglicare1.png",
     "img": "homefornow.png",

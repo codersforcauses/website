@@ -16,7 +16,7 @@ const Meta = ({
   return (
     <Head>
       <title>
-        {title ? `${title} | ` : null}
+        {title && `${title} | `}
         Coders for Causes
       </title>
       <meta name='description' content={description} />
@@ -27,13 +27,14 @@ const Meta = ({
       <meta name='twitter:image' content={image} />
       <meta name='twitter:url' content={link} />
       <meta property='og:type' content='website' />
-      <meta property='og:url' content={link} />
+      <meta property='og:url' content={link} />\
       <meta property='og:title' content={name} />
       <meta property='og:description' content={description} />
       <meta property='og:image' content={image} />
       <meta property='og:image:width' content='512' />
       <meta property='og:image:height' content='293' />
       <meta property='og:site_name' content='Coders for Causes' />
+      <meta name='theme-color' content='#000000' />
       <meta
         name='viewport'
         content='width=device-width, initial-scale=1, shrink-to-fit=no'

@@ -1,5 +1,6 @@
 import { useState, useCallback } from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
 import dynamic from 'next/dynamic'
 import BrandIcons from '@components/Elements/BrandIcons'
 
@@ -34,11 +35,11 @@ const Footer = () => {
       <div className='container px-3 mx-auto'>
         <div className='flex flex-col md:flex-row'>
           <div className='flex flex-col justify-between mb-3 mr-3 md:mb-0'>
-            <div className='relative w-5/6 h-16 select-none'>
-              <img
+            <div className='relative w-1/2 h-12 select-none md:w-5/6'>
+              <Image
                 src='/logo/cfc_logo_white_full.svg'
                 alt='Coders for Causes wordmark'
-                className='w-auto h-full'
+                layout='fill'
               />
             </div>
             <p className='m-0 font-mono'>

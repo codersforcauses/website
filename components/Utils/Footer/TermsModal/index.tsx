@@ -9,18 +9,18 @@ const TermsModal = (props: { isOpen: boolean; closeModal: () => void }) => (
   >
     <div className='leading-relaxed legal-content'>
       <p className='mb-4'>
-        Welcome to Coders for Causes! We're glad you're here.
+        Welcome to Coders for Causes! We&apos;re glad you&apos;re here.
       </p>
       <p className='mb-4'>
-        This website, www.codersforcauses.org (the "<strong>site</strong>"), is
-        owned and operated by Coders for Causes or cfc in short, and our
-        affiliates ("<strong>Coders for Causes</strong>", "<strong>cfc</strong>
-        ", "<strong>we</strong>" or “<strong>us</strong>
-        ”). By using the site or services provided on the site, you agree to be
-        bound by the following Terms of Service, as updated from time to time
-        (collectively, the "<strong>Terms</strong>"). Please read them
-        carefully. If you don’t agree to these Terms, you may not sign up or use
-        our services.
+        This website, www.codersforcauses.org (the &quot;<strong>site</strong>
+        &quot;), is owned and operated by Coders for Causes or cfc in short, and
+        our affiliates (&quot;<strong>Coders for Causes</strong>&quot;, &quot;
+        <strong>cfc</strong>&quot;, &quot;<strong>we</strong>&quot; or &quot;
+        <strong>us</strong>&quot;). By using the site or services provided on
+        the site, you agree to be bound by the following Terms of Service, as
+        updated from time to time (collectively, the &quot;
+        <strong>Terms</strong>&quot;). Please read them carefully. If you don’t
+        agree to these Terms, you may not sign up or use our services.
       </p>
       <div className='pl-4 ml-6'>
         <h3 className='mb-2 font-mono text-xl font-black list-heading'>
@@ -30,8 +30,8 @@ const TermsModal = (props: { isOpen: boolean; closeModal: () => void }) => (
           <li>
             In order to use most Services, you must register for or authenticate
             into a Coders for Causes account. When you use our application
-            program interfaces ("API"), each request to an API must include one
-            of your account's unique API keys.
+            program interfaces (&quot;API&quot;), each request to an API must
+            include one of your account&apos;s unique API keys.
           </li>
           <li>
             You must ensure that that user username and password is kept
@@ -77,8 +77,8 @@ const TermsModal = (props: { isOpen: boolean; closeModal: () => void }) => (
         <ol className='pl-4'>
           <li>
             You must use the website in a lawful manner, and must obey all laws,
-            rules, and regulations (“Laws”) applicable to your use of the
-            website. As applicable, this may include compliance with both
+            rules, and regulations (&quot;Laws&quot;) applicable to your use of
+            the website. As applicable, this may include compliance with both
             domestic and international Laws.
           </li>
         </ol>

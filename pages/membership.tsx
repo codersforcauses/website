@@ -1,9 +1,9 @@
 import { useState, useContext, useEffect } from 'react'
-import Meta from 'components/Utils/Meta'
 import { useRouter } from 'next/router'
-import SignInPage from 'components/Auth/SignInPage'
-import SignUpPage from 'components/Auth/SignUpPage'
-import { UserContext } from 'helpers/user'
+import Meta from '@components/Utils/Meta'
+import SignInPage from '@components/Auth/SignInPage'
+import SignUpPage from '@components/Auth/SignUpPage'
+import { UserContext } from '@helpers/user'
 
 const Membership = () => {
   const [isSignUp, setIsSignUp] = useState(false)
@@ -16,7 +16,7 @@ const Membership = () => {
 
   useEffect(() => {
     if (user) router.replace(nextRoute ?? '/dashboard')
-  }, [user])
+  }, [nextRoute, router, user])
 
   return (
     <>

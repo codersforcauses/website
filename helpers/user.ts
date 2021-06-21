@@ -1,8 +1,8 @@
 import { createContext, Dispatch, SetStateAction } from 'react'
 
 export const UserContext = createContext<{
-  user: UserProps
-  setUser: Dispatch<SetStateAction<UserProps>>
+  user: UserProps | undefined | null
+  setUser: Dispatch<SetStateAction<UserProps | undefined | null>>
 }>({
   user: undefined,
   setUser: () => {}
@@ -10,7 +10,7 @@ export const UserContext = createContext<{
 export const UserProvider = UserContext.Provider
 export const UserConsumer = UserContext.Consumer
 
-export const DarkContext = createContext(false)
+export const DarkContext = createContext<boolean | undefined>(false)
 export const DarkProvider = DarkContext.Provider
 
 // All functions for user data should be placed below
