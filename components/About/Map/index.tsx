@@ -1,26 +1,24 @@
-/** @jsxImportSource @emotion/react */
-import { useTheme } from '@emotion/react'
-import { memo, useContext, useEffect, useRef } from 'react'
+import { memo, useEffect, useRef } from 'react'
+import { useTheme } from 'next-themes'
 import mapboxgl from 'mapbox-gl'
-import { DarkContext } from 'helpers/user'
-import { styles } from './styles'
+import 'mapbox-gl/dist/mapbox-gl.css'
 
-mapboxgl.accessToken = process.env.NEXT_PUBLIC_MAPBOX_API
+mapboxgl.accessToken = process.env.NEXT_PUBLIC_MAPBOX_API!
 
 const Map = () => {
-  const theme = useTheme()
-  const mapContainer = useRef()
-  const isDark = useContext(DarkContext)
+  const { resolvedTheme: theme } = useTheme()
+
+  const mapContainer = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     const UWA_COORDS: [number, number] = [115.816986, -31.98097] // [lng, lat]
 
     const styledMap = `mapbox://styles/mapbox/${
-      isDark ? 'dark' : 'light'
-    }-v10?optimize=true`
+      theme === 'dark' ? 'dark' : 'light'
+    }-v10`
 
     const map = new mapboxgl.Map({
-      container: mapContainer.current,
+      container: mapContainer.current!,
       style: styledMap,
       center: UWA_COORDS,
       minZoom: 9,
@@ -32,53 +30,56 @@ const Map = () => {
 
     map.on('load', () => {
       map.resize()
-      map.setStyle(styledMap)
 
-      // 3d no longer work
-      // // 3-d buildings
-      // let labelLayerId
-      // const layers = map.getStyle().layers as any
-      // for (let i = 0; i < layers.length; i++) {
-      //   if (layers[i].type === 'symbol' && layers[i].layout['text-field']) {
-      //     labelLayerId = layers[i].id
-      //     break
-      //   }
-      // }
-      // map.addLayer(
-      //   {
-      //     id: '3d-buildings',
-      //     source: 'composite',
-      //     'source-layer': 'building',
-      //     filter: ['==', 'extrude', 'true'],
-      //     type: 'fill-extrusion',
-      //     minzoom: 17.5,
-      //     paint: {
-      //       'fill-extrusion-color': '#333', // #bbb for dark mode
-      //       // use an 'interpolate' expression to add a smooth transition effect to the
-      //       // buildings as the user zooms in
-      //       'fill-extrusion-height': [
-      //         'interpolate',
-      //         ['linear'],
-      //         ['zoom'],
-      //         15,
-      //         0,
-      //         15.05,
-      //         ['get', 'height']
-      //       ],
-      //       'fill-extrusion-base': [
-      //         'interpolate',
-      //         ['linear'],
-      //         ['zoom'],
-      //         15,
-      //         0,
-      //         15.05,
-      //         ['get', 'min_height']
-      //       ],
-      //       'fill-extrusion-opacity': 0.6
-      //     }
-      //   },
-      //   labelLayerId
-      // )
+      // Insert the layer beneath any symbol layer.
+      const layers = map.getStyle().layers as any
+      let labelLayerId
+      for (let i = 0; i < layers?.length; i++) {
+        if (layers?.[i].type === 'symbol' && layers[i].layout['text-field']) {
+          labelLayerId = layers[i].id
+          break
+        }
+      }
+
+      // 3d buildings
+      map.addLayer(
+        {
+          id: 'add-3d-buildings',
+          source: 'composite',
+          'source-layer': 'building',
+          filter: ['==', 'extrude', 'true'],
+          type: 'fill-extrusion',
+          minzoom: 17.5,
+          paint: {
+            'fill-extrusion-color': theme === 'dark' ? '#333' : '#bbb',
+
+            // Use an 'interpolate' expression to
+            // add a smooth transition effect to
+            // the buildings as the user zooms in.
+            'fill-extrusion-height': [
+              'interpolate',
+              ['linear'],
+              ['zoom'],
+              15,
+              0,
+              15.05,
+              ['get', 'height']
+            ],
+            'fill-extrusion-base': [
+              'interpolate',
+              ['linear'],
+              ['zoom'],
+              15,
+              0,
+              15.05,
+              ['get', 'min_height']
+            ],
+            'fill-extrusion-opacity': 0.6
+          }
+        },
+
+        labelLayerId
+      )
 
       // add marker for clubroom location
       new mapboxgl.Marker({ color: '#000000' }).setLngLat(UWA_COORDS).addTo(map)
@@ -103,9 +104,9 @@ const Map = () => {
     })
 
     return () => map.remove()
-  }, [isDark])
+  }, [theme])
 
-  return <div ref={mapContainer} css={styles(theme)} />
+  return <div ref={mapContainer} className='w-full h-full' />
 }
 
 export default memo(Map)

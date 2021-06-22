@@ -11,28 +11,25 @@ const Map = dynamic(() => import('../Map'), { ssr: false })
 const AboutPage = () => (
   <>
     <Title typed>./about</Title>
-    <div className='relative py-12 md:py-24 bg-secondary text-primary dark:bg-alt-dark dark:text-secondary'>
-      <div id='_what_we_do' className='container px-3 mx-auto md:flex'>
-        <div className='flex items-center'>
-          <div className='lg:pr-5'>
-            <h2 className='mb-4 font-mono text-3xl font-black'>
-              We build software for charities
-            </h2>
-            <p className='text-lg'>
-              Coders for Causes is a not for profit organisation that empowers
-              charities and other not for profit organisations by connecting
-              them with university students to develop technical solutions. We
-              are a student-run club based in Perth, Western Australia with a
-              wide range of clients. Whether you are looking for technical
-              advice or a long term project, get in touch with us for more
-              information.
-            </p>
-          </div>
+    <div className='relative bg-secondary text-primary dark:bg-alt-dark dark:text-secondary'>
+      <div className='container grid gap-4 px-3 py-12 mx-auto lg:grid-cols-2 md:py-24'>
+        <div id='_what_we_do'>
+          <h2 className='mb-4 font-mono text-3xl font-black'>
+            We build software for charities
+          </h2>
+          <p className='text-lg'>
+            Coders for Causes is a not for profit organisation that empowers
+            charities and other not for profit organisations by connecting them
+            with university students to develop technical solutions. We are a
+            student-run club based in Perth, Western Australia with a wide range
+            of clients. Whether you are looking for technical advice or a long
+            term project, get in touch with us for more information.
+          </p>
+        </div>
+        <div className='w-full h-64 lg:inset-y-0 lg:right-0 lg:absolute lg:h-full lg:w-1/2'>
+          <Map />
         </div>
       </div>
-      {/* <div className='map'>
-          <Map />
-        </div> */}
     </div>
 
     <div

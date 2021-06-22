@@ -1,4 +1,5 @@
 import { Fragment } from 'react'
+import Image from 'next/image'
 import { ImageProps } from '@helpers/global'
 import BrandIcons from '@components/Elements/BrandIcons'
 
@@ -20,12 +21,16 @@ const CommitteeCard = ({
   picture: { src, alt }
 }: CardItemProps) => (
   <div className='relative flex'>
-    <img
-      width='100%'
-      src={replaceImage(src, ['jerry'], 0.05)}
-      alt={alt}
-      className='flex-grow'
-    />
+    <div className='relative w-full h-96 md:h-64 lg:h-72'>
+      <Image
+        src={replaceImage(src, ['jerry'], 0.05)}
+        alt={alt}
+        layout='fill'
+        objectFit='cover'
+        objectPosition='top'
+        className='w-full h-full'
+      />
+    </div>
     <div className='absolute inset-0 p-4 transition-opacity duration-300 bg-opacity-0 opacity-0 text-secondary bg-primary hover:bg-opacity-80 hover:opacity-100'>
       <p className='font-mono font-black'>{name}</p>
       <p className='mb-1'>{position}</p>

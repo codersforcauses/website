@@ -9,7 +9,7 @@
       "discord": "Cursor"
     },
     "picture": {
-      "src": "/committee/michaeldp_21.jpg",
+      "src": "/committee/michaeldp_21.webp",
       "alt": "CFC President"
     }
   },
@@ -23,7 +23,7 @@
       "discord": "Ben"
     },
     "picture": {
-      "src": "/committee/bendp_21.jpg",
+      "src": "/committee/bendp_21.webp",
       "alt": "CFC Vice President"
     }
   },
@@ -37,7 +37,7 @@
       "discord": "Beaa"
     },
     "picture": {
-      "src": "/committee/beadp_21.jpg",
+      "src": "/committee/beadp_21.webp",
       "alt": "CFC Secretary"
     }
   },
@@ -51,7 +51,7 @@
       "discord": "Han"
     },
     "picture": {
-      "src": "/committee/handp_21.jpg",
+      "src": "/committee/handp_21.webp",
       "alt": "CFC Treasurer"
     }
   },
@@ -66,7 +66,7 @@
       "discord": "Frinze Lapuz"
     },
     "picture": {
-      "src": "/committee/frinzedp_21.jpg",
+      "src": "/committee/frinzedp_21.webp",
       "alt": "CFC Tech Lead"
     }
   },
@@ -80,7 +80,7 @@
       "discord": "iv"
     },
     "picture": {
-      "src": "/committee/ivydp_21.jpg",
+      "src": "/committee/ivydp_21.webp",
       "alt": "CFC Marketing Officer"
     }
   },
@@ -94,7 +94,7 @@
       "discord": "Eddie"
     },
     "picture": {
-      "src": "/committee/eddiedp_21.jpg",
+      "src": "/committee/eddiedp_21.webp",
       "alt": "CFC OCM"
     }
   },
@@ -108,7 +108,7 @@
       "discord": "Div"
     },
     "picture": {
-      "src": "/committee/divdp_21.png",
+      "src": "/committee/divdp_21.webp",
       "alt": "CFC OCM"
     }
   },
@@ -122,7 +122,7 @@
       "discord": "The Doctor"
     },
     "picture": {
-      "src": "/committee/ashdp_21.jpg",
+      "src": "/committee/ashdp_21.webp",
       "alt": "CFC Fresher Rep."
     }
   }
