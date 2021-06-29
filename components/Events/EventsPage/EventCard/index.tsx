@@ -32,13 +32,13 @@ const EventCard = (event: Omit<EventType, 'type'>) => {
           <p>Location: {event.location}</p>
         </div>
         <p>{event.desc}</p>
-        <div className='pt-2'>
+        {/* <div className='pt-2'>
           <Link href={`/events/${event.slug}`}>
             <a className='grid px-4 py-2 font-mono font-black bg-transparent border max-w-max place-items-center border-primary text-primary hover:bg-primary hover:text-secondary focus:bg-primary focus:text-secondary dark:border-secondary dark:text-secondary dark:hover:bg-secondary dark:hover:text-primary dark:focus:bg-secondary dark:focus:text-primary focus:outline-none'>
               Learn more
             </a>
           </Link>
-        </div>
+        </div> */}
       </div>
     </div>
   )

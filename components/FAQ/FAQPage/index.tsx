@@ -4,7 +4,7 @@ import QuestionCard from '../QuestionCard'
 
 const FAQPage = () => (
   <>
-    <Title typed>./Frequently Asked Questions</Title>
+    <Title typed>./frequently asked questions</Title>
     <div className='py-12 md:py-24 bg-secondary text-primary dark:bg-alt-dark dark:text-secondary'>
       <div className='container grid grid-cols-1 gap-6 px-3 mx-auto lg:gap-y-12 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4'>
         {questionList.map(({ id, ...question }) => (

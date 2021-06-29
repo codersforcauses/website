@@ -1,6 +1,5 @@
 import { useCallback, useState } from 'react'
 import Link from 'next/link'
-import { Collapse } from 'reactstrap'
 import constants from '@data/constants.json'
 import Toast from '@components/Elements/Toast'
 import TypedText from '@components/Utils/TypedText'
@@ -12,11 +11,7 @@ import ContactForm from '../ContactForm'
 const HomePage = () => {
   const [contactOpen, setContactOpen] = useState(false)
   const [loadContact, setLoadContact] = useState(false)
-  const [toastMessage, setToastMessage] = useState<ToastProps | null>({
-    status: 'success',
-    message:
-      'ugjvbfhvzjkbdfnsadfkjgahsdbfkasjgdfv akjshdfakshgdfv asdhfv sk ugjvbfhvzjkbdfnsadfkjgahsdbfkasjgdfv akjshdfakshgdfv asdhfv sk ugjvbfhvzjkbdfnsadfkjgahsdbfkasjgdfv akjshdfakshgdfv asdhfv sk'
-  })
+  const [toastMessage, setToastMessage] = useState<ToastProps | null>(null)
 
   const handleClose = useCallback(() => setToastMessage(null), [])
 
@@ -54,13 +49,14 @@ const HomePage = () => {
 
   return (
     <>
-      {/* <Toast open={!!toastMessage?.status} onClose={handleClose}>
-        {toastMessage?.message}
-      </Toast> */}
-      <div
-        className='flex items-center text-secondary bg-primary text-mono hero'
-        // className='hero bg-primary text-secondary d-flex align-items-center rounded-0 text-monospace'
+      <Toast
+        open={!!toastMessage?.status}
+        type={toastMessage?.status}
+        onClose={handleClose}
       >
+        {toastMessage?.message}
+      </Toast>
+      <div className='flex items-center text-secondary bg-primary text-mono hero'>
         <div className='container px-3 mx-auto'>
           <h1 className='font-mono text-3xl font-black leading-snug'>
             <TypedText
@@ -90,7 +86,7 @@ const HomePage = () => {
             are volunteers dedicated to providing you the best results.
           </p>
           <Link href='#_contact_us' passHref>
-            <a className='px-4 py-2 text-xl font-black border bg-primary text-secondary border-primary hover:opacity-75 focus:outline-none focus:ring-inset focus:ring focus:ring-accent dark:bg-transparent dark:border-secondary dark:hover:opacity-100 dark:hover:bg-secondary dark:hover:text-primary dark:focus:ring-opacity-0 dark:focus:bg-secondary dark:focus:text-primary'>
+            <a className='px-4 py-2 text-xl filled-button'>
               Work with us&nbsp;&nbsp;&raquo;
             </a>
           </Link>
@@ -106,43 +102,44 @@ const HomePage = () => {
           <Services />
         </div>
       </div>
-      <div className='pt-12 md:pt-24 bg-primary text-secondary'>
-        <div id='_contact_us' className='container flex px-3 mx-auto'>
+      <div className='py-12 md:py-24 bg-primary text-secondary'>
+        <div id='_contact_us' className='container flex px-3 mx-auto space-x-4'>
           <div className='flex flex-col justify-center flex-grow'>
             <span
               className={`font-mono text-7xl mt-0 ${
                 contactOpen ? 'mb-0' : 'mb-4'
               }`}
             >
-              Let's talk.
+              Let&apos;s talk.
             </span>
-            <Collapse isOpen={!contactOpen}>
-              <div>
-                <a
-                  href={`mailto:${constants.email}`}
-                  target='_blank'
-                  rel='noreferrer noopener'
-                  className='font-mono text-xl md:text-3xl text-secondary hover:underline focus:outline-none focus:ring-inset focus:ring-1 focus:ring-accent focus:ring-opacity-50 focus:ring-offset-primary'
-                >
-                  {constants.email}
-                </a>
-              </div>
-              <button
-                className='px-4 py-2 mt-4 text-lg bg-transparent border border-secondary hover:bg-secondary hover:text-primary focus:outline-none focus:bg-secondary focus:text-primary'
-                onClick={toggleContactOn}
-              >
-                Contact us
-              </button>
-            </Collapse>
-            <Collapse isOpen={contactOpen}>
+            {contactOpen ? (
               <ContactForm
                 loading={loadContact}
                 handleCloseForm={toggleContactOff}
                 handleSubmit={handleContactSubmit}
               />
-            </Collapse>
+            ) : (
+              <>
+                <div>
+                  <a
+                    href={`mailto:${constants.email}`}
+                    target='_blank'
+                    rel='noreferrer noopener'
+                    className='font-mono text-xl md:text-3xl text-secondary hover:underline focus:outline-none focus:ring-inset focus:ring-1 focus:ring-accent focus:ring-opacity-50 focus:ring-offset-primary'
+                  >
+                    {constants.email}
+                  </a>
+                </div>
+                <button
+                  className='px-4 py-2 mt-4 text-lg bg-transparent border max-w-max border-secondary hover:bg-secondary hover:text-primary focus:outline-none focus:bg-secondary focus:text-primary'
+                  onClick={toggleContactOn}
+                >
+                  Contact us
+                </button>
+              </>
+            )}
           </div>
-          <div className='flex-row-reverse hidden md:flex'>
+          <div className='hidden md:flex-row-reverse md:flex'>
             <Face />
           </div>
         </div>

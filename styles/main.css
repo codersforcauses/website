@@ -97,6 +97,16 @@ button {
     @apply absolute top-0 left-0 block w-0.5 h-full bg-primary dark:bg-secondary;
     content: '';
   }
+
+  .progress::-moz-progress-bar {
+    @apply bg-accent;
+  }
+  .progress::-webkit-progress-bar {
+    @apply bg-transparent;
+  }
+  .progress::-webkit-progress-value {
+    @apply bg-accent;
+  }
 }
 
 /*
@@ -116,6 +126,10 @@ This also means all ID's must be prefixed by '_'.
 
 .hero {
   height: calc(50vh - 64px);
+}
+
+.textarea {
+  min-height: 8rem;
 }
 
 @tailwind utilities;
