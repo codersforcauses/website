@@ -114,14 +114,14 @@ const TextField = ({
               type='button'
               disabled={disabled}
               className={[
-                'h-full grid place-items-center py-1 px-2 focus:outline-none focus:bg-opacity-20',
+                'h-full grid place-items-center py-1 px-2 hover:opacity-60 focus:outline-none focus:opacity-60',
                 disabled ? 'pointer-events-none opacity-30' : ''
               ]
                 .join(' ')
                 .trim()}
               onClick={handleClick}
             >
-              <span className='text-2xl material-icons-sharp text-secondary'>
+              <span className='text-2xl text-current material-icons-sharp'>
                 {show ? 'visibility_off' : 'visibility'}
               </span>
             </button>

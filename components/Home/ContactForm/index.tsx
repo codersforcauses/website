@@ -14,15 +14,12 @@ const ContactForm = (props: ContactFormProps) => {
   return (
     <Form<FormValues>
       dark
+      showNote
       disabled={props.loading}
       defaultValues={defaultValues}
       onSubmit={props.handleSubmit}
       className='mt-4 lg:w-3/4'
     >
-      <p className='flex items-center font-mono opacity-75'>
-        <span className='mr-2 select-none material-icons-sharp'>info</span>
-        All fields with * are required
-      </p>
       <TextField
         label='Name'
         name='name'

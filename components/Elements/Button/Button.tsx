@@ -1,13 +1,19 @@
-import { useEffect, useRef, useState } from 'react'
-import { PropsWithChildren, ButtonHTMLAttributes } from 'react'
+import {
+  useEffect,
+  useRef,
+  useState,
+  PropsWithChildren,
+  ButtonHTMLAttributes
+} from 'react'
 
 const Button = ({
   children,
-  type,
-  disabled,
-  loading,
   className,
   dark,
+  disabled,
+  fill,
+  loading,
+  type,
   ...props
 }: PropsWithChildren<ButtonProps>) => {
   const [progress, setProgress] = useState(0)
@@ -19,7 +25,7 @@ const Button = ({
     if (loading) {
       timerRef.current = setTimeout(() => {
         forceUpdate(count + 1)
-      }, count * 50)
+      }, count * 20)
       setFinished(false)
       setProgress(prev => (prev < 90 ? prev + Math.random() * count : prev))
     } else if (finished) {
@@ -42,6 +48,9 @@ const Button = ({
         dark
           ? 'border-secondary text-secondary'
           : 'border-primary text-primary dark:border-secondary dark:text-secondary',
+        fill
+          ? 'bg-primary text-secondary hover:bg-opacity-75 dark:bg-transparent'
+          : undefined,
         disabled
           ? 'cursor-not-allowed'
           : 'hover:bg-primary hover:text-secondary dark:hover:bg-secondary dark:hover:text-primary',
@@ -66,5 +75,6 @@ export default Button
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   dark?: boolean
+  fill?: boolean
   loading?: boolean
 }

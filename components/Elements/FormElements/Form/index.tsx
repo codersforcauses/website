@@ -13,7 +13,8 @@ const Form = <T,>({
   defaultValues,
   children,
   onSubmit,
-  className
+  className,
+  ...props
 }: PropsWithChildren<HookFormProps<T>>) => {
   const methods = useForm({
     defaultValues,
@@ -35,6 +36,12 @@ const Form = <T,>({
         onSubmit={methods.handleSubmit(onSubmit)}
         className={['flex flex-col space-y-4', className || 'mt-4'].join(' ')}
       >
+        {props.showNote && (
+          <p className='flex items-center font-mono opacity-75'>
+            <span className='mr-2 select-none material-icons-sharp'>info</span>
+            All fields with * are required
+          </p>
+        )}
         <FormProvider value={value}>{children}</FormProvider>
       </form>
     </HookFormProvider>
@@ -48,4 +55,5 @@ interface HookFormProps<T> extends UseFormProps {
   disabled?: boolean
   className?: string
   onSubmit: SubmitHandler<T>
+  showNote?: boolean
 }
