@@ -1,130 +1,60 @@
-/** @jsxImportSource @emotion/react */
-import { useTheme } from '@emotion/react'
-import { useCallback, useContext, useState } from 'react'
-import { Field, FormikProps, Form, withFormik } from 'formik'
-import {
-  Button,
-  FormGroup,
-  Label,
-  Input,
-  InputGroup,
-  InputGroupAddon,
-  FormFeedback,
-  UncontrolledAlert
-} from 'reactstrap'
-import Spinner from 'components/Elements/Spinner'
-import { DarkContext } from 'helpers/user'
-import { styles } from './styles'
-import { validationSchema } from './validation'
+import { SubmitHandler } from 'react-hook-form'
+import { Form, TextField } from '@components/Elements/FormElements'
+import { Button } from '@components/Elements/Button'
+import Alert from '@components/Elements/Alert'
+import validationSchema from './validation'
 
-const mapPropsToValues = () => ({
+const defaultValues = {
   studentNumber: '',
   password: ''
-})
-
-const UWAStudent = (props: Props & FormikProps<FormValues>) => {
-  const [passwordVisible, setPasswordVisible] = useState(false)
-  const isDark = useContext(DarkContext)
-
-  const theme = useTheme()
-
-  const setPassVisible = useCallback(
-    () => setPasswordVisible(prev => !prev),
-    []
-  )
-
-  return (
-    <Form css={styles(theme)}>
-      <UncontrolledAlert
-        isOpen={!!props.error}
-        toggle={props.closeError}
-        color='danger'
-        className='rounded-0'
-      >
-        {props.error}
-      </UncontrolledAlert>
-      <FormGroup>
-        <Label for='studentNumber' className='text-monospace'>
-          UWA Student Number
-        </Label>
-        <Input
-          type='text'
-          bsSize='lg'
-          tag={Field}
-          autoComplete='username'
-          disabled={props.loading}
-          placeholder='211234567'
-          id='studentNumber'
-          name='studentNumber'
-          value={props.values.studentNumber}
-          invalid={props.errors.studentNumber && props.touched.studentNumber}
-          className='rounded-0 text-primary border-primary'
-        />
-        <FormFeedback>{props.errors.studentNumber}</FormFeedback>
-      </FormGroup>
-      <FormGroup>
-        <Label for='password' className='text-monospace'>
-          Password
-        </Label>
-        <InputGroup>
-          <Input
-            type={passwordVisible ? 'text' : 'password'}
-            bsSize='lg'
-            tag={Field}
-            disabled={props.loading}
-            placeholder='********'
-            id='password'
-            name='password'
-            value={props.values.password}
-            invalid={props.errors.password && props.touched.password}
-            className='rounded-0 text-primary border-primary border-right-0'
-          />
-          <InputGroupAddon addonType='append'>
-            <Button
-              outline
-              color='primary'
-              disabled={props.loading}
-              className='rounded-0 border-left-0 text-primary bg-secondary d-flex align-items-center justify-content-center'
-              onClick={setPassVisible}
-            >
-              <i className='material-icons-sharp'>
-                {passwordVisible ? 'visibility' : 'visibility_off'}
-              </i>
-            </Button>
-          </InputGroupAddon>
-          <FormFeedback>{props.errors.password}</FormFeedback>
-        </InputGroup>
-      </FormGroup>
-      <Button
-        type='submit'
-        size='lg'
-        outline={isDark}
-        color={isDark ? 'secondary' : 'primary'}
-        disabled={props.loading}
-        className='rounded-0 text-monospace px-4 d-flex align-items-center'
-      >
-        Sign in
-        {props.loading && (
-          <Spinner color='secondary' size='sm' className='ml-2' />
-        )}
-      </Button>
-    </Form>
-  )
 }
 
-export default withFormik<Props, FormValues>({
-  handleSubmit: (values, bag) => bag.props.handleSubmit(values, bag),
-  mapPropsToValues,
-  validationSchema
-})(UWAStudent)
+const UWAStudent = (props: UWAStudentSignInProps) => {
+  return (
+    <>
+      {props.error && (
+        <Alert icon color='danger' className='mt-4'>
+          {props.error}
+        </Alert>
+      )}
+      <Form<FormValues>
+        showNote
+        defaultValues={defaultValues}
+        onSubmit={props.handleSubmit}
+      >
+        <TextField
+          label='UWA Student Number'
+          name='studentNumber'
+          placeholder='211234567'
+          autoComplete='username'
+          rules={validationSchema.studentNumber}
+        />
+        <TextField
+          type='password'
+          label='Password'
+          name='password'
+          placeholder='********'
+          autoComplete='current-password'
+          rules={validationSchema.password}
+        />
+        <Button type='submit' fill className='px-8 font-mono max-w-max'>
+          Sign-in
+        </Button>
+      </Form>
+    </>
+  )
+}
 
 interface FormValues {
   studentNumber: string
   password: string
 }
-interface Props {
-  handleSubmit: (values, bag) => void
+interface UWAStudentSignInProps {
+  handleSubmit: SubmitHandler<FormValues>
   closeError: () => void
   error: string
   loading: boolean
 }
+
+export default UWAStudent
+export type UWAStudentValues = keyof FormValues
