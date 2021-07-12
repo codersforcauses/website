@@ -35,7 +35,7 @@
     "@emotion/react": "11.4.0",
     "@stripe/react-stripe-js": "1.4.1",
     "@stripe/stripe-js": "1.16.0",
-    "bootstrap": "4.6.0",
+    "bootstrap": "5.0.2",
     "critters": "0.0.10",
     "dayjs": "1.10.6",
     "emotion-normalize": "11.0.1",
