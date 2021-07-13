@@ -123,6 +123,9 @@ This also means all ID's must be prefixed by '_'.
   min-width: 100%;
   max-width: 200px;
 }
+.membership {
+  max-width: calc(100vw - 1.5rem);
+}
 
 .hero {
   height: calc(50vh - 64px);

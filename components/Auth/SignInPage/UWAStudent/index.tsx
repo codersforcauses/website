@@ -1,7 +1,7 @@
-import { SubmitHandler } from 'react-hook-form'
 import { Form, TextField } from '@components/Elements/FormElements'
 import { Button } from '@components/Elements/Button'
 import Alert from '@components/Elements/Alert'
+import { SignIn } from '..'
 import validationSchema from './validation'
 
 const defaultValues = {
@@ -9,7 +9,7 @@ const defaultValues = {
   password: ''
 }
 
-const UWAStudent = (props: UWAStudentSignInProps) => {
+const UWAStudent = (props: SignIn<FormValues>) => {
   return (
     <>
       {props.error && (
@@ -19,6 +19,7 @@ const UWAStudent = (props: UWAStudentSignInProps) => {
       )}
       <Form<FormValues>
         showNote
+        disabled={props.disabled}
         defaultValues={defaultValues}
         onSubmit={props.handleSubmit}
       >
@@ -37,7 +38,12 @@ const UWAStudent = (props: UWAStudentSignInProps) => {
           autoComplete='current-password'
           rules={validationSchema.password}
         />
-        <Button type='submit' fill className='px-8 font-mono max-w-max'>
+        <Button
+          type='submit'
+          fill
+          disabled={props.loading || props.disabled}
+          className='px-8 font-mono max-w-max'
+        >
           Sign-in
         </Button>
       </Form>
@@ -48,12 +54,6 @@ const UWAStudent = (props: UWAStudentSignInProps) => {
 interface FormValues {
   studentNumber: string
   password: string
-}
-interface UWAStudentSignInProps {
-  handleSubmit: SubmitHandler<FormValues>
-  closeError: () => void
-  error: string
-  loading: boolean
 }
 
 export default UWAStudent

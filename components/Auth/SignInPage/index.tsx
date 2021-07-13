@@ -3,38 +3,39 @@ import {
   useContext,
   useCallback,
   Dispatch,
-  SetStateAction
+  SetStateAction,
+  useEffect
 } from 'react'
-import { Auth } from '@aws-amplify/auth'
-import {
-  Container,
-  Button,
-  Row,
-  Col,
-  Nav,
-  NavItem,
-  NavLink,
-  TabContent,
-  TabPane
-} from 'reactstrap'
+import { Switch } from '@headlessui/react'
+import { Auth } from 'aws-amplify'
+import { SubmitHandler } from 'react-hook-form'
 import Router from 'next/router'
-import { phemeLogin } from 'helpers/phemeLogin'
-import { UserContext, DarkContext } from 'helpers/user'
-
-import Title from 'components/Utils/Title'
+import { useKeenSlider } from 'keen-slider/react'
+import { phemeLogin } from '@helpers/phemeLogin'
+import { UserContext } from '@helpers/user'
+import Title from '@components/Utils/Title'
 import UWAStudent from './UWAStudent'
 import OtherMember from './OtherMember'
+import 'keen-slider/keen-slider.min.css'
 
-const SignInPage = (props: {
-  route?: string
-  signUp: Dispatch<SetStateAction<boolean>>
-}) => {
+const SignInPage = (props: SignInProps) => {
   const [isUWAStudent, setIsUWAStudent] = useState(true)
   const [loading, setLoading] = useState(false)
   const [errors, setErrors] = useState('')
+  const [sliderRef, slider] = useKeenSlider<HTMLDivElement>({
+    rubberband: false,
+    controls: false,
+    duration: 200,
+    slideChanged(s) {
+      setIsUWAStudent(!!!s.details().relativeSlide)
+    }
+  })
+
+  useEffect(() => {
+    !isUWAStudent ? slider?.next() : slider?.prev()
+  }, [isUWAStudent, slider])
 
   const { setUser } = useContext(UserContext)
-  const isDark = useContext(DarkContext)
 
   const closeError = useCallback(() => setErrors(''), [])
   const goToSignUpPage = useCallback(
@@ -42,10 +43,8 @@ const SignInPage = (props: {
       e.preventDefault()
       props.signUp(true)
     },
-    [props.signUp]
+    [props]
   )
-  const setUWAStudent = useCallback(() => setIsUWAStudent(true), [])
-  const setNotUWAStudent = useCallback(() => setIsUWAStudent(false), [])
 
   const handleSubmit = useCallback(
     async values => {
@@ -61,7 +60,7 @@ const SignInPage = (props: {
             values.studentNumber,
             values.password,
             `${process.env.NEXT_PUBLIC_PHEME_URL}api/login`,
-            process.env.NEXT_PUBLIC_PHEME_TOKEN
+            process.env.NEXT_PUBLIC_PHEME_TOKEN!
           )
 
           if (!phemeResponse.success) throw new Error(phemeResponse.message)
@@ -100,90 +99,71 @@ const SignInPage = (props: {
         setLoading(false)
       }
     },
-    [isUWAStudent]
+    [isUWAStudent, props.route, setUser]
   )
 
   return (
-    <div>
+    <>
       <Title typed>./sign-in</Title>
-      <Container className='py-5 '>
-        <Row>
-          <Col xs={12} tag='p'>
-            Don't have an account?&nbsp;
-            <Button
-              color='link'
-              className={`px-0 mt-n1 rounded-0 text-${
-                isDark ? 'secondary' : 'primary'
-              }`}
-              onClick={goToSignUpPage}
-            >
+      <div className='py-12 bg-secondary text-primary md:py-24 dark:bg-alt-dark dark:text-secondary'>
+        <div className='container px-3 mx-auto'>
+          <p className='mb-4'>
+            Don&apos;t have an account?&nbsp;
+            <button className='hover:underline' onClick={goToSignUpPage}>
               Create one
-            </Button>
+            </button>
             .
-          </Col>
-          <Col md={6}>
-            <Nav tabs className='border-0'>
-              <NavItem className='mr-2'>
-                <NavLink
-                  disabled={loading}
-                  tag='button'
-                  className={`tab-nav rounded-0 text-${
-                    isDark ? 'secondary' : 'primary'
-                  } ${
-                    isUWAStudent
-                      ? `${
-                          isDark
-                            ? 'border-secondary text-secondary'
-                            : 'border-primary text-primary'
-                        }`
-                      : null
-                  }`}
-                  onClick={setUWAStudent}
+          </p>
+          <div className='md:max-w-lg md:w-1/2 membership'>
+            <Switch
+              checked={isUWAStudent}
+              onChange={setIsUWAStudent}
+              className='relative inline-flex flex-shrink-0 w-full h-10 max-w-sm transition-colors duration-200 ease-in-out bg-transparent border cursor-pointer border-primary focus:outline-none focus:ring focus:ring-accent focus:ring-inset dark:border-secondary'
+            >
+              <span className='sr-only'>Event timeline switcher</span>
+              <span className='absolute flex items-center w-full h-full font-mono text-lg font-black z-5'>
+                <span
+                  className={`${
+                    isUWAStudent ? 'text-secondary dark:text-primary' : ''
+                  } w-1/2`}
                 >
                   UWA Student
-                </NavLink>
-              </NavItem>
-              <NavItem>
-                <NavLink
-                  disabled={loading}
-                  tag='button'
-                  className={`tab-nav rounded-0 text-${
-                    isDark ? 'secondary' : 'primary'
-                  } ${
-                    !isUWAStudent
-                      ? `${
-                          isDark
-                            ? 'border-secondary text-secondary'
-                            : 'border-primary text-primary'
-                        }`
-                      : null
-                  }`}
-                  onClick={setNotUWAStudent}
+                </span>
+                <span
+                  className={`${
+                    !isUWAStudent ? 'text-secondary dark:text-primary' : ''
+                  } w-1/2`}
                 >
                   Email Sign-in
-                </NavLink>
-              </NavItem>
-            </Nav>
-            <TabContent activeTab={isUWAStudent ? 1 : 2}>
-              <TabPane tabId={1} className='pt-3'>
+                </span>
+              </span>
+              <span
+                aria-hidden
+                className={`${
+                  isUWAStudent ? 'translate-x-0' : 'translate-x-full'
+                } inline-block w-1/2 h-full transition duration-200 ease-in-out transform pointer-events-none bg-primary ring-0 dark:bg-secondary`}
+              />
+            </Switch>
+            <div ref={sliderRef} className='keen-slider'>
+              <div className='keen-slider__slide'>
                 <UWAStudent
                   loading={loading}
                   error={errors}
-                  closeError={closeError}
+                  disabled={!isUWAStudent}
                   handleSubmit={handleSubmit}
                 />
-              </TabPane>
-              <TabPane tabId={2} className='pt-3'>
+              </div>
+              <div className='keen-slider__slide'>
                 <OtherMember
                   loading={loading}
                   error={errors}
-                  closeError={closeError}
+                  disabled={isUWAStudent}
                   handleSubmit={handleSubmit}
                 />
-              </TabPane>
-            </TabContent>
-          </Col>
-          <Col
+              </div>
+            </div>
+          </div>
+          {/* <Col
             md={{ size: 5, offset: 1 }}
             className='d-none d-md-flex align-items-center'
           >
@@ -192,11 +172,23 @@ const SignInPage = (props: {
               alt='Coder Coding'
               className='img-fluid'
             />
-          </Col>
-        </Row>
-      </Container>
-    </div>
+          </Col> */}
+        </div>
+      </div>
+    </>
   )
 }
 
+interface SignInProps {
+  route?: string
+  signUp: Dispatch<SetStateAction<boolean>>
+}
+interface SignIn<FormValues> {
+  handleSubmit: SubmitHandler<FormValues>
+  disabled: boolean
+  error: string
+  loading: boolean
+}
+
 export default SignInPage
+export type { SignIn }

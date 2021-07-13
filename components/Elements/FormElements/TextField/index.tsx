@@ -78,7 +78,7 @@ const TextField = ({
       <div
         className={[
           'flex flex-col w-full space-y-1',
-          formDisabled || disabled ? 'cursor-not-allowed' : ''
+          formDisabled || disabled ? 'cursor-not-allowed opacity-75' : ''
         ]
           .join(' ')
           .trim()}
@@ -101,7 +101,13 @@ const TextField = ({
             aria-invalid={!!error}
             id={props.name}
             type={type === 'password' && show ? 'text' : type}
-            className='flex-grow bg-transparent border-0 focus:outline-none focus:ring-0'
+            className={[
+              'flex-grow bg-transparent border-0 focus:outline-none focus:ring-0',
+              formDisabled || disabled ? 'pointer-events-none' : ''
+            ]
+              .join(' ')
+              .trim()}
+            disabled={formDisabled || disabled}
             {...register?.(props.name, rules)}
           />
           {error && (
@@ -112,10 +118,10 @@ const TextField = ({
           {type === 'password' && (
             <button
               type='button'
-              disabled={disabled}
+              disabled={formDisabled || disabled}
               className={[
-                'h-full grid place-items-center py-1 px-2 hover:opacity-60 focus:outline-none focus:opacity-60',
-                disabled ? 'pointer-events-none opacity-30' : ''
+                'h-full grid place-items-center py-1 px-2 hover:opacity-60 focus:outline-none focus:ring focus:ring-accent focus:ring-inset',
+                formDisabled || disabled ? 'pointer-events-none' : ''
               ]
                 .join(' ')
                 .trim()}

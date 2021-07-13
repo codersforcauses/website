@@ -1,8 +1,13 @@
-import { object, string } from 'yup'
+import { RegisterOptions } from 'react-hook-form'
+import { OtherStudentValues } from './index'
 
-export const validationSchema = object().shape({
-  email: string()
-    .required('Please enter your email')
-    .email('You must enter a valid email address'),
-  password: string().required('Please enter a password')
-})
+const validationSchema: Record<OtherStudentValues, RegisterOptions> = {
+  email: {
+    required: 'Please enter your email'
+  },
+  password: {
+    required: 'Please enter a password'
+  }
+}
+
+export default validationSchema

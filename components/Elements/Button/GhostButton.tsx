@@ -3,27 +3,25 @@ import { PropsWithChildren, ButtonHTMLAttributes } from 'react'
 const Button = ({
   children,
   dark,
-  disabled,
   className,
   ...props
-}: PropsWithChildren<ButtonProps>) => {
-  return (
-    <button
-      {...props}
-      className={[
-        'px-4 py-2 relative text-lg focus:outline-none',
-        disabled
-          ? 'cursor-not-allowed'
-          : dark
-          ? 'text-secondary hover:bg-secondary hover:bg-opacity-50 hover:text-primary'
-          : 'hover:bg-primary hover:bg-opacity-50 hover:text-secondary focus:ring focus:ring-accent dark:hover:bg-secondary dark:hover:text-primary dark:hover:bg-opacity-50',
-        className
-      ].join(' ')}
-    >
-      <span className='relative z-5'>{children}</span>
-    </button>
-  )
-}
+}: PropsWithChildren<ButtonProps>) => (
+  <button
+    {...props}
+    className={[
+      'px-4 py-2 relative focus:outline-none',
+      dark
+        ? 'text-secondary hover:bg-secondary hover:bg-opacity-10'
+        : 'hover:bg-primary hover:bg-opacity-10 dark:hover:bg-secondary dark:hover:bg-opacity-10',
+      props.disabled
+        ? 'cursor-not-allowed opacity-75'
+        : 'focus:ring focus:ring-accent focus:ring-inset',
+      className
+    ].join(' ')}
+  >
+    <span className='relative z-5'>{children}</span>
+  </button>
+)
 
 export default Button
 

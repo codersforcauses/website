@@ -1,8 +1,10 @@
 import { createContext, Dispatch, SetStateAction } from 'react'
 
+type UserType = UserProps | undefined | null
+
 export const UserContext = createContext<{
-  user: UserProps | undefined | null
-  setUser: Dispatch<SetStateAction<UserProps | undefined | null>>
+  user: UserType
+  setUser: Dispatch<SetStateAction<UserType>>
 }>({
   user: undefined,
   setUser: () => {}

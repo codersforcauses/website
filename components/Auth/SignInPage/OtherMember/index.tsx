@@ -1,45 +1,26 @@
-/** @jsxImportSource @emotion/react */
-import { useTheme } from '@emotion/react'
-import { useCallback, useContext, useState } from 'react'
-import { Auth } from '@aws-amplify/auth'
-import { Field, FormikProps, Form, withFormik } from 'formik'
-import {
-  Button,
-  FormGroup,
-  FormFeedback,
-  Label,
-  Input,
-  InputGroup,
-  InputGroupAddon,
-  UncontrolledAlert
-} from 'reactstrap'
-import Spinner from 'components/Elements/Spinner'
-import { DarkContext } from 'helpers/user'
+import { useCallback, useState } from 'react'
+import { Auth } from 'aws-amplify'
+import { Form, TextField } from '@components/Elements/FormElements'
+import { Button, GhostButton } from '@components/Elements/Button'
+import Alert from '@components/Elements/Alert'
+import { SignIn } from '..'
 import ForgotPasswordModal from './ForgotPasswordModal'
-import { styles } from './styles'
-import { validationSchema } from './validation'
+import validationSchema from './validation'
 
-const mapPropsToValues = () => ({
+const defaultValues: FormValues = {
   email: '',
   password: ''
-})
+}
 
-const OtherMember = (props: Props & FormikProps<FormValues>) => {
-  const [passwordVisible, setPasswordVisible] = useState(false)
+const OtherMember = (props: SignIn<FormValues>) => {
   const [loading, setLoading] = useState(false)
   const [forgotPassword, setForgotPassword] = useState(false)
   const [resetCode, setResetCode] = useState(false)
-  const isDark = useContext(DarkContext)
 
   const [error, setError] = useState('')
 
-  const theme = useTheme()
-
   const closeError = useCallback(() => setError(''), [])
-  const setPassVisible = useCallback(
-    () => setPasswordVisible(prev => !prev),
-    []
-  )
+
   const openModal = useCallback(() => setForgotPassword(true), [])
   const closeModal = useCallback(() => {
     setForgotPassword(false)
@@ -97,91 +78,53 @@ const OtherMember = (props: Props & FormikProps<FormValues>) => {
   const changeStep = useCallback(() => setResetCode(prev => !prev), [])
 
   return (
-    <Form css={styles(theme)}>
-      <UncontrolledAlert
-        isOpen={!!props.error}
-        toggle={props.closeError}
-        color='danger'
-        className='rounded-0'
-      >
-        {props.error}
-      </UncontrolledAlert>
-      <FormGroup>
-        <Label for='email' className='text-monospace'>
-          Email
-        </Label>
-        <Input
-          type='email'
-          bsSize='lg'
-          tag={Field}
-          autoComplete='email'
-          disabled={props.loading}
-          placeholder='hello@codersforcauses.org'
-          id='email'
-          name='email'
-          value={props.values.email}
-          invalid={props.errors.email && props.touched.email}
-          className='rounded-0 text-primary border-primary'
-        />
-        <FormFeedback>{props.errors.email}</FormFeedback>
-      </FormGroup>
-      <FormGroup>
-        <Label for='password' className='text-monospace'>
-          Password
-        </Label>
-        <InputGroup>
-          <Input
-            type={passwordVisible ? 'text' : 'password'}
-            bsSize='lg'
-            tag={Field}
-            disabled={props.loading}
-            placeholder='********'
-            id='password'
-            name='password'
-            value={props.values.password}
-            invalid={props.errors.password && props.touched.password}
-            className='rounded-0 border-primary border-right-0'
-          />
-          <InputGroupAddon addonType='append'>
-            <Button
-              outline
-              color='primary'
-              disabled={props.loading}
-              className='rounded-0 border-left-0 d-flex text-primary bg-secondary align-items-center justify-content-center'
-              onClick={setPassVisible}
-            >
-              <i className='material-icons-sharp'>
-                {passwordVisible ? 'visibility' : 'visibility_off'}
-              </i>
-            </Button>
-          </InputGroupAddon>
-          <FormFeedback>{props.errors.password}</FormFeedback>
-        </InputGroup>
-      </FormGroup>
-      <div className='d-flex'>
+    <Form<FormValues>
+      showNote
+      disabled={props.disabled}
+      defaultValues={defaultValues}
+      onSubmit={props.handleSubmit}
+    >
+      {props.error && (
+        <Alert icon color='danger' className='mt-4'>
+          {props.error}
+        </Alert>
+      )}
+      <TextField
+        label='Email'
+        name='email'
+        type='email'
+        placeholder='hello@codersforcauses.org'
+        autoComplete='email'
+        rules={validationSchema.email}
+      />
+      <TextField
+        type='password'
+        label='Password'
+        name='password'
+        placeholder='********'
+        autoComplete='current-password'
+        rules={validationSchema.password}
+      />
+      <div className='flex justify-between'>
         <Button
           type='submit'
-          size='lg'
-          outline={isDark}
-          color={isDark ? 'secondary' : 'primary'}
-          disabled={props.loading}
-          className='rounded-0 text-monospace px-4 d-flex align-items-center'
+          fill
+          disabled={props.loading || props.disabled}
+          className='px-8 font-mono'
         >
-          Sign in
-          {props.loading && (
-            <Spinner color='secondary' size='sm' className='ml-2' />
-          )}
+          Sign-in
         </Button>
-        <Button
-          color='link'
-          disabled={props.loading}
+        <GhostButton
+          type='button'
+          disabled={props.loading || props.disabled}
+          className='text-sm sm:text-lg'
           onClick={openModal}
-          className={`ml-3 rounded-0 text-${isDark ? 'secondary' : 'primary'}`}
         >
           Forgot Password?
-        </Button>
+        </GhostButton>
       </div>
-      <ForgotPasswordModal
+
+      {/* <ForgotPasswordModal
         loading={loading}
         error={error}
         closeError={closeError}
@@ -191,24 +134,15 @@ const OtherMember = (props: Props & FormikProps<FormValues>) => {
         handlePasswordReset={handleResetCodeSubmit}
         closeModal={closeModal}
         handleSendPasswordResetCode={handleSendPasswordResetCode}
-      />
+      /> */}
     </Form>
   )
 }
-
-export default withFormik<Props, FormValues>({
-  handleSubmit: (values, bag) => bag.props.handleSubmit(values, bag),
-  mapPropsToValues,
-  validationSchema
-})(OtherMember)
 
 interface FormValues {
   email: string
   password: string
 }
-interface Props {
-  handleSubmit: (values, bag) => void
-  closeError: () => void
-  error: string
-  loading: boolean
-}
+
+export default OtherMember
+export type OtherStudentValues = keyof FormValues
