@@ -28,13 +28,13 @@ const Membership = () => {
         image='https://og-social-cards.vercel.app/**.%2Fmembership**.png?theme=dark&md=1&fontSize=125px&images=https%3A%2Fcodersforcauses.org%2Flogo%2Fcfc_logo_white_full.svg'
       />
 
-      {!user ? (
+      {/* {!user ? (
         isSignUp ? (
           <SignUpPage route={nextRoute} signIn={setIsSignUp} />
-        ) : (
-          <SignInPage route={nextRoute} signUp={setIsSignUp} />
-        )
-      ) : null}
+        ) : ( */}
+      <SignInPage route={nextRoute} signUp={setIsSignUp} />
+      {/* )
+      ) : null} */}
     </>
   )
 }

@@ -1,17 +1,4 @@
 import { useCallback, useContext, useState } from 'react'
-import { Field, FormikProps, Form } from 'formik'
-import {
-  Button,
-  FormGroup,
-  FormFeedback,
-  FormText,
-  Label,
-  Input,
-  InputGroup,
-  InputGroupAddon
-} from 'reactstrap'
-import Spinner from 'components/Elements/Spinner'
-import { DarkContext } from 'helpers/user'
 
 const Step2 = (props: Props & FormikProps<FormValues>) => {
   const [passwordVisible, setPasswordVisible] = useState(false)
@@ -143,7 +130,7 @@ const Step2 = (props: Props & FormikProps<FormValues>) => {
           outline={isDark}
           color={isDark ? 'secondary' : 'primary'}
           disabled={props.loading}
-          className='rounded-0 text-monospace px-4 d-flex align-items-center'
+          className='px-4 rounded-0 text-monospace d-flex align-items-center'
         >
           Send
           {props.loading && (

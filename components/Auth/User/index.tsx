@@ -1,6 +1,6 @@
 import { FunctionComponent, useEffect, useMemo, useState } from 'react'
-import { Auth } from '@aws-amplify/auth'
-import { UserProps, UserProvider } from 'helpers/user'
+import { Auth } from 'aws-amplify'
+import { UserProps, UserProvider } from '@helpers/user'
 
 /**
  * The initial value being set to `undefined` or `null` here is important.
@@ -10,7 +10,7 @@ import { UserProps, UserProvider } from 'helpers/user'
  * authenticated, have a failed request, or the check hasn't happened yet.
  */
 const User: FunctionComponent = ({ children }) => {
-  const [user, setUser] = useState<UserProps>(undefined)
+  const [user, setUser] = useState<UserProps | undefined | null>(undefined)
 
   try {
     useEffect(() => {
@@ -39,8 +39,10 @@ const User: FunctionComponent = ({ children }) => {
         }
       }
       if (!user) auth()
+      // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
+    // eslint-disable-next-line react-hooks/rules-of-hooks
     const userValue = useMemo(() => ({ user, setUser }), [user])
 
     return <UserProvider value={userValue}>{children}</UserProvider>

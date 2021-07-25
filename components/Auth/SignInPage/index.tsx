@@ -11,7 +11,6 @@ import { Auth } from 'aws-amplify'
 import { SubmitHandler } from 'react-hook-form'
 import Router from 'next/router'
 import { useKeenSlider } from 'keen-slider/react'
-import { phemeLogin } from '@helpers/phemeLogin'
 import { UserContext } from '@helpers/user'
 import Title from '@components/Utils/Title'
 import UWAStudent from './UWAStudent'
@@ -50,27 +49,7 @@ const SignInPage = (props: SignInProps) => {
     async values => {
       setLoading(true)
 
-      const data = {
-        username: values.email,
-        password: values.password
-      }
       try {
-        if (isUWAStudent) {
-          const phemeResponse = await phemeLogin(
-            values.studentNumber,
-            values.password,
-            `${process.env.NEXT_PUBLIC_PHEME_URL}api/login`,
-            process.env.NEXT_PUBLIC_PHEME_TOKEN!
-          )
-
-          if (!phemeResponse.success) throw new Error(phemeResponse.message)
-
-          // reassign data to use values fetched from pheme login
-          data.username = `${values.studentNumber}@student.uwa.edu.au`
-          data.password = `${values.studentNumber}${process.env.NEXT_PUBLIC_PHEME_SALT}`
-        }
-        const cognitoResponse = await Auth.signIn(data.username, data.password)
-
         // query backend
         const response = await fetch(
           `${process.env.NEXT_PUBLIC_API_URL}users?awsSub=${cognitoResponse.attributes.sub}`

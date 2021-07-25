@@ -6,19 +6,19 @@ module.exports = {
       sans: ['IBM Plex Sans', 'sans-serif'],
       mono: ['IBM Plex Mono', 'mono']
     },
+    colors: {
+      primary: '#000000',
+      secondary: '#ffffff',
+      accent: '#01f1cc',
+      success: '#0070f3',
+      danger: '#ff0000',
+      warning: '#f5a623',
+      alt: {
+        light: '#e9ecef',
+        dark: '#111111'
+      }
+    },
     extend: {
-      colors: {
-        primary: '#000000',
-        secondary: '#ffffff',
-        accent: '#01f1cc',
-        success: '#0070f3',
-        danger: '#ff0000',
-        warning: '#f5a623',
-        alt: {
-          light: '#e9ecef',
-          dark: '#111111'
-        }
-      },
       minWidth: {
         '1/2': '50%'
       },

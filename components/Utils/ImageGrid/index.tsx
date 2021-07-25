@@ -1,8 +1,6 @@
-/** @jsxImportSource @emotion/react */
 import Image from 'next/image'
 import { memo, useEffect, useState } from 'react'
-import { ImageProps } from 'helpers/global'
-import { styles } from './styles'
+import { ImageProps } from '@helpers/global'
 
 const randomise = () => {
   const options = [-1, 0, 1]
@@ -14,14 +12,21 @@ const ImageGrid = ({ images }: ImageGridProps) => {
 
   useEffect(() => {
     setImageList(images.sort(randomise).slice(0, images.length))
-  }, [])
+  }, [images])
 
+  const cols = images.length === 3 ? 'grid-cols-3' : 'grid-cols-2 '
+
+  // TODO: fix cols for image length
   return (
-    <div css={styles(images.length)}>
+    <div
+      className={`grid gap-12 place-items-center md:grid-rows-1 image-grid ${cols}`}
+      style={{ gridTemplateColumns: `repeat(${images.length}, 1fr)` }}
+    >
       {imageList.map(image => (
         <Image
           key={image.alt}
-          {...image}
+          src={image.src}
+          alt={image.alt}
           layout='responsive'
           width={110}
           height={90}

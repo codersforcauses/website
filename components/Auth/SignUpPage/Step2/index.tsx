@@ -50,9 +50,9 @@ const Step1 = (props: { route?: string }) => {
         </p>
       </Col>
       <Col xs={12} md={6}>
-        <Card body outline color='primary' className='rounded-0 text-center'>
+        <Card body outline color='primary' className='text-center rounded-0'>
           <CardText>
-            <i className='material-icons-sharp md-xl'>monetization_on</i>
+            <i className='material-icons-sharp text-8xl'>monetization_on</i>
           </CardText>
 
           <Button color='primary' className='rounded-0' onClick={openCashModal}>
@@ -69,9 +69,9 @@ const Step1 = (props: { route?: string }) => {
         </Card>
       </Col>
       <Col xs={12} md={6}>
-        <Card body inverse color='primary' className='rounded-0 text-center'>
+        <Card body inverse color='primary' className='text-center rounded-0'>
           <CardText>
-            <i className='material-icons-sharp md-xl'>credit_card</i>
+            <i className='text-8xl material-icons-sharp'>credit_card</i>
           </CardText>
 
           <Button

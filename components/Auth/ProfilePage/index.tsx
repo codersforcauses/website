@@ -37,8 +37,8 @@ const ProfilePage = (props: Props) => {
 
   return (
     <div css={styles(theme)}>
-      <Jumbotron className='bg-primary rounded-0 py-5 m-0'>
-        <Container className='my-5 py-4 text-secondary text-monospace'>
+      <Jumbotron className='py-5 m-0 bg-primary rounded-0'>
+        <Container className='py-4 my-5 text-secondary text-monospace'>
           ./profile
         </Container>
       </Jumbotron>
@@ -78,10 +78,10 @@ const ProfilePage = (props: Props) => {
                 {props.user?.bio && <p>{props.user?.bio}</p>}
                 <p>
                   Jeremiah Pinto is a god tier programmer and software
-                  developer, he writes the cleanest code at Coders For Causes .
+                  developer, he writes the cleanest code at Coders For Causes.
                   But he is not a great programmer and is not known for it. When
                   people hear that he is a god tier programmer they assume that
-                  he is the best developer, but they don't know about his
+                  he is the best developer, but they don&apos;t know about his
                   programming background. I was lucky enough to meet him at a
                   conference and got a chance to speak at a conference about
                   computer security, security conferences have really helped me
@@ -96,8 +96,8 @@ const ProfilePage = (props: Props) => {
                   contributes to Coders For Causes from a security standpoint.
                   We also use his Code of Conduct which is a great template in
                   terms of code style. Some of the code he produces for Coders
-                  For Causes is considered dirty and shouldn't see the light of
-                  day, but I love it.
+                  For Causes is considered dirty and shouldn&apos;t see the
+                  light of day, but I love it.
                 </p>
               </>
             )}

@@ -68,16 +68,6 @@ export const globalStyle = (theme, isDark) => css`
     background-color: ${theme.colors[isDark ? 'darkBg' : 'secondary']};
   }
 
-  .text-larger {
-    font-size: 1.5rem;
-  }
-  .md-lg {
-    font-size: 4rem;
-  }
-  .md-xl {
-    font-size: 6rem;
-  }
-
   .tab-nav {
     background: transparent;
     &:hover {

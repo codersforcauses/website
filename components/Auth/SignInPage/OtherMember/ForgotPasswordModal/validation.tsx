@@ -1,12 +1,29 @@
-import { object, string } from 'yup'
+import { RegisterOptions } from 'react-hook-form'
+import { ForgotPasswordValues } from './index'
 
-export const validationSchema = object().shape({
-  email: string()
-    .required('Please enter your email')
-    .email('You must enter a valid email address'),
-  code: string()
-    .required('Please enter the verification code')
-    .matches(/^\d+$/, 'The verification code must be digits only'),
+const validationSchema: Record<ForgotPasswordValues, RegisterOptions> = {
+  email: {
+    required: 'Please enter your email'
+  },
+  code: {
+    required: 'Please enter the verification code',
+    pattern: {
+      value: /^\d+$/,
+      message: 'The verification code must be digits only'
+    }
+  },
+  password: {
+    required: 'Please enter a password'
+  },
+  confirmPassword: {
+    required: 'Please confirm your password',
+    validate: v => v === password || 'Passwords do not match'
+  }
+}
+
+export default validationSchema
+
+const validationSchema = object().shape({
   password: string()
     .required('Please enter a password')
     .min(8, 'Your password must contain at least 8 characters')
@@ -22,10 +39,5 @@ export const validationSchema = object().shape({
     .matches(
       /[*@!#%&()^~{}]+/,
       'Your password must contain at least one special character (@,!,#, etc)'
-    ),
-  confirmPassword: string()
-    .required('Please confirm your password')
-    .test('passwords-match', 'Passwords do not match', function (value) {
-      return this.parent.password === value
-    })
+    )
 })

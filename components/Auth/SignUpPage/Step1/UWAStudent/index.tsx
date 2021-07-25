@@ -1,19 +1,5 @@
-/** @jsxImportSource @emotion/react */
-import { useTheme } from '@emotion/react'
 import { useCallback, useContext, useState } from 'react'
-import { Field, FormikProps, Form, withFormik } from 'formik'
-import {
-  Button,
-  FormGroup,
-  Label,
-  Input,
-  InputGroup,
-  InputGroupAddon,
-  FormFeedback,
-  UncontrolledAlert
-} from 'reactstrap'
 import Spinner from 'components/Elements/Spinner'
-import { DarkContext } from 'helpers/user'
 import { styles } from './styles'
 import { validationSchema } from './validation'
 
@@ -25,8 +11,6 @@ const mapPropsToValues = () => ({
 
 const UWAStudent = (props: Props & FormikProps<FormValues>) => {
   const [passwordVisible, setPasswordVisible] = useState(false)
-  const isDark = useContext(DarkContext)
-  const theme = useTheme()
 
   const setPassVisible = useCallback(
     () => setPasswordVisible(prev => !prev),
@@ -34,11 +18,11 @@ const UWAStudent = (props: Props & FormikProps<FormValues>) => {
   )
 
   return (
-    <Form css={styles(theme)}>
+    <Form>
       <UncontrolledAlert color='success' className='rounded-0'>
         If you are a UWA student, you can sign up using your pheme login
         credentials. If not or you wish to join using another email, please
-        register using 'Email Sign-up'.
+        register using &apos;Email Sign-up&apos;.
       </UncontrolledAlert>
       <UncontrolledAlert
         isOpen={!!props.error}
@@ -127,7 +111,7 @@ const UWAStudent = (props: Props & FormikProps<FormValues>) => {
         outline={isDark}
         color={isDark ? 'secondary' : 'primary'}
         disabled={props.loading}
-        className='rounded-0 px-4 d-flex align-items-center text-monospace'
+        className='px-4 rounded-0 d-flex align-items-center text-monospace'
       >
         Sign Up
         {props.loading && (

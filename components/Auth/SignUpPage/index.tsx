@@ -1,5 +1,4 @@
 import { Dispatch, SetStateAction, useCallback, useState } from 'react'
-import { Container, Carousel, CarouselItem } from 'reactstrap'
 import Title from 'components/Utils/Title'
 import Step1 from './Step1'
 import Step2 from './Step2'

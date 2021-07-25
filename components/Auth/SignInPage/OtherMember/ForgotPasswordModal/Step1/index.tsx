@@ -1,66 +1,36 @@
-import { useCallback, useContext } from 'react'
-import { Field, FormikProps, Form } from 'formik'
-import {
-  Button,
-  FormGroup,
-  FormFeedback,
-  FormText,
-  Label,
-  Input
-} from 'reactstrap'
-import Spinner from 'components/Elements/Spinner'
-import { DarkContext } from 'helpers/user'
+import { useCallback } from 'react'
+import { Form, TextField } from '@components/Elements/FormElements'
+import { SubmitHandler } from 'react-hook-form'
+import { Button, GhostButton } from '@components/Elements/Button'
 
-const Step1 = (props: Props & FormikProps<FormValues>) => {
-  const isDark = useContext(DarkContext)
-  const handleSubmit = useCallback(() => props.submit(props.values.email), [
-    props.values.email
-  ])
+const Step1 = (props: Props) => {
+  const handleSubmit = useCallback(
+    () => props.submit(props?.values?.email),
+    [props]
+  )
   return (
-    <Form>
-      <FormGroup>
-        <Label for='email' className='text-monospace'>
-          Email
-        </Label>
-        <Input
-          type='email'
-          bsSize='lg'
-          tag={Field}
-          autoComplete='email'
-          disabled={props.loading}
-          placeholder='hello@codersforcauses.org'
-          id='email'
-          name='email'
-          value={props.values.email}
-          invalid={props.errors.email && props.touched.email}
-          className='rounded-0 text-primary border-primary'
-        />
-        <FormFeedback>{props.errors.email}</FormFeedback>
-        {!props.errors.email && (
-          <FormText>We'll send you an email with a reset code</FormText>
-        )}
-      </FormGroup>
-      <div className='d-flex align-items-center'>
+    <Form<FormValues>
+      defaultValues={defaultValues}
+      onSubmit={props.handleSubmit}
+    >
+      <TextField
+        type='email'
+        name='email'
+        label='Email'
+        autoComplete='email'
+        placeholder='hello@codersforcauses.org'
+        description="We'll send you an email with a reset code"
+      />
+      <div className='flex align-items-center'>
         <Button
-          size='lg'
-          outline={isDark}
-          color={isDark ? 'secondary' : 'primary'}
           disabled={!props.values.email || props.loading}
-          className='rounded-0 text-monospace px-4 d-flex align-items-center'
           onClick={handleSubmit}
         >
           Send
-          {props.loading && (
-            <Spinner color='secondary' size='sm' className='ml-2' />
-          )}
         </Button>
-        <Button
-          color='link'
-          onClick={props.handleChangeStep}
-          className={`ml-3 text-${isDark ? 'secondary' : 'primary'}`}
-        >
+        <GhostButton onClick={props.handleChangeStep}>
           Have a reset code?
-        </Button>
+        </GhostButton>
       </div>
     </Form>
   )
@@ -72,7 +42,8 @@ interface FormValues {
   email: string
 }
 interface Props {
+  values: any
   loading: boolean
   handleChangeStep: () => void
-  submit: (values) => void
+  submit: SubmitHandler<FormValues>
 }

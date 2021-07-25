@@ -21,6 +21,7 @@
       "@data/*": ["data/*"],
       "@helpers/*": ["helpers/*"],
       "@lib/*": ["lib/*"],
+      "@models/*": ["models/*"],
       "@styles/*": ["styles/*"]
     }
   },

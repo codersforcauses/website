@@ -1,24 +1,17 @@
-import { useContext } from 'react'
-import { FormikProps, withFormik } from 'formik'
-import {
-  Modal,
-  ModalHeader,
-  ModalBody,
-  Button,
-  Alert,
-  UncontrolledAlert
-} from 'reactstrap'
+import { SubmitHandler, useFormContext } from 'react-hook-form'
+import Modal from '@components/Elements/Modal'
+import Alert from '@components/Elements/Alert'
 import Step1 from './Step1'
 import Step2 from './Step2'
-import { validationSchema } from './validation'
-import { DarkContext } from 'helpers/user'
+import validationSchema from './validation'
+import { useRef } from 'react'
 
-const mapPropsToValues = () => ({
+const defaultValues: FormValues = {
   email: '',
   code: '',
   password: '',
   confirmPassword: ''
-})
+}
 
 const ForgotPasswordModal = ({
   isOpen,
@@ -29,53 +22,32 @@ const ForgotPasswordModal = ({
   handleSendPasswordResetCode,
   handlePasswordReset,
   ...props
-}: Props & FormikProps<FormValues>) => {
-  const isDark = useContext(DarkContext)
-
-  const closeBtn = (
-    <Button
-      color='link'
-      className={`p-0 text-${isDark ? 'secondary' : 'primary'}`}
-      onClick={closeModal}
-    >
-      <i className='material-icons-sharp'>close</i>
-    </Button>
-  )
+}: Props) => {
+  const { watch } = useFormContext()
+  const password = useRef({})
+  password.current = watch('password', '')
   return (
-    <Modal centered isOpen={isOpen} toggle={closeModal}>
-      <ModalHeader
-        toggle={closeModal}
-        close={closeBtn}
-        className='bg-transparent border-0 font-weight-bold pb-0'
-      >
-        Forgot Password?
-      </ModalHeader>
-      <ModalBody>
-        <Alert isOpen={isResetStep} color='success' className='rounded-0'>
-          We've sent you an email with a verification code
+    <Modal heading='Forgot Password?' open={isOpen} onClose={closeModal}>
+      {isResetStep && (
+        <Alert color='success' className='rounded-0'>
+          We&apos;ve sent you an email with a verification code
         </Alert>
-        <UncontrolledAlert
-          isOpen={!!error}
-          toggle={closeError}
-          color='danger'
-          className='rounded-0'
-        >
+      )}
+      {error && (
+        <Alert color='danger' className='rounded-0'>
           {error}
-        </UncontrolledAlert>
-        {isResetStep ? (
-          <Step2 {...props} />
-        ) : (
-          <Step1 {...props} submit={handleSendPasswordResetCode} />
-        )}
-      </ModalBody>
+        </Alert>
+      )}
+      {isResetStep ? (
+        <Step2 {...props} />
+      ) : (
+        <Step1 {...props} submit={handleSendPasswordResetCode} />
+      )}
     </Modal>
   )
 }
-export default withFormik<Props, FormValues>({
-  handleSubmit: (values, bag) => bag.props.handlePasswordReset(values, bag),
-  mapPropsToValues,
-  validationSchema
-})(ForgotPasswordModal)
+
+export default ForgotPasswordModal
 
 interface FormValues {
   email: string
@@ -91,6 +63,8 @@ interface Props {
   closeError: () => void
   closeModal: () => void
   handleChangeStep: () => void
-  handleSendPasswordResetCode: (email) => Promise<void>
-  handlePasswordReset: (values, bag) => void
+  handleSendPasswordResetCode: (email: string) => Promise<void>
+  // handlePasswordReset: SubmitHandler<>
 }
+
+export type ForgotPasswordValues = keyof FormValues

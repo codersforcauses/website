@@ -1,23 +1,7 @@
-import {
-  Dispatch,
-  SetStateAction,
-  useCallback,
-  useContext,
-  useState
-} from 'react'
+import { Dispatch, SetStateAction, useCallback, useState } from 'react'
 import Router from 'next/router'
-import {
-  Row,
-  Col,
-  Nav,
-  NavItem,
-  NavLink,
-  TabContent,
-  TabPane
-} from 'reactstrap'
 import { Auth } from '@aws-amplify/auth'
 import { phemeLogin } from 'helpers/phemeLogin'
-import { DarkContext } from 'helpers/user'
 import UWAStudent from './UWAStudent'
 import OtherMember from './OtherMember'
 
@@ -28,8 +12,6 @@ const Step1 = (props: {
   const [isUWAStudent, setIsUWAStudent] = useState(true)
   const [loading, setLoading] = useState(false)
   const [errors, setErrors] = useState('')
-
-  const isDark = useContext(DarkContext)
 
   const closeError = useCallback(() => setErrors(''), [])
   const setUWAStudent = useCallback(() => setIsUWAStudent(true), [])
@@ -52,7 +34,7 @@ const Step1 = (props: {
             values.studentNumber,
             values.password,
             `${process.env.NEXT_PUBLIC_PHEME_URL}api/login`,
-            process.env.NEXT_PUBLIC_PHEME_TOKEN
+            process.env.NEXT_PUBLIC_PHEME_TOKEN!
           )
 
           if (!phemeResponse.success) throw new Error(phemeResponse.message)
@@ -96,8 +78,8 @@ const Step1 = (props: {
     [isUWAStudent]
   )
   return (
-    <Row>
-      <Col xs={12} tag='p'>
+    <>
+      {/* <Col xs={12} tag='p'>
         Already have an account?&nbsp;
         <a
           href=''
@@ -110,7 +92,7 @@ const Step1 = (props: {
           Sign in
         </a>
         .
-      </Col>
+      </Col> */}
       <Col md={6}>
         <Nav tabs className='border-0'>
           <NavItem className='mr-2'>
@@ -174,7 +156,7 @@ const Step1 = (props: {
           </TabPane>
         </TabContent>
       </Col>
-      <Col
+      {/* <Col
         md={{ size: 5, offset: 1 }}
         className='d-none d-md-flex align-items-center'
       >
@@ -183,8 +165,8 @@ const Step1 = (props: {
           alt='Coder Coding'
           className='img-fluid'
         />
-      </Col>
-    </Row>
+      </Col> */}
+    </>
   )
 }
 
