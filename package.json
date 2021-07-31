@@ -40,7 +40,7 @@
     "dayjs": "1.10.6",
     "emotion-normalize": "11.0.1",
     "formik": "2.2.9",
-    "mapbox-gl": "2.3.1",
+    "mapbox-gl": "2.4.0",
     "mongoose": "5.13.5",
     "next": "10.2.3",
     "react": "17.0.2",
