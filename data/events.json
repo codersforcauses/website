@@ -1,5 +1,18 @@
 [
   {
+    "slug": "winter_projects_2021",
+    "tags": ["industry", "social"],
+    "title": "Winter Projects 2021",
+    "image": {
+      "src": "/events/IMG_2021.JPG",
+      "alt": "A winter project workshop"
+    },
+    "date": "26/06/21",
+    "time": "9:30am",
+    "location": "UWA EZONE",
+    "desc": "Get industry level experience and skills by working on fun projects."
+  },
+  {
     "slug": "software_industry_night_2021",
     "tags": ["industry", "social"],
     "title": "Software Industry Night",
