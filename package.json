@@ -31,7 +31,7 @@
     "prepare": "husky install"
   },
   "dependencies": {
-    "@aws-amplify/auth": "3.4.34",
+    "@aws-amplify/auth": "4.3.0",
     "@emotion/react": "11.4.1",
     "@stripe/react-stripe-js": "1.4.1",
     "@stripe/stripe-js": "1.17.1",
