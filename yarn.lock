@@ -1077,10 +1077,10 @@
   resolved "https://registry.yarnpkg.com/@types/scheduler/-/scheduler-0.16.1.tgz#18845205e86ff0038517aab7a18a62a6b9f71275"
   integrity sha512-EaCxbanVeyxDRTQBkdLb3Bvl/HK7PBK6UJjsSixB0iHKoWxE5uu2Q/DgtpOhPIojN0Zl1whvOd7PoHs2P0s5eA==
 
-"@types/simple-icons@4.17.0":
-  version "4.17.0"
-  resolved "https://registry.yarnpkg.com/@types/simple-icons/-/simple-icons-4.17.0.tgz#3818b4fc6856050391ebc0baa00e67acb91287e7"
-  integrity sha512-O5lzofiRRDWfUWnTkAk9N4MDaHxqe+TfrKFlEaz8rgRlav5UWAtLF8TnyeTsuTU3mjjDRm5UpMv4uydkF7ZBQQ==
+"@types/simple-icons@5.8.0":
+  version "5.8.0"
+  resolved "https://registry.yarnpkg.com/@types/simple-icons/-/simple-icons-5.8.0.tgz#f21ae9af517a25cbfbd95ca2b812b9a93e2a66b9"
+  integrity sha512-2HeuJRjOhwCV6jnflcNtI68Xd9WKsVqVpgeokGz2buNyfuq0F0h/QDcPPZzNlK1OnL5zQfdd5jlG6f3ijkTHnw==
 
 "@types/sinonjs__fake-timers@^6.0.2":
   version "6.0.2"
@@ -5779,10 +5779,10 @@ signal-exit@^3.0.2:
   resolved "https://registry.yarnpkg.com/signal-exit/-/signal-exit-3.0.3.tgz#a1410c2edd8f077b08b4e253c8eacfcaf057461c"
   integrity sha512-VUJ49FC8U1OxwZLxIbTTrDvLnf/6TDgxZcK8wxR8zs13xpx7xbG60ndBlhNrFi2EMuFRoeDoJO7wthSLq42EjA==
 
-simple-icons@4.25.0:
-  version "4.25.0"
-  resolved "https://registry.yarnpkg.com/simple-icons/-/simple-icons-4.25.0.tgz#9420fc556f21bd4793718b211ac6d2b1f1069cca"
-  integrity sha512-bnQccBJXKaWECSFKV4jdSDOvJb0om1yNqHf+lSXiE+hTk/R3L1Mz+EfQRgkmVjED2dSZhbZWxGzdC8+cQzSoaA==
+simple-icons@5.11.0:
+  version "5.11.0"
+  resolved "https://registry.yarnpkg.com/simple-icons/-/simple-icons-5.11.0.tgz#dd4f0eb835d70f9ccb26edb5fe7749b128b39de1"
+  integrity sha512-27cA6gKNll9xdxUt0ix3RtA7QA96+lvMZ223RP2gonb5oHlVJQsDS7neXMa22RJtgY6Bvd8SrpAQeFF0MzRq4A==
 
 sirv@^1.0.7:
   version "1.0.11"
