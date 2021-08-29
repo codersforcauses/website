@@ -41,6 +41,10 @@ const Footer = () => {
     () => newTab('https://twitter.com/codersforcauses'),
     []
   )
+  const openMembership = useCallback(
+    () => newTab('https://docs.google.com/forms/d/e/1FAIpQLScPEsHxs1afKNF7Zo9i7JkDgGlg3k-nZowJspsb18ve1odkaA/viewform'),
+    []
+  )
 
   const openTermsModal = useCallback(() => setTermsModal(true), [])
   const closeTermsModal = useCallback(() => setTermsModal(false), [])
@@ -120,6 +124,15 @@ const Footer = () => {
                     Contact us
                   </Button>
                 </Link>
+              </li>
+              <li>
+                <Button
+                color='link'
+                className='text-secondary p-0 rounded-0'
+                onClick={openMembership}
+                >
+                  Join
+                </Button>
               </li>
             </ul>
           </Col>
