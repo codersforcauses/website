@@ -131,7 +131,7 @@ const Footer = () => {
                 className='text-secondary p-0 rounded-0'
                 onClick={openMembership}
                 >
-                  Join
+                  Join us
                 </Button>
               </li>
             </ul>
