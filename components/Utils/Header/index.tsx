@@ -25,6 +25,11 @@ const links: HeaderItemContent[] = [
     href: 'https://guides.codersforcauses.org/',
     text: 'Guides',
     isExternal: true
+  },
+  {
+    href: 'https://docs.google.com/forms/d/e/1FAIpQLScPEsHxs1afKNF7Zo9i7JkDgGlg3k-nZowJspsb18ve1odkaA/viewform',
+    text: 'Join',
+    isExternal: true
   }
 ]
 
@@ -84,16 +89,16 @@ const Header = (props: { handleDarkToggle: () => void }) => {
             user ? (
               <SignedInUser setUser={setUser} name={user.name} id={user._id} />
             ) : null
-            // <Link href='/membership'>
-            //   <Button
-            //     outline
-            //     size='sm'
-            //     color='secondary'
-            //     className='d-none d-md-block rounded-0'
-            //   >
-            //     Membership
-            //   </Button>
-            // </Link>
+            //  <Link href='/membership'>
+            //    <Button
+            //      outline
+            //      size='sm'
+            //      color='secondary'
+            //      className='d-none d-md-block rounded-0'
+            //    >
+            //      Membership
+            //    </Button>
+            //  </Link>
           }
         </div>
       </Container>

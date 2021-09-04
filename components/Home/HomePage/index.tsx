@@ -60,6 +60,11 @@ const HomePage = () => {
       }, 6000)
     }
   }, [])
+  const newTab = useCallback(url => window.open(url, '_blank'), [])
+  const openMembership = useCallback(
+    () => newTab('https://docs.google.com/forms/d/e/1FAIpQLScPEsHxs1afKNF7Zo9i7JkDgGlg3k-nZowJspsb18ve1odkaA/viewform'),
+    []
+  )
 
   return (
     <div css={styles(theme, isDark)}>
@@ -106,6 +111,15 @@ const HomePage = () => {
               Work with us&nbsp;&nbsp;&raquo;
             </Button>
           </Link>
+          <Button
+              size='lg'
+              color={isDark ? 'secondary' : 'primary'}
+              outline={isDark}
+              className='rounded-0'
+              onClick={openMembership}
+            >
+              Join us&nbsp;&nbsp;&raquo;
+            </Button>
         </Container>
       </div>
       <div className='secondary-bg'>
