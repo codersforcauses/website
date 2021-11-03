@@ -34,7 +34,7 @@
     "@aws-amplify/auth": "3.4.34",
     "@emotion/react": "11.5.0",
     "@stripe/react-stripe-js": "1.6.0",
-    "@stripe/stripe-js": "1.21.0",
+    "@stripe/stripe-js": "1.21.1",
     "bootstrap": "4.6.1",
     "critters": "0.0.14",
     "dayjs": "1.10.7",
