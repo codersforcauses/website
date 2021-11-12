@@ -6,6 +6,8 @@
 [![Maintainability](https://img.shields.io/codeclimate/maintainability/codersforcauses/website.svg?style=flat-square)](https://codeclimate.com/github/codersforcauses/website/maintainability)
 [![Cypress.io](https://img.shields.io/badge/tested%20with-Cypress-04C38E.svg?style=flat-square)](https://www.cypress.io/)
 
+![Alt](https://repobeats.axiom.co/api/embed/f27cd0e713c22af6abc7653cae5e4fbee2cc00bc.svg "Repobeats analytics image")
+
 # Coders for Causes website
 
 This repo contains the source for Coders for Causes website.
