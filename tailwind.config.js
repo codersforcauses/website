@@ -7,6 +7,8 @@ module.exports = {
       mono: ['IBM Plex Mono', 'mono']
     },
     colors: {
+      transparent: 'transparent',
+      current: 'currentColor',
       primary: '#000000',
       secondary: '#ffffff',
       accent: '#01f1cc',
