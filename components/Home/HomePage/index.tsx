@@ -56,40 +56,49 @@ const HomePage = () => {
       >
         {toastMessage?.message}
       </Toast>
-      <div className='flex items-center text-secondary bg-primary text-mono hero'>
-        <div className='container px-3 mx-auto'>
-          <h1 className='font-mono text-3xl font-black leading-snug'>
-            <TypedText
-              text={[
-                './Innovation with a mission',
-                './Programming with purpose',
-                './Do good. ^200Write code',
-                './Made with code',
-                './Made with ^500❤',
-                '#include git.c',
-                'class Coders extends Causes',
-                'sudo rm -rf /'
-              ]}
-            />
-          </h1>
-        </div>
-      </div>
-      <div className='dark:bg-alt-dark dark:text-secondary'>
-        <div className='container px-3 py-12 mx-auto md:py-24'>
-          <h2 className='mb-4 font-mono text-3xl font-black'>
-            We are developers.
-          </h2>
-          <p className='mb-6 text-lg'>
-            Coders for Causes are a group of developers that empower charities
-            and non-profit organisations by providing them solutions to their
-            technical problems. We are student powered and all of our members
-            are volunteers dedicated to providing you the best results.
-          </p>
-          <Link href='#_contact_us' passHref>
-            <a className='px-4 py-2 text-xl filled-button'>
-              Work with us&nbsp;&nbsp;&raquo;
+      <div className='py-36 text-secondary bg-primary'>
+        <div className='container grid grid-cols-2 gap-6 px-3 mx-auto'>
+          <div>
+            <h1 className='mb-4 font-mono text-4xl font-black'>
+              We are developers.
+            </h1>
+            <p className='pb-6 text-lg'>
+              Coders for Causes are a group of developers that empower charities
+              and non-profit organisations by providing them solutions to their
+              technical problems. We are student powered and all of our members
+              are volunteers dedicated to providing you the best results.
+            </p>
+            <a
+              href='https://docs.google.com/forms/d/e/1FAIpQLScPEsHxs1afKNF7Zo9i7JkDgGlg3k-nZowJspsb18ve1odkaA/viewform'
+              target='_blank'
+              rel='noreferrer noopener'
+              className='px-4 py-2 mr-4 text-xl font-black border border-secondary bg-secondary text-primary hover:bg-opacity-75 focus:outline-none focus:ring-inset focus:ring focus:ring-accent'
+            >
+              Join Us
             </a>
-          </Link>
+            <Link href='#_contact_us' passHref>
+              <a className='px-4 py-2 text-xl font-black bg-transparent border border-secondary text-secondary hover:bg-secondary hover:text-primary focus:outline-none focus:ring-opacity-0 focus:bg-secondary focus:text-primary'>
+                Work with us&nbsp;&nbsp;&raquo;
+              </a>
+            </Link>
+          </div>
+          <div className='h-full p-4 mx-12 border select-none'>
+            <p className='font-mono text-lg font-black leading-snug'>
+              <span className='mr-4 text-accent'>$</span>
+              <TypedText
+                text={[
+                  'echo "./Innovation with a mission"',
+                  'Programming with purpose',
+                  'Do good. ^200Write code',
+                  'Made with code',
+                  'Made with ^500❤',
+                  '#include git.c',
+                  'yarn add codersforcauses',
+                  'sudo rm -rf /'
+                ]}
+              />
+            </p>
+          </div>
         </div>
       </div>
       <div className='py-12 bg-alt-light dark:bg-primary'>

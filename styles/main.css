@@ -122,10 +122,6 @@ This also means all ID's must be prefixed by '_'.
   max-width: calc(100vw - 1.5rem);
 }
 
-.hero {
-  height: calc(50vh - 64px);
-}
-
 .textarea {
   min-height: 8rem;
 }
