@@ -1,6 +1,6 @@
 import { memo, useEffect, useRef } from 'react'
 import { useTheme } from 'next-themes'
-import mapboxgl from 'mapbox-gl'
+import mapboxgl from '!mapbox-gl'; // eslint-disable-line import/no-webpack-loader-syntax
 import 'mapbox-gl/dist/mapbox-gl.css'
 
 mapboxgl.accessToken = process.env.NEXT_PUBLIC_MAPBOX_API!
@@ -25,7 +25,8 @@ const Map = () => {
       zoom: 9,
       maxZoom: 18.5,
       pitch: 30,
-      antialias: true
+      antialias: true,
+      cooperativeGestures: true
     })
 
     map.on('load', () => {
