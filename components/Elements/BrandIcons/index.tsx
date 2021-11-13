@@ -1,7 +1,7 @@
 import simpleIcon from 'simple-icons'
 
 const BrandIcons = ({ dimensions, icon, ...props }: BrandIconsProps) => {
-  const simIcon = simpleIcon.get(icon)
+  const simIcon = simpleIcon.Get(icon)
   return (
     <svg
       height={dimensions}
