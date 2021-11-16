@@ -57,7 +57,7 @@
     "@types/mapbox-gl": "2.4.2",
     "@types/mongoose": "5.11.96",
     "@types/node": "15.3.1",
-    "@types/react": "17.0.34",
+    "@types/react": "17.0.35",
     "@types/simple-icons": "4.17.0",
     "@types/yup": "0.29.13",
     "sass": "1.43.4",
