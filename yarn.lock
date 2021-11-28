@@ -1098,10 +1098,10 @@
   resolved "https://registry.yarnpkg.com/@types/scheduler/-/scheduler-0.16.1.tgz#18845205e86ff0038517aab7a18a62a6b9f71275"
   integrity sha512-EaCxbanVeyxDRTQBkdLb3Bvl/HK7PBK6UJjsSixB0iHKoWxE5uu2Q/DgtpOhPIojN0Zl1whvOd7PoHs2P0s5eA==
 
-"@types/simple-icons@4.17.0":
-  version "4.17.0"
-  resolved "https://registry.yarnpkg.com/@types/simple-icons/-/simple-icons-4.17.0.tgz#3818b4fc6856050391ebc0baa00e67acb91287e7"
-  integrity sha512-O5lzofiRRDWfUWnTkAk9N4MDaHxqe+TfrKFlEaz8rgRlav5UWAtLF8TnyeTsuTU3mjjDRm5UpMv4uydkF7ZBQQ==
+"@types/simple-icons@5.8.0":
+  version "5.8.0"
+  resolved "https://registry.yarnpkg.com/@types/simple-icons/-/simple-icons-5.8.0.tgz#f21ae9af517a25cbfbd95ca2b812b9a93e2a66b9"
+  integrity sha512-2HeuJRjOhwCV6jnflcNtI68Xd9WKsVqVpgeokGz2buNyfuq0F0h/QDcPPZzNlK1OnL5zQfdd5jlG6f3ijkTHnw==
 
 "@types/sinonjs__fake-timers@^6.0.2":
   version "6.0.2"
