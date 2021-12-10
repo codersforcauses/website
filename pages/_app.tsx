@@ -36,7 +36,7 @@ const Website = ({ Component, pageProps }: AppProps) => {
     <User>
       <ThemeProvider attribute='class'>
         <Header />
-        <main className='main'>
+        <main id='main' className='main'>
           <Component {...pageProps} />
         </main>
         <Footer />

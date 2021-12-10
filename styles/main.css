@@ -112,7 +112,7 @@ This also means all ID's must be prefixed by '_'.
   scroll-margin-top: 4rem;
 }
 
-.image-grid div {
+.image-grid span {
   min-height: 70%;
   max-height: 80px;
   min-width: 100%;
@@ -124,6 +124,10 @@ This also means all ID's must be prefixed by '_'.
 
 .textarea {
   min-height: 8rem;
+}
+
+.modal {
+  height: max-content;
 }
 
 @tailwind utilities;
