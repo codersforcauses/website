@@ -31,11 +31,11 @@
     "prepare": "husky install"
   },
   "dependencies": {
+    "@clerk/nextjs": "2.4.4",
     "@headlessui/react": "1.4.2",
     "@stripe/react-stripe-js": "1.6.0",
     "@stripe/stripe-js": "1.21.2",
     "@tailwindcss/forms": "0.4.0",
-    "aws-amplify": "4.3.10",
     "critters": "0.0.15",
     "dayjs": "1.10.7",
     "keen-slider": "6.3.4",
