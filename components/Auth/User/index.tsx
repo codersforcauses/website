@@ -1,5 +1,5 @@
 import { FunctionComponent, useEffect, useMemo, useState } from 'react'
-import { Auth } from 'aws-amplify'
+import { ClerkProvider } from '@clerk/nextjs'
 import { UserProps, UserProvider } from '@helpers/user'
 
 /**
@@ -16,24 +16,23 @@ const User: FunctionComponent = ({ children }) => {
     useEffect(() => {
       const auth = async () => {
         try {
-          // query cognito
-          const session = await Auth.currentSession()
-          const id = session.getIdToken()
-
-          // query backend
-          const response = await fetch(
-            `${process.env.NEXT_PUBLIC_API_URL}users?awsSub=${
-              id.decodePayload().sub
-            }`
-          )
-          const {
-            data: [user]
-          } = await response.json()
-
-          setUser({
-            ...user,
-            jwt_token: id.getJwtToken()
-          })
+          // need to change signin to clerk.dev
+          // // query cognito
+          // const session = await Auth.currentSession()
+          // const id = session.getIdToken()
+          // // query backend
+          // const response = await fetch(
+          //   `${process.env.NEXT_PUBLIC_API_URL}users?awsSub=${
+          //     id.decodePayload().sub
+          //   }`
+          // )
+          // const {
+          //   data: [user]
+          // } = await response.json()
+          // setUser({
+          //   ...user,
+          //   jwt_token: id.getJwtToken()
+          // })
         } catch (error) {
           setUser(null)
         }
@@ -45,7 +44,11 @@ const User: FunctionComponent = ({ children }) => {
     // eslint-disable-next-line react-hooks/rules-of-hooks
     const userValue = useMemo(() => ({ user, setUser }), [user])
 
-    return <UserProvider value={userValue}>{children}</UserProvider>
+    return (
+      <ClerkProvider>
+        <UserProvider value={userValue}>{children}</UserProvider>
+      </ClerkProvider>
+    )
   } catch (error) {
     return <>{children}</>
   }
