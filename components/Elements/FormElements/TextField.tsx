@@ -3,11 +3,12 @@ import {
   memo,
   useCallback,
   useContext,
+  useEffect,
   useState
 } from 'react'
 import { RegisterOptions } from 'react-hook-form'
 import { FormContext } from 'lib/context/form'
-import { FieldControl, FieldLabel, FieldMessage } from '../utils'
+import { FieldControl, FieldLabel, FieldMessage } from './utils'
 
 interface TextFieldProps extends InputHTMLAttributes<HTMLInputElement> {
   /**
@@ -22,6 +23,10 @@ interface TextFieldProps extends InputHTMLAttributes<HTMLInputElement> {
    * Display label or make it sr-only
    */
   noLabel?: boolean
+  /**
+   * Sets input to focus
+   */
+  setFocused?: boolean
   /**
    * Validation rules
    */
@@ -45,6 +50,7 @@ const TextField = ({
   rules = {},
   noLabel,
   prefix,
+  setFocused,
   ...props
 }: TextFieldProps) => {
   const [show, setShow] = useState(false)
@@ -56,7 +62,8 @@ const TextField = ({
     dark,
     formState,
     disabled: formDisabled,
-    register
+    register,
+    setFocus
   } = useContext(FormContext)
   const error: string = formState?.errors?.[props.name]?.message
 
@@ -68,6 +75,11 @@ const TextField = ({
     number.type = 'text'
     number.inputMode = 'decimal'
   }
+
+  useEffect(() => {
+    setFocused && setFocus?.(props.name)
+  }, [setFocus])
+
   return (
     <FieldControl
       name={props.name}

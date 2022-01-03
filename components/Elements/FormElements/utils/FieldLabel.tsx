@@ -32,7 +32,7 @@ const FieldLabel = forwardRef<
           <i>required</i>
         ) : (
           <>
-            <span aria-hidden className='opacity-50'>
+            <span aria-hidden className='opacity-50 select-none'>
               *
             </span>
             <i className='sr-only'>required</i>

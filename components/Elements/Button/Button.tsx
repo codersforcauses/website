@@ -10,6 +10,7 @@ const Button = ({
   children,
   className,
   dark,
+  disabled,
   fill,
   loading,
   type,
@@ -42,6 +43,7 @@ const Button = ({
   return (
     <button
       {...props}
+      disabled={disabled || loading}
       className={[
         'px-4 py-2 relative text-lg border border-primary dark:border-secondary focus:outline-none focus:ring focus:ring-accent focus:ring-inset',
         dark
@@ -50,9 +52,10 @@ const Button = ({
         fill
           ? 'bg-primary text-secondary hover:bg-opacity-75 dark:bg-transparent'
           : undefined,
-        props.disabled
+        disabled || loading
           ? 'cursor-not-allowed opacity-75'
           : 'hover:bg-primary hover:text-secondary dark:hover:bg-secondary dark:hover:text-primary',
+        loading ? 'cursor-wait' : '',
         className
       ]
         .join(' ')

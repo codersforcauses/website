@@ -1,7 +1,7 @@
 import { InputHTMLAttributes, memo, useContext } from 'react'
 import { RegisterOptions } from 'react-hook-form'
 import { FormContext } from 'lib/context/form'
-import { FieldControl, FieldLabel, FieldMessage } from '../utils'
+import { FieldControl, FieldLabel, FieldMessage } from './utils'
 
 export interface TextAreaProps
   extends InputHTMLAttributes<HTMLTextAreaElement> {

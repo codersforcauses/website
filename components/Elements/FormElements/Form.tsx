@@ -20,15 +20,16 @@ const Form = <T,>({
     defaultValues,
     mode: 'onSubmit'
   })
-  const { register, formState } = methods
+  const { register, formState, setFocus } = methods
   const value: FormProps = useMemo(
     () => ({
       dark,
       disabled,
       register,
-      formState
+      formState,
+      setFocus
     }),
-    [dark, disabled, formState, register]
+    [dark, disabled, formState, register, setFocus]
   )
   return (
     <HookFormProvider {...methods}>
@@ -37,7 +38,7 @@ const Form = <T,>({
         className={['flex flex-col space-y-4', className || 'mt-4'].join(' ')}
       >
         {props.showNote && (
-          <p className='flex items-center font-mono opacity-75'>
+          <p className='flex items-center font-mono text-primary/75 dark:text-secondary/75'>
             <span className='mr-2 select-none material-icons-sharp'>info</span>
             All fields with * are required
           </p>
