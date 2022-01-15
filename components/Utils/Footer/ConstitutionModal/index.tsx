@@ -12,17 +12,17 @@ const ConstitutionModal = (props: {
   >
     <div className='pl-4 ml-6 leading-relaxed legal-content'>
       <h3 className='mb-2 font-mono text-xl font-black list-heading'>Name</h3>
-      <ol>
+      <ol role='list'>
         <li>The formal name of the club shall be Coders for Causes.</li>
         <li>The club may also choose to go by CFC.</li>
       </ol>
       <h3 className='mb-2 font-mono text-xl font-black list-heading'>
         Objectives
       </h3>
-      <ol>
+      <ol role='list'>
         <li>
           To encourage and facilitate:
-          <ul className='pl-3'>
+          <ul className='pl-3' role='list'>
             <li>To become and remain affiliated to Societies Council.</li>
             <li>
               To encourage and promote cooperation between the Club and other
@@ -45,10 +45,10 @@ const ConstitutionModal = (props: {
       <h3 className='mb-2 font-mono text-xl font-black list-heading'>
         Ordinary Membership
       </h3>
-      <ol>
+      <ol role='list'>
         <li>
           Ordinary membership shall be confined to:
-          <ul className='pl-3'>
+          <ul className='pl-3' role='list'>
             <li>Members of the Guild</li>
             <li>Associates of the Guild</li>
             <li>Honorary Life Associates of the Guild</li>
@@ -65,11 +65,11 @@ const ConstitutionModal = (props: {
       <h3 className='mb-2 font-mono text-xl font-black list-heading'>
         Associateship of the club
       </h3>
-      <ol>
+      <ol role='list'>
         <li>
           The Club in General Meeting may from time to time admit persons to
           associateship that are, or have been:
-          <ul className='pl-3'>
+          <ul className='pl-3' role='list'>
             <li>Members of the Guild</li>
             <li>Associates of the Guild</li>
             <li>Honorary Life Associates of the Guild</li>
@@ -82,7 +82,7 @@ const ConstitutionModal = (props: {
       <h3 className='mb-2 font-mono text-xl font-black list-heading'>
         Subscriptions
       </h3>
-      <ol>
+      <ol role='list'>
         <li>
           The annual subscription for ordinary membership shall be an absolute
           minimum of $4.
@@ -95,7 +95,7 @@ const ConstitutionModal = (props: {
       <h3 className='mb-2 font-mono text-xl font-black list-heading'>
         Honorary Life Members
       </h3>
-      <ol>
+      <ol role='list'>
         <li>
           The Club may in General Meeting by two-thirds majority of those
           present and voting confer Honorary Life Membership upon any member who
@@ -105,10 +105,10 @@ const ConstitutionModal = (props: {
       <h3 className='mb-2 font-mono text-xl font-black list-heading'>
         Primacy of Ordinary Members
       </h3>
-      <ol>
+      <ol role='list'>
         <li>
           Members other than Ordinary Members shall not:
-          <ul className='pl-3'>
+          <ul className='pl-3' role='list'>
             <li>Be voting members of the Club.</li>
             <li>
               Nominate candidates for the offices and Committee of the Club.
@@ -124,7 +124,7 @@ const ConstitutionModal = (props: {
       <h3 className='mb-2 font-mono text-xl font-black list-heading'>
         Meeting of the Club
       </h3>
-      <ol>
+      <ol role='list'>
         <li>
           The Club shall hold its Annual General Meeting in March of each
           academic year. There shall be one Ordinary General Meeting(s) of the
@@ -153,7 +153,7 @@ const ConstitutionModal = (props: {
       <h3 className='mb-2 font-mono text-xl font-black list-heading'>
         Provisions Governing General Meetings
       </h3>
-      <ol>
+      <ol role='list'>
         <li>
           The Secretary shall cause written notice of any General Meeting to be
           posted on the Guild notice boards, or in Guild mailing services, at
@@ -178,7 +178,7 @@ const ConstitutionModal = (props: {
         <li>
           The Annual General Meeting of the club must be supervised by at least
           one Returning Officer who shall:
-          <ol>
+          <ol role='list'>
             {/* // TODO */}
             <li>Not be contesting the election</li>
             <li>
@@ -192,7 +192,7 @@ const ConstitutionModal = (props: {
         </li>
       </ol>
       <h3 className='mb-2 font-mono text-xl font-black list-heading'>Patron</h3>
-      <ol>
+      <ol role='list'>
         <li>
           The Club may, at the Annual General Meeting, elect a patron who shall,
           if they indicate their willingness to do so, hold office until the
@@ -203,7 +203,7 @@ const ConstitutionModal = (props: {
       <h3 className='mb-2 font-mono text-xl font-black list-heading'>
         Nominations
       </h3>
-      <ol>
+      <ol role='list'>
         <li>
           At least seven days before the Annual General Meeting, the Secretary
           shall call for nominations for the Executive Office Bearers and
@@ -218,7 +218,7 @@ const ConstitutionModal = (props: {
       <h3 className='mb-2 font-mono text-xl font-black list-heading'>
         Executive Office Bearers
       </h3>
-      <ol>
+      <ol role='list'>
         <li>
           The Executive Office Bearers of the Club shall be elected by the
           Ordinary Members of the Club at the Annual General Meeting and shall
@@ -261,7 +261,7 @@ const ConstitutionModal = (props: {
           The Committee in meeting may dismiss an Elected Office-Bearer where,
           in the opinion of three quarters of the members of the Committee
           present and voting, that Elected Office-Bearer has:
-          <ol>
+          <ol role='list'>
             {/* // TODO */}
             <li>
               Consistently failed adequately to discharge the duties of that
@@ -285,10 +285,10 @@ const ConstitutionModal = (props: {
       <h3 className='mb-2 font-mono text-xl font-black list-heading'>
         The Committee
       </h3>
-      <ol>
+      <ol role='list'>
         <li>
           The Committee of the Club shall only consist of:
-          <ol>
+          <ol role='list'>
             {/* // TODO */}
             <li>The Executive Office Bearers;</li>
             <li>
@@ -312,7 +312,7 @@ const ConstitutionModal = (props: {
       <h3 className='mb-2 font-mono text-xl font-black list-heading'>
         Duration of Office
       </h3>
-      <ol>
+      <ol role='list'>
         <li>
           The Executive Office Bearers and the Ordinary Committee members shall
           remain in office until the next Annual General Meeting.
@@ -331,7 +331,7 @@ const ConstitutionModal = (props: {
       <h3 className='mb-2 font-mono text-xl font-black list-heading'>
         Vacancies
       </h3>
-      <ol>
+      <ol role='list'>
         <li>
           If an Office Bearer resigns or ceases to hold office for any reason
           the remaining members of the Committee shall forthwith fill the
@@ -343,7 +343,7 @@ const ConstitutionModal = (props: {
       <h3 className='mb-2 font-mono text-xl font-black list-heading'>
         Committee Meetings
       </h3>
-      <ol>
+      <ol role='list'>
         <li>
           The Committee shall meet at such times and places as the President
           shall determine.
@@ -368,7 +368,7 @@ const ConstitutionModal = (props: {
       <h3 className='mb-2 font-mono text-xl font-black list-heading'>
         Quorum and Procedure of Committee
       </h3>
-      <ol>
+      <ol role='list'>
         <li>
           The quorum of the Committee shall be 5 of whom at least two shall be
           Office Bearers.
@@ -389,7 +389,7 @@ const ConstitutionModal = (props: {
         carrying on its everyday business, and without prejudice to the
         generality of the foregoing, have the power to:
       </p>
-      <ol>
+      <ol role='list'>
         <li>
           Acquire and dispose of property; dispose of monies; open banking
           accounts; and enter into contracts. Unless acting under a special
@@ -412,7 +412,7 @@ const ConstitutionModal = (props: {
         </li>
       </ol>
       <h3 className='mb-2 font-mono text-xl font-black list-heading'>Chair</h3>
-      <ol>
+      <ol role='list'>
         <li>
           The President shall have the right to take the Chair at any meeting of
           the Club or of the Committee.
@@ -430,12 +430,12 @@ const ConstitutionModal = (props: {
       <h3 className='mb-2 font-mono text-xl font-black list-heading'>
         President
       </h3>
-      <ol>
+      <ol role='list'>
         <li>
           In addition to any provisions set out elsewhere in this Constitution
           or in any By-Laws or Regulations made hereunder, it shall be the duty
           of the President to:
-          <ol>
+          <ol role='list'>
             {/* // TODO */}
             <li>
               Coordinate and supervise the work of the Executive Office Bearers,
@@ -456,12 +456,12 @@ const ConstitutionModal = (props: {
       <h3 className='mb-2 font-mono text-xl font-black list-heading'>
         Vice-President
       </h3>
-      <ol>
+      <ol role='list'>
         <li>
           In addition to any provisions set out elsewhere in the Constitution or
           in any By-Laws or Regulations made hereunder, it shall be the duty of
           the Vice-President to:
-          <ol>
+          <ol role='list'>
             {/* // TODO */}
             <li>
               Seek, engage and maintain client relationships, as well as source
@@ -474,12 +474,12 @@ const ConstitutionModal = (props: {
       <h3 className='mb-2 font-mono text-xl font-black list-heading'>
         Technical Lead
       </h3>
-      <ol>
+      <ol role='list'>
         <li>
           In addition to any provisions set out elsewhere in the Constitution or
           in any By-Laws or Regulations made hereunder, it shall be the duty of
           the Technical Lead:
-          <ol>
+          <ol role='list'>
             {/* // TODO */}
             <li>
               To advise the Committee on technical and development related
@@ -499,12 +499,12 @@ const ConstitutionModal = (props: {
       <h3 className='mb-2 font-mono text-xl font-black list-heading'>
         Secretary
       </h3>
-      <ol>
+      <ol role='list'>
         <li>
           In addition to any provisions set out elsewhere in the Constitution or
           in any By-Laws or Regulations made hereunder, it shall be the duty of
           the Secretary:
-          <ol>
+          <ol role='list'>
             {/* // TODO */}
             <li>
               To record all proceedings of the Club and the Committee in a Club
@@ -513,7 +513,7 @@ const ConstitutionModal = (props: {
             </li>
             <li>
               To conduct and keep copies of all correspondence of the Club:
-              <ul>
+              <ul role='list'>
                 <li>
                   To supply the Secretary of the Societies Council before the
                   end of the first academic semester the information required to
@@ -552,7 +552,7 @@ const ConstitutionModal = (props: {
       <h3 className='mb-2 font-mono text-xl font-black list-heading'>
         Treasurer
       </h3>
-      <ol>
+      <ol role='list'>
         <li>
           In addition to any provisions set out elsewhere in the Constitution or
           in any By-Laws or Regulations made hereunder, it shall be the duty of
@@ -589,7 +589,7 @@ const ConstitutionModal = (props: {
       <h3 className='mb-2 font-mono text-xl font-black list-heading'>
         Treasurer
       </h3>
-      <ol>
+      <ol role='list'>
         <li>
           All monies due and payable to the Club shall be received by the
           Treasurer who shall lodge them without undue delay with Guild Finance
@@ -608,7 +608,7 @@ const ConstitutionModal = (props: {
       <h3 className='mb-2 font-mono text-xl font-black list-heading'>
         Payments
       </h3>
-      <ol>
+      <ol role='list'>
         <li>
           No payments shall be made on behalf or in the name of the Club unless
           it has been authorised by the Executive Office Bearers, in accordance
@@ -618,7 +618,7 @@ const ConstitutionModal = (props: {
       <h3 className='mb-2 font-mono text-xl font-black list-heading'>
         Major Obligations to Guild
       </h3>
-      <ol>
+      <ol role='list'>
         <li>
           The Club shall comply with the Regulation of the Guild, the Rules of
           the Societies Council, and all other provisions enrolled upon the
@@ -633,7 +633,7 @@ const ConstitutionModal = (props: {
       <h3 className='mb-2 font-mono text-xl font-black list-heading'>
         Expulsion of Members
       </h3>
-      <ol>
+      <ol role='list'>
         <li>
           The Committee may by unanimous vote request any member or associate
           member to resign from the Club, and in the event shall cause written
@@ -655,7 +655,7 @@ const ConstitutionModal = (props: {
       <h3 className='mb-2 font-mono text-xl font-black list-heading'>
         Availability of Constitution
       </h3>
-      <ol>
+      <ol role='list'>
         <li>
           The Committee shall make this Constitution available on request to all
           Ordinary Members.
@@ -664,7 +664,7 @@ const ConstitutionModal = (props: {
       <h3 className='mb-2 font-mono text-xl font-black list-heading'>
         Interpretation
       </h3>
-      <ol>
+      <ol role='list'>
         <li>
           Subject to any provisions enrolled upon the Guild Statutes book and to
           any resolution passed by Guild Council, or the Societies Council, the
@@ -676,7 +676,7 @@ const ConstitutionModal = (props: {
       <h3 className='mb-2 font-mono text-xl font-black list-heading'>
         Amendment of This Constitution
       </h3>
-      <ol>
+      <ol role='list'>
         <li>
           Any two financial Ordinary Members of the Club may not less than three
           days before the day appointed for the next General Meeting submit to
@@ -701,7 +701,7 @@ const ConstitutionModal = (props: {
       <h3 className='mb-2 font-mono text-xl font-black list-heading'>
         Dissolution of the Club
       </h3>
-      <ol>
+      <ol role='list'>
         <li>
           If upon the dissolution of the club, any property of the club remains
           after satisfaction of the debts and liabilities of the club that

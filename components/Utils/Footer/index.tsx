@@ -31,12 +31,13 @@ const Footer = () => {
   )
 
   return (
-    <footer className='pt-6 pb-3 bg-primary text-secondary' data-cy='footer'>
-      <div className='container px-3 mx-auto'>
+    <footer className='py-6 bg-primary text-secondary' data-cy='footer'>
+      <div className='container px-3 mx-auto space-y-6'>
         <div className='flex flex-col md:flex-row'>
           <div className='flex flex-col justify-between mb-3 mr-3 md:mb-0'>
             <div className='relative w-1/2 h-12 select-none md:w-5/6'>
               <Image
+                priority
                 src='/logo/cfc_logo_white_full.svg'
                 alt='Coders for Causes wordmark'
                 layout='fill'
@@ -177,7 +178,7 @@ const Footer = () => {
             </div>
           </div>
         </div>
-        <div className='flex flex-col mt-5 space-y-3 md:flex-row md:space-y-0 md:items-center md:justify-between md:space-x-3'>
+        <div className='flex flex-col space-y-3 md:flex-row md:space-y-0 md:items-center md:justify-between md:space-x-3'>
           <p className='font-mono text-xs md:m-0' data-cy='copyrightnotice'>
             &copy; {new Date().getFullYear()} Coders for Causes
           </p>
