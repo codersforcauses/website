@@ -1,5 +1,5 @@
 import { InputHTMLAttributes, memo, useContext } from 'react'
-import { RegisterOptions } from 'react-hook-form'
+import { RegisterOptions, useWatch } from 'react-hook-form'
 import { FormContext } from 'lib/context/form'
 import { FieldControl, FieldLabel, FieldMessage } from './utils'
 
@@ -13,6 +13,10 @@ export interface TextAreaProps
    * Name for input
    */
   name: string
+  /**
+   * Counter for input
+   */
+  counter?: number | boolean
   /**
    * Display label or make it sr-only
    */
@@ -30,6 +34,7 @@ export interface TextAreaProps
 const TextArea = ({
   disabled = false,
   required = false,
+  counter,
   label,
   description,
   rules = {},
@@ -44,6 +49,10 @@ const TextArea = ({
     register
   } = useContext(FormContext)
   const error: string = formState?.errors?.[props.name]?.message
+
+  const text: string = useWatch({ name: props.name })
+
+  const length = text.length
 
   return (
     <FieldControl
@@ -63,23 +72,30 @@ const TextArea = ({
         <FieldLabel dark={dark} noLabel={noLabel} className='font-mono'>
           {label}
         </FieldLabel>
-        <textarea
-          {...props}
-          aria-describedby={`${props.name}-label`}
-          aria-invalid={!!error}
-          id={props.name}
-          className={[
-            'flex-grow bg-transparent border resize-y textarea focus:outline-none focus:ring-0 focus:border-current',
-            dark
-              ? 'border-secondary text-secondary'
-              : 'border-primary text-primary dark:border-secondary dark:text-secondary',
-            error ? 'pr-8' : '',
-            className
-          ]
-            .join(' ')
-            .trim()}
-          {...register?.(props.name, rules)}
-        />
+        <div className='relative'>
+          <textarea
+            {...props}
+            aria-describedby={`${props.name}-label`}
+            aria-invalid={!!error}
+            id={props.name}
+            className={[
+              'w-full bg-transparent border resize-y textarea focus:outline-none focus:ring-0 focus:border-current',
+              dark
+                ? 'border-secondary text-secondary'
+                : 'border-primary text-primary dark:border-secondary dark:text-secondary',
+              error ? 'pr-8' : '',
+              className
+            ]
+              .join(' ')
+              .trim()}
+            {...register?.(props.name, rules)}
+          />
+          {counter && (
+            <span className='absolute text-xs opacity-80 bottom-1 right-1'>
+              {typeof counter === 'number' ? `${length}/${counter}` : length}
+            </span>
+          )}
+        </div>
         {error && (
           <span className='absolute select-none top-9 right-1.5 material-icons-sharp text-danger'>
             error_outline
