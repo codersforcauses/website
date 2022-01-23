@@ -33,12 +33,9 @@
   "dependencies": {
     "@clerk/nextjs": "2.4.4",
     "@headlessui/react": "1.4.2",
-    "@stripe/react-stripe-js": "1.7.0",
-    "@stripe/stripe-js": "1.22.0",
     "@tailwindcss/forms": "0.4.0",
     "critters": "0.0.15",
     "dayjs": "1.10.7",
-    "keen-slider": "6.6.2",
     "mapbox-gl": "2.6.1",
     "mongoose": "6.1.4",
     "next": "12.0.7",
@@ -51,25 +48,21 @@
     "typed.js": "2.0.12"
   },
   "devDependencies": {
-    "@cypress/react": "5.12.0",
-    "@cypress/webpack-dev-server": "1.8.0",
-    "@next/bundle-analyzer": "12.0.7",
     "@types/mapbox-gl": "2.6.0",
     "@types/node": "17.0.5",
     "@types/react": "17.0.38",
     "autoprefixer": "10.4.0",
-    "cypress": "9.2.0",
-    "html-webpack-plugin": "5",
     "postcss": "8.4.5",
     "tailwindcss": "3.0.7",
-    "typescript": "4.5.4",
-    "webpack": "5",
-    "webpack-dev-server": "4.7.1"
+    "typescript": "4.5.4"
   },
   "optionalDependencies": {
+    "@next/bundle-analyzer": "12.0.7",
+    "cypress": "9.2.0",
     "eslint": "8.4.1",
     "eslint-config-next": "12.0.7",
     "eslint-plugin-jsx-a11y": "6.5.1",
-    "husky": "7.0.4"
+    "husky": "7.0.4",
+    "start-server-and-test": "1.14.0"
   }
 }
