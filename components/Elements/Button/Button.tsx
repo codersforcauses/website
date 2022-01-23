@@ -8,6 +8,7 @@ import {
 
 const Button = ({
   children,
+  color,
   className,
   dark,
   disabled,
@@ -40,6 +41,26 @@ const Button = ({
     }
   }, [count, finished, loading])
 
+  let colorClass: string
+
+  switch (color) {
+    case 'success':
+      colorClass = 'bg-success border-success text-secondary'
+      break
+    case 'warning':
+      colorClass = 'bg-warn border-warn text-primary'
+      break
+    case 'danger':
+      colorClass = 'bg-danger border-danger text-secondary'
+      break
+    case 'accent':
+      colorClass = 'bg-accent border-accent text-primary'
+      break
+    default:
+      colorClass = ''
+      break
+  }
+
   return (
     <button
       {...props}
@@ -50,11 +71,12 @@ const Button = ({
           ? 'border-secondary text-secondary'
           : 'border-primary text-primary dark:border-secondary dark:text-secondary',
         fill
-          ? 'bg-primary text-secondary hover:bg-opacity-75 dark:bg-transparent'
+          ? 'bg-primary text-secondary hover:bg-primary/75 dark:bg-transparent'
           : undefined,
         disabled || loading
           ? 'cursor-not-allowed opacity-75'
           : 'hover:bg-primary hover:text-secondary dark:hover:bg-secondary dark:hover:text-primary',
+        color ? colorClass : '',
         loading ? 'cursor-wait' : '',
         className
       ]
@@ -76,6 +98,7 @@ const Button = ({
 export default Button
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+  color?: 'success' | 'warning' | 'danger' | 'accent'
   dark?: boolean
   fill?: boolean
   loading?: boolean
