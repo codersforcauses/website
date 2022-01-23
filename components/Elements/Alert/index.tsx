@@ -3,16 +3,16 @@ import { PropsWithChildren } from 'react'
 const Alert = ({ color = 'info', ...props }: PropsWithChildren<AlertProps>) => {
   let alertClass: string, icon: string
   if (color === 'success') {
-    alertClass = 'bg-success border-success'
+    alertClass = 'bg-success/50 dark:bg-success/25 border-success'
     icon = 'check_circle'
   } else if (color === 'warning') {
-    alertClass = 'bg-warning border-warning'
+    alertClass = 'bg-warning/50 dark:bg-warning/25 border-warning'
     icon = 'warning'
   } else if (color === 'danger') {
-    alertClass = 'bg-danger border-danger'
+    alertClass = 'bg-danger/50 dark:bg-danger/25 border-danger'
     icon = 'error'
   } else {
-    alertClass = 'bg-accent border-accent'
+    alertClass = 'bg-accent/50 dark:bg-accent/25 border-accent'
     icon = 'info'
   }
 
@@ -21,7 +21,7 @@ const Alert = ({ color = 'info', ...props }: PropsWithChildren<AlertProps>) => {
       role='alert'
       className={[
         alertClass,
-        'bg-opacity-50 border px-4 py-2 flex items-center dark:bg-opacity-25',
+        'border px-4 py-2 flex items-center',
         props.className
       ]
         .join(' ')
