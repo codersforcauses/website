@@ -1,8 +1,9 @@
 import mongoose from 'mongoose'
+import { CachedProps } from 'global'
 
 if (!process.env.MONGODB_URI) {
   throw new Error(
-    'Please define the MONGODB_URI environment variable inside .env.local'
+    'Please define the MONGODB_URI environment variable inside .env'
   )
 }
 
@@ -40,11 +41,6 @@ const dbConnect = async () => {
   }
   cached.conn = await cached.promise
   return cached.conn
-}
-
-interface CachedProps {
-  conn: typeof mongoose | null
-  promise: Promise<typeof mongoose> | null
 }
 
 export default dbConnect
