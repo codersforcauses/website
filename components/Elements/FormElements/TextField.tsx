@@ -10,37 +10,6 @@ import { RegisterOptions } from 'react-hook-form'
 import { FormContext } from 'lib/context/form'
 import { FieldControl, FieldLabel, FieldMessage } from './utils'
 
-interface TextFieldProps extends InputHTMLAttributes<HTMLInputElement> {
-  /**
-   * Label for input
-   */
-  label: string
-  /**
-   * Name for input
-   */
-  name: string
-  /**
-   * Display label or make it sr-only
-   */
-  noLabel?: boolean
-  /**
-   * Sets input to focus
-   */
-  setFocused?: boolean
-  /**
-   * Validation rules
-   */
-  rules?: RegisterOptions
-  /**
-   * prefix text
-   */
-  prefix?: string
-  /**
-   * Add description or helper text to input
-   */
-  description?: string
-}
-
 const TextField = ({
   type = 'text',
   disabled = false,
@@ -157,6 +126,37 @@ const TextField = ({
       </div>
     </FieldControl>
   )
+}
+
+interface TextFieldProps extends InputHTMLAttributes<HTMLInputElement> {
+  /**
+   * Label for input
+   */
+  label: string
+  /**
+   * Name for input
+   */
+  name: string
+  /**
+   * Display label or make it sr-only
+   */
+  noLabel?: boolean
+  /**
+   * Sets input to focus
+   */
+  setFocused?: boolean
+  /**
+   * Validation rules
+   */
+  rules?: RegisterOptions
+  /**
+   * prefix text
+   */
+  prefix?: string
+  /**
+   * Add description or helper text to input
+   */
+  description?: string
 }
 
 export default memo(TextField)

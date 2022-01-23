@@ -3,34 +3,6 @@ import { RegisterOptions, useWatch } from 'react-hook-form'
 import { FormContext } from 'lib/context/form'
 import { FieldControl, FieldLabel, FieldMessage } from './utils'
 
-export interface TextAreaProps
-  extends InputHTMLAttributes<HTMLTextAreaElement> {
-  /**
-   * Label for input
-   */
-  label: string
-  /**
-   * Name for input
-   */
-  name: string
-  /**
-   * Counter for input
-   */
-  counter?: number | boolean
-  /**
-   * Display label or make it sr-only
-   */
-  noLabel?: boolean
-  /**
-   * Validation rules
-   */
-  rules?: RegisterOptions
-  /**
-   * Add description or helper text to input
-   */
-  description?: string
-}
-
 const TextArea = ({
   disabled = false,
   required = false,
@@ -91,7 +63,7 @@ const TextArea = ({
             {...register?.(props.name, rules)}
           />
           {counter && (
-            <span className='absolute text-xs opacity-80 bottom-1 right-1'>
+            <span className='absolute text-xs select-none opacity-80 bottom-1 right-1'>
               {typeof counter === 'number' ? `${length}/${counter}` : length}
             </span>
           )}
@@ -113,6 +85,33 @@ const TextArea = ({
       </div>
     </FieldControl>
   )
+}
+
+interface TextAreaProps extends InputHTMLAttributes<HTMLTextAreaElement> {
+  /**
+   * Label for input
+   */
+  label: string
+  /**
+   * Name for input
+   */
+  name: string
+  /**
+   * Counter for input
+   */
+  counter?: number | boolean
+  /**
+   * Display label or make it sr-only
+   */
+  noLabel?: boolean
+  /**
+   * Validation rules
+   */
+  rules?: RegisterOptions
+  /**
+   * Add description or helper text to input
+   */
+  description?: string
 }
 
 export default memo(TextArea)
