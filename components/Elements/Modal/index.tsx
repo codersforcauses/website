@@ -41,7 +41,7 @@ const Modal = ({
           leaveFrom='opacity-100'
           leaveTo='opacity-0'
         >
-          <Dialog.Overlay className='fixed inset-0 z-40 bg-opacity-75 bg-primary' />
+          <Dialog.Overlay className='fixed inset-0 z-40 bg-primary/75' />
         </Transition.Child>
         <Transition.Child
           enter='transition-all ease-out duration-300 delay-100'
