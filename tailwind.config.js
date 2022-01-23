@@ -42,11 +42,5 @@ module.exports = {
       }
     }
   },
-  variants: {
-    extend: {
-      filter: ['hover'],
-      margin: ['last']
-    }
-  },
   plugins: [require('@tailwindcss/forms')]
 }
