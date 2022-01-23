@@ -13,8 +13,7 @@ const UserSchema = new mongoose.Schema(
       type: String,
       maxLength: 64,
       index: true,
-      trim: true,
-      required: true
+      trim: true
     },
     email: {
       type: String,
@@ -25,18 +24,9 @@ const UserSchema = new mongoose.Schema(
       required: true,
       unique: true
     },
-    signUpType: {
+    profileImage: {
       type: String,
-      enum: ['pheme', 'email'],
-      default: 'email'
-    },
-    awsSub: {
-      type: String,
-      maxLength: 64,
-      index: true,
-      trim: true,
-      required: true,
-      unique: true
+      trim: true
     },
     isGuildMember: {
       type: Boolean,
@@ -58,15 +48,14 @@ const UserSchema = new mongoose.Schema(
         type: String,
         enum: [
           'admin',
-          'test',
-          'member',
+          'HLM',
           'president',
           'vice_president',
           'secretary',
           'treasurer',
           'tech_lead',
           'marketing_officer',
-          'ocm',
+          'OCM',
           'first_year_rep'
         ],
         index: true
@@ -77,17 +66,12 @@ const UserSchema = new mongoose.Schema(
         type: {
           type: String,
           enum: [
+            'discord',
             'github',
             'gitlab',
             'bitbucket',
-            'facebook',
-            'instagram',
-            'twitter',
             'linkedin',
-            'foursquare',
-            'wechat',
-            'website',
-            'snapchat'
+            'website'
           ]
         },
         username: {
@@ -102,10 +86,6 @@ const UserSchema = new mongoose.Schema(
         }
       }
     ],
-    profileImage: {
-      img: String,
-      hash: String
-    },
     isFinancialMember: {
       type: Boolean,
       default: false
