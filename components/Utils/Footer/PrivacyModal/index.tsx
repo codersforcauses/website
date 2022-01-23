@@ -1,7 +1,8 @@
 import { memo } from 'react'
 import Modal from '@components/Elements/Modal'
+import { ModalProps } from '@helpers/global'
 
-const PrivacyModal = (props: { isOpen: boolean; closeModal: () => void }) => (
+const PrivacyModal = (props: ModalProps) => (
   <Modal
     heading='Privacy Policy'
     open={props.isOpen}

@@ -1,7 +1,8 @@
 import { memo } from 'react'
 import Modal from '@components/Elements/Modal'
+import { ModalProps } from '@helpers/global'
 
-const TermsModal = (props: { isOpen: boolean; closeModal: () => void }) => (
+const TermsModal = (props: ModalProps) => (
   <Modal
     heading='Terms and Conditions'
     open={props.isOpen}

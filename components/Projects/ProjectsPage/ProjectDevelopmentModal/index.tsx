@@ -1,12 +1,7 @@
 import Modal from '@components/Elements/Modal'
+import { ModalProps } from '@helpers/global'
 
-const ProjectDevelopmentModal = ({
-  isOpen,
-  closeModal
-}: {
-  isOpen: boolean
-  closeModal: () => void
-}) => (
+const ProjectDevelopmentModal = ({ isOpen, closeModal }: ModalProps) => (
   <Modal
     heading='CFC Project Development Breakdown'
     open={isOpen}

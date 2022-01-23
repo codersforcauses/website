@@ -1,7 +1,8 @@
 import { memo } from 'react'
 import Modal from '@components/Elements/Modal'
+import { ModalProps } from '@helpers/global'
 
-const SecurityModal = (props: { isOpen: boolean; closeModal: () => void }) => (
+const SecurityModal = (props: ModalProps) => (
   <Modal heading='Security' open={props.isOpen} onClose={props.closeModal}>
     <p>We are very secure.</p>
   </Modal>

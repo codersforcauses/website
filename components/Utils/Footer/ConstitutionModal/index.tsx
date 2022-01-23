@@ -1,10 +1,8 @@
 import { memo } from 'react'
 import Modal from '@components/Elements/Modal'
+import { ModalProps } from '@helpers/global'
 
-const ConstitutionModal = (props: {
-  isOpen: boolean
-  closeModal: () => void
-}) => (
+const ConstitutionModal = (props: ModalProps) => (
   <Modal
     heading='Constitution of Coders for Causes'
     open={props.isOpen}
