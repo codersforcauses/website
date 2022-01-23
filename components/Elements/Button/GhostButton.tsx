@@ -11,8 +11,8 @@ const Button = ({
     className={[
       'px-4 py-2 relative focus:outline-none',
       dark
-        ? 'text-secondary hover:bg-secondary hover:bg-opacity-10'
-        : 'hover:bg-primary hover:bg-opacity-10 dark:hover:bg-secondary dark:hover:bg-opacity-10',
+        ? 'text-secondary hover:bg-secondary/10'
+        : 'hover:bg-primary/10 dark:hover:bg-secondary/10',
       props.disabled
         ? 'cursor-not-allowed opacity-75'
         : 'focus:ring focus:ring-accent focus:ring-inset',
