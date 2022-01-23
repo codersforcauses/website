@@ -49,7 +49,7 @@ body {
   }
 
   .filled-button {
-    @apply font-black border text-secondary border-primary bg-primary hover:bg-opacity-75 focus:outline-none focus:ring-inset focus:ring focus:ring-accent dark:border-secondary dark:bg-transparent dark:hover:bg-secondary dark:hover:text-primary dark:focus:ring-opacity-0 dark:focus:bg-secondary dark:focus:text-primary;
+    @apply font-black border text-secondary border-primary bg-primary hover:bg-primary/75 focus:outline-none focus:ring-inset focus:ring focus:ring-accent dark:border-secondary dark:bg-transparent dark:hover:bg-secondary dark:hover:text-primary dark:focus:ring-opacity-0 dark:focus:bg-secondary dark:focus:text-primary;
   }
 
   .legal-content {
@@ -101,6 +101,22 @@ body {
   }
   .progress::-webkit-progress-value {
     @apply bg-accent;
+  }
+
+  .github {
+    @apply bg-[#24292e] border-[#24292e] text-secondary;
+  }
+  .gitlab {
+    @apply bg-[#6b4fbb] border-[#6b4fbb] text-secondary;
+  }
+  .bitbucket {
+    @apply bg-[#0052cc] border-[#0052cc] text-secondary;
+  }
+  .linkedin {
+    @apply bg-[#2977c9] border-[#2977c9] text-secondary;
+  }
+  .discord {
+    @apply bg-[#7289da] border-[#7289da] text-primary;
   }
 }
 
