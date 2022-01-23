@@ -1,27 +1,7 @@
-import { InputHTMLAttributes, memo, useContext } from 'react'
+import { InputHTMLAttributes, memo, ReactNode, useContext } from 'react'
 import { RegisterOptions } from 'react-hook-form'
 import { FormContext } from 'lib/context/form'
 import { FieldControl, FieldLabel, FieldMessage } from './utils'
-
-export interface CheckFieldProps
-  extends InputHTMLAttributes<Omit<HTMLInputElement, 'type'>> {
-  /**
-   * Label for input
-   */
-  label: string
-  /**
-   * Name for input
-   */
-  name: string
-  /**
-   * Validation rules
-   */
-  rules?: RegisterOptions
-  /**
-   * Add description or helper text to input
-   */
-  description?: string
-}
 
 const CheckFieldProps = ({
   disabled = false,
@@ -86,6 +66,26 @@ const CheckFieldProps = ({
       </div>
     </FieldControl>
   )
+}
+
+interface CheckFieldProps
+  extends InputHTMLAttributes<Omit<HTMLInputElement, 'type'>> {
+  /**
+   * Label for input
+   */
+  label: string | ReactNode
+  /**
+   * Name for input
+   */
+  name: string
+  /**
+   * Validation rules
+   */
+  rules?: RegisterOptions
+  /**
+   * Add description or helper text to input
+   */
+  description?: string
 }
 
 export default memo(CheckFieldProps)
