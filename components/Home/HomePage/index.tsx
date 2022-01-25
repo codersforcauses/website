@@ -3,10 +3,10 @@ import Link from 'next/link'
 import constants from '@data/constants.json'
 import Toast from '@components/Elements/Toast'
 import TypedText from '@components/Utils/TypedText'
-import Clients from '@components/Utils/Clients'
 import Services from '../Services'
 import Face from '../Face'
 import ContactForm from '../ContactForm'
+import ClientSlider from './ClientSlider'
 
 const HomePage = () => {
   const [contactOpen, setContactOpen] = useState(false)
@@ -56,9 +56,9 @@ const HomePage = () => {
       >
         {toastMessage?.message}
       </Toast>
-      <div className='py-36 text-secondary bg-primary'>
-        <div className='container grid grid-cols-2 gap-6 px-3 mx-auto'>
-          <div>
+      <div className='py-12 md:py-36 text-secondary bg-primary'>
+        <div className='container grid px-3 mx-auto md:grid-cols-2 md:gap-x-20'>
+          <div className='flex flex-col'>
             <h1 className='mb-4 font-mono text-4xl font-black'>
               We are developers.
             </h1>
@@ -68,21 +68,23 @@ const HomePage = () => {
               technical problems. We are student powered and all of our members
               are volunteers dedicated to providing you the best results.
             </p>
-            <a
-              href='https://docs.google.com/forms/d/e/1FAIpQLScPEsHxs1afKNF7Zo9i7JkDgGlg3k-nZowJspsb18ve1odkaA/viewform'
-              target='_blank'
-              rel='noreferrer noopener'
-              className='px-4 py-2 mr-4 text-xl font-black border border-secondary bg-secondary text-primary hover:bg-opacity-75 focus:outline-none focus:ring-inset focus:ring focus:ring-accent'
-            >
-              Join Us
-            </a>
-            <Link href='#_contact_us' passHref>
-              <a className='px-4 py-2 text-xl font-black bg-transparent border border-secondary text-secondary hover:bg-secondary hover:text-primary focus:outline-none focus:ring-opacity-0 focus:bg-secondary focus:text-primary'>
-                Work with us&nbsp;&nbsp;&raquo;
+            <div className='flex'>
+              <a
+                href='https://docs.google.com/forms/d/e/1FAIpQLScPEsHxs1afKNF7Zo9i7JkDgGlg3k-nZowJspsb18ve1odkaA/viewform'
+                target='_blank'
+                rel='noreferrer noopener'
+                className='px-4 py-2 mr-4 text-xl font-black border border-secondary bg-secondary text-primary hover:bg-secondary/75 focus:outline-none focus:ring-inset focus:ring focus:ring-accent'
+              >
+                Join Us
               </a>
-            </Link>
+              <Link href='#_contact_us'>
+                <a className='px-4 py-2 text-xl font-black bg-transparent border border-secondary text-secondary hover:bg-secondary hover:text-primary focus:outline-none focus:ring-opacity-0 focus:bg-secondary focus:text-primary'>
+                  Work with us&nbsp;&nbsp;&raquo;
+                </a>
+              </Link>
+            </div>
           </div>
-          <div className='h-full p-4 mx-12 border select-none'>
+          <div className='hidden h-full p-4 border select-none md:block'>
             <p className='font-mono text-lg font-black leading-snug'>
               <span className='mr-4 text-accent'>$</span>
               <TypedText
@@ -101,10 +103,8 @@ const HomePage = () => {
           </div>
         </div>
       </div>
-      <div className='py-12 bg-alt-light dark:bg-primary'>
-        <div className='container px-3 mx-auto'>
-          <Clients />
-        </div>
+      <div className='w-screen py-12 bg-alt-light dark:bg-primary'>
+        <ClientSlider />
       </div>
       <div className='py-12 md:py-24 dark:bg-alt-dark dark:text-secondary'>
         <div className='container px-3 mx-auto'>

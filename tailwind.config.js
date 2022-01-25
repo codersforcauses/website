@@ -39,6 +39,15 @@ module.exports = {
         25: 25,
         35: 35,
         45: 45
+      },
+      keyframes: {
+        slide: {
+          '0%': { transform: 'translate3d(0)' },
+          '100%': { transform: 'translate3d(-50%,0,0)' }
+        }
+      },
+      animation: {
+        slide: 'slide 30s linear infinite'
       }
     }
   },
