@@ -1,4 +1,4 @@
-import { Fragment, memo } from 'react'
+import { memo } from 'react'
 import services from 'data/services.json'
 
 const Service = (props: {
@@ -14,11 +14,9 @@ const Service = (props: {
 )
 
 const Services = () => (
-  <div className='grid grid-cols-1 grid-rows-4 gap-4 sm:grid-cols-2 sm:grid-rows-2 lg:grid-cols-4 lg:grid-rows-1'>
+  <div className='grid grid-cols-1 grid-rows-4 gap-8 sm:grid-cols-2 sm:grid-rows-2 lg:grid-cols-4 lg:grid-rows-1'>
     {services.map(service => (
-      <Fragment key={service.title}>
-        <Service {...service} />
-      </Fragment>
+      <Service key={service.title} {...service} />
     ))}
   </div>
 )
