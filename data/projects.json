@@ -2,8 +2,8 @@
   {
     "id": "FoGUWA",
     "icon": "devices",
-    "logo": "foguwa1.png",
-    "img": "foguwa2.png",
+    "logo": "/clients/fog_logo.svg",
+    "img": "foguwa.png",
     "name": "Friends of Grounds Tour Map",
     "client": "Friends of Grounds UWA",
     "type": "Progressive Web App",
@@ -32,8 +32,8 @@
   {
     "id": "Home2Health",
     "icon": "devices",
-    "logo": "home2health1.png",
-    "img": "home2health2.png",
+    "logo": "/clients/foodbank_logo.svg",
+    "img": "home2health.png",
     "name": "Home2Health Forum",
     "client": "Home2Health",
     "type": "Web Application",
@@ -64,8 +64,8 @@
   {
     "id": "P2ARugbyWorks",
     "icon": "devices",
-    "logo": "p2s2.png",
-    "img": "p2s1.png",
+    "logo": "/clients/p2s_logo.svg",
+    "img": "p2s.png",
     "name": "P2S Rugbyworks Admin Website",
     "client": "P2S Rugbyworks",
     "type": "Web Application",
@@ -96,8 +96,8 @@
   {
     "id": "IgniteMentoring",
     "icon": "computer",
-    "logo": "ignite1.png",
-    "img": "ignite2.png",
+    "logo": "/clients/ignite_logo.svg",
+    "img": "ignite.png",
     "name": "Ignite Mentoring",
     "client": "Ignite Mentoring",
     "type": "Web Application",
@@ -125,7 +125,7 @@
   {
     "id": "HomeForNow",
     "icon": "devices",
-    "logo": "anglicare1.png",
+    "logo": "/clients/anglicare_logo.svg",
     "img": "homefornow.png",
     "name": "HomeForNow",
     "client": "Anglicare",
