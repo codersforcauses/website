@@ -50,7 +50,7 @@ const Modal = ({
           leave='transition-all ease-in duration-150'
           leaveFrom='opacity-100 scale-100'
           leaveTo='opacity-0 scale-95'
-          className={`fixed w-full max-h-full overflow-y-auto origin-center transform -translate-x-1/2 -translate-y-1/2 modal z-45 inset-1/2 md:max-h-modal md:w-3/4 ${widthClass}`}
+          className={`fixed w-full max-h-full overflow-y-auto origin-center transform -translate-x-1/2 -translate-y-1/2 h-max z-[45] inset-1/2 md:max-h-[86vh] md:w-3/4 ${widthClass}`}
         >
           <div className='relative bg-secondary dark:bg-alt-dark'>
             <div className='sticky inset-x-0 top-0 z-50 flex items-center justify-between px-4 py-2 space-x-4 bg-secondary dark:bg-alt-dark'>
