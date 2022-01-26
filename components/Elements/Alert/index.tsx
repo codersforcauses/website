@@ -35,10 +35,11 @@ const Alert = ({ color = 'info', ...props }: PropsWithChildren<AlertProps>) => {
   )
 }
 
-export default Alert
-
+export type AlertColor = 'success' | 'warning' | 'danger' | 'info' | undefined
 interface AlertProps {
-  color?: 'success' | 'danger' | 'warning' | 'info'
+  color?: AlertColor
   icon?: boolean
   className?: string
 }
+
+export default Alert
