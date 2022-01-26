@@ -42,12 +42,6 @@ body {
     min-height: calc(100vh - (64px + 228px));
   }
 
-  .logo {
-    @apply object-contain object-center w-full transition duration-300 hover:filter-none;
-    max-height: 100px;
-    filter: grayscale(100%) contrast(0.2) brightness(1.1);
-  }
-
   .filled-button {
     @apply font-black border text-secondary border-primary bg-primary hover:bg-primary/75 focus:outline-none focus:ring-inset focus:ring focus:ring-accent dark:border-secondary dark:bg-transparent dark:hover:bg-secondary dark:hover:text-primary dark:focus:ring-opacity-0 dark:focus:bg-secondary dark:focus:text-primary;
   }
@@ -128,22 +122,12 @@ This also means all ID's must be prefixed by '_'.
   scroll-margin-top: 4rem;
 }
 
-.image-grid span {
-  min-height: 70%;
-  max-height: 80px;
-  min-width: 100%;
-  max-width: 200px;
-}
 .membership {
   max-width: calc(100vw - 1.5rem);
 }
 
 .textarea {
   min-height: 8rem;
-}
-
-.modal {
-  height: max-content;
 }
 
 @tailwind utilities;
