@@ -83,7 +83,7 @@ const Button = ({
         .join(' ')
         .trim()}
     >
-      <span className='relative z-5'>{children}</span>
+      <span className='relative z-[5]'>{children}</span>
       {loading && (
         <progress
           value={progress}

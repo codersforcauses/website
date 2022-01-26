@@ -19,7 +19,7 @@ const Button = ({
       className
     ].join(' ')}
   >
-    {/* <span className='relative z-5'> */}
+    {/* <span className='relative z-[5]'> */}
     {children}
     {/* </span> */}
   </button>
