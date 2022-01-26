@@ -30,7 +30,7 @@ const Toast = ({
       leaveFrom='opacity-100 translate-x-0'
       leaveTo='opacity-0 translate-x-full'
       className={[
-        'fixed flex items-start text-secondary px-4 py-2 space-x-2 break-words z-5 bottom-3 right-3 left-3 sm:left-auto sm:max-w-sm',
+        'fixed flex items-start text-secondary px-4 py-2 space-x-2 break-words z-[5] bottom-3 right-3 left-3 sm:left-auto sm:max-w-sm',
         bg
       ]
         .join(' ')
