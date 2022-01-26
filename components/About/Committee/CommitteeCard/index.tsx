@@ -3,16 +3,6 @@ import Image from 'next/image'
 import { ImageProps } from '@helpers/global'
 import BrandIcons from '@components/Elements/BrandIcons'
 
-const replaceImage = (src: string, nameList: Array<string>, prob: number) => {
-  if (
-    nameList.some((name: string) => src.includes(name)) &&
-    Math.random() < prob
-  ) {
-    return src.split('.')[0].concat('-1').concat('.jpg')
-  }
-  return src
-}
-
 const CommitteeCard = ({
   name,
   position,
@@ -20,10 +10,12 @@ const CommitteeCard = ({
   social,
   picture: { src, alt }
 }: CardItemProps) => (
-  <div className='relative flex'>
+  <div className='relative flex group'>
     <div className='relative w-full h-96 md:h-64 lg:h-72'>
+      <div className='w-full h-full animate-pulse bg-secondary dark:bg-alt-dark' />
       <Image
-        src={replaceImage(src, ['jerry'], 0.05)}
+        priority
+        src={src}
         alt={alt}
         layout='fill'
         objectFit='cover'
@@ -31,9 +23,9 @@ const CommitteeCard = ({
         className='w-full h-full'
       />
     </div>
-    <div className='absolute inset-0 p-4 transition-opacity duration-300 bg-opacity-0 opacity-0 text-secondary bg-primary hover:bg-opacity-80 hover:opacity-100'>
+    <div className='absolute inset-x-0 bottom-0 p-4 transition-opacity duration-300 opacity-0 text-secondary group-hover:bg-primary group-hover:opacity-100'>
       <p className='font-mono font-black'>{name}</p>
-      <p className='mb-1'>{position}</p>
+      <p className='mb-1 opacity-75'>{position}</p>
       <p className='text-sm'>{about}</p>
       <div className='flex items-center space-x-2'>
         {Object.keys(social).map(item => (
@@ -48,10 +40,9 @@ const CommitteeCard = ({
               </a>
             ) : (
               <a
-                key={item}
                 target='_blank'
                 rel='noopener noreferrer'
-                href={social[item]}
+                // href={social}
               >
                 <BrandIcons
                   icon={item}
@@ -74,8 +65,6 @@ type SocialType =
   | 'gitlab'
   | 'bitbucket'
   | 'linkedin'
-  | 'facebook'
-  | 'twitter'
 
 type Social = Partial<Record<SocialType, string>>
 

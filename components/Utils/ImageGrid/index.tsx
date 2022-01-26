@@ -14,30 +14,27 @@ const ImageGrid = ({ images }: ImageGridProps) => {
     setImageList(images.sort(randomise).slice(0, images.length))
   }, [images])
 
-  const cols = images.length === 3 ? 'grid-cols-3' : 'grid-cols-2 '
-
-  // TODO: fix cols for image length
   return (
-    <div
-      className={`grid gap-12 place-items-center md:grid-rows-1 image-grid ${cols}`}
-      style={{ gridTemplateColumns: `repeat(${images.length}, 1fr)` }}
-    >
+    <div className='flex h-24 gap-3 md:gap-12'>
       {imageList.map(image => (
-        <Image
-          key={image.alt}
-          src={image.src}
-          alt={image.alt}
-          layout='responsive'
-          width={110}
-          height={90}
-          className='logo'
-        />
+        <div key={image.alt} className='relative w-full basis-1/2'>
+          <Image
+            src={image.src}
+            alt={image.alt}
+            priority
+            layout='fill'
+            objectFit='contain'
+            objectPosition='center'
+            className='transition duration-300 grayscale contrast-[0.2] brightness-110 hover:filter-none'
+          />
+        </div>
       ))}
     </div>
   )
 }
-export default memo(ImageGrid)
 
 interface ImageGridProps {
   images: Array<ImageProps>
 }
+
+export default memo(ImageGrid)

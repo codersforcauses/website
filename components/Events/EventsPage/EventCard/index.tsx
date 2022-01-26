@@ -6,8 +6,9 @@ const EventCard = (event: Omit<EventType, 'type'>) => {
   return (
     <div className='grid grid-cols-5 grid-rows-2 ml-4 lg:ml-16 bg-alt-light lg:grid-rows-1 dark:bg-primary'>
       <div className='relative col-span-full lg:col-span-2'>
+        <div className='w-full h-full animate-pulse bg-secondary dark:bg-alt-dark' />
         <Image
-          loading='eager'
+          priority
           src={event.image.src}
           alt={event.image.alt}
           layout='fill'

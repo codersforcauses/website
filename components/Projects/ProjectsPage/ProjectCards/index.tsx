@@ -9,6 +9,7 @@ const ProjectCards = () => (
         <a className='flex flex-col focus:outline-none focus:ring focus:ring-accent hover:opacity-75 aspect-square bg-alt-light dark:bg-primary'>
           <div className='relative flex-grow m-8 text-center h-3/4'>
             <Image
+              priority
               src={project.logo}
               alt={project.client}
               layout='fill'

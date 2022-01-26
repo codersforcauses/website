@@ -1,7 +1,7 @@
 import dynamic from 'next/dynamic'
 import Title from '@components/Utils/Title'
 import Committee from '../Committee'
-import Clients from '../../Utils/Clients'
+import Clients from '../Clients'
 import Partners from '../Partners'
 // import SpecialThanks from '../SpecialThanks'
 import Sponsors from '../Sponsors'
@@ -51,7 +51,7 @@ const AboutPage = () => (
         <h3 className='font-mono text-2xl font-black'>Our Partnered Clubs</h3>
         <Partners />
         {/* <h3 className='font-mono text-2xl font-black'>Special Thanks</h3>
-          <SpecialThanks /> */}
+        <SpecialThanks /> */}
       </div>
     </div>
   </>
