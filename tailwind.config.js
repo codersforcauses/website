@@ -24,22 +24,6 @@ module.exports = {
       }
     },
     extend: {
-      minWidth: {
-        '1/2': '50%'
-      },
-      minHeight: {
-        '1/2': '50%'
-      },
-      maxHeight: {
-        modal: '86vh'
-      },
-      zIndex: {
-        5: 5,
-        15: 15,
-        25: 25,
-        35: 35,
-        45: 45
-      },
       keyframes: {
         slide: {
           '0%': { transform: 'translate3d(0)' },
