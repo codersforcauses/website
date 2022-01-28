@@ -40,6 +40,7 @@ const phemeHandler = async (req: NextApiRequest, res: NextApiResponse) => {
         )
     }
   } else {
+    res.setHeader('Allow', ['POST'])
     res.status(405).end('Only POST requests allowed')
   }
 }
