@@ -1,3 +1,5 @@
+import { Role } from '@helpers/global'
+
 export const genderOptions = [
   {
     label: 'Male',
@@ -13,7 +15,7 @@ export const genderOptions = [
   }
 ]
 
-export const roles = [
+export const roles: Array<Role> = [
   'president',
   'vice_president',
   'secretary',
