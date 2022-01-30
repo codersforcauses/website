@@ -3,24 +3,27 @@ import {
   Fragment,
   SetStateAction,
   useCallback,
+  useContext,
   useState
 } from 'react'
 import { useRouter } from 'next/router'
 import { useClerk, useMagicLink, useSignUp } from '@clerk/nextjs'
 import { Tab } from '@headlessui/react'
-import Title from 'components/Utils/Title'
+import Alert from '@components/Elements/Alert'
+import Title from '@components/Utils/Title'
+import { UserContext } from '@helpers/user'
 import UWAStudent from './UWAStudent'
 import OtherMember from './OtherMember'
 
 const SignUpPage = (props: SignUpProps) => {
   const [loading, setLoading] = useState(false)
   const [errors, setErrors] = useState('')
-  const [expired, setExpired] = useState(false)
-  const [verified, setVerified] = useState(false)
+  const [auth, setAuth] = useState('')
   const router = useRouter()
   const { setSession } = useClerk()
   const signUp = useSignUp()
   const { startMagicLinkFlow, cancelMagicLinkFlow } = useMagicLink(signUp)
+  const { setUser } = useContext(UserContext)
 
   const goToSignInPage = useCallback(
     e => {
@@ -32,10 +35,9 @@ const SignUpPage = (props: SignUpProps) => {
 
   const handleSubmit = useCallback(async values => {
     setLoading(true)
-    let { email } = values
+    let { email, firstName, lastName } = values
 
-    setVerified(false)
-    setExpired(false)
+    setAuth('')
 
     const url = process.env.VERCEL_URL || 'http://localhost:3000'
 
@@ -51,37 +53,61 @@ const SignUpPage = (props: SignUpProps) => {
             })
           }).then(resp => resp.json())
           email = response.email
+          firstName = response.firstName
+          lastName = response.lastName
         } catch ({ message }) {
           throw new Error(message as string)
         }
       }
-      await signUp.create({ emailAddress: email })
+
+      await signUp.create({
+        emailAddress: email,
+        firstName,
+        lastName
+      })
+
+      setAuth('email_sent')
 
       const su = await startMagicLinkFlow({
         redirectUrl: `${url}/verification`
       })
       const verification = su.verifications.emailAddress
 
-      if (verification.verifiedFromTheSameClient()) {
-        setVerified(true)
-        return
-      } else if (verification.status === 'expired') setExpired(true)
+      if (verification.verifiedFromTheSameClient()) setAuth('verified')
+      else if (verification.status === 'expired') setAuth('expired')
 
       if (su.status === 'complete') {
+        const user = await (
+          await fetch('/api/users', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              email,
+              firstName,
+              lastName,
+              gender: values.gender || 'other',
+              isGuildMember: !!values.isGuildMember
+            })
+          })
+        ).json()
+        setUser(user)
+
         setSession(su.createdSessionId, () => router.push('/dashboard'))
-        return
       }
-    } catch (error) {
-      setErrors(
-        'Something went wrong signing you up. Please refresh and try again.'
-      )
+    } catch (error: any) {
+      error?.errors
+        ? setErrors(error.errors?.[0].message)
+        : setErrors(
+            'Something went wrong signing you up. Please refresh and try again.'
+          )
       cancelMagicLinkFlow()
     } finally {
       setLoading(false)
     }
 
-    if (expired) setErrors('Session has expired. Please sign in to continue')
-    if (verified) return <div>Signed in on another tab</div>
+    if (auth === 'expired')
+      setErrors('Session has expired. Please sign in to continue')
+    if (auth === 'verified') return <div>Signed in on another tab</div>
   }, [])
 
   return (
@@ -101,6 +127,7 @@ const SignUpPage = (props: SignUpProps) => {
               {['UWA Student', 'Email Sign-up'].map(text => (
                 <Tab
                   key={text}
+                  disabled={loading}
                   className={({ selected }) =>
                     `font-mono font-black px-3 sm:px-4 py-2 focus:outline-none focus:ring focus:ring-accent ${
                       selected &&
@@ -112,6 +139,12 @@ const SignUpPage = (props: SignUpProps) => {
                 </Tab>
               ))}
             </Tab.List>
+            {auth === 'email_sent' && (
+              <Alert icon color='success' className='mt-4'>
+                We've just sent you an email. Please click the button to
+                complete creating your account
+              </Alert>
+            )}
             <Tab.Panels as={Fragment}>
               <Tab.Panel>
                 <UWAStudent

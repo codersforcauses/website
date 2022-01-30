@@ -1,19 +1,21 @@
 import { SubmitHandler } from 'react-hook-form'
 import Alert from '@components/Elements/Alert'
 import { Button } from '@components/Elements/Button'
-import { Form, TextField } from '@components/Elements/FormElements'
+import { Form, RadioGroup, TextField } from '@components/Elements/FormElements'
+import { genderOptions } from '@lib/global'
 import validationSchema from './validation'
 
 const defaultValues: FormValues = {
   firstName: '',
   lastName: '',
-  email: ''
+  email: '',
+  gender: 'other'
 }
 
 const OtherMember = (props: OtherSignUpProps) => (
   <>
-    {props.error && (
-      <Alert icon color='danger'>
+    {props.error && !props.loading && (
+      <Alert icon color='danger' className='mt-4'>
         {props.error}
       </Alert>
     )}
@@ -46,6 +48,13 @@ const OtherMember = (props: OtherSignUpProps) => (
         autoComplete='email'
         rules={validationSchema.email}
       />
+      <RadioGroup
+        horizontal
+        label='Gender'
+        name='gender'
+        options={genderOptions}
+      />
+
       <Button
         fill
         type='submit'
@@ -68,6 +77,7 @@ interface FormValues {
   firstName: string
   lastName: string
   email: string
+  gender: 'male' | 'female' | 'other'
 }
 
 export type OtherSignUpKeys = keyof FormValues

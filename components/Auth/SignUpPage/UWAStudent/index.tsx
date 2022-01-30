@@ -12,16 +12,18 @@ const defaultValues: FormValues = {
 
 const UWAStudent = (props: UWASignUpProps) => (
   <>
-    {props.error ? (
+    {props.error && !props.loading ? (
       <Alert icon color='danger' className='mt-4'>
         {props.error}
       </Alert>
     ) : (
-      <Alert color='info' className='mt-4'>
-        If you are a UWA student, you can sign up using your pheme login
-        credentials. If not or you wish to join using another email, please
-        register using &apos;Email Sign-up&apos;.
-      </Alert>
+      !props.loading && (
+        <Alert color='info' className='mt-4'>
+          If you are a UWA student, you can sign up using your pheme login
+          credentials (recommended). If not or you wish to join using another
+          email, please register using &apos;Email Sign-up&apos;.
+        </Alert>
+      )
     )}
     <Form<FormValues>
       showNote
@@ -45,7 +47,28 @@ const UWAStudent = (props: UWASignUpProps) => (
         autoComplete='new-password'
         rules={validationSchema.password}
       />
-      <CheckField label='I am a guild member' name='isGuildMember' />
+      <CheckField
+        label={
+          <>
+            I am a{' '}
+            <a
+              href='https://www.uwastudentguild.com/the-guild/join-us'
+              target='_blank'
+              rel='noopener noreferrer'
+              className='hover:underline focus:outline-none focus:ring-1 focus:ring-accent'
+            >
+              UWA Guild Member
+              <i
+                title='open in new tab'
+                className='text-xs material-icons-sharp ml-0.5 select-none'
+              >
+                open_in_new
+              </i>
+            </a>
+          </>
+        }
+        name='isGuildMember'
+      />
       <Button
         fill
         type='submit'

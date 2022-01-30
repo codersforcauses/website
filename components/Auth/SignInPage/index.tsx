@@ -5,7 +5,7 @@ import {
   Dispatch,
   SetStateAction
 } from 'react'
-import Router from 'next/router'
+import { useRouter } from 'next/router'
 import { useClerk, useMagicLink, useSignIn } from '@clerk/nextjs'
 import { UserContext } from '@helpers/user'
 import Title from '@components/Utils/Title'
@@ -21,62 +21,72 @@ const defaultValues: FormValues = {
 const SignInPage = (props: SignInProps) => {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
-
+  const [expired, setExpired] = useState(false)
+  const [verified, setVerified] = useState(false)
+  const router = useRouter()
   const { setUser } = useContext(UserContext)
-
   const { setSession } = useClerk()
   const signIn = useSignIn()
-  const { startMagicLinkFlow } = useMagicLink(signIn)
+  const { startMagicLinkFlow, cancelMagicLinkFlow } = useMagicLink(signIn)
 
   const goToSignUpPage = useCallback(
     e => {
       e.preventDefault()
       props.signUp(true)
     },
-    [props]
+    [props.signUp]
   )
 
   const handleSubmit = useCallback(
     async ({ email }: FormValues) => {
       setLoading(true)
+      setVerified(false)
+      setExpired(false)
 
-      const si = await signIn.create({ identifier: email })
-      const { email_address_id } = si.supportedFirstFactors.find(
-        ff => ff.strategy === 'email_link' && ff.safe_identifier === email
-      )
-      const res = await startMagicLinkFlow({
-        emailAddressId: email_address_id,
-        redirectUrl: `${process.env.NEXT_PUBLIC_BASE_URL}/dashboard`
-      })
-
-      console.log(email)
+      const url = process.env.VERCEL_URL || 'http://localhost:3000'
 
       try {
-        // query backend
-
-        // const response = await fetch(
-        //   `${process.env.NEXT_PUBLIC_API_URL}users?awsSub=${cognitoResponse.attributes.sub}`
-        // )
-        // const {
-        //   data: [user]
-        // } = await response.json()
-
-        // setUser({
-        //   ...user,
-        //   jwt_token: cognitoResponse.signInUserSession.idToken.jwtToken
-        // })
-
-        Router.replace(props.route ? props.route : '/dashboard')
-      } catch ({ code, message }) {
-        setError(
-          // message ||
-          'An unexpected error occurred. Please refresh the page and try again.'
+        const { supportedFirstFactors } = await signIn.create({
+          identifier: email
+        })
+        const { email_address_id } = supportedFirstFactors.find(
+          ff => ff.strategy === 'email_link' && ff.safe_identifier === email
         )
+
+        const si = await startMagicLinkFlow({
+          emailAddressId: email_address_id,
+          redirectUrl: `${url}/verification`
+        })
+
+        const verification = si.firstFactorVerification
+        if (verification.verifiedFromTheSameClient()) setVerified(true)
+        else if (verification.status === 'expired') setExpired(true)
+
+        if (si.status === 'complete') {
+          const user = await (await fetch(`/api/users?email=${email}`)).json()
+          setUser(user)
+
+          setSession(si.createdSessionId, () =>
+            router.push(props.route || '/dashboard')
+          )
+        }
+
+        if (expired) setError('Session has expired. Please sign in to continue')
+        if (verified) return <div>Signed in on another tab</div>
+      } catch (error: any) {
+        console.log({ error })
+
+        error?.errors
+          ? setError(error.errors?.[0].message)
+          : setError(
+              'An unexpected error occurred. Please refresh the page and try again.'
+            )
+        cancelMagicLinkFlow()
       } finally {
         setLoading(false)
       }
     },
-    [props.route, setUser]
+    [props.route]
   )
 
   return (
@@ -92,10 +102,16 @@ const SignInPage = (props: SignInProps) => {
             .
           </p>
           <div className='md:max-w-lg md:w-1/2 membership'>
-            {error && (
+            {error ? (
               <Alert icon color='danger' className='mt-4'>
                 {error}
               </Alert>
+            ) : (
+              loading && (
+                <Alert color='info' className='mt-4'>
+                  We&apos;ve just sent you an email with a link to continue
+                </Alert>
+              )
             )}
             <Form<FormValues>
               showNote
