@@ -7,7 +7,7 @@ import {
   useState
 } from 'react'
 import { RegisterOptions } from 'react-hook-form'
-import { FormContext } from 'lib/context/form'
+import { FormContext } from './utils/form'
 import { FieldControl, FieldLabel, FieldMessage } from './utils'
 
 const TextField = ({

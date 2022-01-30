@@ -1,6 +1,6 @@
 import { InputHTMLAttributes, memo, useContext } from 'react'
 import { RegisterOptions, useWatch } from 'react-hook-form'
-import { FormContext } from 'lib/context/form'
+import { FormContext } from './utils/form'
 import { FieldControl, FieldLabel, FieldMessage } from './utils'
 
 const TextArea = ({

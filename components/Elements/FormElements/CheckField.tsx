@@ -1,6 +1,6 @@
 import { InputHTMLAttributes, memo, ReactNode, useContext } from 'react'
 import { RegisterOptions } from 'react-hook-form'
-import { FormContext } from 'lib/context/form'
+import { FormContext } from './utils/form'
 import { FieldControl, FieldLabel, FieldMessage } from './utils'
 
 const CheckFieldProps = ({

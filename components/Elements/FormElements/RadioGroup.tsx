@@ -1,7 +1,7 @@
 import { InputHTMLAttributes, useCallback, useContext } from 'react'
 import { RegisterOptions, useFormContext } from 'react-hook-form'
 import { RadioGroup as Radio } from '@headlessui/react'
-import { FormContext } from 'lib/context/form'
+import { FormContext } from './utils/form'
 import { FieldControl, FieldLabel, FieldMessage } from './utils'
 
 const RadioGroup = ({

@@ -5,7 +5,7 @@ import {
   useForm,
   UseFormProps
 } from 'react-hook-form'
-import { FormProps, FormProvider } from 'lib/context/form'
+import { FormProps, FormProvider } from './utils/form'
 
 const Form = <T,>({
   dark,
