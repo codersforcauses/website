@@ -1,6 +1,6 @@
 import { Fragment } from 'react'
 import Image from 'next/image'
-import { ImageProps } from '@helpers/global'
+import { ImageProps, Socials } from '@helpers/global'
 import BrandIcons from '@components/Elements/BrandIcons'
 
 const CommitteeCard = ({
@@ -25,7 +25,7 @@ const CommitteeCard = ({
     </div>
     <div className='absolute inset-x-0 bottom-0 p-4 transition-opacity duration-300 opacity-0 text-secondary group-hover:bg-primary group-hover:opacity-100'>
       <p className='font-mono font-black'>{name}</p>
-      <p className='mb-1 text-primary/75'>{position}</p>
+      <p className='mb-1 text-secondary/75'>{position}</p>
       <p className='text-sm'>{about}</p>
       <div className='flex items-center space-x-2'>
         {Object.keys(social).map(item => (
@@ -58,15 +58,7 @@ const CommitteeCard = ({
   </div>
 )
 
-type SocialType =
-  | 'email'
-  | 'discord'
-  | 'github'
-  | 'gitlab'
-  | 'bitbucket'
-  | 'linkedin'
-
-type Social = Partial<Record<SocialType, string>>
+type Social = Partial<Record<Socials, string>>
 
 export interface CardItemProps {
   name: string
