@@ -10,7 +10,7 @@ const convertDate = (date: string) => dayjs(date).format('MMM D, YYYY h:mm A')
 const modifyUser = (user: UserType) => ({
   ...user,
   name: `${user?.firstName} ${user?.lastName}`.trim(),
-  roles: user?.isFinancialMember ? ['member'] : user?.roles,
+  roles: user?.isFinancialMember ? user.roles?.concat(['member']) : user?.roles,
   createdAt: convertDate(user?.createdAt as string),
   updatedAt: convertDate(user?.updatedAt as string)
 })
@@ -65,17 +65,17 @@ const userRoute = async (req: NextApiRequest, res: NextApiResponse) => {
     case 'GET':
       if (Object.keys(query).length !== 0) {
         try {
-          const user: UserType = await (query._id
-            ? User.findById(query._id)
+          const user: UserType = await (query.id
+            ? User.findById(query.id)
             : User.findOne({
                 ...query
               })
           ).lean()
-
           res.status(200).json(modifyUser(user))
         } catch (error) {
           res.status(404).end('User Not Found')
         }
+        break
       }
 
       try {
