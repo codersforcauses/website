@@ -65,9 +65,12 @@ const userRoute = async (req: NextApiRequest, res: NextApiResponse) => {
     case 'GET':
       if (Object.keys(query).length !== 0) {
         try {
-          const user: UserType = await User.findOne({
-            ...query
-          }).lean()
+          const user: UserType = await (query._id
+            ? User.findById(query._id)
+            : User.findOne({
+                ...query
+              })
+          ).lean()
 
           res.status(200).json(modifyUser(user))
         } catch (error) {
