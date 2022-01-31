@@ -1,31 +1,26 @@
 import { useMemo, useCallback, useContext, useEffect, Fragment } from 'react'
 import { useClerk } from '@clerk/nextjs'
 import { Menu, Transition } from '@headlessui/react'
+import useSWR from 'swr'
 import Router from 'next/router'
 import { User } from '@helpers/global'
 import { getInitials, UserContext } from '@helpers/user'
 
 const UserMenu = () => {
-  const { user, setUser } = useContext(UserContext)
+  const { setUser } = useContext(UserContext)
   const { user: clerkUser, signOut } = useClerk()
+  const { data: user } = useSWR<User>(
+    clerkUser ? `/api/users?clerkID=${clerkUser.id}` : null
+  )
+
+  useEffect(() => {
+    user && setUser(user)
+  }, [])
+
   const initials = useMemo(
     () => getInitials(clerkUser?.fullName as string),
     [clerkUser?.fullName]
   )
-
-  useEffect(() => {
-    const getUser = async () => {
-      try {
-        const data: User = await (
-          await fetch(`/api/users?clerkID=${clerkUser?.id}`)
-        ).json()
-        setUser(data)
-      } catch (error) {
-        setUser(null)
-      }
-    }
-    if (!user && clerkUser) getUser()
-  }, [user, clerkUser])
 
   const handleSignOut = useCallback(async () => {
     signOut()

@@ -3,6 +3,7 @@ import dynamic from 'next/dynamic'
 import { useEffect } from 'react'
 import { ThemeProvider } from 'next-themes'
 import { ClerkProvider } from '@clerk/nextjs'
+import { SWRConfig } from 'swr'
 import dayjs from 'dayjs'
 import User from '@components/Auth/User'
 import Header from '@components/Utils/Header'
@@ -23,17 +24,25 @@ const Website = ({ Component, pageProps }: AppProps) => {
   }, [])
 
   return (
-    <ClerkProvider>
-      <User>
-        <ThemeProvider attribute='class'>
-          <Header />
-          <main id='main' className='main'>
-            <Component {...pageProps} />
-          </main>
-          <Footer />
-          {process.env.NODE_ENV === 'production' && <AddOns />}
-        </ThemeProvider>
-      </User>
+    <ClerkProvider {...pageProps}>
+      <SWRConfig
+        value={{
+          refreshInterval: 5000,
+          fetcher: (resource, init) =>
+            fetch(resource, init).then(res => res.json())
+        }}
+      >
+        <User>
+          <ThemeProvider attribute='class'>
+            <Header />
+            <main id='main' className='main'>
+              <Component {...pageProps} />
+            </main>
+            <Footer />
+            {process.env.NODE_ENV === 'production' && <AddOns />}
+          </ThemeProvider>
+        </User>
+      </SWRConfig>
     </ClerkProvider>
   )
 }

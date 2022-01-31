@@ -1,23 +1,12 @@
-import { useState, useContext, useEffect } from 'react'
-import { useRouter } from 'next/router'
+import { useState } from 'react'
+import { withServerSideAuth } from '@clerk/nextjs/ssr'
 import { ClerkLoaded } from '@clerk/nextjs'
 import Meta from '@components/Utils/Meta'
 import SignInPage from '@components/Auth/SignInPage'
 import SignUpPage from '@components/Auth/SignUpPage'
-import { UserContext } from '@helpers/user'
 
-const Membership = () => {
+const Membership = (props: MembershipProps) => {
   const [isSignUp, setIsSignUp] = useState(false)
-
-  // const { user } = useContext(UserContext)
-
-  const router = useRouter()
-  const query = router?.query?.name
-  const nextRoute = typeof query === 'string' ? query : query?.[0]
-
-  // useEffect(() => {
-  //   if (user) router.replace(nextRoute ?? '/dashboard')
-  // }, [nextRoute, router, user])
 
   return (
     <>
@@ -30,13 +19,38 @@ const Membership = () => {
       />
       <ClerkLoaded>
         {isSignUp ? (
-          <SignUpPage route={nextRoute} signIn={setIsSignUp} />
+          <SignUpPage route={props.nextRoute} signIn={setIsSignUp} />
         ) : (
-          <SignInPage route={nextRoute} signUp={setIsSignUp} />
+          <SignInPage route={props.nextRoute} signUp={setIsSignUp} />
         )}
       </ClerkLoaded>
     </>
   )
+}
+
+export const getServerSideProps = withServerSideAuth(
+  async ({ query, auth }) => {
+    const { userId } = auth
+
+    const nextRoute = query?.name || '/dashboard'
+
+    return userId
+      ? {
+          redirect: {
+            destination: nextRoute,
+            permanent: false
+          }
+        }
+      : {
+          props: {
+            nextRoute
+          }
+        }
+  }
+)
+
+interface MembershipProps {
+  nextRoute: string
 }
 
 export default Membership
