@@ -47,7 +47,7 @@ const TextField = ({
 
   useEffect(() => {
     setFocused && setFocus?.(props.name)
-  }, [setFocus])
+  }, [setFocus, props.name, setFocused])
 
   return (
     <FieldControl

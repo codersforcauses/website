@@ -15,7 +15,7 @@ import { UserContext } from '@helpers/user'
 import UWAStudent from './UWAStudent'
 import OtherMember from './OtherMember'
 
-const SignUpPage = (props: SignUpProps) => {
+const SignUpPage = ({ signIn, route }: SignUpProps) => {
   const [loading, setLoading] = useState(false)
   const [errors, setErrors] = useState('')
   const [auth, setAuth] = useState('')
@@ -28,87 +28,99 @@ const SignUpPage = (props: SignUpProps) => {
   const goToSignInPage = useCallback(
     e => {
       e.preventDefault()
-      props.signIn(false)
+      signIn(false)
     },
-    [props.signIn]
+    [signIn]
   )
 
-  const handleSubmit = useCallback(async values => {
-    setLoading(true)
-    let { email, firstName, lastName } = values
+  const handleSubmit = useCallback(
+    async values => {
+      setLoading(true)
+      let { email, firstName, lastName } = values
 
-    setAuth('')
+      setAuth('')
 
-    const url = process.env.VERCEL_URL || 'http://localhost:3000'
+      const url = process.env.VERCEL_URL || 'http://localhost:3000'
 
-    try {
-      if (values.hasOwnProperty('studentNumber')) {
-        try {
-          const response = await fetch('/api/pheme', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-              user: values.studentNumber,
-              pass: values.password
-            })
-          }).then(resp => resp.json())
-          email = response.email
-          firstName = response.firstName
-          lastName = response.lastName
-        } catch ({ message }) {
-          throw new Error(message as string)
+      try {
+        if (values.hasOwnProperty('studentNumber')) {
+          try {
+            const response = await fetch('/api/pheme', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({
+                user: values.studentNumber,
+                pass: values.password
+              })
+            }).then(resp => resp.json())
+            email = response.email
+            firstName = response.firstName
+            lastName = response.lastName
+          } catch ({ message }) {
+            throw new Error(message as string)
+          }
         }
-      }
 
-      await signUp.create({
-        emailAddress: email,
-        firstName,
-        lastName
-      })
+        await signUp.create({
+          emailAddress: email,
+          firstName,
+          lastName
+        })
 
-      setAuth('email_sent')
+        setAuth('email_sent')
 
-      const su = await startMagicLinkFlow({
-        redirectUrl: `${url}/verification`
-      })
-      const verification = su.verifications.emailAddress
+        const su = await startMagicLinkFlow({
+          redirectUrl: `${url}/verification`
+        })
+        const verification = su.verifications.emailAddress
 
-      if (verification.verifiedFromTheSameClient()) setAuth('verified')
-      else if (verification.status === 'expired') setAuth('expired')
+        if (verification.verifiedFromTheSameClient()) setAuth('verified')
+        else if (verification.status === 'expired') setAuth('expired')
 
-      if (su.status === 'complete') {
-        const user = await (
-          await fetch('/api/users', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-              email,
-              firstName,
-              lastName,
-              gender: values.gender || 'other',
-              isGuildMember: !!values.isGuildMember
+        if (su.status === 'complete') {
+          const user = await (
+            await fetch('/api/users', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({
+                email,
+                firstName,
+                lastName,
+                gender: values.gender || 'other',
+                isGuildMember: !!values.isGuildMember
+              })
             })
-          })
-        ).json()
-        setUser(user)
+          ).json()
+          setUser(user)
 
-        setSession(su.createdSessionId, () => router.push(props.route))
+          setSession(su.createdSessionId, () => router.push(route))
+        }
+      } catch (error: any) {
+        error?.errors
+          ? setErrors(error.errors?.[0].message)
+          : setErrors(
+              'Something went wrong signing you up. Please refresh and try again.'
+            )
+        cancelMagicLinkFlow()
+      } finally {
+        setLoading(false)
       }
-    } catch (error: any) {
-      error?.errors
-        ? setErrors(error.errors?.[0].message)
-        : setErrors(
-            'Something went wrong signing you up. Please refresh and try again.'
-          )
-      cancelMagicLinkFlow()
-    } finally {
-      setLoading(false)
-    }
 
-    if (auth === 'expired')
-      setErrors('Session has expired. Please sign in to continue')
-    if (auth === 'verified') return <div>Signed in on another tab</div>
-  }, [])
+      if (auth === 'expired')
+        setErrors('Session has expired. Please sign in to continue')
+      if (auth === 'verified') return <div>Signed in on another tab</div>
+    },
+    [
+      auth,
+      cancelMagicLinkFlow,
+      route,
+      router,
+      setSession,
+      setUser,
+      signUp,
+      startMagicLinkFlow
+    ]
+  )
 
   return (
     <>
@@ -141,7 +153,7 @@ const SignUpPage = (props: SignUpProps) => {
             </Tab.List>
             {auth === 'email_sent' && (
               <Alert icon color='success' className='mt-4'>
-                We've just sent you an email. Please click the button to
+                We&apos;ve just sent you an email. Please click the button to
                 complete creating your account
               </Alert>
             )}

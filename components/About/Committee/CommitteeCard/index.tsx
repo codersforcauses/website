@@ -32,9 +32,9 @@ const CommitteeCard = ({
           <Fragment key={item}>
             {item === 'email' ? (
               <a
-                href={'mailto:' + social.email}
+                // href={'mailto:' + social.email}
                 className='flex self-center'
-                title={social.email}
+                // title={social.email}
               >
                 <span className='material-icons-sharp'>email</span>
               </a>

@@ -57,13 +57,13 @@ const ClientSlider = () => (
   >
     {[1, 2].map(count => (
       <div key={count} className='flex space-x-24' style={{ width }}>
-        {clients.map(client => (
-          <div key={client.alt} className={`h-[100px] ${client.className}`}>
+        {clients.map(({ alt, className, ...client }) => (
+          <div key={alt} className={`h-[100px] ${className}`}>
             <Image
               {...client}
-              title={client.alt}
+              alt={alt}
+              title={alt}
               height={100}
-              width={client.width}
               className='transition duration-300 grayscale contrast-[0.2] brightness-110 hover:grayscale-0 hover:contrast-100 hover:brightness-100'
             />
           </div>

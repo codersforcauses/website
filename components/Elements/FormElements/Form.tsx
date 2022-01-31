@@ -34,7 +34,9 @@ const Form = <T,>({
   return (
     <HookFormProvider {...methods}>
       <form
-        onSubmit={methods.handleSubmit(onSubmit)}
+        onSubmit={methods.handleSubmit(
+          onSubmit as SubmitHandler<Record<string, any>>
+        )}
         className={['flex flex-col space-y-4', className || 'mt-4'].join(' ')}
       >
         {props.showNote && (
@@ -48,9 +50,6 @@ const Form = <T,>({
     </HookFormProvider>
   )
 }
-
-export default Form
-
 interface HookFormProps<T> extends UseFormProps {
   dark?: boolean
   disabled?: boolean
@@ -58,3 +57,5 @@ interface HookFormProps<T> extends UseFormProps {
   onSubmit: SubmitHandler<T>
   showNote?: boolean
 }
+
+export default Form

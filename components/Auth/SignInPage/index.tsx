@@ -7,6 +7,7 @@ import {
 } from 'react'
 import { useRouter } from 'next/router'
 import { useClerk, useMagicLink, useSignIn } from '@clerk/nextjs'
+import { EmailLinkFactor } from '@clerk/types'
 import { UserContext } from '@helpers/user'
 import Title from '@components/Utils/Title'
 import { Form, TextField } from '@elements/FormElements'
@@ -18,7 +19,7 @@ const defaultValues: FormValues = {
   email: ''
 }
 
-const SignInPage = (props: SignInProps) => {
+const SignInPage = ({ route, signUp }: SignInProps) => {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
   const [expired, setExpired] = useState(false)
@@ -32,9 +33,9 @@ const SignInPage = (props: SignInProps) => {
   const goToSignUpPage = useCallback(
     e => {
       e.preventDefault()
-      props.signUp(true)
+      signUp(true)
     },
-    [props.signUp]
+    [signUp]
   )
 
   const handleSubmit = useCallback(
@@ -51,7 +52,7 @@ const SignInPage = (props: SignInProps) => {
         })
         const { email_address_id } = supportedFirstFactors.find(
           ff => ff.strategy === 'email_link' && ff.safe_identifier === email
-        )
+        ) as EmailLinkFactor
 
         const si = await startMagicLinkFlow({
           emailAddressId: email_address_id,
@@ -66,7 +67,7 @@ const SignInPage = (props: SignInProps) => {
           const user = await (await fetch(`/api/users?email=${email}`)).json()
           setUser(user)
 
-          setSession(si.createdSessionId, () => router.push(props.route))
+          setSession(si.createdSessionId, () => router.push(route))
         }
 
         if (expired) setError('Session has expired. Please sign in to continue')
@@ -84,7 +85,17 @@ const SignInPage = (props: SignInProps) => {
         setLoading(false)
       }
     },
-    [props.route]
+    [
+      cancelMagicLinkFlow,
+      expired,
+      route,
+      router,
+      setSession,
+      setUser,
+      signIn,
+      startMagicLinkFlow,
+      verified
+    ]
   )
 
   return (

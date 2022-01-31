@@ -27,7 +27,8 @@ const validationSchema: Record<OtherSignUpKeys, RegisterOptions> = {
         /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/,
       message: 'Please enter a valid email address'
     }
-  }
+  },
+  gender: {}
 }
 
 export default validationSchema

@@ -51,7 +51,7 @@ const Verification = () => {
       }
     }
     verify()
-  }, [])
+  }, [handleMagicLinkVerification])
 
   return (
     <>

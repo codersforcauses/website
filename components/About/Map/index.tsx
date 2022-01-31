@@ -1,6 +1,6 @@
 import { memo, useEffect, useRef } from 'react'
 import { useTheme } from 'next-themes'
-import mapboxgl from '!mapbox-gl'; // eslint-disable-line import/no-webpack-loader-syntax
+import mapboxgl from 'mapbox-gl'
 import 'mapbox-gl/dist/mapbox-gl.css'
 
 mapboxgl.accessToken = process.env.NEXT_PUBLIC_MAPBOX_API!

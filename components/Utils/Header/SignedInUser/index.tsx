@@ -5,6 +5,7 @@ import useSWR from 'swr'
 import Router from 'next/router'
 import { User } from '@helpers/global'
 import { getInitials, UserContext } from '@helpers/user'
+import Link from 'next/link'
 
 const UserMenu = () => {
   const { setUser } = useContext(UserContext)
@@ -13,9 +14,25 @@ const UserMenu = () => {
     clerkUser ? `/api/users?clerkID=${clerkUser.id}` : null
   )
 
+  const Links = useMemo(
+    () => [
+      {
+        text: 'Dashboard',
+        icon: 'dashboard',
+        href: '/dashboard'
+      },
+      {
+        text: 'My profile',
+        icon: 'person',
+        href: `/profile/${user?._id}`
+      }
+    ],
+    [user?._id]
+  )
+
   useEffect(() => {
     user && setUser(user)
-  }, [])
+  }, [setUser, user])
 
   const initials = useMemo(
     () => getInitials(clerkUser?.fullName as string),
@@ -26,7 +43,7 @@ const UserMenu = () => {
     signOut()
     setUser(null)
     Router.push('/')
-  }, [])
+  }, [setUser, signOut])
 
   return (
     <Menu as='div' className='relative text-secondary'>
@@ -55,32 +72,24 @@ const UserMenu = () => {
               static
               className='w-[8.5rem] absolute right-0 flex flex-col items-stretch py-2 mt-2 space-y-1 border border-secondary bg-primary focus:outline-none'
             >
-              <Menu.Item>
-                {({ active }) => (
-                  <a
-                    className={`flex items-center py-2 px-4 text-sm ${
-                      active && 'bg-secondary text-primary'
-                    }`}
-                    href='/dashboard'
-                  >
-                    <span className='mr-2 material-icons-sharp'>dashboard</span>
-                    Dashboard
-                  </a>
-                )}
-              </Menu.Item>
-              <Menu.Item>
-                {({ active }) => (
-                  <a
-                    className={`flex items-center py-2 px-4 text-sm ${
-                      active && 'bg-secondary text-primary'
-                    }`}
-                    href={`/profile/${user?._id}`}
-                  >
-                    <span className='mr-2 material-icons-sharp'>person</span>
-                    My profile
-                  </a>
-                )}
-              </Menu.Item>
+              {Links.map(link => (
+                <Menu.Item key={link.icon}>
+                  {({ active }) => (
+                    <Link href={link.href}>
+                      <a
+                        className={`flex items-center py-2 px-4 text-sm ${
+                          active && 'bg-secondary text-primary'
+                        }`}
+                      >
+                        <span className='mr-2 material-icons-sharp'>
+                          {link.icon}
+                        </span>
+                        {link.text}
+                      </a>
+                    </Link>
+                  )}
+                </Menu.Item>
+              ))}
               <Menu.Item>
                 {({ active }) => (
                   <button

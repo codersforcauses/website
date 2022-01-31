@@ -31,21 +31,21 @@ const Membership = (props: MembershipProps) => {
 export const getServerSideProps = withServerSideAuth(
   async ({ query, auth }) => {
     const { userId } = auth
-
     const nextRoute = query?.name || '/dashboard'
 
-    return userId
-      ? {
-          redirect: {
-            destination: nextRoute,
-            permanent: false
-          }
+    if (userId)
+      return {
+        redirect: {
+          destination: nextRoute,
+          permanent: false
         }
-      : {
-          props: {
-            nextRoute
-          }
-        }
+      }
+
+    return {
+      props: {
+        nextRoute
+      }
+    }
   }
 )
 
