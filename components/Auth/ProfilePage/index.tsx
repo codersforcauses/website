@@ -1,19 +1,13 @@
-/** @jsxImportSource @emotion/react */
-import { useTheme } from '@emotion/react'
-import { memo, useCallback, useContext, useState } from 'react'
-import { Jumbotron, Container, Row, Col, Button } from 'reactstrap'
-import Avatar from 'components/Elements/Avatar'
-import { DarkContext, UserProps } from 'helpers/user'
+import { memo, useCallback, useState } from 'react'
+import Avatar from '@elements/Avatar'
+import { User } from '@helpers/global'
 import EditDetails from './EditDetails'
 import Socials from './Socials'
-import { styles } from './styles'
 
-const ProfilePage = (props: Props) => {
+const ProfilePage = ({ user, ...props }: ProfileProps) => {
   const [editing, setEditing] = useState(false)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
-  const theme = useTheme()
-  const isDark = useContext(DarkContext)
 
   const toggleEdit = useCallback(() => setEditing(prev => !prev), [])
   const closeError = useCallback(() => setError(''), [])
@@ -28,7 +22,7 @@ const ProfilePage = (props: Props) => {
       // } = await res.json()
       // console.log(values, props.user._id)
     } catch ({ message }) {
-      setError(message)
+      setError(message as string)
     } finally {
       setLoading(false)
       setError('')
@@ -36,37 +30,32 @@ const ProfilePage = (props: Props) => {
   }, [])
 
   return (
-    <div css={styles(theme)}>
-      <Jumbotron className='py-5 m-0 bg-primary rounded-0'>
-        <Container className='py-4 my-5 text-secondary text-monospace'>
+    <>
+      <div className='py-6 h-36 bg-primary'>
+        <div className='container px-3 mx-auto font-mono text-secondary'>
           ./profile
-        </Container>
-      </Jumbotron>
-      <Container className='d-flex align-items-center'>
-        <Avatar dark name={props.user?.name} size='lg' className='avatar' />
+        </div>
+      </div>
+      <div className='bg-secondary dark:bg-alt-dark'>
         {!editing && (
-          <>
-            <div className='ml-3'>
-              {props.user?.firstName} {props.user?.lastName}
-            </div>
+          <div className='container flex items-center px-3 mx-auto space-x-3'>
+            <Avatar name={user.name} size='lg' className='-mt-16' />
+            <p className='text-xl'>{user.name}</p>
             {props.canEdit && (
-              <Button
-                color='link'
-                className={`rounded-0 text-${isDark ? 'secondary' : 'primary'}`}
+              <button
+                className='flex place-items-center focus:outline-none focus:ring-1 focus:ring-accent'
                 onClick={toggleEdit}
               >
                 <i className='material-icons-sharp'>edit</i>
-              </Button>
+              </button>
             )}
-          </>
+          </div>
         )}
-      </Container>
-      <Container className='py-5'>
-        <Row>
-          <Col lg={7}>
+        <div className='container px-3 py-12 mx-auto lg:grid lg:grid-cols-3 lg:gap-16'>
+          <div className='col-span-2'>
             {editing ? (
               <EditDetails
-                user={props.user}
+                user={user}
                 loading={loading}
                 error={error}
                 closeError={closeError}
@@ -74,49 +63,35 @@ const ProfilePage = (props: Props) => {
                 handleSubmit={handleSubmit}
               />
             ) : (
-              <>
-                {props.user?.bio && <p>{props.user?.bio}</p>}
-                <p>
-                  Jeremiah Pinto is a god tier programmer and software
-                  developer, he writes the cleanest code at Coders For Causes.
-                  But he is not a great programmer and is not known for it. When
-                  people hear that he is a god tier programmer they assume that
-                  he is the best developer, but they don&apos;t know about his
-                  programming background. I was lucky enough to meet him at a
-                  conference and got a chance to speak at a conference about
-                  computer security, security conferences have really helped me
-                  learn about security. After that I started to work with him
-                  and started to learn about his work for Coders For Causes.
-                  After a while I started to share and help with his development
-                  work. At Coders For Causes I learned a lot about software
-                  security. We use SELinux security to enforce what is allowed
-                  by SELinux, this helps us to write better software, secure it,
-                  and protect users from security flaws. Jeremiah has a lot of
-                  code for Coders For Causes and a lot of work that he
-                  contributes to Coders For Causes from a security standpoint.
-                  We also use his Code of Conduct which is a great template in
-                  terms of code style. Some of the code he produces for Coders
-                  For Causes is considered dirty and shouldn&apos;t see the
-                  light of day, but I love it.
-                </p>
-              </>
+              <p>
+                {user.bio ? (
+                  user.bio
+                ) : (
+                  <>
+                    Jeremiah Pinto is a god tier programmer and software
+                    developer, he writes the cleanest code at Coders For Causes.
+                    But he is not a great programmer and is not known for it.
+                    When people hear that he is a god tier programmer they
+                    assume that he is the best developer, but they don&apos;t
+                    know about his programming background. I was lucky enough to
+                    meet him at a conference and got a chance to speak at a
+                    conference about computer security, security conferences
+                    have really helped me learn about security.
+                  </>
+                )}
+              </p>
             )}
-          </Col>
-          <Col
-            lg={{ size: 4, offset: 1 }}
-            className={editing && 'd-none d-lg-block'}
-          >
-            <Socials isEditing={editing} />
-          </Col>
-        </Row>
-      </Container>
-    </div>
+          </div>
+          <Socials isEditing={editing} />
+        </div>
+      </div>
+    </>
   )
 }
 
-export default ProfilePage
-
-interface Props {
-  user: UserProps
+interface ProfileProps {
+  user: NonNullable<User>
   canEdit: boolean
 }
+
+export default memo(ProfilePage)
