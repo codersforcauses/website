@@ -3,7 +3,7 @@ import Title from '@components/Utils/Title'
 
 const Error500 = () => (
   <>
-    <Title typed>./a 500 error occurred</Title>
+    {/* <Title typed>./a 500 error occurred</Title> */}
     <div className='grid place-items-center bg-secondary text-primary dark:bg-alt-dark dark:text-secondary'>
       <div className='flex flex-col items-center justify-center space-y-8'>
         <div aria-hidden className='text-6xl md:text-8xl'>
