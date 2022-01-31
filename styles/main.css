@@ -39,7 +39,7 @@ body {
 @layer components {
   .main {
     @apply relative grid mt-16;
-    min-height: calc(100vh - (64px + 228px));
+    min-height: calc(100vh - (64px + 244px));
   }
 
   .filled-button {
