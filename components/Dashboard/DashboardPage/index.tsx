@@ -1,26 +1,19 @@
-/** @jsxImportSource @emotion/react */
-import { useTheme } from '@emotion/react'
-import { Container, Row, Col } from 'reactstrap'
 import Title from 'components/Utils/Title'
-import Announcements from '../Announcements'
-import { styles } from './styles'
+import Announcements from './Announcements'
 
 const DashboardPage = () => {
-  const theme = useTheme()
-
   return (
-    <div css={styles(theme)}>
+    <>
       <Title typed>./dashboard</Title>
-      <Container className='py-5'>
-        <Row>
-          <Col md={8} />
-          <Col md={4}>
-            <h6 className='font-weight-bold mb-3'>Announcements</h6>
+      <div className='py-12 bg-secondary text-primary dark:bg-alt-dark dark:text-secondary'>
+        <div className='container grid gap-4 px-3 mx-auto lg:grid-cols-3'>
+          <div className='space-y-2 lg:col-start-3'>
+            <h6 className='mb-4 font-bold'>Announcements</h6>
             <Announcements />
-          </Col>
-        </Row>
-      </Container>
-    </div>
+          </div>
+        </div>
+      </div>
+    </>
   )
 }
 
