@@ -9,9 +9,9 @@ import { useRouter } from 'next/router'
 import { useClerk, useMagicLink, useSignIn } from '@clerk/nextjs'
 import { UserContext } from '@helpers/user'
 import Title from '@components/Utils/Title'
-import { Form, TextField } from '@components/Elements/FormElements'
-import { Button } from '@components/Elements/Button'
-import Alert from '@components/Elements/Alert'
+import { Form, TextField } from '@elements/FormElements'
+import { Button } from '@elements/Button'
+import Alert from '@elements/Alert'
 import validationSchema from './validation'
 
 const defaultValues: FormValues = {

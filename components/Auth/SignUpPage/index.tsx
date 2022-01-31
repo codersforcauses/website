@@ -9,7 +9,7 @@ import {
 import { useRouter } from 'next/router'
 import { useClerk, useMagicLink, useSignUp } from '@clerk/nextjs'
 import { Tab } from '@headlessui/react'
-import Alert from '@components/Elements/Alert'
+import Alert from '@elements/Alert'
 import Title from '@components/Utils/Title'
 import { UserContext } from '@helpers/user'
 import UWAStudent from './UWAStudent'

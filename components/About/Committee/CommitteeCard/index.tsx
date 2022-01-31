@@ -1,7 +1,7 @@
 import { Fragment } from 'react'
 import Image from 'next/image'
 import { ImageProps, Socials } from '@helpers/global'
-import BrandIcons from '@components/Elements/BrandIcons'
+import BrandIcons from '@elements/BrandIcons'
 
 const CommitteeCard = ({
   name,

@@ -1,5 +1,5 @@
 import { memo } from 'react'
-import Modal from '@components/Elements/Modal'
+import Modal from '@elements/Modal'
 import { ModalProps } from '@helpers/global'
 
 const TermsModal = (props: ModalProps) => (

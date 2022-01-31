@@ -1,4 +1,4 @@
-import Modal from '@components/Elements/Modal'
+import Modal from '@elements/Modal'
 import { ModalProps } from '@helpers/global'
 
 const ProjectDevelopmentModal = ({ isOpen, closeModal }: ModalProps) => (

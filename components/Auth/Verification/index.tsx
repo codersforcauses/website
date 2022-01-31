@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { MagicLinkErrorCode, isMagicLinkError, useClerk } from '@clerk/nextjs'
 import Title from '@components/Utils/Title'
-import Alert, { AlertColor } from '@components/Elements/Alert'
+import Alert, { AlertColor } from '@elements/Alert'
 
 const status = (verificationStatus: string) => {
   switch (verificationStatus) {

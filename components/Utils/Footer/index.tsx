@@ -2,7 +2,7 @@ import { useState, useCallback } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import dynamic from 'next/dynamic'
-import BrandIcons from '@components/Elements/BrandIcons'
+import BrandIcons from '@elements/BrandIcons'
 
 const TermsModal = dynamic(() => import('./TermsModal'))
 const PrivacyModal = dynamic(() => import('./PrivacyModal'))

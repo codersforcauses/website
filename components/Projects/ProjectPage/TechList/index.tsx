@@ -1,4 +1,4 @@
-import BrandIcon from '@components/Elements/BrandIcons'
+import BrandIcon from '@elements/BrandIcons'
 
 const TechList = ({ data }: TechListProps) => (
   <div className='grid grid-cols-2 gap-4'>

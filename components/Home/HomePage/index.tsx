@@ -1,7 +1,7 @@
 import { useCallback, useState } from 'react'
 import Link from 'next/link'
 import constants from '@data/constants.json'
-import Toast from '@components/Elements/Toast'
+import Toast from '@elements/Toast'
 import TypedText from '@components/Utils/TypedText'
 import Services from '../Services'
 import Face from '../Face'

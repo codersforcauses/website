@@ -1,7 +1,7 @@
 import { SubmitHandler } from 'react-hook-form'
-import Alert from '@components/Elements/Alert'
-import { Button } from '@components/Elements/Button'
-import { Form, RadioGroup, TextField } from '@components/Elements/FormElements'
+import Alert from '@elements/Alert'
+import { Button } from '@elements/Button'
+import { Form, RadioGroup, TextField } from '@elements/FormElements'
 import { genderOptions } from '@lib/global'
 import validationSchema from './validation'
 

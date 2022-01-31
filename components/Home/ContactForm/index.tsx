@@ -1,6 +1,6 @@
 import { SubmitHandler } from 'react-hook-form'
-import { Button, GhostButton } from '@components/Elements/Button'
-import { Form, TextArea, TextField } from '@components/Elements/FormElements'
+import { Button, GhostButton } from '@elements/Button'
+import { Form, TextArea, TextField } from '@elements/FormElements'
 import rules from './validation'
 
 const defaultValues: FormValues = {

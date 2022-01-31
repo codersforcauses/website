@@ -1,7 +1,7 @@
 import { SubmitHandler } from 'react-hook-form'
-import { Button } from '@components/Elements/Button'
-import { CheckField, Form, TextField } from '@components/Elements/FormElements'
-import Alert from '@components/Elements/Alert'
+import { Button } from '@elements/Button'
+import { CheckField, Form, TextField } from '@elements/FormElements'
+import Alert from '@elements/Alert'
 import validationSchema from './validation'
 
 const defaultValues: FormValues = {
