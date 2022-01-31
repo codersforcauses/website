@@ -92,7 +92,7 @@ const SignUpPage = (props: SignUpProps) => {
         ).json()
         setUser(user)
 
-        setSession(su.createdSessionId, () => router.push('/dashboard'))
+        setSession(su.createdSessionId, () => router.push(props.route))
       }
     } catch (error: any) {
       error?.errors
@@ -169,7 +169,7 @@ const SignUpPage = (props: SignUpProps) => {
 }
 
 interface SignUpProps {
-  route?: string
+  route: string
   signIn: Dispatch<SetStateAction<boolean>>
 }
 

@@ -66,9 +66,7 @@ const SignInPage = (props: SignInProps) => {
           const user = await (await fetch(`/api/users?email=${email}`)).json()
           setUser(user)
 
-          setSession(si.createdSessionId, () =>
-            router.push(props.route || '/dashboard')
-          )
+          setSession(si.createdSessionId, () => router.push(props.route))
         }
 
         if (expired) setError('Session has expired. Please sign in to continue')
@@ -150,7 +148,7 @@ interface FormValues {
 }
 
 interface SignInProps {
-  route?: string
+  route: string
   signUp: Dispatch<SetStateAction<boolean>>
 }
 
