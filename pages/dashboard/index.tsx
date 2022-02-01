@@ -20,7 +20,7 @@ const Dashboard = () => {
 export const getServerSideProps = withServerSideAuth(async ({ auth }) => {
   const { userId } = auth
 
-  if (userId)
+  if (!userId)
     return {
       redirect: {
         destination: '/membership',

@@ -36,7 +36,7 @@ export const getServerSideProps = withServerSideAuth(
     if (userId)
       return {
         redirect: {
-          destination: nextRoute,
+          destination: '/dashboard',
           permanent: false
         }
       }
