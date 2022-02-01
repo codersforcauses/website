@@ -17,11 +17,14 @@ const links: Array<HeaderItem> = [
 ]
 
 const Header = () => (
-  <Popover as='header' className='fixed inset-x-0 top-0 z-30 py-3 bg-primary'>
+  <Popover
+    as='header'
+    className='fixed inset-x-0 top-0 z-30 py-3 bg-primary min-h-[64]'
+  >
     {({ open }) => (
       <div className='container px-3 mx-auto'>
         <div className='flex items-center justify-between'>
-          <div className='flex items-center text-secondary md:items-end'>
+          <div className='flex items-center text-secondary'>
             {/* <Link href='#main'>
               <a
                 role='link'
@@ -30,7 +33,7 @@ const Header = () => (
                 Skip to content
               </a>
             </Link> */}
-            <Popover.Button className='p-1 mr-3 material-icons-sharp text-secondary md:hidden hover:opacity-75 focus:outline-none focus:ring-inset focus:ring-1 focus:ring-accent focus:ring-opacity-50 focus:ring-offset-primary'>
+            <Popover.Button className='material-icons-sharp p-1 mr-3 text-secondary hover:opacity-75 focus:outline-none focus:ring-inset focus:ring-1 focus:ring-accent/50 focus:ring-offset-primary md:!hidden'>
               {open ? 'close' : 'menu'}
             </Popover.Button>
             <Link href='/'>
