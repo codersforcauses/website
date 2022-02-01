@@ -56,7 +56,7 @@
     "@next/bundle-analyzer": "10.2.3",
     "@types/mapbox-gl": "2.6.0",
     "@types/mongoose": "5.11.96",
-    "@types/node": "15.3.1",
+    "@types/node": "16.11.22",
     "@types/react": "17.0.37",
     "@types/simple-icons": "4.17.0",
     "@types/yup": "0.29.13",
