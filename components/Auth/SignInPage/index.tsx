@@ -19,7 +19,7 @@ const defaultValues: FormValues = {
   email: ''
 }
 
-const SignInPage = ({ route, signUp }: SignInProps) => {
+const SignInPage = ({ signUp }: SignInProps) => {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
   const [expired, setExpired] = useState(false)
@@ -67,7 +67,7 @@ const SignInPage = ({ route, signUp }: SignInProps) => {
           const user = await (await fetch(`/api/users?email=${email}`)).json()
           setUser(user)
 
-          setSession(si.createdSessionId, () => router.push(route))
+          setSession(si.createdSessionId, () => router.push('/dashboard'))
         }
 
         if (expired) setError('Session has expired. Please sign in to continue')
@@ -88,7 +88,6 @@ const SignInPage = ({ route, signUp }: SignInProps) => {
     [
       cancelMagicLinkFlow,
       expired,
-      route,
       router,
       setSession,
       setUser,
@@ -159,7 +158,6 @@ interface FormValues {
 }
 
 interface SignInProps {
-  route: string
   signUp: Dispatch<SetStateAction<boolean>>
 }
 

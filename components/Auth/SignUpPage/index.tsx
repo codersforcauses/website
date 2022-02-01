@@ -15,7 +15,7 @@ import { UserContext } from '@helpers/user'
 import UWAStudent from './UWAStudent'
 import OtherMember from './OtherMember'
 
-const SignUpPage = ({ signIn, route }: SignUpProps) => {
+const SignUpPage = ({ signIn }: SignUpProps) => {
   const [loading, setLoading] = useState(false)
   const [errors, setErrors] = useState('')
   const [auth, setAuth] = useState('')
@@ -93,7 +93,7 @@ const SignUpPage = ({ signIn, route }: SignUpProps) => {
           ).json()
           setUser(user)
 
-          setSession(su.createdSessionId, () => router.push(route))
+          setSession(su.createdSessionId, () => router.push('/dashboard'))
         }
       } catch (error: any) {
         error?.errors
@@ -113,7 +113,6 @@ const SignUpPage = ({ signIn, route }: SignUpProps) => {
     [
       auth,
       cancelMagicLinkFlow,
-      route,
       router,
       setSession,
       setUser,
@@ -181,7 +180,6 @@ const SignUpPage = ({ signIn, route }: SignUpProps) => {
 }
 
 interface SignUpProps {
-  route: string
   signIn: Dispatch<SetStateAction<boolean>>
 }
 

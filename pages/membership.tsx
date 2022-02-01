@@ -24,9 +24,9 @@ const Membership = ({ id, ...props }: MembershipProps) => {
       />
       <ClerkLoaded>
         {isSignUp ? (
-          <SignUpPage route={props.nextRoute} signIn={setIsSignUp} />
+          <SignUpPage signIn={setIsSignUp} />
         ) : (
-          <SignInPage route={props.nextRoute} signUp={setIsSignUp} />
+          <SignInPage signUp={setIsSignUp} />
         )}
       </ClerkLoaded>
     </>
@@ -36,11 +36,9 @@ const Membership = ({ id, ...props }: MembershipProps) => {
 export const getServerSideProps = withServerSideAuth(
   async ({ query, auth }) => {
     const { userId } = auth
-    const nextRoute = query?.name || '/dashboard'
     return {
       props: {
-        id: userId || '',
-        nextRoute
+        id: userId || ''
       }
     }
   }
