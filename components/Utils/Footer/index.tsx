@@ -41,6 +41,7 @@ const Footer = () => {
                 src='/logo/cfc_logo_white_full.svg'
                 alt='Coders for Causes wordmark'
                 layout='fill'
+                className='!w-auto !m-0 !min-w-min'
               />
             </div>
             <p className='m-0 font-mono'>
