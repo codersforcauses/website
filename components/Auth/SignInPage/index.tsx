@@ -44,7 +44,9 @@ const SignInPage = ({ signUp }: SignInProps) => {
       setVerified(false)
       setExpired(false)
 
-      const url = process.env.NEXT_PUBLIC_VERCEL_URL || 'http://localhost:3000'
+      const url =
+        `https://${process.env.NEXT_PUBLIC_VERCEL_URL}` ||
+        'http://localhost:3000'
 
       try {
         const { supportedFirstFactors } = await signIn.create({

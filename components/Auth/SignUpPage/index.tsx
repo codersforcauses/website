@@ -40,7 +40,9 @@ const SignUpPage = ({ signIn }: SignUpProps) => {
 
       setAuth('')
 
-      const url = process.env.NEXT_PUBLIC_VERCEL_URL || 'http://localhost:3000'
+      const url =
+        `https://${process.env.NEXT_PUBLIC_VERCEL_URL}` ||
+        'http://localhost:3000'
 
       try {
         if (values.hasOwnProperty('studentNumber')) {
