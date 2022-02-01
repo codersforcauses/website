@@ -6,7 +6,7 @@ import SignInPage from '@components/Auth/SignInPage'
 import SignUpPage from '@components/Auth/SignUpPage'
 import Router from 'next/router'
 
-const Membership = ({ id, ...props }: MembershipProps) => {
+const Membership = ({ id }: MembershipProps) => {
   const [isSignUp, setIsSignUp] = useState(false)
 
   useEffect(() => {
@@ -33,20 +33,17 @@ const Membership = ({ id, ...props }: MembershipProps) => {
   )
 }
 
-export const getServerSideProps = withServerSideAuth(
-  async ({ query, auth }) => {
-    const { userId } = auth
-    return {
-      props: {
-        id: userId || ''
-      }
+export const getServerSideProps = withServerSideAuth(({ auth }) => {
+  const { userId } = auth
+  return {
+    props: {
+      id: userId || ''
     }
   }
-)
+})
 
 interface MembershipProps {
   id: string
-  nextRoute: string
 }
 
 export default Membership
