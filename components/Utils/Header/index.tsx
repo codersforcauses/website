@@ -2,8 +2,9 @@ import { Fragment } from 'react'
 import { SignedIn, SignedOut } from '@clerk/nextjs'
 import { Transition, Popover } from '@headlessui/react'
 import Link from 'next/link'
-import SignedInUser from './SignedInUser'
+import dynamic from 'next/dynamic'
 import DarkToggle from './DarkToggle'
+const SignedInUser = dynamic(() => import('./SignedInUser'))
 
 const links: Array<HeaderItem> = [
   { href: '/about', text: 'About' },
