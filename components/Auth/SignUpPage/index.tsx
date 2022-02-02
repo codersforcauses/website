@@ -130,7 +130,10 @@ const SignUpPage = ({ signIn }: SignUpProps) => {
         <div className='container px-3 mx-auto'>
           <p className='mb-4'>
             Already have an account?&nbsp;
-            <button className='hover:underline' onClick={goToSignInPage}>
+            <button
+              className='hover:underline focus:outline-none focus:ring-1 focus:ring-accent'
+              onClick={goToSignInPage}
+            >
               Sign in
             </button>
             .
@@ -159,7 +162,7 @@ const SignUpPage = ({ signIn }: SignUpProps) => {
               </Alert>
             )}
             <Tab.Panels as={Fragment}>
-              <Tab.Panel>
+              <Tab.Panel className='focus:outline-none'>
                 <UWAStudent
                   error={errors}
                   loading={loading}

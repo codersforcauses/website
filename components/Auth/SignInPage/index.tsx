@@ -106,7 +106,10 @@ const SignInPage = ({ signUp }: SignInProps) => {
         <div className='container px-3 mx-auto'>
           <p>
             Don&apos;t have an account?&nbsp;
-            <button className='hover:underline' onClick={goToSignUpPage}>
+            <button
+              className='hover:underline focus:outline-none focus:ring-1 focus:ring-accent'
+              onClick={goToSignUpPage}
+            >
               Create one
             </button>
             .
