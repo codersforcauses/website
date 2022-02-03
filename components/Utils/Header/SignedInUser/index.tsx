@@ -75,9 +75,9 @@ const UserMenu = () => {
               {Links.map(link => (
                 <Menu.Item key={link.icon}>
                   {({ active }) => (
-                    <Link href={link.href}>
+                    <Link href={link.href} passHref>
                       <a
-                        className={`flex items-center py-2 px-4 text-sm ${
+                        className={`flex items-center py-2 px-4 text-sm hover:bg-secondary hover:text-primary ${
                           active && 'bg-secondary text-primary'
                         }`}
                       >
