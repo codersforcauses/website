@@ -18,7 +18,7 @@ const UWAStudent = (props: UWASignUpProps) => (
       </Alert>
     ) : (
       !props.loading && (
-        <Alert color='info' className='mt-4'>
+        <Alert color='accent' className='mt-4'>
           If you are a UWA student, you can sign up using your pheme login
           credentials (recommended). If not or you wish to join using another
           email, please register using &apos;Email Sign-up&apos;.

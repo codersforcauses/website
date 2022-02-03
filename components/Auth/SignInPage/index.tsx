@@ -122,7 +122,7 @@ const SignInPage = ({ signUp }: SignInProps) => {
               </Alert>
             ) : (
               loading && (
-                <Alert color='info' className='mt-4'>
+                <Alert color='accent' className='mt-4'>
                   We&apos;ve just sent you an email with a link to continue
                 </Alert>
               )
