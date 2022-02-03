@@ -1,6 +1,10 @@
 import { PropsWithChildren } from 'react'
+import { ColorProps } from '@helpers/global'
 
-const Alert = ({ color = 'info', ...props }: PropsWithChildren<AlertProps>) => {
+const Alert = ({
+  color = 'accent',
+  ...props
+}: PropsWithChildren<AlertProps>) => {
   let alertClass: string, icon: string
   if (color === 'success') {
     alertClass = 'bg-success/50 dark:bg-success/25 border-success'
@@ -13,7 +17,7 @@ const Alert = ({ color = 'info', ...props }: PropsWithChildren<AlertProps>) => {
     icon = 'error'
   } else {
     alertClass = 'bg-accent/50 dark:bg-accent/25 border-accent'
-    icon = 'info'
+    icon = 'accent'
   }
 
   return (
@@ -34,10 +38,8 @@ const Alert = ({ color = 'info', ...props }: PropsWithChildren<AlertProps>) => {
     </div>
   )
 }
-
-export type AlertColor = 'success' | 'warning' | 'danger' | 'info' | undefined
 interface AlertProps {
-  color?: AlertColor
+  color?: ColorProps
   icon?: boolean
   className?: string
 }

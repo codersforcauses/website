@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react'
 import { MagicLinkErrorCode, isMagicLinkError, useClerk } from '@clerk/nextjs'
+import { ColorProps } from '@helpers/global'
 import Title from '@components/Utils/Title'
-import Alert, { AlertColor } from '@elements/Alert'
+import Alert from '@elements/Alert'
 
 const status = (verificationStatus: string) => {
   switch (verificationStatus) {
@@ -18,7 +19,7 @@ const status = (verificationStatus: string) => {
 
 const Verification = () => {
   const [verification, setVerification] = useState<VerificationProps>({
-    type: 'info',
+    type: 'accent',
     status: 'loading'
   })
   const { handleMagicLinkVerification } = useClerk()
@@ -68,7 +69,7 @@ const Verification = () => {
 }
 
 interface VerificationProps {
-  type: AlertColor
+  type: ColorProps
   status: string
 }
 
