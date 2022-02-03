@@ -9,7 +9,6 @@ const AddOns = () => (
         var chatbox = document.getElementById('fb-customer-chat');
         chatbox.setAttribute("page_id", "700598980115471");
         chatbox.setAttribute("attribution", "biz_inbox");
-        chatbox.setAttribute("theme_color", "#000000");
 
         window.fbAsyncInit = function() {
           FB.init({
