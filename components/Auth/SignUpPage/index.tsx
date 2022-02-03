@@ -98,11 +98,14 @@ const SignUpPage = ({ signIn }: SignUpProps) => {
           setSession(su.createdSessionId, () => router.push('/dashboard'))
         }
       } catch (error: any) {
-        error?.errors
-          ? setErrors(error.errors?.[0].message)
-          : setErrors(
-              'Something went wrong signing you up. Please refresh and try again.'
-            )
+        console.log({ error })
+
+        if (error?.errors) setErrors(error.errors?.[0].message)
+        else if (error.message) setErrors(error.message)
+        else
+          setErrors(
+            'Something went wrong signing you up. Please refresh and try again.'
+          )
         cancelMagicLinkFlow()
       } finally {
         setLoading(false)
