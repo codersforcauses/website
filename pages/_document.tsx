@@ -1,4 +1,8 @@
 import Document, { Head, Html, Main, NextScript } from 'next/document'
+import dynamic from 'next/dynamic'
+const AddOns = dynamic(() => import('../components/Utils/AddOns'), {
+  ssr: false
+})
 
 class MyDocument extends Document {
   render() {
@@ -28,6 +32,7 @@ class MyDocument extends Document {
           <Main />
           <NextScript />
         </body>
+        {process.env.NODE_ENV === 'production' && <AddOns />}
       </Html>
     )
   }
