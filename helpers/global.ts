@@ -8,6 +8,12 @@ export interface ModalProps {
   closeModal: () => void
 }
 
+interface Mongoose {
+  _id: string | string
+  createdAt: string
+  updatedAt: string
+}
+
 export type Role =
   | 'admin'
   | 'HLM'
@@ -35,12 +41,6 @@ interface SocialType {
   link: string
 }
 
-interface Mongoose {
-  _id: string | string
-  createdAt: string
-  updatedAt: string
-}
-
 export interface UserModel {
   firstName: string
   lastName: string
@@ -60,3 +60,11 @@ export interface UserModel {
 }
 
 export type User = (UserModel & Mongoose & { name: string }) | null
+
+export type ColorProps = 'accent' | 'success' | 'danger' | 'warning'
+export interface AnnouncementModel {
+  color: ColorProps
+  html: string
+}
+
+export type Announcements = (AnnouncementModel & Mongoose) | null
