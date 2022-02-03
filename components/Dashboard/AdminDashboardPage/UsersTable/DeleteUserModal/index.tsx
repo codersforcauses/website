@@ -9,7 +9,7 @@ const DeleteUserModal = ({ user: id, ...props }: DeleteModalProps) => {
   const [user, setUser] = useState<User>(null)
   useEffect(() => {
     const getUser = async () => {
-      setUser(await (await fetch(`/api/users?id=${id}`)).json())
+      setUser(await (await fetch(`/api/users?clerkID=${id}`)).json())
     }
     id && getUser()
 
@@ -66,8 +66,16 @@ const DeleteUserModal = ({ user: id, ...props }: DeleteModalProps) => {
             <div>Last updated on {user.updatedAt}</div>
           </div>
           <div className='flex justify-between'>
-            <GhostButton onClick={props.closeModal}>Cancel</GhostButton>
-            <Button color='danger'>Delete</Button>
+            <GhostButton disabled={props.loading} onClick={props.closeModal}>
+              Cancel
+            </GhostButton>
+            <Button
+              color='danger'
+              loading={props.loading}
+              onClick={props.deleteUser}
+            >
+              Delete
+            </Button>
           </div>
         </div>
       )}
@@ -77,6 +85,8 @@ const DeleteUserModal = ({ user: id, ...props }: DeleteModalProps) => {
 
 interface DeleteModalProps extends ModalProps {
   user: string
+  loading: boolean
+  deleteUser: () => void
 }
 
 export default memo(DeleteUserModal)

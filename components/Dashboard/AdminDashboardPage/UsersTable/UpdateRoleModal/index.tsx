@@ -36,7 +36,7 @@ const UpdateRoleModal = ({ user: id, ...props }: UpdateRoleModalProps) => {
   const [user, setUser] = useState<User>(null)
   useEffect(() => {
     const getUser = async () => {
-      setUser(await (await fetch(`/api/users?id=${id}`)).json())
+      setUser(await (await fetch(`/api/users?clerkID=${id}`)).json())
     }
     id && getUser()
 

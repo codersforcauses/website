@@ -1,14 +1,18 @@
-import { memo, useCallback, useState } from 'react'
+import { memo, useCallback, useContext, useState } from 'react'
+import dynamic from 'next/dynamic'
 import useSWR from 'swr'
 import Avatar from '@elements/Avatar'
 import { User } from '@helpers/global'
+import { UserContext } from '@helpers/user'
 import RoleTags from '../RoleTags'
-import DeleteUserModal from '../UsersTable/DeleteUserModal'
-import UpdateRoleModal from '../UsersTable/UpdateRoleModal'
+const DeleteUserModal = dynamic(() => import('./DeleteUserModal'))
+const UpdateRoleModal = dynamic(() => import('./UpdateRoleModal'))
 
 const UsersTable = () => {
-  const { data: users } = useSWR<Array<NonNullable<User>>>('/api/users')
+  const { user: presentUser } = useContext(UserContext)
+  const { data: users, mutate } = useSWR<Array<NonNullable<User>>>('/api/users')
   const [currentUser, setCurrentUser] = useState('')
+  const [loading, setLoading] = useState(false)
   const [userDeleteModal, setUserDeleteModal] = useState(false)
   const [updateRoleModal, setUpdateRoleModal] = useState(false)
 
@@ -17,6 +21,20 @@ const UsersTable = () => {
     setUserDeleteModal(false)
     setCurrentUser('')
   }, [])
+  const deleteUser = useCallback(async () => {
+    setLoading(true)
+    try {
+      await fetch(`/api/users?clerkID=${currentUser}`, {
+        method: 'DELETE'
+      })
+      mutate()
+      closeDeleteUsersModal()
+    } catch (error) {
+    } finally {
+      setLoading(false)
+    }
+  }, [closeDeleteUsersModal, currentUser, mutate])
+
   const openUpdateRoleModal = useCallback(() => setUpdateRoleModal(true), [])
   const closeUpdateRoleModal = useCallback(() => {
     setUpdateRoleModal(false)
@@ -25,24 +43,17 @@ const UsersTable = () => {
 
   return users ? (
     <>
-      {/* <div className='grid grid-cols-2 gap-2 md:grid-cols-4 md:gap-x-4 lg:gap-x-16'>
-        <div className='px-4 py-2 bg-alt-light dark:bg-primary'>
-          <span className='text-xs'>Total Members</span>
-          <p className='font-mono text-4xl'>{users.length}</p>
-        </div>
-        <div className='px-4 py-2 bg-alt-light dark:bg-primary'>
-          <span className='text-xs'>Total Paying Members</span>
-          <p className='font-mono text-4xl'>{users.length}</p>
-        </div>
-        <div className='px-4 py-2 bg-alt-light dark:bg-primary'>
-          <span className='text-xs'>Total Paying Members</span>
-          <p className='font-mono text-4xl'>{users.length}</p>
-        </div>
-      </div> */}
-      <table className='w-full overflow-x-scroll border-collapse'>
+      <div className='grid'>
+        <input
+          type='search'
+          placeholder='search'
+          className='bg-transparent border justify-self-end focus:outline-none focus:ring-0 focus:border-current border-primary text-primary dark:border-secondary dark:text-secondary'
+        />
+      </div>
+      <table className='w-full mt-6 overflow-x-scroll border-collapse'>
         <thead className='font-mono font-black text-left'>
           <tr>
-            <th className='p-2' />
+            <th className='hidden p-2 md:block' />
             <th className='p-2'>Member</th>
             <th className='p-2'>Roles</th>
             <th className='p-2'>Joined On</th>
@@ -52,16 +63,15 @@ const UsersTable = () => {
         <tbody className='text-lg'>
           {users?.map((user, idx) => (
             <tr key={idx} className='dark:odd:bg-primary odd:bg-alt-light'>
-              <td className='p-2 text-center'>
+              <td className='flex items-center justify-center p-2 min-h-[80px]'>
                 {`${idx + 1}`.padStart(3, '0')}
               </td>
-              <td className='p-2 border-x border-primary/10 dark:border-secondary/20'>
+              <td className='p-2 border-r md:border-x border-primary/10 dark:border-secondary/20'>
                 <div className='flex space-x-2'>
                   <Avatar size='md' name={user.name} />
                   <div className='flex flex-col justify-center'>
                     <b className='font-mono'>{user.name}</b>
                     <span className='text-sm'>{user.email}</span>
-                    <span className='text-sm'>{user._id}</span>
                   </div>
                 </div>
               </td>
@@ -78,18 +88,20 @@ const UsersTable = () => {
               <td className='w-24'>
                 <div className='flex items-center justify-evenly'>
                   <button
-                    className='flex p-1 place-items-center'
+                    disabled={user._id === presentUser?._id}
+                    className='flex p-1 place-items-center disabled:opacity-50'
                     onClick={() => {
-                      setCurrentUser(user._id)
+                      setCurrentUser(user.clerkID)
                       openUpdateRoleModal()
                     }}
                   >
                     <i className='material-icons-sharp'>manage_accounts</i>
                   </button>
                   <button
-                    className='flex p-1 place-items-center'
+                    disabled={user._id === presentUser?._id}
+                    className='flex p-1 place-items-center disabled:opacity-50'
                     onClick={() => {
-                      setCurrentUser(user._id)
+                      setCurrentUser(user.clerkID)
                       openDeleteUsersModal()
                     }}
                   >
@@ -105,12 +117,17 @@ const UsersTable = () => {
       </table>
       <UpdateRoleModal
         user={currentUser}
-        name={users.find(({ _id }) => currentUser === _id)?.firstName as string}
+        name={
+          users.find(({ clerkID }) => currentUser === clerkID)
+            ?.firstName as string
+        }
         isOpen={updateRoleModal}
         closeModal={closeUpdateRoleModal}
       />
       <DeleteUserModal
         user={currentUser}
+        loading={loading}
+        deleteUser={deleteUser}
         isOpen={userDeleteModal}
         closeModal={closeDeleteUsersModal}
       />
