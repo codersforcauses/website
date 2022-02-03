@@ -14,6 +14,11 @@ const links: Array<HeaderItem> = [
     href: 'https://guides.codersforcauses.org/',
     text: 'Guides',
     isExternal: true
+  },
+  {
+    href: 'https://docs.google.com/forms/d/e/1FAIpQLScPEsHxs1afKNF7Zo9i7JkDgGlg3k-nZowJspsb18ve1odkaA/viewform',
+    text: 'Join',
+    isExternal: true
   }
 ]
 

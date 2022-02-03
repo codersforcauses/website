@@ -50,6 +50,14 @@ const HomePage = () => {
       }, 6000)
     }
   }, [])
+  const newTab = useCallback(url => window.open(url, '_blank'), [])
+  const openMembership = useCallback(
+    () =>
+      newTab(
+        'https://docs.google.com/forms/d/e/1FAIpQLScPEsHxs1afKNF7Zo9i7JkDgGlg3k-nZowJspsb18ve1odkaA/viewform'
+      ),
+    []
+  )
 
   return (
     <>
