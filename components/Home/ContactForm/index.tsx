@@ -1,3 +1,4 @@
+import { memo } from 'react'
 import { SubmitHandler } from 'react-hook-form'
 import { Button, GhostButton } from '@elements/Button'
 import { Form, TextArea, TextField } from '@elements/FormElements'
@@ -45,7 +46,7 @@ const ContactForm = (props: ContactFormProps) => {
       <TextArea
         label='Message'
         name='message'
-        placeholder='Write a short message her to get things started'
+        placeholder='Write a short message here to get things started'
         rules={rules.message}
       />
       <div className='flex justify-between'>
@@ -77,5 +78,5 @@ interface ContactFormProps {
   handleSubmit: SubmitHandler<FormValues>
 }
 
-export default ContactForm
+export default memo(ContactForm)
 export type ContactFormValues = keyof FormValues
