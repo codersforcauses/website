@@ -1,8 +1,14 @@
+import { useEffect } from 'react'
+import Router from 'next/router'
 import { withServerSideAuth } from '@clerk/nextjs/ssr'
 import Meta from '@components/Utils/Meta'
 import DashboardPage from '@components/Dashboard/DashboardPage'
 
-const Dashboard = () => {
+const Dashboard = ({ id }: DashboardProps) => {
+  useEffect(() => {
+    !id && Router.replace('/membership')
+  }, [id])
+
   return (
     <>
       <Meta
@@ -17,20 +23,14 @@ const Dashboard = () => {
   )
 }
 
-export const getServerSideProps = withServerSideAuth(async ({ auth }) => {
-  const { userId } = auth
-
-  if (!userId)
-    return {
-      redirect: {
-        destination: '/membership',
-        permanent: false
-      }
-    }
-
-  return {
-    props: {}
+export const getServerSideProps = withServerSideAuth(async ({ auth }) => ({
+  props: {
+    id: auth.userId || ''
   }
-})
+}))
+
+interface DashboardProps {
+  id: string
+}
 
 export default Dashboard
