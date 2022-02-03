@@ -1,13 +1,16 @@
 import { useCallback, useState } from 'react'
 import Link from 'next/link'
 import dynamic from 'next/dynamic'
-import constants from '@data/constants.json'
 import Toast from '@elements/Toast'
 import TypedText from '@components/Utils/TypedText'
 import Services from '../Services'
 import Face from '../Face'
 import ClientSlider from './ClientSlider'
 const ContactForm = dynamic(() => import('../ContactForm'))
+
+const constants = {
+  email: 'hello@codersforcauses.org'
+}
 
 const HomePage = () => {
   const [contactOpen, setContactOpen] = useState(false)
