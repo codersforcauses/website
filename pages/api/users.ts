@@ -43,23 +43,35 @@ const userRoute = async (req: NextApiRequest, res: NextApiResponse) => {
         await users.deleteUser(clerk_id)
 
         if ('email' in error.keyValue)
-          res.status(409).end('Failed to create user as email already exists')
+          res.status(409).json({
+            success: false,
+            message: 'Failed to create user as email already exists'
+          })
 
         console.log({ error })
-        res.status(400).end('Failed to create user')
+        res.status(400).json({
+          success: false,
+          message: 'Failed to create user'
+        })
       }
       break
     case 'PATCH':
       break
     case 'DELETE':
       try {
-        await User.deleteOne({ clerkID: query.clerkID })
-        await users.deleteUser(query.clerkID as string)
+        const clerkID = query.clerkID as string
+        console.log(clerkID)
+
+        await User.deleteOne({ clerkID: clerkID })
+        await users.deleteUser(clerkID)
         res.status(200).end('Deleted user')
       } catch (error) {
         console.log(error)
 
-        res.status(424).end('Failed to delete user')
+        res.status(424).json({
+          success: false,
+          message: 'Failed to delete user'
+        })
       }
       break
     case 'GET':
@@ -73,7 +85,10 @@ const userRoute = async (req: NextApiRequest, res: NextApiResponse) => {
           ).lean()
           res.status(200).json(modifyUser(user))
         } catch (error) {
-          res.status(404).end('User Not Found')
+          res.status(404).json({
+            success: false,
+            message: 'User Not Found'
+          })
         }
         break
       }
@@ -84,7 +99,10 @@ const userRoute = async (req: NextApiRequest, res: NextApiResponse) => {
 
         res.status(200).json(users)
       } catch (error) {
-        res.status(403).end('You are not allowed to access user data')
+        res.status(403).json({
+          success: false,
+          message: 'You are not allowed to access user data'
+        })
       }
       break
   }
