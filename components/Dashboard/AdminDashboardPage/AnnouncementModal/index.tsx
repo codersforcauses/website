@@ -1,10 +1,11 @@
-import { memo, useCallback } from 'react'
+import { memo, useCallback, useState } from 'react'
 import { useWatch } from 'react-hook-form'
 import { AnnouncementModel, ModalProps } from '@helpers/global'
 import Modal from '@elements/Modal'
 import Alert from '@elements/Alert'
 import { Button } from '@elements/Button'
 import { Form, RadioGroup, TextArea } from '@elements/FormElements'
+import validationSchema from './validation'
 
 const defaultValues: AnnouncementModel = {
   color: 'accent',
@@ -43,20 +44,45 @@ const Preview = () => {
   return (
     <Alert color={color} className='flex justify-between !mt-1 space-x-2'>
       <p dangerouslySetInnerHTML={{ __html: html || 'Test announcement' }} />
-      <small className='opacity-60'>{date}</small>
+      <small className='select-none opacity-60'>{date}</small>
     </Alert>
   )
 }
 
-const AnnouncementModal = ({ ...props }: AnnouncementModalProps) => {
-  const handleSubmit = useCallback((values: AnnouncementModel) => {}, [])
+const AnnouncementModal = ({
+  closeModal,
+  ...props
+}: AnnouncementModalProps) => {
+  const [error, setError] = useState('')
+  const handleSubmit = useCallback(
+    async (values: AnnouncementModel) => {
+      try {
+        setError('')
+        await fetch('/api/announcements', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(values)
+        })
+        closeModal()
+      } catch (err: any) {
+        console.log(err)
+        setError(err?.message || 'Failed to create announcement')
+      }
+    },
+    [closeModal]
+  )
 
   return (
     <Modal
       heading='Create Announcement'
       open={props.isOpen}
-      onClose={props.closeModal}
+      onClose={closeModal}
     >
+      {error && (
+        <Alert icon color='danger' className='mb-4'>
+          {error}
+        </Alert>
+      )}
       <Form<AnnouncementModel>
         defaultValues={defaultValues}
         className='mt-0'
@@ -72,10 +98,12 @@ const AnnouncementModal = ({ ...props }: AnnouncementModalProps) => {
         <TextArea
           label='HTML'
           name='html'
+          counter={256}
           placeholder='Start typing'
           description='Type out the announcement and see the preview above'
+          rules={validationSchema.html}
         />
-        <Button>Submit</Button>
+        <Button type='submit'>Submit</Button>
       </Form>
     </Modal>
   )
