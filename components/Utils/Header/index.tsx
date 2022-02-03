@@ -24,7 +24,7 @@ const Header = () => (
   >
     {({ open }) => (
       <div className='container px-3 mx-auto'>
-        <div className='flex items-center justify-between'>
+        <div className='flex items-center justify-between h-10'>
           <div className='flex items-center text-secondary'>
             {/* <Link href='#main'>
               <a
