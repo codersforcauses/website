@@ -1,10 +1,14 @@
-import Meta from 'components/Utils/Meta'
-import AdminDashboardPage from 'components/Dashboard/AdminDashboardPage'
+import { useContext, useEffect } from 'react'
+import Router from 'next/router'
+import { UserContext } from '@helpers/user'
+import Meta from '@components/Utils/Meta'
+import AdminDashboardPage from '@components/Dashboard/AdminDashboardPage'
 
 const AdminDashboard = () => {
   // const { user } = useContext(UserContext)
+
   // useEffect(() => {
-  //   if (user === undefined) Router.replace('/membership')
+  //   if (!user) Router.replace('/membership')
   // }, [user])
 
   return (
