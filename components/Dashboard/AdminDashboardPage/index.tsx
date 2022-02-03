@@ -1,7 +1,10 @@
-import { memo } from 'react'
+import { memo, useCallback, useState } from 'react'
+import dynamic from 'next/dynamic'
 import { Tab } from '@headlessui/react'
 import Title from '@components/Utils/Title'
+import { Button } from '@elements/Button'
 import UsersTable from './UsersTable'
+const AnnouncementModal = dynamic(() => import('./AnnouncementModal'))
 
 const tabs = [
   {
@@ -19,6 +22,14 @@ const tabs = [
 ]
 
 const AdminDashboardPage = () => {
+  const [announcementModal, setAnnouncementModal] = useState(false)
+  const openAnnouncementModal = useCallback(
+    () => setAnnouncementModal(true),
+    []
+  )
+  const closeAnnouncementModal = useCallback(() => {
+    setAnnouncementModal(false)
+  }, [])
   return (
     <>
       <Title typed>./admin dashboard</Title>
@@ -38,6 +49,12 @@ const AdminDashboardPage = () => {
               <p className='font-mono text-4xl'>{users.length}</p>
             </div>
           </div> */}
+          <Button onClick={openAnnouncementModal}>
+            <span className='flex items-center'>
+              <span className='mr-2 material-icons-sharp'>add</span>
+              Create Announcement
+            </span>
+          </Button>
           <Tab.Group as='div'>
             <Tab.List className='flex border'>
               {tabs.map(({ name, icon }) => (
@@ -71,6 +88,10 @@ const AdminDashboardPage = () => {
           </Tab.Group>
         </div>
       </div>
+      <AnnouncementModal
+        isOpen={announcementModal}
+        closeModal={closeAnnouncementModal}
+      />
     </>
   )
 }
