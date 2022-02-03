@@ -35,9 +35,8 @@ const Footer = () => {
       <div className='container px-3 mx-auto space-y-6'>
         <div className='flex flex-col md:flex-row'>
           <div className='flex flex-col justify-between mb-3 mr-3 md:mb-0'>
-            <div className='relative w-1/2 h-12 select-none md:w-5/6'>
+            <div className='relative w-1/2 h-12 select-none md:w-full'>
               <Image
-                priority
                 src='/logo/cfc_logo_white_full.svg'
                 alt='Coders for Causes wordmark'
                 layout='fill'
