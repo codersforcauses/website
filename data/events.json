@@ -8,46 +8,58 @@
       "alt": "A winter project workshop"
     },
     "date": "26/06/21",
-    "time": "9:30am",
+    "time": {
+      "start": "9:30am",
+      "end": "3:00pm"
+    },
     "location": "UWA EZONE",
     "desc": "Get industry level experience and skills by working on fun projects."
   },
   {
     "slug": "software_industry_night_2021",
     "tags": ["industry", "social"],
-    "title": "Software Industry Night",
+    "title": "Software Industry Night 2021",
     "image": {
-      "src": "/events/IMG_9704.JPG",
+      "src": "/events/IMG_9704.webp",
       "alt": "Image of speaker at industry night"
     },
     "date": "04/03/21",
-    "time": "6:30pm",
+    "time": {
+      "start": "6:30pm",
+      "end": "8:30pm"
+    },
     "location": "UWA EZONE",
     "desc": "Get ready for a bigger and better industry night with representatives from all your favorite tech companies and insightful talks from some amazing speakers."
   },
   {
     "slug": "women_in_tech",
     "tags": ["industry", "social"],
-    "title": "Women in Tech Industry Panel",
+    "title": "Women in Tech Industry Panel 2020",
     "image": {
-      "src": "/events/IMG_4721.JPG",
+      "src": "/events/IMG_4721.webp",
       "alt": "Image of panelists talking"
     },
     "date": "08/10/20",
-    "time": "6:30pm",
+    "time": {
+      "start": "6:30pm",
+      "end": "8:30pm"
+    },
     "location": "UWA EZONE",
     "desc": "Hear from some amazing women in the tech industry talk about their experiences and how they made it to where they are, as well as any questions you want to ask them. After the panel stick around to network with industry representatives and other UWA students."
   },
   {
     "slug": "software_industry_night_2019",
     "tags": ["industry", "social"],
-    "title": "Software Industry Night",
+    "title": "Software Industry Night 2019",
     "image": {
-      "src": "/events/IMG_9700.JPG",
+      "src": "/events/IMG_9700.webp",
       "alt": "Image of speaker speaking at industry night"
     },
     "date": "20/10/19",
-    "time": "5:30pm",
+    "time": {
+      "start": "5:30pm",
+      "end": "8:00pm"
+    },
     "location": "UWA IQX",
     "desc": "Coders for Causes invite you to a night of networking with industry professionals proudly supported by BHP and Rio Tinto. Hosted at the UWA Innovation Quarter (IQX), join us as representatives from the software industry share insights into career opportunities as well as keynotes from companies in the field"
   }

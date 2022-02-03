@@ -1,8 +1,6 @@
-/** @jsxImportSource @emotion/react */
 import Image from 'next/image'
 import { memo, useEffect, useState } from 'react'
-import { ImageProps } from 'helpers/global'
-import { styles } from './styles'
+import { ImageProps } from '@helpers/global'
 
 const randomise = () => {
   const options = [-1, 0, 1]
@@ -14,25 +12,29 @@ const ImageGrid = ({ images }: ImageGridProps) => {
 
   useEffect(() => {
     setImageList(images.sort(randomise).slice(0, images.length))
-  }, [])
+  }, [images])
 
   return (
-    <div css={styles(images.length)}>
+    <div className='flex h-24 gap-3 md:gap-12'>
       {imageList.map(image => (
-        <Image
-          key={image.alt}
-          {...image}
-          layout='responsive'
-          width={110}
-          height={90}
-          className='logo'
-        />
+        <div key={image.alt} className='relative w-full basis-1/2'>
+          <Image
+            src={image.src}
+            alt={image.alt}
+            priority
+            layout='fill'
+            objectFit='contain'
+            objectPosition='center'
+            className='transition duration-300 grayscale contrast-[0.2] brightness-110 hover:filter-none'
+          />
+        </div>
       ))}
     </div>
   )
 }
-export default memo(ImageGrid)
 
 interface ImageGridProps {
   images: Array<ImageProps>
 }
+
+export default memo(ImageGrid)

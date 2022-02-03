@@ -1,32 +1,29 @@
-/** @jsxImportSource @emotion/react */
-import { useTheme } from '@emotion/react'
-import { useContext } from 'react'
-import { Container } from 'reactstrap'
-import Title from 'components/Utils/Title'
-import { DarkContext } from 'helpers/user'
-import { styles } from './styles'
+import Title from '@components/Utils/Title'
+import questionList from '@data/faq.json'
 import QuestionCard from '../QuestionCard'
-import questionList from 'data/faq.json'
 
-const FAQPage = () => {
-  const isDark = useContext(DarkContext)
-  const theme = useTheme()
-
-  return (
-    <div css={styles(theme, isDark)}>
-      <Title typed>./Frequently Asked Questions</Title>
-      <Container className='pt-2 pb-5 my-5'>
-        {questionList.map(question => (
-          <QuestionCard
-            description={question.description}
-            answer={question.answer}
-            key={question.id}
-            id={question.id}
-          />
+const FAQPage = () => (
+  <>
+    <Title typed>./frequently asked questions</Title>
+    <div className='py-12 md:py-24 bg-secondary text-primary dark:bg-alt-dark dark:text-secondary'>
+      <div className='container grid grid-cols-1 gap-6 px-3 mx-auto lg:gap-y-12 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4'>
+        {questionList.map(({ id, ...question }) => (
+          <QuestionCard {...question} key={id} />
         ))}
-      </Container>
+        <p className='mt-6 text-xl sm:col-span-2 lg:col-span-3'>
+          Don&apos;t find what you are looking for? Find us on the{' '}
+          <a
+            target='_blank'
+            rel='noreferrer'
+            href='https://discord.com/invite/zW3hjwY'
+            className='hover:underline focus:outline-none focus:ring focus:ring-accent'
+          >
+            CFC Discord
+          </a>
+        </p>
+      </div>
     </div>
-  )
-}
+  </>
+)
 
 export default FAQPage

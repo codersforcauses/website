@@ -1,101 +1,71 @@
-/** @jsxImportSource @emotion/react */
-import { useTheme } from '@emotion/react'
-import {
-  Card,
-  CardImg,
-  CardImgOverlay,
-  CardTitle,
-  CardSubtitle,
-  CardText,
-  CardProps
-} from 'reactstrap'
-import { ImageProps } from 'helpers/global'
-import { styles } from './styles'
-import BrandIcons from 'components/Elements/BrandIcons'
-
-const replaceImage = (src: string, nameList: Array<string>, prob: number) => {
-  if (
-    nameList.some((name: string) => src.includes(name)) &&
-    Math.random() < prob
-  ) {
-    return src.split('.')[0].concat('-1').concat('.jpg')
-  }
-  return src
-}
+import { Fragment } from 'react'
+import Image from 'next/image'
+import { ImageProps, Socials } from '@helpers/global'
+import BrandIcons from '@elements/BrandIcons'
 
 const CommitteeCard = ({
-  item: {
-    name,
-    position,
-    about,
-    social,
-    picture: { src, alt }
-  }
-}: Props) => {
-  const theme = useTheme()
-
-  return (
-    <Card inverse className='border-0 rounded-0' css={styles(theme)}>
-      <CardImg
-        width='100%'
-        src={replaceImage(src, ['jerry'], 0.05)}
+  name,
+  position,
+  about,
+  social,
+  picture: { src, alt }
+}: CardItemProps) => (
+  <div className='relative flex group'>
+    <div className='relative w-full h-96 md:h-64 lg:h-72'>
+      <div className='w-full h-full animate-pulse bg-secondary dark:bg-alt-dark' />
+      <Image
+        priority
+        src={src}
         alt={alt}
-        className='rounded-0 flex-grow-1'
+        layout='fill'
+        objectFit='cover'
+        objectPosition='top'
+        className='w-full h-full'
       />
-      <CardImgOverlay className='bg-primary card-overlay rounded-0'>
-        <CardTitle className='font-weight-bolder text-monospace'>
-          {name}
-        </CardTitle>
-        <CardSubtitle className='mb-1'>{position}</CardSubtitle>
-        <CardText className='mb-1'>{about}</CardText>
-        <CardText className='mb-1 d-flex align-items-start'>
-          <a
-            href={'mailto:' + social.email}
-            className='text-lightBg mr-2'
-            title={social.email}
-          >
-            <span className='material-icons-sharp icon'>email</span>
-          </a>
-          {Object.keys(social)
-            .filter(key => key !== 'email')
-            .map(item => (
+    </div>
+    <div className='absolute inset-x-0 bottom-0 p-4 transition-opacity duration-300 opacity-0 text-secondary group-hover:bg-primary group-hover:opacity-100'>
+      <p className='font-mono font-black'>{name}</p>
+      <p className='mb-1 text-secondary/75'>{position}</p>
+      <p className='text-sm'>{about}</p>
+      <div className='flex items-center space-x-2'>
+        {Object.keys(social).map(item => (
+          <Fragment key={item}>
+            {item === 'email' ? (
               <a
-                key={item}
+                // href={'mailto:' + social.email}
+                className='flex self-center'
+                // title={social.email}
+              >
+                <span className='material-icons-sharp'>email</span>
+              </a>
+            ) : (
+              <a
                 target='_blank'
                 rel='noopener noreferrer'
-                href={social[item]}
-                className='mr-2'
+                // href={social}
               >
-                <BrandIcons icon={item} dimensions={20} fill='lightBg' />
+                <BrandIcons
+                  icon={item}
+                  dimensions={20}
+                  className='fill-current'
+                />
               </a>
-            ))}
-        </CardText>
-      </CardImgOverlay>
-    </Card>
-  )
-}
+            )}
+          </Fragment>
+        ))}
+      </div>
+    </div>
+  </div>
+)
 
-interface Social {
-  email: string
-  discord: string
-  github?: string
-  gitlab?: string
-  bitbucket?: string
-  linkedin?: string
-  facebook?: string
-  twitter?: string
-}
+type Social = Partial<Record<Socials, string>>
 
-export interface CardItemContent {
+export interface CardItemProps {
   name: string
   position: string
   about: string
   social: Social
   picture: ImageProps
-}
-
-interface Props extends CardProps {
-  item: CardItemContent
 }
 
 export default CommitteeCard

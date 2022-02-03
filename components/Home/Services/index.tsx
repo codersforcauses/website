@@ -1,37 +1,16 @@
 import { memo } from 'react'
-import { Row, Col, Card, CardBody } from 'reactstrap'
 import services from 'data/services.json'
 
-const Service = (props: {
-  icon: string
-  title: string
-  description: string
-}) => (
-  <Card className='text-center border-0 bg-transparent'>
-    <CardBody className='px-0'>
-      <i className='material-icons-sharp md-lg'>{props.icon}</i>
-      <p className='mt-4 font-weight-bold text-monospace text-larger'>
-        {props.title}
-      </p>
-      <p className='mb-0'>{props.description}</p>
-    </CardBody>
-  </Card>
-)
-
 const Services = () => (
-  <Row>
+  <div className='grid grid-cols-1 grid-rows-4 gap-8 sm:grid-cols-2 sm:grid-rows-2 lg:grid-cols-4 lg:grid-rows-1'>
     {services.map(service => (
-      <Col
-        xs={12}
-        md={6}
-        lg={12 / services.length}
-        className='m-0'
-        key={service.title}
-      >
-        <Service {...service} />
-      </Col>
+      <div key={service.icon} className='px-0 text-center bg-transparent'>
+        <span className='material-icons-sharp !text-7xl'>{service.icon}</span>
+        <p className='mt-4 font-mono text-2xl font-black'>{service.title}</p>
+        <p className='mb-0'>{service.description}</p>
+      </div>
     ))}
-  </Row>
+  </div>
 )
 
 export default memo(Services)

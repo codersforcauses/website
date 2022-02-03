@@ -1,56 +1,67 @@
-/** @jsxImportSource @emotion/react */
 import { memo } from 'react'
 import SocialsConnected, { SocialsConnectedProps } from './SocialConnected'
-import { style } from './styles'
 
 const icons: Array<SocialsConnectedProps> = [
   {
     name: 'GitHub',
     icon: 'github',
-    color: '#24292e',
     socialLink: 'username'
   },
   {
     name: 'GitLab',
     icon: 'gitlab',
-    color: '#6b4fbb'
+    socialLink: 'username'
   },
   {
     name: 'Bitbucket',
-    icon: 'bitbucket',
-    color: '#0052cc'
-    // socialLink: 'username'
+    icon: 'bitbucket'
   },
   {
     name: 'LinkedIn',
     icon: 'linkedin',
-    color: '#2977c9',
     dimensions: 20,
     socialLink: 'username'
   },
   {
     name: 'Discord',
     icon: 'discord',
-    color: '#7289da',
     socialLink: 'username'
   }
 ]
 
-const compare = (a: SocialsConnectedProps, b: SocialsConnectedProps) => {
-  if (typeof a.socialLink === 'string') return -1
-  if (typeof a.socialLink !== 'string') return 1
-  return 0
+const filter = (socials: Array<SocialsConnectedProps>) => {
+  const sortCompare = (
+    { icon: iconA }: SocialsConnectedProps,
+    { icon: iconB }: SocialsConnectedProps
+  ) => {
+    if (iconA < iconB) return -1
+    if (iconA > iconB) return 1
+    return 0
+  }
+
+  const valid: Array<SocialsConnectedProps> = [],
+    invalid: Array<SocialsConnectedProps> = []
+
+  socials.sort(sortCompare).forEach(social => {
+    typeof social.socialLink === 'string'
+      ? valid.push(social)
+      : invalid.push(social)
+  })
+
+  return valid.concat(invalid)
 }
 
 const Socials = ({ isEditing }: { isEditing: boolean }) => (
-  <>
-    <p>{isEditing ? 'Link Socials' : 'Socials Connected'}</p>
-    <div css={style}>
-      {icons.sort(compare).map(icon => (
+  <div className='space-y-3'>
+    <p className='font-black'>
+      {isEditing ? 'Link Socials' : 'Socials Connected'}
+    </p>
+    <div className='grid grid-cols-1 gap-2'>
+      {filter(icons).map(icon => (
         <SocialsConnected key={icon.name} {...icon} isEditing={isEditing} />
       ))}
     </div>
-  </>
+  </div>
 )
 
 export default memo(Socials)

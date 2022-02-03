@@ -5,198 +5,166 @@ import {
   Dispatch,
   SetStateAction
 } from 'react'
-import { Auth } from '@aws-amplify/auth'
-import {
-  Container,
-  Button,
-  Row,
-  Col,
-  Nav,
-  NavItem,
-  NavLink,
-  TabContent,
-  TabPane
-} from 'reactstrap'
-import Router from 'next/router'
-import { phemeLogin } from 'helpers/phemeLogin'
-import { UserContext, DarkContext } from 'helpers/user'
+import { useRouter } from 'next/router'
+import { useClerk, useMagicLink, useSignIn } from '@clerk/nextjs'
+import { EmailLinkFactor } from '@clerk/types'
+import { UserContext } from '@helpers/user'
+import Title from '@components/Utils/Title'
+import { Form, TextField } from '@elements/FormElements'
+import { Button } from '@elements/Button'
+import Alert from '@elements/Alert'
+import validationSchema from './validation'
 
-import Title from 'components/Utils/Title'
-import UWAStudent from './UWAStudent'
-import OtherMember from './OtherMember'
+const defaultValues: FormValues = {
+  email: ''
+}
 
-const SignInPage = (props: {
-  route?: string
-  signUp: Dispatch<SetStateAction<boolean>>
-}) => {
-  const [isUWAStudent, setIsUWAStudent] = useState(true)
+const SignInPage = ({ signUp }: SignInProps) => {
   const [loading, setLoading] = useState(false)
-  const [errors, setErrors] = useState('')
-
+  const [error, setError] = useState('')
+  const [expired, setExpired] = useState(false)
+  const [verified, setVerified] = useState(false)
+  const router = useRouter()
   const { setUser } = useContext(UserContext)
-  const isDark = useContext(DarkContext)
+  const { setSession } = useClerk()
+  const signIn = useSignIn()
+  const { startMagicLinkFlow, cancelMagicLinkFlow } = useMagicLink(signIn)
 
-  const closeError = useCallback(() => setErrors(''), [])
   const goToSignUpPage = useCallback(
     e => {
       e.preventDefault()
-      props.signUp(true)
+      signUp(true)
     },
-    [props.signUp]
+    [signUp]
   )
-  const setUWAStudent = useCallback(() => setIsUWAStudent(true), [])
-  const setNotUWAStudent = useCallback(() => setIsUWAStudent(false), [])
 
   const handleSubmit = useCallback(
-    async values => {
+    async ({ email }: FormValues) => {
       setLoading(true)
+      setVerified(false)
+      setExpired(false)
 
-      const data = {
-        username: values.email,
-        password: values.password
-      }
+      const url = process.env.NEXT_PUBLIC_VERCEL_URL
+        ? `https://${process.env.NEXT_PUBLIC_VERCEL_URL}`
+        : 'http://localhost:3000'
+
       try {
-        if (isUWAStudent) {
-          const phemeResponse = await phemeLogin(
-            values.studentNumber,
-            values.password,
-            `${process.env.NEXT_PUBLIC_PHEME_URL}api/login`,
-            process.env.NEXT_PUBLIC_PHEME_TOKEN
-          )
+        const { supportedFirstFactors } = await signIn.create({
+          identifier: email
+        })
+        const { email_address_id } = supportedFirstFactors.find(
+          ff => ff.strategy === 'email_link' && ff.safe_identifier === email
+        ) as EmailLinkFactor
 
-          if (!phemeResponse.success) throw new Error(phemeResponse.message)
-
-          // reassign data to use values fetched from pheme login
-          data.username = `${values.studentNumber}@student.uwa.edu.au`
-          data.password = `${values.studentNumber}${process.env.NEXT_PUBLIC_PHEME_SALT}`
-        }
-        const cognitoResponse = await Auth.signIn(data.username, data.password)
-
-        // query backend
-        const response = await fetch(
-          `${process.env.NEXT_PUBLIC_API_URL}users?awsSub=${cognitoResponse.attributes.sub}`
-        )
-        const {
-          data: [user]
-        } = await response.json()
-
-        setUser({
-          ...user,
-          jwt_token: cognitoResponse.signInUserSession.idToken.jwtToken
+        const si = await startMagicLinkFlow({
+          emailAddressId: email_address_id,
+          redirectUrl: `${url}/verification`
         })
 
-        Router.replace(props.route ? props.route : '/dashboard')
-      } catch ({ code, message }) {
-        if (code === 'UserNotConfirmedException') {
-          setErrors(
-            'To login into Coders for Causes, please click on the verification link sent to your email and try again.'
-          )
+        const verification = si.firstFactorVerification
+        if (verification.verifiedFromTheSameClient()) setVerified(true)
+        else if (verification.status === 'expired') setExpired(true)
+
+        if (si.status === 'complete') {
+          const user = await (await fetch(`/api/users?email=${email}`)).json()
+          setUser(user)
+
+          setSession(si.createdSessionId, () => router.push('/dashboard'))
         }
-        setErrors(
-          message ||
-            'An unexpected error occurred. Please refresh the page and try again.'
-        )
+
+        if (expired) setError('Session has expired. Please sign in to continue')
+        if (verified) return <div>Signed in on another tab</div>
+      } catch (error: any) {
+        console.log({ error })
+
+        if (error?.errors) setError(error.errors?.[0].message)
+        else if (error.message) setError(error.message)
+        else
+          setError(
+            'Something went wrong signing you up. Please refresh and try again.'
+          )
+        cancelMagicLinkFlow()
       } finally {
         setLoading(false)
       }
     },
-    [isUWAStudent]
+    [
+      cancelMagicLinkFlow,
+      expired,
+      router,
+      setSession,
+      setUser,
+      signIn,
+      startMagicLinkFlow,
+      verified
+    ]
   )
 
   return (
-    <div>
+    <>
       <Title typed>./sign-in</Title>
-      <Container className='py-5 '>
-        <Row>
-          <Col xs={12} tag='p'>
-            Don't have an account?&nbsp;
-            <Button
-              color='link'
-              className={`px-0 mt-n1 rounded-0 text-${
-                isDark ? 'secondary' : 'primary'
-              }`}
+      <div className='py-12 bg-secondary text-primary md:py-24 dark:bg-alt-dark dark:text-secondary'>
+        <div className='container px-3 mx-auto'>
+          <p>
+            Don&apos;t have an account?&nbsp;
+            <button
+              className='hover:underline focus:outline-none focus:ring-1 focus:ring-accent'
               onClick={goToSignUpPage}
             >
               Create one
-            </Button>
+            </button>
             .
-          </Col>
-          <Col md={6}>
-            <Nav tabs className='border-0'>
-              <NavItem className='mr-2'>
-                <NavLink
-                  disabled={loading}
-                  tag='button'
-                  className={`tab-nav rounded-0 text-${
-                    isDark ? 'secondary' : 'primary'
-                  } ${
-                    isUWAStudent
-                      ? `${
-                          isDark
-                            ? 'border-secondary text-secondary'
-                            : 'border-primary text-primary'
-                        }`
-                      : null
-                  }`}
-                  onClick={setUWAStudent}
-                >
-                  UWA Student
-                </NavLink>
-              </NavItem>
-              <NavItem>
-                <NavLink
-                  disabled={loading}
-                  tag='button'
-                  className={`tab-nav rounded-0 text-${
-                    isDark ? 'secondary' : 'primary'
-                  } ${
-                    !isUWAStudent
-                      ? `${
-                          isDark
-                            ? 'border-secondary text-secondary'
-                            : 'border-primary text-primary'
-                        }`
-                      : null
-                  }`}
-                  onClick={setNotUWAStudent}
-                >
-                  Email Sign-in
-                </NavLink>
-              </NavItem>
-            </Nav>
-            <TabContent activeTab={isUWAStudent ? 1 : 2}>
-              <TabPane tabId={1} className='pt-3'>
-                <UWAStudent
-                  loading={loading}
-                  error={errors}
-                  closeError={closeError}
-                  handleSubmit={handleSubmit}
-                />
-              </TabPane>
-              <TabPane tabId={2} className='pt-3'>
-                <OtherMember
-                  loading={loading}
-                  error={errors}
-                  closeError={closeError}
-                  handleSubmit={handleSubmit}
-                />
-              </TabPane>
-            </TabContent>
-          </Col>
-          <Col
-            md={{ size: 5, offset: 1 }}
-            className='d-none d-md-flex align-items-center'
-          >
-            <img
-              src='/illustrations/sign_in.svg'
-              alt='Coder Coding'
-              className='img-fluid'
-            />
-          </Col>
-        </Row>
-      </Container>
-    </div>
+          </p>
+          <div className='md:max-w-lg md:w-1/2 membership'>
+            {error ? (
+              <Alert icon color='danger' className='mt-4'>
+                {error}
+              </Alert>
+            ) : (
+              loading && (
+                <Alert color='accent' className='mt-4'>
+                  We&apos;ve just sent you an email with a link to continue
+                </Alert>
+              )
+            )}
+            <Form<FormValues>
+              showNote
+              disabled={loading}
+              defaultValues={defaultValues}
+              onSubmit={handleSubmit}
+            >
+              <TextField
+                setFocused
+                label='Email'
+                name='email'
+                type='email'
+                placeholder='hello@codersforcauses.org'
+                autoComplete='email'
+                description='We will send you an email with a magic link'
+                rules={validationSchema.email}
+              />
+              <Button
+                fill
+                type='submit'
+                loading={loading}
+                className='px-8 max-w-max'
+              >
+                Sign-in
+              </Button>
+            </Form>
+          </div>
+        </div>
+      </div>
+    </>
   )
+}
+
+interface FormValues {
+  email: string
+}
+
+interface SignInProps {
+  signUp: Dispatch<SetStateAction<boolean>>
 }
 
 export default SignInPage

@@ -1,56 +1,194 @@
-import { Dispatch, SetStateAction, useCallback, useState } from 'react'
-import { Container, Carousel, CarouselItem } from 'reactstrap'
-import Title from 'components/Utils/Title'
-import Step1 from './Step1'
-import Step2 from './Step2'
+import {
+  Dispatch,
+  Fragment,
+  SetStateAction,
+  useCallback,
+  useContext,
+  useState
+} from 'react'
+import { useRouter } from 'next/router'
+import { useClerk, useMagicLink, useSignUp } from '@clerk/nextjs'
+import { Tab } from '@headlessui/react'
+import Alert from '@elements/Alert'
+import Title from '@components/Utils/Title'
+import { UserContext } from '@helpers/user'
+import UWAStudent from './UWAStudent'
+import OtherMember from './OtherMember'
 
-const SignUpPage = (props: {
-  route?: string
-  signIn: Dispatch<SetStateAction<boolean>>
-}) => {
-  const [currentStep, setCurrentStep] = useState(0)
-  const [animating, setAnimating] = useState(false)
+const SignUpPage = ({ signIn }: SignUpProps) => {
+  const [loading, setLoading] = useState(false)
+  const [errors, setErrors] = useState('')
+  const [auth, setAuth] = useState('')
+  const router = useRouter()
+  const { setSession } = useClerk()
+  const signUp = useSignUp()
+  const { startMagicLinkFlow, cancelMagicLinkFlow } = useMagicLink(signUp)
+  const { setUser } = useContext(UserContext)
 
-  const nextStep = useCallback(() => {
-    if (animating) return
-    setCurrentStep(1)
-  }, [animating])
-  const previousStep = useCallback(() => {
-    if (animating) return
-    setCurrentStep(0)
-  }, [animating])
-  const carouselExiting = useCallback(() => setAnimating(true), [])
-  const carouselExited = useCallback(() => setAnimating(false), [])
+  const goToSignInPage = useCallback(
+    e => {
+      e.preventDefault()
+      signIn(false)
+    },
+    [signIn]
+  )
 
-  const steps = [0, 1].map(index => (
-    <CarouselItem
-      onExiting={carouselExiting}
-      onExited={carouselExited}
-      key={index}
-    >
-      {currentStep === 0 ? (
-        <Step1 signIn={props.signIn} nextStep={nextStep} />
-      ) : (
-        <Step2 route={props.route} />
-      )}
-    </CarouselItem>
-  ))
+  const handleSubmit = useCallback(
+    async values => {
+      setLoading(true)
+      let { email, firstName, lastName } = values
+
+      setAuth('')
+
+      const url = process.env.NEXT_PUBLIC_VERCEL_URL
+        ? `https://${process.env.NEXT_PUBLIC_VERCEL_URL}`
+        : 'http://localhost:3000'
+
+      try {
+        if (values.hasOwnProperty('studentNumber')) {
+          try {
+            const response = await fetch('/api/pheme', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({
+                user: values.studentNumber,
+                pass: values.password
+              })
+            }).then(resp => resp.json())
+            email = response.email
+            firstName = response.firstName
+            lastName = response.lastName
+          } catch ({ message }) {
+            throw new Error(message as string)
+          }
+        }
+
+        await signUp.create({
+          emailAddress: email,
+          firstName,
+          lastName
+        })
+
+        setAuth('email_sent')
+
+        const su = await startMagicLinkFlow({
+          redirectUrl: `${url}/verification`
+        })
+        const verification = su.verifications.emailAddress
+
+        if (verification.verifiedFromTheSameClient()) setAuth('verified')
+        else if (verification.status === 'expired') setAuth('expired')
+
+        if (su.status === 'complete') {
+          const user = await (
+            await fetch('/api/users', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({
+                email,
+                firstName,
+                lastName,
+                gender: values.gender || 'other',
+                isGuildMember: !!values.isGuildMember
+              })
+            })
+          ).json()
+          setUser(user)
+
+          setSession(su.createdSessionId, () => router.push('/dashboard'))
+        }
+      } catch (error: any) {
+        console.log({ error })
+
+        if (error?.errors) setErrors(error.errors?.[0].message)
+        else if (error.message) setErrors(error.message)
+        else
+          setErrors(
+            'Something went wrong signing you up. Please refresh and try again.'
+          )
+        cancelMagicLinkFlow()
+      } finally {
+        setLoading(false)
+      }
+
+      if (auth === 'expired')
+        setErrors('Session has expired. Please sign in to continue')
+      if (auth === 'verified') return <div>Signed in on another tab</div>
+    },
+    [
+      auth,
+      cancelMagicLinkFlow,
+      router,
+      setSession,
+      setUser,
+      signUp,
+      startMagicLinkFlow
+    ]
+  )
 
   return (
-    <div>
+    <>
       <Title typed>./sign-up</Title>
-      <Container className='py-5 '>
-        <Carousel
-          activeIndex={currentStep}
-          interval={false}
-          next={nextStep}
-          previous={previousStep}
-        >
-          {steps}
-        </Carousel>
-      </Container>
-    </div>
+      <div className='py-12 bg-secondary text-primary md:py-24 dark:bg-alt-dark dark:text-secondary'>
+        <div className='container px-3 mx-auto'>
+          <p className='mb-4'>
+            Already have an account?&nbsp;
+            <button
+              className='hover:underline focus:outline-none focus:ring-1 focus:ring-accent'
+              onClick={goToSignInPage}
+            >
+              Sign in
+            </button>
+            .
+          </p>
+          <Tab.Group as='div' className='md:max-w-lg md:w-1/2 membership'>
+            <Tab.List className='border max-w-max'>
+              {['UWA Student', 'Email Sign-up'].map(text => (
+                <Tab
+                  key={text}
+                  disabled={loading}
+                  className={({ selected }) =>
+                    `font-mono font-black px-3 sm:px-4 py-2 focus:outline-none focus:ring focus:ring-accent ${
+                      selected &&
+                      'bg-primary text-secondary dark:bg-secondary dark:text-primary'
+                    }`
+                  }
+                >
+                  {text}
+                </Tab>
+              ))}
+            </Tab.List>
+            {auth === 'email_sent' && (
+              <Alert icon color='success' className='mt-4'>
+                We&apos;ve just sent you an email. Please click the button to
+                complete creating your account
+              </Alert>
+            )}
+            <Tab.Panels as={Fragment}>
+              <Tab.Panel className='focus:outline-none'>
+                <UWAStudent
+                  error={errors}
+                  loading={loading}
+                  handleSubmit={handleSubmit}
+                />
+              </Tab.Panel>
+              <Tab.Panel>
+                <OtherMember
+                  error={errors}
+                  loading={loading}
+                  handleSubmit={handleSubmit}
+                />
+              </Tab.Panel>
+            </Tab.Panels>
+          </Tab.Group>
+        </div>
+      </div>
+    </>
   )
+}
+
+interface SignUpProps {
+  signIn: Dispatch<SetStateAction<boolean>>
 }
 
 export default SignUpPage

@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react'
+import { useState, useCallback, memo } from 'react'
 
 const Face = () => {
   const [face, setFace] = useState(':)')
@@ -8,7 +8,7 @@ const Face = () => {
 
   return (
     <h1
-      className='display-1 my-0 d-flex align-items-center'
+      className='font-mono select-none text-9xl'
       onMouseEnter={toggleWinkOn}
       onMouseLeave={toggleWinkOff}
       data-cy='face'
@@ -18,4 +18,4 @@ const Face = () => {
   )
 }
 
-export default Face
+export default memo(Face)

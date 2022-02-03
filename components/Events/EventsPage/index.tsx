@@ -1,90 +1,103 @@
-/** @jsxImportSource @emotion/react */
-import { useTheme } from '@emotion/react'
-import { useEffect, useCallback, useContext, useState, useMemo } from 'react'
-import { Container, Button, ButtonGroup } from 'reactstrap'
+import { Fragment } from 'react'
+import { Tab } from '@headlessui/react'
 import day from 'dayjs'
 import customParseFormat from 'dayjs/plugin/customParseFormat'
-import { useRouter } from 'next/router'
-import Title from 'components/Utils/Title'
-import { DarkContext } from 'helpers/user'
+import Title from '@components/Utils/Title'
+import eventList from '@data/events.json'
 import EventCard from './EventCard'
-import { styles, eventStyles } from './styles'
-import eventList from '../../../data/events.json'
 day.extend(customParseFormat)
 
-const EventPage = () => {
-  const router = useRouter()
-  const [eventPast, setEventPast] = useState(false)
-  const theme = useTheme()
-  const isDark = useContext(DarkContext)
+const sorted = (array: Array<Event>) =>
+  array.sort((event1, event2) => {
+    const eventDate = ({ date, time }: Event) =>
+      day(date + time, 'DD/MM/YYh:mma')
+    return eventDate(event1).isAfter(eventDate(event2)) ? 1 : -1
+  })
 
-  useEffect(() => {
-    setEventPast(router?.query?.past !== undefined)
-  }, [router?.query?.past])
-
-  const toggleEventPast = useCallback(() => setEventPast(true), [])
-
-  const toggleEventUpcoming = useCallback(() => setEventPast(false), [])
-
-  const events = useMemo(
-    () =>
-      eventList
-        .filter(event => {
-          const date = day(event.date, 'DD/MM/YY')
-          if (eventPast) return date.isBefore(day())
-          else return date.isAfter(day()) || date.isSame(day())
-        })
-        .sort((event1, event2) => {
-          const date1 = day(event1.date + event1.time, 'DD/MM/YYh:mma')
-          const date2 = day(event2.date + event2.time, 'DD/MM/YYh:mma')
-          if (date1.isAfter(date2, 'day')) return eventPast ? -1 : 1
-          if (date1.isBefore(date2, 'day')) return eventPast ? 1 : -1
-          if (date1.isSame(date2, 'day')) return date1.isBefore(date2) ? -1 : 1
-          else return 0
-        }),
-    [eventList, eventPast]
-  )
-
-  return (
-    <div css={styles(theme)}>
-      <Title typed>./events</Title>
-      <Container className='my-md-5 py-5 bg-transparent rounded-0'>
-        <ButtonGroup className='mb-5'>
-          <Button
-            outline={!eventPast}
-            color={isDark ? 'secondary' : 'primary'}
-            className='rounded-0 text-monospace px-4'
-            onClick={toggleEventPast}
-          >
-            Past
-          </Button>
-          <Button
-            outline={eventPast}
-            color={isDark ? 'secondary' : 'primary'}
-            className='rounded-0 text-monospace px-3'
-            onClick={toggleEventUpcoming}
-          >
-            Upcoming
-          </Button>
-        </ButtonGroup>
-        <div className='events'>
-          {events.length === 0 && (
-            <h2>{eventPast ? 'No past events' : 'No events planned yet'}</h2>
-          )}
-          {events.map(event => (
-            <div
-              key={event.date + event.time}
-              css={eventStyles(theme, isDark, event.date)}
-            >
-              <div className='d-flex flex-column ml-3 ml-md-5 pl-lg-5'>
-                <EventCard key={event.slug} className='mb-4' {...event} />
-              </div>
-            </div>
-          ))}
-        </div>
-      </Container>
-    </div>
+const events = {
+  past: sorted(
+    eventList.filter(event => day(event.date, 'DD/MM/YY').isBefore(day()))
+  ),
+  upcoming: sorted(
+    eventList.filter(event => {
+      const date = day(event.date, 'DD/MM/YY')
+      return date.isAfter(day()) || date.isSame(day())
+    })
   )
 }
 
+const EventPage = (props: EventsProps) => (
+  <>
+    <Title typed>./events</Title>
+    <div className='py-12 md:py-24 bg-secondary text-primary dark:bg-alt-dark dark:text-secondary'>
+      <div className='container px-3 mx-auto'>
+        <Tab.Group defaultIndex={props.current}>
+          <Tab.List className='mb-12 border max-w-max'>
+            {Object.keys(events).map(text => (
+              <Tab
+                key={text}
+                className={({ selected }) =>
+                  `font-mono font-black px-4 py-2 focus:outline-none focus:ring-inset focus:ring focus:ring-accent capitalize ${
+                    selected &&
+                    'bg-primary text-secondary dark:bg-secondary dark:text-primary'
+                  }`
+                }
+              >
+                {text}
+              </Tab>
+            ))}
+          </Tab.List>
+          <Tab.Panels as={Fragment}>
+            {Object.values(events).map((events, idx) => (
+              <Tab.Panel
+                key={idx}
+                className='relative space-y-6 focus:outline-none'
+              >
+                {events.length === 0 ? (
+                  <h2 className='font-mono text-4xl font-black'>
+                    {!idx ? 'No past events' : 'No events planned yet'}
+                  </h2>
+                ) : (
+                  events.map(event => (
+                    <div
+                      key={event.date + event.time}
+                      className='relative border-l border-opacity-40 border-primary dark:border-secondary dark:border-opacity-40'
+                    >
+                      <span className='absolute left-0 px-4 font-mono text-lg transform rotate-90 -translate-x-1/2 translate-y-full lg:rotate-0 lg:translate-y-0 bg-secondary dark:bg-alt-dark'>
+                        {event.date}
+                      </span>
+                      <EventCard key={event.slug} {...event} />
+                    </div>
+                  ))
+                )}
+              </Tab.Panel>
+            ))}
+          </Tab.Panels>
+        </Tab.Group>
+      </div>
+    </div>
+  </>
+)
+
+export interface EventsProps {
+  current: 0 | 1
+}
+
 export default EventPage
+
+interface Event {
+  slug: string
+  tags: string[]
+  title: string
+  image: {
+    src: string
+    alt: string
+  }
+  date: string
+  time: {
+    start: string
+    end: string
+  }
+  location: string
+  desc: string
+}

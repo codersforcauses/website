@@ -1,13 +1,16 @@
-import { object, string } from 'yup'
+import { RegisterOptions } from 'react-hook-form'
+import { ContactFormValues } from './index'
 
-export const validationSchema = object().shape({
-  firstName: string().required('Please enter your first name'),
-  lastName: string().required('Please enter your last name'),
-  organisationName: string().required(
-    "Please enter your organisation's name or 'N/A' if you don't have one"
-  ),
-  email: string()
-    .required('Please enter your email')
-    .email('You must enter a valid email address'),
-  message: string().required('Please enter a brief message')
-})
+const validationSchema: Partial<Record<ContactFormValues, RegisterOptions>> = {
+  name: {
+    required: 'Please enter your name'
+  },
+  email: {
+    required: 'Please enter your email'
+  },
+  message: {
+    required: 'Please enter a brief message'
+  }
+}
+
+export default validationSchema

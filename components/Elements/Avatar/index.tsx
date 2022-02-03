@@ -1,44 +1,50 @@
-/** @jsxImportSource @emotion/react */
-import { useTheme } from '@emotion/react'
-import { getInitials } from 'helpers/user'
-import { styles } from './styles'
-
-const sizeToNum = {
-  sm: 38,
-  md: 72,
-  lg: 144,
-  xl: 288
-}
+import Image from 'next/image'
+import { getInitials } from '@helpers/user'
 
 const Avatar = ({
-  dark = false,
   round = false,
   size = 'sm',
+  name,
   ...props
-}: Props) => {
-  const theme = useTheme()
+}: AvatarProps) => {
+  let dimension
+
+  switch (size) {
+    case 'md':
+      dimension = 'w-16 h-16 text-3xl'
+      break
+    case 'lg':
+      dimension = 'w-32 h-32 text-7xl'
+      break
+    default:
+      dimension = 'w-8 h-8'
+  }
 
   return (
     <div
-      className={`d-flex align-items-center justify-content-center text-monospace ${
-        round ? 'rounded-circle' : null
-      } ${props.className}`}
-      css={styles(theme, sizeToNum[size], dark, props.image)}
+      className={[
+        'flex items-center justify-center text-mono bg-secondary dark:bg-primary border',
+        round ? 'rounded-full' : '',
+        dimension,
+        props.className
+      ]
+        .join(' ')
+        .trim()}
     >
-      {props.name && (
-        <p className='m-0 user-select-none'>{getInitials(props.name)}</p>
+      {props?.image ? (
+        <Image src={props.image} alt={`${name}'s avatar`} />
+      ) : (
+        <p className='select-none'>{getInitials(name)}</p>
       )}
     </div>
   )
 }
-
-export default Avatar
-
-interface Props {
-  dark?: boolean
+interface AvatarProps {
   round?: boolean
-  name?: string
+  name: string
   image?: string
-  size?: string
+  size?: 'sm' | 'md' | 'lg'
   className?: string
 }
+
+export default Avatar

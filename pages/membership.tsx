@@ -1,22 +1,17 @@
-import { useState, useContext, useEffect } from 'react'
-import Meta from 'components/Utils/Meta'
-import { useRouter } from 'next/router'
-import SignInPage from 'components/Auth/SignInPage'
-import SignUpPage from 'components/Auth/SignUpPage'
-import { UserContext } from 'helpers/user'
+import { useEffect, useState } from 'react'
+import { withServerSideAuth } from '@clerk/nextjs/ssr'
+import { ClerkLoaded } from '@clerk/nextjs'
+import Meta from '@components/Utils/Meta'
+import SignInPage from '@components/Auth/SignInPage'
+import SignUpPage from '@components/Auth/SignUpPage'
+import Router from 'next/router'
 
-const Membership = () => {
+const Membership = ({ id }: MembershipProps) => {
   const [isSignUp, setIsSignUp] = useState(false)
 
-  const { user } = useContext(UserContext)
-
-  const router = useRouter()
-  const query = router?.query?.name
-  const nextRoute = typeof query === 'string' ? query : query?.[0]
-
   useEffect(() => {
-    if (user) router.replace(nextRoute ?? '/dashboard')
-  }, [user])
+    !!id && Router.replace('/dashboard')
+  }, [id])
 
   return (
     <>
@@ -27,16 +22,28 @@ const Membership = () => {
         description='Sign in using your student credentials or register a new account.'
         image='https://og-social-cards.vercel.app/**.%2Fmembership**.png?theme=dark&md=1&fontSize=125px&images=https%3A%2Fcodersforcauses.org%2Flogo%2Fcfc_logo_white_full.svg'
       />
-
-      {!user ? (
-        isSignUp ? (
-          <SignUpPage route={nextRoute} signIn={setIsSignUp} />
+      <ClerkLoaded>
+        {isSignUp ? (
+          <SignUpPage signIn={setIsSignUp} />
         ) : (
-          <SignInPage route={nextRoute} signUp={setIsSignUp} />
-        )
-      ) : null}
+          <SignInPage signUp={setIsSignUp} />
+        )}
+      </ClerkLoaded>
     </>
   )
+}
+
+export const getServerSideProps = withServerSideAuth(({ auth }) => {
+  const { userId } = auth
+  return {
+    props: {
+      id: userId || ''
+    }
+  }
+})
+
+interface MembershipProps {
+  id: string
 }
 
 export default Membership

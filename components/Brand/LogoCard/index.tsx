@@ -1,44 +1,39 @@
-/** @jsxImportSource @emotion/react */
-import { useTheme } from '@emotion/react'
-import { Card, CardFooter } from 'reactstrap'
-import { styles } from './styles'
+import Image from 'next/image'
 
 const LogoCard = (props: {
-  dark?: Boolean
-  main?: Boolean
+  dark?: boolean
+  main?: boolean
   svg: string
   png: string
-}) => {
-  const theme = useTheme()
-
-  return (
-    <Card
-      className={`border border-primary rounded-0 ${
-        props.dark && 'bg-primary text-secondary'
-      }`}
-      css={styles(theme, props.svg)}
-    >
-      <div className={`${props.main ? 'image' : 'image-alternate'} logo-img`} />
-      <CardFooter className='border-0 d-flex download-links px-1 px-sm-2 px-md-3 bg-transparent'>
-        <span className='flex-grow-1'>
-          <a
-            href={props.png}
-            download
-            className={props.dark && 'text-secondary'}
-          >
-            <i className='material-icons-sharp'>get_app</i>
-          </a>
-        </span>
-        <a href={props.svg} download className={props.dark && 'text-secondary'}>
-          .svg
+}) => (
+  <div
+    className={[
+      'border border-primary flex flex-col',
+      props.dark ? 'bg-primary text-secondary' : 'bg-secondary text-primary'
+    ]
+      .join(' ')
+      .trim()}
+  >
+    <div className='flex items-center justify-center flex-grow h-24 p-2 md:p-4 md:h-56'>
+      <div className='relative w-2/3 h-full'>
+        <Image src={props.svg} alt='CFC logo' layout='fill' />
+      </div>
+    </div>
+    <div className='flex items-center p-1 text-sm sm:px-2 md:px-3'>
+      <span className='flex-grow'>
+        <a href={props.png} download className='flex self-center'>
+          <span className='material-icons-sharp'>get_app</span>
         </a>
-        &ensp;
-        <a href={props.png} download className={props.dark && 'text-secondary'}>
-          .png
-        </a>
-      </CardFooter>
-    </Card>
-  )
-}
+      </span>
+      <a href={props.svg} download className='hover:underline'>
+        .svg
+      </a>
+      &emsp;
+      <a href={props.png} download className='hover:underline'>
+        .png
+      </a>
+    </div>
+  </div>
+)
 
 export default LogoCard

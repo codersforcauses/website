@@ -1,15 +1,38 @@
-import { object, string } from 'yup'
+import { RegisterOptions } from 'react-hook-form'
+import { EditDetailsKeys } from '.'
 
-export const validationSchema = object().shape({
-  firstName: string()
-    .max(64, 'Our first name limit is 64 characters')
-    .required('Please enter your first name'),
-  lastName: string()
-    .max(64, 'Our last name limit is 64 characters')
-    .required('Please enter your last name'),
-  email: string()
-    .required('Please enter your email')
-    .max(64, 'Our email limit is 128 characters')
-    .email('You must enter a valid email address'),
-  bio: string().max(512, 'Your bio cannot be more than 512 characters')
-})
+const validationSchema: Partial<Record<EditDetailsKeys, RegisterOptions>> = {
+  firstName: {
+    required: 'Please enter your first name',
+    maxLength: {
+      value: 64,
+      message: 'Our first name limit is 64 characters'
+    }
+  },
+  lastName: {
+    maxLength: {
+      value: 64,
+      message: 'Our last name limit is 64 characters'
+    }
+  },
+  email: {
+    required: 'Please enter your email',
+    maxLength: {
+      value: 128,
+      message: 'Our email limit is 128 characters'
+    },
+    pattern: {
+      value:
+        /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/,
+      message: 'Please enter a valid email address'
+    }
+  },
+  bio: {
+    maxLength: {
+      value: 512,
+      message: 'Your bio cannot be more than 512 characters'
+    }
+  }
+}
+
+export default validationSchema

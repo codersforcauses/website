@@ -1,0 +1,138 @@
+import { memo, useCallback, useContext, useState } from 'react'
+import dynamic from 'next/dynamic'
+import useSWR from 'swr'
+import Avatar from '@elements/Avatar'
+import { User } from '@helpers/global'
+import { UserContext } from '@helpers/user'
+import RoleTags from '../RoleTags'
+const DeleteUserModal = dynamic(() => import('./DeleteUserModal'))
+const UpdateRoleModal = dynamic(() => import('./UpdateRoleModal'))
+
+const UsersTable = () => {
+  const { user: presentUser } = useContext(UserContext)
+  const { data: users, mutate } = useSWR<Array<NonNullable<User>>>('/api/users')
+  const [currentUser, setCurrentUser] = useState('')
+  const [loading, setLoading] = useState(false)
+  const [userDeleteModal, setUserDeleteModal] = useState(false)
+  const [updateRoleModal, setUpdateRoleModal] = useState(false)
+
+  const openDeleteUsersModal = useCallback(() => setUserDeleteModal(true), [])
+  const closeDeleteUsersModal = useCallback(() => {
+    setUserDeleteModal(false)
+    setCurrentUser('')
+  }, [])
+  const deleteUser = useCallback(async () => {
+    setLoading(true)
+    try {
+      await fetch(`/api/users?clerkID=${currentUser}`, {
+        method: 'DELETE'
+      })
+      mutate()
+      closeDeleteUsersModal()
+    } catch (error) {
+    } finally {
+      setLoading(false)
+    }
+  }, [closeDeleteUsersModal, currentUser, mutate])
+
+  const openUpdateRoleModal = useCallback(() => setUpdateRoleModal(true), [])
+  const closeUpdateRoleModal = useCallback(() => {
+    setUpdateRoleModal(false)
+    setCurrentUser('')
+  }, [])
+
+  return users ? (
+    <>
+      <div className='grid'>
+        <input
+          type='search'
+          placeholder='search'
+          className='bg-transparent border justify-self-end focus:outline-none focus:ring-0 focus:border-current border-primary text-primary dark:border-secondary dark:text-secondary'
+        />
+      </div>
+      <table className='w-full mt-6 overflow-x-scroll border-collapse'>
+        <thead className='font-mono font-black text-left'>
+          <tr>
+            <th className='hidden p-2 md:block' />
+            <th className='p-2'>Member</th>
+            <th className='p-2'>Roles</th>
+            <th className='p-2'>Joined On</th>
+            <th className='p-2 text-center'>Manage</th>
+          </tr>
+        </thead>
+        <tbody className='text-lg'>
+          {users?.map((user, idx) => (
+            <tr key={idx} className='dark:odd:bg-primary odd:bg-alt-light'>
+              <td className='flex items-center justify-center p-2 min-h-[80px]'>
+                {`${idx + 1}`.padStart(3, '0')}
+              </td>
+              <td className='p-2 border-r md:border-x border-primary/10 dark:border-secondary/20'>
+                <div className='flex space-x-2'>
+                  <Avatar size='md' name={user.name} />
+                  <div className='flex flex-col justify-center'>
+                    <b className='font-mono'>{user.name}</b>
+                    <span className='text-sm'>{user.email}</span>
+                  </div>
+                </div>
+              </td>
+              <td className='p-2 border-x border-primary/10 dark:border-secondary/20'>
+                <div className='flex flex-wrap gap-2'>
+                  {user.roles?.map(role => (
+                    <RoleTags key={role} role={role} />
+                  ))}
+                </div>
+              </td>
+              <td className='w-32 p-2 border-x border-primary/10 dark:border-secondary/20'>
+                <div className='font-mono text-sm'>{user.createdAt}</div>
+              </td>
+              <td className='w-24'>
+                <div className='flex items-center justify-evenly'>
+                  <button
+                    disabled={user._id === presentUser?._id}
+                    className='flex p-1 place-items-center disabled:opacity-50'
+                    onClick={() => {
+                      setCurrentUser(user.clerkID)
+                      openUpdateRoleModal()
+                    }}
+                  >
+                    <i className='material-icons-sharp'>manage_accounts</i>
+                  </button>
+                  <button
+                    disabled={user._id === presentUser?._id}
+                    className='flex p-1 place-items-center disabled:opacity-50'
+                    onClick={() => {
+                      setCurrentUser(user.clerkID)
+                      openDeleteUsersModal()
+                    }}
+                  >
+                    <i className='material-icons-sharp text-danger'>
+                      delete_forever
+                    </i>
+                  </button>
+                </div>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+      <UpdateRoleModal
+        user={currentUser}
+        name={
+          users.find(({ clerkID }) => currentUser === clerkID)
+            ?.firstName as string
+        }
+        isOpen={updateRoleModal}
+        closeModal={closeUpdateRoleModal}
+      />
+      <DeleteUserModal
+        user={currentUser}
+        loading={loading}
+        deleteUser={deleteUser}
+        isOpen={userDeleteModal}
+        closeModal={closeDeleteUsersModal}
+      />
+    </>
+  ) : null
+}
+
+export default memo(UsersTable)

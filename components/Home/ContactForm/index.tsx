@@ -1,184 +1,82 @@
-/** @jsxImportSource @emotion/react */
-import { useTheme } from '@emotion/react'
-import { Field, FormikProps, Form, withFormik } from 'formik'
-import {
-  Button,
-  Row,
-  Col,
-  FormGroup,
-  FormFeedback,
-  FormText,
-  Label,
-  Input
-} from 'reactstrap'
-import Spinner from 'components/Elements/Spinner'
-import { styles } from './styles'
-import { validationSchema } from './validation'
+import { memo } from 'react'
+import { SubmitHandler } from 'react-hook-form'
+import { Button, GhostButton } from '@elements/Button'
+import { Form, TextArea, TextField } from '@elements/FormElements'
+import rules from './validation'
 
-const mapPropsToValues = () => ({
-  firstName: '',
-  lastName: '',
-  organisationName: '',
+const defaultValues: FormValues = {
+  name: '',
+  organizationName: '',
   email: '',
   message: ''
-})
+}
 
-const ContactForm = (props: Props & FormikProps<FormValues>) => {
-  const theme = useTheme()
-
+const ContactForm = (props: ContactFormProps) => {
   return (
-    <Form className='mt-5' css={styles(theme)}>
-      <Row form>
-        <Col md={6}>
-          <FormGroup>
-            <Label for='firstName' className='text-monospace'>
-              First Name
-            </Label>
-            <Input
-              type='text'
-              bsSize='lg'
-              tag={Field}
-              placeholder='John'
-              disabled={props.loading}
-              id='firstName'
-              name='firstName'
-              value={props.values.firstName}
-              invalid={props.errors.firstName && props.touched.firstName}
-              className='rounded-0 text-primary border-secondary'
-            />
-            <FormFeedback>{props.errors.firstName}</FormFeedback>
-          </FormGroup>
-        </Col>
-        <Col md={6}>
-          <FormGroup>
-            <Label for='lastName' className='text-monospace'>
-              Last Name
-            </Label>
-            <Input
-              type='text'
-              bsSize='lg'
-              tag={Field}
-              placeholder='Doe'
-              disabled={props.loading}
-              id='lastName'
-              name='lastName'
-              value={props.values.lastName}
-              invalid={props.errors.lastName && props.touched.lastName}
-              className='rounded-0 text-primary border-secondary'
-            />
-            <FormFeedback>{props.errors.lastName}</FormFeedback>
-          </FormGroup>
-        </Col>
-      </Row>
-      <FormGroup>
-        <Label for='organisationName' className='text-monospace'>
-          Organisation Name
-        </Label>
-        <Input
-          type='text'
-          bsSize='lg'
-          tag={Field}
-          placeholder='Coders for Causes'
-          disabled={props.loading}
-          id='organisationName'
-          name='organisationName'
-          value={props.values.organisationName}
-          invalid={
-            props.errors.organisationName && props.touched.organisationName
-          }
-          className='rounded-0 text-primary border-secondary'
-        />
-        <FormFeedback>{props.errors.organisationName}</FormFeedback>
-        {!props.errors.organisationName && (
-          <FormText>
-            {/* Added span as reactstrap injects classes after classes declared in FormText */}
-            <span className='text-secondary'>
-              If you do not have a name for your organisation, then please enter
-              'N/A'.
-            </span>
-          </FormText>
-        )}
-      </FormGroup>
-      <FormGroup>
-        <Label for='email' className='text-monospace'>
-          Email
-        </Label>
-        <Input
-          type='email'
-          bsSize='lg'
-          tag={Field}
-          placeholder='hello@codersforcauses.org'
-          disabled={props.loading}
-          id='email'
-          name='email'
-          value={props.values.email}
-          invalid={props.errors.email && props.touched.email}
-          className='rounded-0 text-primary border-secondary'
-        />
-        <FormFeedback>{props.errors.email}</FormFeedback>
-      </FormGroup>
-      <FormGroup>
-        <Label for='message' className='text-monospace'>
-          Message
-        </Label>
-        <Input
-          type='textarea'
-          bsSize='lg'
-          placeholder='Write a short message here to get things started'
-          disabled={props.loading}
-          id='message'
-          name='message'
-          value={props.values.message}
-          onChange={props.handleChange}
-          onBlur={props.handleBlur}
-          invalid={props.errors.message && props.touched.message}
-          className='rounded-0 text-primary border-secondary text-area'
-        />
-        <FormFeedback>{props.errors.message}</FormFeedback>
-      </FormGroup>
-      <div className='d-flex justify-content-between'>
-        <Button
-          type='submit'
-          outline
-          size='lg'
-          color='secondary'
-          disabled={props.loading}
-          className='rounded-0 text-monospace px-5 d-flex align-items-center'
-        >
-          Send
-          {props.loading && (
-            <Spinner color='secondary' size='sm' className='ml-2' />
-          )}
+    <Form<FormValues>
+      dark
+      showNote
+      disabled={props.loading}
+      defaultValues={defaultValues}
+      onSubmit={props.handleSubmit}
+      className='mt-4 lg:w-3/4'
+    >
+      <TextField
+        label='Name'
+        name='name'
+        autoComplete='name'
+        placeholder='John Doe'
+        rules={rules.name}
+      />
+      <TextField
+        label='Organization Name'
+        name='organizationName'
+        autoComplete='organization'
+        placeholder='Coders for Causes'
+        rules={rules.organizationName}
+      />
+      <TextField
+        label='Email'
+        name='email'
+        type='email'
+        autoComplete='email'
+        placeholder='hello@codersforcauses.org'
+        rules={rules.email}
+      />
+      <TextArea
+        label='Message'
+        name='message'
+        placeholder='Write a short message here to get things started'
+        rules={rules.message}
+      />
+      <div className='flex justify-between'>
+        <Button dark type='submit' loading={props.loading} className='px-12'>
+          {props.loading ? 'Sending' : 'Send'}
         </Button>
-        <Button
-          size='lg'
-          color='link'
-          disabled={props.loading}
-          className='rounded-0 text-monospace px-5 text-secondary'
+        <GhostButton
+          dark
+          type='button'
+          className='px-12'
           onClick={props.handleCloseForm}
         >
-          Close
-        </Button>
+          Cancel
+        </GhostButton>
       </div>
     </Form>
   )
 }
-
-export default withFormik<Props, FormValues>({
-  handleSubmit: (values, bag) => bag.props.handleSubmit(values, bag),
-  mapPropsToValues,
-  validationSchema
-})(ContactForm)
-
 interface FormValues {
-  firstName: string
-  lastName: string
-  organisationName: string
+  name: string
+  organizationName: string
   email: string
   message: string
 }
-interface Props {
+
+interface ContactFormProps {
   loading: boolean
   handleCloseForm: () => void
-  handleSubmit: (values, bag) => void
+  handleSubmit: SubmitHandler<FormValues>
 }
+
+export default memo(ContactForm)
+export type ContactFormValues = keyof FormValues

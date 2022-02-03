@@ -1,5 +1,5 @@
-import Meta from 'components/Utils/Meta'
-import FAQPage from 'components/FAQ/FAQPage'
+import Meta from '@components/Utils/Meta'
+import FAQPage from '@components/FAQ/FAQPage'
 
 const FAQ = () => (
   <>

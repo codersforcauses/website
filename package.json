@@ -2,7 +2,7 @@
   "name": "cfc-website",
   "version": "0.1.0",
   "description": "Coders for Causes website",
-  "main": "index.tsx",
+  "main": "pages/index.tsx",
   "private": true,
   "browserslist": [
     ">0.3%",
@@ -24,67 +24,40 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "cz": "./node_modules/.bin/git-cz",
-    "analyze": "ANALYZE=true yarn build",
+    "lint": "next lint",
     "cypress:open": "cypress open",
-    "cypress:run": "cypress run",
-    "prepare": "husky install"
+    "cypress:run": "cypress run"
   },
   "dependencies": {
-    "@aws-amplify/auth": "3.4.34",
-    "@emotion/react": "11.7.0",
-    "@stripe/react-stripe-js": "1.6.0",
-    "@stripe/stripe-js": "1.21.2",
-    "bootstrap": "4.6.1",
-    "critters": "0.0.15",
+    "@clerk/nextjs": "next",
+    "@headlessui/react": "1.4.3",
+    "@tailwindcss/forms": "0.4.0",
+    "critters": "0.0.16",
     "dayjs": "1.10.7",
-    "emotion-normalize": "11.0.1",
-    "formik": "2.2.9",
-    "mapbox-gl": "2.6.1",
-    "mongoose": "5.13.13",
-    "next": "10.2.3",
+    "mapbox-gl": "2.7.0",
+    "mongoose": "6.1.9",
+    "next": "12.0.10",
+    "next-themes": "0.0.15",
     "react": "17.0.2",
     "react-dom": "17.0.2",
-    "reactstrap": "8.10.1",
-    "simple-icons": "4.25.0",
-    "swr": "0.5.7",
-    "typed.js": "2.0.12",
-    "yup": "0.32.11"
+    "react-hook-form": "7.25.3",
+    "simple-icons": "6.8.0",
+    "swr": "1.2.0",
+    "typed.js": "2.0.12"
   },
   "devDependencies": {
-    "@emotion/babel-plugin": "11.3.0",
-    "@next/bundle-analyzer": "10.2.3",
     "@types/mapbox-gl": "2.6.0",
-    "@types/mongoose": "5.11.96",
-    "@types/node": "15.3.1",
-    "@types/react": "17.0.37",
-    "@types/simple-icons": "4.17.0",
-    "@types/yup": "0.29.13",
-    "sass": "1.44.0",
-    "typescript": "4.5.2"
+    "@types/react": "17.0.38",
+    "autoprefixer": "10.4.2",
+    "eslint": "8.8.0",
+    "eslint-config-next": "12.0.10",
+    "postcss": "8.4.5",
+    "tailwindcss": "3.0.18",
+    "typescript": "4.6.0-beta"
   },
   "optionalDependencies": {
-    "@emotion/eslint-plugin": "11.7.0",
-    "@typescript-eslint/parser": "4.33.0",
-    "commitizen": "4.2.4",
-    "cypress": "7.7.0",
-    "eslint": "7.32.0",
-    "eslint-config-standard": "16.0.3",
-    "eslint-config-standard-react": "11.0.1",
-    "eslint-plugin-cypress": "2.12.1",
-    "eslint-plugin-import": "2.25.3",
+    "cypress": "9.4.1",
     "eslint-plugin-jsx-a11y": "6.5.1",
-    "eslint-plugin-node": "11.1.0",
-    "eslint-plugin-promise": "5.2.0",
-    "eslint-plugin-react": "7.27.1",
-    "eslint-plugin-standard": "5.0.0",
-    "husky": "6.0.0",
-    "lint-staged": "10.5.4",
-    "wait-on": "5.3.0"
-  },
-  "lint-staged": {
-    "*.tsx": [
-      "eslint --fix"
-    ]
+    "start-server-and-test": "1.14.0"
   }
 }
