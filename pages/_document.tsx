@@ -31,8 +31,8 @@ class MyDocument extends Document {
         <body className='loading'>
           <Main />
           <NextScript />
+          {process.env.NODE_ENV === 'production' && <AddOns />}
         </body>
-        {process.env.NODE_ENV === 'production' && <AddOns />}
       </Html>
     )
   }
