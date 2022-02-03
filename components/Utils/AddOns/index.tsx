@@ -20,21 +20,22 @@ const AddOns = () => {
             user?.firstName ?? 'there'
           }! How can we help you?`});
           chatbox.setAttribute("logged_out_greeting", "Please log into facebook to chat with us");
+
           window.fbAsyncInit = function() {
             FB.init({
               xfbml   : true,
-              version : 'v11.0'
+              version : 'v12.0'
             });
           };
-
-        (function(d, s, id) {
-          var js, fjs = d.getElementsByTagName(s)[0];
-          if (d.getElementById(id)) return;
-          js = d.createElement(s); js.id = id;
-          js.src = 'https://connect.facebook.net/en_GB/sdk/xfbml.customerchat.js';
-          fjs.parentNode.insertBefore(js, fjs);
-        })(document, 'script', 'facebook-jssdk'));
-      `}
+          
+          (function(d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) return;
+            js = d.createElement(s); js.id = id;
+            js.src = 'https://connect.facebook.net/en_GB/sdk/xfbml.customerchat.js';
+            fjs.parentNode.insertBefore(js, fjs);
+          }(document, 'script', 'facebook-jssdk'));
+        `}
       </Script>
     </>
   )
