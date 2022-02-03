@@ -8,7 +8,10 @@
       "alt": "A winter project workshop"
     },
     "date": "26/06/21",
-    "time": "9:30am",
+    "time": {
+      "start": "9:30am",
+      "end": "3:00pm"
+    },
     "location": "UWA EZONE",
     "desc": "Get industry level experience and skills by working on fun projects."
   },
