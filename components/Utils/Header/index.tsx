@@ -79,11 +79,19 @@ const Header = () => (
               <SignedInUser />
             </SignedIn>
             <SignedOut>
-              <Link href='/membership'>
+              {/* <Link href='/membership'>
                 <a className='px-4 py-1.5 my-px bg-transparent border border-secondary text-secondary hover:bg-secondary hover:text-primary focus:outline-none focus:ring-opacity-0 focus:bg-secondary focus:text-primary'>
                   Membership
                 </a>
-              </Link>
+              </Link> */}
+              <a
+                href='https://docs.google.com/forms/d/e/1FAIpQLScPEsHxs1afKNF7Zo9i7JkDgGlg3k-nZowJspsb18ve1odkaA/viewform'
+                target='_blank'
+                rel='noreferrer noopener'
+                className='px-4 py-1.5 my-px bg-transparent border border-secondary text-secondary hover:bg-secondary hover:text-primary focus:outline-none focus:ring-opacity-0 focus:bg-secondary focus:text-primary'
+              >
+                Join Us
+              </a>
             </SignedOut>
           </div>
         </div>
