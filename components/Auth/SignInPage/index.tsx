@@ -77,10 +77,10 @@ const SignInPage = ({ signUp }: SignInProps) => {
       } catch (error: any) {
         console.log({ error })
 
-        if (error?.errors) setErrors(error.errors?.[0].message)
-        else if (error.message) setErrors(error.message)
+        if (error?.errors) setError(error.errors?.[0].message)
+        else if (error.message) setError(error.message)
         else
-          setErrors(
+          setError(
             'Something went wrong signing you up. Please refresh and try again.'
           )
         cancelMagicLinkFlow()
