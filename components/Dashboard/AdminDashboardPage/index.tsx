@@ -24,6 +24,20 @@ const AdminDashboardPage = () => {
       <Title typed>./admin dashboard</Title>
       <div className='py-12 bg-secondary text-primary dark:bg-alt-dark dark:text-secondary'>
         <div className='container px-3 mx-auto space-y-8'>
+          {/* <div className='grid grid-cols-2 gap-2 md:grid-cols-4 md:gap-x-4 lg:gap-x-16'>
+            <div className='px-4 py-2 bg-alt-light dark:bg-primary'>
+              <span className='text-xs'>Total Members</span>
+              <p className='font-mono text-4xl'>{users.length}</p>
+            </div>
+            <div className='px-4 py-2 bg-alt-light dark:bg-primary'>
+              <span className='text-xs'>Total Paying Members</span>
+              <p className='font-mono text-4xl'>{users.length}</p>
+            </div>
+            <div className='px-4 py-2 bg-alt-light dark:bg-primary'>
+              <span className='text-xs'>Total Paying Members</span>
+              <p className='font-mono text-4xl'>{users.length}</p>
+            </div>
+          </div> */}
           <Tab.Group as='div'>
             <Tab.List className='flex border'>
               {tabs.map(({ name, icon }) => (
