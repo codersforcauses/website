@@ -70,7 +70,7 @@ const UserMenu = () => {
           >
             <Menu.Items
               static
-              className='w-[8.5rem] absolute right-0 flex flex-col items-stretch py-2 mt-2 space-y-1 border border-secondary bg-primary focus:outline-none'
+              className='min-w-[8.5rem] w-full absolute right-0 flex flex-col items-stretch py-2 mt-2 space-y-1 border border-secondary bg-primary focus:outline-none'
             >
               {Links.map(link => (
                 <Menu.Item key={link.icon}>
