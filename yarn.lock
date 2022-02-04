@@ -362,6 +362,23 @@
   resolved "https://registry.yarnpkg.com/@sindresorhus/is/-/is-4.4.0.tgz#e277e5bdbdf7cb1e20d320f02f5e2ed113cd3185"
   integrity sha512-QppPM/8l3Mawvh4rn9CNEYIU9bxpXUCRMaX9yUpvBk1nMKusLKpfXGDEKExKaPhLzcn3lzil7pR6rnJ11HgeRQ==
 
+"@square/web-payments-sdk-types@^1.1.1":
+  version "1.25.0"
+  resolved "https://registry.yarnpkg.com/@square/web-payments-sdk-types/-/web-payments-sdk-types-1.25.0.tgz#d668f900b109afdc899d57897ba72f6cbf18909e"
+  integrity sha512-wukILF/RrXQ6BQ4MEOvb+kG8kvh0mVGid11YSdm78SkVANCEKP1pYB28PKhc9esTSAagSMYNMslw4t7JUXffPQ==
+
+"@square/web-sdk@^2.0.0":
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/@square/web-sdk/-/web-sdk-2.0.0.tgz#ed0b87e27b2ce60e5d6c46def613c1a0d959ea15"
+  integrity sha512-RrJb1/ne5Ew0/VsNtOI7oXeXK2gONNQxYPP5BAQZ9+uuIFb6eX0GXPkE6XMRy/JLqy1Nqta9Y35rPdBwolQCgQ==
+  dependencies:
+    "@square/web-payments-sdk-types" "^1.1.1"
+
+"@stitches/react@^1.0.0":
+  version "1.2.6"
+  resolved "https://registry.yarnpkg.com/@stitches/react/-/react-1.2.6.tgz#61f2a3d1110334ecd33bcb7463650127d42470cb"
+  integrity sha512-gRVITYj8W4jJmoiVxWDv72yCvd12VvtUUAnTzs07EqmtvGCVgKZu3Dx0x5KVCcb0b6tfgvvNH2L84YrzdM4Mag==
+
 "@szmarczak/http-timer@^4.0.5":
   version "4.0.6"
   resolved "https://registry.yarnpkg.com/@szmarczak/http-timer/-/http-timer-4.0.6.tgz#b4a914bb62e7c272d4e5989fe4440f812ab1d807"
@@ -3414,6 +3431,14 @@ react-is@^16.13.1:
   version "16.13.1"
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.13.1.tgz#789729a4dc36de2999dc156dd6c1d9c18cea56a4"
   integrity sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==
+
+react-square-web-payments-sdk@2.2.3:
+  version "2.2.3"
+  resolved "https://registry.yarnpkg.com/react-square-web-payments-sdk/-/react-square-web-payments-sdk-2.2.3.tgz#5bdfc71760783d04f4ae5dd2312b0c929663b715"
+  integrity sha512-udH4DnxxblOeucHBx+7FXvQ/8u2SbpuvK8drOblqCKL9a5YrSLTOz9830vch8QHPWKGoPsrrZsgRGYfi3CxHNw==
+  dependencies:
+    "@square/web-sdk" "^2.0.0"
+    "@stitches/react" "^1.0.0"
 
 react@17.0.2:
   version "17.0.2"
