@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react'
+import Router from 'next/router'
 import { withServerSideAuth } from '@clerk/nextjs/ssr'
 import { ClerkLoaded } from '@clerk/nextjs'
 import Meta from '@components/Utils/Meta'
 import SignInPage from '@components/Auth/SignInPage'
 import SignUpPage from '@components/Auth/SignUpPage'
-import Router from 'next/router'
 
 const Membership = ({ id }: MembershipProps) => {
   const [isSignUp, setIsSignUp] = useState(false)

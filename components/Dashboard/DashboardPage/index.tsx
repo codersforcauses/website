@@ -1,4 +1,4 @@
-import Title from 'components/Utils/Title'
+import Title from '@components/Utils/Title'
 import Announcements from './Announcements'
 
 const DashboardPage = () => {

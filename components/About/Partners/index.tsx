@@ -1,5 +1,5 @@
 import { memo } from 'react'
-import ImageGrid from 'components/Utils/ImageGrid'
+import ImageGrid from '@components/Utils/ImageGrid'
 import partners from 'data/partners.json'
 
 const Partners = () => {

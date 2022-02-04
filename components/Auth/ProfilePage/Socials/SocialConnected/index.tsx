@@ -1,5 +1,5 @@
 import { memo, useCallback, useState } from 'react'
-import BrandIcons from 'components/Elements/BrandIcons'
+import BrandIcons from '@elements/BrandIcons'
 import { Socials } from '@helpers/global'
 
 const SocialsConnected = ({

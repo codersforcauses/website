@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import Title from 'components/Utils/Title'
+import Title from '@components/Utils/Title'
 import LogoCard from '../LogoCard'
 import ColourCard from '../ColourCard'
 
