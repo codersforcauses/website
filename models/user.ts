@@ -104,21 +104,45 @@ const UserSchema = new mongoose.Schema<UserModel>(
         type: String,
         trim: true
       }
+    ],
+    cards: [
+      {
+        token: {
+          type: String,
+          trim: true,
+          required: true
+        },
+        details: {
+          brand: {
+            type: String,
+            enum: [
+              'VISA',
+              'MASTERCARD',
+              'DISCOVER',
+              'DISCOVER_DINERS',
+              'JCB',
+              'AMERICAN_EXPRESS',
+              'CHINA_UNIONPAY'
+            ],
+            required: true
+          },
+          last4: {
+            type: String,
+            trim: true,
+            required: true
+          },
+          expMonth: {
+            type: Number,
+            required: true
+          },
+          expYear: {
+            type: Number,
+            required: true
+          }
+        },
+        updatedAt: Date
+      }
     ]
-    // services: [
-    //   {
-    //     type: {
-    //       type: String,
-    //       enum: ['stripe']
-    //     },
-    //     ref: {
-    //       type: String,
-    //       maxLength: 1024
-    //     },
-    //     updatedAt: Date,
-    //     data: {}
-    //   }
-    // ]
   },
   {
     timestamps: true

@@ -41,6 +41,24 @@ interface SocialType {
   link: string
 }
 
+export interface CardDetails {
+  token: string
+  details: {
+    brand:
+      | 'VISA'
+      | 'MASTERCARD'
+      | 'DISCOVER'
+      | 'DISCOVER_DINERS'
+      | 'JCB'
+      | 'AMERICAN_EXPRESS'
+      | 'CHINA_UNIONPAY'
+    last4: string
+    expMonth: number
+    expYear: number
+  }
+  updatedAt: Date
+}
+
 export interface UserModel {
   firstName: string
   lastName: string
@@ -55,6 +73,7 @@ export interface UserModel {
   bio?: string
   socials?: Array<SocialType>
   tech?: Array<string>
+  cards?: Array<CardDetails>
   createdAt: string
   updatedAt: string
 }
