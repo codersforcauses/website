@@ -39,7 +39,7 @@ const UserMenu = () => {
     [clerkUser?.fullName]
   )
 
-  const handleSignOut = useCallback(async () => {
+  const handleSignOut = useCallback(() => {
     signOut()
     setUser(null)
     Router.push('/')
