@@ -24,7 +24,7 @@ const Website = ({ Component, pageProps }: AppProps) => {
 
   return (
     <>
-      <ClerkProvider {...pageProps}>
+      <ClerkProvider clerkJSVariant='headless' {...pageProps}>
         <SWRConfig
           value={{
             refreshInterval: 5000,
