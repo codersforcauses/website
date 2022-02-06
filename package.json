@@ -47,7 +47,7 @@
     "typed.js": "2.0.12"
   },
   "devDependencies": {
-    "@types/mapbox-gl": "2.6.0",
+    "@types/mapbox-gl": "2.6.1",
     "@types/react": "17.0.39",
     "autoprefixer": "10.4.2",
     "eslint": "8.8.0",
