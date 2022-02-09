@@ -40,18 +40,18 @@ interface SocialType {
   username: string
   link: string
 }
-
+export type CardBrand =
+  | 'VISA'
+  | 'MASTERCARD'
+  | 'DISCOVER'
+  | 'DISCOVER_DINERS'
+  | 'JCB'
+  | 'AMERICAN_EXPRESS'
+  | 'CHINA_UNIONPAY'
 export interface CardDetails {
   token: string
   details: {
-    brand:
-      | 'VISA'
-      | 'MASTERCARD'
-      | 'DISCOVER'
-      | 'DISCOVER_DINERS'
-      | 'JCB'
-      | 'AMERICAN_EXPRESS'
-      | 'CHINA_UNIONPAY'
+    brand: CardBrand
     last4: string
     expMonth: number
     expYear: number
