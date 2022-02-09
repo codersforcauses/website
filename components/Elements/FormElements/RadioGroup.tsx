@@ -83,7 +83,6 @@ const RadioGroup = ({
                       ? 'radio_button_checked'
                       : 'radio_button_unchecked'}
                   </i>
-                  <>{checked}</>
                   <Radio.Label className='ml-2 cursor-pointer'>
                     {label}
                   </Radio.Label>
