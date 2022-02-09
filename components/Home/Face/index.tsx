@@ -8,7 +8,7 @@ const Face = () => {
 
   return (
     <h1
-      className='font-mono select-none text-9xl'
+      className='font-mono select-none h-fit text-9xl'
       onMouseEnter={toggleWinkOn}
       onMouseLeave={toggleWinkOff}
       data-cy='face'
