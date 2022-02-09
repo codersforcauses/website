@@ -24,13 +24,12 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
-    "cypress:open": "cypress open",
-    "cypress:run": "cypress run"
+    "lint": "next lint"
   },
   "dependencies": {
     "@clerk/nextjs": "next",
     "@headlessui/react": "1.4.3",
+    "@square/web-sdk": "2.0.0",
     "@tailwindcss/forms": "0.4.0",
     "critters": "0.0.16",
     "dayjs": "1.10.7",
@@ -41,12 +40,12 @@
     "react": "17.0.2",
     "react-dom": "17.0.2",
     "react-hook-form": "7.26.0",
-    "react-square-web-payments-sdk": "2.2.3",
     "simple-icons": "6.8.0",
     "swr": "1.2.1",
     "typed.js": "2.0.12"
   },
   "devDependencies": {
+    "@square/web-payments-sdk-types": "^1.26.0",
     "@types/mapbox-gl": "2.6.1",
     "@types/react": "17.0.39",
     "autoprefixer": "10.4.2",
@@ -57,8 +56,6 @@
     "typescript": "4.6.0-dev.20220204"
   },
   "optionalDependencies": {
-    "cypress": "9.4.1",
-    "eslint-plugin-jsx-a11y": "6.5.1",
-    "start-server-and-test": "1.14.0"
+    "eslint-plugin-jsx-a11y": "6.5.1"
   }
 }
