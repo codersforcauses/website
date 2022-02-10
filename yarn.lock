@@ -4041,10 +4041,10 @@ typed.js@2.0.12:
   resolved "https://registry.yarnpkg.com/typed.js/-/typed.js-2.0.12.tgz#246aff074c8e18d32ec27acb7be15094ac0bc0e1"
   integrity sha512-lyACZh1cu+vpfYY3DG/bvsGLXXbdoDDpWxmqta10IQUdMXisMXOEyl+jos+YT9uBbzK4QaKYBjT3R0kTJO0Slw==
 
-typescript@4.6.0-dev.20220209:
-  version "4.6.0-dev.20220209"
-  resolved "https://registry.yarnpkg.com/typescript/-/typescript-4.6.0-dev.20220209.tgz#e50fbf9838cd1d102398c360dbc7d5e2b17be4d9"
-  integrity sha512-T55LJkTXli4n2+zjAkxTXXM2aCUErlEnJGcNInZh/GWCwlEKWHWRDZ8d7Ow1NSGUGwJHjb/cnESptrsCP5p8PA==
+typescript@4.6.0-dev.20220210:
+  version "4.6.0-dev.20220210"
+  resolved "https://registry.yarnpkg.com/typescript/-/typescript-4.6.0-dev.20220210.tgz#f76c4a09053f8d064a37e91dff8a32dd5cf7d842"
+  integrity sha512-YWhjn/bTswih1vihuM7B5PHmTvgBgg9WGww22HQZjGnm1HIqaeTDw9Rm0tCigNp17bvmwB/pstojj8WZDUEUPQ==
 
 unbox-primitive@^1.0.1:
   version "1.0.1"
