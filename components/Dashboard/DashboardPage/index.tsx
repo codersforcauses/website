@@ -1,13 +1,14 @@
-import { useState } from 'react'
+import { memo, useState } from 'react'
 import dynamic from 'next/dynamic'
 import Title from '@components/Utils/Title'
+import { useUser } from '@helpers/user'
 import Announcements from './Announcements'
 import CardSelector from './CardSelector'
-import { User } from '@helpers/global'
 
 const CardPayment = dynamic(() => import('./CardPayment'), { ssr: false })
 
-const DashboardPage = ({ user }: DashboardPageProps) => {
+const DashboardPage = () => {
+  const { user } = useUser()
   const [selectedCard, setSelectedCard] = useState(
     () => user?.cards?.[0].token || ''
   )
@@ -51,8 +52,4 @@ const DashboardPage = ({ user }: DashboardPageProps) => {
   )
 }
 
-interface DashboardPageProps {
-  user: User
-}
-
-export default DashboardPage
+export default memo(DashboardPage)
