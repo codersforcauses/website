@@ -9,9 +9,9 @@ export interface ModalProps {
 }
 
 interface Mongoose {
-  _id: string | string
-  createdAt: string
-  updatedAt: string
+  readonly _id: string | string
+  readonly createdAt: string
+  readonly updatedAt: string
 }
 
 export type Role =
@@ -74,8 +74,6 @@ export interface UserModel {
   socials?: Array<SocialType>
   tech?: Array<string>
   cards?: Array<CardDetails>
-  createdAt: string
-  updatedAt: string
 }
 
 export type User = (UserModel & Mongoose & { name: string }) | null
