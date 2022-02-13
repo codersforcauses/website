@@ -9,6 +9,9 @@ const UserMenu = () => {
   const { user } = useUser()
   const { signOutOne } = useClerk()
 
+  const isAdmin = true
+  // user?.roles && user.roles.length > 0 && !user.roles.includes('member')
+
   const Links = useMemo(
     () => [
       {
@@ -80,22 +83,24 @@ const UserMenu = () => {
                   )}
                 </Menu.Item>
               ))}
-              <Menu.Item>
-                {({ active }) => (
-                  <Link href='/dashboard/admin' passHref>
-                    <a
-                      className={`flex items-center py-2 px-4 text-sm hover:bg-secondary hover:text-primary ${
-                        active && 'bg-secondary text-primary'
-                      }`}
-                    >
-                      <span className='mr-2 material-icons-sharp'>
-                        admin_panel_settings
-                      </span>
-                      Admin Dash
-                    </a>
-                  </Link>
-                )}
-              </Menu.Item>
+              {isAdmin && (
+                <Menu.Item>
+                  {({ active }) => (
+                    <Link href='/dashboard/admin' passHref>
+                      <a
+                        className={`flex items-center py-2 px-4 text-sm hover:bg-secondary hover:text-primary ${
+                          active && 'bg-secondary text-primary'
+                        }`}
+                      >
+                        <span className='mr-2 material-icons-sharp'>
+                          admin_panel_settings
+                        </span>
+                        Admin Dash
+                      </a>
+                    </Link>
+                  )}
+                </Menu.Item>
+              )}
               <Menu.Item>
                 {({ active }) => (
                   <button
