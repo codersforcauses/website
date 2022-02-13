@@ -1,37 +1,16 @@
 import { useState } from 'react'
 import dynamic from 'next/dynamic'
 import Title from '@components/Utils/Title'
-import { CardDetails } from '@helpers/global'
 import Announcements from './Announcements'
 import CardSelector from './CardSelector'
+import { User } from '@helpers/global'
 
 const CardPayment = dynamic(() => import('./CardPayment'), { ssr: false })
 
-const test: Array<CardDetails> = [
-  {
-    token: 'hbiuidjskandbhfsjlkd',
-    details: {
-      brand: 'VISA',
-      last4: '1111',
-      expMonth: 11,
-      expYear: 2019
-    },
-    updatedAt: new Date()
-  },
-  {
-    token: 'mknjuoijknlbkuholsndf',
-    details: {
-      brand: 'MASTERCARD',
-      last4: '1024',
-      expMonth: 1,
-      expYear: 2022
-    },
-    updatedAt: new Date()
-  }
-]
-
-const DashboardPage = () => {
-  const [selectedCard, setSelectedCard] = useState(() => test[0].token || '')
+const DashboardPage = ({ user }: DashboardPageProps) => {
+  const [selectedCard, setSelectedCard] = useState(
+    () => user?.cards?.[0].token || ''
+  )
   return (
     <>
       <Title typed>./dashboard</Title>
@@ -39,7 +18,7 @@ const DashboardPage = () => {
         <div className='container grid gap-8 px-3 mx-auto lg:grid-cols-3'>
           <div className='lg:col-span-2'>
             <div className='px-4 py-3 space-y-8 bg-alt-light dark:bg-primary'>
-              {test ? (
+              {user?.cards ? (
                 <p>
                   We&apos;ve noticed that your membership has expired. Would you
                   like to renew it to get access to discounts to events we run
@@ -52,9 +31,9 @@ const DashboardPage = () => {
                   discounts to events we run during the year.
                 </p>
               )}
-              {test && (
+              {user?.cards && (
                 <CardSelector
-                  cards={test}
+                  cards={user.cards}
                   selectedCard={selectedCard}
                   setSelectedCard={setSelectedCard}
                 />
@@ -70,6 +49,10 @@ const DashboardPage = () => {
       </div>
     </>
   )
+}
+
+interface DashboardPageProps {
+  user: User
 }
 
 export default DashboardPage
