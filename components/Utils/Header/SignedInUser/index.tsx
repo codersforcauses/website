@@ -2,12 +2,12 @@ import { useMemo, useCallback, Fragment } from 'react'
 import { useClerk } from '@clerk/nextjs'
 import { Menu, Transition } from '@headlessui/react'
 import Router from 'next/router'
-import { getInitials, useUser } from '@helpers/user'
 import Link from 'next/link'
+import { getInitials, useUser } from '@helpers/user'
 
 const UserMenu = () => {
   const { user } = useUser()
-  const { signOut } = useClerk()
+  const { signOutOne } = useClerk()
 
   const Links = useMemo(
     () => [
@@ -31,9 +31,9 @@ const UserMenu = () => {
   )
 
   const handleSignOut = useCallback(() => {
-    signOut()
+    signOutOne()
     Router.push('/')
-  }, [signOut])
+  }, [signOutOne])
 
   return (
     <Menu as='div' className='relative text-secondary'>
@@ -80,6 +80,22 @@ const UserMenu = () => {
                   )}
                 </Menu.Item>
               ))}
+              <Menu.Item>
+                {({ active }) => (
+                  <Link href='/dashboard/admin' passHref>
+                    <a
+                      className={`flex items-center py-2 px-4 text-sm hover:bg-secondary hover:text-primary ${
+                        active && 'bg-secondary text-primary'
+                      }`}
+                    >
+                      <span className='mr-2 material-icons-sharp'>
+                        admin_panel_settings
+                      </span>
+                      Admin Dash
+                    </a>
+                  </Link>
+                )}
+              </Menu.Item>
               <Menu.Item>
                 {({ active }) => (
                   <button
