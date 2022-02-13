@@ -12,10 +12,6 @@ const DeleteUserModal = ({ user: id, ...props }: DeleteModalProps) => {
       setUser(await (await fetch(`/api/users?clerkID=${id}`)).json())
     }
     id && getUser()
-
-    return () => {
-      setUser(null)
-    }
   }, [id])
 
   const gender = user?.gender === 'other' ? 'transgender' : user?.gender
