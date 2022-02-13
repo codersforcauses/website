@@ -1,7 +1,7 @@
 import { Dispatch, Fragment, memo, SetStateAction } from 'react'
 import { RadioGroup as Radio } from '@headlessui/react'
-import BrandIcons from '@elements/BrandIcons'
 import { CardBrand, CardDetails } from '@helpers/global'
+import BrandIcons from '@elements/BrandIcons'
 
 const getIcon = (icon: CardBrand) => {
   switch (icon) {
@@ -18,6 +18,8 @@ const getIcon = (icon: CardBrand) => {
     case 'CHINA_UNIONPAY':
       return ''
     case 'DISCOVER_DINERS':
+      return ''
+    default:
       return ''
   }
 }

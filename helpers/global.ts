@@ -48,6 +48,7 @@ export type CardBrand =
   | 'JCB'
   | 'AMERICAN_EXPRESS'
   | 'CHINA_UNIONPAY'
+  | 'OTHER_BRAND'
 export interface CardDetails {
   token: string
   details: {
