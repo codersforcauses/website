@@ -4,7 +4,7 @@ import dbConnect from '@lib/dbConnect'
 import announcements from '@models/announcements'
 import { Announcements } from '@helpers/global'
 
-const eventRoute = async (req: NextApiRequest, res: NextApiResponse) => {
+const announcementRoute = async (req: NextApiRequest, res: NextApiResponse) => {
   const { method, body } = req
   await dbConnect()
 
@@ -52,4 +52,4 @@ const eventRoute = async (req: NextApiRequest, res: NextApiResponse) => {
   }
 }
 
-export default eventRoute
+export default announcementRoute
