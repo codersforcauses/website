@@ -1,6 +1,7 @@
-import { memo, useEffect, useRef, useState } from 'react'
+import { memo, useCallback, useEffect, useRef, useState } from 'react'
 import { useTheme } from 'next-themes'
 import { payments, Card, CardClassSelectors } from '@square/web-sdk'
+import { useUser } from '@helpers/user'
 import { Button } from '@elements/Button'
 import BrandIcons from '@elements/BrandIcons'
 
@@ -67,9 +68,11 @@ const darkTheme: CardClassSelectors = {
 
 const CardPayment = () => {
   const [card, setCard] = useState<Card>()
+  const [error, setError] = useState('')
+  const { user } = useUser()
+  const cardRef = useRef<HTMLDivElement>(null)
   const { resolvedTheme: theme } = useTheme()
   const isDark = theme === 'dark'
-  const cardRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     const loadCard = async () => {
@@ -87,10 +90,6 @@ const CardPayment = () => {
         await cardResponse.attach('#card-container')
         await cardResponse.focus('cardNumber')
         setCard(cardResponse)
-
-        const cardMessage = cardRef.current?.children[0]
-          .children[1] as HTMLSpanElement
-        cardMessage.style.fontFamily = 'IBM Plex Sans'
       } catch (error: any) {
         console.log(error.message)
       }
@@ -103,18 +102,38 @@ const CardPayment = () => {
             ...(isDark ? darkTheme : lightTheme)
           }
         })
-        const cardMessage = cardRef.current?.children[0]
-          .children[1] as HTMLSpanElement
-        cardMessage.style.fontFamily = 'IBM Plex Sans'
-
         card.focus('cardNumber')
       } else loadCard()
+      const cardMessage = cardRef?.current?.children[0]
+        .children[1] as HTMLSpanElement
+      if (cardMessage) cardMessage.style.fontFamily = 'IBM Plex Sans'
     }
-  }, [card, isDark])
+  }, [error, card, isDark])
 
-  // const cardResponse = (token, buyer) => {
-  //   console.log(token?.details.card.brand)
-  // }
+  const cardResponse = useCallback(
+    async e => {
+      e.preventDefault()
+      if (!card || !user) return
+
+      const { status, ...tokenResult } = await card.tokenize()
+      if (status !== 'OK') setError(tokenResult?.errors?.[0].message as string)
+
+      const { details, token } = tokenResult
+
+      await fetch(`/api/users?id=${user._id}`, {
+        method: 'PATCH',
+        body: JSON.stringify([
+          ...(user.cards ?? []),
+          {
+            token,
+            details: { ...details?.card },
+            updatedAt: new Date()
+          }
+        ])
+      })
+    },
+    [card, user]
+  )
 
   return (
     <div className='relative'>
@@ -144,7 +163,7 @@ const CardPayment = () => {
             </div>
           )}
         </div>
-        <Button fill className='w-full'>
+        <Button fill className='w-full' onClick={cardResponse}>
           Pay $5 membership
         </Button>
       </form>
