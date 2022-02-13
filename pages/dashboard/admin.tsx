@@ -1,15 +1,15 @@
-import { useContext, useEffect } from 'react'
+import { useEffect } from 'react'
 import Router from 'next/router'
-import { UserContext } from '@helpers/user'
+import { useUser } from '@helpers/user'
 import Meta from '@components/Utils/Meta'
 import AdminDashboardPage from '@components/Dashboard/AdminDashboardPage'
 
 const AdminDashboard = () => {
-  // const { user } = useContext(UserContext)
+  const { user } = useUser()
 
-  // useEffect(() => {
-  //   if (!user) Router.replace('/membership')
-  // }, [user])
+  useEffect(() => {
+    !user && Router.replace('/membership')
+  }, [user])
 
   return (
     <>
@@ -20,7 +20,7 @@ const AdminDashboard = () => {
         description='Manage users and their roles'
         image='https://og-social-cards.vercel.app/**.%2Fadmin%20dashboard**.png?theme=dark&md=1&fontSize=125px&images=https%3A%2Fcodersforcauses.org%2Flogo%2Fcfc_logo_white_full.svg'
       />
-      <AdminDashboardPage />
+      {user && <AdminDashboardPage />}
     </>
   )
 }

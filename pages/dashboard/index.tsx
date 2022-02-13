@@ -1,13 +1,15 @@
 import { useEffect } from 'react'
 import Router from 'next/router'
-import { withServerSideAuth } from '@clerk/nextjs/ssr'
+import { useUser } from '@helpers/user'
 import Meta from '@components/Utils/Meta'
 import DashboardPage from '@components/Dashboard/DashboardPage'
 
-const Dashboard = ({ id }: DashboardProps) => {
+const Dashboard = () => {
+  const { user } = useUser()
+
   useEffect(() => {
-    !id && Router.replace('/membership')
-  }, [id])
+    !user && Router.replace('/membership')
+  }, [user])
 
   return (
     <>
@@ -18,19 +20,9 @@ const Dashboard = ({ id }: DashboardProps) => {
         description='Get updates and access to CFC material.'
         image='https://og-social-cards.vercel.app/**.%2Fdashboard**.png?theme=dark&md=1&fontSize=125px&images=https%3A%2Fcodersforcauses.org%2Flogo%2Fcfc_logo_white_full.svg'
       />
-      <DashboardPage />
+      {user && <DashboardPage user={user} />}
     </>
   )
-}
-
-export const getServerSideProps = withServerSideAuth(async ({ auth }) => ({
-  props: {
-    id: auth.userId || ''
-  }
-}))
-
-interface DashboardProps {
-  id: string
 }
 
 export default Dashboard
