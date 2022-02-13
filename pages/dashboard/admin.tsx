@@ -1,15 +1,13 @@
 import { useEffect } from 'react'
 import Router from 'next/router'
-import { useUser } from '@helpers/user'
+import { withServerSideAuth } from '@clerk/nextjs/ssr'
 import Meta from '@components/Utils/Meta'
 import AdminDashboardPage from '@components/Dashboard/AdminDashboardPage'
 
-const AdminDashboard = () => {
-  const { user } = useUser()
-
+const AdminDashboard = ({ id }: DashboardProps) => {
   useEffect(() => {
-    !user && Router.replace('/membership')
-  }, [user])
+    !id && Router.replace('/membership')
+  }, [id])
 
   return (
     <>
@@ -17,12 +15,22 @@ const AdminDashboard = () => {
         title='Admin Dashboard'
         name='Admin Dashboard'
         page='admin dashboard'
-        description='Manage users and their roles'
+        description='Manage users, projects, events and make announcements'
         image='https://og-social-cards.vercel.app/**.%2Fadmin%20dashboard**.png?theme=dark&md=1&fontSize=125px&images=https%3A%2Fcodersforcauses.org%2Flogo%2Fcfc_logo_white_full.svg'
       />
-      {user && <AdminDashboardPage />}
+      {id && <AdminDashboardPage />}
     </>
   )
+}
+
+export const getServerSideProps = withServerSideAuth(async ({ auth }) => ({
+  props: {
+    id: auth.userId || ''
+  }
+}))
+
+interface DashboardProps {
+  id: string
 }
 
 export default AdminDashboard
