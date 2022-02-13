@@ -1,14 +1,7 @@
-import {
-  useState,
-  useContext,
-  useCallback,
-  Dispatch,
-  SetStateAction
-} from 'react'
+import { useState, useCallback, Dispatch, SetStateAction } from 'react'
 import { useRouter } from 'next/router'
 import { useClerk, useMagicLink, useSignIn } from '@clerk/nextjs'
 import { EmailLinkFactor } from '@clerk/types'
-import { UserContext } from '@helpers/user'
 import Title from '@components/Utils/Title'
 import { Form, TextField } from '@elements/FormElements'
 import { Button } from '@elements/Button'
@@ -25,7 +18,6 @@ const SignInPage = ({ signUp }: SignInProps) => {
   const [expired, setExpired] = useState(false)
   const [verified, setVerified] = useState(false)
   const router = useRouter()
-  const { setUser } = useContext(UserContext)
   const { setSession } = useClerk()
   const signIn = useSignIn()
   const { startMagicLinkFlow, cancelMagicLinkFlow } = useMagicLink(signIn)
@@ -66,9 +58,6 @@ const SignInPage = ({ signUp }: SignInProps) => {
         else if (verification.status === 'expired') setExpired(true)
 
         if (si.status === 'complete') {
-          const user = await (await fetch(`/api/users?email=${email}`)).json()
-          setUser(user)
-
           setSession(si.createdSessionId, () => router.push('/dashboard'))
         }
 
@@ -93,7 +82,6 @@ const SignInPage = ({ signUp }: SignInProps) => {
       expired,
       router,
       setSession,
-      setUser,
       signIn,
       startMagicLinkFlow,
       verified

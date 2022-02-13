@@ -1,18 +1,13 @@
-import { useMemo, useCallback, useContext, useEffect, Fragment } from 'react'
+import { useMemo, useCallback, Fragment } from 'react'
 import { useClerk } from '@clerk/nextjs'
 import { Menu, Transition } from '@headlessui/react'
-import useSWR from 'swr'
 import Router from 'next/router'
-import { User } from '@helpers/global'
-import { getInitials, UserContext } from '@helpers/user'
+import { getInitials, useUser } from '@helpers/user'
 import Link from 'next/link'
 
 const UserMenu = () => {
-  const { setUser } = useContext(UserContext)
-  const { user: clerkUser, signOut } = useClerk()
-  const { data: user } = useSWR<User>(
-    clerkUser ? `/api/users?clerkID=${clerkUser.id}` : null
-  )
+  const { user } = useUser()
+  const { signOut } = useClerk()
 
   const Links = useMemo(
     () => [
@@ -30,20 +25,15 @@ const UserMenu = () => {
     [user?._id]
   )
 
-  useEffect(() => {
-    user && setUser(user)
-  }, [setUser, user])
-
   const initials = useMemo(
-    () => getInitials(clerkUser?.fullName as string),
-    [clerkUser?.fullName]
+    () => getInitials(user?.name as string),
+    [user?.name]
   )
 
   const handleSignOut = useCallback(() => {
     signOut()
-    setUser(null)
     Router.push('/')
-  }, [setUser, signOut])
+  }, [signOut])
 
   return (
     <Menu as='div' className='relative text-secondary'>
@@ -51,7 +41,7 @@ const UserMenu = () => {
         <>
           <Menu.Button className='py-1.5 px-4 my-px border border-secondary hover:bg-secondary hover:text-primary focus:bg-secondary focus:text-primary focus:outline-none'>
             <span className='items-center justify-between hidden md:flex'>
-              {clerkUser?.fullName}
+              {user?.name}
               <span className='-mr-1 material-icons-sharp'>
                 {open ? 'expand_less' : 'expand_more'}
               </span>

@@ -1,15 +1,6 @@
-import { createContext, Dispatch, SetStateAction } from 'react'
+import { useAuth } from '@clerk/nextjs'
+import useSWR from 'swr'
 import { User } from './global'
-
-export const UserContext = createContext<{
-  user: User
-  setUser: Dispatch<SetStateAction<User>>
-}>({
-  user: null,
-  setUser: () => {}
-})
-export const UserProvider = UserContext.Provider
-export const UserConsumer = UserContext.Consumer
 
 // All functions for user data should be placed below
 export const getInitials = (name: string) => {
@@ -17,4 +8,12 @@ export const getInitials = (name: string) => {
   return initialArray
     ? `${initialArray[0]}${initialArray[initialArray.length - 1]}`
     : ''
+}
+
+export const useUser = (id?: string) => {
+  const { userId } = useAuth()
+  const route = id ? `/api/users?id=${id}` : `/api/users?clerkID=${userId}`
+
+  const { data: user, mutate } = useSWR<User>(route)
+  return { user, mutate }
 }

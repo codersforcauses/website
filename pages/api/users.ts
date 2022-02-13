@@ -7,12 +7,12 @@ import { User as UserType } from '@helpers/global'
 
 const convertDate = (date: string) => dayjs(date).format('MMM D, YYYY h:mm A')
 
-const modifyUser = (user: UserType) => ({
+const modifyUser = (user: Partial<UserType>) => ({
   ...user,
   name: `${user?.firstName} ${user?.lastName}`.trim(),
   roles: user?.isFinancialMember ? user.roles?.concat(['member']) : user?.roles,
-  createdAt: convertDate(user?.createdAt as string),
-  updatedAt: convertDate(user?.updatedAt as string)
+  createdAt: convertDate(user?.createdAt!),
+  updatedAt: convertDate(user?.updatedAt!)
 })
 
 const userRoute = async (req: NextApiRequest, res: NextApiResponse) => {
@@ -24,30 +24,21 @@ const userRoute = async (req: NextApiRequest, res: NextApiResponse) => {
     case 'POST':
       let clerk_id = ''
       try {
-        const [{ id: userID }] = await users.getUserList({
+        const [{ id: clerk_id }] = await users.getUserList({
           emailAddress: [body.email]
         })
-        clerk_id = userID as string
-
-        const user = await User.create({
+        await User.create({
           ...body,
-          clerkID: clerk_id
+          clerkID: clerk_id!
         })
-        res.status(201).json({
-          ...user,
-          name: `${user.firstName} ${user.lastName}`.trim(),
-          createdAt: convertDate(user.createdAt),
-          updatedAt: convertDate(user.updatedAt)
-        })
+        res.status(201).end('Created user')
       } catch (error: any) {
         await users.deleteUser(clerk_id)
-
         if ('email' in error.keyValue)
           res.status(409).json({
             success: false,
             message: 'Failed to create user as email already exists'
           })
-
         console.log({ error })
         res.status(400).json({
           success: false,
@@ -56,14 +47,25 @@ const userRoute = async (req: NextApiRequest, res: NextApiResponse) => {
       }
       break
     case 'PATCH':
+      try {
+        await User.findByIdAndUpdate(query.id, body)
+        res.status(200).end('Updated user')
+      } catch (error) {
+        console.log(error)
+
+        res.status(200).json({
+          success: false,
+          message: 'Failed to update user'
+        })
+      }
       break
     case 'DELETE':
       try {
         const clerkID = query.clerkID as string
-        console.log(clerkID)
-
-        await User.deleteOne({ clerkID: clerkID })
-        await users.deleteUser(clerkID)
+        await Promise.all([
+          User.deleteOne({ clerkID: clerkID }),
+          users.deleteUser(clerkID)
+        ])
         res.status(200).end('Deleted user')
       } catch (error) {
         console.log(error)
@@ -94,9 +96,13 @@ const userRoute = async (req: NextApiRequest, res: NextApiResponse) => {
       }
 
       try {
-        const getUsers: UserType[] = await User.find().sort('-createdAt').lean()
+        const getUsers: UserType[] = await User.find(
+          {},
+          '-dob -bio -socials -tech -cards'
+        )
+          .sort('-createdAt')
+          .lean()
         const users = getUsers.map(user => modifyUser(user))
-
         res.status(200).json(users)
       } catch (error) {
         res.status(403).json({

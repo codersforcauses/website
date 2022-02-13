@@ -3,7 +3,6 @@ import {
   Fragment,
   SetStateAction,
   useCallback,
-  useContext,
   useState
 } from 'react'
 import { useRouter } from 'next/router'
@@ -11,7 +10,6 @@ import { useClerk, useMagicLink, useSignUp } from '@clerk/nextjs'
 import { Tab } from '@headlessui/react'
 import Alert from '@elements/Alert'
 import Title from '@components/Utils/Title'
-import { UserContext } from '@helpers/user'
 import UWAStudent from './UWAStudent'
 import OtherMember from './OtherMember'
 
@@ -23,7 +21,6 @@ const SignUpPage = ({ signIn }: SignUpProps) => {
   const { setSession } = useClerk()
   const signUp = useSignUp()
   const { startMagicLinkFlow, cancelMagicLinkFlow } = useMagicLink(signUp)
-  const { setUser } = useContext(UserContext)
 
   const goToSignInPage = useCallback(
     e => {
@@ -80,20 +77,17 @@ const SignUpPage = ({ signIn }: SignUpProps) => {
         else if (verification.status === 'expired') setAuth('expired')
 
         if (su.status === 'complete') {
-          const user = await (
-            await fetch('/api/users', {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify({
-                email,
-                firstName,
-                lastName,
-                gender: values.gender || 'other',
-                isGuildMember: !!values.isGuildMember
-              })
+          await fetch('/api/users', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              email,
+              firstName,
+              lastName,
+              gender: values.gender || 'other',
+              isGuildMember: !!values.isGuildMember
             })
-          ).json()
-          setUser(user)
+          })
 
           setSession(su.createdSessionId, () => router.push('/dashboard'))
         }
@@ -115,15 +109,7 @@ const SignUpPage = ({ signIn }: SignUpProps) => {
         setErrors('Session has expired. Please sign in to continue')
       if (auth === 'verified') return <div>Signed in on another tab</div>
     },
-    [
-      auth,
-      cancelMagicLinkFlow,
-      router,
-      setSession,
-      setUser,
-      signUp,
-      startMagicLinkFlow
-    ]
+    [auth, cancelMagicLinkFlow, router, setSession, signUp, startMagicLinkFlow]
   )
 
   return (

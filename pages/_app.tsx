@@ -5,7 +5,6 @@ import { ThemeProvider } from 'next-themes'
 import { ClerkProvider } from '@clerk/nextjs'
 import { SWRConfig } from 'swr'
 import dayjs from 'dayjs'
-import User from '@components/Auth/User'
 import Header from '@components/Utils/Header'
 import Footer from '@components/Utils/Footer'
 import 'dayjs/locale/en-au'
@@ -32,15 +31,13 @@ const Website = ({ Component, pageProps }: AppProps) => {
               fetch(resource, init).then(res => res.json())
           }}
         >
-          <User>
-            <ThemeProvider attribute='class'>
-              <Header />
-              <main id='main' className='main'>
-                <Component {...pageProps} />
-              </main>
-              <Footer />
-            </ThemeProvider>
-          </User>
+          <ThemeProvider attribute='class'>
+            <Header />
+            <main id='main' className='main'>
+              <Component {...pageProps} />
+            </main>
+            <Footer />
+          </ThemeProvider>
         </SWRConfig>
       </ClerkProvider>
       {process.env.NODE_ENV === 'production' && <AddOns />}

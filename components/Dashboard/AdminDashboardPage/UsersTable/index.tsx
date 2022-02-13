@@ -1,15 +1,15 @@
-import { memo, useCallback, useContext, useState } from 'react'
+import { memo, useCallback, useState } from 'react'
 import dynamic from 'next/dynamic'
 import useSWR from 'swr'
 import Avatar from '@elements/Avatar'
 import { User } from '@helpers/global'
-import { UserContext } from '@helpers/user'
+import { useUser } from '@helpers/user'
 import RoleTags from '../RoleTags'
 const DeleteUserModal = dynamic(() => import('./DeleteUserModal'))
 const UpdateRoleModal = dynamic(() => import('./UpdateRoleModal'))
 
 const UsersTable = () => {
-  const { user: presentUser } = useContext(UserContext)
+  const { user: presentUser } = useUser()
   const { data: users, mutate } = useSWR<Array<NonNullable<User>>>('/api/users')
   const [currentUser, setCurrentUser] = useState('')
   const [loading, setLoading] = useState(false)
