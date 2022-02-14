@@ -50,14 +50,13 @@ export type CardBrand =
   | 'CHINA_UNIONPAY'
   | 'OTHER_BRAND'
 export interface CardDetails {
-  token: string
+  id: string
   details: {
     brand: CardBrand
     last4: string
     expMonth: number
     expYear: number
   }
-  updatedAt: Date
 }
 
 export interface UserModel {

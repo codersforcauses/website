@@ -19,7 +19,7 @@ const DashboardPage = () => {
         <div className='container grid gap-8 px-3 mx-auto lg:grid-cols-3'>
           <div className='lg:col-span-2'>
             <div className='px-4 py-3 space-y-8 bg-alt-light dark:bg-primary'>
-              {user?.cards ? (
+              {user?.cards && user?.cards?.length > 0 ? (
                 <p>
                   We&apos;ve noticed that your membership has expired. Would you
                   like to renew it to get access to discounts to events we run
@@ -32,7 +32,7 @@ const DashboardPage = () => {
                   discounts to events we run during the year.
                 </p>
               )}
-              {user?.cards && (
+              {user?.cards && user?.cards?.length > 0 && (
                 <CardSelector
                   cards={user.cards}
                   selectedCard={selectedCard}
