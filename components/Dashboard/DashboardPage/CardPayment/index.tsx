@@ -5,8 +5,8 @@ import { useUser } from '@helpers/user'
 import { Button } from '@elements/Button'
 import BrandIcons from '@elements/BrandIcons'
 
-const applicationID = process.env.NEXT_PUBLIC_APPLICATION_ID || ''
-const locationID = process.env.NEXT_PUBLIC_LOCATION_ID || ''
+const applicationID = process.env.NEXT_PUBLIC_SQUARE_APPLICATION_ID!
+const locationID = process.env.NEXT_PUBLIC_SQUARE_LOCATION_ID!
 
 const commonStyles: CardClassSelectors = {
   'input.is-error': {
@@ -69,7 +69,7 @@ const darkTheme: CardClassSelectors = {
 const CardPayment = () => {
   const [card, setCard] = useState<Card>()
   const [error, setError] = useState('')
-  const { user } = useUser()
+  const { user, mutate } = useUser()
   const cardRef = useRef<HTMLDivElement>(null)
   const { resolvedTheme: theme } = useTheme()
   const isDark = theme === 'dark'
@@ -102,8 +102,8 @@ const CardPayment = () => {
             ...(isDark ? darkTheme : lightTheme)
           }
         })
-        card.focus('cardNumber')
       } else loadCard()
+      card?.focus('cardNumber')
       const cardMessage = cardRef?.current?.children[0]
         .children[1] as HTMLSpanElement
       if (cardMessage) cardMessage.style.fontFamily = 'IBM Plex Sans'
@@ -115,36 +115,34 @@ const CardPayment = () => {
       e.preventDefault()
       if (!card || !user) return
 
-      const { status, ...tokenResult } = await card.tokenize()
-      if (status !== 'OK') setError(tokenResult?.errors?.[0].message as string)
+      const { errors, status, token } = await card.tokenize()
+      if (status !== 'OK') setError(errors?.[0].message as string)
 
-      const { details, token } = tokenResult
-
-      await fetch(`/api/users?id=${user._id}`, {
-        method: 'PATCH',
-        body: JSON.stringify([
-          ...(user.cards ?? []),
-          {
-            token,
-            details: { ...details?.card },
-            updatedAt: new Date()
-          }
-        ])
+      await fetch('/api/payments', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          token,
+          id: user._id,
+          email: user.email
+        })
       })
+
+      mutate()
     },
-    [card, user]
+    [card, mutate, user]
   )
 
   return (
     <div className='relative'>
       <div className='absolute right-0 z-10 top-[99px] md:top-[51px] flex items-center text-xs select-none justify-self-end opacity-50'>
-        powered by
+        Powered by
         <BrandIcons
           icon='square'
           dimensions={12}
           className='mr-0.5 ml-1 fill-current'
         />
-        square
+        Square
       </div>
       <form
         id='payment-form'
