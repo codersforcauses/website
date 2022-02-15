@@ -48,8 +48,10 @@ const userRoute = async (req: NextApiRequest, res: NextApiResponse) => {
       break
     case 'PATCH':
       try {
-        await User.findByIdAndUpdate(query.id, body)
-        res.status(200).end('Updated user')
+        const user = await User.findByIdAndUpdate(query.id, JSON.parse(body))
+        res
+          .status(200)
+          .end(`Updated user ${user?.firstName} ${user?.lastName}`.trim())
       } catch (error) {
         console.log(error)
 
