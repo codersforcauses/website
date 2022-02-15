@@ -50,7 +50,7 @@ export type CardBrand =
   | 'CHINA_UNIONPAY'
   | 'OTHER_BRAND'
 export interface CardDetails {
-  id: string
+  token: string
   details: {
     brand: CardBrand
     last4: string

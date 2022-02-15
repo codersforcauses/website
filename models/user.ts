@@ -107,7 +107,7 @@ const UserSchema = new mongoose.Schema<UserModel>(
     ],
     cards: [
       {
-        id: {
+        token: {
           type: String,
           trim: true,
           required: true

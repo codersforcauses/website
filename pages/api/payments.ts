@@ -43,8 +43,7 @@ const paymentHandler = async (req: NextApiRequest, res: NextApiResponse) => {
         paymentPromise
       ])
       const user: User = await userResponse.json()
-      const { payment } = await paymentResponse.json()
-      const { card } = payment.card_details
+      const { card } = (await paymentResponse.json()).payment.card_details
 
       await fetch(`${url}/api/users?id=${id}`, {
         method: 'PATCH',
@@ -52,7 +51,7 @@ const paymentHandler = async (req: NextApiRequest, res: NextApiResponse) => {
           cards: [
             ...user?.cards!,
             {
-              id: payment.id,
+              token,
               details: {
                 brand: card.card_brand,
                 last4: card.last_4,

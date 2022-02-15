@@ -10,7 +10,7 @@ const CardPayment = dynamic(() => import('./CardPayment'), { ssr: false })
 const DashboardPage = () => {
   const { user } = useUser()
   const [selectedCard, setSelectedCard] = useState(
-    () => user?.cards?.[0].id || ''
+    () => user?.cards?.[0].token || ''
   )
   return (
     <>

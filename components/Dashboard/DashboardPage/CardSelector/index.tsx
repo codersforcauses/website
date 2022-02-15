@@ -38,11 +38,11 @@ const CardSelector = ({ cards, ...props }: CardSelectorProps) => {
         <Radio.Label className='font-mono'>Your saved cards</Radio.Label>
       </div>
       <div className='flex flex-col space-y-2'>
-        {cards.map(({ details, id }: CardDetails) => (
+        {cards.map(({ details, token }: CardDetails) => (
           <Radio.Option
             as={Fragment}
-            key={id}
-            value={id}
+            key={token}
+            value={token}
             disabled={
               details.expYear <= currentYear && details.expMonth < currentMonth
             }
