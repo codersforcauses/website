@@ -66,10 +66,9 @@ const darkTheme: CardClassSelectors = {
   }
 }
 
-const CardPayment = () => {
+const CardPayment = ({ handleCardPayment }: CardPaymentProps) => {
   const [card, setCard] = useState<Card>()
   const [error, setError] = useState('')
-  const { user, mutate } = useUser()
   const cardRef = useRef<HTMLDivElement>(null)
   const { resolvedTheme: theme } = useTheme()
   const isDark = theme === 'dark'
@@ -113,24 +112,13 @@ const CardPayment = () => {
   const cardResponse = useCallback(
     async e => {
       e.preventDefault()
-      if (!card || !user) return
-
+      if (!card) return
       const { errors, status, token } = await card.tokenize()
       if (status !== 'OK') setError(errors?.[0].message as string)
 
-      await fetch('/api/payments', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          token,
-          id: user._id,
-          email: user.email
-        })
-      })
-
-      mutate()
+      handleCardPayment(token)
     },
-    [card, mutate, user]
+    [card, handleCardPayment]
   )
 
   return (
@@ -167,6 +155,10 @@ const CardPayment = () => {
       </form>
     </div>
   )
+}
+
+interface CardPaymentProps {
+  handleCardPayment: (token?: string) => void
 }
 
 export default memo(CardPayment)
