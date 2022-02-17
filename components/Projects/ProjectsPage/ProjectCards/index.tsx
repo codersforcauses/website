@@ -3,7 +3,7 @@ import Image from 'next/image'
 import projects from '@data/projects.json'
 
 const ProjectCards = () => (
-  <div className='grid flex-grow grid-cols-1 gap-6 md:grid-cols-2'>
+  <div className='grid flex-grow grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3'>
     {projects.map(project => (
       <Link key={project.name} href={project.purl}>
         <a className='flex flex-col focus:outline-none focus:ring focus:ring-accent hover:opacity-75 aspect-square bg-alt-light dark:bg-primary'>
