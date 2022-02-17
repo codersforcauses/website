@@ -28,14 +28,14 @@
   },
   "dependencies": {
     "@clerk/nextjs": "next",
-    "@headlessui/react": "1.4.3",
+    "@headlessui/react": "1.5.0",
     "@square/web-sdk": "2.0.0",
     "@tailwindcss/forms": "0.4.0",
     "critters": "0.0.16",
     "dayjs": "1.10.7",
     "mapbox-gl": "2.7.0",
     "mongoose": "6.2.2",
-    "next": "12.0.10",
+    "next": "12.1.0",
     "next-themes": "0.0.15",
     "react": "17.0.2",
     "react-dom": "17.0.2",
@@ -50,12 +50,10 @@
     "@types/react": "17.0.39",
     "autoprefixer": "10.4.2",
     "eslint": "8.9.0",
-    "eslint-config-next": "12.0.10",
+    "eslint-config-next": "12.1.0",
+    "eslint-plugin-jsx-a11y": "6.5.1",
     "postcss": "8.4.6",
     "tailwindcss": "3.0.23",
     "typescript": "4.6.0-dev.20220204"
-  },
-  "optionalDependencies": {
-    "eslint-plugin-jsx-a11y": "6.5.1"
   }
 }
