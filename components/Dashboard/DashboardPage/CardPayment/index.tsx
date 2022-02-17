@@ -1,7 +1,6 @@
 import { memo, useCallback, useEffect, useRef, useState } from 'react'
 import { useTheme } from 'next-themes'
 import { payments, Card, CardClassSelectors } from '@square/web-sdk'
-import { useUser } from '@helpers/user'
 import { Button } from '@elements/Button'
 import BrandIcons from '@elements/BrandIcons'
 
