@@ -65,7 +65,7 @@ const DashboardPage = () => {
                   <Disclosure>
                     {({ open }) => (
                       <>
-                        <Disclosure.Button className='relative w-full py-2 bg-primary dark:bg-alt-dark focus:outline-none focus:ring focus:ring-inset focus:ring-accent'>
+                        <Disclosure.Button className='relative w-full py-2 bg-secondary dark:bg-alt-dark focus:outline-none focus:ring focus:ring-inset focus:ring-accent'>
                           Use different card
                           <span className='absolute material-icons-sharp right-4'>
                             {open ? 'expand_less' : 'expand_more'}

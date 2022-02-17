@@ -19,7 +19,7 @@ module.exports = {
       danger: '#ff0000',
       warning: '#f5a623',
       alt: {
-        light: '#e9ecef',
+        light: '#f5f5f5',
         dark: '#111111'
       }
     },

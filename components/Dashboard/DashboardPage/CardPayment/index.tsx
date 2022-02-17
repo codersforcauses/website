@@ -10,24 +10,24 @@ const locationID = process.env.NEXT_PUBLIC_SQUARE_LOCATION_ID!
 
 const commonStyles: CardClassSelectors = {
   'input.is-error': {
-    color: '#FF0000'
+    color: '#ff0000'
   },
   'input::placeholder': {
     color: '#6b7280'
   },
   '.input-container.is-error': {
-    borderColor: '#FF0000'
+    borderColor: '#ff0000'
   },
   '.message-icon.is-error': {
-    color: '#FF0000'
+    color: '#ff0000'
   },
   '.message-text.is-error': {
-    color: '#FF0000'
+    color: '#ff0000'
   }
 }
 const lightTheme: CardClassSelectors = {
   input: {
-    backgroundColor: '#E9ECEF',
+    backgroundColor: '#f5f5f5',
     color: '#000000',
     fontFamily: 'helvetica neue, sans-serif'
   },
@@ -48,21 +48,21 @@ const lightTheme: CardClassSelectors = {
 const darkTheme: CardClassSelectors = {
   input: {
     backgroundColor: '#000000',
-    color: '#FFFFFF',
+    color: '#ffffff',
     fontFamily: 'helvetica neue, sans-serif'
   },
   '.input-container': {
     borderRadius: '0',
-    borderColor: '#FFFFFF'
+    borderColor: '#ffffff'
   },
   '.input-container.is-focus': {
-    borderColor: '#FFFFFF'
+    borderColor: '#ffffff'
   },
   '.message-icon': {
-    color: '#FFFFFF'
+    color: '#ffffff'
   },
   '.message-text': {
-    color: '#FFFFFF'
+    color: '#ffffff'
   }
 }
 
