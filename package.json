@@ -30,7 +30,7 @@
   },
   "dependencies": {
     "@clerk/nextjs": "next",
-    "@headlessui/react": "1.4.3",
+    "@headlessui/react": "1.5.0",
     "@tailwindcss/forms": "0.4.0",
     "critters": "0.0.16",
     "dayjs": "1.10.7",
