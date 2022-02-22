@@ -2,7 +2,7 @@ import { memo, useCallback, useState } from 'react'
 import dynamic from 'next/dynamic'
 import useSWR from 'swr'
 import Avatar from '@elements/Avatar'
-import { User } from '@helpers/global'
+import { Role, User } from '@helpers/global'
 import { useUser } from '@helpers/user'
 import RoleTags from '../RoleTags'
 const DeleteUserModal = dynamic(() => import('./DeleteUserModal'))
@@ -40,6 +40,31 @@ const UsersTable = () => {
     setUpdateRoleModal(false)
     setCurrentUser('')
   }, [])
+  const updateUser = useCallback(
+    async (values: Record<Role, boolean>) => {
+      setLoading(true)
+      try {
+        const roles = Object.entries(values).reduce(
+          (userRoles, [role, hasRole]) =>
+            hasRole ? [...userRoles, role as Role] : userRoles,
+          [] as Array<Role>
+        )
+
+        await fetch(`/api/users?clerkID=${currentUser}`, {
+          method: 'PATCH',
+          body: JSON.stringify({
+            roles
+          })
+        })
+        mutate()
+        closeUpdateRoleModal()
+      } catch (error) {
+      } finally {
+        setLoading(false)
+      }
+    },
+    [closeUpdateRoleModal, currentUser, mutate]
+  )
 
   return users ? (
     <>
@@ -121,13 +146,15 @@ const UsersTable = () => {
           users.find(({ clerkID }) => currentUser === clerkID)
             ?.firstName as string
         }
+        loading={loading}
+        handleSubmit={updateUser}
         isOpen={updateRoleModal}
         closeModal={closeUpdateRoleModal}
       />
       <DeleteUserModal
         user={currentUser}
         loading={loading}
-        deleteUser={deleteUser}
+        handleSubmit={deleteUser}
         isOpen={userDeleteModal}
         closeModal={closeDeleteUsersModal}
       />
