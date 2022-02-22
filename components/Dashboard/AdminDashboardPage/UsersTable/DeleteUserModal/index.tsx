@@ -68,7 +68,7 @@ const DeleteUserModal = ({ user: id, ...props }: DeleteModalProps) => {
             <Button
               color='danger'
               loading={props.loading}
-              onClick={props.deleteUser}
+              onClick={props.handleSubmit}
             >
               Delete
             </Button>
@@ -82,7 +82,7 @@ const DeleteUserModal = ({ user: id, ...props }: DeleteModalProps) => {
 interface DeleteModalProps extends ModalProps {
   user: string
   loading: boolean
-  deleteUser: () => void
+  handleSubmit: () => void
 }
 
 export default memo(DeleteUserModal)
