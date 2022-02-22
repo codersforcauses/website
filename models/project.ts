@@ -1,6 +1,7 @@
 import mongoose from 'mongoose'
+import { ProjectModel } from '@helpers/global'
 
-const ProjectSchema = new mongoose.Schema(
+const ProjectSchema = new mongoose.Schema<ProjectModel>(
   {
     name: {
       type: String,
@@ -31,39 +32,17 @@ const ProjectSchema = new mongoose.Schema(
         index: true
       }
     ],
-    client: [
-      {
-        name: {
-          type: String,
-          maxLength: 128,
-          index: true,
-          trim: true,
-          required: true
-        },
-        description: {
-          type: String,
-          maxLength: 2048,
-          trim: true,
-          required: true
-        },
-        email: {
-          type: String,
-          maxLength: 128,
-          index: true,
-          trim: true,
-          lowercase: true,
-          required: true
-        }
+    client: [{ type: mongoose.Schema.Types.ObjectId }],
+    dates: {
+      start: {
+        type: Date,
+        required: true,
+        index: true
+      },
+      end: {
+        type: Date,
+        index: true
       }
-    ],
-    startDate: {
-      type: Date,
-      required: true,
-      index: true
-    },
-    endDate: {
-      type: Date,
-      index: true
     },
     imageLinks: [String],
     impact: [{ type: String, maxLength: 256, trim: true }],
@@ -102,5 +81,5 @@ const ProjectSchema = new mongoose.Schema(
   }
 )
 
-export default mongoose.models.Project ||
-  mongoose.model('Project', ProjectSchema)
+export default (mongoose.models.Project as mongoose.Model<ProjectModel>) ||
+  mongoose.model<ProjectModel>('Project', ProjectSchema)
