@@ -61,7 +61,7 @@ const TextArea = ({
               dark
                 ? 'border-secondary text-secondary'
                 : 'border-primary text-primary dark:border-secondary dark:text-secondary',
-              error ? 'pr-8' : '',
+              error ? 'pr-8 animate-wiggle' : '',
               className
             ]
               .join(' ')

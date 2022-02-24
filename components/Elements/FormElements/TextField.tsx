@@ -72,7 +72,8 @@ const TextField = ({
             'flex items-center border',
             dark
               ? 'border-secondary text-secondary'
-              : 'border-primary text-primary dark:border-secondary dark:text-secondary'
+              : 'border-primary text-primary dark:border-secondary dark:text-secondary',
+            error ? 'animate-wiggle' : ''
           ].join(' ')}
         >
           {prefix && <span className='text-opacity-75'>{prefix}</span>}
