@@ -74,7 +74,7 @@ const HomePage = () => {
             </p>
             <div className='flex'>
               <a
-                href='https://docs.google.com/forms/d/e/1FAIpQLScPEsHxs1afKNF7Zo9i7JkDgGlg3k-nZowJspsb18ve1odkaA/viewform'
+                href='https://docs.google.com/forms/d/e/1FAIpQLSfQ8vbBY1Iqok234oFxNfpsXhLp-J2t6PcfI37TSi19GNJsXw/viewform'
                 target='_blank'
                 rel='noreferrer noopener'
                 className='px-4 py-2 mr-4 text-xl font-black border border-secondary bg-secondary text-primary hover:bg-secondary/75 focus:outline-none focus:ring-inset focus:ring focus:ring-accent'

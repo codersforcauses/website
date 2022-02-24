@@ -38,10 +38,10 @@
   dependencies:
     regenerator-runtime "^0.13.4"
 
-"@clerk/backend-core@^0.4.3":
-  version "0.4.3"
-  resolved "https://registry.yarnpkg.com/@clerk/backend-core/-/backend-core-0.4.3.tgz#c4ce7168033c0d6b736101acc58b9ce9f17e7630"
-  integrity sha512-If9scF9gFpYfEu7EYvlhJ6J6LwqktuWXNKm79WurhbqC91VQ9oISu0kK6s8y9QL6PJ8ZjVX+RitSFmdbKoGElA==
+"@clerk/backend-core@^0.4.4":
+  version "0.4.4"
+  resolved "https://registry.yarnpkg.com/@clerk/backend-core/-/backend-core-0.4.4.tgz#7d3bf7020d25f0f67e72813b622ec403e3ecfa04"
+  integrity sha512-+KPN73tX5bI9nlha1y+ohGloMRbtSmqkiDzAIkJAFH8eyBO8Eb9N4qvH0IbOS5dPOTm6T/vXBEe1fH5HPQ+C0w==
   dependencies:
     camelcase-keys "^7.0.1"
     query-string "^7.0.1"
@@ -57,11 +57,11 @@
     tslib "^2.3.1"
 
 "@clerk/clerk-sdk-node@^2.9.0":
-  version "2.9.3"
-  resolved "https://registry.yarnpkg.com/@clerk/clerk-sdk-node/-/clerk-sdk-node-2.9.3.tgz#9308e94181d241ca13a68c7b09117eab1ac6bd1c"
-  integrity sha512-ESNI7WdAOCxZGvM7OcuZwgkYdhUaGgYVBgCKblPlXyoDPwuIG6CXszjZmZSNsGSC7hR3+Qp/2+PaZstcmiOzoA==
+  version "2.9.4"
+  resolved "https://registry.yarnpkg.com/@clerk/clerk-sdk-node/-/clerk-sdk-node-2.9.4.tgz#13c64419785a4c727991e2f4091a82375739ec90"
+  integrity sha512-S4AM4ICDSuHV3Gjx5peYMOl9mDXrMKvAbcosLFtOqQIhopwechSs6/NJVt4JryO7wi30l13PCEm5qbG6kEobmw==
   dependencies:
-    "@clerk/backend-core" "^0.4.3"
+    "@clerk/backend-core" "^0.4.4"
     "@peculiar/webcrypto" "^1.2.3"
     camelcase-keys "^6.2.2"
     cookies "^0.8.0"
@@ -282,9 +282,9 @@
     tslib "^2.0.0"
 
 "@peculiar/webcrypto@^1.2.3":
-  version "1.2.3"
-  resolved "https://registry.yarnpkg.com/@peculiar/webcrypto/-/webcrypto-1.2.3.tgz#79268ef0a8068bed2a40fc33bc68b4d3546fe2cc"
-  integrity sha512-q7wDfZy3k/tpnsYB23/MyyDkjn6IdHh8w+xwoVMS5cu6CjVoFzngXDZEOOuSE4zus2yO6ciQhhHxd4XkLpwVnQ==
+  version "1.3.0"
+  resolved "https://registry.yarnpkg.com/@peculiar/webcrypto/-/webcrypto-1.3.0.tgz#9b597b90470afdb566040e703e6aaaf704d9be7c"
+  integrity sha512-gV+1F0jQmZmxChl8kNqhdBEYqQbSBvvzT/6r05FSj95/wXmAP+EIAKqMM8ehM2aCxHYTQpOV7bs7y+RQvAwZaw==
   dependencies:
     "@peculiar/asn1-schema" "^2.0.44"
     "@peculiar/json-schema" "^1.1.12"
