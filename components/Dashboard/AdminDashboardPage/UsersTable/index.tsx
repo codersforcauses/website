@@ -50,7 +50,9 @@ const UsersTable = () => {
           [] as Array<Role>
         )
 
-        await fetch(`/api/users?clerkID=${currentUser}`, {
+        const user = users?.find(({ clerkID }) => clerkID === currentUser)
+
+        await fetch(`/api/users?id=${user?._id}`, {
           method: 'PATCH',
           body: JSON.stringify({
             roles
@@ -63,7 +65,7 @@ const UsersTable = () => {
         setLoading(false)
       }
     },
-    [closeUpdateRoleModal, currentUser, mutate]
+    [closeUpdateRoleModal, currentUser, mutate, users]
   )
 
   return users ? (
