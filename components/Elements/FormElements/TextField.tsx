@@ -78,7 +78,13 @@ const TextField = ({
           {prefix && <span className='text-opacity-75'>{prefix}</span>}
           <input
             {...props}
-            aria-describedby={`${props.name}-label`}
+            aria-describedby={
+              error
+                ? `${props.name}-error`
+                : description
+                ? `${props.name}-description`
+                : undefined
+            }
             aria-invalid={!!error}
             id={props.name}
             type={type === 'password' && show ? 'text' : type}
@@ -115,10 +121,14 @@ const TextField = ({
           )}
         </div>
         {error ? (
-          <FieldMessage>{error}</FieldMessage>
+          <FieldMessage id={`${props.name}-error`}>{error}</FieldMessage>
         ) : (
           description && (
-            <FieldMessage description dark={dark}>
+            <FieldMessage
+              description
+              dark={dark}
+              id={`${props.name}-description`}
+            >
               {description}
             </FieldMessage>
           )

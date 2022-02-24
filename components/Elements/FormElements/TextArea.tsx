@@ -47,7 +47,13 @@ const TextArea = ({
         <div className='relative'>
           <textarea
             {...props}
-            aria-describedby={`${props.name}-label`}
+            aria-describedby={
+              error
+                ? `${props.name}-error`
+                : description
+                ? `${props.name}-description`
+                : undefined
+            }
             aria-invalid={!!error}
             id={props.name}
             className={[
@@ -74,10 +80,14 @@ const TextArea = ({
           </span>
         )}
         {error ? (
-          <FieldMessage>{error}</FieldMessage>
+          <FieldMessage id={`${props.name}-error`}>{error}</FieldMessage>
         ) : (
           description && (
-            <FieldMessage description dark={dark}>
+            <FieldMessage
+              description
+              dark={dark}
+              id={`${props.name}-description`}
+            >
               {description}
             </FieldMessage>
           )

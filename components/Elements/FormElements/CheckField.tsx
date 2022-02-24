@@ -38,7 +38,13 @@ const CheckFieldProps = ({
         <input
           {...props}
           type='checkbox'
-          aria-describedby={`${props.name}-label`}
+          aria-describedby={
+            error
+              ? `${props.name}-error`
+              : description
+              ? `${props.name}-description`
+              : undefined
+          }
           aria-invalid={!!error}
           id={props.name}
           className={[
@@ -55,10 +61,14 @@ const CheckFieldProps = ({
           {label}
         </FieldLabel>
         {error ? (
-          <FieldMessage>{error}</FieldMessage>
+          <FieldMessage id={`${props.name}-error`}>{error}</FieldMessage>
         ) : (
           description && (
-            <FieldMessage description dark={dark}>
+            <FieldMessage
+              description
+              dark={dark}
+              id={`${props.name}-description`}
+            >
               {description}
             </FieldMessage>
           )
