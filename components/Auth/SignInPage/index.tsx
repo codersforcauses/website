@@ -125,7 +125,7 @@ const SignInPage = ({ signUp }: SignInProps) => {
                 setFocused
                 label='Email'
                 name='email'
-                type='email'
+                inputMode='email'
                 placeholder='hello@codersforcauses.org'
                 autoComplete='email'
                 description='We will send you an email with a magic link'

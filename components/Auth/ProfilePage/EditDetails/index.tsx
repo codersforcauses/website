@@ -68,7 +68,7 @@ const EditDetails = (props: EditDetailsProps) => {
       <TextField
         label='Email'
         name='email'
-        type='email'
+        inputMode='email'
         placeholder='hello@codersforcauses.org'
         autoComplete='email'
         rules={validationSchema.email}

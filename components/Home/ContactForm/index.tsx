@@ -38,7 +38,7 @@ const ContactForm = (props: ContactFormProps) => {
       <TextField
         label='Email'
         name='email'
-        type='email'
+        inputMode='email'
         autoComplete='email'
         placeholder='hello@codersforcauses.org'
         rules={rules.email}
