@@ -23,7 +23,7 @@ const AdminDashboard = ({ id }: DashboardProps) => {
   )
 }
 
-export const getServerSideProps = withServerSideAuth(async ({ auth }) => ({
+export const getServerSideProps = withServerSideAuth(({ auth }) => ({
   props: {
     id: auth.userId || ''
   }
