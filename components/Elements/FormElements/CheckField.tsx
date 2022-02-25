@@ -57,22 +57,24 @@ const CheckFieldProps = ({
             .trim()}
           {...register?.(props.name, rules)}
         />
-        <FieldLabel dark={dark} className='font-mono cursor-pointer'>
-          {label}
-        </FieldLabel>
-        {error ? (
-          <FieldMessage id={`${props.name}-error`}>{error}</FieldMessage>
-        ) : (
-          description && (
-            <FieldMessage
-              description
-              dark={dark}
-              id={`${props.name}-description`}
-            >
-              {description}
-            </FieldMessage>
-          )
-        )}
+        <div className='flex flex-col'>
+          <FieldLabel dark={dark} className='font-mono cursor-pointer'>
+            {label}
+          </FieldLabel>
+          {error ? (
+            <FieldMessage id={`${props.name}-error`}>{error}</FieldMessage>
+          ) : (
+            description && (
+              <FieldMessage
+                description
+                dark={dark}
+                id={`${props.name}-description`}
+              >
+                {description}
+              </FieldMessage>
+            )
+          )}
+        </div>
       </div>
     </FieldControl>
   )
