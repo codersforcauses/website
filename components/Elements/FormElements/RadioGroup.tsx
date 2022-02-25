@@ -70,7 +70,7 @@ const RadioGroup = ({
             <Radio.Option
               key={value}
               value={value}
-              className='flex cursor-pointer place-items-center focus:outline-none'
+              className='flex cursor-pointer w-fit place-items-center focus:outline-none'
             >
               {({ active, checked }) => (
                 <>
