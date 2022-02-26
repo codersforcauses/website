@@ -64,7 +64,7 @@ const userRoute = async (req: NextApiRequest, res: NextApiResponse) => {
       }
       break
     case 'GET':
-      if (Object.keys(query).length !== 0) {
+      if (!query.all) {
         try {
           const user: UserType = await User.findOne({
             ...query
@@ -80,9 +80,19 @@ const userRoute = async (req: NextApiRequest, res: NextApiResponse) => {
       }
 
       try {
+        const { findUser } = query
         const getUsers: Array<UserType> = await User.find(
-          {},
-          '-dob -bio -socials -tech -cards'
+          findUser
+            ? {
+                $or: [
+                  { firstName: { $regex: findUser, $options: 'i' } },
+                  { lastName: { $regex: findUser, $options: 'i' } },
+                  { email: { $regex: findUser, $options: 'i' } }
+                ]
+              }
+            : {},
+          '-dob -bio -socials -tech -cards',
+          findUser ? { limit: 10 } : {}
         )
           .sort('-createdAt')
           .lean()

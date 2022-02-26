@@ -5,12 +5,15 @@ import Avatar from '@elements/Avatar'
 import { Role, User } from '@helpers/global'
 import { useUser } from '@helpers/user'
 import RoleTags from '../RoleTags'
+import SearchUser from './SearchUser'
 const DeleteUserModal = dynamic(() => import('./DeleteUserModal'))
 const UpdateRoleModal = dynamic(() => import('./UpdateRoleModal'))
 
 const UsersTable = () => {
   const { user: presentUser } = useUser()
-  const { data: users, mutate } = useSWR<Array<NonNullable<User>>>('/api/users')
+  const { data: users, mutate } = useSWR<Array<NonNullable<User>>>(
+    '/api/users?all=true'
+  )
   const [currentUser, setCurrentUser] = useState('')
   const [loading, setLoading] = useState(false)
   const [userDeleteModal, setUserDeleteModal] = useState(false)
@@ -70,13 +73,7 @@ const UsersTable = () => {
 
   return users ? (
     <>
-      <div className='grid'>
-        <input
-          type='search'
-          placeholder='search'
-          className='bg-transparent border justify-self-end focus:outline-none focus:ring-0 focus:border-current border-primary text-primary dark:border-secondary dark:text-secondary'
-        />
-      </div>
+      <SearchUser />
       <table className='w-full mt-6 overflow-x-scroll border-collapse'>
         <thead className='font-mono font-black text-left'>
           <tr>
