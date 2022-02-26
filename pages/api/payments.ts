@@ -18,7 +18,7 @@ const paymentHandler = async (req: NextApiRequest, res: NextApiResponse) => {
 
   if (req.method === 'POST') {
     try {
-      const userPromise = fetch(`${url}/api/users?id=${id}`)
+      const userPromise = fetch(`${url}/api/users/${id}`)
       const paymentPromise = fetch(paymentURL, {
         method: 'POST',
         headers: {
@@ -45,7 +45,7 @@ const paymentHandler = async (req: NextApiRequest, res: NextApiResponse) => {
       const user: User = await userResponse.json()
       const { card } = (await paymentResponse.json()).payment.card_details
 
-      await fetch(`${url}/api/users?id=${id}`, {
+      await fetch(`${url}/api/users/${id}`, {
         method: 'PATCH',
         body: JSON.stringify({
           cards: [

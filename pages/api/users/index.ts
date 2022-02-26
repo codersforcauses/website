@@ -46,21 +46,6 @@ const userRoute = async (req: NextApiRequest, res: NextApiResponse) => {
         })
       }
       break
-    case 'PATCH':
-      try {
-        const user = await User.findByIdAndUpdate(query.id, JSON.parse(body))
-        res
-          .status(200)
-          .end(`Updated user ${user?.firstName} ${user?.lastName}`.trim())
-      } catch (error) {
-        console.log(error)
-
-        res.status(200).json({
-          success: false,
-          message: 'Failed to update user'
-        })
-      }
-      break
     case 'DELETE':
       try {
         const clerkID = query.clerkID as string
@@ -81,12 +66,9 @@ const userRoute = async (req: NextApiRequest, res: NextApiResponse) => {
     case 'GET':
       if (Object.keys(query).length !== 0) {
         try {
-          const user: UserType = await (query.id
-            ? User.findById(query.id)
-            : User.findOne({
-                ...query
-              })
-          ).lean()
+          const user: UserType = await User.findOne({
+            ...query
+          }).lean()
           res.status(200).json(modifyUser(user))
         } catch (error) {
           res.status(404).json({
@@ -98,7 +80,7 @@ const userRoute = async (req: NextApiRequest, res: NextApiResponse) => {
       }
 
       try {
-        const getUsers: UserType[] = await User.find(
+        const getUsers: Array<UserType> = await User.find(
           {},
           '-dob -bio -socials -tech -cards'
         )
@@ -112,6 +94,10 @@ const userRoute = async (req: NextApiRequest, res: NextApiResponse) => {
           message: 'You are not allowed to access user data'
         })
       }
+      break
+    default:
+      res.setHeader('Allow', ['POST', 'DELETE', 'GET'])
+      res.status(405).end('Only POST, DELETE, and GET requests allowed')
       break
   }
 }

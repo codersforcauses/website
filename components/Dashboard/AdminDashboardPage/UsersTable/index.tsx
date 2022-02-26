@@ -52,7 +52,7 @@ const UsersTable = () => {
 
         const user = users?.find(({ clerkID }) => clerkID === currentUser)
 
-        await fetch(`/api/users?id=${user?._id}`, {
+        await fetch(`/api/users/${user?._id}`, {
           method: 'PATCH',
           body: JSON.stringify({
             roles

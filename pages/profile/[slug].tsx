@@ -7,7 +7,7 @@ import { useUser } from '@helpers/user'
 
 const Profile = ({ slug }: ProfileProps) => {
   const { user: current } = useUser()
-  const { data: user } = useSWR<User>(`/api/users?id=${slug}`)
+  const { data: user } = useSWR<User>(`/api/users/${slug}`)
 
   return user ? (
     <>

@@ -12,7 +12,7 @@ export const getInitials = (name: string) => {
 
 export const useUser = (id?: string) => {
   const { userId } = useAuth()
-  const route = id ? `/api/users?id=${id}` : `/api/users?clerkID=${userId}`
+  const route = id ? `/api/users/${id}` : `/api/users?clerkID=${userId}`
 
   const { data: user, mutate } = useSWR<User>(route)
   return { user, mutate }
