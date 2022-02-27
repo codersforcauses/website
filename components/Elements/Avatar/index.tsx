@@ -1,5 +1,5 @@
 import Image from 'next/image'
-import { getInitials } from '@helpers/user'
+import { getInitials } from '@lib/user'
 
 const Avatar = ({
   round = false,

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { MagicLinkErrorCode, isMagicLinkError, useClerk } from '@clerk/nextjs'
-import { ColorProps } from '@helpers/types'
+import { ColorProps } from '@lib/types'
 import Title from '@components/Utils/Title'
 import Alert from '@elements/Alert'
 

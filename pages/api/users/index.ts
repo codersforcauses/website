@@ -3,7 +3,7 @@ import { users } from '@clerk/nextjs/api'
 import dayjs from 'dayjs'
 import User from '@models/user'
 import dbConnect from '@lib/dbConnect'
-import { User as UserType } from '@helpers/types'
+import { User as UserType } from '@lib/types'
 
 const convertDate = (date: string) => dayjs(date).format('MMM D, YYYY h:mm A')
 

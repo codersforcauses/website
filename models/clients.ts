@@ -1,5 +1,5 @@
 import mongoose from 'mongoose'
-import { ClientModel } from '@helpers/types'
+import { ClientModel } from '@lib/types'
 
 const ClientSchema = new mongoose.Schema<ClientModel>({
   name: {

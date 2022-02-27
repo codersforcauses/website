@@ -1,5 +1,5 @@
 import Modal from '@elements/Modal'
-import { ModalProps } from '@helpers/types'
+import { ModalProps } from '@lib/types'
 
 const ProjectDevelopmentModal = ({ isOpen, closeModal }: ModalProps) => (
   <Modal

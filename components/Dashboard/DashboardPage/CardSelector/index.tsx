@@ -1,6 +1,6 @@
 import { Dispatch, Fragment, memo, SetStateAction } from 'react'
 import { RadioGroup as Radio } from '@headlessui/react'
-import { CardBrand, CardDetails } from '@helpers/types'
+import { CardBrand, CardDetails } from '@lib/types'
 import BrandIcons from '@elements/BrandIcons'
 import { Button } from '@elements/Button'
 

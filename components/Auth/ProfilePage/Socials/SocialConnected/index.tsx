@@ -1,6 +1,6 @@
 import { memo, useCallback, useState } from 'react'
 import BrandIcons from '@elements/BrandIcons'
-import { Socials } from '@helpers/types'
+import { Socials } from '@lib/types'
 
 const SocialsConnected = ({
   dimensions = 24,

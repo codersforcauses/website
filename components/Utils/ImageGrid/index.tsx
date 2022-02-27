@@ -1,6 +1,6 @@
 import Image from 'next/image'
 import { memo, useEffect, useState } from 'react'
-import { ImageProps } from '@helpers/types'
+import { ImageProps } from '@lib/types'
 
 const randomise = () => {
   const options = [-1, 0, 1]

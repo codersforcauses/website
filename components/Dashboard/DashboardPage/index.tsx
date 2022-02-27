@@ -2,7 +2,7 @@ import { memo, useCallback, useState } from 'react'
 import dynamic from 'next/dynamic'
 import { Disclosure, Transition } from '@headlessui/react'
 import Title from '@components/Utils/Title'
-import { useUser } from '@helpers/user'
+import { useUser } from '@lib/user'
 import Announcements from './Announcements'
 import CardSelector from './CardSelector'
 

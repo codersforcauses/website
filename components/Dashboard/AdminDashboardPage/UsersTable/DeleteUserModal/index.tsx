@@ -1,6 +1,6 @@
 import { memo, useEffect, useState } from 'react'
 import Modal from '@elements/Modal'
-import { ModalProps, User } from '@helpers/types'
+import { ModalProps, User } from '@lib/types'
 import { Button, GhostButton } from '@elements/Button'
 import Avatar from '@elements/Avatar'
 import RoleTags from '../../RoleTags'

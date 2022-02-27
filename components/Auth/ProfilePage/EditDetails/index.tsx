@@ -14,7 +14,7 @@ import { Button, GhostButton } from '@elements/Button'
 import { genderOptions } from '@lib/global'
 import Socials from '../Socials'
 import validationSchema from './validation'
-import { User } from '@helpers/types'
+import { User } from '@lib/types'
 
 dayjs.extend(localeData)
 

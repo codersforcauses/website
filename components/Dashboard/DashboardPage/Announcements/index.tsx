@@ -1,6 +1,6 @@
 import { memo } from 'react'
 import useSWR from 'swr'
-import { ColorProps } from '@helpers/types'
+import { ColorProps } from '@lib/types'
 import Alert from '@elements/Alert'
 
 const Announcements = () => {

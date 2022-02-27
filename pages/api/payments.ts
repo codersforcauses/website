@@ -1,6 +1,6 @@
 import crypto from 'crypto'
 import { NextApiRequest, NextApiResponse } from 'next'
-import { User } from '@helpers/types'
+import { User } from '@lib/types'
 
 const paymentHandler = async (req: NextApiRequest, res: NextApiResponse) => {
   const {

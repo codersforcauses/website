@@ -3,7 +3,7 @@ import { useClerk } from '@clerk/nextjs'
 import { Menu, Transition } from '@headlessui/react'
 import Router from 'next/router'
 import Link from 'next/link'
-import { getInitials, useUser } from '@helpers/user'
+import { getInitials, useUser } from '@lib/user'
 
 const UserMenu = () => {
   const { user } = useUser()

@@ -2,8 +2,8 @@ import { GetServerSideProps } from 'next'
 import useSWR from 'swr'
 import Meta from '@components/Utils/Meta'
 import ProfilePage from '@components/Auth/ProfilePage'
-import { User } from '@helpers/types'
-import { useUser } from '@helpers/user'
+import { User } from '@lib/types'
+import { useUser } from '@lib/user'
 
 const Profile = ({ slug }: ProfileProps) => {
   const { user: current } = useUser()

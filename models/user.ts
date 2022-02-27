@@ -1,5 +1,5 @@
 import mongoose from 'mongoose'
-import { UserModel } from '@helpers/types'
+import { UserModel } from '@lib/types'
 
 const UserSchema = new mongoose.Schema<UserModel>(
   {
