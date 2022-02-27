@@ -2,7 +2,7 @@ import { memo, useEffect, useState } from 'react'
 import Modal from '@elements/Modal'
 import { CheckField, Form } from '@elements/FormElements'
 import { Button, GhostButton } from '@elements/Button'
-import { ModalProps, Role, User } from '@helpers/global'
+import { ModalProps, Role, User } from '@helpers/types'
 import { roles } from '@lib/global'
 
 const colorCheck = (role: Role) => {

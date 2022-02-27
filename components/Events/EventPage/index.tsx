@@ -1,6 +1,6 @@
 import Image from 'next/image'
 import Link from 'next/link'
-import { ImageProps } from '@helpers/global'
+import { ImageProps } from '@helpers/types'
 
 const EventPage = ({ data }: Props) => (
   <>

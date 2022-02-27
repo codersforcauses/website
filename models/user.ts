@@ -1,5 +1,5 @@
 import mongoose from 'mongoose'
-import { UserModel } from '@helpers/global'
+import { UserModel } from '@helpers/types'
 
 const UserSchema = new mongoose.Schema<UserModel>(
   {

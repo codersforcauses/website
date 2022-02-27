@@ -1,4 +1,4 @@
-import { Role } from '@helpers/global'
+import { Role } from '@helpers/types'
 
 export const genderOptions = [
   {

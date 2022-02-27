@@ -2,7 +2,7 @@ import { NextApiRequest, NextApiResponse } from 'next'
 import dayjs from 'dayjs'
 import dbConnect from '@lib/dbConnect'
 import announcements from '@models/announcements'
-import { Announcements } from '@helpers/global'
+import { Announcements } from '@helpers/types'
 
 const announcementRoute = async (req: NextApiRequest, res: NextApiResponse) => {
   const { method, body } = req

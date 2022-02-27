@@ -1,6 +1,6 @@
 import { memo, useCallback, useState } from 'react'
 import Avatar from '@elements/Avatar'
-import { User } from '@helpers/global'
+import { User } from '@helpers/types'
 import EditDetails from './EditDetails'
 import Socials from './Socials'
 

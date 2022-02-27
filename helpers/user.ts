@@ -1,6 +1,6 @@
 import { useAuth } from '@clerk/nextjs'
 import useSWR from 'swr'
-import { User } from './global'
+import { User } from './types'
 
 // All functions for user data should be placed below
 export const getInitials = (name: string) => {

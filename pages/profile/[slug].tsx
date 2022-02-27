@@ -2,7 +2,7 @@ import { GetServerSideProps } from 'next'
 import useSWR from 'swr'
 import Meta from '@components/Utils/Meta'
 import ProfilePage from '@components/Auth/ProfilePage'
-import { User } from '@helpers/global'
+import { User } from '@helpers/types'
 import { useUser } from '@helpers/user'
 
 const Profile = ({ slug }: ProfileProps) => {

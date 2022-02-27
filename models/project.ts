@@ -1,5 +1,5 @@
 import mongoose from 'mongoose'
-import { ProjectModel } from '@helpers/global'
+import { ProjectModel } from '@helpers/types'
 
 const ProjectSchema = new mongoose.Schema<ProjectModel>(
   {
