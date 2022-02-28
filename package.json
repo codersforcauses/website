@@ -33,7 +33,7 @@
     "@headlessui/react": "1.5.0",
     "@tailwindcss/forms": "0.4.0",
     "critters": "0.0.16",
-    "dayjs": "1.10.7",
+    "dayjs": "1.10.8",
     "mapbox-gl": "2.7.0",
     "mongoose": "6.2.3",
     "next": "12.1.0",
