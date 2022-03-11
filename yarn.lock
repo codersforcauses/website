@@ -38,30 +38,30 @@
   dependencies:
     regenerator-runtime "^0.13.4"
 
-"@clerk/backend-core@^0.5.2":
-  version "0.5.2"
-  resolved "https://registry.yarnpkg.com/@clerk/backend-core/-/backend-core-0.5.2.tgz#c9e88b84c22347173ed05139446de58f435d3e91"
-  integrity sha512-ucPmpI9vIxXr8RyjOnsaKqQ2OcHt0l6nuQHm03qu36xfll14CDHwSqSxcZ9kjJuJBBlj3DjR+TS9PsBTzn9Ieg==
+"@clerk/backend-core@^0.6.0":
+  version "0.6.0"
+  resolved "https://registry.yarnpkg.com/@clerk/backend-core/-/backend-core-0.6.0.tgz#712172fd42a12f036dec09b97e8eb443cd040d08"
+  integrity sha512-wVg8OOd23VTB1OnOhFzAGsgZeXs8CjLU9sWs6iJ0QM/xFZ3NK2Nx9/2NTZ3eS6l0kfPtJASPf3f8LMSu5tAH1g==
   dependencies:
     camelcase-keys "^7.0.1"
     query-string "^7.0.1"
     snakecase-keys "^5.1.2"
     tslib "^2.3.1"
 
-"@clerk/clerk-react@^3.0.0-alpha.9":
-  version "3.0.0-alpha.9"
-  resolved "https://registry.yarnpkg.com/@clerk/clerk-react/-/clerk-react-3.0.0-alpha.9.tgz#2ac8f2855705f1da3c5bb79d916acf0239fffecc"
-  integrity sha512-Ex5brV1zSoFHVKWRLu+DGQzmUCES/vLUf4Yy73J44IjH+yyOEt/sK0C8u1xhqxdgrtH06By0C5enr04XBLpeTQ==
+"@clerk/clerk-react@^3.0.0-alpha.10":
+  version "3.0.0-alpha.10"
+  resolved "https://registry.yarnpkg.com/@clerk/clerk-react/-/clerk-react-3.0.0-alpha.10.tgz#4b2855bed3678581a005d7e80f0cea739ae11b34"
+  integrity sha512-3QTkT7/NnkWRO83Q5OXzR63gONo1EHgiH/q0yju8lsLU9/DxBTkDY+hlt2j28WaVcKMBbik5/6cpo+av2k3n9A==
   dependencies:
-    "@clerk/types" "^2.0.0-alpha.8"
+    "@clerk/types" "^2.0.0-alpha.9"
     tslib "^2.3.1"
 
-"@clerk/clerk-sdk-node@^2.9.0":
-  version "2.9.8"
-  resolved "https://registry.yarnpkg.com/@clerk/clerk-sdk-node/-/clerk-sdk-node-2.9.8.tgz#c06f81e73d0d436acfb6b2234bb01468b1f0b384"
-  integrity sha512-jgqEtJgZ05I7YOUi+fHuoCpVy+vHtMCM/IYsBqp9Lhl+AXuftTGZyu/w9egYkXIXK/+Ob5eniDU4WeWdG0A/lA==
+"@clerk/clerk-sdk-node@^2.9.9-alpha.0":
+  version "2.9.9"
+  resolved "https://registry.yarnpkg.com/@clerk/clerk-sdk-node/-/clerk-sdk-node-2.9.9.tgz#1096919a80ebfd0cd9222bebe47374c5f0c7f590"
+  integrity sha512-uAhoTXSSV0h36glEILFJsII+fhYgZkAbtwtAFNjLW5uZfhR72mX/MfpRPUvKqzaMKRxeaQEFv1u8MTDr09tu5w==
   dependencies:
-    "@clerk/backend-core" "^0.5.2"
+    "@clerk/backend-core" "^0.6.0"
     "@peculiar/webcrypto" "^1.2.3"
     camelcase-keys "^6.2.2"
     cookies "^0.8.0"
@@ -73,19 +73,19 @@
     tslib "^2.3.1"
 
 "@clerk/nextjs@next":
-  version "3.0.0-alpha.8"
-  resolved "https://registry.yarnpkg.com/@clerk/nextjs/-/nextjs-3.0.0-alpha.8.tgz#55187af944cb1d18754568deb8a18d803969ab12"
-  integrity sha512-/KSfRsn3lwthdbgX143ugic6DRTsU5HkAqJNzvn17ZBZwdLfxgwyXLXNeKDDP6SzXms4qeTU0E6hOVl1H+FLVQ==
+  version "3.0.0-alpha.9"
+  resolved "https://registry.yarnpkg.com/@clerk/nextjs/-/nextjs-3.0.0-alpha.9.tgz#2c3d605a190815ba99a9bf0070cb43210837e34e"
+  integrity sha512-1D1EtmOvUKi4BrVN0WQMBLVhecHSKZhCi7cl0LRxHZB+qIwYk5YBzcJ7B38m7vVB3dxVS02CwxLlVTZ1MtYAVg==
   dependencies:
-    "@clerk/clerk-react" "^3.0.0-alpha.9"
-    "@clerk/clerk-sdk-node" "^2.9.0"
-    "@clerk/types" "^2.0.0-alpha.8"
+    "@clerk/clerk-react" "^3.0.0-alpha.10"
+    "@clerk/clerk-sdk-node" "^2.9.9-alpha.0"
+    "@clerk/types" "^2.0.0-alpha.9"
     tslib "^2.3.1"
 
-"@clerk/types@^2.0.0-alpha.8":
-  version "2.0.0-alpha.8"
-  resolved "https://registry.yarnpkg.com/@clerk/types/-/types-2.0.0-alpha.8.tgz#784e56ba0e60d0658e1054d613831bc1afc5c7df"
-  integrity sha512-iNNCvSY9nJwCoh3p1SsYcEQJSpQ25ETlNXDa6hdmSRW8ANaog7sBHrPwSmzMVlqwN68ZoYngRTqitDnZnNMUUA==
+"@clerk/types@^2.0.0-alpha.9":
+  version "2.0.0-alpha.9"
+  resolved "https://registry.yarnpkg.com/@clerk/types/-/types-2.0.0-alpha.9.tgz#bd6a3e115aaa98a8f70f131f292a1e2daf93bbb4"
+  integrity sha512-a2LnE6ciqyVBg6HC4ciL8Cnniuok4eG29QzMj3/NDntnuLZzlv/JticfWKg9kCpMFWWHy+85R9Mds/HuLueyPw==
 
 "@eslint/eslintrc@^1.2.0":
   version "1.2.0"
@@ -1147,9 +1147,9 @@ ecdsa-sig-formatter@1.0.11:
     safe-buffer "^5.0.1"
 
 electron-to-chromium@^1.4.76:
-  version "1.4.80"
-  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.4.80.tgz#299a1ea3e32810934b4e3c2e4d4cb53136fdab3f"
-  integrity sha512-COsbJCGVYCc/aAY4cd94x1Js3q0r406YKGbdL8LXHg0O9dEjuFEFU/vZneRxBxKo/f1lLHi0YyAR7sbFM+i8Bg==
+  version "1.4.81"
+  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.4.81.tgz#a9ce8997232fb9fb0ec53de8931a85b18c0a7383"
+  integrity sha512-Gs7xVpIZ7tYYSDA+WgpzwpPvfGwUk3KSIjJ0akuj5XQHFdyQnsUoM76EA4CIHXNLPiVwTwOFay9RMb0ChG3OBw==
 
 emoji-regex@^9.2.2:
   version "9.2.2"
