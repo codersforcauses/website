@@ -10,7 +10,6 @@ import { useRouter } from 'next/router'
 import { useClerk, useSignUp } from '@clerk/nextjs'
 import { Tab } from '@headlessui/react'
 import Alert from '@elements/Alert'
-import Title from '@components/Utils/Title'
 import UWAStudent from './UWAStudent'
 import OtherMember from './OtherMember'
 
@@ -120,63 +119,60 @@ const SignUpPage = ({ signIn }: SignUpProps) => {
   )
 
   return (
-    <>
-      <Title typed>./sign-up</Title>
-      <div className='py-12 bg-secondary text-primary md:py-24 dark:bg-alt-dark dark:text-secondary'>
-        <div className='container px-3 mx-auto'>
-          <p className='mb-4'>
-            Already have an account?&nbsp;
-            <button
-              className='hover:underline focus:outline-none focus:ring-1 focus:ring-accent'
-              onClick={goToSignInPage}
-            >
-              Sign in
-            </button>
-            .
-          </p>
-          <Tab.Group as='div' className='md:max-w-lg md:w-1/2 membership'>
-            <Tab.List className='border max-w-max'>
-              {['UWA Student', 'Email Sign-up'].map(text => (
-                <Tab
-                  key={text}
-                  disabled={loading}
-                  className={({ selected }) =>
-                    `font-mono font-black px-3 sm:px-4 py-2 focus:outline-none focus:ring focus:ring-accent ${
-                      selected &&
-                      'bg-primary text-secondary dark:bg-secondary dark:text-primary'
-                    }`
-                  }
-                >
-                  {text}
-                </Tab>
-              ))}
-            </Tab.List>
-            {auth === 'email_sent' && (
-              <Alert icon color='success' className='mt-4'>
-                We&apos;ve just sent you an email. Please click the button to
-                complete creating your account
-              </Alert>
-            )}
-            <Tab.Panels as={Fragment}>
-              <Tab.Panel className='focus:outline-none'>
-                <UWAStudent
-                  error={errors}
-                  loading={loading}
-                  handleSubmit={handleSubmit}
-                />
-              </Tab.Panel>
-              <Tab.Panel>
-                <OtherMember
-                  error={errors}
-                  loading={loading}
-                  handleSubmit={handleSubmit}
-                />
-              </Tab.Panel>
-            </Tab.Panels>
-          </Tab.Group>
-        </div>
+    <div className='py-12 bg-secondary text-primary md:py-24 dark:bg-alt-dark dark:text-secondary'>
+      <div className='container px-3 mx-auto'>
+        <p className='mb-4'>
+          Already have an account?&nbsp;
+          <button
+            className='hover:underline focus:outline-none focus:ring-1 focus:ring-accent'
+            onClick={goToSignInPage}
+          >
+            Sign in
+          </button>
+          .
+        </p>
+        <Tab.Group as='div' className='md:max-w-lg md:w-1/2 membership'>
+          <Tab.List className='border max-w-max'>
+            {['UWA Student', 'Email Sign-up'].map(text => (
+              <Tab
+                key={text}
+                disabled={loading}
+                className={({ selected }) =>
+                  `font-mono font-black px-3 sm:px-4 py-2 focus:outline-none focus:ring focus:ring-accent ${
+                    selected &&
+                    'bg-primary text-secondary dark:bg-secondary dark:text-primary'
+                  }`
+                }
+              >
+                {text}
+              </Tab>
+            ))}
+          </Tab.List>
+          {auth === 'email_sent' && (
+            <Alert icon color='success' className='mt-4'>
+              We&apos;ve just sent you an email. Please click the button to
+              complete creating your account
+            </Alert>
+          )}
+          <Tab.Panels as={Fragment}>
+            <Tab.Panel className='focus:outline-none'>
+              <UWAStudent
+                error={errors}
+                loading={loading}
+                handleSubmit={handleSubmit}
+              />
+            </Tab.Panel>
+            <Tab.Panel>
+              <OtherMember
+                error={errors}
+                loading={loading}
+                handleSubmit={handleSubmit}
+              />
+            </Tab.Panel>
+          </Tab.Panels>
+        </Tab.Group>
       </div>
-    </>
+    </div>
   )
 }
 

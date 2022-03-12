@@ -3,6 +3,7 @@ import Router from 'next/router'
 import { withServerSideAuth } from '@clerk/nextjs/ssr'
 import { ClerkLoaded } from '@clerk/nextjs'
 import Meta from '@components/Utils/Meta'
+import Title from '@components/Utils/Title'
 import SignInPage from '@components/Auth/SignInPage'
 import SignUpPage from '@components/Auth/SignUpPage'
 
@@ -22,6 +23,8 @@ const Membership = ({ id }: MembershipProps) => {
         description='Sign in using your student credentials or register a new account.'
         image='https://og-social-cards.vercel.app/**.%2Fmembership**.png?theme=dark&md=1&fontSize=125px&images=https%3A%2Fcodersforcauses.org%2Flogo%2Fcfc_logo_white_full.svg'
       />
+
+      <Title typed>{isSignUp ? './sign-up' : './sign-in'}</Title>
       <ClerkLoaded>
         {isSignUp ? (
           <SignUpPage signIn={setIsSignUp} />
