@@ -1,3 +1,4 @@
+import { memo } from 'react'
 import { SubmitHandler } from 'react-hook-form'
 import Alert from '@elements/Alert'
 import { Button } from '@elements/Button'
@@ -81,4 +82,4 @@ interface FormValues {
 }
 
 export type OtherSignUpKeys = keyof FormValues
-export default OtherMember
+export default memo(OtherMember)

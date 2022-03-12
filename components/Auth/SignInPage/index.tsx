@@ -1,4 +1,4 @@
-import { useState, useCallback, Dispatch, SetStateAction } from 'react'
+import { useState, useCallback, Dispatch, SetStateAction, memo } from 'react'
 import { useRouter } from 'next/router'
 import { useClerk, useSignIn } from '@clerk/nextjs'
 import { EmailLinkFactor } from '@clerk/types'
@@ -154,4 +154,4 @@ interface SignInProps {
   signUp: Dispatch<SetStateAction<boolean>>
 }
 
-export default SignInPage
+export default memo(SignInPage)

@@ -1,6 +1,7 @@
 import {
   Dispatch,
   Fragment,
+  memo,
   SetStateAction,
   useCallback,
   useState
@@ -183,4 +184,4 @@ interface SignUpProps {
   signIn: Dispatch<SetStateAction<boolean>>
 }
 
-export default SignUpPage
+export default memo(SignUpPage)

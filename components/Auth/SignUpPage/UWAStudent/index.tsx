@@ -1,3 +1,4 @@
+import { memo } from 'react'
 import { SubmitHandler } from 'react-hook-form'
 import { Button } from '@elements/Button'
 import { CheckField, Form, TextField } from '@elements/FormElements'
@@ -93,4 +94,4 @@ interface FormValues {
 }
 
 export type UWAStudentKeys = keyof Omit<FormValues, 'isGuildMember'>
-export default UWAStudent
+export default memo(UWAStudent)
