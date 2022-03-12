@@ -1,7 +1,7 @@
-import { ChangeEvent, Fragment, useCallback, useState } from 'react'
+import { ChangeEvent, Fragment, memo, useCallback, useState } from 'react'
 import { Combobox, Transition } from '@headlessui/react'
 import { Types } from 'mongoose'
-import { User } from '@helpers/global'
+import { User } from '@lib/types'
 
 const defaultValue: FilteredUser = {
   id: '',
@@ -14,18 +14,20 @@ const SearchUser = () => {
   const [selectedUser, setSelectedUser] = useState<FilteredUser>(defaultValue)
 
   const getValue = useCallback(
-    async ({ target: { value } }: ChangeEvent<HTMLInputElement>) => {
-      try {
-        const userList: Array<User> = await (
-          await fetch(`/api/users?all=true&findUser=${value}`)
-        ).json()
-        const filteredUsers: Array<FilteredUser> = userList?.map(user => ({
-          id: user?._id,
-          name: user?.name,
-          email: user?.email
-        }))
-        setUsers(filteredUsers)
-      } catch (error) {}
+    ({ target: { value } }: ChangeEvent<HTMLInputElement>) => {
+      if (value === '') setSelectedUser(defaultValue)
+      else {
+        fetch(`/api/users?all=true&findUser=${value}`)
+          .then(resp => resp.json())
+          .then((userList: Array<User>) => {
+            const filteredUsers: Array<FilteredUser> = userList?.map(user => ({
+              id: user?._id,
+              name: user?.name,
+              email: user?.email
+            }))
+            setUsers(filteredUsers)
+          })
+      }
     },
     []
   )
@@ -92,4 +94,4 @@ interface FilteredUser {
   email?: string
 }
 
-export default SearchUser
+export default memo(SearchUser)
