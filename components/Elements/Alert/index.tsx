@@ -1,5 +1,5 @@
 import { PropsWithChildren } from 'react'
-import { ColorProps } from '@helpers/global'
+import { ColorProps } from '@lib/types'
 
 const Alert = ({
   color = 'accent',

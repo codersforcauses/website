@@ -1,6 +1,6 @@
 import { memo, useEffect, useState } from 'react'
 import Modal from '@elements/Modal'
-import { ModalProps, User } from '@helpers/global'
+import { ModalProps, User } from '@lib/types'
 import { Button, GhostButton } from '@elements/Button'
 import Avatar from '@elements/Avatar'
 import RoleTags from '../../RoleTags'
@@ -12,10 +12,6 @@ const DeleteUserModal = ({ user: id, ...props }: DeleteModalProps) => {
       setUser(await (await fetch(`/api/users?clerkID=${id}`)).json())
     }
     id && getUser()
-
-    return () => {
-      setUser(null)
-    }
   }, [id])
 
   const gender = user?.gender === 'other' ? 'transgender' : user?.gender
@@ -72,7 +68,7 @@ const DeleteUserModal = ({ user: id, ...props }: DeleteModalProps) => {
             <Button
               color='danger'
               loading={props.loading}
-              onClick={props.deleteUser}
+              onClick={props.handleSubmit}
             >
               Delete
             </Button>
@@ -86,7 +82,7 @@ const DeleteUserModal = ({ user: id, ...props }: DeleteModalProps) => {
 interface DeleteModalProps extends ModalProps {
   user: string
   loading: boolean
-  deleteUser: () => void
+  handleSubmit: () => void
 }
 
 export default memo(DeleteUserModal)

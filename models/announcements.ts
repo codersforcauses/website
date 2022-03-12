@@ -1,5 +1,5 @@
 import mongoose from 'mongoose'
-import { AnnouncementModel } from '@helpers/global'
+import { AnnouncementModel } from '@lib/types'
 
 const AnnouncementSchema = new mongoose.Schema<AnnouncementModel>(
   {

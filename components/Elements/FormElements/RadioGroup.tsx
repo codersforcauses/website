@@ -35,6 +35,7 @@ const RadioGroup = ({
   return (
     <FieldControl name={props.name} disabled={formDisabled || disabled}>
       <Radio
+        aria-invalid={!!error}
         value={selected}
         className={[
           'flex flex-col space-y-1',
@@ -49,7 +50,9 @@ const RadioGroup = ({
             {label}
           </Radio.Label>
           {description && (
-            <FieldMessage description>{description}</FieldMessage>
+            <Radio.Description className='text-sm text-opacity-75 text-primary dark:text-secondary'>
+              {description}
+            </Radio.Description>
           )}
         </div>
         <div
@@ -67,7 +70,7 @@ const RadioGroup = ({
             <Radio.Option
               key={value}
               value={value}
-              className='flex cursor-pointer place-items-center focus:outline-none'
+              className='flex cursor-pointer w-fit place-items-center focus:outline-none'
             >
               {({ active, checked }) => (
                 <>
@@ -83,7 +86,6 @@ const RadioGroup = ({
                       ? 'radio_button_checked'
                       : 'radio_button_unchecked'}
                   </i>
-                  <>{checked}</>
                   <Radio.Label className='ml-2 cursor-pointer'>
                     {label}
                   </Radio.Label>
@@ -100,7 +102,11 @@ const RadioGroup = ({
           ))}
         </div>
 
-        {error && <FieldMessage description>{description}</FieldMessage>}
+        {error && (
+          <Radio.Description className='text-sm text-danger'>
+            {description}
+          </Radio.Description>
+        )}
       </Radio>
     </FieldControl>
   )

@@ -2,10 +2,10 @@ import { memo, useEffect, useState } from 'react'
 import Modal from '@elements/Modal'
 import { CheckField, Form } from '@elements/FormElements'
 import { Button, GhostButton } from '@elements/Button'
-import { ModalProps, User } from '@helpers/global'
+import { ModalProps, Role, User } from '@lib/types'
 import { roles } from '@lib/global'
 
-const colorCheck = (role: string) => {
+const colorCheck = (role: Role) => {
   switch (role.toLowerCase()) {
     case 'president':
       return 'text-success'
@@ -34,15 +34,12 @@ const colorCheck = (role: string) => {
 
 const UpdateRoleModal = ({ user: id, ...props }: UpdateRoleModalProps) => {
   const [user, setUser] = useState<User>(null)
+
   useEffect(() => {
     const getUser = async () => {
       setUser(await (await fetch(`/api/users?clerkID=${id}`)).json())
     }
     id && getUser()
-
-    return () => {
-      setUser(null)
-    }
   }, [id])
 
   return (
@@ -52,12 +49,7 @@ const UpdateRoleModal = ({ user: id, ...props }: UpdateRoleModalProps) => {
       open={props.isOpen}
       onClose={props.closeModal}
     >
-      <Form
-        className='m-0'
-        onSubmit={values => {
-          console.log(values)
-        }}
-      >
+      <Form className='m-0' onSubmit={props.handleSubmit}>
         {roles.map(role => (
           <CheckField
             key={role}
@@ -83,6 +75,8 @@ const UpdateRoleModal = ({ user: id, ...props }: UpdateRoleModalProps) => {
 interface UpdateRoleModalProps extends ModalProps {
   user: string
   name: string
+  loading: boolean
+  handleSubmit: (values: Record<Role, boolean>) => Promise<void>
 }
 
 export default memo(UpdateRoleModal)

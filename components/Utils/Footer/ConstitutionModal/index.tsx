@@ -1,6 +1,6 @@
 import { memo } from 'react'
 import Modal from '@elements/Modal'
-import { ModalProps } from '@helpers/global'
+import { ModalProps } from '@lib/types'
 
 const ConstitutionModal = (props: ModalProps) => (
   <Modal

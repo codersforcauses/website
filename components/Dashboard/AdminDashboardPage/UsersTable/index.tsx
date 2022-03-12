@@ -1,16 +1,19 @@
-import { memo, useCallback, useContext, useState } from 'react'
+import { memo, useCallback, useState } from 'react'
 import dynamic from 'next/dynamic'
 import useSWR from 'swr'
 import Avatar from '@elements/Avatar'
-import { User } from '@helpers/global'
-import { UserContext } from '@helpers/user'
+import { Role, User } from '@lib/types'
+import { useUser } from '@lib/user'
 import RoleTags from '../RoleTags'
+import SearchUser from './SearchUser'
 const DeleteUserModal = dynamic(() => import('./DeleteUserModal'))
 const UpdateRoleModal = dynamic(() => import('./UpdateRoleModal'))
 
 const UsersTable = () => {
-  const { user: presentUser } = useContext(UserContext)
-  const { data: users, mutate } = useSWR<Array<NonNullable<User>>>('/api/users')
+  const { user: presentUser } = useUser()
+  const { data: users, mutate } = useSWR<Array<NonNullable<User>>>(
+    '/api/users?all=true'
+  )
   const [currentUser, setCurrentUser] = useState('')
   const [loading, setLoading] = useState(false)
   const [userDeleteModal, setUserDeleteModal] = useState(false)
@@ -40,16 +43,37 @@ const UsersTable = () => {
     setUpdateRoleModal(false)
     setCurrentUser('')
   }, [])
+  const updateUser = useCallback(
+    async (values: Record<Role, boolean>) => {
+      setLoading(true)
+      try {
+        const roles = Object.entries(values).reduce(
+          (userRoles, [role, hasRole]) =>
+            hasRole ? [...userRoles, role as Role] : userRoles,
+          [] as Array<Role>
+        )
+
+        const user = users?.find(({ clerkID }) => clerkID === currentUser)
+
+        await fetch(`/api/users/${user?._id}`, {
+          method: 'PATCH',
+          body: JSON.stringify({
+            roles
+          })
+        })
+        mutate()
+        closeUpdateRoleModal()
+      } catch (error) {
+      } finally {
+        setLoading(false)
+      }
+    },
+    [closeUpdateRoleModal, currentUser, mutate, users]
+  )
 
   return users ? (
     <>
-      <div className='grid'>
-        <input
-          type='search'
-          placeholder='search'
-          className='bg-transparent border justify-self-end focus:outline-none focus:ring-0 focus:border-current border-primary text-primary dark:border-secondary dark:text-secondary'
-        />
-      </div>
+      <SearchUser />
       <table className='w-full mt-6 overflow-x-scroll border-collapse'>
         <thead className='font-mono font-black text-left'>
           <tr>
@@ -121,13 +145,15 @@ const UsersTable = () => {
           users.find(({ clerkID }) => currentUser === clerkID)
             ?.firstName as string
         }
+        loading={loading}
+        handleSubmit={updateUser}
         isOpen={updateRoleModal}
         closeModal={closeUpdateRoleModal}
       />
       <DeleteUserModal
         user={currentUser}
         loading={loading}
-        deleteUser={deleteUser}
+        handleSubmit={deleteUser}
         isOpen={userDeleteModal}
         closeModal={closeDeleteUsersModal}
       />

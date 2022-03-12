@@ -6,7 +6,12 @@ const validationSchema: Partial<Record<ContactFormValues, RegisterOptions>> = {
     required: 'Please enter your name'
   },
   email: {
-    required: 'Please enter your email'
+    required: 'Please enter your email',
+    pattern: {
+      value:
+        /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/,
+      message: 'Please enter a valid email address'
+    }
   },
   message: {
     required: 'Please enter a brief message'

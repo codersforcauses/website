@@ -1,6 +1,6 @@
 import { memo, useCallback, useState } from 'react'
 import { useWatch } from 'react-hook-form'
-import { AnnouncementModel, ModalProps } from '@helpers/global'
+import { AnnouncementModel, ModalProps } from '@lib/types'
 import Modal from '@elements/Modal'
 import Alert from '@elements/Alert'
 import { Button } from '@elements/Button'

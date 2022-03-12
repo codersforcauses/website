@@ -1,5 +1,5 @@
 import mongoose from 'mongoose'
-import { UserModel } from '@helpers/global'
+import { UserModel } from '@lib/types'
 
 const UserSchema = new mongoose.Schema<UserModel>(
   {
@@ -122,8 +122,10 @@ const UserSchema = new mongoose.Schema<UserModel>(
               'DISCOVER_DINERS',
               'JCB',
               'AMERICAN_EXPRESS',
-              'CHINA_UNIONPAY'
+              'CHINA_UNIONPAY',
+              'OTHER_BRAND'
             ],
+            default: 'OTHER_BRAND',
             required: true
           },
           last4: {
@@ -139,8 +141,7 @@ const UserSchema = new mongoose.Schema<UserModel>(
             type: Number,
             required: true
           }
-        },
-        updatedAt: Date
+        }
       }
     ]
   },

@@ -18,12 +18,12 @@ const Dashboard = ({ id }: DashboardProps) => {
         description='Get updates and access to CFC material.'
         image='https://og-social-cards.vercel.app/**.%2Fdashboard**.png?theme=dark&md=1&fontSize=125px&images=https%3A%2Fcodersforcauses.org%2Flogo%2Fcfc_logo_white_full.svg'
       />
-      <DashboardPage />
+      {id && <DashboardPage />}
     </>
   )
 }
 
-export const getServerSideProps = withServerSideAuth(async ({ auth }) => ({
+export const getServerSideProps = withServerSideAuth(({ auth }) => ({
   props: {
     id: auth.userId || ''
   }

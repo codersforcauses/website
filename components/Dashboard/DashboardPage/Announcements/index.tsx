@@ -1,6 +1,7 @@
+import { memo } from 'react'
 import useSWR from 'swr'
+import { ColorProps } from '@lib/types'
 import Alert from '@elements/Alert'
-import { ColorProps } from '@helpers/global'
 
 const Announcements = () => {
   const { data: announcements } =
@@ -30,4 +31,4 @@ const Announcements = () => {
   }
 }
 
-export default Announcements
+export default memo(Announcements)

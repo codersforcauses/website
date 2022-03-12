@@ -1,18 +1,16 @@
-import { useMemo, useCallback, useContext, useEffect, Fragment } from 'react'
+import { useMemo, useCallback, Fragment } from 'react'
 import { useClerk } from '@clerk/nextjs'
 import { Menu, Transition } from '@headlessui/react'
-import useSWR from 'swr'
 import Router from 'next/router'
-import { User } from '@helpers/global'
-import { getInitials, UserContext } from '@helpers/user'
 import Link from 'next/link'
+import { getInitials, useUser } from '@lib/user'
 
 const UserMenu = () => {
-  const { setUser } = useContext(UserContext)
-  const { user: clerkUser, signOut } = useClerk()
-  const { data: user } = useSWR<User>(
-    clerkUser ? `/api/users?clerkID=${clerkUser.id}` : null
-  )
+  const { user } = useUser()
+  const { signOutOne } = useClerk()
+
+  const isAdmin = true
+  // user?.roles && user.roles.length > 0 && !user.roles.includes('member')
 
   const Links = useMemo(
     () => [
@@ -30,20 +28,15 @@ const UserMenu = () => {
     [user?._id]
   )
 
-  useEffect(() => {
-    user && setUser(user)
-  }, [setUser, user])
-
   const initials = useMemo(
-    () => getInitials(clerkUser?.fullName as string),
-    [clerkUser?.fullName]
+    () => getInitials(user?.name as string),
+    [user?.name]
   )
 
   const handleSignOut = useCallback(() => {
-    signOut()
-    setUser(null)
+    signOutOne()
     Router.push('/')
-  }, [setUser, signOut])
+  }, [signOutOne])
 
   return (
     <Menu as='div' className='relative text-secondary'>
@@ -51,7 +44,7 @@ const UserMenu = () => {
         <>
           <Menu.Button className='py-1.5 px-4 my-px border border-secondary hover:bg-secondary hover:text-primary focus:bg-secondary focus:text-primary focus:outline-none'>
             <span className='items-center justify-between hidden md:flex'>
-              {clerkUser?.fullName}
+              {user?.name}
               <span className='-mr-1 material-icons-sharp'>
                 {open ? 'expand_less' : 'expand_more'}
               </span>
@@ -70,7 +63,7 @@ const UserMenu = () => {
           >
             <Menu.Items
               static
-              className='min-w-[8.5rem] w-full absolute right-0 flex flex-col items-stretch py-2 mt-2 space-y-1 border border-secondary bg-primary focus:outline-none'
+              className='min-w-[9rem] w-full absolute right-0 flex flex-col items-stretch py-2 mt-2 space-y-1 border border-secondary bg-primary focus:outline-none'
             >
               {Links.map(link => (
                 <Menu.Item key={link.icon}>
@@ -90,6 +83,24 @@ const UserMenu = () => {
                   )}
                 </Menu.Item>
               ))}
+              {isAdmin && (
+                <Menu.Item>
+                  {({ active }) => (
+                    <Link href='/dashboard/admin' passHref>
+                      <a
+                        className={`flex items-center py-2 px-4 text-sm hover:bg-secondary hover:text-primary ${
+                          active && 'bg-secondary text-primary'
+                        }`}
+                      >
+                        <span className='mr-2 material-icons-sharp'>
+                          admin_panel_settings
+                        </span>
+                        Admin Dash
+                      </a>
+                    </Link>
+                  )}
+                </Menu.Item>
+              )}
               <Menu.Item>
                 {({ active }) => (
                   <button

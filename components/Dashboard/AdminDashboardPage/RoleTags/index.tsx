@@ -1,4 +1,4 @@
-import { Role } from '@helpers/global'
+import { Role } from '@lib/types'
 
 const RoleTags = ({ role }: RoleProps) => {
   let roleClass: string

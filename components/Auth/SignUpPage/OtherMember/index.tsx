@@ -1,3 +1,4 @@
+import { memo } from 'react'
 import { SubmitHandler } from 'react-hook-form'
 import Alert from '@elements/Alert'
 import { Button } from '@elements/Button'
@@ -43,7 +44,7 @@ const OtherMember = (props: OtherSignUpProps) => (
       <TextField
         label='Email'
         name='email'
-        type='email'
+        inputMode='email'
         placeholder='hello@codersforcauses.org'
         autoComplete='email'
         rules={validationSchema.email}
@@ -81,4 +82,4 @@ interface FormValues {
 }
 
 export type OtherSignUpKeys = keyof FormValues
-export default OtherMember
+export default memo(OtherMember)

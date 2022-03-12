@@ -17,7 +17,6 @@ const FieldMessage = ({
   return (
     <span
       {...props}
-      role={error && 'alert'}
       className={[error && !description ? errorClass : messageClass, className]
         .join(' ')
         .trim()}
@@ -33,4 +32,5 @@ interface FieldMessageProps {
   className?: string
   dark?: boolean
   description?: boolean
+  id: string
 }

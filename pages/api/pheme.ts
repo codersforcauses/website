@@ -11,16 +11,18 @@ const phemeHandler = async (req: NextApiRequest, res: NextApiResponse) => {
       password: pass as string
     }
     try {
-      const response = await fetch('https://auth.uwamakers.com/api/login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        mode: 'cors',
-        body: JSON.stringify({
-          user: data.username,
-          pass: data.password,
-          token: process.env.PHEME_TOKEN
+      const response = await (
+        await fetch('https://auth.uwamakers.com/api/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          mode: 'cors',
+          body: JSON.stringify({
+            user: data.username,
+            pass: data.password,
+            token: process.env.PHEME_TOKEN
+          })
         })
-      }).then(resp => resp.json())
+      ).json()
 
       if (!response.success) throw new Error(response.message)
 

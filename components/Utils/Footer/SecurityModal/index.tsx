@@ -1,6 +1,6 @@
 import { memo } from 'react'
 import Modal from '@elements/Modal'
-import { ModalProps } from '@helpers/global'
+import { ModalProps } from '@lib/types'
 
 const SecurityModal = (props: ModalProps) => (
   <Modal heading='Security' open={props.isOpen} onClose={props.closeModal}>

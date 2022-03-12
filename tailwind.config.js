@@ -19,7 +19,7 @@ module.exports = {
       danger: '#ff0000',
       warning: '#f5a623',
       alt: {
-        light: '#e9ecef',
+        light: '#f5f5f5',
         dark: '#111111'
       }
     },
@@ -28,10 +28,17 @@ module.exports = {
         slide: {
           '0%': { transform: 'translate3d(0)' },
           '100%': { transform: 'translate3d(-50%,0,0)' }
+        },
+        wiggle: {
+          '0%, 90%': { transform: 'translate3d(-1px,0,0)' },
+          '20%, 80%': { transform: 'translate3d(2px,0,0)' },
+          '30%, 50%, 70%': { transform: 'translate3d(-4px,0,0)' },
+          '40%, 60%': { transform: 'translate3d(4px,0,0)' }
         }
       },
       animation: {
-        slide: 'slide 30s linear infinite'
+        slide: 'slide 30s linear infinite',
+        wiggle: 'wiggle 500ms cubic-bezier(.2,.8,.4,1) both'
       }
     }
   },

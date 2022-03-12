@@ -2,9 +2,9 @@ import { NextApiRequest, NextApiResponse } from 'next'
 import dayjs from 'dayjs'
 import dbConnect from '@lib/dbConnect'
 import announcements from '@models/announcements'
-import { Announcements } from '@helpers/global'
+import { Announcements } from '@lib/types'
 
-const eventRoute = async (req: NextApiRequest, res: NextApiResponse) => {
+const announcementRoute = async (req: NextApiRequest, res: NextApiResponse) => {
   const { method, body } = req
   await dbConnect()
 
@@ -52,4 +52,4 @@ const eventRoute = async (req: NextApiRequest, res: NextApiResponse) => {
   }
 }
 
-export default eventRoute
+export default announcementRoute
