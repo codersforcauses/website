@@ -1,11 +1,12 @@
 import { useEffect, useState } from 'react'
 import Router from 'next/router'
 import { withServerSideAuth } from '@clerk/nextjs/ssr'
-import { ClerkLoaded } from '@clerk/nextjs'
+import { ClerkLoaded, ClerkLoading } from '@clerk/nextjs'
 import Meta from '@components/Utils/Meta'
 import Title from '@components/Utils/Title'
 import SignInPage from '@components/Auth/SignInPage'
 import SignUpPage from '@components/Auth/SignUpPage'
+import MembershipLoading from '@components/Auth/MembershipLoading'
 
 const Membership = ({ id }: MembershipProps) => {
   const [isSignUp, setIsSignUp] = useState(false)
@@ -25,6 +26,9 @@ const Membership = ({ id }: MembershipProps) => {
       />
 
       <Title typed>{isSignUp ? './sign-up' : './sign-in'}</Title>
+      <ClerkLoading>
+        <MembershipLoading />
+      </ClerkLoading>
       <ClerkLoaded>
         {isSignUp ? (
           <SignUpPage signIn={setIsSignUp} />

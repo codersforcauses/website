@@ -112,7 +112,6 @@ const SignInPage = ({ signUp }: SignInProps) => {
             )
           )}
           <Form<FormValues>
-            showNote
             disabled={loading}
             defaultValues={defaultValues}
             onSubmit={handleSubmit}
