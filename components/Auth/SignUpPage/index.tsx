@@ -6,7 +6,7 @@ import {
   useState
 } from 'react'
 import { useRouter } from 'next/router'
-import { useClerk, useMagicLink, useSignUp } from '@clerk/nextjs'
+import { useClerk, useSignUp } from '@clerk/nextjs'
 import { Tab } from '@headlessui/react'
 import Alert from '@elements/Alert'
 import Title from '@components/Utils/Title'
@@ -19,8 +19,7 @@ const SignUpPage = ({ signIn }: SignUpProps) => {
   const [auth, setAuth] = useState('')
   const router = useRouter()
   const { setSession } = useClerk()
-  const signUp = useSignUp()
-  const { startMagicLinkFlow, cancelMagicLinkFlow } = useMagicLink(signUp)
+  const { signUp } = useSignUp()
 
   const goToSignInPage = useCallback(
     e => {
@@ -60,7 +59,7 @@ const SignUpPage = ({ signIn }: SignUpProps) => {
           }
         }
 
-        await signUp.create({
+        const { createMagicLinkFlow } = await signUp!.create({
           emailAddress: email,
           firstName,
           lastName
@@ -68,28 +67,36 @@ const SignUpPage = ({ signIn }: SignUpProps) => {
 
         setAuth('email_sent')
 
-        const su = await startMagicLinkFlow({
-          redirectUrl: `${url}/verification`
-        })
-        const verification = su.verifications.emailAddress
+        const { startMagicLinkFlow, cancelMagicLinkFlow } =
+          createMagicLinkFlow()
 
-        if (verification.verifiedFromTheSameClient()) setAuth('verified')
-        else if (verification.status === 'expired') setAuth('expired')
-
-        if (su.status === 'complete') {
-          await fetch('/api/users', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-              email,
-              firstName,
-              lastName,
-              gender: values.gender || 'other',
-              isGuildMember: !!values.isGuildMember
-            })
+        try {
+          const su = await startMagicLinkFlow({
+            redirectUrl: `${url}/verification`
           })
+          const verification = su.verifications.emailAddress
 
-          setSession(su.createdSessionId, () => router.push('/dashboard'))
+          if (verification.verifiedFromTheSameClient()) setAuth('verified')
+          else if (verification.status === 'expired') setAuth('expired')
+
+          if (su.status === 'complete') {
+            await fetch('/api/users', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({
+                email,
+                firstName,
+                lastName,
+                gender: values.gender || 'other',
+                isGuildMember: !!values.isGuildMember
+              })
+            })
+
+            setSession(su.createdSessionId, () => router.push('/dashboard'))
+          }
+        } catch (error) {
+          cancelMagicLinkFlow()
+          throw new Error('Error completing magic link flow')
         }
       } catch (error: any) {
         console.log({ error })
@@ -100,7 +107,6 @@ const SignUpPage = ({ signIn }: SignUpProps) => {
           setErrors(
             'Something went wrong signing you up. Please refresh and try again.'
           )
-        cancelMagicLinkFlow()
       } finally {
         setLoading(false)
       }
@@ -109,7 +115,7 @@ const SignUpPage = ({ signIn }: SignUpProps) => {
         setErrors('Session has expired. Please sign in to continue')
       if (auth === 'verified') return <div>Signed in on another tab</div>
     },
-    [auth, cancelMagicLinkFlow, router, setSession, signUp, startMagicLinkFlow]
+    [auth, router, setSession, signUp]
   )
 
   return (

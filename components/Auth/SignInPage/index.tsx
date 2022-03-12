@@ -1,6 +1,6 @@
 import { useState, useCallback, Dispatch, SetStateAction } from 'react'
 import { useRouter } from 'next/router'
-import { useClerk, useMagicLink, useSignIn } from '@clerk/nextjs'
+import { useClerk, useSignIn } from '@clerk/nextjs'
 import { EmailLinkFactor } from '@clerk/types'
 import Title from '@components/Utils/Title'
 import { Form, TextField } from '@elements/FormElements'
@@ -19,8 +19,7 @@ const SignInPage = ({ signUp }: SignInProps) => {
   const [verified, setVerified] = useState(false)
   const router = useRouter()
   const { setSession } = useClerk()
-  const signIn = useSignIn()
-  const { startMagicLinkFlow, cancelMagicLinkFlow } = useMagicLink(signIn)
+  const { signIn } = useSignIn()
 
   const goToSignUpPage = useCallback(
     e => {
@@ -41,24 +40,33 @@ const SignInPage = ({ signUp }: SignInProps) => {
         : 'http://localhost:3000'
 
       try {
-        const { supportedFirstFactors } = await signIn.create({
-          identifier: email
-        })
+        const { supportedFirstFactors, createMagicLinkFlow } =
+          await signIn!.create({
+            identifier: email
+          })
         const { email_address_id } = supportedFirstFactors.find(
           ff => ff.strategy === 'email_link' && ff.safe_identifier === email
         ) as EmailLinkFactor
 
-        const si = await startMagicLinkFlow({
-          emailAddressId: email_address_id,
-          redirectUrl: `${url}/verification`
-        })
+        const { startMagicLinkFlow, cancelMagicLinkFlow } =
+          createMagicLinkFlow()
 
-        const verification = si.firstFactorVerification
-        if (verification.verifiedFromTheSameClient()) setVerified(true)
-        else if (verification.status === 'expired') setExpired(true)
+        try {
+          const si = await startMagicLinkFlow({
+            emailAddressId: email_address_id,
+            redirectUrl: `${url}/verification`
+          })
 
-        if (si.status === 'complete') {
-          setSession(si.createdSessionId, () => router.push('/dashboard'))
+          const verification = si.firstFactorVerification
+          if (verification.verifiedFromTheSameClient()) setVerified(true)
+          else if (verification.status === 'expired') setExpired(true)
+
+          if (si.status === 'complete') {
+            setSession(si.createdSessionId, () => router.push('/dashboard'))
+          }
+        } catch (error) {
+          cancelMagicLinkFlow()
+          throw new Error('Error completing magic link flow')
         }
 
         if (expired) setError('Session has expired. Please sign in to continue')
@@ -72,20 +80,11 @@ const SignInPage = ({ signUp }: SignInProps) => {
           setError(
             'Something went wrong signing you up. Please refresh and try again.'
           )
-        cancelMagicLinkFlow()
       } finally {
         setLoading(false)
       }
     },
-    [
-      cancelMagicLinkFlow,
-      expired,
-      router,
-      setSession,
-      signIn,
-      startMagicLinkFlow,
-      verified
-    ]
+    [expired, router, setSession, signIn, verified]
   )
 
   return (
