@@ -50,7 +50,7 @@ const RadioGroup = ({
             {label}
           </Radio.Label>
           {description && (
-            <Radio.Description className='text-sm text-opacity-75 text-primary dark:text-secondary'>
+            <Radio.Description className='text-sm text-primary/75 dark:text-secondary/75'>
               {description}
             </Radio.Description>
           )}

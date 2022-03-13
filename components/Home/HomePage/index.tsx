@@ -82,7 +82,7 @@ const HomePage = () => {
                 Join Us
               </a>
               <Link href='#_contact_us'>
-                <a className='px-4 py-2 text-xl font-black bg-transparent border border-secondary text-secondary hover:bg-secondary hover:text-primary focus:outline-none focus:ring-opacity-0 focus:bg-secondary focus:text-primary'>
+                <a className='px-4 py-2 text-xl font-black bg-transparent border border-secondary text-secondary hover:bg-secondary hover:text-primary focus:outline-none focus:bg-secondary focus:text-primary'>
                   Work with us&nbsp;&nbsp;&raquo;
                 </a>
               </Link>
@@ -138,7 +138,7 @@ const HomePage = () => {
                     href={`mailto:${constants.email}`}
                     target='_blank'
                     rel='noreferrer noopener'
-                    className='font-mono text-xl md:text-3xl text-secondary hover:underline focus:outline-none focus:ring-inset focus:ring-1 focus:ring-accent focus:ring-opacity-50 focus:ring-offset-primary'
+                    className='font-mono text-xl md:text-3xl text-secondary hover:underline focus:outline-none focus:ring-inset focus:ring-1 focus:ring-accent/50 focus:ring-offset-primary'
                   >
                     {constants.email}
                   </a>

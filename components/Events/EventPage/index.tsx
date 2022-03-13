@@ -9,7 +9,7 @@ const EventPage = ({ data }: Props) => (
         <Link href='/events'>
           <a className='text-secondary hover:underline'>Events</a>
         </Link>
-        <span className='text-secondary text-opacity-60'>{` / ${data.title}`}</span>
+        <span className='text-secondary/60'>{` / ${data.title}`}</span>
       </nav>
       <div className='container px-3 mx-auto space-y-4'>
         <p className='font-black capitalize'>./{data?.type ?? 'Workshop'}</p>

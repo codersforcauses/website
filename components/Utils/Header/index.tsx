@@ -29,7 +29,7 @@ const Header = () => (
             {/* <Link href='#main'>
               <a
                 role='link'
-                className='absolute p-1 text-transparent select-none top-16 focus:outline-none focus:ring-1 focus:ring-accent focus:ring-opacity-50 focus:h-12'
+                className='absolute p-1 text-transparent select-none top-16 focus:outline-none focus:ring-1 focus:ring-accent/50 focus:h-12'
               >
                 Skip to content
               </a>
@@ -54,7 +54,7 @@ const Header = () => (
                       href={href}
                       target='_blank'
                       rel='noreferrer noopener'
-                      className='align-text-bottom text-secondary hover:underline focus:outline-none focus:ring-1 focus:ring-accent focus:ring-opacity-50 focus:ring-offset-4 focus:ring-offset-primary'
+                      className='align-text-bottom text-secondary hover:underline focus:outline-none focus:ring-1 focus:ring-accent/50 focus:ring-offset-4 focus:ring-offset-primary'
                       data-cy={`nav-${text}`}
                     >
                       {text}
@@ -62,7 +62,7 @@ const Header = () => (
                   ) : (
                     <Link href={href} passHref>
                       <a
-                        className='align-text-bottom text-secondary hover:underline focus:outline-none focus:ring-1 focus:ring-accent focus:ring-opacity-50 focus:ring-offset-4 focus:ring-offset-primary'
+                        className='align-text-bottom text-secondary hover:underline focus:outline-none focus:ring-1 focus:ring-accent/50 focus:ring-offset-4 focus:ring-offset-primary'
                         data-cy={`nav-${text}`}
                       >
                         {text}
@@ -80,7 +80,7 @@ const Header = () => (
             </SignedIn>
             <SignedOut>
               {/* <Link href='/membership'>
-                <a className='px-4 py-1.5 my-px bg-transparent border border-secondary text-secondary hover:bg-secondary hover:text-primary focus:outline-none focus:ring-opacity-0 focus:bg-secondary focus:text-primary'>
+                <a className='px-4 py-1.5 my-px bg-transparent border border-secondary text-secondary hover:bg-secondary hover:text-primary focus:outline-none focus:bg-secondary focus:text-primary'>
                   Membership
                 </a>
               </Link> */}
@@ -88,7 +88,7 @@ const Header = () => (
                 href='https://docs.google.com/forms/d/e/1FAIpQLSfQ8vbBY1Iqok234oFxNfpsXhLp-J2t6PcfI37TSi19GNJsXw/viewform'
                 target='_blank'
                 rel='noreferrer noopener'
-                className='px-4 py-1.5 my-px bg-transparent border border-secondary text-secondary hover:bg-secondary hover:text-primary focus:outline-none focus:ring-opacity-0 focus:bg-secondary focus:text-primary'
+                className='px-4 py-1.5 my-px bg-transparent border border-secondary text-secondary hover:bg-secondary hover:text-primary focus:outline-none focus:bg-secondary focus:text-primary'
               >
                 Join Us
               </a>
@@ -116,7 +116,7 @@ const Header = () => (
                     href={href}
                     target='_blank'
                     rel='noreferrer noopener'
-                    className='p-1 align-text-bottom text-secondary hover:underline focus:outline-none focus:ring-1 focus:ring-accent focus:ring-opacity-50 focus:ring-offset-2 focus:ring-offset-primary'
+                    className='p-1 align-text-bottom text-secondary hover:underline focus:outline-none focus:ring-1 focus:ring-accent/50 focus:ring-offset-2 focus:ring-offset-primary'
                     data-cy={`nav-${text}`}
                   >
                     {text}
@@ -124,7 +124,7 @@ const Header = () => (
                 ) : (
                   <Link href={href} passHref>
                     <a
-                      className='p-1 align-text-bottom text-secondary hover:underline focus:outline-none focus:ring-1 focus:ring-accent focus:ring-opacity-50 focus:ring-offset-2 focus:ring-offset-primary'
+                      className='p-1 align-text-bottom text-secondary hover:underline focus:outline-none focus:ring-1 focus:ring-accent/50 focus:ring-offset-2 focus:ring-offset-primary'
                       data-cy={`nav-${text}`}
                     >
                       {text}

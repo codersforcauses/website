@@ -10,13 +10,7 @@ const parseDescription = (text: string) =>
     </p>
   ))
 
-const Impact = ({
-  impact,
-  ...props
-}: {
-  impact: Array<string>
-  className?: string
-}) => (
+const Impact = ({ impact, ...props }: ImpactProps) => (
   <div {...props}>
     <h2 className='mb-4 font-mono text-2xl font-black'>Potential impact</h2>
     <ul className='space-y-3'>
@@ -32,7 +26,7 @@ const Impact = ({
   </div>
 )
 
-const ProjectPage = ({ data }: Props) => (
+const ProjectPage = ({ data }: ProjectPageProps) => (
   <>
     <div className='relative py-32 md:py-48 bg-primary'>
       <Image
@@ -49,7 +43,7 @@ const ProjectPage = ({ data }: Props) => (
             Projects
           </a>
         </Link>
-        <span className='text-primary text-opacity-60 dark:text-secondary dark:text-opacity-60'>{` / ${data.name}`}</span>
+        <span className='text-primary/60 dark:text-secondary/60'>{` / ${data.name}`}</span>
       </nav>
       <div className='container relative px-3 mx-auto lg:flex'>
         <div className='space-y-8 lg:mr-8'>
@@ -133,6 +127,10 @@ const ProjectPage = ({ data }: Props) => (
   </>
 )
 
+interface ImpactProps {
+  impact: Array<string>
+  className?: string
+}
 export interface ProjectType {
   id: string
   icon: string
@@ -151,7 +149,7 @@ export interface ProjectType {
   members: Array<string>
 }
 
-interface Props {
+interface ProjectPageProps {
   data: ProjectType
 }
 

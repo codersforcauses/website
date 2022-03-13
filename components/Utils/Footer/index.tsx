@@ -54,7 +54,7 @@ const Footer = () => {
               <ul>
                 <li>
                   <button
-                    className='text-secondary hover:underline focus:outline-none focus:ring-1 focus:ring-accent focus:ring-opacity-50 focus:ring-offset-4 focus:ring-offset-primary'
+                    className='text-secondary hover:underline focus:outline-none focus:ring-1 focus:ring-accent/50 focus:ring-offset-4 focus:ring-offset-primary'
                     onClick={openConstitutionModal}
                   >
                     Constitution
@@ -62,7 +62,7 @@ const Footer = () => {
                 </li>
                 <li>
                   <button
-                    className='text-secondary hover:underline focus:outline-none focus:ring-1 focus:ring-accent focus:ring-opacity-50 focus:ring-offset-4 focus:ring-offset-primary'
+                    className='text-secondary hover:underline focus:outline-none focus:ring-1 focus:ring-accent/50 focus:ring-offset-4 focus:ring-offset-primary'
                     onClick={openTermsModal}
                   >
                     Terms
@@ -70,7 +70,7 @@ const Footer = () => {
                 </li>
                 <li>
                   <button
-                    className='text-secondary hover:underline focus:outline-none focus:ring-1 focus:ring-accent focus:ring-opacity-50 focus:ring-offset-4 focus:ring-offset-primary'
+                    className='text-secondary hover:underline focus:outline-none focus:ring-1 focus:ring-accent/50 focus:ring-offset-4 focus:ring-offset-primary'
                     onClick={openPrivacyModal}
                   >
                     Privacy
@@ -78,7 +78,7 @@ const Footer = () => {
                 </li>
                 <li>
                   <button
-                    className='text-secondary hover:underline focus:outline-none focus:ring-1 focus:ring-accent focus:ring-opacity-50 focus:ring-offset-4 focus:ring-offset-primary'
+                    className='text-secondary hover:underline focus:outline-none focus:ring-1 focus:ring-accent/50 focus:ring-offset-4 focus:ring-offset-primary'
                     onClick={openSecurityModal}
                   >
                     Security
@@ -91,14 +91,14 @@ const Footer = () => {
               <ul className='m-0'>
                 <li>
                   <Link href='/about#_what_we_do'>
-                    <a className='text-secondary hover:underline focus:outline-none focus:ring-1 focus:ring-accent focus:ring-opacity-50 focus:ring-offset-4 focus:ring-offset-primary'>
+                    <a className='text-secondary hover:underline focus:outline-none focus:ring-1 focus:ring-accent/50 focus:ring-offset-4 focus:ring-offset-primary'>
                       What we do
                     </a>
                   </Link>
                 </li>
                 <li>
                   <Link href='/about#_meet_the_team'>
-                    <a className='text-secondary hover:underline focus:outline-none focus:ring-1 focus:ring-accent focus:ring-opacity-50 focus:ring-offset-4 focus:ring-offset-primary'>
+                    <a className='text-secondary hover:underline focus:outline-none focus:ring-1 focus:ring-accent/50 focus:ring-offset-4 focus:ring-offset-primary'>
                       Meet the team
                     </a>
                   </Link>
@@ -106,7 +106,7 @@ const Footer = () => {
                 <li>
                   <Link href='/branding'>
                     <a
-                      className='text-secondary hover:underline focus:outline-none focus:ring-1 focus:ring-accent focus:ring-opacity-50 focus:ring-offset-4 focus:ring-offset-primary'
+                      className='text-secondary hover:underline focus:outline-none focus:ring-1 focus:ring-accent/50 focus:ring-offset-4 focus:ring-offset-primary'
                       data-cy='branding'
                     >
                       Our branding
@@ -116,7 +116,7 @@ const Footer = () => {
                 <li>
                   <Link href='/#_contact_us'>
                     <a
-                      className='text-secondary hover:underline focus:outline-none focus:ring-1 focus:ring-accent focus:ring-opacity-50 focus:ring-offset-4 focus:ring-offset-primary'
+                      className='text-secondary hover:underline focus:outline-none focus:ring-1 focus:ring-accent/50 focus:ring-offset-4 focus:ring-offset-primary'
                       data-cy='contact'
                     >
                       Contact us
@@ -130,7 +130,7 @@ const Footer = () => {
               <ul>
                 <li>
                   <Link href='/projects'>
-                    <a className='text-secondary hover:underline focus:outline-none focus:ring-1 focus:ring-accent focus:ring-opacity-50 focus:ring-offset-4 focus:ring-offset-primary'>
+                    <a className='text-secondary hover:underline focus:outline-none focus:ring-1 focus:ring-accent/50 focus:ring-offset-4 focus:ring-offset-primary'>
                       Our services
                     </a>
                   </Link>
@@ -138,7 +138,7 @@ const Footer = () => {
                 <li>
                   <Link href='/projects'>
                     <a
-                      className='text-secondary hover:underline focus:outline-none focus:ring-1 focus:ring-accent focus:ring-opacity-50 focus:ring-offset-4 focus:ring-offset-primary'
+                      className='text-secondary hover:underline focus:outline-none focus:ring-1 focus:ring-accent/50 focus:ring-offset-4 focus:ring-offset-primary'
                       data-cy='projects'
                     >
                       Previous projects
@@ -148,7 +148,7 @@ const Footer = () => {
                 <li>
                   <Link href='/faq'>
                     <a
-                      className='text-secondary hover:underline focus:outline-none focus:ring-1 focus:ring-accent focus:ring-opacity-50 focus:ring-offset-4 focus:ring-offset-primary'
+                      className='text-secondary hover:underline focus:outline-none focus:ring-1 focus:ring-accent/50 focus:ring-offset-4 focus:ring-offset-primary'
                       data-cy='faq'
                     >
                       FAQ
@@ -162,14 +162,14 @@ const Footer = () => {
               <ul>
                 <li>
                   <Link href='/events?upcoming'>
-                    <a className='text-secondary hover:underline focus:outline-none focus:ring-1 focus:ring-accent focus:ring-opacity-50 focus:ring-offset-4 focus:ring-offset-primary'>
+                    <a className='text-secondary hover:underline focus:outline-none focus:ring-1 focus:ring-accent/50 focus:ring-offset-4 focus:ring-offset-primary'>
                       Upcoming
                     </a>
                   </Link>
                 </li>
                 <li>
                   <Link href='/events?past'>
-                    <a className='text-secondary hover:underline focus:outline-none focus:ring-1 focus:ring-accent focus:ring-opacity-50 focus:ring-offset-4 focus:ring-offset-primary'>
+                    <a className='text-secondary hover:underline focus:outline-none focus:ring-1 focus:ring-accent/50 focus:ring-offset-4 focus:ring-offset-primary'>
                       Past events
                     </a>
                   </Link>
@@ -187,7 +187,7 @@ const Footer = () => {
               href='https://github.com/codersforcauses'
               target='_blank'
               rel='noreferrer noopener'
-              className='p-1 text-secondary hover:opacity-75 focus:outline-none focus:ring-inset focus:ring-1 focus:ring-accent focus:ring-opacity-50 focus:ring-offset-primary'
+              className='p-1 text-secondary hover:opacity-75 focus:outline-none focus:ring-inset focus:ring-1 focus:ring-accent/50 focus:ring-offset-primary'
             >
               <BrandIcons
                 icon='github'
@@ -199,7 +199,7 @@ const Footer = () => {
               href='https://discord.com/invite/zW3hjwY'
               target='_blank'
               rel='noreferrer noopener'
-              className='p-1 text-secondary hover:opacity-75 focus:outline-none focus:ring-inset focus:ring-1 focus:ring-accent focus:ring-opacity-50 focus:ring-offset-primary'
+              className='p-1 text-secondary hover:opacity-75 focus:outline-none focus:ring-inset focus:ring-1 focus:ring-accent/50 focus:ring-offset-primary'
             >
               <BrandIcons
                 icon='discord'
@@ -211,7 +211,7 @@ const Footer = () => {
               href='https://www.facebook.com/codersforcauses'
               target='_blank'
               rel='noreferrer noopener'
-              className='p-1 text-secondary hover:opacity-75 focus:outline-none focus:ring-inset focus:ring-1 focus:ring-accent focus:ring-opacity-50 focus:ring-offset-primary'
+              className='p-1 text-secondary hover:opacity-75 focus:outline-none focus:ring-inset focus:ring-1 focus:ring-accent/50 focus:ring-offset-primary'
             >
               <BrandIcons
                 icon='facebook'
@@ -223,7 +223,7 @@ const Footer = () => {
               href='https://www.linkedin.com/company/coders-for-causes/'
               target='_blank'
               rel='noreferrer noopener'
-              className='p-1 text-secondary hover:opacity-75 focus:outline-none focus:ring-inset focus:ring-1 focus:ring-accent focus:ring-opacity-50 focus:ring-offset-primary'
+              className='p-1 text-secondary hover:opacity-75 focus:outline-none focus:ring-inset focus:ring-1 focus:ring-accent/50 focus:ring-offset-primary'
             >
               <BrandIcons
                 icon='linkedin'
@@ -235,7 +235,7 @@ const Footer = () => {
               href='https://twitter.com/codersforcauses'
               target='_blank'
               rel='noreferrer noopener'
-              className='p-1 text-secondary hover:opacity-75 focus:outline-none focus:ring-inset focus:ring-1 focus:ring-accent focus:ring-opacity-50 focus:ring-offset-primary'
+              className='p-1 text-secondary hover:opacity-75 focus:outline-none focus:ring-inset focus:ring-1 focus:ring-accent/50 focus:ring-offset-primary'
             >
               <BrandIcons
                 icon='twitter'

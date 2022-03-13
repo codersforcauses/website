@@ -10,7 +10,7 @@ const MembershipLoading = () => (
           <span className='opacity-50 select-none'>*</span>
         </p>
         <div className='w-full h-10 bg-alt-light dark:bg-primary animate-pulse' />
-        <p className='text-sm text-opacity-75 text-primary dark:text-secondary'>
+        <p className='text-sm text-primary/75 dark:text-secondary/75'>
           We will send you an email with a magic link
         </p>
       </div>

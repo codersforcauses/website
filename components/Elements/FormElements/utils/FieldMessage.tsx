@@ -11,8 +11,8 @@ const FieldMessage = ({
   const { error } = useContext(FieldControlContext)
   const errorClass = 'text-sm text-danger'
   const messageClass = dark
-    ? 'text-secondary text-sm text-opacity-75'
-    : 'text-primary text-sm text-opacity-75 dark:text-secondary'
+    ? 'text-secondary/75 text-sm'
+    : 'text-primary/75 text-sm dark:text-secondary/75'
 
   return (
     <span

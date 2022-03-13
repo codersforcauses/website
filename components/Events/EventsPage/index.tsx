@@ -61,7 +61,7 @@ const EventPage = (props: EventsProps) => (
                   events.map(event => (
                     <div
                       key={event.date + event.time}
-                      className='relative border-l border-opacity-40 border-primary dark:border-secondary dark:border-opacity-40'
+                      className='relative border-l border-primary/40 dark:border-secondary/40'
                     >
                       <span className='absolute left-0 px-4 font-mono text-lg transform rotate-90 -translate-x-1/2 translate-y-full lg:rotate-0 lg:translate-y-0 bg-secondary dark:bg-alt-dark'>
                         {event.date}

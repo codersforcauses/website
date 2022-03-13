@@ -21,7 +21,7 @@ const EventCard = (event: Omit<EventType, 'type'>) => {
           {event.tags?.map(tag => (
             <span
               key={tag}
-              className='px-1 py-0.5 opacity-70 text-xs border border-primary border-opacity-25 dark:border-alt-light dark:border-opacity-30'
+              className='px-1 py-0.5 opacity-70 text-xs border border-primary/25 dark:border-alt-light/30'
             >
               {tag}
             </span>
