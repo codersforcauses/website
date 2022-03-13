@@ -16,7 +16,9 @@ const Announcements = () => {
             className='flex justify-between !mt-1 space-x-2'
           >
             <p dangerouslySetInnerHTML={{ __html: data.html }} />
-            <small className='select-none opacity-60'>{data.date}</small>
+            <small className='flex self-start select-none opacity-60'>
+              {data.date}
+            </small>
           </Alert>
         ))
       ) : (
