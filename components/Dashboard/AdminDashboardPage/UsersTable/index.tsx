@@ -2,6 +2,7 @@ import { memo, useCallback, useState } from 'react'
 import dynamic from 'next/dynamic'
 import useSWR from 'swr'
 import Avatar from '@elements/Avatar'
+import { GhostButton } from '@components/Elements/Button'
 import { Role, User } from '@lib/types'
 import { useUser } from '@lib/user'
 import RoleTags from '../RoleTags'
@@ -11,13 +12,21 @@ const UpdateRoleModal = dynamic(() => import('./UpdateRoleModal'))
 
 const UsersTable = () => {
   const { user: presentUser } = useUser()
-  const { data: users, mutate } = useSWR<Array<NonNullable<User>>>(
-    '/api/users?all=true'
-  )
+  const {
+    data: users,
+    isValidating,
+    mutate
+  } = useSWR<Array<NonNullable<User>>>('/api/users?all=true', {
+    refreshInterval: 60000
+  })
   const [currentUser, setCurrentUser] = useState('')
   const [loading, setLoading] = useState(false)
   const [userDeleteModal, setUserDeleteModal] = useState(false)
   const [updateRoleModal, setUpdateRoleModal] = useState(false)
+
+  const refetchUsers = useCallback(() => {
+    mutate()
+  }, [mutate])
 
   const openDeleteUsersModal = useCallback(() => setUserDeleteModal(true), [])
   const closeDeleteUsersModal = useCallback(() => {
@@ -33,6 +42,7 @@ const UsersTable = () => {
       mutate()
       closeDeleteUsersModal()
     } catch (error) {
+      // TODO
     } finally {
       setLoading(false)
     }
@@ -73,9 +83,20 @@ const UsersTable = () => {
 
   return users ? (
     <>
-      <SearchUser />
+      <div className='flex justify-between'>
+        <GhostButton
+          type='button'
+          loading={isValidating}
+          className='flex items-center bg-alt-light dark:bg-primary'
+          onClick={refetchUsers}
+        >
+          <span className='mr-2 material-icons-sharp'>refresh</span>
+          Force refresh
+        </GhostButton>
+        <SearchUser />
+      </div>
       <table className='w-full mt-6 overflow-x-scroll border-collapse'>
-        <thead className='font-mono font-black text-left'>
+        <thead className='relative font-mono font-black text-left'>
           <tr>
             <th className='hidden p-2 md:block' />
             <th className='p-2'>Member</th>
@@ -83,6 +104,11 @@ const UsersTable = () => {
             <th className='p-2'>Joined On</th>
             <th className='p-2 text-center'>Manage</th>
           </tr>
+          {isValidating && (
+            <div className='absolute inset-x-0 bottom-0 h-1 bg-success'>
+              {/* TODO progress */}
+            </div>
+          )}
         </thead>
         <tbody className='text-lg'>
           {users?.map((user, idx) => (
