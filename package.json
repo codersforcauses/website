@@ -48,7 +48,7 @@
     "@square/web-payments-sdk-types": "1.29.0",
     "@types/mapbox-gl": "2.6.3",
     "@types/react": "17.0.40",
-    "autoprefixer": "10.4.2",
+    "autoprefixer": "10.4.3",
     "eslint": "8.11.0",
     "eslint-config-next": "12.1.0",
     "eslint-plugin-jsx-a11y": "6.5.1",
