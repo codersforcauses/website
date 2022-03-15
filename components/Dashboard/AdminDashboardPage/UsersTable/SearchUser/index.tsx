@@ -33,17 +33,23 @@ const SearchUser = () => {
   )
 
   return (
-    <div className='relative z-20 w-64 ml-auto'>
+    <div className='relative z-20 w-64'>
       <Combobox value={selectedUser} onChange={setSelectedUser}>
         {({ open }) => (
           <>
             <Combobox.Input
               type='search'
-              placeholder='search'
-              className='w-full bg-transparent border focus:outline-none focus:ring-0 focus:border-current border-primary text-primary dark:border-secondary dark:text-secondary'
+              placeholder='Search'
+              className='w-full pr-10 mt-px bg-transparent border h-11 focus:outline-none focus:ring-0 focus:border-current border-primary text-primary dark:border-secondary dark:text-secondary'
               onChange={getValue}
               displayValue={(user: FilteredUser) => user.name!}
             />
+            <span
+              aria-hidden='true'
+              className='absolute right-2 inset-y-2.5 material-icons-sharp'
+            >
+              search
+            </span>
             <Transition
               as={Fragment}
               show={open}
