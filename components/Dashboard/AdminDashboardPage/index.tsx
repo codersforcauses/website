@@ -2,8 +2,8 @@ import { memo, useCallback, useState } from 'react'
 import dynamic from 'next/dynamic'
 import { Tab } from '@headlessui/react'
 import Title from '@components/Utils/Title'
-import { Button } from '@elements/Button'
 import UsersTable from './UsersTable'
+import CreateButton from './CreateButton'
 const AnnouncementModal = dynamic(() => import('./AnnouncementModal'))
 
 const tabs = [
@@ -23,12 +23,22 @@ const tabs = [
 
 const AdminDashboardPage = () => {
   const [announcementModal, setAnnouncementModal] = useState(false)
+  const [projectModal, setProjectModal] = useState(false)
+  const [eventModal, setEventModal] = useState(false)
   const openAnnouncementModal = useCallback(
     () => setAnnouncementModal(true),
     []
   )
   const closeAnnouncementModal = useCallback(() => {
     setAnnouncementModal(false)
+  }, [])
+  const openProjectModal = useCallback(() => setProjectModal(true), [])
+  const closeProjectModal = useCallback(() => {
+    setProjectModal(false)
+  }, [])
+  const openEventModal = useCallback(() => setEventModal(true), [])
+  const closeEventModal = useCallback(() => {
+    setEventModal(false)
   }, [])
   return (
     <>
@@ -49,12 +59,23 @@ const AdminDashboardPage = () => {
               <p className='font-mono text-4xl'>{users.length}</p>
             </div>
           </div> */}
-          <Button onClick={openAnnouncementModal}>
-            <span className='flex items-center'>
-              <span className='mr-2 material-icons-sharp'>add</span>
-              Create Announcement
-            </span>
-          </Button>
+          <div className='grid gap-4 md:grid-cols-3'>
+            <CreateButton
+              name='Create Announcement'
+              description='Let members know of important updates in the club. [Only viewable if logged-in]'
+              handleClick={openAnnouncementModal}
+            />
+            <CreateButton
+              name='Create Project'
+              description='Create a summer or winter project. Only paying members will be able to apply.'
+              handleClick={openAnnouncementModal}
+            />
+            <CreateButton
+              name='Create Event'
+              description='Let members know of upcoming events such as industry nights, workshops, etc.'
+              handleClick={openAnnouncementModal}
+            />
+          </div>
           <Tab.Group as='div'>
             <Tab.List className='flex border'>
               {tabs.map(({ name, icon }) => (
