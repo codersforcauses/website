@@ -302,7 +302,14 @@
   resolved "https://registry.yarnpkg.com/@sindresorhus/is/-/is-4.6.0.tgz#3c7c9c46e678feefe7a2e5bb609d3dbd665ffb3f"
   integrity sha512-t09vSN3MdfsyCHoFcTRCH/iUtG7OJ0CsjzB8cjAmKc/va/kIgeDI/TxsigdncE/4be734m0cvIYwNaV4i2XqAw==
 
-"@square/web-payments-sdk-types@1.29.0", "@square/web-payments-sdk-types@^1.1.1":
+"@square/web-payments-sdk-types@1.30.0":
+  version "1.30.0"
+  resolved "https://registry.yarnpkg.com/@square/web-payments-sdk-types/-/web-payments-sdk-types-1.30.0.tgz#07f009dd084a92de16148e850699db08533aa6ae"
+  integrity sha512-4T5LZPeKv4oRejBcEaZiQyCWrMBJQhkbsUwKjPZJVlgtyCDsEejlVhWmcS64917lMjliOm26HTyDaQDroALqmg==
+  dependencies:
+    typescript "^4.1.0"
+
+"@square/web-payments-sdk-types@^1.1.1":
   version "1.29.0"
   resolved "https://registry.yarnpkg.com/@square/web-payments-sdk-types/-/web-payments-sdk-types-1.29.0.tgz#abc9d0a96c87c0ab39a8c975033649b677101c44"
   integrity sha512-m2XXA0TWSUsS5W3HlxkSWI0wwL2+u3mYvBV3dLpSUxy4/aunzjmJm5kZ/nax7LBAGzR52PyjCzCzokUL5khgpw==
