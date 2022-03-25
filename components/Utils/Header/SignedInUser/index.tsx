@@ -1,5 +1,5 @@
 import { useMemo, useCallback, Fragment } from 'react'
-import { useClerk } from '@clerk/nextjs'
+import { useAuth } from '@clerk/nextjs'
 import { Menu, Transition } from '@headlessui/react'
 import Router from 'next/router'
 import Link from 'next/link'
@@ -7,7 +7,7 @@ import { getInitials, useUser } from '@lib/user'
 
 const UserMenu = () => {
   const { user } = useUser()
-  const { signOutOne } = useClerk()
+  const { signOut } = useAuth()
 
   const isAdmin = true
   // user?.roles && user.roles.length > 0 && !user.roles.includes('member')
@@ -34,9 +34,9 @@ const UserMenu = () => {
   )
 
   const handleSignOut = useCallback(() => {
-    signOutOne()
+    signOut()
     Router.push('/')
-  }, [signOutOne])
+  }, [signOut])
 
   return (
     <Menu as='div' className='relative text-secondary'>

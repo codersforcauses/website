@@ -7,7 +7,7 @@ import {
   useState
 } from 'react'
 import { useRouter } from 'next/router'
-import { useClerk, useSignUp } from '@clerk/nextjs'
+import { useSignUp } from '@clerk/nextjs'
 import { Tab } from '@headlessui/react'
 import Alert from '@elements/Alert'
 import UWAStudent from './UWAStudent'
@@ -18,8 +18,7 @@ const SignUpPage = ({ signIn }: SignUpProps) => {
   const [errors, setErrors] = useState('')
   const [auth, setAuth] = useState('')
   const router = useRouter()
-  const { setSession } = useClerk()
-  const { signUp } = useSignUp()
+  const { signUp, setSession } = useSignUp()
 
   const goToSignInPage = useCallback(
     e => {
@@ -92,7 +91,7 @@ const SignUpPage = ({ signIn }: SignUpProps) => {
               })
             })
 
-            setSession(su.createdSessionId, () => router.push('/dashboard'))
+            setSession?.(su.createdSessionId, () => router.push('/dashboard'))
           }
         } catch (error) {
           cancelMagicLinkFlow()

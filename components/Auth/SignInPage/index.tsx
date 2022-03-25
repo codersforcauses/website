@@ -1,6 +1,6 @@
 import { useState, useCallback, Dispatch, SetStateAction, memo } from 'react'
 import { useRouter } from 'next/router'
-import { useClerk, useSignIn } from '@clerk/nextjs'
+import { useSignIn } from '@clerk/nextjs'
 import { EmailLinkFactor } from '@clerk/types'
 import { Form, TextField } from '@elements/FormElements'
 import { Button } from '@elements/Button'
@@ -17,8 +17,7 @@ const SignInPage = ({ signUp }: SignInProps) => {
   const [expired, setExpired] = useState(false)
   const [verified, setVerified] = useState(false)
   const router = useRouter()
-  const { setSession } = useClerk()
-  const { signIn } = useSignIn()
+  const { signIn, setSession } = useSignIn()
 
   const goToSignUpPage = useCallback(
     e => {
@@ -43,8 +42,9 @@ const SignInPage = ({ signUp }: SignInProps) => {
           await signIn!.create({
             identifier: email
           })
-        const { email_address_id } = supportedFirstFactors.find(
-          ff => ff.strategy === 'email_link' && ff.safe_identifier === email
+
+        const { emailAddressId } = supportedFirstFactors.find(
+          ff => ff.strategy === 'email_link' && ff.safeIdentifier === email
         ) as EmailLinkFactor
 
         const { startMagicLinkFlow, cancelMagicLinkFlow } =
@@ -52,7 +52,7 @@ const SignInPage = ({ signUp }: SignInProps) => {
 
         try {
           const si = await startMagicLinkFlow({
-            emailAddressId: email_address_id,
+            emailAddressId: emailAddressId,
             redirectUrl: `${url}/verification`
           })
 
@@ -61,7 +61,7 @@ const SignInPage = ({ signUp }: SignInProps) => {
           else if (verification.status === 'expired') setExpired(true)
 
           if (si.status === 'complete') {
-            setSession(si.createdSessionId, () => router.push('/dashboard'))
+            setSession!(si.createdSessionId, () => router.push('/dashboard'))
           }
         } catch (error) {
           cancelMagicLinkFlow()
