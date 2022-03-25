@@ -1,4 +1,4 @@
-import { Dispatch, Fragment, memo, SetStateAction } from 'react'
+import { Dispatch, memo, SetStateAction } from 'react'
 import { RadioGroup as Radio } from '@headlessui/react'
 import { CardBrand, CardDetails } from '@lib/types'
 import BrandIcons from '@elements/BrandIcons'
@@ -30,34 +30,32 @@ const CardSelector = ({ cards, ...props }: CardSelectorProps) => {
   const currentMonth = new Date().getMonth() + 1
 
   return (
-    <div className='space-y-4'>
+    <>
       <Radio
         value={props.selectedCard}
-        className='flex flex-col space-y-1'
+        className='flex flex-col mb-4 space-y-1'
         onChange={props.setSelectedCard}
       >
         <div className='flex flex-col'>
           <Radio.Label className='font-mono'>Your saved cards</Radio.Label>
         </div>
         <div className='flex flex-col space-y-2'>
-          {cards.map(({ details, token }: CardDetails) => (
+          {cards.map(({ details, token }: CardDetails, idx) => (
             <Radio.Option
-              as={Fragment}
-              key={token}
+              key={idx}
               value={token}
               disabled={
                 details.expYear <= currentYear &&
                 details.expMonth < currentMonth
               }
+              className={({ disabled }) =>
+                `flex place-items-center focus:outline-none w-fit select-none ${
+                  disabled ? 'cursor-not-allowed opacity-75' : 'cursor-pointer '
+                }`
+              }
             >
               {({ active, checked, disabled }) => (
-                <div
-                  className={`flex place-items-center focus:outline-none w-fit select-none ${
-                    disabled
-                      ? 'cursor-not-allowed opacity-75'
-                      : 'cursor-pointer '
-                  }`}
-                >
+                <>
                   <i
                     className={[
                       'material-icons-sharp',
@@ -103,7 +101,7 @@ const CardSelector = ({ cards, ...props }: CardSelectorProps) => {
                       </Radio.Description>
                     </div>
                   </div>
-                </div>
+                </>
               )}
             </Radio.Option>
           ))}
@@ -112,7 +110,7 @@ const CardSelector = ({ cards, ...props }: CardSelectorProps) => {
       <Button fill className='w-full' onClick={props.handleCardPayment}>
         Renew membership
       </Button>
-    </div>
+    </>
   )
 }
 
