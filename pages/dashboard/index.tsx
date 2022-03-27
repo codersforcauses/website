@@ -18,13 +18,11 @@ const Dashboard = () => (
 export const getServerSideProps = withServerSideAuth(({ req: { auth } }) => {
   const { sessionId } = auth
 
-  return !sessionId
-    ? {
-        redirect: { destination: '/membership' }
-      }
-    : {
-        props: {}
-      }
+  return {
+    ...(!sessionId
+      ? { redirect: { destination: '/membership', permanent: false } }
+      : { props: {} })
+  }
 })
 
 export default Dashboard

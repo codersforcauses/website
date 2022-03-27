@@ -38,13 +38,11 @@ const Membership = () => {
 export const getServerSideProps = withServerSideAuth(({ req: { auth } }) => {
   const { sessionId } = auth
 
-  return sessionId
-    ? {
-        redirect: { destination: '/dashboard' }
-      }
-    : {
-        props: {}
-      }
+  return {
+    ...(!sessionId
+      ? { redirect: { destination: '/dashboard', permanent: false } }
+      : { props: {} })
+  }
 })
 
 export default Membership
