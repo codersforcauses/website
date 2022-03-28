@@ -28,6 +28,6 @@ const Button = ({
 export default Button
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-  loading?: boolean
+  // loading?: boolean
   dark?: boolean
 }

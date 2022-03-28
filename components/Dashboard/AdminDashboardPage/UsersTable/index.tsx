@@ -86,7 +86,7 @@ const UsersTable = () => {
       <div className='flex justify-between'>
         <GhostButton
           type='button'
-          loading={isValidating}
+          disabled={isValidating}
           className='flex items-center bg-alt-light dark:bg-primary'
           onClick={refetchUsers}
         >
