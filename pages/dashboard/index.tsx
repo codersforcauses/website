@@ -15,14 +15,16 @@ const Dashboard = () => (
   </>
 )
 
-export const getServerSideProps = withServerSideAuth(({ req: { auth } }) => {
-  const { sessionId } = auth
+export const getServerSideProps = withServerSideAuth(
+  async ({ req: { auth } }) => {
+    const { sessionId } = auth
 
-  return {
-    ...(!sessionId
-      ? { redirect: { destination: '/membership', permanent: false } }
-      : { props: {} })
+    return {
+      ...(!sessionId
+        ? { redirect: { destination: '/membership', permanent: false } }
+        : { props: {} })
+    }
   }
-})
+)
 
 export default Dashboard

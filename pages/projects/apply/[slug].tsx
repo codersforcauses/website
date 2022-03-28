@@ -1,5 +1,3 @@
-import { useEffect } from 'react'
-import Router from 'next/router'
 import { withServerSideAuth } from '@clerk/nextjs/ssr'
 import Meta from '@components/Utils/Meta'
 import ProjectApplicationPage from '@components/Projects/ProjectApplicationPage'

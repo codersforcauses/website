@@ -1,4 +1,5 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import Router from 'next/router'
 import { withServerSideAuth } from '@clerk/nextjs/ssr'
 import { ClerkLoaded, ClerkLoading } from '@clerk/nextjs'
 import Meta from '@components/Utils/Meta'
@@ -7,8 +8,12 @@ import SignInPage from '@components/Auth/SignInPage'
 import SignUpPage from '@components/Auth/SignUpPage'
 import MembershipLoading from '@components/Auth/MembershipLoading'
 
-const Membership = () => {
+const Membership = ({ id }: MembershipProps) => {
   const [isSignUp, setIsSignUp] = useState(false)
+
+  useEffect(() => {
+    !!id && Router.replace('/dashboard')
+  }, [id])
 
   return (
     <>
@@ -39,10 +44,14 @@ export const getServerSideProps = withServerSideAuth(({ req: { auth } }) => {
   const { sessionId } = auth
 
   return {
-    ...(!sessionId
-      ? { redirect: { destination: '/dashboard', permanent: false } }
-      : { props: {} })
+    props: {
+      id: sessionId
+    }
   }
 })
+
+interface MembershipProps {
+  id: string
+}
 
 export default Membership
