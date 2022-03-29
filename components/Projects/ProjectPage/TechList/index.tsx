@@ -1,29 +1,25 @@
 import BrandIcon from '@elements/BrandIcons'
+import simpleIcon from 'simple-icons'
 
-const TechList = ({ data }: TechListProps) => (
+const TechList = ({ icons }: TechListProps) => (
   <div className='grid grid-cols-2 gap-4'>
-    {data.map((tech: Tech) => (
+    {icons.map(icon => (
       <div
-        key={tech.name}
+        key={icon}
         className='flex items-center space-x-3 font-mono md:space-x-4'
       >
         <BrandIcon
-          icon={tech.icon}
+          icon={icon}
           dimensions={32}
           className='text-4xl fill-current'
         />
-        <p className='md:text-xl'>{tech.name}</p>
+        <p className='md:text-xl'>{simpleIcon.Get(icon).title}</p>
       </div>
     ))}
   </div>
 )
-
-export interface Tech {
-  name: string
-  icon: string
-}
 interface TechListProps {
-  data: Array<Tech>
+  icons: Array<string>
 }
 
 export default TechList

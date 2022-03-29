@@ -129,7 +129,7 @@ export interface ProjectModel {
   imageLinks?: Array<String>
   impact?: Array<string>
   links?: Array<ProjectLinks>
-  tech?: Array<TechIcons>
+  tech?: Array<string>
   members?: Array<Types.ObjectId | string>
 }
 

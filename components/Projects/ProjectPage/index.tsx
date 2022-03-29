@@ -1,6 +1,6 @@
 import Image from 'next/image'
 import Link from 'next/link'
-import TechList, { Tech } from './TechList'
+import TechList from './TechList'
 import WebsiteButton from './button'
 
 const parseDescription = (text: string) =>
@@ -81,7 +81,7 @@ const ProjectPage = ({ data }: ProjectPageProps) => (
           <Impact impact={data.impact} className='lg:hidden' />
           <div className='space-y-4'>
             <h2 className='font-mono text-2xl font-black'>Technologies used</h2>
-            <TechList data={data.tech} />
+            <TechList icons={data.tech} />
           </div>
           <div className='space-y-4'>
             <h2 className='font-mono text-2xl font-black'>Members</h2>
@@ -145,7 +145,7 @@ export interface ProjectType {
   source?: string
   impact: Array<string>
   desc: string
-  tech: Array<Tech>
+  tech: Array<string>
   members: Array<string>
 }
 
