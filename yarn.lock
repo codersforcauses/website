@@ -38,10 +38,10 @@
   dependencies:
     regenerator-runtime "^0.13.4"
 
-"@clerk/backend-core@^1.1.1":
-  version "1.1.1"
-  resolved "https://registry.yarnpkg.com/@clerk/backend-core/-/backend-core-1.1.1.tgz#661f6c51bf40dc1203e4eff237dd9cace1524dd0"
-  integrity sha512-VCv8YxEoWGOvMbGSZU0OaSHs/cxAaUxsrd+o9qQEs8hxQtCaDjmTZxEvZroTyM/3PLvd7OXu2z11rMExzVTNBQ==
+"@clerk/backend-core@^1.1.2":
+  version "1.1.2"
+  resolved "https://registry.yarnpkg.com/@clerk/backend-core/-/backend-core-1.1.2.tgz#a944d074ef82401dfbf481a66bc87a1413bf563e"
+  integrity sha512-5ibSBjYxsnMMiU6cxTgmbbKWXExQJZTu44PLLBzw9/+/l+NISg7Rf3DFnqtqTgL8Yi/WHwG87vThCTAWb08CNA==
   dependencies:
     "@clerk/types" "^2.2.1"
     camelcase-keys "^7.0.1"
@@ -57,12 +57,12 @@
     "@clerk/types" "^2.2.1"
     tslib "^2.3.1"
 
-"@clerk/clerk-sdk-node@^3.2.3":
-  version "3.2.3"
-  resolved "https://registry.yarnpkg.com/@clerk/clerk-sdk-node/-/clerk-sdk-node-3.2.3.tgz#1a2971ed710652d3082895fffc074b4cbe502b9b"
-  integrity sha512-WYKitWEelU5x3o4BAz8bMaYCf4E9Yi7pEJy2nJUIbC3TR+FQky81rwqxB5Y74I9z/FCQmIxQ2dmCaGZjzP+ksg==
+"@clerk/clerk-sdk-node@^3.2.4":
+  version "3.2.4"
+  resolved "https://registry.yarnpkg.com/@clerk/clerk-sdk-node/-/clerk-sdk-node-3.2.4.tgz#36652361ed65ebbfb6229e0694405c22dacef6da"
+  integrity sha512-luLtCdCvagQoLbCdA0nTfhmFOlnCauO9AN2I43W/7Xfa7EFZuvkdF9dH3d+cIxBkTPHNhBZlBl7/8GV+I3Ldng==
   dependencies:
-    "@clerk/backend-core" "^1.1.1"
+    "@clerk/backend-core" "^1.1.2"
     "@clerk/types" "^2.2.1"
     "@peculiar/webcrypto" "^1.2.3"
     camelcase-keys "^6.2.2"
@@ -74,23 +74,23 @@
     snakecase-keys "^3.2.1"
     tslib "^2.3.1"
 
-"@clerk/edge@^1.2.3":
-  version "1.2.3"
-  resolved "https://registry.yarnpkg.com/@clerk/edge/-/edge-1.2.3.tgz#b71df3516db43461a00bac9a25dc4cf2ac41f201"
-  integrity sha512-HjKxWv8dKstfA/H+vjsHImtFFykbxacVh3FrnsH3XCU/CI6eU/dg+baGT359q4i2BLNUy851jCNtcI7ZwNO79w==
+"@clerk/edge@^1.2.4":
+  version "1.2.4"
+  resolved "https://registry.yarnpkg.com/@clerk/edge/-/edge-1.2.4.tgz#20563a5a73cb9d8044a78e2349c8fccc98e71e71"
+  integrity sha512-Et/lb4wieR+iweWGFyIiavQ7QmgKX/4RlQ7a/VVXQij45HVuUGAE+RJtYjCwMq6GxhMG1xeGft6+aNx/EXmoEA==
   dependencies:
-    "@clerk/backend-core" "^1.1.1"
+    "@clerk/backend-core" "^1.1.2"
     "@peculiar/webcrypto" "^1.2.3"
     next "^12.0.7"
 
-"@clerk/nextjs@3.2.3":
-  version "3.2.3"
-  resolved "https://registry.yarnpkg.com/@clerk/nextjs/-/nextjs-3.2.3.tgz#9c606eb5792a7d41e5559ec65b310f3c996aa466"
-  integrity sha512-SSToNwh3zORdJpLhabzpq3O8E+0t4AbAwWol0hIS8Ff2EMPVCZ0AlWNaoc2tTCSyt4GNBm1UQR6WloGR2OQuOw==
+"@clerk/nextjs@3.2.4":
+  version "3.2.4"
+  resolved "https://registry.yarnpkg.com/@clerk/nextjs/-/nextjs-3.2.4.tgz#6b080455f45e3d73b3af4aada553e4c733f3d5c4"
+  integrity sha512-nYmBYxr+B5BIM0484mlRPTJB/L0VSFqgLoGJRgPjC8HuI00QTaCZ6pT/hLDArtlmZkQ6CGBqUtFNRGfueMwZ1g==
   dependencies:
     "@clerk/clerk-react" "^3.2.1"
-    "@clerk/clerk-sdk-node" "^3.2.3"
-    "@clerk/edge" "^1.2.3"
+    "@clerk/clerk-sdk-node" "^3.2.4"
+    "@clerk/edge" "^1.2.4"
     "@clerk/types" "^2.2.1"
     tslib "^2.3.1"
 
@@ -840,9 +840,9 @@ camelcase@^6.3.0:
   integrity sha512-Gmy6FhYlCY7uOElZUSbxo2UCDH8owEk996gkbrpsgGtrJLM3J7jGxl9Ic7Qwwj4ivOE5AWZWRMecDdF7hqGjFA==
 
 caniuse-lite@^1.0.30001283, caniuse-lite@^1.0.30001317:
-  version "1.0.30001320"
-  resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30001320.tgz#8397391bec389b8ccce328636499b7284ee13285"
-  integrity sha512-MWPzG54AGdo3nWx7zHZTefseM5Y1ccM7hlQKHRqJkPozUaw3hNbBTMmLn16GG2FUzjR13Cr3NPfhIieX5PzXDA==
+  version "1.0.30001322"
+  resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30001322.tgz#2e4c09d11e1e8f852767dab287069a8d0c29d623"
+  integrity sha512-neRmrmIrCGuMnxGSoh+x7zYtQFFgnSY2jaomjU56sCkTA6JINqQrxutF459JpWcWRajvoyn95sOXq4Pqrnyjew==
 
 chalk@^2.0.0:
   version "2.4.2"
@@ -1159,9 +1159,9 @@ ecdsa-sig-formatter@1.0.11:
     safe-buffer "^5.0.1"
 
 electron-to-chromium@^1.4.84:
-  version "1.4.96"
-  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.4.96.tgz#a97438a01d5db1460343fea4a344960b09330990"
-  integrity sha512-DPNjvNGPabv6FcyjzLAN4C0psN/GgD9rSGvMTuv81SeXG/EX3mCz0wiw9N1tUEnfQXYCJi3H8M0oFPRziZh7rw==
+  version "1.4.100"
+  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.4.100.tgz#da82de8a19a47ea3dcdf141dde85355942fbc4e7"
+  integrity sha512-pNrSE2naf8fizl6/Uxq8UbKb8hU9EiYW4OzCYswosXoLV5NTMOUVKECNzDaHiUubsPq/kAckOzZd7zd8S8CHVw==
 
 emoji-regex@^9.2.2:
   version "9.2.2"
@@ -2016,7 +2016,7 @@ levn@^0.4.1:
     prelude-ls "^1.2.1"
     type-check "~0.4.0"
 
-lilconfig@^2.0.4:
+lilconfig@^2.0.5:
   version "2.0.5"
   resolved "https://registry.yarnpkg.com/lilconfig/-/lilconfig-2.0.5.tgz#19e57fd06ccc3848fd1891655b5a447092225b25"
   integrity sha512-xaYmXZtTHPAw5m+xLN8ab9C+3a8YmV3asNSPOATITbtwrfbwaLJj8h66H1WMIpALCkqsIzK3h7oQ+PdX+LQ9Eg==
@@ -2532,11 +2532,11 @@ postcss-js@^4.0.0:
     camelcase-css "^2.0.1"
 
 postcss-load-config@^3.1.0:
-  version "3.1.3"
-  resolved "https://registry.yarnpkg.com/postcss-load-config/-/postcss-load-config-3.1.3.tgz#21935b2c43b9a86e6581a576ca7ee1bde2bd1d23"
-  integrity sha512-5EYgaM9auHGtO//ljHH+v/aC/TQ5LHXtL7bQajNAUBKUVKiYE8rYpFms7+V26D9FncaGe2zwCoPQsFKb5zF/Hw==
+  version "3.1.4"
+  resolved "https://registry.yarnpkg.com/postcss-load-config/-/postcss-load-config-3.1.4.tgz#1ab2571faf84bb078877e1d07905eabe9ebda855"
+  integrity sha512-6DiM4E7v4coTE4uzA8U//WhtPwyhiim3eyjEMFCnUpzbrkK9wJHgKDT2mR+HbtSrd/NubVaYTOpSpjUl8NQeRg==
   dependencies:
-    lilconfig "^2.0.4"
+    lilconfig "^2.0.5"
     yaml "^1.10.2"
 
 postcss-nested@5.0.6:
