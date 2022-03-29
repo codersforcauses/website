@@ -6,14 +6,15 @@ class MyDocument extends Document {
       <Html lang='en-AU'>
         <Head>
           {process.env.NODE_ENV === 'production' && (
-            <link
-              rel='preconnect'
-              href='https://connect.facebook.net'
-              crossOrigin=''
-            />
+            <>
+              <link
+                rel='preconnect'
+                href='https://connect.facebook.net'
+                crossOrigin=''
+              />
+              <link rel='dns-prefetch' href='//connect.facebook.net' />
+            </>
           )}
-
-          <link rel='dns-prefetch' href='//connect.facebook.net' />
 
           {/* Typefaces from Google Fonts */}
           <link

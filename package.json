@@ -27,7 +27,6 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@builder.io/partytown": "0.5.1",
     "@clerk/nextjs": "3.2.3",
     "@headlessui/react": "1.5.0",
     "@square/web-sdk": "2.0.0",
