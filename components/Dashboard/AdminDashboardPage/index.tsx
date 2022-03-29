@@ -5,6 +5,7 @@ import Title from '@components/Utils/Title'
 import UsersTable from './UsersTable'
 import CreateButton from './CreateButton'
 const AnnouncementModal = dynamic(() => import('./AnnouncementModal'))
+const ProjectModal = dynamic(() => import('./ProjectModal'))
 
 const tabs = [
   {
@@ -68,12 +69,12 @@ const AdminDashboardPage = () => {
             <CreateButton
               name='Create Project'
               description='Create a summer or winter project. Only paying members will be able to apply.'
-              handleClick={openAnnouncementModal}
+              handleClick={openProjectModal}
             />
             <CreateButton
               name='Create Event'
               description='Let members know of upcoming events such as industry nights, workshops, etc.'
-              handleClick={openAnnouncementModal}
+              handleClick={openEventModal}
             />
           </div>
           <Tab.Group as='div'>
@@ -113,6 +114,7 @@ const AdminDashboardPage = () => {
         isOpen={announcementModal}
         closeModal={closeAnnouncementModal}
       />
+      <ProjectModal isOpen={projectModal} closeModal={closeProjectModal} />
     </>
   )
 }
