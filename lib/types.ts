@@ -111,7 +111,7 @@ interface ProjectLinks {
   link: string
 }
 
-interface TechIcons {
+export interface TechIcons {
   icon: string
   name: string
 }
@@ -121,7 +121,7 @@ export interface ProjectModel {
   slug: string
   description: string
   type: Array<ProjectType>
-  client: Array<Types.ObjectId>
+  client: Array<Types.ObjectId | string>
   dates: {
     start: Date
     end?: Date
@@ -130,7 +130,7 @@ export interface ProjectModel {
   impact?: Array<string>
   links?: Array<ProjectLinks>
   tech?: Array<TechIcons>
-  members?: Array<Types.ObjectId>
+  members?: Array<Types.ObjectId | string>
 }
 
 export type Projects = (ProjectModel & Mongoose) | null
