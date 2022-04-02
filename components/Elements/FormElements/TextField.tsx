@@ -36,15 +36,6 @@ const TextField = ({
   } = useContext(FormContext)
   const error: string = formState?.errors?.[props.name]?.message
 
-  const number: Partial<{
-    type: 'text'
-    inputMode: 'decimal'
-  }> = {}
-  if (type === 'number') {
-    number.type = 'text'
-    number.inputMode = 'decimal'
-  }
-
   useEffect(() => {
     setFocused && setFocus?.(props.name)
   }, [setFocus, props.name, setFocused])
