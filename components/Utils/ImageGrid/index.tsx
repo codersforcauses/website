@@ -15,9 +15,12 @@ const ImageGrid = ({ images }: ImageGridProps) => {
   }, [images])
 
   return (
-    <div className='flex h-24 gap-3 md:gap-12'>
+    <div className='flex flex-wrap gap-3 md:gap-12'>
       {imageList.map(image => (
-        <div key={image.alt} className='relative w-full basis-1/2'>
+        <div
+          key={image.alt}
+          className='relative flex-grow w-full h-24 basis-1/4'
+        >
           <Image
             src={image.src}
             alt={image.alt}
