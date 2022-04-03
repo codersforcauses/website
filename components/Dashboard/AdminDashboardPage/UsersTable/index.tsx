@@ -111,7 +111,7 @@ const UsersTable = () => {
           )}
         </thead>
         <tbody className='text-lg'>
-          {users?.map((user, idx) => (
+          {users.map((user, idx) => (
             <tr key={idx} className='dark:odd:bg-primary odd:bg-alt-light'>
               <td className='flex items-center justify-center p-2 min-h-[80px]'>
                 {`${idx + 1}`.padStart(3, '0')}
