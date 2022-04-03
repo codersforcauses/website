@@ -66,55 +66,48 @@ const UserMenu = () => {
               className='min-w-[9rem] w-full absolute right-0 flex flex-col items-stretch py-2 mt-2 space-y-1 border border-secondary bg-primary focus:outline-none'
             >
               {Links.map(link => (
-                <Menu.Item key={link.icon}>
+                <Menu.Item key={link.icon} as={Link} href={link.href}>
                   {({ active }) => (
-                    <Link href={link.href} passHref>
-                      <a
-                        className={`flex items-center py-2 px-4 text-sm hover:bg-secondary hover:text-primary ${
-                          active && 'bg-secondary text-primary'
-                        }`}
-                      >
-                        <span className='mr-2 material-icons-sharp'>
-                          {link.icon}
-                        </span>
-                        {link.text}
-                      </a>
-                    </Link>
+                    <a
+                      className={`flex items-center py-2 px-4 text-sm hover:bg-secondary hover:text-primary ${
+                        active && 'bg-secondary text-primary'
+                      }`}
+                    >
+                      <span className='mr-2 material-icons-sharp'>
+                        {link.icon}
+                      </span>
+                      {link.text}
+                    </a>
                   )}
                 </Menu.Item>
               ))}
               {isAdmin && (
-                <Menu.Item>
+                <Menu.Item as={Link} href='/dashboard/admin'>
                   {({ active }) => (
-                    <Link href='/dashboard/admin' passHref>
-                      <a
-                        className={`flex items-center py-2 px-4 text-sm hover:bg-secondary hover:text-primary ${
-                          active && 'bg-secondary text-primary'
-                        }`}
-                      >
-                        <span className='mr-2 material-icons-sharp'>
-                          admin_panel_settings
-                        </span>
-                        Admin Dash
-                      </a>
-                    </Link>
+                    <a
+                      className={`flex items-center py-2 px-4 text-sm hover:bg-secondary hover:text-primary ${
+                        active && 'bg-secondary text-primary'
+                      }`}
+                    >
+                      <span className='mr-2 material-icons-sharp'>
+                        admin_panel_settings
+                      </span>
+                      Admin Dash
+                    </a>
                   )}
                 </Menu.Item>
               )}
-              <Menu.Item>
-                {({ active }) => (
-                  <button
-                    className={`flex items-center py-2 px-4 text-sm ${
-                      active && 'bg-secondary text-primary'
-                    }`}
-                    onClick={handleSignOut}
-                  >
-                    <span className='mr-2 material-icons-sharp'>
-                      exit_to_app
-                    </span>
-                    Logout
-                  </button>
-                )}
+              <Menu.Item
+                as='button'
+                className={({ active }) =>
+                  `flex items-center py-2 px-4 text-sm ${
+                    active && 'bg-secondary text-primary'
+                  }`
+                }
+                onClick={handleSignOut}
+              >
+                <span className='mr-2 material-icons-sharp'>exit_to_app</span>
+                Logout
               </Menu.Item>
             </Menu.Items>
           </Transition>
