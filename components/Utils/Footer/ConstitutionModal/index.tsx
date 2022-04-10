@@ -718,7 +718,9 @@ const ConstitutionModal = (props: ModalProps) => (
       <li>
           Update 18/03/2021
           <ol className='pl-6 ml-2 list-decimal'>
-            <li>Amended number of OCMs from 2 to 3</li>
+            <li>
+              Amended the number of Ordinary Committee Members from 2 to 3
+            </li>
           </ol>
         </li>
         <li>
