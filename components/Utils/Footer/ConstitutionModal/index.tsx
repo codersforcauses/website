@@ -293,7 +293,7 @@ const ConstitutionModal = (props: ModalProps) => (
               The Ordinary Committee who shall consist of:
               <ul>
                 <li>1 Marketing Officer</li>
-                <li>2 Ordinary Committee Members</li>
+                <li>3 Ordinary Committee Members</li>
                 <li>1 Fresher Representative</li>
               </ul>
               and be elected by the financial Ordinary Members of the Club by
