@@ -710,11 +710,17 @@ const ConstitutionModal = (props: ModalProps) => (
         </li>
       </ol>
     </div>
-    <p className='mt-4 mb-8'>Adopted by General Meeting - 17/03/2020</p>
+    <p className='mt-4 mb-8'>Adopted by General Meeting - 18/03/2021</p>
 
     <div className='pl-4 rounded-0 changelog'>
       <h3 className='mb-2 font-mono text-xl font-black'>Changelog</h3>
       <ul className='pl-4 leading-relaxed list-disc'>
+      <li>
+          Update 18/03/2021
+          <ol className='pl-6 ml-2 list-decimal'>
+            <li>Amended number of OCMs from 2 to 3</li>
+          </ol>
+        </li>
         <li>
           Update 17/03/2020
           <ol className='pl-6 ml-2 list-decimal'>
