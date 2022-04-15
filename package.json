@@ -32,7 +32,7 @@
     "@square/web-sdk": "2.0.0",
     "@tailwindcss/forms": "0.5.0",
     "critters": "0.0.16",
-    "dayjs": "1.11.0",
+    "dayjs": "1.11.1",
     "mapbox-gl": "2.8.1",
     "mongoose": "6.2.11",
     "next": "12.1.5",
