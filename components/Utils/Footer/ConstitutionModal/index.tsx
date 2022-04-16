@@ -293,7 +293,7 @@ const ConstitutionModal = (props: ModalProps) => (
               The Ordinary Committee who shall consist of:
               <ul>
                 <li>1 Marketing Officer</li>
-                <li>2 Ordinary Committee Members</li>
+                <li>3 Ordinary Committee Members</li>
                 <li>1 Fresher Representative</li>
               </ul>
               and be elected by the financial Ordinary Members of the Club by
@@ -710,11 +710,19 @@ const ConstitutionModal = (props: ModalProps) => (
         </li>
       </ol>
     </div>
-    <p className='mt-4 mb-8'>Adopted by General Meeting - 17/03/2020</p>
+    <p className='mt-4 mb-8'>Adopted by General Meeting - 18/03/2021</p>
 
     <div className='pl-4 rounded-0 changelog'>
       <h3 className='mb-2 font-mono text-xl font-black'>Changelog</h3>
       <ul className='pl-4 leading-relaxed list-disc'>
+      <li>
+          Update 18/03/2021
+          <ol className='pl-6 ml-2 list-decimal'>
+            <li>
+              Amended the number of Ordinary Committee Members from 2 to 3
+            </li>
+          </ol>
+        </li>
         <li>
           Update 17/03/2020
           <ol className='pl-6 ml-2 list-decimal'>
