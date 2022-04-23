@@ -4,13 +4,13 @@
     "position": "President",
     "about": "",
     "social": {
-      "email": "publicity@codersforcauses.org",
+      "email": "president@codersforcauses.org",
       "github": "https://github.com/ivy0305",
       "discord": "iv"
     },
     "picture": {
       "src": "/committee/ivydp_21.webp",
-      "alt": "CFC Marketing Officer"
+      "alt": "CFC President"
     }
   },
   {
@@ -48,7 +48,7 @@
     "social": {
       "email": "treasurer@codersforcauses.org",
       "github": "https://github.com/thethyka",
-      "discord": "Han"
+      "discord": "korm"
     },
     "picture": {
       "src": "/committee/karamdp_22.webp",
@@ -62,8 +62,7 @@
     "social": {
       "email": "dev@codersforcauses.org",
       "github": "https://github.com/nicodeas",
-      "linkedin": "https://www.linkedin.com/in/nicholas-michlin-714a74207/",
-      "discord": "Nicholas Michlin"
+      "discord": "Pluto"
     },
     "picture": {
       "src": "/committee/nichmdp_22.webp",
@@ -77,7 +76,7 @@
     "social": {
       "email": "publicity@codersforcauses.org",
       "github": "https://github.com/skyheat",
-      "discord": ""
+      "discord": "skyheat"
     },
     "picture": {
       "src": "/committee/jundp_22.webp",
@@ -127,7 +126,7 @@
     }
   },
   {
-    "name": "James F",
+    "name": "James Frayne",
     "position": "Fresher Representative",
     "about": "",
     "social": {
