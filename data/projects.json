@@ -158,5 +158,56 @@
       "Matthew Stagoll",
       "David Yu"
     ]
+  },
+  {
+    "id": "WAIS",
+    "icon": "devices",
+    "logo": "/clients/wais_logo.svg",
+    "img": "thevault.png",
+    "name": "The Vault",
+    "client": "WAIS",
+    "type": "Web Application",
+    "date": "July 2021",
+    "purl": "/projects/WAIS",
+    "url": "https://wais-vault.azurewebsites.net/",
+    "source": "https://github.com/codersforcauses/wais",
+    "impact": [
+      "Coaches can focus more time on the important parts of their role",
+      "Enhanced performance of elite and world class Australian athletes",
+      "Assist Coaches in setting the perfect jump parameters"
+    ],
+    "desc": "A big upgrade for the West Australian Institute of Sports' pole vault coaches. From pen and paper to real-time analysis. This web application is a data entry system, created to streamline the process of recorded jump to cloud storage and analysis. This app is the front-runner of many more applications like it to come to elite level sport.",
+    "tech": [
+      { "name": "Vue", "icon": "vuedotjs" },
+      { "name": "Django", "icon": "django" },
+      { "name": "MSQL", "icon": "microsoftsqlserver" },
+      { "name": "Azure", "icon": "microsoftazure" }
+    ],
+    "members": [
+      "Nisarg Dave",
+      "Nicholas Michlin",
+      "Sep Kimiaei",
+      "Jamie Turner",
+      "Chantelle Kerr",
+      "Ivy Bui",
+      "Michael Nevfiodovas",
+      "Dorothy Jong",
+      "Jake Lyell",
+      "Frinze Lapuz",
+      "Mac Ahmed",
+      "Karam Thethy",
+      "Christian Wood",
+      "Thomas Cotter", 
+      "Philip Botar",
+      "Edward Atkinson",
+      "Farshad Ghanbari",
+      "Harkirat",
+      "James Lee", 
+      "Djimon Jayasundera",
+      "Kane Alexander",
+      "Cormac Sharkey",
+      "Dominic Cain",
+      "Larry Hyunh"
+    ]
   }
 ]
