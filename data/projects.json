@@ -209,5 +209,66 @@
       "Dominic Cain",
       "Larry Hyunh"
     ]
+  },
+  {
+    "id": "Foodbank",
+    "icon": "devices",
+    "logo": "/clients/foodbank_logo.svg",
+    "img": "superhero_foods.png",
+    "name": "Foodbank Superhero Foods",
+    "client": "Foodbank",
+    "type": "Web Application",
+    "date": "December 2020",
+    "purl": "/projects/foodbank",
+    "url": "https://foodbank.vercel.app/",
+    "source": "https://github.com/codersforcauses/foodbank",
+    "impact": [
+      "Promote the importance of healthy nutrition among school-aged kids",
+      "Engage kids in cooking healthy meals and working safely in kitchens"
+    ],
+    "desc": "Foodbank Superhero Foods is a web app used to engage and educate primary school-aged students about healthy eating through interactive activities.",
+    "tech": [
+      { "name": "Firebase", "icon": "firebase" },
+      { "name": "Vercel", "icon": "vercel" },
+      { "name": "React.js", "icon": "react" },
+      { "name": "Next.js", "icon": "nextdotjs" },
+      { "name": "Typescript", "icon": "typescript" },
+      { "name": "tailwind CSS", "icon": "tailwindcss" }
+    ],
+    "members": [
+      "Ash Ithape",
+      "Alan Cheng",
+      "John Pimenov",
+      "Arun Palani Muthu",
+      "Nicholas Choong",
+      "Jun Han Yap",
+      "Aaron Tan",
+      "Carmen Leong Kay Wen",
+      "James Van Ravestein",
+      "Bryce O'Connor",
+      "Peter Tanner",
+      "Timothy Tan",
+      "Rupert Samuel Hu",
+      "Bronsen Ivulich",
+      "Shuangquan Zheng",
+      "Burbukje Shakjiri",
+      "Jonathan Choong",
+      "Jesse Carter",
+      "Niall Gillmor",
+      "Jake Helfrich",
+      "Sophie Giraudo",
+      "Ben Woods",
+      "Benjamin Podmore",
+      "Eddie Atkinson",
+      "Dhruv Jobanputra",
+      "Jamie McCullough",
+      "Sanjeevan Selvaganapathy",
+      "Jonathan Jones",
+      "Brandon Barker",
+      "Peter Sheng",
+      "Devansh Nilamkumar Patel",
+      "Arya Gerami Zadegan",
+      "Mia Blessas"
+    ]
   }
 ]
