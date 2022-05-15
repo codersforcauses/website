@@ -233,9 +233,10 @@
       { "name": "React.js", "icon": "react" },
       { "name": "Next.js", "icon": "nextdotjs" },
       { "name": "Typescript", "icon": "typescript" },
-      { "name": "tailwind CSS", "icon": "tailwindcss" }
+      { "name": "tailwindcss", "icon": "tailwindcss" }
     ],
     "members": [
+      "Drew Alexander",
       "Ash Ithape",
       "Alan Cheng",
       "John Pimenov",
