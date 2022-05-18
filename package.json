@@ -30,7 +30,7 @@
     "@clerk/nextjs": "next",
     "@headlessui/react": "1.6.1",
     "@square/web-sdk": "2.0.0",
-    "@tailwindcss/forms": "0.5.1",
+    "@tailwindcss/forms": "0.5.2",
     "critters": "0.0.16",
     "dayjs": "1.11.2",
     "mapbox-gl": "2.8.2",
