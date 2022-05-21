@@ -49,7 +49,7 @@
     "@types/mapbox-gl": "2.7.2",
     "@types/react": "17.0.45",
     "autoprefixer": "10.4.7",
-    "eslint": "8.15.0",
+    "eslint": "8.16.0",
     "eslint-config-next": "12.1.6",
     "eslint-plugin-jsx-a11y": "6.5.1",
     "postcss": "8.4.14",
