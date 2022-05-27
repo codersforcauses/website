@@ -4,7 +4,7 @@ import projects from '@data/projects.json'
 import { useTheme } from 'next-themes'
 
 const ProjectCards = () => {
-  const { theme, setTheme } = useTheme()
+  const { resolvedTheme: theme, setTheme } = useTheme()
 
   return (
     <div className='grid flex-grow grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3'>

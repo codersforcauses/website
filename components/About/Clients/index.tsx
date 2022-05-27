@@ -4,7 +4,7 @@ import clients from 'data/clients.json'
 import { useTheme } from 'next-themes'
 
 const Clients = () => {
-  const { theme, setTheme } = useTheme()
+  const { resolvedTheme: theme, setTheme } = useTheme()
 
   const imageList = clients.map(client => ({
     src:

@@ -8,7 +8,7 @@ const width = clients.reduce(
 )
 
 const ClientSlider = () => {
-  const { theme, setTheme } = useTheme()
+  const { resolvedTheme: theme, setTheme } = useTheme()
 
   return (
     <div
