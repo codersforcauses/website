@@ -1,6 +1,7 @@
 import Image from 'next/image'
 import { memo, useEffect, useState } from 'react'
 import { ImageProps } from '@lib/types'
+import { useTheme } from 'next-themes'
 
 const randomise = () => {
   const options = [-1, 0, 1]
@@ -8,18 +9,29 @@ const randomise = () => {
 }
 
 const ImageGrid = ({ images }: ImageGridProps) => {
+  const { resolvedTheme: theme, setTheme } = useTheme()
   const [imageList, setImageList] = useState<Array<ImageProps>>([])
 
   useEffect(() => {
-    setImageList(images.sort(randomise).slice(0, images.length))
+    setImageList(images)
   }, [images])
+
+  useEffect(() => {
+    setImageList(images.sort(randomise).slice(0, images.length))
+  }, [])
 
   return (
     <div className='flex h-24 gap-3 md:gap-12'>
       {imageList.map(image => (
         <div key={image.alt} className='relative w-full basis-1/2'>
           <Image
-            src={image.src}
+            src={
+              'dark' === theme
+                ? image.src
+                : image.srcDark === undefined || image.srcDark === ''
+                ? image.src
+                : image.srcDark
+            }
             alt={image.alt}
             priority
             layout='fill'
