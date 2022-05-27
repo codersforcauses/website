@@ -5,6 +5,7 @@ import clients from 'data/clients.json'
 const Clients = () => {
   const imageList = clients.map(client => ({
     src: client.logo,
+    srcDark: client.dark_logo,
     alt: client.name
   }))
 

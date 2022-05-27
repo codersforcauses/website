@@ -2,6 +2,7 @@ import { Types } from 'mongoose'
 
 export interface ImageProps {
   src: string
+  srcDark?: string
   alt: string
 }
 

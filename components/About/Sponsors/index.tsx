@@ -5,8 +5,11 @@ import sponsors from 'data/sponsors.json'
 const Sponsors = () => {
   const imageList = sponsors.map(sponsor => ({
     src: sponsor.logo,
+    srcDark: sponsor.dark_logo,
     alt: sponsor.name
   }))
+
+  console.log(imageList)
 
   return <ImageGrid images={imageList} />
 }

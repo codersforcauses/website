@@ -1,10 +1,12 @@
 [
   {
     "name": "Venture: Student Innovation Centre - UWA Student Guild",
-    "logo": "/sponsors/venture_logo.svg"
+    "logo": "/sponsors/venture_logo.svg",
+    "dark_logo": ""
   },
   {
     "name": "The U Group & Co",
-    "logo": "/sponsors/u_group_logo.svg"
+    "logo": "/sponsors/u_group_logo.svg",
+    "dark_logo": "/sponsors/u_group_logo_dark.svg"
   }
 ]
