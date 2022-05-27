@@ -18,6 +18,7 @@ const ImageGrid = ({ images }: ImageGridProps) => {
 
   useEffect(() => {
     setImageList(images.sort(randomise).slice(0, images.length))
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   return (
