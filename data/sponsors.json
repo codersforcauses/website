@@ -1,18 +1,10 @@
 [
   {
-    "name": "Rio Tinto",
-    "logo": "/sponsors/rio_tinto_logo.svg"
-  },
-  {
-    "name": "UWA IQX",
-    "logo": "/sponsors/iqx_logo.svg"
-  },
-  {
-    "name": "BHP",
-    "logo": "/sponsors/bhp_logo.svg"
-  },
-  {
     "name": "Venture: Student Innovation Centre - UWA Student Guild",
     "logo": "/sponsors/venture_logo.svg"
+  },
+  {
+    "name": "The U Group & Co",
+    "logo": "/sponsors/u_group_logo.svg"
   }
 ]
