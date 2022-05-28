@@ -9,8 +9,6 @@ const Sponsors = () => {
     alt: sponsor.name
   }))
 
-  console.log(imageList)
-
   return <ImageGrid images={imageList} />
 }
 
