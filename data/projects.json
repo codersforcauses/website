@@ -67,7 +67,7 @@
     "id": "P2ARugbyWorks",
     "icon": "devices",
     "logo": "/clients/p2s_logo.svg",
-    "dark_logo": "",
+    "dark_logo": "/clients/p2s_logo_dark.svg",
     "img": "p2s.png",
     "name": "P2S Rugbyworks Admin Website",
     "client": "P2S Rugbyworks",
