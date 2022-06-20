@@ -25,7 +25,7 @@
   },
   {
     "logo": "/clients/p2s_logo.svg",
-    "dark_logo": "",
+    "dark_logo": "/clients/p2s_logo_dark.svg",
     "name": "P2S Rugbyworks",
     "width": 200
   },
