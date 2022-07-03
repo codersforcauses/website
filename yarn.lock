@@ -2938,10 +2938,10 @@ sift@16.0.0:
   resolved "https://registry.yarnpkg.com/sift/-/sift-16.0.0.tgz#447991577db61f1a8fab727a8a98a6db57a23eb8"
   integrity sha512-ILTjdP2Mv9V1kIxWMXeMTIRbOBrqKc4JAXmFMnFq3fKeyQ2Qwa3Dw1ubcye3vR+Y6ofA0b9gNDr/y2t6eUeIzQ==
 
-simple-icons@7.3.0:
-  version "7.3.0"
-  resolved "https://registry.yarnpkg.com/simple-icons/-/simple-icons-7.3.0.tgz#7d4c39fee669d31913c30476609db1ffdd0cc684"
-  integrity sha512-ehXi2/CS1wSSld2E7wsgbtNTlJXAVycpLD9U2KT7B9meYs+TK+JaGKVYQCB8eU4DES7N5W+xT8wpSBXjiCfdUQ==
+simple-icons@7.4.0:
+  version "7.4.0"
+  resolved "https://registry.yarnpkg.com/simple-icons/-/simple-icons-7.4.0.tgz#36de627701d4c3047521c78ac200a4d9f7cda68c"
+  integrity sha512-sUp30aZ1TvM1uIXtdRKX3yX5y2sN9I1AJlA5UkVSCX3pYZgd38HaZBxGVcxYijv+Qy8p+jzkYsJAZ+ao3Js7Mg==
 
 slash@^3.0.0:
   version "3.0.0"
