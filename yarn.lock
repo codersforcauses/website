@@ -312,10 +312,10 @@
   dependencies:
     typescript "^4.1.0"
 
-"@square/web-sdk@2.0.0":
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/@square/web-sdk/-/web-sdk-2.0.0.tgz#ed0b87e27b2ce60e5d6c46def613c1a0d959ea15"
-  integrity sha512-RrJb1/ne5Ew0/VsNtOI7oXeXK2gONNQxYPP5BAQZ9+uuIFb6eX0GXPkE6XMRy/JLqy1Nqta9Y35rPdBwolQCgQ==
+"@square/web-sdk@2.0.1":
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/@square/web-sdk/-/web-sdk-2.0.1.tgz#ef01fa6955ff0134a2aaf6e2227e9e96bb7e66a7"
+  integrity sha512-m+pauPLJUHO4qzBNKlHRMe+qDAhQdbEd7g/v/SW8BWZARwJC0liHB4AnVAJuM/7JMFEPiT2ZO3SRt1VQsCeoYg==
   dependencies:
     "@square/web-payments-sdk-types" "^1.1.1"
 
