@@ -431,10 +431,10 @@
   dependencies:
     "@types/node" "*"
 
-"@types/mapbox-gl@2.7.4":
-  version "2.7.4"
-  resolved "https://registry.yarnpkg.com/@types/mapbox-gl/-/mapbox-gl-2.7.4.tgz#fbbb72a3fc0a1e0c2fbd7952d23418e51cdea77d"
-  integrity sha512-usTVCWYhmLt+teQ5U3HhSBZIIHFLp6fQXH/1QOnd4xnDtvNTUWo8n6UyRA4kUj84CGpHSBFeF/MNcBdGB1pwog==
+"@types/mapbox-gl@2.7.5":
+  version "2.7.5"
+  resolved "https://registry.yarnpkg.com/@types/mapbox-gl/-/mapbox-gl-2.7.5.tgz#9e31fc592adb2762e4e5c7727dca5ec367dfc780"
+  integrity sha512-T8gACm3oGKMlBo2l/9vnKEAxgCc0g2mr8g6dI1d3ZO6EzRe7JALBONlWRmc7SOHV79kiarkcdLdDVEnfd+jilA==
   dependencies:
     "@types/geojson" "*"
 
