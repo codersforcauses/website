@@ -20,6 +20,7 @@ const RadioGroup = ({
     disabled: formDisabled,
     register
   } = useContext(FormContext)
+  //@ts-ignore
   const error: string = formState?.errors?.[props.name]?.message
 
   const { setValue, watch } = useFormContext()
