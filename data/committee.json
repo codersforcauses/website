@@ -42,16 +42,16 @@
     }
   },
   {
-    "name": "Karam Thethy",
+    "name": "Glen Nguyen",
     "position": "Treasurer",
     "about": "",
     "social": {
       "email": "treasurer@codersforcauses.org",
-      "github": "https://github.com/thethyka",
-      "discord": "korm"
+      "github": "https://github.com/GlendleNguyen",
+      "discord": "owodera"
     },
     "picture": {
-      "src": "/committee/karamdp_22.webp",
+      "src": "/committee/glendp_22.webp",
       "alt": "CFC Treasurer"
     }
   },
@@ -112,16 +112,16 @@
     }
   },
   {
-    "name": "Glen Nguyen",
+    "name": "Chantelle Kerr",
     "position": "Ordinary Committee Member",
     "about": "",
     "social": {
       "email": "committee@codersforcauses.org",
-      "github": "https://github.com/GlendleNguyen",
-      "discord": "owodera"
+      "github": "https://github.com/ChantelleKerr",
+      "discord": "Chantelle"
     },
     "picture": {
-      "src": "/committee/glendp_22.webp",
+      "src": "/committee/chandp_22.webp",
       "alt": "CFC OCM"
     }
   },
