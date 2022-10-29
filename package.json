@@ -34,7 +34,7 @@
     "critters": "0.0.16",
     "dayjs": "1.11.6",
     "mapbox-gl": "2.9.2",
-    "mongoose": "6.5.2",
+    "mongoose": "6.7.0",
     "next": "12.3.1",
     "next-themes": "0.2.1",
     "react": "18.2.0",
