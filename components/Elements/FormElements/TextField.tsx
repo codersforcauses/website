@@ -34,6 +34,7 @@ const TextField = ({
     register,
     setFocus
   } = useContext(FormContext)
+  //@ts-ignore
   const error: string = formState?.errors?.[props.name]?.message
 
   const number: Partial<{

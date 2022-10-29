@@ -20,6 +20,7 @@ const TextArea = ({
     disabled: formDisabled,
     register
   } = useContext(FormContext)
+  //@ts-ignore
   const error: string = formState?.errors?.[props.name]?.message
 
   const text: string = useWatch({ name: props.name })

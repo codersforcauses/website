@@ -18,6 +18,7 @@ const CheckFieldProps = ({
     disabled: formDisabled,
     register
   } = useContext(FormContext)
+  //@ts-ignore
   const error: string = formState?.errors?.[props.name]?.message
 
   return (
