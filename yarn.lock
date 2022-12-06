@@ -2978,10 +2978,10 @@ map-obj@^4.0.0, map-obj@^4.1.0:
   resolved "https://registry.yarnpkg.com/map-obj/-/map-obj-4.3.0.tgz#9304f906e93faae70880da102a9f1df0ea8bb05a"
   integrity sha512-hdN1wVrZbb29eBGiGjJbeP8JbKjq1urkHJ/LIP/NY48MZ1QVXUsQBV1G1zvYFHn1XE06cwjBsOI2K3Ulnj1YXQ==
 
-mapbox-gl@2.11.0:
-  version "2.11.0"
-  resolved "https://registry.yarnpkg.com/mapbox-gl/-/mapbox-gl-2.11.0.tgz#fa4839e81bdd6f6d9b9615ceee84bb88adb89b4c"
-  integrity sha512-zXbqHfEQMsta4iKO8bzXapDz1DihvZg24gmPJoQgUYAJxjc0NVVa5G/1QF3TIlpAJDD7WPzQSAogItab5oOF3A==
+mapbox-gl@2.11.1:
+  version "2.11.1"
+  resolved "https://registry.yarnpkg.com/mapbox-gl/-/mapbox-gl-2.11.1.tgz#72b69c29e51505aaf28b93c942b856ccc6b1a4d2"
+  integrity sha512-UzPi3m9i4t95M234sPmL3n9q2XpyHoyIFMXDjuJP+3OmzROwYUMzLcNMnPHrOmgwGicg99dr7rEJGYyEGr9i+A==
   dependencies:
     "@mapbox/geojson-rewind" "^0.5.2"
     "@mapbox/jsonlint-lines-primitives" "^2.0.2"
