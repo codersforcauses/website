@@ -6,7 +6,12 @@ import {
   useEffect,
   useState
 } from 'react'
-import { RegisterOptions } from 'react-hook-form'
+import {
+  FieldError,
+  FieldErrorsImpl,
+  Merge,
+  RegisterOptions
+} from 'react-hook-form'
 import { FormContext } from './utils/form'
 import { FieldControl, FieldLabel, FieldMessage } from './utils'
 
@@ -34,7 +39,11 @@ const TextField = ({
     register,
     setFocus
   } = useContext(FormContext)
-  const error: string = formState?.errors?.[props.name]?.message
+  const error:
+    | string
+    | FieldError
+    | Merge<FieldError, FieldErrorsImpl<any>>
+    | undefined = formState?.errors?.[props.name]?.message
 
   const number: Partial<{
     type: 'text'

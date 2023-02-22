@@ -1,5 +1,6 @@
 import { PropsWithChildren, useMemo } from 'react'
 import {
+  FieldValues,
   FormProvider as HookFormProvider,
   SubmitHandler,
   useForm,
@@ -7,7 +8,7 @@ import {
 } from 'react-hook-form'
 import { FormProps, FormProvider } from './utils/form'
 
-const Form = <T,>({
+const Form = <T extends FieldValues>({
   dark,
   disabled,
   defaultValues,
@@ -50,7 +51,7 @@ const Form = <T,>({
     </HookFormProvider>
   )
 }
-interface HookFormProps<T> extends UseFormProps {
+interface HookFormProps<T extends FieldValues> extends UseFormProps {
   dark?: boolean
   disabled?: boolean
   className?: string

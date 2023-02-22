@@ -1,4 +1,5 @@
-import { createContext, PropsWithChildren, useMemo } from 'react'
+import { createContext, PropsWithChildren, ReactNode, useMemo } from 'react'
+import { FieldError, FieldErrorsImpl, Merge } from 'react-hook-form'
 
 const FieldControlContext = createContext<FieldControlProps>({
   disabled: false,
@@ -23,7 +24,12 @@ export { FieldControlContext, FieldControl }
 
 interface FieldControlProps {
   disabled: boolean
-  error?: string
+  error?:
+    | string
+    | undefined
+    | FieldError
+    | Merge<FieldError, FieldErrorsImpl<any>>
   name: string
   required?: boolean
+  children?: ReactNode
 }
