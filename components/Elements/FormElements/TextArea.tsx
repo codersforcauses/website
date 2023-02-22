@@ -1,5 +1,11 @@
 import { InputHTMLAttributes, memo, useContext } from 'react'
-import { RegisterOptions, useWatch } from 'react-hook-form'
+import {
+  FieldError,
+  FieldErrorsImpl,
+  Merge,
+  RegisterOptions,
+  useWatch
+} from 'react-hook-form'
 import { FormContext } from './utils/form'
 import { FieldControl, FieldLabel, FieldMessage } from './utils'
 
@@ -20,8 +26,11 @@ const TextArea = ({
     disabled: formDisabled,
     register
   } = useContext(FormContext)
-  //@ts-ignore
-  const error: string = formState?.errors?.[props.name]?.message
+  const error:
+    | string
+    | FieldError
+    | Merge<FieldError, FieldErrorsImpl<any>>
+    | undefined = formState?.errors?.[props.name]?.message
 
   const text: string = useWatch({ name: props.name })
 

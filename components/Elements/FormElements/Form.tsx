@@ -8,7 +8,7 @@ import {
 } from 'react-hook-form'
 import { FormProps, FormProvider } from './utils/form'
 
-const Form = <T extends FieldValues,>({
+const Form = <T extends FieldValues>({
   dark,
   disabled,
   defaultValues,

@@ -1,5 +1,10 @@
 import { InputHTMLAttributes, memo, ReactNode, useContext } from 'react'
-import { RegisterOptions } from 'react-hook-form'
+import {
+  FieldError,
+  FieldErrorsImpl,
+  Merge,
+  RegisterOptions
+} from 'react-hook-form'
 import { FormContext } from './utils/form'
 import { FieldControl, FieldLabel, FieldMessage } from './utils'
 
@@ -18,8 +23,11 @@ const CheckFieldProps = ({
     disabled: formDisabled,
     register
   } = useContext(FormContext)
-  //@ts-ignore
-  const error: string = formState?.errors?.[props.name]?.message
+  const error:
+    | string
+    | FieldError
+    | Merge<FieldError, FieldErrorsImpl<any>>
+    | undefined = formState?.errors?.[props.name]?.message
 
   return (
     <FieldControl

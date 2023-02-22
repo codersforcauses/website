@@ -1,5 +1,11 @@
 import { InputHTMLAttributes, useCallback, useContext } from 'react'
-import { RegisterOptions, useFormContext } from 'react-hook-form'
+import {
+  FieldError,
+  FieldErrorsImpl,
+  Merge,
+  RegisterOptions,
+  useFormContext
+} from 'react-hook-form'
 import { RadioGroup as Radio } from '@headlessui/react'
 import { FormContext } from './utils/form'
 import { FieldControl, FieldLabel, FieldMessage } from './utils'
@@ -20,8 +26,11 @@ const RadioGroup = ({
     disabled: formDisabled,
     register
   } = useContext(FormContext)
-  //@ts-ignore
-  const error: string = formState?.errors?.[props.name]?.message
+  const error:
+    | string
+    | FieldError
+    | Merge<FieldError, FieldErrorsImpl<any>>
+    | undefined = formState?.errors?.[props.name]?.message
 
   const { setValue, watch } = useFormContext()
   const selected = watch(props.name)
