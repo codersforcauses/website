@@ -78,5 +78,21 @@
     },
     "location": "UWA EZONE",
     "desc": "Come down to UWA EZONE and talk with representatives from the industry to gain insights into career opportunities as well as tips for the rest of your development career. We will be having amazing speakers who will be speaking about the industry, their experiences and technical knowledge to help you get ahead whether you're a first year or have just graduated."
+  },
+  {
+    "slug": "agm_2023",
+    "tags": ["agm", "meeting"],
+    "title": "Annual General Meeting 2023",
+    "image": {
+      "src": "/events/IMG_2001.JPG",
+      "alt": "Image of people holding an annual general meeting"
+    },
+    "date": "16/03/23",
+    "time": {
+      "start": "5:30pm",
+      "end": "8:30pm"
+    },
+    "location": "UWA EZONE",
+    "desc": "We will be giving a brief recap of the past year, saying bye to the current committee and electing this year’s committee."
   }
 ]
