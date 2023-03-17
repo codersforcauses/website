@@ -134,13 +134,14 @@ const ConstitutionModal = (props: ModalProps) => (
           </ol>
         </li>
         <li>
-          The Committee may at any time call a Special Meeting of the Club.
+          The Committee may at any time call a Special General Meeting of the
+          Club.
         </li>
         <li>
-          The Secretary shall forthwith call a Special Meeting upon receiving a
-          written requisition from at least 10 financial ordinary members of the
-          Club, and such a meeting shall be held no later than ten days
-          immediately following receipt of such a requisition.
+          The Secretary shall forthwith call a Special General Meeting upon
+          receiving a written requisition from at least 10 financial ordinary
+          members of the Club, and such a meeting shall be held no later than
+          ten days immediately following receipt of such a requisition.
         </li>
         <li>
           If the Secretary fails to call the meeting within that time, any of
@@ -174,8 +175,8 @@ const ConstitutionModal = (props: ModalProps) => (
           Council.
         </li>
         <li>
-          The Annual General Meeting of the club must be supervised by at least
-          one Returning Officer who shall:
+          Any General Meetings of the club involving an election must be
+          supervised by at least one Returning Officer who shall:
           <ol role='list'>
             {/* // TODO */}
             <li>Not be contesting the election</li>
@@ -253,7 +254,7 @@ const ConstitutionModal = (props: ModalProps) => (
           No Executive Office Bearer may hold an Executive position
           simultaneously within the club or with another University of WA Club.
           In the event it does happen, The Executive Office Bearer must step
-          down from his/her Executive Position in any of Clubs.
+          down from their Executive Position in any of Clubs.
         </li>
         <li>
           The Committee in meeting may dismiss an Elected Office-Bearer where,
@@ -293,7 +294,7 @@ const ConstitutionModal = (props: ModalProps) => (
               The Ordinary Committee who shall consist of:
               <ul>
                 <li>1 Marketing Officer</li>
-                <li>3 Ordinary Committee Members</li>
+                <li>4 Ordinary Committee Members</li>
                 <li>1 Fresher Representative</li>
               </ul>
               and be elected by the financial Ordinary Members of the Club by
@@ -317,11 +318,11 @@ const ConstitutionModal = (props: ModalProps) => (
         </li>
         <li>
           If an Ordinary Committee Member fails to arrive to a meeting without a
-          valid reason, he/she shall gain a strike. If the same member gains
-          three strikes, he/she shall be removed from the position.
+          valid reason, they shall gain a strike. If the same member gains three
+          strikes, they shall be removed from the position.
         </li>
         <li>
-          If the Client Officer fails to fulfil his/her role, he/she shall be
+          If the Client Officer fails to fulfil their role, they shall be
           subject to the same rules as that of an Executive Office Bearer
           outlined in Article 12.8 of this Constitution.
         </li>
@@ -336,6 +337,16 @@ const ConstitutionModal = (props: ModalProps) => (
           vacancy so created by appointing thereto a member of the Committee
           from the Ordinary Membership, subject to review at the next General
           Meeting.
+        </li>
+        <li>
+          The committee shall therefore have the power to appoint a financial
+          member of the club as an interim Ordinary Committee Member to fill the
+          vacancy.
+        </li>
+        <li>
+          Newly appointed Office Bearers will be ratified at the next General
+          Meeting of the club, which shall be held no later than 2 months after
+          the appointment/s.
         </li>
       </ol>
       <h3 className='mb-2 font-mono text-xl font-black list-heading'>
@@ -352,10 +363,10 @@ const ConstitutionModal = (props: ModalProps) => (
           an agenda of the business to be discussed.
         </li>
         <li>
-          The Secretary shall forthwith call a Special Meeting of the Committee
-          upon receiving a written requisition from at least two members
-          thereof, and such a Special Meeting shall be held not later than seven
-          days immediately following receipt of requisition.
+          The Secretary shall forthwith call a Special General Meeting of the
+          Committee upon receiving a written requisition from at least two
+          members thereof, and such a Special General Meeting shall be held not
+          later than seven days immediately following receipt of requisition.
         </li>
         <li>
           If the Secretary fails to call the meeting within that time, any one
@@ -710,12 +721,30 @@ const ConstitutionModal = (props: ModalProps) => (
         </li>
       </ol>
     </div>
-    <p className='mt-4 mb-8'>Adopted by General Meeting - 18/03/2021</p>
+    <p className='mt-4 mb-8'>Adopted by General Meeting - 16/03/2023</p>
 
     <div className='pl-4 rounded-0 changelog'>
       <h3 className='mb-2 font-mono text-xl font-black'>Changelog</h3>
       <ul className='pl-4 leading-relaxed list-disc'>
-      <li>
+        <li>
+          Update 16/03/2023
+          <ol className='pl-6 ml-2 list-decimal'>
+            <li>
+              Amended the number of Ordinary Committee Members from 3 to 4
+            </li>
+            <li>Changed "he/she" to "they"</li>
+            <li>Changed "Special Meeting" to "Special General Meeting"</li>
+            <li>
+              The committee can appoint a financial club member as an interim
+              Ordinary Committee Member to fill the vacancy.
+            </li>
+            <li>
+              Newly appointed Office Bearers will be ratified at the next
+              General Meeting within 2 months of their appointment/s.
+            </li>
+          </ol>
+        </li>
+        <li>
           Update 18/03/2021
           <ol className='pl-6 ml-2 list-decimal'>
             <li>
