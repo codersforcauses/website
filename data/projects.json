@@ -344,5 +344,51 @@
       "Yun-Chuan Kung",
       "Zach Manson"
     ]
+  },
+  {
+    "id": "WADL",
+    "icon": "devices",
+    "logo": "/clients/wadl_logo_light.png",
+    "dark_logo": "/clients/wadl_logo.svg",
+    "img": "wadl.png",
+    "name": "WADL Draw",
+    "client": "WADL",
+    "type": "Web Application",
+    "date": "December 2022",
+    "purl": "/projects/wadl",
+    "url": "https://wadl.vercel.app/",
+    "source": "https://github.com/codersforcauses/wadl",
+    "impact": [
+      "Improved efficiency",
+      "Enhanced user experience",
+      "Reduction in organisational costs"
+    ],
+    "desc": "A web application to assist the Western Australian Debating League with their seasonal organizational needs. The application allows admins to create tournaments, and teams can register for these tournaments and get assigned to their respective divisions. The fixtures are then displayed to the public, ensuring everyone is up to date",
+    "tech": [
+      { "name": "Firebase", "icon": "firebase" },
+      { "name": "Vercel", "icon": "vercel" },
+      { "name": "Vue", "icon": "vuedotjs" },
+      { "name": "Nuxt.js", "icon": "nuxtdotjs" },
+      { "name": "Tailwind CSS", "icon": "tailwindcss" }
+    ],
+    "members": [
+      "Dominic Cain",
+      "Glen Nguyen",
+      "Chantelle Kerr",
+      "Nicholas Michlin",
+      "Nisarg Dave",
+      "Jamie Turner",
+      "Benjamin Varian",
+      "Nicholas Davies",
+      "Dominic Davies",
+      "James van de Ven",
+      "David Wang",
+      "Carmen Leong",
+      "Ariel Carter",
+      "Ivan Peh",
+      "Michael Downing",
+      "Theresa Nadia",
+      "Zachary Cheng"
+    ]
   }
 ]
