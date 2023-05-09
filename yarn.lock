@@ -1049,10 +1049,10 @@
   resolved "https://registry.yarnpkg.com/@sindresorhus/is/-/is-4.6.0.tgz#3c7c9c46e678feefe7a2e5bb609d3dbd665ffb3f"
   integrity sha512-t09vSN3MdfsyCHoFcTRCH/iUtG7OJ0CsjzB8cjAmKc/va/kIgeDI/TxsigdncE/4be734m0cvIYwNaV4i2XqAw==
 
-"@square/web-payments-sdk-types@1.48.3":
-  version "1.48.3"
-  resolved "https://registry.yarnpkg.com/@square/web-payments-sdk-types/-/web-payments-sdk-types-1.48.3.tgz#8e6b857441a58058c90c1cba8d5b9c19bb9b8014"
-  integrity sha512-bxkjJx08ZLcdtinFl1uSf66EIfAa0Fo3Zfg/xeGbcDmqVNWuqFcxPLzR/FL6OZImO+W0bOmX/t4f/dWTbkb8VA==
+"@square/web-payments-sdk-types@1.48.4":
+  version "1.48.4"
+  resolved "https://registry.yarnpkg.com/@square/web-payments-sdk-types/-/web-payments-sdk-types-1.48.4.tgz#c5c75a865cf209113f1e8ee4819b84e223b01e30"
+  integrity sha512-wMdakTn9mmzIGveBxH65garIkYxDIAixkRZ/3VTB+gUN97EGXQiGdYGE7vaV5Q7Xwm2SSwYQOV6A4psT4+mo6w==
   dependencies:
     typescript "^4.9.5"
 
