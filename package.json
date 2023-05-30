@@ -31,7 +31,7 @@
     "@headlessui/react": "1.7.14",
     "@square/web-sdk": "2.0.1",
     "@tailwindcss/forms": "0.5.3",
-    "critters": "0.0.16",
+    "critters": "0.0.18",
     "dayjs": "1.11.7",
     "mapbox-gl": "2.15.0",
     "mongoose": "6.11.1",
