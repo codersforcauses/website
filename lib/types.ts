@@ -45,6 +45,7 @@ export type Socials =
   | 'bitbucket'
   | 'linkedin'
   | 'website'
+  | 'email'
 
 interface SocialType {
   type: Socials

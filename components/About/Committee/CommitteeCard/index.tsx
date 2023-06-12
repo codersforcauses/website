@@ -28,24 +28,20 @@ const CommitteeCard = ({
       <p className='mb-1 text-secondary/75'>{position}</p>
       <p className='text-sm'>{about}</p>
       <div className='flex items-center space-x-2'>
-        {Object.keys(social).map(item => (
-          <Fragment key={item}>
-            {item === 'email' ? (
+        {Object.entries(social).map(([key, value]) => (
+          <Fragment key={key}>
+            {key === 'email' ? (
               <a
-                // href={'mailto:' + social.email}
+                href={'mailto:' + value}
                 className='flex self-center'
-                // title={social.email}
+                title={value}
               >
                 <span className='material-icons-sharp'>email</span>
               </a>
             ) : (
-              <a
-                target='_blank'
-                rel='noopener noreferrer'
-                // href={social}
-              >
+              <a target='_blank' rel='noopener noreferrer' href={value}>
                 <BrandIcons
-                  icon={item}
+                  icon={key}
                   dimensions={20}
                   className='fill-current'
                 />

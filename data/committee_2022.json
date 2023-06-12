@@ -1,0 +1,142 @@
+[
+  {
+    "name": "Ivy Bui",
+    "position": "President",
+    "about": "",
+    "social": {
+      "email": "president@codersforcauses.org",
+      "github": "https://github.com/ivy0305",
+      "discord": "iv"
+    },
+    "picture": {
+      "src": "/committee/ivydp_22.webp",
+      "alt": "CFC President"
+    }
+  },
+  {
+    "name": "Ash Ithape",
+    "position": "Vice President",
+    "about": "",
+    "social": {
+      "email": "vicepresident@codersforcauses.org",
+      "github": "https://github.com/codewiththedoctor",
+      "discord": "The Doctor"
+    },
+    "picture": {
+      "src": "/committee/ashdp_22.webp",
+      "alt": "CFC Vice President"
+    }
+  },
+  {
+    "name": "Dominic Cain",
+    "position": "Secretary",
+    "about": "",
+    "social": {
+      "email": "secretary@codersforcauses.org",
+      "github": "https://github.com/domcain",
+      "discord": "Dom"
+    },
+    "picture": {
+      "src": "/committee/domdp_22.webp",
+      "alt": "CFC Secretary"
+    }
+  },
+  {
+    "name": "Glen Nguyen",
+    "position": "Treasurer",
+    "about": "",
+    "social": {
+      "email": "treasurer@codersforcauses.org",
+      "github": "https://github.com/GlendleNguyen",
+      "discord": "owodera"
+    },
+    "picture": {
+      "src": "/committee/glendp_22.webp",
+      "alt": "CFC Treasurer"
+    }
+  },
+  {
+    "name": "Nicholas Michlin",
+    "position": "Technical Lead",
+    "about": "",
+    "social": {
+      "email": "dev@codersforcauses.org",
+      "github": "https://github.com/nicodeas",
+      "discord": "Pluto"
+    },
+    "picture": {
+      "src": "/committee/nichmdp_22.webp",
+      "alt": "CFC Tech Lead"
+    }
+  },
+  {
+    "name": "Jun Han Yap",
+    "position": "Marketing Officer",
+    "about": "",
+    "social": {
+      "email": "publicity@codersforcauses.org",
+      "github": "https://github.com/skyheat",
+      "discord": "skyheat"
+    },
+    "picture": {
+      "src": "/committee/jundp_22.webp",
+      "alt": "CFC Marketing Officer"
+    }
+  },
+  {
+    "name": "Jack Sun",
+    "position": "Ordinary Committee Member",
+    "about": "",
+    "social": {
+      "email": "committee@codersforcauses.org",
+      "github": "https://github.com/jsun1590",
+      "discord": "Panc4kes"
+    },
+    "picture": {
+      "src": "/committee/jackdp_22.webp",
+      "alt": "CFC OCM"
+    }
+  },
+  {
+    "name": "Nicholas Choong",
+    "position": "Ordinary Committee Member",
+    "about": "",
+    "social": {
+      "email": "committee@codersforcauses.org",
+      "github": "https://github.com/NicholasChoong",
+      "discord": "Serendipity"
+    },
+    "picture": {
+      "src": "/committee/nickcdp_22.webp",
+      "alt": "CFC OCM"
+    }
+  },
+  {
+    "name": "Chantelle Kerr",
+    "position": "Ordinary Committee Member",
+    "about": "",
+    "social": {
+      "email": "committee@codersforcauses.org",
+      "github": "https://github.com/ChantelleKerr",
+      "discord": "Chantelle"
+    },
+    "picture": {
+      "src": "/committee/chandp_22.webp",
+      "alt": "CFC OCM"
+    }
+  },
+  {
+    "name": "James Frayne",
+    "position": "Fresher Representative",
+    "about": "",
+    "social": {
+      "email": "firstyear@codersforcauses.org",
+      "github": "https://github.com/Semuca",
+      "discord": "Semuca"
+    },
+    "picture": {
+      "src": "/committee/jamesdp_22.webp",
+      "alt": "CFC Fresher Rep."
+    }
+  }
+]
