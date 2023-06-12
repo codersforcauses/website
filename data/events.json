@@ -94,5 +94,21 @@
     },
     "location": "UWA EZONE",
     "desc": "We will be giving a brief recap of the past year, saying bye to the current committee and electing this year’s committee."
+  },
+  {
+    "slug": "winter_projects_2023",
+    "tags": ["project", "social"],
+    "title": "Winter Projects 2023",
+    "image": {
+      "src": "/events/IMG_2001.JPG",
+      "alt": "A winter project workshop"
+    },
+    "date": "24/06/23",
+    "time": {
+      "start": "11:00am",
+      "end": "4:00pm"
+    },
+    "location": "UWA EZONE",
+    "desc": "Get industry level experience and skills by working on fun projects."
   }
 ]
