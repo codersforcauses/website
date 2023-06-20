@@ -45,7 +45,7 @@
     "typed.js": "2.0.132"
   },
   "devDependencies": {
-    "@square/web-payments-sdk-types": "1.49.1",
+    "@square/web-payments-sdk-types": "1.50.0",
     "@types/mapbox-gl": "2.7.11",
     "@types/react": "17.0.62",
     "autoprefixer": "10.4.14",
