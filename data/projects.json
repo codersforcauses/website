@@ -414,7 +414,7 @@
       { "name": "Django", "icon": "django" },
       { "name": "Vercel", "icon": "vercel" },
       { "name": "Vue", "icon": "vuedotjs" },
-      { "name": "Digital Ocean", "icon": "tailwindcss" }
+      { "name": "Digital Ocean", "icon": "digitalocean" }
     ],
     "members": [
       "Amy Neve",
