@@ -361,7 +361,7 @@
     "impact": [
       "Improved efficiency",
       "Enhanced user experience",
-      "Reduction in organisational costs"
+      "Supports First Nations young people"
     ],
     "desc": "A web application to assist the Western Australian Debating League with their seasonal organizational needs. The application allows admins to create tournaments, and teams can register for these tournaments and get assigned to their respective divisions. The fixtures are then displayed to the public, ensuring everyone is up to date",
     "tech": [
@@ -389,6 +389,60 @@
       "Michael Downing",
       "Theresa Nadia",
       "Zachary Cheng"
+    ]
+  },
+  {
+    "id": "CSF",
+    "icon": "devices",
+    "logo": "/clients/csf_logo.png",
+    "dark_logo": "/clients/csf_logo_dark.png",
+    "img": "csf.png",
+    "name": "Stride For Education",
+    "client": "Community Spirit Foundation",
+    "type": "Web Application",
+    "date": "July 2023",
+    "purl": "/projects/csf",
+    "url": "https://stride-for-education.vercel.app/",
+    "source": "https://github.com/codersforcauses/csf",
+    "impact": [
+      "Attracts sponsors to help support First Nations young people",
+      "Enhanced user experience",
+      "Motivates users to be fit and healthy"
+    ],
+    "desc": "A web application that enables participants to track their kilometers while engaging in a walking/running/wheeling challenge.",
+    "tech": [
+      { "name": "Django", "icon": "django" },
+      { "name": "Vercel", "icon": "vercel" },
+      { "name": "Vue", "icon": "vuedotjs" },
+      { "name": "Digital Ocean", "icon": "tailwindcss" }
+    ],
+    "members": [
+      "Amy Neve",
+      "Nisarg Dave",
+      "Frinze Lapuz",
+      "Huxley Berry",
+      "Benjamin Varian",
+      "Chantelle Kerr",
+      "Alex Hawking",
+      "Aji Wuryanto",
+      "Mingxuan Zhou",
+      "Kirsty Straiton",
+      "Adib Rohani",
+      "Jasper Paterson",
+      "Zhanerken Azimbayev",
+      "Aidan McDonald",
+      "Yunn Wadi Tun",
+      "Dhruv Jobanputra",
+      "Ifeoluwa Mejiuni",
+      "Brendan Marc Tan",
+      "Arun Arjunan",
+      "Samit Shaikh",
+      "Shalini Mohan",
+      "Nicholas Michlin",
+      "Drew Alexander",
+      "Jamie Turner",
+      "Jack Sun",
+      "Nicholas Choong"
     ]
   }
 ]
