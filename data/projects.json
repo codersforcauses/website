@@ -361,7 +361,7 @@
     "impact": [
       "Improved efficiency",
       "Enhanced user experience",
-      "Supports First Nations young people"
+      "Reduction in organisational costs"
     ],
     "desc": "A web application to assist the Western Australian Debating League with their seasonal organizational needs. The application allows admins to create tournaments, and teams can register for these tournaments and get assigned to their respective divisions. The fixtures are then displayed to the public, ensuring everyone is up to date",
     "tech": [
