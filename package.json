@@ -46,7 +46,7 @@
   },
   "devDependencies": {
     "@square/web-payments-sdk-types": "1.51.4",
-    "@types/mapbox-gl": "2.7.13",
+    "@types/mapbox-gl": "2.7.14",
     "@types/react": "17.0.65",
     "autoprefixer": "10.4.15",
     "eslint": "8.49.0",
