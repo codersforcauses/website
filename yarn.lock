@@ -1189,10 +1189,10 @@
   dependencies:
     "@types/node" "*"
 
-"@types/mapbox-gl@2.7.14":
-  version "2.7.14"
-  resolved "https://registry.yarnpkg.com/@types/mapbox-gl/-/mapbox-gl-2.7.14.tgz#79a28c431b3f562fcfd10493fb1e38339ae41613"
-  integrity sha512-uoeZncHF7EOGCZTHida8nneFrzBbO5S0Bjvg0AJoGDXpkYkYRN2mq7RK0h+wtXZ/bYbahTFshbLChWBKKWhvyw==
+"@types/mapbox-gl@2.7.15":
+  version "2.7.15"
+  resolved "https://registry.yarnpkg.com/@types/mapbox-gl/-/mapbox-gl-2.7.15.tgz#13e95d56c89037f122ff9a3c9c0473206d5eaf87"
+  integrity sha512-UE0dKAnfnFSut6xnoMiABVUGu/yZpwgr+houGvoW3HZ3RtYzg+NyqOMvASOc5sQf6s7O3P20z3cmtUoZecREjA==
   dependencies:
     "@types/geojson" "*"
 
