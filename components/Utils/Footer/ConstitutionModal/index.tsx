@@ -732,8 +732,11 @@ const ConstitutionModal = (props: ModalProps) => (
             <li>
               Amended the number of Ordinary Committee Members from 3 to 4
             </li>
-            <li>Changed "he/she" to "they"</li>
-            <li>Changed "Special Meeting" to "Special General Meeting"</li>
+            <li>Changed &quot;he/she&quot; to &quot;they&quot;</li>
+            <li>
+              Changed &quot;Special Meeting&quot; to &quot;Special General
+              Meeting&quot;
+            </li>
             <li>
               The committee can appoint a financial club member as an interim
               Ordinary Committee Member to fill the vacancy.
