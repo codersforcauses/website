@@ -48,8 +48,8 @@ const AboutPage = () => (
         <Clients />
         <h3 className='font-mono text-2xl font-black'>Our Sponsors</h3>
         <Sponsors />
-        <h3 className='font-mono text-2xl font-black'>Our Partnered Clubs</h3>
-        <Partners />
+        {/* <h3 className='font-mono text-2xl font-black'>Our Partnered Clubs</h3>
+        <Partners /> */}
         {/* <h3 className='font-mono text-2xl font-black'>Special Thanks</h3>
         <SpecialThanks /> */}
       </div>
