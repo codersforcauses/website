@@ -42,7 +42,7 @@
     "react-hook-form": "7.48.2",
     "simple-icons": "7.21.0",
     "swr": "1.3.0",
-    "typed.js": "2.0.132"
+    "typed.js": "2.1.0"
   },
   "devDependencies": {
     "@square/web-payments-sdk-types": "1.54.0",
