@@ -110,5 +110,21 @@
     },
     "location": "UWA EZONE",
     "desc": "Get industry level experience and skills by working on fun projects."
+  },
+  {
+    "slug": "summer_projects_2023",
+    "tags": ["project", "social"],
+    "title": "Summer Projects 2023",
+    "image": {
+      "src": "/events/IMG_2001.JPG",
+      "alt": "A summer project workshop"
+    },
+    "date": "25/11/23",
+    "time": {
+      "start": "11:00am",
+      "end": "4:00pm"
+    },
+    "location": "UWA EZONE",
+    "desc": "Get industry level experience and skills by working on fun projects."
   }
 ]
