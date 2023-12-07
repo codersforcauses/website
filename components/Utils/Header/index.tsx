@@ -75,7 +75,7 @@ const Header = () => (
           </div>
           <div className='flex items-end ml-3 space-x-3'>
             <DarkToggle />
-            <SignedIn>
+            {/* <SignedIn>
               <SignedInUser />
             </SignedIn>
             <SignedOut>
@@ -84,15 +84,16 @@ const Header = () => (
                   Membership
                 </a>
               </Link> */}
-              <a
-                href='https://docs.google.com/forms/d/e/1FAIpQLSdFiLDBeLGRfotvDU5HcgNO2s-Iutiog3x3EqoOWBwJYKIZAA/viewform'
-                target='_blank'
-                rel='noreferrer noopener'
-                className='px-4 py-1.5 my-px bg-transparent border border-secondary text-secondary hover:bg-secondary hover:text-primary focus:outline-none focus:ring-opacity-0 focus:bg-secondary focus:text-primary'
-              >
-                Join Us
-              </a>
-            </SignedOut>
+
+            {/* </SignedOut> */}
+            <a
+              href='https://docs.google.com/forms/d/e/1FAIpQLSdFiLDBeLGRfotvDU5HcgNO2s-Iutiog3x3EqoOWBwJYKIZAA/viewform'
+              target='_blank'
+              rel='noreferrer noopener'
+              className='px-4 py-1.5 my-px bg-transparent border border-secondary text-secondary hover:bg-secondary hover:text-primary focus:outline-none focus:ring-opacity-0 focus:bg-secondary focus:text-primary'
+            >
+              Join Us
+            </a>
           </div>
         </div>
         <Transition
