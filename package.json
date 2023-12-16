@@ -50,7 +50,7 @@
     "@types/react": "17.0.73",
     "autoprefixer": "10.4.16",
     "eslint": "8.56.0",
-    "eslint-config-next": "12.3.4",
+    "eslint-config-next": "14.0.4",
     "eslint-plugin-jsx-a11y": "6.8.0",
     "postcss": "8.4.32",
     "tailwindcss": "3.3.6",
