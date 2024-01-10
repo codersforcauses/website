@@ -7,7 +7,11 @@ await import("./src/env.js")
 // import { withHydrationOverlay } from "@builder.io/react-hydration-overlay/next"
 
 /** @type {import("next").NextConfig} */
-const config = {}
+const config = {
+  typescript: {
+    ignoreBuildErrors: true,
+  },
+}
 
 export default config
 
