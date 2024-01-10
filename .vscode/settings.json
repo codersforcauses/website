@@ -1,0 +1,13 @@
+{
+  "workbench.colorCustomizations": {
+    "activityBar.activeBackground": "#9bc4cf",
+    "activityBar.background": "#9bc4cf",
+    "activityBar.foreground": "#15202b",
+    "activityBar.inactiveForeground": "#15202b99",
+    "activityBarBadge.background": "#b768a6",
+    "activityBarBadge.foreground": "#15202b"
+  },
+  "peacock.color": "#79b0be",
+  "cSpell.words": ["TRPC"],
+  "git.ignoreLimitWarning": true
+}
