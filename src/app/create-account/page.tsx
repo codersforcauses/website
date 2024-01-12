@@ -23,6 +23,7 @@ import { RadioGroup, RadioGroupItem } from "~/components/ui/radio-group"
 import { Checkbox } from "~/components/ui/checkbox"
 import GithubHeatmap from "../_components/github-heatmap"
 import Link from "next/link"
+import { siDiscord } from "simple-icons"
 
 const pronouns = [
   {
@@ -105,6 +106,7 @@ export default function CreateAccount() {
   const email = searchParams.get("email")
 
   const { isLoaded } = useSignUp()
+
   const form = useForm<FormSchema>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -113,13 +115,13 @@ export default function CreateAccount() {
     },
   })
 
-  const { getValues } = form
-
-  const user_github = getValues().github
-
   if (!isLoaded) {
     return null
   }
+
+  const { getValues } = form
+
+  const user_github = getValues().github
 
   const onSubmit = async (values: FormSchema) => {
     console.log(values)
@@ -133,16 +135,19 @@ export default function CreateAccount() {
             onSubmit={form.handleSubmit(onSubmit)}
             className="space-y-4 md:max-w-md"
           >
-            {/* <Alert>
+            <Alert>
               <span className="material-symbols-sharp size-4 text-xl leading-4">
                 mail
               </span>
-              <AlertTitle>Verification email sent!</AlertTitle>
+              <AlertTitle>Email not found!</AlertTitle>
               <AlertDescription>
-                It can take upto 10 minutes. Make sure to check your spam folder
-                if you can't find it.
+                We couldn't find an account with that email address so you can
+                create a new account here. If you think it was a mistake,{" "}
+                <Button variant="link" className="h-auto p-0 font-normal">
+                  click here to go back
+                </Button>
               </AlertDescription>
-            </Alert> */}
+            </Alert>
             <div className="space-y-2">
               <h2 className="font-semibold leading-none tracking-tight">
                 Personal details
@@ -246,15 +251,6 @@ export default function CreateAccount() {
               )}
             />
             <div className="grid gap-y-4">
-              {/* <div className="space-y-2">
-                  <h2 className="font-semibold leading-none tracking-tight">
-                    Where do you study?
-                  </h2>
-                  <p className="text-sm text-muted-foreground">
-                    If you're a UWA student, please enter your student number.
-                    If not, please select your university.
-                  </p>
-                </div> */}
               <FormField
                 control={form.control}
                 name="isUWA"
@@ -343,7 +339,7 @@ export default function CreateAccount() {
                 />
               )}
             </div>
-            <div className="grid gap-y-4 sm:grid-cols-2 md:gap-x-3">
+            <div className="grid gap-x-2 gap-y-4 sm:grid-cols-2 md:gap-x-3">
               <div className="space-y-2 sm:col-span-2">
                 <h2 className="font-semibold leading-none tracking-tight">
                   Socials
@@ -352,6 +348,34 @@ export default function CreateAccount() {
                   These fields are optional but are required if you plan on
                   applying for projects during the winter and summer breaks.
                 </p>
+                <Alert>
+                  <svg
+                    viewBox="0 0 24 24"
+                    width={16}
+                    height={16}
+                    className="mr-2 fill-current"
+                  >
+                    <title>{siDiscord.title}</title>
+                    <path d={siDiscord.path} />
+                  </svg>
+                  <AlertTitle>Join our Discord!</AlertTitle>
+                  <AlertDescription>
+                    You can join our Discord server at{" "}
+                    <Button
+                      type="button"
+                      variant="link"
+                      className="h-auto p-0 text-current"
+                      asChild
+                    >
+                      <Link
+                        href="http://discord.codersforcauses.org"
+                        target="_blank"
+                      >
+                        discord.codersforcauses.org
+                      </Link>
+                    </Button>
+                  </AlertDescription>
+                </Alert>
               </div>
               <FormField
                 control={form.control}
