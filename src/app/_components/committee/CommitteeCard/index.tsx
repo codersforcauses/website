@@ -1,6 +1,6 @@
 import { Fragment } from "react"
 import Image from "next/image"
-import { ImageProps, Socials } from "~/lib/types"
+import { CardItemProps } from "~/lib/types"
 import { siGithub } from "simple-icons"
 
 const CommitteeCard = ({
@@ -59,15 +59,5 @@ const CommitteeCard = ({
     </div>
   </div>
 )
-
-type Social = Partial<Record<Socials, string>>
-
-export interface CardItemProps {
-  name: string
-  position: string
-  about: string
-  social: Social
-  picture: ImageProps
-}
 
 export default CommitteeCard

@@ -16,3 +16,13 @@ export type Socials =
   | "linkedin"
   | "website"
   | "email"
+
+type Social = Partial<Record<Socials, string>>
+
+export interface CardItemProps {
+  name: string
+  position: string
+  about: string
+  social: Social
+  picture: ImageProps
+}
