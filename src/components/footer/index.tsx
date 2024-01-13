@@ -1,6 +1,13 @@
 import Link from "next/link"
 import Image from "next/image"
-import { siDiscord, siFacebook, siGithub, siLinkedin, siX } from "simple-icons"
+import {
+  siDiscord,
+  siFacebook,
+  siGithub,
+  siInstagram,
+  siLinkedin,
+  siX,
+} from "simple-icons"
 
 import { Button } from "~/components/ui/button"
 import { Dialog, DialogTrigger } from "~/components/ui/dialog"
@@ -61,6 +68,11 @@ const socialLinks = [
     href: "",
     path: siX.path,
     title: siX.title,
+  },
+  {
+    href: "",
+    path: siInstagram.path,
+    title: siInstagram.title,
   },
 ]
 
@@ -162,7 +174,7 @@ const Footer = () => {
           <p className="font-mono text-xs">
             &copy; {new Date().getFullYear()} Coders for Causes
           </p>
-          <div className="grid grid-cols-5 justify-between gap-1">
+          <div className="grid grid-cols-6 justify-between gap-1">
             {socialLinks.map(({ href, title, path }) => (
               <Button asChild key={title} variant="ghost-dark" size="icon">
                 <a href={href}>
