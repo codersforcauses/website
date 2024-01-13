@@ -1,6 +1,6 @@
 import { Fragment } from "react"
 import Image from "next/image"
-import { CardItemProps } from "~/lib/types"
+import { type CardItemProps } from "~/lib/types"
 import { siGithub } from "simple-icons"
 
 const CommitteeCard = ({

@@ -26,7 +26,7 @@ const TypedText = (props: Props) => {
     }
   }, [props.text])
 
-  return <span ref={typedText} data-cy="typer" />
+  return <span ref={typedText} />
 }
 
 export default TypedText

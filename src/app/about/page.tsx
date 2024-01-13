@@ -28,7 +28,7 @@ export default async function About() {
         >
           <div className="container mx-auto">
             <h3 className="mb-4 font-mono text-2xl font-black">
-              Meet the Team
+              2024/25 Committee
             </h3>
             <Committee />
           </div>
@@ -36,9 +36,11 @@ export default async function About() {
 
         <div className="bg-secondary py-12 text-primary dark:bg-alt-dark dark:text-secondary md:py-24 ">
           <div className="container mx-auto space-y-12">
-            <h3 className="font-mono text-2xl font-black">Our Clients</h3>
+            <h3 className="font-mono text-2xl font-black">Past Clients</h3>
             {/* <Clients /> */}
-            <h3 className="font-mono text-2xl font-black">Our Sponsors</h3>
+            <h3 className="font-mono text-2xl font-black">
+              Proudly Sponsored By
+            </h3>
             {/* <Sponsors /> */}
             {/* <h3 className='font-mono text-2xl font-black'>Our Partnered Clubs</h3>
         <Partners /> */}
