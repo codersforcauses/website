@@ -109,7 +109,7 @@ export default async function Home() {
             className="hidden select-none border border-white p-4 sm:block"
           >
             <p>
-              <span className="text-accent">$</span>
+              <span className="text-white">$</span>
               <TypedText
                 text={[
                   'echo "./Innovation with a mission"',

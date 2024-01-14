@@ -6,7 +6,7 @@ interface TypedTitleTextProps {
 }
 const TitleText = ({ children, typed = false }: TypedTitleTextProps) => {
   return (
-    <div className="flex items-center bg-black py-16 font-mono text-secondary md:py-24">
+    <div className="flex items-center bg-black py-16 font-mono text-white md:py-24">
       <div className="container mx-auto">
         <h1 className="text-3xl">
           {typed ? <TypedText text={[children]} /> : children}
