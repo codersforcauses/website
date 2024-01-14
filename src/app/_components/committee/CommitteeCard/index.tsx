@@ -17,10 +17,8 @@ const CommitteeCard = ({
         priority
         src={src}
         alt={alt}
-        layout="fill"
-        objectFit="cover"
-        objectPosition="top"
-        className="h-full w-full"
+        fill
+        className="h-full w-full object-cover object-top"
       />
     </div>
     <div className="absolute inset-x-0 bottom-0 p-4 text-secondary opacity-0 transition-opacity duration-300 group-hover:bg-primary group-hover:opacity-100">

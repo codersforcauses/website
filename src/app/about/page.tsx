@@ -1,12 +1,14 @@
+import Clients from "../_components/clients"
 import Committee from "../_components/committee"
+import Sponsors from "../_components/sponsors"
 import TitleText from "../_components/title-text"
 
 export default async function About() {
   return (
     <main className="main">
       <TitleText typed>./about</TitleText>
-      <div className="container">
-        <div id="_what_we_do" className="my-4 space-y-2">
+      <div className="container my-6 md:grid md:grid-cols-2 md:space-x-6">
+        <div id="_what_we_do" className="space-y-2">
           <h2 className="font-mono text-3xl font-black">
             We build software for charities
           </h2>
@@ -34,7 +36,7 @@ export default async function About() {
             receive the support they need without financial burden.
           </p>
         </div>
-        <div id="_our_mission" className="my-4 space-y-2">
+        <div id="_our_mission" className="space-y-2">
           <h2 className="font-mono text-3xl font-black">Our mission</h2>
           <h3 className="font-black">Empowerment of Organizations</h3>
           <p>
@@ -62,18 +64,14 @@ export default async function About() {
         </div>
       </div>
 
-      <div className="bg-secondary py-12 text-primary dark:bg-alt-dark dark:text-secondary md:py-24 ">
+      <div className="bg-secondary bg-white py-6 text-primary dark:bg-alt-dark dark:text-secondary md:py-12 ">
         <div className="container mx-auto space-y-12">
           <h3 className="font-mono text-2xl font-black">Past Clients</h3>
-          {/* <Clients /> */}
+          <Clients />
           <h3 className="font-mono text-2xl font-black">
-            Proudly Sponsored By
+            Proudly Supported By
           </h3>
-          {/* <Sponsors /> */}
-          {/* <h3 className='font-mono text-2xl font-black'>Our Partnered Clubs</h3>
-        <Partners /> */}
-          {/* <h3 className='font-mono text-2xl font-black'>Special Thanks</h3>
-        <SpecialThanks /> */}
+          <Sponsors />
         </div>
       </div>
     </main>
