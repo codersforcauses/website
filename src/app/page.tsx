@@ -4,6 +4,7 @@ import Image from "next/image"
 import Contact from "~/components/contact"
 import { Button } from "~/components/ui/button"
 import { Collapsible, CollapsibleTrigger } from "~/components/ui/collapsible"
+import TypedText from "./_components/typed-text"
 
 const services = [
   {
@@ -109,6 +110,18 @@ export default async function Home() {
           >
             <p>
               <span className="text-accent">$</span>
+              <TypedText
+                text={[
+                  'echo "./Innovation with a mission"',
+                  "Programming with purpose",
+                  "Do good. ^200Write code",
+                  "Made with code",
+                  "Made with ^500❤",
+                  "#include git.c",
+                  "yarn add codersforcauses",
+                  "sudo rm -rf /",
+                ]}
+              />
             </p>
           </div>
         </div>

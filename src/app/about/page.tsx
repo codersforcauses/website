@@ -5,7 +5,7 @@ export default async function About() {
   return (
     <main className="main">
       <TitleText typed>./about</TitleText>
-      <div className="container">
+      <div className="container grid grid-cols-2">
         <div id="_what_we_do" className="my-4 space-y-2">
           <h2 className="font-mono text-3xl font-black">
             We build software for charities
@@ -25,9 +25,7 @@ export default async function About() {
         className="bg-alt-light py-12 text-primary dark:bg-primary dark:text-secondary md:py-24"
       >
         <div className="container mx-auto">
-          <h3 className="mb-4 font-mono text-2xl font-black">
-            2024/25 Committee
-          </h3>
+          <h3 className="mb-4 font-mono text-2xl font-black">Committee</h3>
           <Committee />
         </div>
       </div>
