@@ -10,7 +10,7 @@ export default async function About() {
           <h2 className="font-mono text-3xl font-black">
             We build software for charities
           </h2>
-          <p className="">
+          <p>
             Coders for Causes is a not for profit organisation that empowers
             charities and other not for profit organisations by connecting them
             with university students to develop technical solutions. We are a
