@@ -56,10 +56,10 @@ export default async function About() {
       </div>
       <div
         id="_meet_the_team"
-        className="bg-alt-light py-12 text-primary dark:bg-primary dark:text-secondary md:py-24"
+        className="bg-alt-light py-12 text-primary dark:bg-alt-dark dark:text-white md:py-24"
       >
         <div className="container mx-auto">
-          <h3 className="mb-4 font-mono text-2xl font-black">Committee</h3>
+          <h3 className="mb-4 font-mono text-2xl font-bold">Committee</h3>
           <Committee />
         </div>
       </div>
