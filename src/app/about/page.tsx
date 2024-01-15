@@ -54,6 +54,7 @@ export default async function About() {
           software development.
         </div>
       </div>
+
       <div
         id="_meet_the_team"
         className="bg-alt-light py-12 text-primary dark:bg-alt-dark dark:text-white md:py-24"
