@@ -4,11 +4,12 @@ interface TypedTitleTextProps {
   children: string
   typed?: boolean
 }
+
 const TitleText = ({ children, typed = false }: TypedTitleTextProps) => {
   return (
-    <div className="flex items-center bg-black py-16 font-mono text-secondary md:py-24">
-      <div className="container mx-auto px-3">
-        <h1 className="text-3xl">
+    <div className="flex items-center bg-black py-16 font-mono text-white md:py-24">
+      <div className="container">
+        <h1 className="text-2xl md:text-3xl">
           {typed ? <TypedText text={[children]} /> : children}
         </h1>
       </div>
