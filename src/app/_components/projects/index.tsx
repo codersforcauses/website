@@ -8,10 +8,9 @@ const ProjectsPage = () => {
       <TitleText typed>./projects</TitleText>
       <div className="container">
         <div>
-          <h2 className="font-mono text-3xl text-black">Our Work</h2>
-          <div>
+          <div className="grid gap-16 py-6 md:grid-cols-3">
             {projectData.map((project) => (
-              <ProjectCard projectDetails={project} />
+              <ProjectCard project={project} />
             ))}
           </div>
         </div>
