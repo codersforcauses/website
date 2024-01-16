@@ -2,6 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
+/* If these values are updated, make sure to update the variables for Square styles as well. */
 @layer base {
   :root {
     --background: 0 0% 100%;
