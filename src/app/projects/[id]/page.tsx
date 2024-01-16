@@ -1,23 +1,31 @@
 "use client"
 
 import { type ProjectModel } from "~/lib/types"
-import { useEffect, useState } from "react"
+import { QueryFunctionContext, useQuery } from "@tanstack/react-query"
 
 const ProjectPage = ({ params: { id } }: { params: { id: string } }) => {
-  const [project, setProject] = useState<ProjectModel | null>(null)
+  // const [project, setProject] = useState<ProjectModel | null>(null)
   console.log(id)
+  const {
+    data: project,
+    isLoading,
+    isError,
+  } = useQuery(["project", id], fetchProject)
 
-  useEffect(() => {
-    fetch(`/api/projects/${id}`)
-      .then((response) => {
-        return response.json()
-      })
-      .then((data: ProjectModel) => setProject(data))
-      .catch((error) => console.error(error))
-  }, [id])
+  if (isLoading) {
+    return (
+      <main className="main">
+        <div>loading</div>
+      </main>
+    )
+  }
 
-  if (!project) {
-    return <div>hi...</div>
+  if (isError) {
+    return (
+      <main className="main">
+        <div>Error fetching data</div>
+      </main>
+    )
   }
 
   return (
@@ -25,6 +33,19 @@ const ProjectPage = ({ params: { id } }: { params: { id: string } }) => {
       <div>{project.name}</div>
     </main>
   )
+}
+
+async function fetchProject(context: QueryFunctionContext<string[]>) {
+  const id = context.queryKey[1]
+  const response = await fetch(`/api/projects/${id}`)
+
+  if (!response.ok) {
+    throw new Error("Failed to fetch project")
+  }
+
+  const data: ProjectModel = (await response.json()) as ProjectModel
+
+  return data
 }
 
 export default ProjectPage
