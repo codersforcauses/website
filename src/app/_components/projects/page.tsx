@@ -2,9 +2,8 @@
 
 import TitleText from "../title-text"
 import projectData from "data/projects.json"
-import ProjectCard from "./ProjectCard"
-import { useState } from "react"
-import ProjectProcessModal from "./ProjectProcessModal"
+import ProjectCard from "./ProjectCard/page"
+import ProjectProcessModal from "./ProjectProcessModal/page"
 
 const ProjectsPage = () => {
   return (

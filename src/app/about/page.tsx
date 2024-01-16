@@ -1,5 +1,5 @@
-import Clients from "../_components/clients"
-import Committee from "../_components/committee"
+import Clients from "../_components/clients/page"
+import Committee from "../_components/committee/page"
 import Sponsors from "../_components/sponsors"
 import TitleText from "../_components/title-text"
 

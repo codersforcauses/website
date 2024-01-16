@@ -1,5 +1,5 @@
 import committee from "data/committee.json"
-import CommitteeCard from "./CommitteeCard"
+import CommitteeCard from "./CommitteeCard/page"
 
 const Committee = () => {
   return (
