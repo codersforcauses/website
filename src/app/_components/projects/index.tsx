@@ -1,6 +1,10 @@
+"use client"
+
 import TitleText from "../title-text"
 import projectData from "data/projects.json"
 import ProjectCard from "./ProjectCard"
+import { useState } from "react"
+import ProjectProcessModal from "./ProjectProcessModal"
 
 const ProjectsPage = () => {
   return (
@@ -16,16 +20,7 @@ const ProjectsPage = () => {
             </div>
           </div>
           <div className="mt-6 text-primary dark:text-white md:w-1/4">
-            <p>
-              If you&apos;re a charity or non-profit looking to potentially work
-              with us, click on the button to see our process.
-            </p>
-            <button
-              className="my-4 w-full border border-primary bg-transparent px-4 py-2 font-mono font-black text-black hover:bg-black hover:text-white focus:bg-black focus:text-white focus:outline-none dark:border-white dark:text-white dark:hover:bg-white dark:hover:text-black dark:focus:bg-white dark:focus:text-black"
-              // onClick={toggleModal}
-            >
-              Project Development
-            </button>
+            <ProjectProcessModal />
           </div>
         </div>
       </div>
