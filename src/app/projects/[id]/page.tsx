@@ -4,8 +4,6 @@ import { type ProjectModel } from "~/lib/types"
 import { QueryFunctionContext, useQuery } from "@tanstack/react-query"
 
 const ProjectPage = ({ params: { id } }: { params: { id: string } }) => {
-  // const [project, setProject] = useState<ProjectModel | null>(null)
-  console.log(id)
   const {
     data: project,
     isLoading,
