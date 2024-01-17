@@ -41,7 +41,7 @@ async function fetchProject(context: QueryFunctionContext<string[]>) {
     throw new Error("Failed to fetch project")
   }
 
-  const data: ProjectModel = (await response.json()) as ProjectModel
+  const data = (await response.json()) as ProjectModel
 
   return data
 }
