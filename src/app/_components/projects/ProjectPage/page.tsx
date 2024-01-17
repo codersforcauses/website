@@ -10,10 +10,7 @@ interface ProjectPageProps {
 }
 
 const ProjectPage = ({ projectId }: ProjectPageProps) => {
-  const { data: project, isError } = useQuery(
-    ["project", projectId],
-    fetchProject,
-  )
+  const { data: project, isError } = useQuery(["project", projectId], fetchProject)
 
   if (isError) {
     return <NotFound />

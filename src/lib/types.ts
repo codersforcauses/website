@@ -8,14 +8,7 @@ export interface ImageProps {
   alt: string
 }
 
-export type Socials =
-  | "discord"
-  | "github"
-  | "gitlab"
-  | "bitbucket"
-  | "linkedin"
-  | "website"
-  | "email"
+export type Socials = "discord" | "github" | "gitlab" | "bitbucket" | "linkedin" | "website" | "email"
 
 type Social = Partial<Record<Socials, string>>
 
