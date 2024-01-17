@@ -11,11 +11,7 @@ import { initTRPC, TRPCError } from "@trpc/server"
 import type * as trpcNext from "@trpc/server/adapters/next"
 import superjson from "superjson"
 import { ZodError } from "zod"
-import {
-  getAuth,
-  type SignedInAuthObject,
-  type SignedOutAuthObject,
-} from "@clerk/nextjs/server"
+import { getAuth, type SignedInAuthObject, type SignedOutAuthObject } from "@clerk/nextjs/server"
 
 interface AuthContext {
   auth: SignedInAuthObject | SignedOutAuthObject
@@ -24,6 +20,7 @@ interface AuthContext {
 export const createContextInner = async ({ auth }: AuthContext) => {
   return {
     auth,
+    db,
   }
 }
 
@@ -39,9 +36,7 @@ export const createContextInner = async ({ auth }: AuthContext) => {
  *
  * @see https://trpc.io/docs/server/context
  */
-export const createTRPCContext = async (
-  opts: trpcNext.CreateNextContextOptions,
-) => {
+export const createTRPCContext = async (opts: trpcNext.CreateNextContextOptions) => {
   return await createContextInner({ auth: getAuth(opts.req) })
 }
 
@@ -59,8 +54,7 @@ const t = initTRPC.context<typeof createTRPCContext>().create({
       ...shape,
       data: {
         ...shape.data,
-        zodError:
-          error.cause instanceof ZodError ? error.cause.flatten() : null,
+        zodError: error.cause instanceof ZodError ? error.cause.flatten() : null,
       },
     }
   },

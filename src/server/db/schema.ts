@@ -5,6 +5,7 @@ import {
   int,
   mysqlTableCreator,
   primaryKey,
+  serial,
   text,
   timestamp,
   varchar,
@@ -31,6 +32,30 @@ export const posts = mysqlTable(
   },
   (example) => ({
     createdByIdIdx: index("createdById_idx").on(example.createdById),
+    nameIndex: index("name_idx").on(example.name),
+  }),
+)
+
+export const users = mysqlTable(
+  "user",
+  {
+    id: serial("id").primaryKey(),
+    clerk_id: varchar("clerk_id", { length: 32 }).notNull(),
+    email: varchar("email", { length: 256 }).notNull(),
+    name: varchar("name", { length: 256 }).notNull(),
+    preferred_name: varchar("preferred_name", { length: 64 }).notNull(),
+    pronouns: varchar("pronouns", { length: 64 }).notNull(),
+    student_number: varchar("student_number", { length: 8 }),
+    university: varchar("university", { length: 128 }),
+    github: varchar("github", { length: 128 }),
+    discord: varchar("discord", { length: 128 }),
+
+    createdAt: timestamp("created_at")
+      .default(sql`CURRENT_TIMESTAMP`)
+      .notNull(),
+    updatedAt: timestamp("updatedAt").onUpdateNow(),
+  },
+  (example) => ({
     nameIndex: index("name_idx").on(example.name),
   }),
 )
