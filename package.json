@@ -83,12 +83,13 @@
     "drizzle-kit": "0.20.13",
     "eslint": "8.56.0",
     "eslint-config-next": "14.0.4",
+    "husky": "8.0.0",
+    "lint-staged": "15.2.0",
     "mysql2": "3.7.0",
     "postcss": "8.4.33",
     "prettier": "3.2.2",
     "prettier-plugin-tailwindcss": "0.5.11",
     "tailwindcss": "3.4.1",
-    "typescript": "5.3.3",
-    "husky": "8.0.0"
+    "typescript": "5.3.3"
   }
 }
