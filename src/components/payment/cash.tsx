@@ -5,15 +5,7 @@ import { useForm } from "react-hook-form"
 import * as z from "zod"
 
 import { Button } from "~/components/ui/button"
-import {
-  Form,
-  FormControl,
-  FormDescription,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "~/components/ui/form"
+import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "~/components/ui/form"
 import { Input } from "~/components/ui/input"
 
 const formSchema = z.object({
@@ -49,8 +41,7 @@ const CashPaymentForm = () => {
                 <Input {...field} />
               </FormControl>
               <FormDescription>
-                To verify your payment, have a committee member enter the
-                confirmation code.
+                To verify your payment, have a committee member enter the confirmation code.
               </FormDescription>
               <FormMessage />
             </FormItem>

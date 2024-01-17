@@ -20,10 +20,7 @@ export default function Verification() {
       } catch (err) {
         // Verification has failed.
         let status = "failed"
-        if (
-          isEmailLinkError(err as Error) &&
-          err.code === EmailLinkErrorCode.Expired
-        ) {
+        if (isEmailLinkError(err as Error) && err.code === EmailLinkErrorCode.Expired) {
           status = "expired"
         }
         setVerificationStatus(status)
@@ -36,23 +33,11 @@ export default function Verification() {
 
   switch (verificationStatus) {
     case "loading":
-      return (
-        <main className="main container grid place-items-center text-xl">
-          Loading...
-        </main>
-      )
+      return <main className="main container grid place-items-center text-xl">Loading...</main>
     case "expired":
-      return (
-        <main className="main container grid place-items-center text-xl">
-          Verification link has expired!
-        </main>
-      )
+      return <main className="main container grid place-items-center text-xl">Verification link has expired!</main>
     case "failed":
-      return (
-        <main className="main container grid place-items-center text-xl">
-          Verification failed!
-        </main>
-      )
+      return <main className="main container grid place-items-center text-xl">Verification failed!</main>
     default:
       return (
         <main className="main container grid place-items-center text-xl">

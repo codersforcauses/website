@@ -64,9 +64,7 @@ const UserButton = () => {
         <DropdownMenuSeparator /> */}
         <DropdownMenuItem onSelect={userSignOut}>
           {/* <LogOut className="mr-2 h-4 w-4" /> */}
-          <span className="material-symbols-sharp text mr-1 text-xl leading-none">
-            logout
-          </span>
+          <span className="material-symbols-sharp text mr-1 text-xl leading-none">logout</span>
           <span>Log out</span>
           {/* <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut> */}
         </DropdownMenuItem>

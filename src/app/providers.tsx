@@ -9,15 +9,8 @@ export default async function Providers({ children }: PropsWithChildren) {
   return (
     <>
       {/* <HydrationOverlay> */}
-      <ThemeProvider
-        enableSystem
-        disableTransitionOnChange
-        attribute="class"
-        defaultTheme="system"
-      >
-        <TRPCReactProvider cookies={cookies().toString()}>
-          {children}
-        </TRPCReactProvider>
+      <ThemeProvider enableSystem disableTransitionOnChange attribute="class" defaultTheme="system">
+        <TRPCReactProvider cookies={cookies().toString()}>{children}</TRPCReactProvider>
       </ThemeProvider>
       {/* </HydrationOverlay> */}
     </>

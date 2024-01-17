@@ -18,15 +18,7 @@ import {
 
 import { env } from "~/env"
 
-import {
-  Form,
-  FormControl,
-  FormDescription,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "~/components/ui/form"
+import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "~/components/ui/form"
 import { Input } from "~/components/ui/input"
 import { Button } from "~/components/ui/button"
 import { Skeleton } from "~/components/ui/skeleton"
@@ -88,9 +80,7 @@ const OnlinePaymentForm = ({
   const btnRef = React.useRef<HTMLButtonElement>(null)
   const [paymentInstance, setPaymentInstance] = React.useState<Payments>()
   const [card, setCard] = React.useState<Card | undefined>(() => undefined)
-  const [googlePay, setGooglePay] = React.useState<GooglePay | undefined>(
-    () => undefined,
-  )
+  const [googlePay, setGooglePay] = React.useState<GooglePay | undefined>(() => undefined)
   // initialize payment instance
   React.useEffect(() => {
     const abortController = new AbortController()
@@ -214,18 +204,13 @@ const OnlinePaymentForm = ({
       })
   }, [googlePay, theme])
 
-  const cardTokenizeResponseReceived = async (
-    result: TokenResult,
-  ): Promise<void> => {
+  const cardTokenizeResponseReceived = async (result: TokenResult): Promise<void> => {
     if (result.errors) {
       await props.cardTokenizeResponseReceived(result)
       return
     }
 
-    const verifyBuyerResults = await paymentInstance?.verifyBuyer(
-      String(result.token),
-      storeVerificationDetails(),
-    )
+    const verifyBuyerResults = await paymentInstance?.verifyBuyer(String(result.token), storeVerificationDetails())
     await props.cardTokenizeResponseReceived(result, verifyBuyerResults)
   }
 
@@ -263,9 +248,7 @@ const OnlinePaymentForm = ({
     e.stopPropagation()
 
     if (!googlePay) {
-      console.warn(
-        "Google Pay button was clicked, but no Google Pay instance was found.",
-      )
+      console.warn("Google Pay button was clicked, but no Google Pay instance was found.")
 
       return
     }
@@ -296,13 +279,7 @@ const OnlinePaymentForm = ({
         {!card && <Skeleton className="mb-4 h-20 w-full" />}
         <div id={containerID} className="min-h-10" />
         {card && (
-          <Button
-            type="button"
-            id={buttonID}
-            ref={btnRef}
-            className="w-full"
-            onClick={handleCardPayment}
-          >
+          <Button type="button" id={buttonID} ref={btnRef} className="w-full" onClick={handleCardPayment}>
             Pay ${Number(amount)}
           </Button>
         )}

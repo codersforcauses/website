@@ -5,14 +5,7 @@ import { useForm } from "react-hook-form"
 import * as z from "zod"
 
 import { CollapsibleContent } from "~/components/ui/collapsible"
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "~/components/ui/form"
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "~/components/ui/form"
 import { Input } from "~/components/ui/input"
 import { Button } from "~/components/ui/button"
 import { Textarea } from "~/components/ui/textarea"
@@ -57,10 +50,7 @@ const Contact = () => {
   return (
     <CollapsibleContent>
       <Form {...form}>
-        <form
-          onSubmit={form.handleSubmit(onSubmit)}
-          className="max-w-xl space-y-4"
-        >
+        <form onSubmit={form.handleSubmit(onSubmit)} className="max-w-xl space-y-4">
           <FormField
             control={form.control}
             name="name"
@@ -97,11 +87,7 @@ const Contact = () => {
               <FormItem dark>
                 <FormLabel className="font-mono">Email</FormLabel>
                 <FormControl>
-                  <Input
-                    dark
-                    placeholder="hello@codersforcauses.org"
-                    {...field}
-                  />
+                  <Input dark placeholder="hello@codersforcauses.org" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -114,11 +100,7 @@ const Contact = () => {
               <FormItem dark>
                 <FormLabel className="font-mono">Message</FormLabel>
                 <FormControl>
-                  <Textarea
-                    dark
-                    placeholder="Write a short message here to get things started"
-                    {...field}
-                  />
+                  <Textarea dark placeholder="Write a short message here to get things started" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>

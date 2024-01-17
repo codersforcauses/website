@@ -15,9 +15,7 @@ const ThemeSwitcher = () => {
 
   return (
     <Button variant="ghost-dark" size="icon" onClick={switchTheme}>
-      <span className="material-symbols-sharp">
-        {isDark ? "dark_mode" : "light_mode"}
-      </span>
+      <span className="material-symbols-sharp">{isDark ? "dark_mode" : "light_mode"}</span>
     </Button>
   )
 }
