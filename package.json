@@ -10,7 +10,8 @@
     "dev": "next dev",
     "lint": "next lint",
     "start": "next start",
-    "prettier:fix": "prettier --write ."
+    "prettier:fix": "prettier --write .",
+    "prepare": "husky install"
   },
   "dependencies": {
     "@clerk/nextjs": "4.29.3",
@@ -87,6 +88,7 @@
     "prettier": "3.2.2",
     "prettier-plugin-tailwindcss": "0.5.11",
     "tailwindcss": "3.4.1",
-    "typescript": "5.3.3"
+    "typescript": "5.3.3",
+    "husky": "8.0.0"
   }
 }
