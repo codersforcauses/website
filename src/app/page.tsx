@@ -4,6 +4,7 @@ import Image from "next/image"
 import Contact from "~/components/contact"
 import { Button } from "~/components/ui/button"
 import { Collapsible, CollapsibleTrigger } from "~/components/ui/collapsible"
+import TypedText from "./_components/typed-text"
 
 const services = [
   {
@@ -92,7 +93,19 @@ export default async function Home() {
           </div>
           <div aria-hidden className="hidden select-none border border-white p-4 sm:block">
             <p>
-              <span className="text-accent">$</span>
+              <span className="text-white">$</span>
+              <TypedText
+                text={[
+                  'echo "./Innovation with a mission"',
+                  "Programming with purpose",
+                  "Do good. ^200Write code",
+                  "Made with code",
+                  "Made with ^500❤",
+                  "#include git.c",
+                  "yarn add codersforcauses",
+                  "sudo rm -rf /",
+                ]}
+              />
             </p>
           </div>
         </div>
