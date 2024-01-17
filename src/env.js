@@ -10,13 +10,8 @@ export const env = createEnv({
     DATABASE_URL: z
       .string()
       .url()
-      .refine(
-        (str) => !str.includes("YOUR_MYSQL_URL_HERE"),
-        "You forgot to change the default URL",
-      ),
-    NODE_ENV: z
-      .enum(["development", "test", "production"])
-      .default("development"),
+      .refine((str) => !str.includes("YOUR_MYSQL_URL_HERE"), "You forgot to change the default URL"),
+    NODE_ENV: z.enum(["development", "test", "production"]).default("development"),
     CLERK_SECRET_KEY: z.string(),
     SQUARE_ACCESS_TOKEN: z.string(),
   },
@@ -31,8 +26,7 @@ export const env = createEnv({
     NEXT_PUBLIC_SQUARE_APP_ID: z
       .string()
       .refine(
-        (str) =>
-          !(str.includes("sandbox") && process.env.NODE_ENV === "production"),
+        (str) => !(str.includes("sandbox") && process.env.NODE_ENV === "production"),
         "Update Square keys to production keys",
       ),
     NEXT_PUBLIC_SQUARE_LOCATION_ID: z.string(),
@@ -46,8 +40,7 @@ export const env = createEnv({
     DATABASE_URL: process.env.DATABASE_URL,
     NODE_ENV: process.env.NODE_ENV,
     CLERK_SECRET_KEY: process.env.CLERK_SECRET_KEY,
-    NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY:
-      process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY,
+    NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY: process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY,
     SQUARE_ACCESS_TOKEN: process.env.SQUARE_ACCESS_TOKEN,
     NEXT_PUBLIC_SQUARE_APP_ID: process.env.NEXT_PUBLIC_SQUARE_APP_ID,
     NEXT_PUBLIC_SQUARE_LOCATION_ID: process.env.NEXT_PUBLIC_SQUARE_LOCATION_ID,
