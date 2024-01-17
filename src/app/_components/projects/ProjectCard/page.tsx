@@ -10,7 +10,7 @@ interface ProjectCardProps {
 }
 
 const ProjectCard = ({ project }: ProjectCardProps) => {
-  const { theme } = useTheme()
+  const { resolvedTheme: theme } = useTheme()
 
   return (
     <div className="relative aspect-square bg-alt-light hover:cursor-pointer dark:bg-black">

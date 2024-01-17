@@ -1,7 +1,7 @@
 "use client"
 
-import { ProjectModel } from "~/lib/types"
-import { QueryFunctionContext, useQuery } from "@tanstack/react-query"
+import { type ProjectModel } from "~/lib/types"
+import { type QueryFunctionContext, useQuery } from "@tanstack/react-query"
 import NotFound from "~/app/not-found"
 import { Suspense } from "react"
 

@@ -36,9 +36,9 @@ const ProjectProcessModal = () => {
                 <p>
                   The focus here is refining the project specifications &ndash; what is being developed at each stage of
                   the project, down to the specific features. The purpose here is to get to the core functionality of
-                  the product which we build in the ‘first leg’ of the project, followed by the other features - which
-                  make your application robust - in additional stages if necessary. This stage can occur in person, via
-                  email threads or both.
+                  the product which we build in the &apos;first leg&apos; of the project, followed by the other features
+                  - which make your application robust - in additional stages if necessary. This stage can occur in
+                  person, via email threads or both.
                 </p>
               </div>
               <div className="space-y-2">
