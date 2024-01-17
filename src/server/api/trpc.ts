@@ -7,22 +7,12 @@
  * need to use are documented accordingly near the end.
  */
 
+import { currentUser } from "@clerk/nextjs"
 import { initTRPC, TRPCError } from "@trpc/server"
-import type * as trpcNext from "@trpc/server/adapters/next"
 import superjson from "superjson"
 import { ZodError } from "zod"
-import { getAuth, type SignedInAuthObject, type SignedOutAuthObject } from "@clerk/nextjs/server"
 
-interface AuthContext {
-  auth: SignedInAuthObject | SignedOutAuthObject
-}
-
-export const createContextInner = async ({ auth }: AuthContext) => {
-  return {
-    auth,
-    db,
-  }
-}
+import { db } from "~/server/db"
 
 /**
  * 1. CONTEXT
@@ -36,8 +26,14 @@ export const createContextInner = async ({ auth }: AuthContext) => {
  *
  * @see https://trpc.io/docs/server/context
  */
-export const createTRPCContext = async (opts: trpcNext.CreateNextContextOptions) => {
-  return await createContextInner({ auth: getAuth(opts.req) })
+export const createTRPCContext = async (opts: { headers: Headers }) => {
+  const user = await currentUser()
+
+  return {
+    db,
+    user,
+    ...opts,
+  }
 }
 
 /**
@@ -85,12 +81,12 @@ export const publicProcedure = t.procedure
 
 /** Reusable middleware that enforces users are logged in before running the procedure. */
 const enforceUserIsAuthed = t.middleware(({ ctx, next }) => {
-  if (!ctx.auth.userId) {
+  if (!ctx.user?.id) {
     throw new TRPCError({ code: "UNAUTHORIZED" })
   }
   return next({
     ctx: {
-      auth: ctx.auth,
+      user: ctx.user,
     },
   })
 })

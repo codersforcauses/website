@@ -17,7 +17,7 @@ import {
  *
  * @see https://orm.drizzle.team/docs/goodies#multi-project-schema
  */
-export const mysqlTable = mysqlTableCreator((name) => `website_${name}`)
+export const mysqlTable = mysqlTableCreator((name) => `cfc-website_${name}`)
 
 export const posts = mysqlTable(
   "post",
