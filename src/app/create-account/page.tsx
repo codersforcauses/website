@@ -12,15 +12,7 @@ import * as z from "zod"
 import { Alert, AlertDescription, AlertTitle } from "~/components/ui/alert"
 import { Button } from "~/components/ui/button"
 import { Checkbox } from "~/components/ui/checkbox"
-import {
-  Form,
-  FormControl,
-  FormDescription,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "~/components/ui/form"
+import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "~/components/ui/form"
 import { Input } from "~/components/ui/input"
 import { RadioGroup, RadioGroupItem } from "~/components/ui/radio-group"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "~/components/ui/tabs"
@@ -31,515 +23,432 @@ import CashPaymentForm from "~/components/payment/cash"
 import { cn } from "~/lib/utils"
 
 const pronouns = [
-  {
-    label: "He/Him",
-    value: "he/him",
-  },
-  {
-    label: "She/Her",
-    value: "she/her",
-  },
-  {
-    label: "They/Them",
-    value: "they/them",
-  },
+	{
+		label: "He/Him",
+		value: "he/him",
+	},
+	{
+		label: "She/Her",
+		value: "she/her",
+	},
+	{
+		label: "They/Them",
+		value: "they/them",
+	},
 ] as const
 
 const uni = [
-  {
-    label: "Curtin University",
-    value: "curtin",
-  },
-  {
-    label: "Edith Cowan University",
-    value: "ecu",
-  },
-  {
-    label: "Murdoch University",
-    value: "murdoch",
-  },
-  {
-    label: "University of Notre Dame",
-    value: "notre-dame",
-  },
-  {
-    label: "TAFE",
-    value: "tafe",
-  },
+	{
+		label: "Curtin University",
+		value: "curtin",
+	},
+	{
+		label: "Edith Cowan University",
+		value: "ecu",
+	},
+	{
+		label: "Murdoch University",
+		value: "murdoch",
+	},
+	{
+		label: "University of Notre Dame",
+		value: "notre-dame",
+	},
+	{
+		label: "TAFE",
+		value: "tafe",
+	},
 ] as const
 
 const formSchema = z.object({
-  name: z.string().min(2, {
-    message: "Name is required",
-  }),
-  preferred_name: z.string().min(2, {
-    message: "Preferred name is required",
-  }),
-  email: z
-    .string()
-    .email({
-      message: "Invalid email address",
-    })
-    .min(2, {
-      message: "Email is required",
-    }),
-  pronouns: z.enum(pronouns.map((p) => p.value)),
-  isUWA: z.boolean(),
-  student_number: z.string().optional(),
-  uni: z.string().optional(),
-  github: z.string().optional(),
-  discord: z.string().optional(),
-  subscribe: z.boolean(),
+	name: z.string().min(2, {
+		message: "Name is required",
+	}),
+	preferred_name: z.string().min(2, {
+		message: "Preferred name is required",
+	}),
+	email: z
+		.string()
+		.email({
+			message: "Invalid email address",
+		})
+		.min(2, {
+			message: "Email is required",
+		}),
+	pronouns: z.enum(pronouns.map((p) => p.value)),
+	isUWA: z.boolean(),
+	student_number: z.string().optional(),
+	uni: z.string().optional(),
+	github: z.string().optional(),
+	discord: z.string().optional(),
+	subscribe: z.boolean(),
 })
 
 type FormSchema = z.infer<typeof formSchema>
 
 const defaultValues = {
-  name: "",
-  preferred_name: "",
-  pronouns: "he/him",
-  isUWA: true,
-  student_number: "",
-  uni: "",
-  github: "",
-  discord: "",
-  subscribe: true,
+	name: "",
+	preferred_name: "",
+	pronouns: "he/him",
+	isUWA: true,
+	student_number: "",
+	uni: "",
+	github: "",
+	discord: "",
+	subscribe: true,
 }
 
 const inactiveWindowClass = "blur select-none pointer-events-none"
 
 export default function CreateAccount() {
-  const [active, setActive] = React.useState(false)
-  // const router = useRouter()
-  const searchParams = useSearchParams()
+	const [active, setActive] = React.useState(false)
+	// const router = useRouter()
+	const searchParams = useSearchParams()
 
-  const email = searchParams.get("email")
+	const email = searchParams.get("email")
 
-  // const { isLoaded } = useSignUp()
+	// const { isLoaded } = useSignUp()
 
-  const form = useForm<FormSchema>({
-    resolver: zodResolver(formSchema),
-    defaultValues: {
-      ...defaultValues,
-      email: email ?? "",
-    },
-  })
+	const form = useForm<FormSchema>({
+		resolver: zodResolver(formSchema),
+		defaultValues: {
+			...defaultValues,
+			email: email ?? "",
+		},
+	})
 
-  // if (!isLoaded) return null
+	// if (!isLoaded) return null
 
-  const { getValues } = form
+	const { getValues } = form
 
-  // const user_github = getValues().github
+	// const user_github = getValues().github
 
-  const onSubmit = async (values: FormSchema) => {
-    console.log(values)
-  }
+	const onSubmit = async (values: FormSchema) => {
+		console.log(values)
+	}
 
-  return (
-    <div className="container grid gap-x-8 gap-y-4 py-8 md:grid-cols-2 md:gap-y-8 lg:gap-x-16">
-      <Alert className="md:col-span-2">
-        <span className="material-symbols-sharp size-4 text-xl leading-4">
-          mail
-        </span>
-        <AlertTitle>Email not found!</AlertTitle>
-        <AlertDescription>
-          We couldn't find an account with that email address so you can create
-          a new account here. If you think it was a mistake,{" "}
-          <Button variant="link" className="h-auto p-0">
-            <Link replace href="/join">
-              click here to go back
-            </Link>
-          </Button>
-        </AlertDescription>
-      </Alert>
-      <Form {...form}>
-        <form
-          onSubmit={form.handleSubmit(onSubmit)}
-          className={cn("space-y-4", active && inactiveWindowClass)}
-        >
-          <div className="space-y-2">
-            <h2 className="font-semibold leading-none tracking-tight">
-              Personal details
-            </h2>
-            <p className="text-sm text-muted-foreground">
-              All fields here are required.
-            </p>
-          </div>
-          <FormField
-            control={form.control}
-            name="email"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel className="font-mono">Email address</FormLabel>
-                <FormControl>
-                  <Input
-                    type="email"
-                    placeholder="john.doe@codersforcauses.org"
-                    {...field}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="name"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel className="font-mono">Full name</FormLabel>
-                <FormControl>
-                  <Input
-                    autoComplete="name"
-                    placeholder="John Doe"
-                    {...field}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="preferred_name"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel className="font-mono">Preferred name</FormLabel>
-                <FormControl>
-                  <Input
-                    autoComplete="given-name"
-                    placeholder="John"
-                    {...field}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="pronouns"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel className="font-mono">Pronouns</FormLabel>
-                <FormControl>
-                  <RadioGroup
-                    onValueChange={field.onChange}
-                    defaultValue={field.value}
-                    className="grid grid-cols-2 sm:grid-cols-3"
-                  >
-                    {pronouns.map(({ label, value }) => (
-                      <FormItem
-                        key={value}
-                        className="flex h-6 items-center space-x-3 space-y-0"
-                      >
-                        <FormControl>
-                          <RadioGroupItem value={value} />
-                        </FormControl>
-                        <FormLabel className="font-normal">{label}</FormLabel>
-                      </FormItem>
-                    ))}
-                    <FormItem className="flex h-6 items-center space-x-3 space-y-0">
-                      <FormControl>
-                        <RadioGroupItem value="other" />
-                      </FormControl>
-                      <FormControl>
-                        <Input
-                          placeholder="Other pronouns"
-                          {...field}
-                          disabled
-                          className="h-8"
-                        />
-                      </FormControl>
-                      <FormLabel className="sr-only">Neo-pronouns</FormLabel>
-                    </FormItem>
-                  </RadioGroup>
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <div className="grid gap-y-4">
-            <FormField
-              control={form.control}
-              name="isUWA"
-              render={({ field }) => (
-                <FormItem className="flex flex-row items-center space-x-3 space-y-0 pt-2">
-                  <FormControl>
-                    <Checkbox
-                      checked={field.value}
-                      onCheckedChange={field.onChange}
-                    />
-                  </FormControl>
-                  <FormLabel className="font-mono">I'm a UWA student</FormLabel>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            {getValues().isUWA ? (
-              <FormField
-                control={form.control}
-                name="student_number"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel className="font-mono">
-                      UWA student number
-                    </FormLabel>
-                    <FormControl>
-                      <Input
-                        placeholder="21012345"
-                        inputMode="numeric"
-                        {...field}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-            ) : (
-              <FormField
-                control={form.control}
-                name="uni"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel className="font-mono">University</FormLabel>
-                    <FormControl>
-                      <RadioGroup
-                        onValueChange={field.onChange}
-                        defaultValue={field.value}
-                        className="grid sm:grid-cols-2"
-                      >
-                        {uni.map(({ label, value }) => (
-                          <FormItem
-                            key={value}
-                            className="flex h-6 items-center space-x-3 space-y-0"
-                          >
-                            <FormControl>
-                              <RadioGroupItem value={value} />
-                            </FormControl>
-                            <FormLabel className="font-normal">
-                              {label}
-                            </FormLabel>
-                          </FormItem>
-                        ))}
-                        <FormItem className="flex h-6 items-center space-x-3 space-y-0">
-                          <FormControl>
-                            <RadioGroupItem value="other" />
-                          </FormControl>
-                          <FormControl>
-                            <Input
-                              placeholder="Other university"
-                              {...field}
-                              disabled
-                              className="h-8"
-                            />
-                          </FormControl>
-                          <FormLabel className="sr-only">
-                            Unlisted university
-                          </FormLabel>
-                        </FormItem>
-                      </RadioGroup>
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-            )}
-          </div>
-          <div className="grid gap-x-2 gap-y-4 sm:grid-cols-2 md:gap-x-3">
-            <div className="space-y-2 sm:col-span-2">
-              <h2 className="font-semibold leading-none tracking-tight">
-                Socials
-              </h2>
-              <p className="text-sm text-muted-foreground">
-                These fields are optional but are required if you plan on
-                applying for projects during the winter and summer breaks.
-              </p>
-              <Alert>
-                <svg
-                  viewBox="0 0 24 24"
-                  width={16}
-                  height={16}
-                  className="mr-2 fill-current"
-                >
-                  <title>{siDiscord.title}</title>
-                  <path d={siDiscord.path} />
-                </svg>
-                <AlertTitle>Join our Discord!</AlertTitle>
-                <AlertDescription>
-                  You can join our Discord server at{" "}
-                  <Button
-                    type="button"
-                    variant="link"
-                    className="h-auto p-0 text-current"
-                    asChild
-                  >
-                    <Link
-                      href="http://discord.codersforcauses.org"
-                      target="_blank"
-                    >
-                      discord.codersforcauses.org
-                    </Link>
-                  </Button>
-                </AlertDescription>
-              </Alert>
-            </div>
-            <FormField
-              control={form.control}
-              name="github"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel className="font-mono">Github username</FormLabel>
-                  <FormControl>
-                    <Input placeholder="johndoe" {...field} />
-                  </FormControl>
-                  <FormDescription>
-                    Sign up at{" "}
-                    <Button
-                      type="button"
-                      variant="link"
-                      className="h-auto p-0 text-current"
-                      asChild
-                    >
-                      <Link href="https://github.com/signup" target="_blank">
-                        github.com/signup
-                      </Link>
-                    </Button>
-                  </FormDescription>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="discord"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel className="font-mono">Discord username</FormLabel>
-                  <FormControl>
-                    <Input placeholder="john_doe" {...field} />
-                  </FormControl>
-                  <FormDescription>
-                    Sign up at{" "}
-                    <Button
-                      type="button"
-                      variant="link"
-                      className="h-auto p-0 text-current"
-                      asChild
-                    >
-                      <Link href="https://discord.com/register" target="_blank">
-                        discord.com/register
-                      </Link>
-                    </Button>
-                  </FormDescription>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-          </div>
-          <FormField
-            control={form.control}
-            name="subscribe"
-            render={({ field }) => (
-              <FormItem className="flex flex-row items-center space-x-3 space-y-0">
-                <FormControl>
-                  <Checkbox
-                    checked={field.value}
-                    onCheckedChange={field.onChange}
-                  />
-                </FormControl>
-                <FormLabel className="text-sm">
-                  I wish to receive emails about future CFC events
-                </FormLabel>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <Button type="submit" className="w-full">
-            Next
-          </Button>
-        </form>
-      </Form>
-      <div className={cn("space-y-4", active && inactiveWindowClass)}>
-        <div className="space-y-2">
-          <h2 className="font-semibold leading-none tracking-tight">Payment</h2>
-          <div className="text-sm text-muted-foreground">
-            <p>
-              Become a paying member of Coders for Causes for just $5 a year
-              (ends on 31st Dec {new Date().getFullYear()}). There are many
-              benefits to becoming a member which include:
-            </p>
-            <ul className="list-inside list-disc">
-              <li>discounts to paid events such as industry nights</li>
-              <li>the ability to vote and run for committee positions</li>
-              <li>
-                the ability to join our projects run during the winter and
-                summer breaks.
-              </li>
-            </ul>
-          </div>
-        </div>
-        <Tabs defaultValue="online">
-          <TabsList className="w-full">
-            <TabsTrigger value="online" className="w-full">
-              Online
-            </TabsTrigger>
-            <TabsTrigger value="in-person" className="w-full">
-              In-person
-            </TabsTrigger>
-          </TabsList>
-          <TabsContent value="online" className="space-y-4">
-            <p className="text-sm text-muted-foreground">
-              Our online payment system is handled by{" "}
-              <Button asChild variant="link" className="h-auto p-0">
-                <Link href="https://squareup.com/au/en" target="_blank">
-                  Square
-                </Link>
-              </Button>
-              . We do not store your card details but we do record the
-              information Square provides us after confirming your card.
-            </p>
-            <OnlinePaymentForm />
-          </TabsContent>
-          <TabsContent value="in-person" className="space-y-4">
-            <p className="text-sm text-muted-foreground">
-              We accept cash and card payments in-person. We use{" "}
-              <Button asChild variant="link" className="h-auto p-0">
-                <Link href="https://squareup.com/au/en" target="_blank">
-                  Square's
-                </Link>
-              </Button>{" "}
-              Point-of-Sale terminals to accept card payments. Reach out to a
-              committee member via our Discord or a CFC event to pay in-person.
-            </p>
-            <CashPaymentForm />
-          </TabsContent>
-        </Tabs>
-        <div className="relative select-none">
-          <div className="absolute inset-0 flex items-center">
-            <span className="w-full border-t" />
-          </div>
-          <div className="relative flex justify-center text-xs uppercase">
-            <span className="bg-background px-2 text-muted-foreground">Or</span>
-          </div>
-        </div>
-        <div className="space-y-2">
-          <h2 className="text-sm font-semibold leading-none tracking-tight">
-            Skipping payment
-          </h2>
-          <div className="text-sm text-muted-foreground">
-            <p>
-              You can skip payment for now but you will miss out on the benefits
-              mentioned above until you do. You can always pay later by going to
-              your account dashboard.
-            </p>
-          </div>
-        </div>
-        <Button variant="outline" className="w-full">
-          Skip payment
-        </Button>
-      </div>
-      {/* <div className="hidden w-full border border-border md:block">
+	return (
+		<div className="container grid gap-x-8 gap-y-4 py-8 md:grid-cols-2 md:gap-y-8 lg:gap-x-16">
+			<Alert className="md:col-span-2">
+				<span className="material-symbols-sharp size-4 text-xl leading-4">mail</span>
+				<AlertTitle>Email not found!</AlertTitle>
+				<AlertDescription>
+					We couldn&apos;t find an account with that email address so you can create a new account here. If you think it
+					was a mistake,{" "}
+					<Button variant="link" className="h-auto p-0">
+						<Link replace href="/join">
+							click here to go back
+						</Link>
+					</Button>
+				</AlertDescription>
+			</Alert>
+			<Form {...form}>
+				<form onSubmit={form.handleSubmit(onSubmit)} className={cn("space-y-4", active && inactiveWindowClass)}>
+					<div className="space-y-2">
+						<h2 className="font-semibold leading-none tracking-tight">Personal details</h2>
+						<p className="text-sm text-muted-foreground">All fields here are required.</p>
+					</div>
+					<FormField
+						control={form.control}
+						name="email"
+						render={({ field }) => (
+							<FormItem>
+								<FormLabel className="font-mono">Email address</FormLabel>
+								<FormControl>
+									<Input type="email" placeholder="john.doe@codersforcauses.org" {...field} />
+								</FormControl>
+								<FormMessage />
+							</FormItem>
+						)}
+					/>
+					<FormField
+						control={form.control}
+						name="name"
+						render={({ field }) => (
+							<FormItem>
+								<FormLabel className="font-mono">Full name</FormLabel>
+								<FormControl>
+									<Input autoComplete="name" placeholder="John Doe" {...field} />
+								</FormControl>
+								<FormMessage />
+							</FormItem>
+						)}
+					/>
+					<FormField
+						control={form.control}
+						name="preferred_name"
+						render={({ field }) => (
+							<FormItem>
+								<FormLabel className="font-mono">Preferred name</FormLabel>
+								<FormControl>
+									<Input autoComplete="given-name" placeholder="John" {...field} />
+								</FormControl>
+								<FormMessage />
+							</FormItem>
+						)}
+					/>
+					<FormField
+						control={form.control}
+						name="pronouns"
+						render={({ field }) => (
+							<FormItem>
+								<FormLabel className="font-mono">Pronouns</FormLabel>
+								<FormControl>
+									<RadioGroup
+										onValueChange={field.onChange}
+										defaultValue={field.value}
+										className="grid grid-cols-2 sm:grid-cols-3"
+									>
+										{pronouns.map(({ label, value }) => (
+											<FormItem key={value} className="flex h-6 items-center space-x-3 space-y-0">
+												<FormControl>
+													<RadioGroupItem value={value} />
+												</FormControl>
+												<FormLabel className="font-normal">{label}</FormLabel>
+											</FormItem>
+										))}
+										<FormItem className="flex h-6 items-center space-x-3 space-y-0">
+											<FormControl>
+												<RadioGroupItem value="other" />
+											</FormControl>
+											<FormControl>
+												<Input placeholder="Other pronouns" {...field} disabled className="h-8" />
+											</FormControl>
+											<FormLabel className="sr-only">Neo-pronouns</FormLabel>
+										</FormItem>
+									</RadioGroup>
+								</FormControl>
+								<FormMessage />
+							</FormItem>
+						)}
+					/>
+					<div className="grid gap-y-4">
+						<FormField
+							control={form.control}
+							name="isUWA"
+							render={({ field }) => (
+								<FormItem className="flex flex-row items-center space-x-3 space-y-0 pt-2">
+									<FormControl>
+										<Checkbox checked={field.value} onCheckedChange={field.onChange} />
+									</FormControl>
+									<FormLabel className="font-mono">I&apos;m a UWA student</FormLabel>
+									<FormMessage />
+								</FormItem>
+							)}
+						/>
+						{getValues().isUWA ? (
+							<FormField
+								control={form.control}
+								name="student_number"
+								render={({ field }) => (
+									<FormItem>
+										<FormLabel className="font-mono">UWA student number</FormLabel>
+										<FormControl>
+											<Input placeholder="21012345" inputMode="numeric" {...field} />
+										</FormControl>
+										<FormMessage />
+									</FormItem>
+								)}
+							/>
+						) : (
+							<FormField
+								control={form.control}
+								name="uni"
+								render={({ field }) => (
+									<FormItem>
+										<FormLabel className="font-mono">University</FormLabel>
+										<FormControl>
+											<RadioGroup
+												onValueChange={field.onChange}
+												defaultValue={field.value}
+												className="grid sm:grid-cols-2"
+											>
+												{uni.map(({ label, value }) => (
+													<FormItem key={value} className="flex h-6 items-center space-x-3 space-y-0">
+														<FormControl>
+															<RadioGroupItem value={value} />
+														</FormControl>
+														<FormLabel className="font-normal">{label}</FormLabel>
+													</FormItem>
+												))}
+												<FormItem className="flex h-6 items-center space-x-3 space-y-0">
+													<FormControl>
+														<RadioGroupItem value="other" />
+													</FormControl>
+													<FormControl>
+														<Input placeholder="Other university" {...field} disabled className="h-8" />
+													</FormControl>
+													<FormLabel className="sr-only">Unlisted university</FormLabel>
+												</FormItem>
+											</RadioGroup>
+										</FormControl>
+										<FormMessage />
+									</FormItem>
+								)}
+							/>
+						)}
+					</div>
+					<div className="grid gap-x-2 gap-y-4 sm:grid-cols-2 md:gap-x-3">
+						<div className="space-y-2 sm:col-span-2">
+							<h2 className="font-semibold leading-none tracking-tight">Socials</h2>
+							<p className="text-sm text-muted-foreground">
+								These fields are optional but are required if you plan on applying for projects during the winter and
+								summer breaks.
+							</p>
+							<Alert>
+								<svg viewBox="0 0 24 24" width={16} height={16} className="mr-2 fill-current">
+									<title>{siDiscord.title}</title>
+									<path d={siDiscord.path} />
+								</svg>
+								<AlertTitle>Join our Discord!</AlertTitle>
+								<AlertDescription>
+									You can join our Discord server at{" "}
+									<Button type="button" variant="link" className="h-auto p-0 text-current" asChild>
+										<Link href="http://discord.codersforcauses.org" target="_blank">
+											discord.codersforcauses.org
+										</Link>
+									</Button>
+								</AlertDescription>
+							</Alert>
+						</div>
+						<FormField
+							control={form.control}
+							name="github"
+							render={({ field }) => (
+								<FormItem>
+									<FormLabel className="font-mono">Github username</FormLabel>
+									<FormControl>
+										<Input placeholder="johndoe" {...field} />
+									</FormControl>
+									<FormDescription>
+										Sign up at{" "}
+										<Button type="button" variant="link" className="h-auto p-0 text-current" asChild>
+											<Link href="https://github.com/signup" target="_blank">
+												github.com/signup
+											</Link>
+										</Button>
+									</FormDescription>
+									<FormMessage />
+								</FormItem>
+							)}
+						/>
+						<FormField
+							control={form.control}
+							name="discord"
+							render={({ field }) => (
+								<FormItem>
+									<FormLabel className="font-mono">Discord username</FormLabel>
+									<FormControl>
+										<Input placeholder="john_doe" {...field} />
+									</FormControl>
+									<FormDescription>
+										Sign up at{" "}
+										<Button type="button" variant="link" className="h-auto p-0 text-current" asChild>
+											<Link href="https://discord.com/register" target="_blank">
+												discord.com/register
+											</Link>
+										</Button>
+									</FormDescription>
+									<FormMessage />
+								</FormItem>
+							)}
+						/>
+					</div>
+					<FormField
+						control={form.control}
+						name="subscribe"
+						render={({ field }) => (
+							<FormItem className="flex flex-row items-center space-x-3 space-y-0">
+								<FormControl>
+									<Checkbox checked={field.value} onCheckedChange={field.onChange} />
+								</FormControl>
+								<FormLabel className="text-sm">I wish to receive emails about future CFC events</FormLabel>
+								<FormMessage />
+							</FormItem>
+						)}
+					/>
+					<Button type="submit" className="w-full">
+						Next
+					</Button>
+				</form>
+			</Form>
+			<div className={cn("space-y-4", active && inactiveWindowClass)}>
+				<div className="space-y-2">
+					<h2 className="font-semibold leading-none tracking-tight">Payment</h2>
+					<div className="text-sm text-muted-foreground">
+						<p>
+							Become a paying member of Coders for Causes for just $5 a year (ends on 31st Dec{" "}
+							{new Date().getFullYear()}). There are many benefits to becoming a member which include:
+						</p>
+						<ul className="list-inside list-disc">
+							<li>discounts to paid events such as industry nights</li>
+							<li>the ability to vote and run for committee positions</li>
+							<li>the ability to join our projects run during the winter and summer breaks.</li>
+						</ul>
+					</div>
+				</div>
+				<Tabs defaultValue="online">
+					<TabsList className="w-full">
+						<TabsTrigger value="online" className="w-full">
+							Online
+						</TabsTrigger>
+						<TabsTrigger value="in-person" className="w-full">
+							In-person
+						</TabsTrigger>
+					</TabsList>
+					<TabsContent value="online" className="space-y-4">
+						<p className="text-sm text-muted-foreground">
+							Our online payment system is handled by{" "}
+							<Button asChild variant="link" className="h-auto p-0">
+								<Link href="https://squareup.com/au/en" target="_blank">
+									Square
+								</Link>
+							</Button>
+							. We do not store your card details but we do record the information Square provides us after confirming
+							your card.
+						</p>
+						<OnlinePaymentForm
+							cardTokenizeResponseReceived={(token) => {
+								console.log(token)
+							}}
+						/>
+					</TabsContent>
+					<TabsContent value="in-person" className="space-y-4">
+						<p className="text-sm text-muted-foreground">
+							We accept cash and card payments in-person. We use{" "}
+							<Button asChild variant="link" className="h-auto p-0">
+								<Link href="https://squareup.com/au/en" target="_blank">
+									Square&apos;s
+								</Link>
+							</Button>{" "}
+							Point-of-Sale terminals to accept card payments. Reach out to a committee member via our Discord or a CFC
+							event to pay in-person.
+						</p>
+						<CashPaymentForm />
+					</TabsContent>
+				</Tabs>
+				<div className="relative select-none">
+					<div className="absolute inset-0 flex items-center">
+						<span className="w-full border-t" />
+					</div>
+					<div className="relative flex justify-center text-xs uppercase">
+						<span className="bg-background px-2 text-muted-foreground">Or</span>
+					</div>
+				</div>
+				<div className="space-y-2">
+					<h2 className="text-sm font-semibold leading-none tracking-tight">Skipping payment</h2>
+					<div className="text-sm text-muted-foreground">
+						<p>
+							You can skip payment for now but you will miss out on the benefits mentioned above until you do. You can
+							always pay later by going to your account dashboard.
+						</p>
+					</div>
+				</div>
+				<Button variant="outline" className="w-full">
+					Skip payment
+				</Button>
+			</div>
+			{/* <div className="hidden w-full border border-border md:block">
           <div className="relative h-40 border-b border-muted bg-black">
             <div className="container">
               <Avatar
@@ -564,6 +473,6 @@ export default function CreateAccount() {
             <GithubHeatmap username={user_github ?? ""} />
           </div>
         </div> */}
-    </div>
-  )
+		</div>
+	)
 }
