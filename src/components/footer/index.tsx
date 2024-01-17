@@ -165,7 +165,7 @@ const Footer = () => {
         </div>
         <div className="mt-4 grid grid-cols-1 items-center justify-between gap-1 sm:flex">
           <p className="font-mono text-xs">&copy; {new Date().getFullYear()} Coders for Causes</p>
-          <div className="grid grid-cols-5 justify-between gap-1">
+          <div className="grid grid-cols-6 justify-between gap-1">
             {socialLinks.map(({ href, title, path }) => (
               <Button asChild key={title} variant="ghost-dark" size="icon">
                 <a href={href}>
