@@ -1,49 +1,18 @@
-"use client"
+import { Suspense } from "react"
+import ProjectPage from "~/app/_components/projects/ProjectPage/page"
 
-import { type ProjectModel } from "~/lib/types"
-import { QueryFunctionContext, useQuery } from "@tanstack/react-query"
+const Loading = () => {
+  return <div>loading</div>
+}
 
-const ProjectPage = ({ params: { id } }: { params: { id: string } }) => {
-  const {
-    data: project,
-    isLoading,
-    isError,
-  } = useQuery(["project", id], fetchProject)
-
-  if (isLoading) {
-    return (
-      <main className="main">
-        <div>loading</div>
-      </main>
-    )
-  }
-
-  if (isError) {
-    return (
-      <main className="main">
-        <div>Error fetching data</div>
-      </main>
-    )
-  }
-
+const Project = ({ params: { id } }: { params: { id: string } }) => {
   return (
     <main className="main">
-      <div>{project.name}</div>
+      <Suspense fallback={<Loading />}>
+        <ProjectPage projectId={id} />
+      </Suspense>
     </main>
   )
 }
 
-async function fetchProject(context: QueryFunctionContext<string[]>) {
-  const id = context.queryKey[1]
-  const response = await fetch(`/api/projects/${id}`)
-
-  if (!response.ok) {
-    throw new Error("Failed to fetch project")
-  }
-
-  const data = (await response.json()) as ProjectModel
-
-  return data
-}
-
-export default ProjectPage
+export default Project
