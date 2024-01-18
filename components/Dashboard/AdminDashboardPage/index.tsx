@@ -3,7 +3,7 @@ import dynamic from 'next/dynamic'
 import { Tab } from '@headlessui/react'
 import Title from '@components/Utils/Title'
 import { Button } from '@elements/Button'
-import UsersTable from './UsersTable'
+// import UsersTable from './UsersTable'
 const AnnouncementModal = dynamic(() => import('./AnnouncementModal'))
 
 const tabs = [
@@ -75,9 +75,7 @@ const AdminDashboardPage = () => {
               ))}
             </Tab.List>
             <Tab.Panels className='pt-4'>
-              <Tab.Panel>
-                <UsersTable />
-              </Tab.Panel>
+              <Tab.Panel>{/* <UsersTable /> */}</Tab.Panel>
               <Tab.Panel>
                 <>projects</>
               </Tab.Panel>

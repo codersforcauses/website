@@ -4,6 +4,7 @@ export interface ImageProps {
   src: string
   srcDark?: string
   alt: string
+  link?: string
 }
 
 export interface ModalProps {

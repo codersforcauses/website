@@ -1,7 +1,7 @@
 import { GetServerSideProps } from 'next'
 import useSWR from 'swr'
 import Meta from '@components/Utils/Meta'
-import ProfilePage from '@components/Auth/ProfilePage'
+// import ProfilePage from '@components/Auth/ProfilePage'
 import { User } from '@lib/types'
 import { useUser } from '@lib/user'
 
@@ -20,7 +20,7 @@ const Profile = ({ slug }: ProfileProps) => {
           `${user.firstName.toLowerCase()}'s profile`
         )}**.png?theme=dark&md=1&fontSize=125px&images=https%3A%2Fcodersforcauses.org%2Flogo%2Fcfc_logo_white_full.svg`}
       />
-      <ProfilePage user={user} canEdit={current?._id === user._id} />
+      {/* <ProfilePage user={user} canEdit={current?._id === user._id} /> */}
     </>
   ) : null
 }
