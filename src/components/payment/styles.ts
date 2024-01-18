@@ -1,8 +1,8 @@
 const lightStyles = {
   background: "#ffffff",
   foreground: "#0a0a0a",
-  "muted-foreground": "#737373",
-  "destructive-foreground": "#fafafa",
+  muted: "#737373", // renamed from muted-foreground
+  destructive: "#dc2626",
   border: "#bfbfbf",
   ring: "#0a0a0a",
 }
@@ -10,8 +10,8 @@ const lightStyles = {
 const darkStyles = {
   background: "#0a0a0a",
   foreground: "#fafafa",
-  "muted-foreground": "#a3a3a3",
-  "destructive-foreground": "#fafafa",
+  muted: "#a3a3a3", // renamed from muted-foreground
+  destructive: "#ef4444",
   border: "#484848",
   ring: "#d4d4d4",
 }
@@ -21,16 +21,16 @@ export const style = (theme: string) => {
 
   return {
     input: {
-      backgroundColor: currentStyle.background,
       color: currentStyle.foreground,
+      backgroundColor: currentStyle.background,
       fontSize: "14px",
       // fontFamily: "IBM Plex Sans, sans-serif",
     },
     "input::placeholder": {
-      color: currentStyle["muted-foreground"],
+      color: currentStyle.muted,
     },
     "input.is-error": {
-      color: currentStyle["destructive-foreground"],
+      color: currentStyle.destructive,
     },
     ".input-container": {
       borderColor: currentStyle.border,
@@ -43,16 +43,16 @@ export const style = (theme: string) => {
       borderColor: "#ff1600",
     },
     ".message-text": {
-      color: currentStyle["muted-foreground"],
+      color: currentStyle.muted,
     },
     ".message-icon": {
-      color: currentStyle["muted-foreground"],
+      color: currentStyle.muted,
     },
     ".message-text.is-error": {
-      color: currentStyle["destructive-foreground"],
+      color: currentStyle.destructive,
     },
     ".message-icon.is-error": {
-      color: currentStyle["destructive-foreground"],
+      color: currentStyle.destructive,
     },
   }
 }
