@@ -2,9 +2,6 @@
 
 import * as React from "react"
 import { useTheme } from "next-themes"
-import * as z from "zod"
-import { zodResolver } from "@hookform/resolvers/zod"
-import { useForm } from "react-hook-form"
 import {
   payments,
   type TokenResult,
@@ -17,14 +14,10 @@ import {
 } from "@square/web-sdk"
 
 import { env } from "~/env"
-
-import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "~/components/ui/form"
-import { Input } from "~/components/ui/input"
 import { Button } from "~/components/ui/button"
 import { Skeleton } from "~/components/ui/skeleton"
-
-import { style } from "./styles"
 import { cn } from "~/lib/utils"
+import { style } from "./styles"
 
 interface OnlinePaymentFormProps {
   amount?: string
@@ -53,8 +46,6 @@ const storeVerificationDetails = () => {
   }
   return details
 }
-
-const GPayButtonProps = (theme: string) => ({})
 
 const createPaymentRequest = ({
   amount,
@@ -176,22 +167,15 @@ const OnlinePaymentForm = ({
       abortController.abort()
     }
   }, [paymentInstance])
-  // Style card payment according to theme
+  // Style card payment and google pay button according to theme
   React.useEffect(() => {
-    if (!card) return
-    card
-      .configure({
+    if (!card || !googlePay) return
+    Promise.all([
+      card.configure({
         style: style(theme ?? "light"),
-      })
-      .catch((error) => {
-        console.log(error)
-      })
-  }, [card, theme])
-
-  React.useEffect(() => {
-    if (!googlePay) return
-    googlePay
-      .detach()
+      }),
+      googlePay.detach(),
+    ])
       .then(async () => {
         await googlePay.attach(`#${googlePayID}`, {
           buttonColor: theme === "dark" ? "white" : "black",
@@ -202,7 +186,7 @@ const OnlinePaymentForm = ({
       .catch((error) => {
         console.log(error)
       })
-  }, [googlePay, theme])
+  }, [card, googlePay, theme])
 
   const cardTokenizeResponseReceived = async (result: TokenResult): Promise<void> => {
     if (result.errors) {
