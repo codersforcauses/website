@@ -60,29 +60,43 @@ const uni = [
   },
 ] as const
 
-const formSchema = z.object({
-  name: z.string().min(2, {
-    message: "Name is required",
-  }),
-  preferred_name: z.string().min(2, {
-    message: "Preferred name is required",
-  }),
-  email: z
-    .string()
-    .email({
-      message: "Invalid email address",
-    })
-    .min(2, {
-      message: "Email is required",
+const formSchema = z
+  .object({
+    name: z.string().min(2, {
+      message: "Name is required",
     }),
-  pronouns: z.enum(pronouns.map((p) => p.value)),
-  isUWA: z.boolean(),
-  student_number: z.string().optional(),
-  uni: z.string().optional(),
-  github: z.string().optional(),
-  discord: z.string().optional(),
-  subscribe: z.boolean(),
-})
+    preferred_name: z.string().min(2, {
+      message: "Preferred name is required",
+    }),
+    email: z
+      .string()
+      .email({
+        message: "Invalid email address",
+      })
+      .min(2, {
+        message: "Email is required",
+      }),
+    pronouns: z.enum(pronouns.map((p) => p.value)),
+    isUWA: z.boolean(),
+    student_number: z
+      .string()
+      .refine((v) => v.length === 8, {
+        message: "Student number must be 8 digits long",
+      })
+      .optional(),
+    uni: z.string().optional(),
+    github: z.string().optional(),
+    discord: z.string().optional(),
+    subscribe: z.boolean(),
+  })
+  .refine(({ isUWA }) => !Boolean(isUWA), {
+    message: "Student number is required",
+    path: ["student_number"],
+  })
+  .refine(({ isUWA }) => Boolean(isUWA), {
+    message: "University is required",
+    path: ["uni"],
+  })
 
 type FormSchema = z.infer<typeof formSchema>
 
