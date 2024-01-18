@@ -345,8 +345,8 @@
   {
     "id": "WADL",
     "icon": "devices",
-    "logo": "/clients/wadl_logo_light.png",
-    "dark_logo": "/clients/wadl_logo.svg",
+    "logo": "/clients/wadl_logo.svg",
+    "dark_logo": "/clients/wadl_logo_light.png",
     "img": "wadl.png",
     "name": "WADL Draw",
     "client": "WADL",
@@ -391,8 +391,8 @@
   {
     "id": "CSF",
     "icon": "devices",
-    "logo": "/clients/csf_logo.png",
-    "dark_logo": "/clients/csf_logo_dark.png",
+    "logo": "/clients/csf_logo_dark.png",
+    "dark_logo": "/clients/csf_logo.png",
     "img": "csf.png",
     "name": "Stride For Education",
     "client": "Community Spirit Foundation",

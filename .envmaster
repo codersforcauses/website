@@ -1,0 +1,16 @@
+# mapbox api 
+NEXT_PUBLIC_MAPBOX_API=pk.eyJ1IjoiY29kZXJzZm9yY2F1c2VzIiwiYSI6ImNrOTYzd2djcjBwbHozZnJ1c3NzbDdvbnoifQ.54GYH264M2cN2-Kf-nEsdA
+
+# uwa makers pheme token
+PHEME_TOKEN=vBIfZfqNaYT9TCV8s6rAEb2JAvozRBgpBEfRFKgFOu4M
+
+# clerk auth token
+NEXT_PUBLIC_CLERK_FRONTEND_API=clerk.s7sj8.wzarw.lcl.dev 
+CLERK_API_KEY=test_WBydmxEr1y7c2G3VtuzBF1lXMY8aTkeBIC
+
+# mongodb db
+MONGODB_URI=mongodb://localhost:27017/codersforcauses
+# MONGODB_URI=mongodb+srv://cfc-dev:Xi61mxhpi4aF6Lq@website-dev.psw16.mongodb.net/website-dev
+
+# square payments 
+SQUARE_ACCESS_TOKEN=EAAAEJK6cS8SipnIBh4j4td36J4_4sabrBuUUfJdS8aH0rP17DL_ohCsZnLUBhrE NEXT_PUBLIC_SQUARE_APPLICATION_ID=sandbox-sq0idb-AJw13OQJ-UFtxhbwCDymlQ NEXT_PUBLIC_SQUARE_LOCATION_ID=LWKBQDM48QDF7
