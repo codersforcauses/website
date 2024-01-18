@@ -6,7 +6,8 @@ const Sponsors = () => {
   const imageList = sponsors.map(sponsor => ({
     src: sponsor.logo,
     srcDark: sponsor.dark_logo,
-    alt: sponsor.name
+    alt: sponsor.name,
+    link: sponsor.link
   }))
 
   return <ImageGrid images={imageList} />

@@ -25,21 +25,23 @@ const ImageGrid = ({ images }: ImageGridProps) => {
     <div className='flex h-24 gap-3 md:gap-12'>
       {imageList.map(image => (
         <div key={image.alt} className='relative w-full basis-1/2'>
-          <Image
-            src={
-              'dark' === theme
-                ? image.src
-                : image.srcDark === undefined || image.srcDark === ''
-                ? image.src
-                : image.srcDark
-            }
-            alt={image.alt}
-            priority
-            layout='fill'
-            objectFit='contain'
-            objectPosition='center'
-            className='transition duration-300 grayscale contrast-[0.2] brightness-110 hover:filter-none'
-          />
+          <a href={image.link}>
+            <Image
+              src={
+                'dark' === theme
+                  ? image.src
+                  : image.srcDark === undefined || image.srcDark === ''
+                    ? image.src
+                    : image.srcDark
+              }
+              alt={image.alt}
+              priority
+              layout='fill'
+              objectFit='contain'
+              objectPosition='center'
+              className='transition duration-300 grayscale contrast-[0.2] brightness-110 hover:filter-none'
+            />
+          </a>
         </div>
       ))}
     </div>
