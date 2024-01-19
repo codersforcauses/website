@@ -23,13 +23,13 @@ import {
 
 const UserButton = () => {
   const router = useRouter()
-  const { isLoaded, isSignedIn, signOut } = useAuth()
+  const { isSignedIn, signOut } = useAuth()
 
   const userSignOut = React.useCallback(async () => {
     await signOut(() => router.push("/"))
   }, [signOut, router])
 
-  if (!isLoaded || !isSignedIn)
+  if (!isSignedIn)
     return (
       <Button asChild variant="secondary-dark">
         <Link href="/join">Join us</Link>
