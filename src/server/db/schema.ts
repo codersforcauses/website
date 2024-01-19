@@ -1,8 +1,10 @@
 import { relations, sql } from "drizzle-orm"
 import {
   bigint,
+  boolean,
   index,
   int,
+  mysqlEnum,
   mysqlTableCreator,
   primaryKey,
   serial,
@@ -19,43 +21,27 @@ import {
  */
 export const mysqlTable = mysqlTableCreator((name) => `cfc-website_${name}`)
 
-export const posts = mysqlTable(
-  "post",
-  {
-    id: bigint("id", { mode: "number" }).primaryKey().autoincrement(),
-    name: varchar("name", { length: 256 }),
-    createdById: varchar("createdById", { length: 255 }).notNull(),
-    createdAt: timestamp("created_at")
-      .default(sql`CURRENT_TIMESTAMP`)
-      .notNull(),
-    updatedAt: timestamp("updatedAt").onUpdateNow(),
-  },
-  (example) => ({
-    createdByIdIdx: index("createdById_idx").on(example.createdById),
-    nameIndex: index("name_idx").on(example.name),
-  }),
-)
-
 export const users = mysqlTable(
   "user",
   {
-    id: serial("id").primaryKey(),
-    clerk_id: varchar("clerk_id", { length: 32 }).notNull(),
-    email: varchar("email", { length: 256 }).notNull(),
+    id: varchar("id", { length: 32 }).primaryKey(),
+    email: varchar("email", { length: 256 }).unique().notNull(),
     name: varchar("name", { length: 256 }).notNull(),
     preferred_name: varchar("preferred_name", { length: 64 }).notNull(),
-    pronouns: varchar("pronouns", { length: 64 }).notNull(),
-    student_number: varchar("student_number", { length: 8 }),
-    university: varchar("university", { length: 128 }),
+    pronouns: varchar("pronouns", { length: 32 }).notNull(),
+    student_number: varchar("student_number", { length: 8 }).unique(),
+    university: varchar("university", { length: 128 }), // non UWA
     github: varchar("github", { length: 128 }),
     discord: varchar("discord", { length: 128 }),
+    subscribe: boolean("subscribe").default(true),
+    role: mysqlEnum("role", ["member", "committee", "executive", "past", "honorary", "admin"]), // honorary: hlm, past: past committee
 
     createdAt: timestamp("created_at")
       .default(sql`CURRENT_TIMESTAMP`)
       .notNull(),
     updatedAt: timestamp("updatedAt").onUpdateNow(),
   },
-  (example) => ({
-    nameIndex: index("name_idx").on(example.name),
+  (user) => ({
+    emailIndex: index("email_idx").on(user.email),
   }),
 )
