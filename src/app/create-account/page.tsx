@@ -18,9 +18,11 @@ import { RadioGroup, RadioGroupItem } from "~/components/ui/radio-group"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "~/components/ui/tabs"
 // import { Avatar, AvatarFallback, AvatarImage } from "~/components/ui/avatar"
 // import GithubHeatmap from "../_components/github-heatmap"
-import OnlinePaymentForm from "~/components/payment/online"
 import CashPaymentForm from "~/components/payment/cash"
+import OnlinePaymentForm from "~/components/payment/online"
+import { SITE_URL } from "~/lib/constants"
 import { cn } from "~/lib/utils"
+import { api } from "~/trpc/react"
 
 const pronouns = [
   {
@@ -76,24 +78,25 @@ const formSchema = z
       .min(2, {
         message: "Email is required",
       }),
-    pronouns: z.enum(pronouns.map((p) => p.value)),
+    pronouns: z.string().min(2, {
+      message: "Pronouns are required",
+    }),
     isUWA: z.boolean(),
-    student_number: z
-      .string()
-      .refine((v) => v.length === 8, {
-        message: "Student number must be 8 digits long",
-      })
-      .optional(),
+    student_number: z.string().optional(),
     uni: z.string().optional(),
     github: z.string().optional(),
     discord: z.string().optional(),
     subscribe: z.boolean(),
   })
-  .refine(({ isUWA }) => !Boolean(isUWA), {
+  .refine(({ isUWA, student_number }) => !Boolean(isUWA) || student_number, {
     message: "Student number is required",
     path: ["student_number"],
   })
-  .refine(({ isUWA }) => Boolean(isUWA), {
+  .refine(({ isUWA, student_number = "" }) => !Boolean(isUWA) || student_number.length === 8, {
+    message: "Student number must be 8 digits long",
+    path: ["student_number"],
+  })
+  .refine(({ isUWA, uni = "" }) => Boolean(isUWA) || uni || uni === "other", {
     message: "University is required",
     path: ["uni"],
   })
@@ -103,10 +106,10 @@ type FormSchema = z.infer<typeof formSchema>
 const defaultValues = {
   name: "",
   preferred_name: "",
-  pronouns: "he/him",
+  pronouns: pronouns[0].value,
   isUWA: true,
   student_number: "",
-  uni: "",
+  uni: uni[0].value,
   github: "",
   discord: "",
   subscribe: true,
@@ -115,30 +118,75 @@ const defaultValues = {
 const inactiveWindowClass = "blur select-none pointer-events-none"
 
 export default function CreateAccount() {
-  const [active, setActive] = React.useState(false)
-  // const router = useRouter()
+  const [activeView, setActiveView] = React.useState(false)
+  const router = useRouter()
   const searchParams = useSearchParams()
-
-  const email = searchParams.get("email")
-
-  // const { isLoaded } = useSignUp()
+  const { isLoaded, signUp, setActive } = useSignUp()
 
   const form = useForm<FormSchema>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       ...defaultValues,
-      email: email ?? "",
+      email: searchParams.get("email") ?? "",
     },
   })
-
-  // if (!isLoaded) return null
-
   const { getValues } = form
+
+  const createUser = api.user.create.useMutation({})
 
   // const user_github = getValues().github
 
   const onSubmit = async (values: FormSchema) => {
     console.log(values)
+    if (!isLoaded) return null
+    const userData: Omit<FormSchema, "isUWA"> = {
+      name: values.name,
+      preferred_name: values.preferred_name,
+      email: values.email,
+      pronouns: values.pronouns,
+      github: values.github,
+      discord: values.discord,
+      subscribe: values.subscribe,
+    }
+
+    if (values.isUWA) {
+      userData.student_number = values.student_number
+    } else {
+      userData.uni = values.uni
+    }
+    try {
+      const { startEmailLinkFlow } = signUp.createEmailLinkFlow()
+      const { id } = await signUp.create({
+        emailAddress: values.email,
+        firstName: values.preferred_name,
+        lastName: values.name, // we treat clerk.lastName as the user's full name
+      })
+      if (!id) return
+
+      createUser.mutate({
+        clerk_id: id,
+        ...userData,
+      })
+
+      const su = await startEmailLinkFlow({
+        redirectUrl: `${SITE_URL}/verification`,
+      })
+
+      const verification = su.verifications.emailAddress
+      if (verification.status === "expired") {
+        // setExpired(true)
+        // handle expired, maybe toast
+      }
+      if (su.status === "complete") {
+        await setActive({
+          session: su.createdSessionId,
+        })
+      }
+    } catch (error) {
+      console.log(error)
+    }
+
+    return
   }
 
   return (
@@ -157,7 +205,7 @@ export default function CreateAccount() {
         </AlertDescription>
       </Alert>
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className={cn("space-y-4", active && inactiveWindowClass)}>
+        <form onSubmit={form.handleSubmit(onSubmit)} className={cn("space-y-4", activeView && inactiveWindowClass)}>
           <div className="space-y-2">
             <h2 className="font-semibold leading-none tracking-tight">Personal details</h2>
             <p className="text-sm text-muted-foreground">All fields here are required.</p>
@@ -225,10 +273,13 @@ export default function CreateAccount() {
                       <FormControl>
                         <RadioGroupItem value="other" />
                       </FormControl>
-                      <FormControl>
-                        <Input placeholder="Other pronouns" {...field} disabled className="h-8" />
-                      </FormControl>
-                      <FormLabel className="sr-only">Neo-pronouns</FormLabel>
+                      {Boolean(pronouns.find(({ value: val }) => val === field.value)) ? (
+                        <FormLabel className="font-normal">Other</FormLabel>
+                      ) : (
+                        <FormControl>
+                          <Input {...field} placeholder="Other pronouns" className="h-8" />
+                        </FormControl>
+                      )}
                     </FormItem>
                   </RadioGroup>
                 </FormControl>
@@ -241,7 +292,7 @@ export default function CreateAccount() {
               control={form.control}
               name="isUWA"
               render={({ field }) => (
-                <FormItem className="flex flex-row items-center space-x-3 space-y-0 pt-2">
+                <FormItem className="flex flex-row items-center space-x-3 space-y-0">
                   <FormControl>
                     <Checkbox checked={field.value} onCheckedChange={field.onChange} />
                   </FormControl>
@@ -250,57 +301,57 @@ export default function CreateAccount() {
                 </FormItem>
               )}
             />
-            {getValues().isUWA ? (
-              <FormField
-                control={form.control}
-                name="student_number"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel className="font-mono">UWA student number</FormLabel>
-                    <FormControl>
-                      <Input placeholder="21012345" inputMode="numeric" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-            ) : (
-              <FormField
-                control={form.control}
-                name="uni"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel className="font-mono">University</FormLabel>
-                    <FormControl>
-                      <RadioGroup
-                        onValueChange={field.onChange}
-                        defaultValue={field.value}
-                        className="grid sm:grid-cols-2"
-                      >
-                        {uni.map(({ label, value }) => (
-                          <FormItem key={value} className="flex h-6 items-center space-x-3 space-y-0">
-                            <FormControl>
-                              <RadioGroupItem value={value} />
-                            </FormControl>
-                            <FormLabel className="font-normal">{label}</FormLabel>
-                          </FormItem>
-                        ))}
-                        <FormItem className="flex h-6 items-center space-x-3 space-y-0">
+            <FormField
+              control={form.control}
+              name="student_number"
+              render={({ field }) => (
+                <FormItem className={cn(!getValues().isUWA && "hidden")}>
+                  <FormLabel className="font-mono">UWA student number</FormLabel>
+                  <FormControl>
+                    <Input placeholder="21012345" inputMode="numeric" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="uni"
+              render={({ field }) => (
+                <FormItem className={cn(getValues().isUWA && "hidden")}>
+                  <FormLabel className="font-mono">University</FormLabel>
+                  <FormControl>
+                    <RadioGroup
+                      onValueChange={field.onChange}
+                      defaultValue={field.value}
+                      className="grid sm:grid-cols-2"
+                    >
+                      {uni.map(({ label, value }) => (
+                        <FormItem key={value} className="flex h-6 items-center space-x-3 space-y-0">
                           <FormControl>
-                            <RadioGroupItem value="other" />
+                            <RadioGroupItem value={value} />
                           </FormControl>
-                          <FormControl>
-                            <Input placeholder="Other university" {...field} disabled className="h-8" />
-                          </FormControl>
-                          <FormLabel className="sr-only">Unlisted university</FormLabel>
+                          <FormLabel className="font-normal">{label}</FormLabel>
                         </FormItem>
-                      </RadioGroup>
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-            )}
+                      ))}
+                      <FormItem className="flex h-6 items-center space-x-3 space-y-0">
+                        <FormControl>
+                          <RadioGroupItem value="other" />
+                        </FormControl>
+                        {Boolean(uni.find(({ value: val }) => val === field.value)) ? (
+                          <FormLabel className="font-normal">Other university</FormLabel>
+                        ) : (
+                          <FormControl>
+                            <Input placeholder="Other university" {...field} className="h-8" />
+                          </FormControl>
+                        )}
+                      </FormItem>
+                    </RadioGroup>
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
           </div>
           <div className="grid gap-x-2 gap-y-4 sm:grid-cols-2 md:gap-x-3">
             <div className="space-y-2 sm:col-span-2">
@@ -386,7 +437,7 @@ export default function CreateAccount() {
           </Button>
         </form>
       </Form>
-      <div className={cn("space-y-4", active && inactiveWindowClass)}>
+      <div className={cn("space-y-4", activeView && inactiveWindowClass)}>
         <div className="space-y-2">
           <h2 className="font-semibold leading-none tracking-tight">Payment</h2>
           <div className="text-sm text-muted-foreground">
