@@ -52,9 +52,9 @@ export default async function About() {
 
       <div className="bg-secondary bg-white py-6 text-primary dark:bg-alt-dark dark:text-secondary md:py-12 ">
         <div className="container mx-auto space-y-12">
-          <h3 className="font-mono text-2xl font-black">Past Clients</h3>
+          <h3 className="font-mono text-2xl font-black dark:text-white">Past Clients</h3>
           <Clients />
-          <h3 className="font-mono text-2xl font-black">Proudly Supported By</h3>
+          <h3 className="font-mono text-2xl font-black dark:text-white">Proudly Supported By</h3>
           <Sponsors />
         </div>
       </div>

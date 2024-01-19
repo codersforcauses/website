@@ -1,3 +1,5 @@
+import * as SimpleIcons from "simple-icons/icons"
+
 export interface PropsWithChildren {
   children: React.ReactNode
 }
@@ -20,12 +22,13 @@ export interface CardItemProps {
   picture: ImageProps
 }
 
-interface TechIcons {
+export interface TechIcons {
   icon: string
   name: string
 }
 
 export interface ProjectModel {
+  alt?: string
   id: string
   icon: string
   logo: string
@@ -38,8 +41,33 @@ export interface ProjectModel {
   purl: string
   url?: string
   source: string
-  impact?: string[]
+  impact: string[]
   desc: string
-  tech?: TechIcons[]
-  members?: string[]
+  tech: TechIcons[]
+  members: string[]
 }
+
+export const iconMap: Record<string, string> = {
+  mongodb: SimpleIcons.siMongodb.path,
+  vuedotjs: SimpleIcons.siVuedotjs.path,
+  nodedotjs: SimpleIcons.siNodedotjs.path,
+  express: SimpleIcons.siExpress.path,
+  nuxtdotjs: SimpleIcons.siNuxtdotjs.path,
+  vuetify: SimpleIcons.siVuetify.path,
+  nextdotjs: SimpleIcons.siNextdotjs.path,
+  vercel: SimpleIcons.siVercel.path,
+  html5: SimpleIcons.siHtml5.path,
+  css3: SimpleIcons.siCss3.path,
+  javascript: SimpleIcons.siJavascript.path,
+  heroku: SimpleIcons.siHeroku.path,
+  microsoftsqlserver: SimpleIcons.siMicrosoftsqlserver.path,
+  microsoftazure: SimpleIcons.siMicrosoftazure.path,
+  firebase: SimpleIcons.siFirebase.path,
+  react: SimpleIcons.siReact.path,
+  typescript: SimpleIcons.siTypescript.path,
+  tailwindcss: SimpleIcons.siTailwindcss.path,
+  django: SimpleIcons.siDjango.path,
+  digitalocean: SimpleIcons.siDigitalocean.path,
+}
+
+export type IconKey = keyof typeof iconMap

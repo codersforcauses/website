@@ -12,7 +12,7 @@ const ProjectsPage = () => {
       <div className="container">
         <div className="flex flex-col md:flex-row md:gap-16">
           <div className="flex-grow">
-            <div className="grid gap-16 py-6 md:grid-cols-3">
+            <div className="grid gap-6 py-6 md:grid-cols-3">
               {projectData.map((project) => (
                 <ProjectCard key={project.id} project={project} />
               ))}
