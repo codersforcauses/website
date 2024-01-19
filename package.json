@@ -9,6 +9,7 @@
     "db:studio": "drizzle-kit studio",
     "dev": "next dev",
     "lint": "next lint",
+    "lint:dev": "SKIP_ENV_VALIDATION=true next lint",
     "start": "next start",
     "prettier:fix": "prettier --write .",
     "prepare": "husky install"
