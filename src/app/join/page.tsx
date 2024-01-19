@@ -40,13 +40,11 @@ export default function Join() {
     defaultValues,
   })
 
-  if (!isLoaded) {
-    return null
-  }
-
-  const { startEmailLinkFlow } = signIn.createEmailLinkFlow()
-
   const onSubmit = async ({ email }: FormSchema) => {
+    if (!isLoaded) {
+      return null
+    }
+    const { startEmailLinkFlow } = signIn.createEmailLinkFlow()
     try {
       const si = await signIn.create({ identifier: email })
 
