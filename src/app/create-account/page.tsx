@@ -16,6 +16,7 @@ import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, For
 import { Input } from "~/components/ui/input"
 import { RadioGroup, RadioGroupItem } from "~/components/ui/radio-group"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "~/components/ui/tabs"
+import { toast } from "~/components/ui/use-toast"
 // import { Avatar, AvatarFallback, AvatarImage } from "~/components/ui/avatar"
 // import GithubHeatmap from "../_components/github-heatmap"
 import CashPaymentForm from "~/components/payment/cash"
@@ -137,7 +138,6 @@ export default function CreateAccount() {
   // const user_github = getValues().github
 
   const onSubmit = async (values: FormSchema) => {
-    console.log(values)
     if (!isLoaded) return null
     const userData: Omit<FormSchema, "isUWA"> = {
       name: values.name,
@@ -168,20 +168,29 @@ export default function CreateAccount() {
         ...userData,
       })
 
+      toast({
+        title: "Email Verification Sent",
+        description: "We've sent you an email with a link to verify your email address.",
+      })
+
       const su = await startEmailLinkFlow({
         redirectUrl: `${SITE_URL}/verification`,
       })
 
       const verification = su.verifications.emailAddress
       if (verification.status === "expired") {
-        // setExpired(true)
-        // handle expired, maybe toast
+        toast({
+          variant: "destructive",
+          title: "Link expired",
+          description: "The email verification link has expired. Please try again.",
+        })
       }
       if (su.status === "complete") {
         await setActive({
           session: su.createdSessionId,
         })
       }
+      // setActiveView(true)
     } catch (error) {
       console.log(error)
     }
@@ -225,12 +234,12 @@ export default function CreateAccount() {
           />
           <FormField
             control={form.control}
-            name="name"
+            name="preferred_name"
             render={({ field }) => (
               <FormItem>
-                <FormLabel className="font-mono">Full name</FormLabel>
+                <FormLabel className="font-mono">Preferred name</FormLabel>
                 <FormControl>
-                  <Input autoComplete="name" placeholder="John Doe" {...field} />
+                  <Input autoComplete="given-name" placeholder="John" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -238,12 +247,12 @@ export default function CreateAccount() {
           />
           <FormField
             control={form.control}
-            name="preferred_name"
+            name="name"
             render={({ field }) => (
               <FormItem>
-                <FormLabel className="font-mono">Preferred name</FormLabel>
+                <FormLabel className="font-mono">Full name</FormLabel>
                 <FormControl>
-                  <Input autoComplete="given-name" placeholder="John" {...field} />
+                  <Input autoComplete="name" placeholder="John Doe" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
