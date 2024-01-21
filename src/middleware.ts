@@ -1,14 +1,19 @@
 import { authMiddleware } from "@clerk/nextjs"
+import { NextResponse } from "next/server"
 
-const publicPages = ["/about", "/verification", "/create-account", "/join", "/"]
-const publicAPIRoutes = ["/api/trpc/user.create"]
+const protectedPages = ["/dashboard", "/dashboard/admin", "/account", "/settings"]
 
 export default authMiddleware({
-  publicRoutes: [...publicPages, ...publicAPIRoutes],
-  // ignoredRoutes: ["/(api|trpc)(.*)"],
-  debug: true,
+  afterAuth(auth, req) {
+    if (!auth.userId && protectedPages.includes(req.nextUrl.pathname)) {
+      const joinURL = new URL("/join", req.url)
+      return NextResponse.redirect(joinURL)
+    }
+
+    return NextResponse.next()
+  },
 })
 
 export const config = {
-  matcher: ["/((?!.+\\.[\\w]+$|_next).*)", "/", "/(api|trpc)(.*)"],
+  matcher: ["/((?!.+\\.[\\w]+$|_next|favicon.ico).*)", "/", "/(api|trpc)(.*)"],
 }
