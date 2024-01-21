@@ -11,6 +11,7 @@ import {
   type Card,
   type PaymentRequestOptions,
   type GooglePay,
+  ApplePay,
 } from "@square/web-sdk"
 
 import { env } from "~/env"
@@ -73,6 +74,7 @@ const OnlinePaymentForm = ({
   const [paymentInstance, setPaymentInstance] = React.useState<Payments>()
   const [card, setCard] = React.useState<Card | undefined>(() => undefined)
   const [googlePay, setGooglePay] = React.useState<GooglePay | undefined>(() => undefined)
+
   // initialize payment instance
   React.useEffect(() => {
     const abortController = new AbortController()
@@ -96,22 +98,23 @@ const OnlinePaymentForm = ({
 
   // Apple Pay
 
-  React.useEffect(() => {
-    const abortController = new AbortController()
-    const { signal } = abortController
-
-    if (!paymentInstance) return
-
-    const paymentRequest = paymentInstance.paymentRequest(
-      createPaymentRequest({
-        amount,
-        label,
-      }),
-    )
-    paymentInstance.applePay(paymentRequest).catch((error) => {
-      console.log(error)
+  function buildPaymentRequest(payments: Payments) {
+    return payments.paymentRequest({
+      countryCode: "AU",
+      currencyCode: "AUD",
+      total: {
+        amount: "0.00",
+        label: "Total",
+      },
     })
-  }, [])
+  }
+
+  async function initialiseApplyPay(payments: Payments) {
+    const paymentRequestOptions = buildPaymentRequest(payments)
+    const applePay = await payments.applePay(paymentRequestOptions)
+
+    return applePay
+  }
 
   // Google Pay
   React.useEffect(() => {
