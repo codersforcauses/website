@@ -11,6 +11,7 @@ import {
   type Card,
   type PaymentRequestOptions,
   type GooglePay,
+  TokenStatus,
 } from "@square/web-sdk"
 
 import { env } from "~/env"
@@ -169,13 +170,19 @@ const OnlinePaymentForm = ({
   }, [paymentInstance])
   // Style card payment and google pay button according to theme
   React.useEffect(() => {
-    if (!card || !googlePay) return
-    Promise.all([
-      card.configure({
+    if (!card) return
+    card
+      .configure({
         style: style(theme ?? "light"),
-      }),
-      googlePay.detach(),
-    ])
+      })
+      .catch((error) => {
+        console.log(error)
+      })
+  }, [card, theme])
+  React.useEffect(() => {
+    if (!googlePay) return
+    googlePay
+      .detach()
       .then(async () => {
         await googlePay.attach(`#${googlePayID}`, {
           buttonColor: theme === "dark" ? "white" : "black",
@@ -186,7 +193,7 @@ const OnlinePaymentForm = ({
       .catch((error) => {
         console.log(error)
       })
-  }, [card, googlePay, theme])
+  }, [googlePay, theme])
 
   const cardTokenizeResponseReceived = async (result: TokenResult): Promise<void> => {
     if (result.errors) {
@@ -208,7 +215,7 @@ const OnlinePaymentForm = ({
     try {
       const result = await card.tokenize()
 
-      if (result.status === "OK") {
+      if (result.status === TokenStatus.OK) {
         const tokenizedResult = await cardTokenizeResponseReceived(result)
         return tokenizedResult
       }
@@ -240,13 +247,13 @@ const OnlinePaymentForm = ({
     try {
       const result = await googlePay.tokenize()
 
-      if (result.status === "OK") {
+      if (result.status === TokenStatus.OK) {
         return cardTokenizeResponseReceived(result)
       }
 
       let message = `Tokenization failed with status: ${result.status}`
       if (result?.errors) {
-        message += ` and errors: ${JSON.stringify(result?.errors)}`
+        message += ` and errors: ${JSON.stringify(result?.errors, null, 2)}`
 
         throw new Error(message)
       }
@@ -258,15 +265,28 @@ const OnlinePaymentForm = ({
   }
 
   return (
-    <form id="payment-form" className="grid gap-y-4">
+    <form className="grid gap-y-4 @container">
       <div>
-        {!card && <Skeleton className="mb-4 h-20 w-full" />}
-        <div id={containerID} className="min-h-10" />
-        {card && (
-          <Button type="button" id={buttonID} ref={btnRef} className="w-full" onClick={handleCardPayment}>
-            Pay ${Number(amount)}
-          </Button>
-        )}
+        {!card && <Skeleton className="mb-4 h-[97px] w-full @[485px]:h-[48px]" />}
+        <div
+          id={containerID}
+          className="min-h-10"
+          style={{
+            // needed to force colours to work on both themes
+            // since for some reason background colour works in light theme but is white on dark theme
+            colorScheme: "light",
+          }}
+        />
+        <Button
+          type="button"
+          id={buttonID}
+          ref={btnRef}
+          disabled={!card}
+          className="w-full"
+          onClick={handleCardPayment}
+        >
+          Pay ${Number(amount)}
+        </Button>
       </div>
       <div
         id={googlePayID}
