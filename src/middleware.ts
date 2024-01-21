@@ -1,6 +1,6 @@
 import { authMiddleware } from "@clerk/nextjs"
 
-const publicPages = ["/about", "/verification", "/create-account", "/join"]
+const publicPages = ["/about", "/verification", "/create-account", "/join", "/"]
 const publicAPIRoutes = ["/api/trpc/user.create"]
 
 export default authMiddleware({

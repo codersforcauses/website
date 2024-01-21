@@ -6,6 +6,7 @@ interface Sponsor {
   name: string
   logo: string
   dark_logo: string
+  link: string
 }
 
 const Sponsors = () => {
@@ -16,6 +17,7 @@ const Sponsors = () => {
       src: sponsor.logo,
       srcDark: sponsor.dark_logo,
       alt: sponsor.name,
+      link: sponsor.link,
     }),
   )
 

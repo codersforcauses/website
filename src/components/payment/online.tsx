@@ -18,6 +18,7 @@ import { Button } from "~/components/ui/button"
 import { Skeleton } from "~/components/ui/skeleton"
 import { cn } from "~/lib/utils"
 import { style } from "./styles"
+import { abort } from "process"
 
 interface OnlinePaymentFormProps {
   amount?: string
@@ -91,6 +92,25 @@ const OnlinePaymentForm = ({
     return () => {
       abortController.abort()
     }
+  }, [])
+
+  // Apple Pay
+
+  React.useEffect(() => {
+    const abortController = new AbortController()
+    const { signal } = abortController
+
+    if (!paymentInstance) return
+
+    const paymentRequest = paymentInstance.paymentRequest(
+      createPaymentRequest({
+        amount,
+        label,
+      }),
+    )
+    paymentInstance.applePay(paymentRequest).catch((error) => {
+      console.log(error)
+    })
   }, [])
 
   // Google Pay
@@ -167,6 +187,7 @@ const OnlinePaymentForm = ({
       abortController.abort()
     }
   }, [paymentInstance])
+
   // Style card payment and google pay button according to theme
   React.useEffect(() => {
     if (!card || !googlePay) return

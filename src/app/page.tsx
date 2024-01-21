@@ -93,7 +93,7 @@ export default async function Home() {
           </div>
           <div aria-hidden className="hidden select-none border border-white p-4 sm:block">
             <p>
-              <span className="text-white">$</span>
+              <span className="text-white">$ </span>
               <TypedText
                 text={[
                   'echo "./Innovation with a mission"',
