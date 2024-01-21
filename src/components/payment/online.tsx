@@ -12,7 +12,7 @@ import {
   type PaymentRequestOptions,
   type GooglePay,
   type ApplePay,
-  TokenStatus,
+  type TokenStatus,
 } from "@square/web-sdk"
 
 import { env } from "~/env"
