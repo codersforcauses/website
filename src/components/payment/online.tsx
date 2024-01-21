@@ -11,6 +11,7 @@ import {
   type Card,
   type PaymentRequestOptions,
   type GooglePay,
+  type ApplePay,
   TokenStatus,
 } from "@square/web-sdk"
 
@@ -33,6 +34,7 @@ const APP_ID = env.NEXT_PUBLIC_SQUARE_APP_ID
 const LOCATION_ID = env.NEXT_PUBLIC_SQUARE_LOCATION_ID
 const containerID = "card-container"
 const googlePayID = "google-pay-container"
+const applePayID = "apple-pay-button"
 const buttonID = "card-button"
 
 const storeVerificationDetails = () => {
@@ -73,6 +75,8 @@ const OnlinePaymentForm = ({
   const [paymentInstance, setPaymentInstance] = React.useState<Payments>()
   const [card, setCard] = React.useState<Card | undefined>(() => undefined)
   const [googlePay, setGooglePay] = React.useState<GooglePay | undefined>(() => undefined)
+  const [applePay, setApplePay] = React.useState<ApplePay | undefined>(() => undefined)
+
   // initialize payment instance
   React.useEffect(() => {
     const abortController = new AbortController()
@@ -93,6 +97,43 @@ const OnlinePaymentForm = ({
       abortController.abort()
     }
   }, [])
+
+  // Apple Pay
+
+  React.useEffect(() => {
+    const abortController = new AbortController()
+    const { signal } = abortController
+
+    if (!paymentInstance) return
+
+    const paymentRequest = paymentInstance?.paymentRequest(
+      createPaymentRequest({
+        amount,
+        label,
+      }),
+    )
+    paymentInstance
+      .applePay(paymentRequest)
+      .then((apay) => {
+        if (signal?.aborted) {
+          return
+        }
+        setApplePay(apay)
+
+        if (signal.aborted) {
+          apay?.destroy().catch((error) => {
+            console.log(error)
+          })
+        }
+      })
+      .catch((error) => {
+        console.log(error)
+      })
+
+    return () => {
+      abortController.abort()
+    }
+  }, [paymentInstance, amount, label])
 
   // Google Pay
   React.useEffect(() => {
@@ -138,6 +179,7 @@ const OnlinePaymentForm = ({
       abortController.abort()
     }
   }, [paymentInstance, amount, label])
+
   // Credit/Debit card
   React.useEffect(() => {
     const abortController = new AbortController()
@@ -168,6 +210,7 @@ const OnlinePaymentForm = ({
       abortController.abort()
     }
   }, [paymentInstance])
+
   // Style card payment and google pay button according to theme
   React.useEffect(() => {
     if (!card) return
@@ -203,6 +246,41 @@ const OnlinePaymentForm = ({
 
     const verifyBuyerResults = await paymentInstance?.verifyBuyer(String(result.token), storeVerificationDetails())
     await props.cardTokenizeResponseReceived(result, verifyBuyerResults)
+  }
+
+  const handleApplePayment = async (e: React.MouseEvent) => {
+    e.stopPropagation()
+
+    // TODO: set loading state
+
+    if (!applePay) {
+      console.log("Apple Pay is not initialized")
+
+      return
+    }
+
+    try {
+      const result = await applePay.tokenize()
+
+      if (result.status === TokenStatus.OK) {
+        const tokenizedResult = await cardTokenizeResponseReceived(result)
+
+        return tokenizedResult
+      }
+
+      let message = `Tokenization failed with status: ${result.status}`
+      if (result?.errors) {
+        message += ` and errors: ${JSON.stringify(result?.errors)}`
+
+        throw new Error(message)
+      }
+
+      console.warn(message)
+    } catch (error) {
+      console.log(error)
+    } finally {
+      // TODO: unset loading stage (thx jerry)
+    }
   }
 
   const handleCardPayment = async (e: React.MouseEvent) => {
@@ -297,6 +375,16 @@ const OnlinePaymentForm = ({
         onClick={handleGPayPayment}
       >
         {!googlePay && <Skeleton className="h-10 w-full" />}
+      </div>
+      <div
+        id={applePayID}
+        className={cn(
+          "overflow-hidden focus-within:ring-2 focus-within:ring-ring focus-within:ring-offset-2",
+          applePay && "bg-primary ring-offset-background",
+        )}
+        onClick={handleApplePayment}
+      >
+        {!applePay && <Skeleton className="h-10 w-full" />}
       </div>
     </form>
   )

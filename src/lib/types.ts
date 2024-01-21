@@ -8,6 +8,7 @@ export interface ImageProps {
   src: string
   srcDark?: string
   alt: string
+  link?: string
 }
 
 export type Socials = "discord" | "github" | "gitlab" | "bitbucket" | "linkedin" | "website" | "email"
