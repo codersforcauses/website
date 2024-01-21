@@ -106,11 +106,9 @@ export default function Join() {
               </FormItem>
             )}
           />
-          <div className="flex flex-row-reverse">
-            <Button type="submit" size="lg" disabled={showAlert}>
-              {showAlert ? "Waiting for email" : "Continue"}
-            </Button>
-          </div>
+          <Button type="submit" disabled={showAlert} className="w-full">
+            {showAlert ? "Waiting for email" : "Continue"}
+          </Button>
         </form>
       </Form>
       <div>hello</div>
