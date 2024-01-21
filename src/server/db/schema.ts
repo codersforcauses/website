@@ -45,3 +45,14 @@ export const users = mysqlTable(
     emailIndex: index("email_idx").on(user.email),
   }),
 )
+
+export const payments = mysqlTable("payment", {
+  id: serial("id").primaryKey(),
+  user_id: varchar("user_id", { length: 32 }).notNull(),
+  token: varchar("token", { length: 64 }).notNull(),
+
+  createdAt: timestamp("created_at")
+    .default(sql`CURRENT_TIMESTAMP`)
+    .notNull(),
+  updatedAt: timestamp("updatedAt").onUpdateNow(),
+})
