@@ -7,9 +7,9 @@ import { useTheme } from "next-themes"
 import { siGithub } from "simple-icons"
 
 import { getUserGithub, getUserGithubYears } from "./user-github"
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "~/components/ui/tooltip"
 import { ScrollArea, ScrollBar } from "~/components/ui/scroll-area"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "~/components/ui/tabs"
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "~/components/ui/tooltip"
 
 type GithubContributionLevels = "NONE" | "FIRST_QUARTILE" | "SECOND_QUARTILE" | "THIRD_QUARTILE" | "FOURTH_QUARTILE"
 
@@ -29,6 +29,17 @@ type ContributionWeeks = {
 type Data = {
   totalContributions: number
   weeks: Array<ContributionWeeks>
+}
+
+type GithubData = {
+  data: {
+    user: {
+      contributionsCollection: {
+        contributionYears: number[]
+        contributionCalendar: Data
+      }
+    }
+  }
 }
 
 interface GithubHeatmapWrapperProps {
@@ -219,8 +230,8 @@ const GithubHeatmapWrapper = ({ username }: GithubHeatmapWrapperProps) => {
   React.useEffect(() => {
     if (!username) return
     getUserGithubYears(username)
-      .then((res) => {
-        setYears(res.data.user.contributionsCollection.contributionYears as Array<number>)
+      .then((res: GithubData) => {
+        setYears(res.data.user.contributionsCollection.contributionYears)
       })
       .catch((error) => {
         console.log(error)
@@ -233,8 +244,8 @@ const GithubHeatmapWrapper = ({ username }: GithubHeatmapWrapperProps) => {
   React.useEffect(() => {
     if (!username || !active) return
     getUserGithub(username, active)
-      .then((res) => {
-        setData(res.data.user.contributionsCollection.contributionCalendar as Data)
+      .then((res: GithubData) => {
+        setData(res.data.user.contributionsCollection.contributionCalendar)
       })
       .catch((error) => {
         console.log(error)
