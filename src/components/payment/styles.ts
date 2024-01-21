@@ -40,7 +40,7 @@ export const style = (theme: string) => {
       borderColor: currentStyle.ring,
     },
     ".input-container.is-error": {
-      borderColor: "#ff1600",
+      borderColor: currentStyle.border,
     },
     ".message-text": {
       color: currentStyle.muted,
