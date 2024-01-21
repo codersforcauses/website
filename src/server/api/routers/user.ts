@@ -55,11 +55,16 @@ export const userRouter = createTRPCRouter({
     return await ctx.db.select().from(users).where(eq(users.id, input))
   }),
 
-  // updateRole: protectedProcedure
-  //   .input(
-  //     z.object({
-  //       role: z.enum(["member", "committee", "executive", "past", "honorary", "admin"]),
-  //     }),
-  //   )
-  //   .mutation(async ({ ctx, input }) => {}),
+  updateRole: protectedProcedure
+    .input(
+      z.object({
+        role: z.enum(["member", "committee", "executive", "past", "honorary", "admin"]).optional(),
+      }),
+    )
+    .mutation(async ({ ctx, input }) => {
+      const user = await ctx.db.update(users).set({ role: input.role }).where(eq(users.id, ctx.user?.id))
+      console.log(user)
+
+      return user
+    }),
 })
