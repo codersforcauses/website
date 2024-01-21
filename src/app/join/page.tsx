@@ -73,10 +73,10 @@ export default function Join() {
         router.push("/dashboard")
       }
     } catch (error) {
-      console.error(error)
       if (error?.errors?.[0].code === "form_identifier_not_found") {
         router.replace(`/create-account?email=${email}`)
       }
+      console.error(error)
     }
   }
 
