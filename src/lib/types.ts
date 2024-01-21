@@ -4,6 +4,14 @@ export interface PropsWithChildren {
   children: React.ReactNode
 }
 
+export interface ClerkError {
+  errors: Array<{
+    message: string
+    long_message: string
+    code: string
+  }>
+}
+
 export interface ImageProps {
   src: string
   srcDark?: string

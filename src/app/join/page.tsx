@@ -13,6 +13,7 @@ import { Input } from "~/components/ui/input"
 import { Button } from "~/components/ui/button"
 import { toast } from "~/components/ui/use-toast"
 import { Alert, AlertDescription, AlertTitle } from "~/components/ui/alert"
+import { type ClerkError } from "~/lib/types"
 
 const formSchema = z.object({
   email: z
@@ -73,7 +74,8 @@ export default function Join() {
         router.push("/dashboard")
       }
     } catch (error) {
-      if (error?.errors?.[0].code === "form_identifier_not_found") {
+      const { errors = [] } = error as ClerkError
+      if (errors?.[0]?.code === "form_identifier_not_found") {
         router.replace(`/create-account?email=${email}`)
       }
       console.error(error)
