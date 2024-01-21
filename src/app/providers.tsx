@@ -1,5 +1,4 @@
 import { cookies } from "next/headers"
-import { HydrationOverlay } from "@builder.io/react-hydration-overlay"
 
 import { type PropsWithChildren } from "~/lib/types"
 import { ThemeProvider } from "~/components/theme-provider"
@@ -11,10 +10,12 @@ export default async function Providers({ children }: PropsWithChildren) {
       <TRPCReactProvider cookies={cookies().toString()}>{children}</TRPCReactProvider>
     </ThemeProvider>
   ) : (
-    <HydrationOverlay>
-      <ThemeProvider enableSystem disableTransitionOnChange attribute="class" defaultTheme="system">
-        <TRPCReactProvider cookies={cookies().toString()}>{children}</TRPCReactProvider>
-      </ThemeProvider>
-    </HydrationOverlay>
+    import("@builder.io/react-hydration-overlay").then(({ HydrationOverlay }) => (
+      <HydrationOverlay>
+        <ThemeProvider enableSystem disableTransitionOnChange attribute="class" defaultTheme="system">
+          <TRPCReactProvider cookies={cookies().toString()}>{children}</TRPCReactProvider>
+        </ThemeProvider>
+      </HydrationOverlay>
+    ))
   )
 }

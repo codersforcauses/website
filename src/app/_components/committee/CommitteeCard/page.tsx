@@ -1,7 +1,8 @@
 import { Fragment } from "react"
 import Image from "next/image"
-import { type CardItemProps } from "~/lib/types"
 import { siGithub } from "simple-icons"
+
+import { type CardItemProps } from "~/lib/types"
 
 const CommitteeCard = ({ name, position, about, social, picture: { src, alt } }: CardItemProps) => (
   <div className="group relative flex">
