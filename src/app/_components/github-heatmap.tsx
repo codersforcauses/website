@@ -220,7 +220,7 @@ const GithubHeatmapWrapper = ({ username }: GithubHeatmapWrapperProps) => {
     if (!username) return
     getUserGithubYears(username)
       .then((res) => {
-        setYears(res.data.user.contributionsCollection.contributionYears)
+        setYears(res.data.user.contributionsCollection.contributionYears as Array<number>)
       })
       .catch((error) => {
         console.log(error)
@@ -234,7 +234,7 @@ const GithubHeatmapWrapper = ({ username }: GithubHeatmapWrapperProps) => {
     if (!username || !active) return
     getUserGithub(username, active)
       .then((res) => {
-        setData(res.data.user.contributionsCollection.contributionCalendar)
+        setData(res.data.user.contributionsCollection.contributionCalendar as Data)
       })
       .catch((error) => {
         console.log(error)
