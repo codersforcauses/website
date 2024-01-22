@@ -34,37 +34,31 @@ const clients = [
     src: "/clients/foodbank_logo.svg",
     alt: "Foodbank WA logo",
     width: 140,
-    // className: "w-[140]",
   },
   {
     src: "/clients/wais_logo.svg",
     alt: "WAIS logo",
     width: 250,
-    // className: "w-[250]",
   },
   {
     src: "/clients/anglicare_logo.svg",
     alt: "Anglicare WA logo",
     width: 100,
-    // className: "w-[100]",
   },
   {
     src: "/clients/fog_logo.svg",
     alt: "Friends of Grounds logo",
     width: 180,
-    // className: "w-[180]",
   },
   {
     src: "/clients/ignite_logo.svg",
     alt: "Ignite logo",
     width: 100,
-    // className: "w-[100]",
   },
   {
     src: "/clients/p2s_logo.svg",
     alt: "P2S RugbyWorks logo",
     width: 200,
-    // className: "w-[200]",
   },
 ]
 
@@ -77,13 +71,13 @@ export default async function Home() {
         <div className="container grid gap-20 pb-12 pt-28 sm:grid-cols-2 md:py-36">
           <div className="space-y-4">
             <h1 className="font-mono text-4xl font-bold">We are developers.</h1>
-            <p className="text-lg">
+            <p className="text-pretty text-lg">
               Coders for Causes are a group of developers that empower charities and non-profit organizations by
               providing them solutions to their technical problems. We are student powered and all of our members are
               volunteers dedicated to providing you the best results.
             </p>
             <div className="grid grid-cols-2 gap-2 font-semibold sm:gap-4">
-              <Button variant="dark" size="lg" className="sm:text-lg">
+              <Button asChild variant="dark" size="lg" className="sm:text-lg">
                 <Link href="/join">Join us</Link>
               </Button>
               <Button asChild variant="outline-dark" size="lg" className="w-full sm:text-lg">
@@ -91,7 +85,7 @@ export default async function Home() {
               </Button>
             </div>
           </div>
-          <div aria-hidden className="hidden select-none border border-white p-4 sm:block">
+          <div aria-hidden className="hidden select-none border border-white/25 p-4 font-mono sm:block">
             <p>
               <span className="text-white">$ </span>
               <TypedText
