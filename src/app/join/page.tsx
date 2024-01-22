@@ -113,7 +113,9 @@ export default function Join() {
           </Button>
         </form>
       </Form>
-      <div>hello</div>
+      <div aria-hidden className="hidden place-items-center font-mono leading-none md:grid">
+        <span className="text-8xl">:)</span>
+      </div>
     </div>
   )
 }
