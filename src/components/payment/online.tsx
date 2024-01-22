@@ -34,7 +34,7 @@ const APP_ID = env.NEXT_PUBLIC_SQUARE_APP_ID
 const LOCATION_ID = env.NEXT_PUBLIC_SQUARE_LOCATION_ID
 const containerID = "card-container"
 const googlePayID = "google-pay-container"
-const applePayID = "apple-pay-container"
+const applePayID = "apple-pay-button"
 const buttonID = "card-button"
 
 const storeVerificationDetails = () => {
@@ -377,7 +377,7 @@ const OnlinePaymentForm = ({
         {!googlePay && <Skeleton className="h-10 w-full" />}
       </div>
       <div
-        id="apple-pay-button"
+        id={applePayID}
         className={cn(
           "overflow-hidden focus-within:ring-2 focus-within:ring-ring focus-within:ring-offset-2",
           applePay && "bg-primary ring-offset-background",
