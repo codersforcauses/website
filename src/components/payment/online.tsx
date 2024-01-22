@@ -34,7 +34,7 @@ const APP_ID = env.NEXT_PUBLIC_SQUARE_APP_ID
 const LOCATION_ID = env.NEXT_PUBLIC_SQUARE_LOCATION_ID
 const containerID = "card-container"
 const googlePayID = "google-pay-container"
-const applePayID = "apple-pay-button"
+const applePayID = "apple-pay-container"
 const buttonID = "card-button"
 
 const storeVerificationDetails = () => {
