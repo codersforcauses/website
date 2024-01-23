@@ -125,7 +125,6 @@ const OnlinePaymentForm = ({
 
     void initialiseApplePay().then((aPay) => {
       setApplePay(aPay)
-      console.log(applePay)
     })
 
     return () => {
@@ -147,6 +146,8 @@ const OnlinePaymentForm = ({
     //     }
     //   })
   }, [amount, applePay, label, paymentInstance])
+
+  console.log(applePay)
 
   // React.useEffect(() => {
   //   const abortController = new AbortController()
