@@ -376,7 +376,7 @@ const OnlinePaymentForm = ({
       >
         {!googlePay && <Skeleton className="h-10 w-full" />}
       </div>
-      <div id="apple-py-button"></div>
+      <div id="apple-pay-button"></div>
       {/* <div
         id="apple-pay-button"
         className={cn(
