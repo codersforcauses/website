@@ -69,7 +69,7 @@ const createPaymentRequest = ({
 }
 
 const OnlinePaymentForm = ({
-  amount = "0.00",
+  amount = "5.00",
   label = `CFC Membership ${new Date().getFullYear()}}`,
   ...props
 }: OnlinePaymentFormProps) => {
