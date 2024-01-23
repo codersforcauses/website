@@ -337,40 +337,40 @@ const OnlinePaymentForm = ({
     await props.cardTokenizeResponseReceived(result, verifyBuyerResults)
   }
 
-  // const handleApplePayment = async (e: React.MouseEvent) => {
-  //   e.stopPropagation()
+  const handleApplePayment = async (e: React.MouseEvent) => {
+    e.stopPropagation()
 
-  //   // TODO: set loading state
+    // TODO: set loading state
 
-  //   if (!applePay) {
-  //     console.error("Apple Pay is not initialized")
+    if (!applePay) {
+      console.error("Apple Pay is not initialized")
 
-  //     return
-  //   }
+      return
+    }
 
-  //   try {
-  //     const result = await applePay.tokenize()
+    try {
+      const result = await applePay.tokenize()
 
-  //     if (result.status === TokenStatus.OK) {
-  //       const tokenizedResult = await cardTokenizeResponseReceived(result)
+      if (result.status === TokenStatus.OK) {
+        const tokenizedResult = await cardTokenizeResponseReceived(result)
 
-  //       return tokenizedResult
-  //     }
+        return tokenizedResult
+      }
 
-  //     let message = `Tokenization failed with status: ${result.status}`
-  //     if (result?.errors) {
-  //       message += ` and errors: ${JSON.stringify(result?.errors)}`
+      let message = `Tokenization failed with status: ${result.status}`
+      if (result?.errors) {
+        message += ` and errors: ${JSON.stringify(result?.errors)}`
 
-  //       throw new Error(message)
-  //     }
+        throw new Error(message)
+      }
 
-  //     console.warn(message)
-  //   } catch (error) {
-  //     console.log(error)
-  //   } finally {
-  //     // TODO: unset loading stage (thx jerry)
-  //   }
-  // }
+      console.warn(message)
+    } catch (error) {
+      console.log(error)
+    } finally {
+      // TODO: unset loading stage (thx jerry)
+    }
+  }
 
   const handleCardPayment = async (e: React.MouseEvent) => {
     e.stopPropagation()
@@ -472,7 +472,7 @@ const OnlinePaymentForm = ({
           applePay && "bg-primary ring-offset-background",
         )}
         style={{ WebkitAppearance: "-apple-pay-button" }}
-        // onClick={handleApplePayment}
+        onClick={handleApplePayment}
       >
         {!applePay && <Skeleton className="h-10 w-full" />}
       </div>
