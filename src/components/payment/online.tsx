@@ -20,6 +20,7 @@ import { Button } from "~/components/ui/button"
 import { Skeleton } from "~/components/ui/skeleton"
 import { cn } from "~/lib/utils"
 import { style } from "./styles"
+import { initialize } from "next/dist/server/lib/render-server"
 
 interface OnlinePaymentFormProps {
   amount?: string
@@ -100,54 +101,88 @@ const OnlinePaymentForm = ({
 
   // Apple Pay
 
-  React.useEffect(() => {
-    const abortController = new AbortController()
-    const { signal } = abortController
-
-    if (!paymentInstance) return
-
-    const initialiseApplePay = async () => {
-      const paymentRequest = paymentInstance?.paymentRequest(
-        createPaymentRequest({
-          amount,
-          label,
-        }),
-      )
-
-      if (paymentInstance && paymentRequest) {
-        const aPay = await paymentInstance.applePay(paymentRequest)
-
-        return aPay
-      } else {
-        console.error("Apple Pay is not initialized")
-      }
-    }
-
-    void initialiseApplePay().then((aPay) => {
-      setApplePay(aPay)
+  function buildPaymentRequest(payments: Payments) {
+    return payments.paymentRequest({
+      countryCode: "AU",
+      currencyCode: "AUD",
+      total: {
+        amount: "5.00",
+        label: "CFC Membership",
+      },
     })
+  }
 
-    return () => {
-      abortController.abort()
+  async function initializeApplePay(payments: Payments) {
+    try {
+      const paymentRequest = buildPaymentRequest(payments)
+      const applePay = await payments.applePay(paymentRequest)
+      return applePay
+    } catch (e) {
+      console.error("Initializing Apple Pay failed", e)
+      throw e
     }
+  }
 
-    // const paymentRequest = paymentInstance?.paymentRequest(
-    //   createPaymentRequest({
-    //     amount,
-    //     label,
-    //   }),
-    // )
+  React.useEffect(() => {
+    if (paymentInstance) {
+      initializeApplePay(paymentInstance)
+        .then((aPay) => {
+          setApplePay(aPay)
+        })
+        .catch((error) => {
+          console.log(error)
+        })
+    }
+  }, [])
 
-    // paymentInstance
-    //   .applePay(paymentRequest)
-    //   .then((apay) => {
-    //     if (signal?.aborted) {
-    //       return
-    //     }
-    //   })
-  }, [amount, applePay, label, paymentInstance])
+  // React.useEffect(() => {
+  //   const abortController = new AbortController()
+  //   const { signal } = abortController
 
-  console.log(applePay)
+  //   if (!paymentInstance) return
+
+  //   const initialiseApplePay = async () => {
+  //     const paymentRequest = paymentInstance?.paymentRequest(
+  //       createPaymentRequest({
+  //         amount,
+  //         label,
+  //       }),
+  //     )
+
+  //     if (paymentInstance && paymentRequest) {
+  //       const aPay = await paymentInstance.applePay(paymentRequest)
+
+  //       return aPay
+  //     } else {
+  //       console.error("Apple Pay is not initialized")
+  //     }
+  //   }
+
+  //   void initialiseApplePay().then((aPay) => {
+  //     setApplePay(aPay)
+  //   })
+
+  //   return () => {
+  //     abortController.abort()
+  //   }
+
+  // const paymentRequest = paymentInstance?.paymentRequest(
+  //   createPaymentRequest({
+  //     amount,
+  //     label,
+  //   }),
+  // )
+
+  // paymentInstance
+  //   .applePay(paymentRequest)
+  //   .then((apay) => {
+  //     if (signal?.aborted) {
+  //       return
+  //     }
+  //   })
+  // }, [amount, applePay, label, paymentInstance])
+
+  // console.log(applePay)
 
   // React.useEffect(() => {
   //   const abortController = new AbortController()
