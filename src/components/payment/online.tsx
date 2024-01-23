@@ -114,23 +114,23 @@ const OnlinePaymentForm = ({
         label,
       }),
     )
-    // paymentInstance
-    //   .applePay(paymentRequest)
-    //   .then((apay) => {
-    //     if (signal?.aborted) {
-    //       return
-    //     }
-    //     setApplePay(apay)
+    paymentInstance
+      .applePay(paymentRequest)
+      .then((apay) => {
+        if (signal?.aborted) {
+          return
+        }
+        setApplePay(apay)
 
-    //     if (signal.aborted) {
-    //       apay?.destroy().catch((error) => {
-    //         console.log(error)
-    //       })
-    //     }
-    //   })
-    //   .catch((error) => {
-    //     console.log(error)
-    //   })
+        if (signal.aborted) {
+          apay?.destroy().catch((error) => {
+            console.log(error)
+          })
+        }
+      })
+      .catch((error) => {
+        console.log(error)
+      })
 
     return () => {
       abortController.abort()
