@@ -119,6 +119,7 @@ const OnlinePaymentForm = ({
           return
         }
         setApplePay(apay)
+        console.log(applePay)
 
         if (signal.aborted) {
           apay?.destroy().catch((error) => {
