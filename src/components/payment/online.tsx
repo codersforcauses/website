@@ -125,6 +125,7 @@ const OnlinePaymentForm = ({
 
     void initialiseApplePay().then((aPay) => {
       setApplePay(aPay)
+      console.log(applePay)
     })
 
     return () => {
