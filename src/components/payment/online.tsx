@@ -106,35 +106,86 @@ const OnlinePaymentForm = ({
 
     if (!paymentInstance) return
 
-    const paymentRequest = paymentInstance?.paymentRequest(
-      createPaymentRequest({
-        amount,
-        label,
-      }),
-    )
-    paymentInstance
-      .applePay(paymentRequest)
-      .then((apay) => {
-        if (signal?.aborted) {
-          return
-        }
-        setApplePay(apay)
-        console.log(applePay)
+    const initialiseApplePay = async () => {
+      const paymentRequest = paymentInstance?.paymentRequest(
+        createPaymentRequest({
+          amount,
+          label,
+        }),
+      )
 
-        if (signal.aborted) {
-          apay?.destroy().catch((error) => {
-            console.log(error)
-          })
-        }
-      })
-      .catch((error) => {
-        console.log(error)
-      })
+      if (paymentInstance && paymentRequest) {
+        const aPay = await paymentInstance.applePay(paymentRequest)
+
+        return aPay
+      } else {
+        console.error("Apple Pay is not initialized")
+      }
+    }
+
+    void initialiseApplePay().then((aPay) => {
+      setApplePay(aPay)
+    })
 
     return () => {
       abortController.abort()
     }
-  }, [paymentInstance, amount, label])
+
+    // const paymentRequest = paymentInstance?.paymentRequest(
+    //   createPaymentRequest({
+    //     amount,
+    //     label,
+    //   }),
+    // )
+
+    // paymentInstance
+    //   .applePay(paymentRequest)
+    //   .then((apay) => {
+    //     if (signal?.aborted) {
+    //       return
+    //     }
+    //   })
+  }, [amount, label, paymentInstance])
+
+  // React.useEffect(() => {
+  //   const abortController = new AbortController()
+  //   const { signal } = abortController
+
+  //   if (!paymentInstance) return
+
+  //   void initialiseApplePay().then((aPay) => {
+  //     setApplePay(aPay)
+  //   })
+
+  // const paymentRequest = paymentInstance?.paymentRequest(
+  //   createPaymentRequest({
+  //     amount,
+  //     label,
+  //   }),
+  // )
+
+  // paymentInstance
+  //   .applePay(paymentRequest)
+  //   .then((apay) => {
+  //     if (signal?.aborted) {
+  //       return
+  //     }
+  //     setApplePay(apay)
+
+  //     if (signal.aborted) {
+  //       apay?.destroy().catch((error) => {
+  //         console.log(error)
+  //       })
+  //     }
+  //   })
+  //   .catch((error) => {
+  //     console.log(error)
+  //   })
+
+  //   return () => {
+  //     abortController.abort()
+  //   }
+  // }, [paymentInstance, amount, label, initialiseApplePay])
 
   // Google Pay
   React.useEffect(() => {
@@ -377,8 +428,7 @@ const OnlinePaymentForm = ({
       >
         {!googlePay && <Skeleton className="h-10 w-full" />}
       </div>
-      <div id="apple-pay-button"></div>
-      {/* <div
+      <div
         id="apple-pay-button"
         className={cn(
           "overflow-hidden focus-within:ring-2 focus-within:ring-ring focus-within:ring-offset-2",
@@ -387,7 +437,7 @@ const OnlinePaymentForm = ({
         onClick={handleApplePayment}
       >
         {!applePay && <Skeleton className="h-10 w-full" />}
-      </div> */}
+      </div>
     </form>
   )
 }
