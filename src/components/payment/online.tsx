@@ -21,6 +21,8 @@ import { Skeleton } from "~/components/ui/skeleton"
 import { cn } from "~/lib/utils"
 import { style } from "./styles"
 import { initialize } from "next/dist/server/lib/render-server"
+import { create } from "domain"
+import { error } from "console"
 
 interface OnlinePaymentFormProps {
   amount?: string
@@ -101,37 +103,72 @@ const OnlinePaymentForm = ({
 
   // Apple Pay
 
-  function buildPaymentRequest(payments: Payments) {
-    return payments.paymentRequest({
-      countryCode: "AU",
-      currencyCode: "AUD",
-      total: {
-        amount: "5.00",
-        label: "CFC Membership",
-      },
-    })
-  }
+  // function buildPaymentRequest(payments: Payments) {
+  //   return payments.paymentRequest({
+  //     countryCode: "AU",
+  //     currencyCode: "AUD",
+  //     total: {
+  //       amount: "5.00",
+  //       label: "CFC Membership",
+  //     },
+  //   })
+  // }
 
-  async function initializeApplePay(payments: Payments) {
-    try {
-      const paymentRequest = buildPaymentRequest(payments)
-      const applePay = await payments.applePay(paymentRequest)
-      return applePay
-    } catch (e) {
-      console.error("Initializing Apple Pay failed", e)
-      throw e
-    }
-  }
+  // async function initializeApplePay(payments: Payments) {
+  //   try {
+  //     const paymentRequest = buildPaymentRequest(payments)
+  //     const applePay = await payments.applePay(paymentRequest)
+  //     return applePay
+  //   } catch (e) {
+  //     console.error("Initializing Apple Pay failed", e)
+  //     throw e
+  //   }
+  // }
+
+  // React.useEffect(() => {
+  //   if (paymentInstance) {
+  //     initializeApplePay(paymentInstance)
+  //       .then((aPay) => {
+  //         setApplePay(aPay)
+  //       })
+  //       .catch((error) => {
+  //         console.log(error)
+  //       })
+  //   }
+  // }, [paymentInstance, amount, label])
 
   React.useEffect(() => {
-    if (paymentInstance) {
-      initializeApplePay(paymentInstance)
-        .then((aPay) => {
-          setApplePay(aPay)
-        })
-        .catch((error) => {
-          console.log(error)
-        })
+    const abortController = new AbortController()
+    const { signal } = abortController
+
+    if (!paymentInstance) return
+
+    const paymentRequest = paymentInstance.paymentRequest(
+      createPaymentRequest({
+        amount,
+        label,
+      }),
+    )
+    paymentInstance
+      .applePay(paymentRequest)
+      .then((apay) => {
+        if (signal?.aborted) {
+          return
+        }
+        setApplePay(apay)
+
+        if (signal.aborted) {
+          apay?.destroy().catch((error) => {
+            console.log(error)
+          })
+        }
+      })
+      .catch((error) => {
+        console.log(error)
+      })
+
+    return () => {
+      abortController.abort()
     }
   }, [paymentInstance, amount, label])
 
