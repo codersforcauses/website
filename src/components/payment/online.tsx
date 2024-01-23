@@ -127,13 +127,14 @@ const OnlinePaymentForm = ({
     if (paymentInstance) {
       initializeApplePay(paymentInstance)
         .then((aPay) => {
+          console.log(aPay)
           setApplePay(aPay)
         })
         .catch((error) => {
           console.log(error)
         })
     }
-  }, [])
+  }, [paymentInstance, amount, label])
 
   // React.useEffect(() => {
   //   const abortController = new AbortController()
