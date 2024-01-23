@@ -146,7 +146,7 @@ const OnlinePaymentForm = ({
     //       return
     //     }
     //   })
-  }, [amount, label, paymentInstance])
+  }, [amount, applePay, label, paymentInstance])
 
   // React.useEffect(() => {
   //   const abortController = new AbortController()
