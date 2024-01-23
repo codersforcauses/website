@@ -376,7 +376,8 @@ const OnlinePaymentForm = ({
       >
         {!googlePay && <Skeleton className="h-10 w-full" />}
       </div>
-      <div
+      <div id="apple-py-button"></div>
+      {/* <div
         id="apple-pay-button"
         className={cn(
           "overflow-hidden focus-within:ring-2 focus-within:ring-ring focus-within:ring-offset-2",
@@ -385,7 +386,7 @@ const OnlinePaymentForm = ({
         onClick={handleApplePayment}
       >
         {!applePay && <Skeleton className="h-10 w-full" />}
-      </div>
+      </div> */}
     </form>
   )
 }
