@@ -263,11 +263,10 @@ const OnlinePaymentForm = ({
 
     try {
       const result = await applePay.tokenize()
+      alert(JSON.stringify(result))
 
       if (result.status === TokenStatus.OK) {
         const tokenizedResult = await cardTokenizeResponseReceived(result)
-
-        console.log(tokenizedResult)
 
         return tokenizedResult
       }
