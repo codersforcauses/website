@@ -127,8 +127,8 @@ const OnlinePaymentForm = ({
     if (paymentInstance) {
       initializeApplePay(paymentInstance)
         .then((aPay) => {
-          console.log(aPay)
           setApplePay(aPay)
+          console.log(aPay)
         })
         .catch((error) => {
           console.log(error)
@@ -344,7 +344,7 @@ const OnlinePaymentForm = ({
     // TODO: set loading state
 
     if (!applePay) {
-      console.log("Apple Pay is not initialized")
+      console.error("Apple Pay is not initialized")
 
       return
     }
@@ -466,6 +466,7 @@ const OnlinePaymentForm = ({
       >
         {!googlePay && <Skeleton className="h-10 w-full" />}
       </div>
+      <div id="apple-pay-container" />
       <div
         id="apple-pay-button"
         className={cn(
