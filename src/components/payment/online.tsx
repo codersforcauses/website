@@ -262,6 +262,7 @@ const OnlinePaymentForm = ({
     }
 
     try {
+      console.log("test")
       const result = await applePay.tokenize()
       alert(JSON.stringify(result))
 
