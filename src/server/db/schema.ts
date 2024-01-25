@@ -43,6 +43,7 @@ export const users = mysqlTable(
   },
   (user) => ({
     emailIndex: index("email_idx").on(user.email),
+    roleIndex: index("role_idx").on(user.role),
   }),
 )
 
