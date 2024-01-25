@@ -13,6 +13,8 @@ import {
   varchar,
 } from "drizzle-orm/mysql-core"
 
+import { NAMED_ROLES } from "~/lib/constants"
+
 /**
  * This is an example of how to use the multi-project schema feature of Drizzle ORM. Use the same
  * database instance for multiple projects.
@@ -33,8 +35,8 @@ export const users = mysqlTable(
     university: varchar("university", { length: 128 }), // non UWA
     github: varchar("github", { length: 128 }),
     discord: varchar("discord", { length: 128 }),
-    subscribe: boolean("subscribe").default(true),
-    role: mysqlEnum("role", ["member", "committee", "past", "honorary", "admin"]), // honorary: hlm, past: past committee
+    subscribe: boolean("subscribe").default(true).notNull(),
+    role: mysqlEnum("role", NAMED_ROLES), // honorary: hlm, past: past committee
 
     createdAt: timestamp("created_at")
       .default(sql`CURRENT_TIMESTAMP`)
