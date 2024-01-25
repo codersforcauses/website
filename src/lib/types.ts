@@ -1,5 +1,7 @@
 import * as SimpleIcons from "simple-icons/icons"
 
+import { type NAMED_ROLES } from "./constants"
+
 export interface PropsWithChildren {
   children: React.ReactNode
 }
@@ -10,6 +12,21 @@ export interface ClerkError {
     long_message: string
     code: string
   }>
+}
+
+export interface User {
+  email: string
+  name: string
+  id: string
+  preferred_name: string
+  pronouns: string
+  student_number: string | null
+  university: string | null
+  github: string | null
+  discord: string | null
+  subscribe: boolean
+  role: (typeof NAMED_ROLES)[number] | null
+  createdAt: Date
 }
 
 export interface ImageProps {
