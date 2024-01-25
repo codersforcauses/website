@@ -12,7 +12,7 @@ import {
   type PaymentRequestOptions,
   type GooglePay,
   type ApplePay,
-  type TokenStatus,
+  TokenStatus,
 } from "@square/web-sdk"
 
 import { env } from "~/env"
@@ -20,6 +20,9 @@ import { Button } from "~/components/ui/button"
 import { Skeleton } from "~/components/ui/skeleton"
 import { cn } from "~/lib/utils"
 import { style } from "./styles"
+import { initialize } from "next/dist/server/lib/render-server"
+import { create } from "domain"
+import { error } from "console"
 
 interface OnlinePaymentFormProps {
   amount?: string
@@ -99,14 +102,13 @@ const OnlinePaymentForm = ({
   }, [])
 
   // Apple Pay
-
   React.useEffect(() => {
     const abortController = new AbortController()
     const { signal } = abortController
 
     if (!paymentInstance) return
 
-    const paymentRequest = paymentInstance?.paymentRequest(
+    const paymentRequest = paymentInstance.paymentRequest(
       createPaymentRequest({
         amount,
         label,
@@ -118,6 +120,8 @@ const OnlinePaymentForm = ({
         if (signal?.aborted) {
           return
         }
+
+        console.log(apay)
         setApplePay(apay)
 
         if (signal.aborted) {
@@ -163,6 +167,7 @@ const OnlinePaymentForm = ({
           .catch((error) => {
             console.log(error)
           })
+        console.log(gpay)
         setGooglePay(gpay)
 
         if (signal.aborted) {
@@ -246,6 +251,19 @@ const OnlinePaymentForm = ({
 
     const verifyBuyerResults = await paymentInstance?.verifyBuyer(String(result.token), storeVerificationDetails())
     await props.cardTokenizeResponseReceived(result, verifyBuyerResults)
+
+    const response = await fetch("/api/pay", {
+      method: "POST",
+      headers: {
+        "Content-type": "application/json",
+      },
+      body: JSON.stringify({
+        sourceId: result.token,
+        amount: Number(amount) * 100,
+        currency: "AUD",
+      }),
+    })
+    console.log(await response.json())
   }
 
   const handleApplePayment = async (e: React.MouseEvent) => {
@@ -254,13 +272,14 @@ const OnlinePaymentForm = ({
     // TODO: set loading state
 
     if (!applePay) {
-      console.log("Apple Pay is not initialized")
+      console.error("Apple Pay button was clicked. but no Apple Pay instance was found.")
 
       return
     }
 
     try {
       const result = await applePay.tokenize()
+      console.log(result, result.status)
 
       if (result.status === TokenStatus.OK) {
         const tokenizedResult = await cardTokenizeResponseReceived(result)
@@ -326,6 +345,7 @@ const OnlinePaymentForm = ({
       const result = await googlePay.tokenize()
 
       if (result.status === TokenStatus.OK) {
+        console.log("test")
         return cardTokenizeResponseReceived(result)
       }
 
@@ -377,11 +397,12 @@ const OnlinePaymentForm = ({
         {!googlePay && <Skeleton className="h-10 w-full" />}
       </div>
       <div
-        id={applePayID}
+        id="apple-pay-button"
         className={cn(
           "overflow-hidden focus-within:ring-2 focus-within:ring-ring focus-within:ring-offset-2",
           applePay && "bg-primary ring-offset-background",
         )}
+        style={{ WebkitAppearance: "-apple-pay-button" }}
         onClick={handleApplePayment}
       >
         {!applePay && <Skeleton className="h-10 w-full" />}
