@@ -120,6 +120,8 @@ const OnlinePaymentForm = ({
         if (signal?.aborted) {
           return
         }
+
+        console.log(apay)
         setApplePay(apay)
 
         if (signal.aborted) {
@@ -256,15 +258,13 @@ const OnlinePaymentForm = ({
     // TODO: set loading state
 
     if (!applePay) {
-      console.error("Apple Pay is not initialized")
+      console.error("Apple Pay button was clicked. but no Apple Pay instance was found.")
 
       return
     }
 
     try {
-      console.log("test")
       const result = await applePay.tokenize()
-      alert(JSON.stringify(result))
 
       if (result.status === TokenStatus.OK) {
         const tokenizedResult = await cardTokenizeResponseReceived(result)
