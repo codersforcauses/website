@@ -15,6 +15,7 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "
 import { Input } from "~/components/ui/input"
 import { toast } from "~/components/ui/use-toast"
 import { api } from "~/trpc/react"
+import { setUserCookie } from "../actions"
 
 const formSchema = z.object({
   email: z
@@ -43,8 +44,12 @@ export default function Join() {
   })
 
   const userData = api.user.login.useMutation({
-    onSuccess: (data) => {
+    onSuccess: async (data) => {
       console.log(data)
+
+      if (!data) return
+      const { updatedAt, ...user } = data
+      await setUserCookie(user)
     },
   })
 
@@ -76,7 +81,8 @@ export default function Join() {
         })
       }
       if (res.status === "complete") {
-        await Promise.allSettled([setActive({ session: res.createdSessionId }), userData.mutateAsync()])
+        userData.mutate()
+        await setActive({ session: res.createdSessionId })
 
         router.push("/dashboard")
       }
