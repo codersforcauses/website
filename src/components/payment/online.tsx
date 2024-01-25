@@ -167,6 +167,7 @@ const OnlinePaymentForm = ({
           .catch((error) => {
             console.log(error)
           })
+        console.log(gpay)
         setGooglePay(gpay)
 
         if (signal.aborted) {
