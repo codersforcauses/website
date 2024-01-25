@@ -34,7 +34,7 @@ export const users = mysqlTable(
     github: varchar("github", { length: 128 }),
     discord: varchar("discord", { length: 128 }),
     subscribe: boolean("subscribe").default(true),
-    role: mysqlEnum("role", ["member", "committee", "executive", "past", "honorary", "admin"]), // honorary: hlm, past: past committee
+    role: mysqlEnum("role", ["member", "committee", "past", "honorary", "admin"]), // honorary: hlm, past: past committee
 
     createdAt: timestamp("created_at")
       .default(sql`CURRENT_TIMESTAMP`)
