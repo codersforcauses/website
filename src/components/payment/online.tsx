@@ -250,6 +250,19 @@ const OnlinePaymentForm = ({
 
     const verifyBuyerResults = await paymentInstance?.verifyBuyer(String(result.token), storeVerificationDetails())
     await props.cardTokenizeResponseReceived(result, verifyBuyerResults)
+
+    const response = await fetch("/api/pay", {
+      method: "POST",
+      headers: {
+        "Content-type": "application/json",
+      },
+      body: JSON.stringify({
+        sourceId: result.token,
+        amount: Number(amount) * 100,
+        currency: "AUD",
+      }),
+    })
+    console.log(await response.json())
   }
 
   const handleApplePayment = async (e: React.MouseEvent) => {
@@ -330,6 +343,7 @@ const OnlinePaymentForm = ({
       const result = await googlePay.tokenize()
 
       if (result.status === TokenStatus.OK) {
+        console.log("test")
         return cardTokenizeResponseReceived(result)
       }
 
