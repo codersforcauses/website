@@ -131,7 +131,7 @@ export default function CreateAccount() {
       email: searchParams.get("email") ?? "",
     },
   })
-  const { getValues } = form
+  const { getValues, setError } = form
 
   const createUser = api.user.create.useMutation({})
 
@@ -139,6 +139,17 @@ export default function CreateAccount() {
 
   const onSubmit = async (values: FormSchema) => {
     if (!isLoaded) return null
+
+    const { status: githubStatus } = await fetch(`https://api.github.com/users/${values.github}`)
+
+    if (githubStatus !== 200) {
+      setError("github", {
+        type: "custom",
+        message: "Github username not found",
+      })
+      return
+    }
+
     const userData: Omit<FormSchema, "isUWA"> = {
       name: values.name,
       preferred_name: values.preferred_name,
@@ -156,16 +167,10 @@ export default function CreateAccount() {
     }
     try {
       const { startEmailLinkFlow } = signUp.createEmailLinkFlow()
-      const { id } = await signUp.create({
+      await signUp.create({
         emailAddress: values.email,
         firstName: values.preferred_name,
         lastName: values.name, // we treat clerk.lastName as the user's full name
-      })
-      if (!id) return
-
-      createUser.mutate({
-        clerk_id: id,
-        ...userData,
       })
 
       toast({
@@ -175,6 +180,11 @@ export default function CreateAccount() {
 
       const su = await startEmailLinkFlow({
         redirectUrl: `${SITE_URL}/verification`,
+      })
+
+      createUser.mutate({
+        clerk_id: su.createdUserId!,
+        ...userData,
       })
 
       const verification = su.verifications.emailAddress
