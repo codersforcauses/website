@@ -259,7 +259,7 @@ const OnlinePaymentForm = ({
       },
       body: JSON.stringify({
         sourceId: result.token,
-        amount: Number(amount) * 100,
+        amount: amount,
         currency: "AUD",
       }),
     })
@@ -343,8 +343,10 @@ const OnlinePaymentForm = ({
 
     try {
       const result = await googlePay.tokenize()
+      console.log(result, result.status)
+      console.log(TokenStatus)
 
-      if (result.status === TokenStatus.OK) {
+      if ((result.status as string) === "OK") {
         console.log("test")
         return cardTokenizeResponseReceived(result)
       }
