@@ -1,5 +1,4 @@
-import { NextApiRequest, NextApiResponse } from "next"
-import { Client, Environment, type Payment } from "square"
+import { Client, Environment } from "square"
 import { randomUUID } from "crypto"
 import { env } from "~/env"
 
@@ -8,6 +7,9 @@ interface ReqBody {
   amount: string
   currency: string
 }
+
+// Ensures that BigInt can be serialized
+// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/BigInt#use_within_json
 
 BigInt.prototype.toJSON = function () {
   return this.toString()
