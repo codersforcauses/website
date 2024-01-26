@@ -57,8 +57,7 @@
   }
 
   .main {
-    margin-top: 64px;
-    min-height: calc(100vh - (64px + 292px));
+    @apply mt-16 h-full min-h-[calc(100vh-(64px+600px))] md:min-h-[calc(100vh-(64px+292px))];
   }
 
   .material-symbols-sharp {

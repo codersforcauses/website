@@ -1,6 +1,7 @@
 import Link from "next/link"
 
 import { Button } from "~/components/ui/button"
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "~/components/ui/dropdown-menu"
 import ThemeSwitcher from "./theme"
 import UserButton from "./user"
 
@@ -26,9 +27,22 @@ const Header = () => {
     <header className="fixed inset-x-0 top-0 z-30 bg-black py-3">
       <div className="container flex items-center justify-between">
         <nav className="flex">
-          <Button variant="ghost-dark" size="icon" className="sm:hidden">
-            <span className="material-symbols-sharp">menu</span>
-          </Button>
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant="ghost-dark" size="icon" className="mr-2 sm:hidden">
+                <span className="material-symbols-sharp">menu</span>
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent className="mt-2 w-screen border-white/25 bg-black text-white">
+              {links.map(({ text, href, isExternal = false }) => (
+                <DropdownMenuItem asChild key={text} className="focus:bg-white/20 focus:text-white">
+                  <Link href={href} target={isExternal ? "_blank" : undefined}>
+                    <span className="container">{text}</span>
+                  </Link>
+                </DropdownMenuItem>
+              ))}
+            </DropdownMenuContent>
+          </DropdownMenu>
           <Button
             asChild
             size="icon"
@@ -38,10 +52,12 @@ const Header = () => {
             <Link href="/">cfc</Link>
           </Button>
           <ul className="hidden sm:ml-4 sm:flex sm:items-baseline sm:justify-between">
-            {links.map(({ text, href }) => (
+            {links.map(({ text, href, isExternal = false }) => (
               <li key={text}>
                 <Button asChild variant="link-dark">
-                  <Link href={href}>{text}</Link>
+                  <Link href={href} target={isExternal ? "_blank" : undefined}>
+                    {text}
+                  </Link>
                 </Button>
               </li>
             ))}

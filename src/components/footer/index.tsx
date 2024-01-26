@@ -169,7 +169,7 @@ const Footer = () => {
             {socialLinks.map(({ href, title, path }) => (
               <Button asChild key={title} variant="ghost-dark" size="icon">
                 <a href={href}>
-                  <svg role="img" viewBox="0 0 24 24" height={24} width={24} className="fill-current">
+                  <svg role="img" viewBox="0 0 24 24" height={16} width={16} className="fill-current">
                     <title>{title}</title>
                     <path d={path} />
                   </svg>

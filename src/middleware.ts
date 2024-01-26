@@ -6,7 +6,7 @@ const protectedPages = ["/dashboard", "/dashboard/admin", "/account", "/settings
 export default authMiddleware({
   afterAuth(auth, req) {
     if (!auth.userId && protectedPages.includes(req.nextUrl.pathname)) {
-      const joinURL = new URL("/join", req.url)
+      const joinURL = new URL("/join", req.nextUrl.origin)
       return NextResponse.redirect(joinURL)
     }
 

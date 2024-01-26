@@ -10,17 +10,14 @@ export default function Verification() {
   React.useEffect(() => {
     const verify = async () => {
       try {
-        await handleEmailLinkVerification({
-          redirectUrl: "https://redirect-to-pending-sign-up",
-          redirectUrlComplete: "https://redirect-when-sign-up-complete",
-        })
+        await handleEmailLinkVerification({})
         // If we're not redirected at this point, it means
         // that the flow has completed on another device.
         setVerificationStatus("verified")
       } catch (err) {
         // Verification has failed.
         let status = "failed"
-        if (isEmailLinkError(err as Error) && err.code === EmailLinkErrorCode.Expired) {
+        if (isEmailLinkError(err as Error) && err?.code === EmailLinkErrorCode.Expired) {
           status = "expired"
         }
         setVerificationStatus(status)
@@ -41,7 +38,7 @@ export default function Verification() {
     default:
       return (
         <main className="main container grid place-items-center text-xl">
-          Verification successful. Return to the original tab to continue.
+          Verification successful. Return to the original tab to continue. You may close this tab.
         </main>
       )
   }

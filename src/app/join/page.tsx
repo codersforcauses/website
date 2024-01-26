@@ -8,12 +8,14 @@ import { useSignIn } from "@clerk/nextjs"
 import * as z from "zod"
 
 import { SITE_URL } from "~/lib/constants"
+import { type ClerkError } from "~/lib/types"
+import { Alert, AlertDescription, AlertTitle } from "~/components/ui/alert"
+import { Button } from "~/components/ui/button"
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "~/components/ui/form"
 import { Input } from "~/components/ui/input"
-import { Button } from "~/components/ui/button"
 import { toast } from "~/components/ui/use-toast"
-import { Alert, AlertDescription, AlertTitle } from "~/components/ui/alert"
-import { type ClerkError } from "~/lib/types"
+import { api } from "~/trpc/react"
+import { setUserCookie } from "../actions"
 
 const formSchema = z.object({
   email: z
@@ -41,10 +43,19 @@ export default function Join() {
     defaultValues,
   })
 
+  const userData = api.user.login.useMutation({
+    onSuccess: async (data) => {
+      console.log(data)
+
+      if (!data) return
+      const { updatedAt, ...user } = data
+      await setUserCookie(user)
+    },
+  })
+
   const onSubmit = async ({ email }: FormSchema) => {
-    if (!isLoaded) {
-      return null
-    }
+    if (!isLoaded) return null
+
     const { startEmailLinkFlow } = signIn.createEmailLinkFlow()
     try {
       const si = await signIn.create({ identifier: email })
@@ -70,7 +81,9 @@ export default function Join() {
         })
       }
       if (res.status === "complete") {
+        userData.mutate()
         await setActive({ session: res.createdSessionId })
+
         router.push("/dashboard")
       }
     } catch (error) {
@@ -113,7 +126,9 @@ export default function Join() {
           </Button>
         </form>
       </Form>
-      <div>hello</div>
+      <div aria-hidden className="hidden place-items-center font-mono leading-none md:grid">
+        <span className="text-8xl">:)</span>
+      </div>
     </div>
   )
 }
