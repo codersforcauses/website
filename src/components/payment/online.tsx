@@ -259,11 +259,13 @@ const OnlinePaymentForm = ({
       },
       body: JSON.stringify({
         sourceId: result.token,
-        amount: Number(amount) * 100,
+        amount: amount,
         currency: "AUD",
       }),
     })
     console.log(await response.json())
+
+    // TODO: Decide how you want to use this information Jezz
   }
 
   const handleApplePayment = async (e: React.MouseEvent) => {
@@ -281,7 +283,7 @@ const OnlinePaymentForm = ({
       const result = await applePay.tokenize()
       console.log(result, result.status)
 
-      if (result.status === TokenStatus.OK) {
+      if ((result.status as string) === "OK") {
         const tokenizedResult = await cardTokenizeResponseReceived(result)
 
         return tokenizedResult
@@ -312,7 +314,7 @@ const OnlinePaymentForm = ({
     try {
       const result = await card.tokenize()
 
-      if (result.status === TokenStatus.OK) {
+      if ((result.status as string) === "OK") {
         const tokenizedResult = await cardTokenizeResponseReceived(result)
         return tokenizedResult
       }
@@ -343,9 +345,11 @@ const OnlinePaymentForm = ({
 
     try {
       const result = await googlePay.tokenize()
+      // console.log(result, result.status)
+      // console.log(TokenStatus)
 
-      if (result.status === TokenStatus.OK) {
-        console.log("test")
+      if ((result.status as string) === "OK") {
+        // console.log("test")
         return cardTokenizeResponseReceived(result)
       }
 
