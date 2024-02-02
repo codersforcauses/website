@@ -122,11 +122,9 @@ const DropdownMenuRadioItem = React.forwardRef<
     )}
     {...props}
   >
-    <span className="absolute left-2 flex h-3.5 w-3.5 items-center justify-center">
-      <DropdownMenuPrimitive.ItemIndicator>
-        <span className="material-symbols-sharp text-xs text-current">check</span>
-      </DropdownMenuPrimitive.ItemIndicator>
-    </span>
+    <DropdownMenuPrimitive.ItemIndicator className="absolute left-2 flex h-3.5 w-3.5 items-center justify-center">
+      <span className="size-1.5 rounded-full bg-current opacity-75" />
+    </DropdownMenuPrimitive.ItemIndicator>
     {children}
   </DropdownMenuPrimitive.RadioItem>
 ))
@@ -150,7 +148,11 @@ const DropdownMenuSeparator = React.forwardRef<
   React.ElementRef<typeof DropdownMenuPrimitive.Separator>,
   React.ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.Separator>
 >(({ className, ...props }, ref) => (
-  <DropdownMenuPrimitive.Separator ref={ref} className={cn("-mx-1 my-1 h-px bg-muted", className)} {...props} />
+  <DropdownMenuPrimitive.Separator
+    ref={ref}
+    className={cn("-mx-1 my-1 h-px bg-black/25 dark:bg-white/25", className)}
+    {...props}
+  />
 ))
 DropdownMenuSeparator.displayName = DropdownMenuPrimitive.Separator.displayName
 
