@@ -59,6 +59,11 @@ export const userRouter = createTRPCRouter({
     return user
   }),
 
+  getCurrent: protectedProcedure.query(async ({ ctx }) => {
+    const [user] = await ctx.db.select().from(users).where(eq(users.id, ctx.user.id))
+    return user
+  }),
+
   get: protectedProcedure.input(z.string()).query(async ({ ctx, input }) => {
     return await ctx.db.select().from(users).where(eq(users.id, input))
   }),

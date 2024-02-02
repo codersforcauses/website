@@ -8,7 +8,7 @@ import { ResizableHandle, ResizablePanel, ResizablePanelGroup } from "~/componen
 import { api } from "~/trpc/server"
 
 export default async function AdminDashboard() {
-  const users = await api.user.getAllUsers.query()
+  const users = await api.user.getAll.query()
 
   console.log(users)
 
