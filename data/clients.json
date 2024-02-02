@@ -36,20 +36,20 @@
     "width": 100
   },
   {
-    "logo": "/clients/poops_logo.svg",
-    "dark_logo": "/clients/poops_logo_dark.svg",
+    "logo": "/clients/poops_logo.png",
+    "dark_logo": "/clients/poops_logo_dark.png",
     "name": "POOPS",
     "width": 100
   },
   {
     "logo": "/clients/wadl_logo.svg",
-    "dark_logo": "/clients/wadl_logo_light.svg",
+    "dark_logo": "/clients/wadl_logo_light.png",
     "name": "WADL",
     "width": 100
   },
   {
-    "logo": "/clients/csf_logo_dark.svg",
-    "dark_logo": "/clients/csf_logo.svg",
+    "logo": "/clients/csf_logo_dark.png",
+    "dark_logo": "/clients/csf_logo.png",
     "name": "CSF",
     "width": 100
   }
