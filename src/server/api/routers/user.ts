@@ -52,12 +52,9 @@ export const userRouter = createTRPCRouter({
       return user
     }),
 
-  login: publicProcedure.mutation(async ({ ctx }) => {
+  login: protectedProcedure.mutation(async ({ ctx }) => {
     const id = ctx.user?.id
-    if (!id) return
-
     const [user] = await ctx.db.select().from(users).where(eq(users.id, id))
-
     return user
   }),
 
@@ -65,8 +62,10 @@ export const userRouter = createTRPCRouter({
     return await ctx.db.select().from(users).where(eq(users.id, input))
   }),
 
-  getAllUsers: protectedProcedure.query(async ({ ctx }) => {
-    return await ctx.db.select().from(users)
+  getAllUsers: publicProcedure.query(async ({ ctx }) => {
+    const userList = await ctx.db.select().from(users)
+
+    return userList.map(({ updatedAt, ...user }) => user)
   }),
 
   updateRole: protectedProcedure

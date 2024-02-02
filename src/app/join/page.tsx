@@ -81,8 +81,9 @@ export default function Join() {
         })
       }
       if (res.status === "complete") {
-        userData.mutate()
-        await setActive({ session: res.createdSessionId })
+        // needs to be in this order or fails
+        await setActive({ session: res.createdSessionId }) // sets token from clerk
+        userData.mutate() // get user details and sets cookie on success
 
         router.push("/dashboard")
       }
@@ -122,7 +123,7 @@ export default function Join() {
             )}
           />
           <Button type="submit" disabled={showAlert} className="w-full">
-            {showAlert ? "Waiting for email" : "Continue"}
+            {showAlert ? "Waiting for email verification" : "Continue"}
           </Button>
         </form>
       </Form>
