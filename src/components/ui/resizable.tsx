@@ -28,9 +28,13 @@ const ResizableHandle = ({
     {...props}
   >
     {withHandle && (
-      <div className="z-10 flex h-4 w-3 items-center justify-center border bg-border">
+      <div
+        className={cn(
+          "z-10 flex h-4 w-3 items-center justify-center",
+          className?.split(" ").filter((c) => c.includes("bg-")),
+        )}
+      >
         <span className="material-symbols-sharp text-sm">drag_indicator</span>
-        {/* <GripVertical className="h-2.5 w-2.5" /> */}
       </div>
     )}
   </ResizablePrimitive.PanelResizeHandle>
