@@ -110,7 +110,7 @@ const defaultValues: FormSchema = {
 export default function SettingsForm(props: { defaultValues?: FormSchema }) {
   const form = useForm<FormSchema>({
     resolver: zodResolver(formSchema),
-    defaultValues: props.defaultValues ? props.defaultValues : defaultValues,
+    defaultValues: props.defaultValues ?? defaultValues,
   })
   const { getValues } = form
 
