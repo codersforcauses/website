@@ -1,6 +1,7 @@
 import { TRPCError } from "@trpc/server"
 import { eq, or, sql } from "drizzle-orm"
 import { z } from "zod"
+import { NAMED_ROLES } from "~/lib/constants"
 
 import { createTRPCRouter, protectedProcedure, publicProcedure } from "~/server/api/trpc"
 import { users } from "~/server/db/schema"
@@ -58,11 +59,11 @@ export const userRouter = createTRPCRouter({
     return user
   }),
 
-  getUser: protectedProcedure.input(z.string()).query(async ({ ctx, input }) => {
+  get: protectedProcedure.input(z.string()).query(async ({ ctx, input }) => {
     return await ctx.db.select().from(users).where(eq(users.id, input))
   }),
 
-  getAllUsers: publicProcedure.query(async ({ ctx }) => {
+  getAll: publicProcedure.query(async ({ ctx }) => {
     const userList = await ctx.db.select().from(users)
 
     return userList.map(({ updatedAt, ...user }) => user)
@@ -71,35 +72,34 @@ export const userRouter = createTRPCRouter({
   updateRole: protectedProcedure
     .input(
       z.object({
-        id: z.string(),
-        role: z.enum(["member", "committee", "past", "honorary", "admin"]).nullable(),
+        id: z.string().min(2, {
+          message: "User ID is required",
+        }),
+        role: z.enum(NAMED_ROLES).nullable(),
+        // TODO: payment token or something to verify
       }),
     )
     .mutation(async ({ ctx, input }) => {
-      if (!ctx.user.id)
-        throw new TRPCError({ code: "UNAUTHORIZED", message: "You must be logged in to update your details" })
-
+      // TODO: check payment status to set member
       const [currentUser] = await ctx.db.select().from(users).where(eq(users.id, ctx.user.id))
       if (!currentUser)
-        throw new TRPCError({ code: "NOT_FOUND", message: "You must be logged in to update your details" })
+        throw new TRPCError({ code: "NOT_FOUND", message: `Could not find user with id:${ctx.user.id}` })
 
-      // TODO visit logic
-      let user
-      if (currentUser.id === input.id) {
-        if (currentUser.role === "admin" || currentUser.role === "committee") {
-          user = await ctx.db.update(users).set({ role: input.role }).where(eq(users.id, input.id))
-        } else {
-          // cant change some else's role
-        }
+      if (currentUser.role === "admin" || currentUser.role === "committee") {
+        await ctx.db.update(users).set({ role: input.role }).where(eq(users.id, input.id))
       } else {
-        if (input.role !== "member" || input.role !== null) {
-          throw new TRPCError({ code: "FORBIDDEN", message: "You cannot change your own role" })
+        if (currentUser.id === input.id) {
+          if (input.role === "member" || input.role === null) {
+            await ctx.db.update(users).set({ role: input.role }).where(eq(users.id, ctx.user?.id))
+          } else {
+            throw new TRPCError({ code: "FORBIDDEN", message: "You cannot give yourself higher access" })
+          }
         } else {
-          user = await ctx.db.update(users).set({ role: input.role }).where(eq(users.id, ctx.user?.id))
+          throw new TRPCError({ code: "FORBIDDEN", message: "You do not have permission to update this user" })
         }
       }
-      // const user = await ctx.db.update(users).set({ role: input.role }).where(eq(users.id, ctx.user?.id))
-      console.log(user)
+
+      const [user] = await ctx.db.select().from(users).where(eq(users.id, ctx.user.id))
 
       return user
     }),
