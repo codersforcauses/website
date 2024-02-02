@@ -12,9 +12,9 @@ import { FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessa
 import { Input } from "~/components/ui/input"
 import { RadioGroup, RadioGroupItem } from "~/components/ui/radio-group"
 import { cn } from "~/lib/utils"
-import { type RouterOutputs } from "~/trpc/shared"
+import { api } from "~/trpc/react"
 
-// move this to a shared file
+// move these to a shared file
 const pronouns = [
   {
     label: "He/Him",
@@ -83,7 +83,7 @@ const formSchema = z
     message: "Student number is required",
     path: ["student_number"],
   })
-  .refine(({ isUWA, student_number = "" }) => !Boolean(isUWA) || student_number.length === 8, {
+  .refine(({ isUWA, student_number = "" }) => !Boolean(isUWA) || student_number?.length === 8, {
     message: "Student number must be 8 digits long",
     path: ["student_number"],
   })
@@ -108,6 +108,8 @@ const defaultValues: FormSchema = {
 }
 
 export default function SettingsForm(props: { defaultValues?: FormSchema }) {
+  const { mutate: updateUser } = api.user.update.useMutation()
+
   const form = useForm<FormSchema>({
     resolver: zodResolver(formSchema),
     defaultValues: props.defaultValues ?? defaultValues,
@@ -115,7 +117,12 @@ export default function SettingsForm(props: { defaultValues?: FormSchema }) {
   const { getValues } = form
 
   const onSubmit = (data: FormSchema) => {
-    console.log(data)
+    updateUser({
+      ...data,
+      student_number: !data.isUWA ? null : data.student_number,
+      github: data.github ?? null,
+      discord: data.discord ?? null,
+    })
   }
 
   return (
