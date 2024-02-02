@@ -75,3 +75,11 @@
     margin: 0 !important;
   }
 }
+
+/*
+Offsets all ID's with prefix '_' with the height of header.
+This also means all ID's must be prefixed by '_'.
+*/
+[id^="_"] {
+  scroll-margin-top: 4rem;
+}
