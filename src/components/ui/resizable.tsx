@@ -34,7 +34,7 @@ const ResizableHandle = ({
           className?.split(" ").filter((c) => c.includes("bg-")),
         )}
       >
-        <span className="material-symbols-sharp text-sm">drag_indicator</span>
+        <span className="material-symbols-sharp -ml-0.5 w-3 text-sm">drag_indicator</span>
       </div>
     )}
   </ResizablePrimitive.PanelResizeHandle>
