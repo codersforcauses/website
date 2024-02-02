@@ -4,5 +4,9 @@ import Image from "next/image"
 import { api } from "~/trpc/server"
 
 export default async function Dashboard() {
-  return <main className="main"></main>
+  return (
+    <main className="main">
+      <div className="container">dashboard</div>
+    </main>
+  )
 }
