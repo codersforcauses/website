@@ -149,7 +149,7 @@ export const userRouter = createTRPCRouter({
 
       const [dbUser] = await ctx.db.select().from(users).where(eq(users.id, currentUser.id))
 
-      const user = await ctx.db.update(users).set({
+      await ctx.db.update(users).set({
         name: input.name ?? dbUser?.name,
         preferred_name: input.preferred_name ?? dbUser?.preferred_name,
         email: input.email ?? dbUser?.email,
@@ -160,7 +160,8 @@ export const userRouter = createTRPCRouter({
         discord: input.discord ?? dbUser?.discord,
         subscribe: input.subscribe ?? dbUser?.subscribe,
       })
-      console.log(user)
+
+      const [user] = await ctx.db.select().from(users).where(eq(users.id, currentUser.id))
 
       return user
     }),
