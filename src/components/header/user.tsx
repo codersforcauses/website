@@ -2,7 +2,7 @@
 
 import * as React from "react"
 import Link from "next/link"
-import { useRouter } from "next/navigation"
+import { usePathname, useRouter } from "next/navigation"
 import { useAuth } from "@clerk/nextjs"
 
 import { Button } from "~/components/ui/button"
@@ -22,15 +22,15 @@ const UserButton = () => {
   const [user, setUser] = React.useState<User>()
   const router = useRouter()
   const { isSignedIn, signOut } = useAuth()
+  const path = usePathname()
 
   React.useEffect(() => {
     const getUser = async () => {
-      if (!isSignedIn) return
       const getUser = await getUserCookie()
       setUser(getUser)
     }
-    getUser().catch((e) => console.error(e))
-  }, [isSignedIn])
+    void getUser()
+  }, [])
 
   const userSignOut = React.useCallback(async () => {
     await Promise.all([removeUserCookie(), signOut()])
@@ -49,13 +49,13 @@ const UserButton = () => {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="outline-dark" className="text-white">
+        <Button variant="secondary-dark" className="text-white">
           {user?.preferred_name}
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent className="mr-8 w-56 border-white/25 bg-black text-white">
+      <DropdownMenuContent align="end" className="w-56 border-white/25 bg-black text-white">
         <DropdownMenuGroup>
-          <DropdownMenuItem asChild className="focus:bg-white/20 focus:text-white">
+          <DropdownMenuItem asChild disabled={path === "/dashboard"} className="focus:bg-white/20 focus:text-white">
             <Link href="/dashboard">
               <span className="material-symbols-sharp text mr-1 text-xl leading-none">dashboard</span>
               <span>Dashboard</span>
@@ -63,7 +63,11 @@ const UserButton = () => {
             {/* <DropdownMenuShortcut>⌘S</DropdownMenuShortcut> */}
           </DropdownMenuItem>
           {isAdmin && (
-            <DropdownMenuItem asChild className="focus:bg-white/20 focus:text-white">
+            <DropdownMenuItem
+              asChild
+              disabled={path === "/dashboard/admin"}
+              className="focus:bg-white/20 focus:text-white"
+            >
               <Link href="/dashboard/admin">
                 <span className="material-symbols-sharp text mr-1 text-xl leading-none">admin_panel_settings</span>
                 <span>Admin Dashboard</span>
@@ -71,25 +75,33 @@ const UserButton = () => {
               </Link>
             </DropdownMenuItem>
           )}
-          <DropdownMenuItem asChild className="focus:bg-white/20 focus:text-white">
+          <DropdownMenuItem
+            asChild
+            disabled={path.includes("/profile/user_")}
+            className="focus:bg-white/20 focus:text-white"
+          >
             <Link href={`/profile/${user?.id}`}>
               <span className="material-symbols-sharp text mr-1 text-xl leading-none">person</span>
               <span>Profile</span>
               {/* <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut> */}
             </Link>
           </DropdownMenuItem>
-          <DropdownMenuItem asChild className="focus:bg-white/20 focus:text-white">
+          <DropdownMenuItem
+            asChild
+            disabled={path === "/profile/settings"}
+            className="focus:bg-white/20 focus:text-white"
+          >
             <Link href="/profile/settings">
               <span className="material-symbols-sharp text mr-1 text-xl leading-none">settings</span>
               <span>Settings</span>
               {/* <DropdownMenuShortcut>⌘S</DropdownMenuShortcut> */}
             </Link>
           </DropdownMenuItem>
-          <DropdownMenuItem className="focus:bg-white/20 focus:text-white">
+          {/* <DropdownMenuItem className="focus:bg-white/20 focus:text-white">
             <span className="material-symbols-sharp text mr-1 text-xl leading-none">keyboard_keys</span>
             <span>Keyboard shortcuts</span>
             <DropdownMenuShortcut>⌘K</DropdownMenuShortcut>
-          </DropdownMenuItem>
+          </DropdownMenuItem> */}
         </DropdownMenuGroup>
         <DropdownMenuSeparator className="bg-white/25" />
         <DropdownMenuItem className="focus:bg-white/20 focus:text-white" onSelect={userSignOut}>
