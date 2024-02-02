@@ -37,14 +37,14 @@ const UserButton = () => {
     router.push("/")
   }, [signOut, router])
 
-  if (!isSignedIn || !user)
+  if (!isSignedIn)
     return (
       <Button asChild variant="secondary-dark">
         <Link href="/join">Join us</Link>
       </Button>
     )
 
-  const isAdmin = user.role === "admin" || user.role === "committee"
+  const isAdmin = user?.role === "admin" || user?.role === "committee"
 
   return (
     <DropdownMenu>
