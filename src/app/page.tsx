@@ -60,6 +60,21 @@ const clients = [
     alt: "P2S RugbyWorks logo",
     width: 200,
   },
+  {
+    src: "/clients/poops_logo.svg",
+    alt: "/clients/poops_logo_dark.svg",
+    width: 150,
+  },
+  {
+    src: "/clients/wadl_logo.svg",
+    alt: "/clients/wadl_logo_light.svg",
+    width: 150,
+  },
+  {
+    src: "/clients/csf_logo_dark.svg",
+    alt: "/clients/csf_logo.svg",
+    width: 200,
+  },
 ]
 
 const width = clients.reduce((val, { width }) => val + width, clients.length * 16 * 6)
@@ -109,7 +124,7 @@ export default async function Home() {
           {[1, 2].map((count) => (
             <div key={count} className="flex gap-x-24" style={{ width }}>
               {clients.map(({ alt, ...client }) => (
-                <div key={alt} className={`h-[100px]`}>
+                <div key={alt} className={`flex h-[100px] items-center`}>
                   <Image
                     {...client}
                     alt={alt}
