@@ -1,7 +1,7 @@
 import { authMiddleware } from "@clerk/nextjs"
 import { NextResponse } from "next/server"
 
-const protectedPages = ["/dashboard", "/dashboard/admin", "/account", "/settings"]
+const protectedPages = ["/dashboard", "/dashboard/admin", "/account", "/profile/settings"]
 
 export default authMiddleware({
   afterAuth(auth, req) {

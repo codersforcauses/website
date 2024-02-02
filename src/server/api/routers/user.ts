@@ -59,6 +59,11 @@ export const userRouter = createTRPCRouter({
     return user
   }),
 
+  getCurrent: protectedProcedure.query(async ({ ctx }) => {
+    const [user] = await ctx.db.select().from(users).where(eq(users.id, ctx.user.id))
+    return user
+  }),
+
   get: protectedProcedure.input(z.string()).query(async ({ ctx, input }) => {
     return await ctx.db.select().from(users).where(eq(users.id, input))
   }),
@@ -134,10 +139,10 @@ export const userRouter = createTRPCRouter({
             message: "Pronouns are required",
           })
           .optional(),
-        student_number: z.string().optional(),
+        student_number: z.string().nullish(),
         uni: z.string().optional(),
-        github: z.string().optional(),
-        discord: z.string().optional(),
+        github: z.string().nullish(),
+        discord: z.string().nullish(),
         subscribe: z.boolean(),
       }),
     )
@@ -147,19 +152,20 @@ export const userRouter = createTRPCRouter({
       if (!currentUser)
         throw new TRPCError({ code: "UNAUTHORIZED", message: "You must be logged in to update your details" })
 
-      const [dbUser] = await ctx.db.select().from(users).where(eq(users.id, currentUser.id))
-
-      await ctx.db.update(users).set({
-        name: input.name ?? dbUser?.name,
-        preferred_name: input.preferred_name ?? dbUser?.preferred_name,
-        email: input.email ?? dbUser?.email,
-        pronouns: input.pronouns ?? dbUser?.pronouns,
-        student_number: input.student_number ?? dbUser?.student_number,
-        university: input.uni ?? dbUser?.university,
-        github: input.github ?? dbUser?.github,
-        discord: input.discord ?? dbUser?.discord,
-        subscribe: input.subscribe ?? dbUser?.subscribe,
-      })
+      await ctx.db
+        .update(users)
+        .set({
+          name: input.name,
+          preferred_name: input.preferred_name,
+          email: input.email,
+          pronouns: input.pronouns,
+          student_number: input.student_number,
+          university: input.uni,
+          github: input.github,
+          discord: input.discord,
+          subscribe: input.subscribe,
+        })
+        .where(eq(users.id, currentUser.id))
 
       const [user] = await ctx.db.select().from(users).where(eq(users.id, currentUser.id))
 
