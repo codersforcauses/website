@@ -24,8 +24,8 @@ const links: Array<HeaderItem> = [
 
 const Header = () => {
   return (
-    <header className="fixed inset-x-0 top-0 z-30 bg-black py-3">
-      <div className="container flex items-center justify-between">
+    <header className="container fixed inset-x-0 top-2 z-30">
+      <div className="-mx-1.5 flex items-center justify-between bg-black p-1.5">
         <nav className="flex">
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
