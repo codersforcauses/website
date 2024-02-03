@@ -1,9 +1,9 @@
 import { TRPCError } from "@trpc/server"
-import { eq, or, sql } from "drizzle-orm"
+import { eq } from "drizzle-orm"
 import { z } from "zod"
-import { NAMED_ROLES } from "~/lib/constants"
 
 import { createTRPCRouter, protectedProcedure, publicProcedure } from "~/server/api/trpc"
+import { NAMED_ROLES } from "~/lib/constants"
 import { users } from "~/server/db/schema"
 
 export const userRouter = createTRPCRouter({
