@@ -244,19 +244,6 @@ export default function CreateAccount() {
           />
           <FormField
             control={form.control}
-            name="preferred_name"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel className="font-mono">Preferred name</FormLabel>
-                <FormControl>
-                  <Input autoComplete="given-name" placeholder="John" {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
             name="name"
             render={({ field }) => (
               <FormItem>
@@ -264,6 +251,23 @@ export default function CreateAccount() {
                 <FormControl>
                   <Input autoComplete="name" placeholder="John Doe" {...field} />
                 </FormControl>
+                <FormDescription>
+                  We use your full name for internal committee records and official correspondence
+                </FormDescription>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="preferred_name"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel className="font-mono">Preferred name</FormLabel>
+                <FormControl>
+                  <Input autoComplete="given-name" placeholder="John" {...field} />
+                </FormControl>
+                <FormDescription>This is how we normally refer to you</FormDescription>
                 <FormMessage />
               </FormItem>
             )}

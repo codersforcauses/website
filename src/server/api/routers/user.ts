@@ -68,7 +68,7 @@ export const userRouter = createTRPCRouter({
     return await ctx.db.select().from(users).where(eq(users.id, input))
   }),
 
-  getAll: publicProcedure.query(async ({ ctx }) => {
+  getAll: protectedProcedure.query(async ({ ctx }) => {
     const userList = await ctx.db.select().from(users)
 
     return userList.map(({ updatedAt, ...user }) => user)
