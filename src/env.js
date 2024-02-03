@@ -26,7 +26,7 @@ export const env = createEnv({
     NEXT_PUBLIC_SQUARE_APP_ID: z
       .string()
       .refine(
-        (str) => !(str.includes("sandbox") && process.env.NODE_ENV === "production"),
+        (str) => !(str.includes("sandbox") && process.env.NODE_ENV === "development"),
         "Update Square keys to production keys",
       ),
     NEXT_PUBLIC_SQUARE_LOCATION_ID: z.string(),
