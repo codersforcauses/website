@@ -1,7 +1,8 @@
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "~/components/ui/accordion"
+import Link from "next/link"
 import TitleText from "../_components/title-text"
 
-const FAQList = [
+const GeneralFAQ = [
   {
     description: "Who can sign up to be a CFC member?",
     answer:
@@ -16,6 +17,9 @@ const FAQList = [
     description: "What do you offer during semester?",
     answer: "We run technical workshops, social events and industry nights during semester.",
   },
+]
+
+const ProjectsFAQ = [
   {
     description: "Do projects run during semester as well?",
     answer:
@@ -48,35 +52,70 @@ const FAQList = [
   },
 ]
 
+const QuickLinks = [
+  {
+    title: "Join our Discord Community",
+    description: "Engage, learn, and share in our active Discord server.",
+    href: "https://discord.codersforcauses.org/",
+  },
+  {
+    title: "View our Past Projects",
+    description: "Take a look at our completed projects.",
+    href: "/projects",
+  },
+  {
+    title: "Have a Question? Email Us!",
+    description: "Need more help? Feel free to reach us with any questions you have.",
+    href: "mailto:hello@codersforcauses.org",
+  },
+]
+
 const FaqPage = () => {
   return (
     <main className="main">
       <TitleText typed>./frequently asked questions</TitleText>
       <div className="container flex flex-row space-x-12 py-12">
-        <div className="w-2/3">
-          {FAQList.map((faq, idx) => (
-            <Accordion type="multiple" key={idx} className="w-full">
-              <AccordionItem value={`item-${idx}`}>
-                <AccordionTrigger className="transition-colors duration-300 hover:bg-slate-100">
-                  {faq.description}
-                </AccordionTrigger>
-                <AccordionContent>{faq.answer}</AccordionContent>
-              </AccordionItem>
-            </Accordion>
-          ))}
+        <div className="w-2/3 space-y-3">
+          <div>
+            <h1 className="font-mono text-lg font-bold">General</h1>
+            {GeneralFAQ.map((faq, idx) => (
+              <Accordion type="multiple" key={idx} className="w-full">
+                <AccordionItem value={`item-${idx}`}>
+                  <AccordionTrigger className="transition-colors duration-300 hover:bg-slate-100">
+                    {faq.description}
+                  </AccordionTrigger>
+                  <AccordionContent>{faq.answer}</AccordionContent>
+                </AccordionItem>
+              </Accordion>
+            ))}
+          </div>
+          <div>
+            <h1 className="font-mono text-lg font-bold">Projects</h1>
+            {ProjectsFAQ.map((faq, idx) => (
+              <Accordion type="multiple" key={idx} className="w-full">
+                <AccordionItem value={`item-${idx}`}>
+                  <AccordionTrigger className="transition-colors duration-300 hover:bg-slate-100">
+                    {faq.description}
+                  </AccordionTrigger>
+                  <AccordionContent>{faq.answer}</AccordionContent>
+                </AccordionItem>
+              </Accordion>
+            ))}
+          </div>
         </div>
-        <div>
-          <h1>Quick Links</h1>
+        <div className="space-y-4">
+          <h1 className="font-mono text-lg font-bold">Quick Links</h1>
           <div className="flex flex-col space-y-2">
-            <div className="h-12 bg-slate-300">
-              <h3>Join our Discord Community</h3>
-            </div>
-            <div className="h-12 bg-slate-300">
-              <h3>Join our Discord Community</h3>
-            </div>
-            <div className="h-12 bg-slate-300">
-              <h3>Join our Discord Community</h3>
-            </div>
+            {QuickLinks.map((link, idx) => (
+              <Link
+                key={idx}
+                href={link.href}
+                className="bg-gray-100 p-2 transition-colors duration-300 hover:bg-gray-200"
+              >
+                <h3 className="font-semibold">{link.title}</h3>
+                <p>{link.description}</p>
+              </Link>
+            ))}
           </div>
         </div>
       </div>
