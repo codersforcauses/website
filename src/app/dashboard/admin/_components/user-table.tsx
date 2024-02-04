@@ -87,7 +87,7 @@ const columns = (updateRole: ({ id, role }: UpdateUserRoleFunctionProps) => void
     id: "Name",
     accessorKey: "name",
     header: ({ column }) => (
-      <Button variant="ghost" onClick={column.getToggleSortingHandler()}>
+      <Button variant="ghost" className="-mx-1 w-full justify-start px-1" onClick={column.getToggleSortingHandler()}>
         Name
         <span className="material-symbols-sharp ml-2 size-6">{sortIcon(column.getIsSorted())}</span>
       </Button>
@@ -97,7 +97,7 @@ const columns = (updateRole: ({ id, role }: UpdateUserRoleFunctionProps) => void
     id: "Email",
     accessorKey: "email",
     header: ({ column }) => (
-      <Button variant="ghost" onClick={column.getToggleSortingHandler()}>
+      <Button variant="ghost" className="-mx-1 w-full justify-start px-1" onClick={column.getToggleSortingHandler()}>
         Email
         <span className="material-symbols-sharp ml-2 size-6">{sortIcon(column.getIsSorted())}</span>
       </Button>
@@ -281,7 +281,7 @@ const UserTable = () => {
 
   return (
     <>
-      <div className="flex h-[50px] gap-2 p-1">
+      <div className="flex h-[50px] p-1">
         {data.length > 0 && (
           <>
             {selectedRowIDs.length > 0 && (
@@ -311,24 +311,31 @@ const UserTable = () => {
                     </DropdownMenuRadioGroup>
                   </DropdownMenuContent>
                 </DropdownMenu>
-                <Button variant="ghost" className="text-destructive hover:bg-destructive/20 hover:text-destructive">
+                <Button
+                  variant="ghost"
+                  className="mx-2 text-destructive hover:bg-destructive/20 hover:text-destructive"
+                >
                   Ban user(s)
                 </Button>
 
-                <Button variant="ghost" className="text-destructive hover:bg-destructive/20 hover:text-destructive">
+                <Button
+                  variant="ghost"
+                  className="mr-2 text-destructive hover:bg-destructive/20 hover:text-destructive"
+                >
                   Delete user(s)
                 </Button>
               </>
             )}
             <Input
               placeholder="Filter emails..."
+              autoComplete="off"
               value={(table.getColumn("Email")?.getFilterValue() as string) ?? ""}
               onChange={(event) => table.getColumn("Email")?.setFilterValue(event.target.value)}
               className="ml-auto max-w-sm"
             />
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button variant="outline" className="items-center">
+                <Button variant="outline" className="ml-2 items-center">
                   <span>Columns</span>
                   <span className="material-symbols-sharp size-5">expand_more</span>
                 </Button>
