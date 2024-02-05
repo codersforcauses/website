@@ -14,6 +14,7 @@ export const env = createEnv({
     NODE_ENV: z.enum(["development", "test", "production"]).default("development"),
     CLERK_SECRET_KEY: z.string(),
     SQUARE_ACCESS_TOKEN: z.string(),
+    CASH_PASSWORD: z.string(),
   },
 
   /**
@@ -24,7 +25,7 @@ export const env = createEnv({
   client: {
     NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY: z.string(),
     NEXT_PUBLIC_SQUARE_APP_ID: z.string().refine(
-      (str) => !(str.includes("sandbox") && process.env.NODE_ENV === "development"), //change to prod later
+      (str) => !(str.includes("sandbox") && process.env.NODE_ENV === "production"), //change to prod later
       "Update Square keys to production keys",
     ),
     NEXT_PUBLIC_SQUARE_LOCATION_ID: z.string(),
@@ -42,6 +43,7 @@ export const env = createEnv({
     SQUARE_ACCESS_TOKEN: process.env.SQUARE_ACCESS_TOKEN,
     NEXT_PUBLIC_SQUARE_APP_ID: process.env.NEXT_PUBLIC_SQUARE_APP_ID,
     NEXT_PUBLIC_SQUARE_LOCATION_ID: process.env.NEXT_PUBLIC_SQUARE_LOCATION_ID,
+    CASH_PASSWORD: process.env.CASH_PASSWORD,
   },
   /**
    * Run `build` or `dev` with `SKIP_ENV_VALIDATION` to skip env validation. This is especially
