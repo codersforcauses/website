@@ -102,15 +102,16 @@ const FormLabel = React.forwardRef<
 FormLabel.displayName = "FormLabel"
 
 const FormControl = React.forwardRef<React.ElementRef<typeof Slot>, React.ComponentPropsWithoutRef<typeof Slot>>(
-  ({ ...props }, ref) => {
+  ({ className, ...props }, ref) => {
     const { error, formItemId, formDescriptionId, formMessageId } = useFormField()
 
     return (
       <Slot
         ref={ref}
         id={formItemId}
-        aria-describedby={!error ? `${formDescriptionId}` : `${formDescriptionId} ${formMessageId}`}
+        aria-describedby={!error ? formDescriptionId : formMessageId}
         aria-invalid={!!error}
+        className={cn(className, error && "animate-wiggle")}
         {...props}
       />
     )
