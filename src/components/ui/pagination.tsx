@@ -47,8 +47,13 @@ const PaginationLink = ({ className, isActive, size = "icon", ...props }: Pagina
 PaginationLink.displayName = "PaginationLink"
 
 const PaginationPrevious = ({ className, ...props }: React.ComponentProps<typeof PaginationLink>) => (
-  <PaginationLink aria-label="Go to previous page" size="default" className={cn("gap-1 pl-2.5", className)} {...props}>
-    <span className="material-symbols-sharp size-4 text-base">chevron_left</span>
+  <PaginationLink
+    aria-label="Go to previous page"
+    size="default"
+    className={cn("flex items-center gap-1 pl-2.5", className)}
+    {...props}
+  >
+    <span className="material-symbols-sharp w-5">chevron_left</span>
     <span>Previous</span>
   </PaginationLink>
 )
@@ -57,14 +62,14 @@ PaginationPrevious.displayName = "PaginationPrevious"
 const PaginationNext = ({ className, ...props }: React.ComponentProps<typeof PaginationLink>) => (
   <PaginationLink aria-label="Go to next page" size="default" className={cn("gap-1 pr-2.5", className)} {...props}>
     <span>Next</span>
-    <span className="material-symbols-sharp size-4 text-base">chevron_right</span>
+    <span className="material-symbols-sharp w-5">chevron_right</span>
   </PaginationLink>
 )
 PaginationNext.displayName = "PaginationNext"
 
 const PaginationEllipsis = ({ className, ...props }: React.ComponentProps<"span">) => (
-  <span aria-hidden className={cn("flex h-9 w-9 items-center justify-center", className)} {...props}>
-    <span className="material-symbols-sharp size-4 text-base">more_horiz</span>
+  <span aria-hidden className={cn("flex size-9 items-center justify-center", className)} {...props}>
+    <span className="material-symbols-sharp">more_horiz</span>
     <span className="sr-only">More pages</span>
   </span>
 )
