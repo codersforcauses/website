@@ -34,7 +34,6 @@ interface OnlinePaymentFormProps {
 }
 
 const APP_ID = env.NEXT_PUBLIC_SQUARE_APP_ID
-console.log("app_id 2", APP_ID)
 const LOCATION_ID = env.NEXT_PUBLIC_SQUARE_LOCATION_ID
 const containerID = "card-container"
 const googlePayID = "google-pay-container"
