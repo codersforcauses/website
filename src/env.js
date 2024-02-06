@@ -23,10 +23,12 @@ export const env = createEnv({
    */
   client: {
     NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY: z.string(),
-    NEXT_PUBLIC_SQUARE_APP_ID: z.string().refine(
-      (str) => !(str.includes("sandbox") && process.env.NODE_ENV === "development"), //change to prod later
-      "Update Square keys to production keys",
-    ),
+    NEXT_PUBLIC_SQUARE_APP_ID: z
+      .string()
+      .refine(
+        (str) => !(str.includes("sandbox") && process.env.VERCEL_ENV === "production"),
+        "Update Square keys to production keys",
+      ),
     NEXT_PUBLIC_SQUARE_LOCATION_ID: z.string(),
   },
 

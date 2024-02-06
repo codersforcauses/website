@@ -34,7 +34,6 @@ interface OnlinePaymentFormProps {
 }
 
 const APP_ID = env.NEXT_PUBLIC_SQUARE_APP_ID
-console.log("app_id 2", APP_ID)
 const LOCATION_ID = env.NEXT_PUBLIC_SQUARE_LOCATION_ID
 const containerID = "card-container"
 const googlePayID = "google-pay-container"
@@ -404,7 +403,7 @@ const OnlinePaymentForm = ({
       <div
         id="apple-pay-button"
         className={cn(
-          "overflow-hidden focus-within:ring-2 focus-within:ring-ring focus-within:ring-offset-2",
+          "h-10 overflow-hidden rounded-none focus-within:ring-2 focus-within:ring-ring focus-within:ring-offset-2 hover:cursor-pointer",
           applePay && "bg-primary ring-offset-background",
         )}
         style={{ WebkitAppearance: "-apple-pay-button" }}
