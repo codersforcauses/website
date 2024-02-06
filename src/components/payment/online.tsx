@@ -404,7 +404,7 @@ const OnlinePaymentForm = ({
       <div
         id="apple-pay-button"
         className={cn(
-          "h-10 overflow-hidden focus-within:ring-2 focus-within:ring-ring focus-within:ring-offset-2 hover:cursor-pointer",
+          "hover:cursor-pointe h-10 overflow-hidden border-0 focus-within:ring-2 focus-within:ring-ring focus-within:ring-offset-2",
           applePay && "bg-primary ring-offset-background",
         )}
         style={{ WebkitAppearance: "-apple-pay-button" }}
