@@ -75,13 +75,13 @@ const FaqPage = () => {
     <main className="main">
       <TitleText typed>./frequently asked questions</TitleText>
       <div className="container flex flex-col py-12 md:flex-row md:space-x-12">
-        <div className="space-y-3 md:w-2/3">
+        <div className="space-y-6 md:w-2/3">
           <div>
             <h1 className="font-mono text-lg font-bold">General</h1>
             {GeneralFAQ.map((faq, idx) => (
               <Accordion type="multiple" key={idx} className="w-full">
                 <AccordionItem value={`item-${idx}`}>
-                  <AccordionTrigger className="text-left transition-colors duration-300 hover:bg-slate-100">
+                  <AccordionTrigger className="text-left transition-colors duration-300 hover:bg-slate-200 dark:hover:bg-neutral-800">
                     {faq.description}
                   </AccordionTrigger>
                   <AccordionContent>{faq.answer}</AccordionContent>
@@ -94,7 +94,7 @@ const FaqPage = () => {
             {ProjectsFAQ.map((faq, idx) => (
               <Accordion type="multiple" key={idx} className="w-full">
                 <AccordionItem value={`item-${idx}`}>
-                  <AccordionTrigger className="text-left transition-colors duration-300 hover:bg-slate-100">
+                  <AccordionTrigger className="text-left transition-colors duration-300 hover:bg-slate-200 dark:hover:bg-neutral-800">
                     {faq.description}
                   </AccordionTrigger>
                   <AccordionContent>{faq.answer}</AccordionContent>
@@ -110,7 +110,7 @@ const FaqPage = () => {
               <Link
                 key={idx}
                 href={link.href}
-                className="bg-gray-100 p-2 transition-colors duration-300 hover:bg-gray-200 dark:bg-neutral-800 dark:hover:bg-neutral-800/80"
+                className="bg-gray-200 p-2 transition-colors duration-300 hover:bg-gray-300 dark:bg-neutral-800 dark:hover:bg-neutral-800/80"
               >
                 <h3 className="font-semibold">{link.title}</h3>
                 <p>{link.description}</p>
