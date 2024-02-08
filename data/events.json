@@ -126,5 +126,21 @@
     },
     "location": "UWA EZONE",
     "desc": "Get industry level experience and skills by working on fun projects."
+  },
+  {
+    "slug": "software_industry_night_2024",
+    "tags": ["industry", "social", "networking"],
+    "title": "Software Industry Night 2024",
+    "image": {
+      "src": "/events/DSC02946.jpg",
+      "alt": "Image of people mingling at the industry night"
+    },
+    "date": "08/03/23",
+    "time": {
+      "start": "6:00pm",
+      "end": "9:00pm"
+    },
+    "location": "UWA EZONE",
+    "desc": "Come down to UWA EZONE and talk with representatives from the industry to gain insights into career opportunities as well as tips for the rest of your development career. We will be having amazing speakers who will be speaking about the industry, their experiences and technical knowledge to help you get ahead whether you're a first year or have just graduated."
   }
 ]
