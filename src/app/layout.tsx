@@ -26,10 +26,73 @@ const sans = IBM_Plex_Sans({
 })
 
 export const metadata: Metadata = {
-  title: "Coders for Causes",
+  title: {
+    template: "%s | Coders for Causes",
+    default: "Coders for Causes",
+  },
   description:
     "Coders for Causes is a software engineering club at UWA specializing in web development. We build custom software for charities and not for profits and give students the skills they need to succeed in the industry.",
   icons: [{ rel: "icon", url: "/favicon.png" }],
+  keywords: [
+    "Next.js",
+    "React",
+    "JavaScript",
+    "TypeScript",
+    "Tailwind CSS",
+    "Nuxt.js",
+    "Vue",
+    "Docker",
+    "HTML",
+    "CSS",
+    "Node.js",
+    "Cloud",
+    "Vercel",
+    "Charity",
+    "Not for Profit",
+    "Club",
+    "Software",
+    "Engineering",
+    "UWA",
+    "Web",
+    "Development",
+    "University",
+    "Western",
+    "Australia",
+    "Students",
+    "Volunteers",
+    "Coders",
+    "Causes",
+  ],
+  authors: { name: "Coders for Causes" },
+  openGraph: {
+    title: "Coders for Causes",
+    description:
+      "Coders for Causes is a software engineering club at UWA specializing in web development. We build custom software for charities and not for profits and give students the skills they need to succeed in the industry.",
+    url: "https://codersforcauses.org",
+    siteName: "Coders for Causes",
+    images: [
+      {
+        url: "https://og-social-cards.vercel.app/**.%2FInnovation%20with%20a%20mission**.png?theme=dark&md=1&fontSize=100px&images=https%3A%2Fcodersforcauses.org%2Flogo%2Fcfc_logo_white_full.svg", // Must be an absolute URL
+        width: 512,
+        height: 293,
+      },
+    ],
+    locale: "en_US",
+    type: "website",
+  },
+  themeColor: "#000000",
+  twitter: {
+    card: "summary_large_image",
+    creator: "@codersforcauses",
+    title: "Coders for Causes",
+    description:
+      "Coders for Causes is a software engineering club at UWA specializing in web development. We build custom software for charities and not for profits and give students the skills they need to succeed in the industry.",
+    images: {
+      url: "https://og-social-cards.vercel.app/**.%2FInnovation%20with%20a%20mission**.png?theme=dark&md=1&fontSize=100px&images=https%3A%2Fcodersforcauses.org%2Flogo%2Fcfc_logo_white_full.svg",
+      alt: "Coders for Causes",
+    },
+    site: "https://codersforcauses.org",
+  },
 }
 
 export default function RootLayout({ children }: PropsWithChildren) {

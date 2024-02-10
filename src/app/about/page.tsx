@@ -1,12 +1,10 @@
 import Clients from "../_components/clients/page"
 import Committee from "../_components/committee/page"
 import Sponsors from "../_components/sponsors"
-import TitleText from "../_components/title-text"
 
 export default async function About() {
   return (
-    <main className="main">
-      <TitleText typed>./about</TitleText>
+    <>
       <div className="container my-6 md:grid md:grid-cols-2 md:space-x-6">
         <div id="_what_we_do" className="space-y-2">
           <h2 className="font-mono text-3xl font-black">We build software for charities</h2>
@@ -36,6 +34,6 @@ export default async function About() {
           <Sponsors />
         </div>
       </div>
-    </main>
+    </>
   )
 }
