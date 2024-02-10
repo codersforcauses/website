@@ -77,27 +77,27 @@ const FaqPage = () => {
       <div className="container flex flex-col py-12 md:flex-row md:space-x-12">
         <div className="space-y-6 md:w-2/3">
           <div>
-            <h1 className="font-mono text-lg font-bold">General</h1>
+            <h1 className="px-2 font-mono text-lg font-bold">General</h1>
             {GeneralFAQ.map((faq, idx) => (
               <Accordion type="multiple" key={idx} className="w-full">
                 <AccordionItem value={`item-${idx}`}>
-                  <AccordionTrigger className="text-left transition-colors duration-300 hover:bg-slate-200 dark:hover:bg-neutral-800">
+                  <AccordionTrigger className="px-2 text-left transition-colors duration-300 hover:bg-slate-200 dark:hover:bg-neutral-800">
                     {faq.description}
                   </AccordionTrigger>
-                  <AccordionContent>{faq.answer}</AccordionContent>
+                  <AccordionContent className="px-2">{faq.answer}</AccordionContent>
                 </AccordionItem>
               </Accordion>
             ))}
           </div>
           <div>
-            <h1 className="font-mono text-lg font-bold">Projects</h1>
+            <h1 className="px-2 px-2 font-mono text-lg font-bold">Projects</h1>
             {ProjectsFAQ.map((faq, idx) => (
               <Accordion type="multiple" key={idx} className="w-full">
                 <AccordionItem value={`item-${idx}`}>
-                  <AccordionTrigger className="text-left transition-colors duration-300 hover:bg-slate-200 dark:hover:bg-neutral-800">
+                  <AccordionTrigger className="px-2 text-left transition-colors duration-300 hover:bg-slate-200 dark:hover:bg-neutral-800">
                     {faq.description}
                   </AccordionTrigger>
-                  <AccordionContent>{faq.answer}</AccordionContent>
+                  <AccordionContent className="px-2">{faq.answer}</AccordionContent>
                 </AccordionItem>
               </Accordion>
             ))}
