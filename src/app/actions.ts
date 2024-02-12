@@ -1,7 +1,6 @@
 "use server"
 
 import { cookies } from "next/headers"
-import { env } from "~/env"
 
 import { type User } from "~/lib/types"
 
@@ -18,7 +17,7 @@ const encryptSymmetric = async (plaintext: string) => {
     "raw",
     key,
     {
-      name: env.ENCRYPTION_METHOD,
+      name: "AES-GCM",
       length: 256,
     },
     true,
@@ -28,7 +27,7 @@ const encryptSymmetric = async (plaintext: string) => {
   // encrypt the text with the secret key
   const ciphertext = await crypto.subtle.encrypt(
     {
-      name: env.ENCRYPTION_METHOD,
+      name: "AES-GCM",
       iv,
     },
     secretKey,
@@ -45,7 +44,7 @@ const decryptSymmetric = async (ciphertext: string) => {
     "raw",
     key,
     {
-      name: env.ENCRYPTION_METHOD,
+      name: "AES-GCM",
       length: 256,
     },
     true,
@@ -55,7 +54,7 @@ const decryptSymmetric = async (ciphertext: string) => {
   // decrypt the encrypted text "ciphertext" with the secret key and IV
   const cleartext = await crypto.subtle.decrypt(
     {
-      name: env.ENCRYPTION_METHOD,
+      name: "AES-GCM",
       iv,
     },
     secretKey,
