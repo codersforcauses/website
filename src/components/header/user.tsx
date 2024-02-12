@@ -39,7 +39,7 @@ const UserButton = () => {
 
   if (!isSignedIn)
     return (
-      <Button asChild variant="secondary-dark">
+      <Button asChild variant="secondary-dark" className="dark:hover:bg-primary dark:hover:text-black">
         <Link href="/join">Join us</Link>
       </Button>
     )
