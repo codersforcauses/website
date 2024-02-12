@@ -45,7 +45,7 @@ const EventsPage = () => {
               <TabsContent value="past">
                 <div className="space-y-6">
                   {events.past.length === 0 ? (
-                    <h2 className="font-mono text-4xl text-black dark:text-white">No {eventFilter} events</h2>
+                    <h2 className="font-mono text-4xl text-black dark:text-white">No past events</h2>
                   ) : (
                     events.past.map((event) => (
                       <div
@@ -64,7 +64,7 @@ const EventsPage = () => {
               <TabsContent value="upcoming">
                 <div className="space-y-6">
                   {events.upcoming.length === 0 ? (
-                    <h2 className="font-mono text-4xl text-black dark:text-white">No {eventFilter} events</h2>
+                    <h2 className="font-mono text-4xl text-black dark:text-white">No upcoming events</h2>
                   ) : (
                     events.upcoming.map((event) => (
                       <div
