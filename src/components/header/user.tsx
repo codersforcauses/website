@@ -30,7 +30,7 @@ const UserButton = () => {
       setUser(getUser)
     }
     void getUser()
-  }, [])
+  })
 
   const userSignOut = React.useCallback(async () => {
     await Promise.all([removeUserCookie(), signOut()])
@@ -100,7 +100,7 @@ const UserButton = () => {
             </Link>
           </DropdownMenuItem>
           {/* <DropdownMenuItem className="focus:bg-white/20 focus:text-white">
-            <span className="material-symbols-sharp text mr-1 size-5 text-xl leading-none">keyboard_keys</span>
+            <span className="mr-1 text-xl leading-none material-symbols-sharp text size-5">keyboard_keys</span>
             <span>Keyboard shortcuts</span>
             <DropdownMenuShortcut>⌘K</DropdownMenuShortcut>
           </DropdownMenuItem> */}
