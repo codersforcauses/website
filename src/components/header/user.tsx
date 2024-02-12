@@ -12,7 +12,7 @@ import {
   DropdownMenuGroup,
   DropdownMenuItem,
   DropdownMenuSeparator,
-  DropdownMenuShortcut,
+  // DropdownMenuShortcut,
   DropdownMenuTrigger,
 } from "~/components/ui/dropdown-menu"
 import { getUserCookie, removeUserCookie } from "~/app/actions"
@@ -21,7 +21,7 @@ import { type User } from "~/lib/types"
 const UserButton = () => {
   const [user, setUser] = React.useState<User>()
   const router = useRouter()
-  const { isSignedIn, signOut } = useAuth()
+  const { signOut } = useAuth()
   const path = usePathname()
 
   React.useEffect(() => {
@@ -37,7 +37,7 @@ const UserButton = () => {
     router.push("/")
   }, [signOut, router])
 
-  if (!isSignedIn)
+  if (!user)
     return (
       <Button asChild variant="secondary-dark">
         <Link href="/join">Join us</Link>

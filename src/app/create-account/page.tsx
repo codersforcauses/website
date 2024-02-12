@@ -19,11 +19,12 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "~/components/ui/tabs"
 import { toast } from "~/components/ui/use-toast"
 // import { Avatar, AvatarFallback, AvatarImage } from "~/components/ui/avatar"
 // import GithubHeatmap from "../_components/github-heatmap"
-import CashPaymentForm from "~/components/payment/cash"
 import OnlinePaymentForm from "~/components/payment/online"
 import { SITE_URL } from "~/lib/constants"
 import { cn } from "~/lib/utils"
+import { type User } from "~/lib/types"
 import { api } from "~/trpc/react"
+import { setUserCookie } from "../actions"
 
 const pronouns = [
   {
@@ -120,6 +121,8 @@ const inactiveWindowClass = "blur select-none pointer-events-none"
 
 export default function CreateAccount() {
   const [activeView, setActiveView] = React.useState(false)
+  const [loading, setLoading] = React.useState(false)
+  const [user, setUser] = React.useState<User>()
   const router = useRouter()
   const searchParams = useSearchParams()
   const { isLoaded, signUp, setActive } = useSignUp()
@@ -133,7 +136,20 @@ export default function CreateAccount() {
   })
   const { getValues, setError } = form
 
-  const createUser = api.user.create.useMutation({})
+  const createUser = api.user.create.useMutation({
+    onSuccess: (data) => {
+      if (!data) return
+      setUser(data)
+    },
+    onError: () => {
+      toast({
+        variant: "destructive",
+        title: "Failed to create account",
+        description: "An error occurred while creating your account. Please try again later.",
+      })
+    },
+  })
+  const updateRole = api.user.updateRole.useMutation()
 
   // const user_github = getValues().github
 
@@ -149,7 +165,7 @@ export default function CreateAccount() {
       })
       return
     }
-
+    setLoading(true)
     const userData: Omit<FormSchema, "isUWA"> = {
       name: values.name,
       preferred_name: values.preferred_name,
@@ -203,9 +219,47 @@ export default function CreateAccount() {
       // setActiveView(true)
     } catch (error) {
       console.log(error)
+      toast({
+        variant: "destructive",
+        title: "Failed to create user",
+        description: "An error occurred while trying to create user. Please try again later.",
+      })
+    } finally {
+      setLoading(false)
     }
+  }
 
-    return
+  const handleAfterOnlinePayment = async (paymentID: string) => {
+    if (!user) {
+      toast({
+        variant: "destructive",
+        title: "Unable to verify user",
+        description: "We were unable to verify if the user was created.",
+      })
+      return
+    }
+    try {
+      const updatedUser = await updateRole.mutateAsync({
+        id: user.id,
+        role: "member",
+        paymentID,
+      })
+      await setUserCookie(updatedUser!)
+      router.replace("/dashboard")
+    } catch (error) {
+      toast({
+        variant: "destructive",
+        title: "Failed to update role",
+        description: "An error occurred while trying to update your role.",
+      })
+    }
+  }
+
+  const handleSkipPayment = async () => {
+    if (user) {
+      await setUserCookie(user)
+      router.push("/dashboard")
+    }
   }
 
   return (
@@ -455,8 +509,9 @@ export default function CreateAccount() {
               </FormItem>
             )}
           />
-          <Button type="submit" className="w-full">
-            Next
+          <Button type="submit" disabled={loading} className="relative w-full">
+            {loading ? "Waiting for email verification" : "Next"}
+            {loading && <span className="material-symbols-sharp absolute right-4 animate-spin">progress_activity</span>}
           </Button>
         </form>
       </Form>
@@ -495,11 +550,7 @@ export default function CreateAccount() {
               . We do not store your card details but we do record the information Square provides us after confirming
               your card.
             </p>
-            <OnlinePaymentForm
-              cardTokenizeResponseReceived={(token) => {
-                console.log(token)
-              }}
-            />
+            <OnlinePaymentForm afterPayment={handleAfterOnlinePayment} />
           </TabsContent>
           <TabsContent value="in-person" className="space-y-4">
             <p className="text-sm text-muted-foreground">
@@ -510,9 +561,11 @@ export default function CreateAccount() {
                 </Link>
               </Button>{" "}
               Point-of-Sale terminals to accept card payments. Reach out to a committee member via our Discord or a CFC
-              event to pay in-person.
+              event to pay in-person. A committee member will update your status as a member on payment confirmation.
             </p>
-            <CashPaymentForm />
+            <Button className="w-full" onClick={handleSkipPayment}>
+              I&apos;ve paid in cash
+            </Button>
           </TabsContent>
         </Tabs>
         <div className="relative select-none">
@@ -532,7 +585,7 @@ export default function CreateAccount() {
             </p>
           </div>
         </div>
-        <Button variant="outline" className="w-full">
+        <Button variant="outline" className="w-full" onClick={handleSkipPayment}>
           Skip payment
         </Button>
       </div>
