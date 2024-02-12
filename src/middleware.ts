@@ -3,7 +3,10 @@ import { NextResponse } from "next/server"
 
 const protectedPages = ["/dashboard", "/dashboard/admin", "/profile/settings"]
 
+const publicPages = ["/"]
+
 export default authMiddleware({
+  publicRoutes: publicPages,
   afterAuth(auth, req) {
     if (!auth.userId && protectedPages.includes(req.nextUrl.pathname)) {
       const joinURL = new URL("/join", req.nextUrl.origin)
