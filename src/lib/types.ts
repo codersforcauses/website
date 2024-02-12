@@ -75,6 +75,22 @@ export interface ProjectModel {
   members: string[]
 }
 
+export interface Event {
+  slug: string
+  tags: Array<string>
+  title: string
+  image: ImageProps
+  date: string
+  time: {
+    start: string
+    end: string
+  }
+  location: string
+  desc: string
+  type?: "workshop" | "industry night" | "social event"
+  isPaid?: boolean
+}
+
 export const iconMap: Record<string, string> = {
   mongodb: SimpleIcons.siMongodb.path,
   vuedotjs: SimpleIcons.siVuedotjs.path,

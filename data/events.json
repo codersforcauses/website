@@ -1,0 +1,146 @@
+[
+  {
+    "slug": "winter_projects_2021",
+    "tags": ["industry", "social"],
+    "title": "Winter Projects 2021",
+    "image": {
+      "src": "/events/IMG_2001.JPG",
+      "alt": "A winter project workshop"
+    },
+    "date": "26/06/21",
+    "time": {
+      "start": "9:30am",
+      "end": "3:00pm"
+    },
+    "location": "UWA EZONE",
+    "desc": "Get industry level experience and skills by working on fun projects."
+  },
+  {
+    "slug": "software_industry_night_2021",
+    "tags": ["industry", "social"],
+    "title": "Software Industry Night 2021",
+    "image": {
+      "src": "/events/IMG_9704.webp",
+      "alt": "Image of speaker at industry night"
+    },
+    "date": "04/03/21",
+    "time": {
+      "start": "6:30pm",
+      "end": "8:30pm"
+    },
+    "location": "UWA EZONE",
+    "desc": "Get ready for a bigger and better industry night with representatives from all your favorite tech companies and insightful talks from some amazing speakers."
+  },
+  {
+    "slug": "women_in_tech",
+    "tags": ["industry", "social"],
+    "title": "Women in Tech Industry Panel 2020",
+    "image": {
+      "src": "/events/IMG_4721.webp",
+      "alt": "Image of panelists talking"
+    },
+    "date": "08/10/20",
+    "time": {
+      "start": "6:30pm",
+      "end": "8:30pm"
+    },
+    "location": "UWA EZONE",
+    "desc": "Hear from some amazing women in the tech industry talk about their experiences and how they made it to where they are, as well as any questions you want to ask them. After the panel stick around to network with industry representatives and other UWA students."
+  },
+  {
+    "slug": "software_industry_night_2019",
+    "tags": ["industry", "social"],
+    "title": "Software Industry Night 2019",
+    "image": {
+      "src": "/events/IMG_9700.webp",
+      "alt": "Image of speaker speaking at industry night"
+    },
+    "date": "20/10/19",
+    "time": {
+      "start": "5:30pm",
+      "end": "8:00pm"
+    },
+    "location": "UWA IQX",
+    "desc": "Coders for Causes invite you to a night of networking with industry professionals proudly supported by BHP and Rio Tinto. Hosted at the UWA Innovation Quarter (IQX), join us as representatives from the software industry share insights into career opportunities as well as keynotes from companies in the field"
+  },
+  {
+    "slug": "software_industry_night_2023",
+    "tags": ["industry", "social", "networking"],
+    "title": "Software Industry Night 2023",
+    "image": {
+      "src": "/events/DSC02946.jpg",
+      "alt": "Image of people mingling at the industry night"
+    },
+    "date": "08/03/23",
+    "time": {
+      "start": "6:00pm",
+      "end": "9:00pm"
+    },
+    "location": "UWA EZONE",
+    "desc": "Come down to UWA EZONE and talk with representatives from the industry to gain insights into career opportunities as well as tips for the rest of your development career. We will be having amazing speakers who will be speaking about the industry, their experiences and technical knowledge to help you get ahead whether you're a first year or have just graduated."
+  },
+  {
+    "slug": "agm_2023",
+    "tags": ["agm", "meeting"],
+    "title": "Annual General Meeting 2023",
+    "image": {
+      "src": "/events/IMG_2001.JPG",
+      "alt": "Image of people holding an annual general meeting"
+    },
+    "date": "16/03/23",
+    "time": {
+      "start": "5:30pm",
+      "end": "8:30pm"
+    },
+    "location": "UWA EZONE",
+    "desc": "We will be giving a brief recap of the past year, saying bye to the current committee and electing this year’s committee."
+  },
+  {
+    "slug": "winter_projects_2023",
+    "tags": ["project", "social"],
+    "title": "Winter Projects 2023",
+    "image": {
+      "src": "/events/IMG_2001.JPG",
+      "alt": "A winter project workshop"
+    },
+    "date": "24/06/23",
+    "time": {
+      "start": "11:00am",
+      "end": "4:00pm"
+    },
+    "location": "UWA EZONE",
+    "desc": "Get industry level experience and skills by working on fun projects."
+  },
+  {
+    "slug": "summer_projects_2023",
+    "tags": ["project", "social"],
+    "title": "Summer Projects 2023",
+    "image": {
+      "src": "/events/IMG_2001.JPG",
+      "alt": "A summer project workshop"
+    },
+    "date": "25/11/23",
+    "time": {
+      "start": "11:00am",
+      "end": "4:00pm"
+    },
+    "location": "UWA EZONE",
+    "desc": "Get industry level experience and skills by working on fun projects."
+  },
+  {
+    "slug": "software_industry_night_2024",
+    "tags": ["industry", "social", "networking"],
+    "title": "Software Industry Night 2024",
+    "image": {
+      "src": "/events/DSC02946.jpg",
+      "alt": "Image of people mingling at the industry night"
+    },
+    "date": "06/03/24",
+    "time": {
+      "start": "6:00pm",
+      "end": "9:00pm"
+    },
+    "location": "UWA EZONE",
+    "desc": "Come down to UWA EZONE and talk with representatives from the industry to gain insights into career opportunities as well as tips for the rest of your development career. We will be having amazing speakers who will be speaking about the industry, their experiences and technical knowledge to help you get ahead whether you're a first year or have just graduated."
+  }
+]
