@@ -8,6 +8,10 @@ import { Button } from "~/components/ui/button"
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "~/components/ui/form"
 import { Input } from "~/components/ui/input"
 
+interface CashPaymentFormProps {
+  afterPayment?: (paymentID: string) => Promise<void>
+}
+
 const formSchema = z.object({
   code: z.string().optional(),
 })
@@ -18,7 +22,7 @@ const defaultValues = {
 
 type FormSchema = z.infer<typeof formSchema>
 
-const CashPaymentForm = () => {
+const CashPaymentForm = (props: CashPaymentFormProps) => {
   const form = useForm<FormSchema>({
     resolver: zodResolver(formSchema),
     defaultValues,
@@ -26,6 +30,7 @@ const CashPaymentForm = () => {
 
   const onSubmit = async ({ code }: FormSchema) => {
     console.log(code)
+    await props.afterPayment?.("paymentID")
   }
 
   return (
