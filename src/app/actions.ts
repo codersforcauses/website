@@ -3,15 +3,14 @@
 import { cookies } from "next/headers"
 
 import { type User } from "~/lib/types"
+import { env } from "~/env"
 
-// create a random 96-bit initialization vector (IV)
-const iv = crypto.getRandomValues(new Uint8Array(12))
-const key = crypto.getRandomValues(new Uint8Array(32))
+const key = new TextEncoder().encode(env.SECRET_KEY)
+const iv = new TextEncoder().encode(env.SECRET_IV)
 
 const encryptSymmetric = async (plaintext: string) => {
   // encode the text you want to encrypt
   const encodedPlaintext = new TextEncoder().encode(plaintext)
-
   // prepare the secret key for encryption
   const secretKey = await crypto.subtle.importKey(
     "raw",

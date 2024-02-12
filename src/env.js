@@ -15,6 +15,8 @@ export const env = createEnv({
     CLERK_SECRET_KEY: z.string(),
     SQUARE_ACCESS_TOKEN: z.string(),
     CASH_PASSWORD: z.string(),
+    SECRET_KEY: z.string().refine((str) => str.length === 32, "SECRET KEY must be 32 characters"),
+    SECRET_IV: z.string().refine((str) => str.length === 12, "SECRET IV must be 12 characters"),
   },
 
   /**
@@ -46,6 +48,8 @@ export const env = createEnv({
     NEXT_PUBLIC_SQUARE_APP_ID: process.env.NEXT_PUBLIC_SQUARE_APP_ID,
     NEXT_PUBLIC_SQUARE_LOCATION_ID: process.env.NEXT_PUBLIC_SQUARE_LOCATION_ID,
     CASH_PASSWORD: process.env.CASH_PASSWORD,
+    SECRET_KEY: process.env.SECRET_KEY,
+    SECRET_IV: process.env.SECRET_IV,
   },
   /**
    * Run `build` or `dev` with `SKIP_ENV_VALIDATION` to skip env validation. This is especially
