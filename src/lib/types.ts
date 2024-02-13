@@ -26,7 +26,9 @@ export interface User {
   discord: string | null
   subscribe: boolean
   role: (typeof NAMED_ROLES)[number] | null
+  square_customer_id: string
   createdAt: Date
+  updatedAt: Date | null
 }
 
 export interface ImageProps {
