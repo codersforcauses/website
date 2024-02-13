@@ -151,7 +151,7 @@ export default async function Home() {
           ))}
         </div>
       </div>
-      <div id="contact" className="scroll-mt-16 bg-black py-12 text-white md:py-24">
+      <div id="_contact_us" className="scroll-mt-16 bg-black py-12 text-white md:py-24">
         <div className="container flex gap-4">
           <div className="flex flex-grow flex-col gap-4">
             <p className="font-mono text-7xl">Let&apos;s talk.</p>
