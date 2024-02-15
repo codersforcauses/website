@@ -53,14 +53,23 @@ export const users = mysqlTable(
 )
 
 // for refunds and payment history
-export const payments = mysqlTable("payment", {
-  id: serial("id").primaryKey(),
-  user_id: varchar("user_id", { length: 32 }).notNull(),
-  amount: decimal("amount", { scale: 2 }).notNull(),
-  currency: varchar("currency", { length: 3 }).default("AUD").notNull(),
+export const payments = mysqlTable(
+  "payment",
+  {
+    id: serial("id").primaryKey(),
+    user_id: varchar("user_id", { length: 32 }), // guest access in future
+    amount: decimal("amount", { scale: 2 }).notNull(),
+    currency: varchar("currency", { length: 3 }).default("AUD").notNull(),
+    label: varchar("label", { length: 256 }).notNull(),
+    event_id: varchar("event_id", { length: 32 }), // TODO: link when events are implemented
 
-  createdAt: timestamp("created_at")
-    .default(sql`CURRENT_TIMESTAMP`)
-    .notNull(),
-  updatedAt: timestamp("updatedAt").onUpdateNow(),
-})
+    createdAt: timestamp("created_at")
+      .default(sql`CURRENT_TIMESTAMP`)
+      .notNull(),
+    updatedAt: timestamp("updatedAt").onUpdateNow(),
+  },
+  (payment) => ({
+    userIndex: index("user_id_idx").on(payment.user_id),
+    eventIndex: index("event_id_idx").on(payment.event_id),
+  }),
+)
