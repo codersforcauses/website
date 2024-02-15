@@ -128,23 +128,34 @@ export const userRouter = createTRPCRouter({
         if (!currentUser)
           throw new TRPCError({ code: "NOT_FOUND", message: `Could not find user with id:${ctx.user.id}` })
 
+        // allow admin and committee to update to any role
         if (currentUser.role === "admin" || currentUser.role === "committee") {
           await ctx.db.update(users).set({ role: input.role }).where(eq(users.id, input.id))
         } else {
           if (currentUser.id === input.id) {
+            // allow user to remove their role
             if (input.role === null) {
               await ctx.db.update(users).set({ role: input.role }).where(eq(users.id, ctx.user?.id))
             } else if (input.role === "member") {
               if (!input.paymentID) throw new TRPCError({ code: "BAD_REQUEST", message: "Payment ID is required" })
 
               try {
+                // check payment
                 const { result } = await paymentsApi.getPayment(input.paymentID)
                 if (
                   result.payment?.status === "COMPLETED" &&
                   result.payment?.referenceId === ctx.user.id &&
                   result.payment.note?.includes("CFC Membership")
                 ) {
-                  await ctx.db.update(users).set({ role: input.role }).where(eq(users.id, ctx.user?.id))
+                  // only update role if payment successful and user is not already a member
+                  if (currentUser.role === null) {
+                    await ctx.db.update(users).set({ role: input.role }).where(eq(users.id, ctx.user?.id))
+                  }
+                } else {
+                  throw new TRPCError({
+                    code: "BAD_REQUEST",
+                    message: "Payment is not valid or was unable to be verified.",
+                  })
                 }
               } catch (error) {
                 throw new TRPCError({
