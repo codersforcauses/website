@@ -13,7 +13,7 @@ import { api } from "~/trpc/react"
 
 interface Cards {
   id: string
-  brand?: string
+  brand: string
   number: string
   expiry: string
 }
@@ -26,10 +26,29 @@ interface SavedCardsProps {
   cards: Cards[]
 }
 
-const CARD_ENUM = {
-  MASTERCARD: siMastercard.path,
-  VISA: siVisa.path,
-  AMERICAN_EXPRESS: siAmericanexpress.path,
+const CardIcon = ({ brand }: { brand: string }) => {
+  switch (brand) {
+    case "MASTERCARD":
+      return (
+        <svg viewBox="0 0 24 24" className="h-10 fill-current">
+          <path d={siMastercard.path} />
+        </svg>
+      )
+    case "VISA":
+      return (
+        <svg viewBox="0 0 24 24" className="h-10 fill-current">
+          <path d={siVisa.path} />
+        </svg>
+      )
+    case "AMERICAN_EXPRESS":
+      return (
+        <svg viewBox="0 0 24 24" className="h-10 fill-current">
+          <path d={siAmericanexpress.path} />
+        </svg>
+      )
+    default:
+      return <span className="material-symbols-sharp">credit_card</span>
+  }
 }
 
 const formSchema = z.object({
@@ -85,9 +104,7 @@ const SavedCardsForm = ({ amount, cards, paymentInstance, ...props }: SavedCards
                         className="font-normal"
                       >
                         <div key={card.id} className="flex gap-x-4">
-                          <svg viewBox="0 0 24 24" className="h-10 fill-current">
-                            <path d={CARD_ENUM[card.brand]} />
-                          </svg>
+                          <CardIcon brand={card.brand} />
                           <div className="flex flex-col justify-evenly">
                             <div className="font-mono">{card.number}</div>
                             <div className="text-xs text-muted-foreground">{card.expiry}</div>
