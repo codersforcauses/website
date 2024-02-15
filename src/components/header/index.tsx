@@ -7,11 +7,7 @@ import UserButton from "./user"
 
 const ThemeSwitcher = dynamic(() => import("./theme"), {
   ssr: false,
-  loading: () => (
-    <Button variant="ghost-dark" size="icon">
-      <span className="material-symbols-sharp animate-spin">progress_activity</span>
-    </Button>
-  ),
+  loading: () => <Button variant="ghost-dark" size="icon" />,
 })
 
 interface HeaderItem {
