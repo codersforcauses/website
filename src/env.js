@@ -15,8 +15,14 @@ export const env = createEnv({
     CLERK_SECRET_KEY: z.string(),
     SQUARE_ACCESS_TOKEN: z.string(),
     CASH_PASSWORD: z.string(),
-    SECRET_KEY: z.string().refine((str) => str.length === 32, "SECRET KEY must be 32 characters"),
-    SECRET_IV: z.string().refine((str) => str.length === 12, "SECRET IV must be 12 characters"),
+    SECRET_KEY: z.string().refine(
+      (str) => str.length === 32,
+      (str) => ({ message: `SECRET KEY must be 32 characters, you have ${str.length} characters` }),
+    ),
+    SECRET_IV: z.string().refine(
+      (str) => str.length === 12,
+      (str) => ({ message: `SECRET IV must be 12 characters, you have ${str.length} characters` }),
+    ),
   },
 
   /**
