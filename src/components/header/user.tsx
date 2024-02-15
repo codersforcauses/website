@@ -53,9 +53,13 @@ const UserButton = () => {
           {user?.preferred_name}
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent align="end" className="-mr-1.5 mt-1 w-56 border-white/25 bg-black text-white">
+      <DropdownMenuContent align="end" className="-mr-1.5 mt-1 w-56 border-white/25 bg-black text-white ">
         <DropdownMenuGroup>
-          <DropdownMenuItem asChild disabled={path === "/dashboard"} className="focus:bg-white/20 focus:text-white">
+          <DropdownMenuItem
+            asChild
+            disabled={path === "/dashboard"}
+            className=" hover:cursor-pointer focus:bg-white/20 focus:text-white"
+          >
             <Link href="/dashboard">
               <span className="material-symbols-sharp text mr-1 size-5 text-xl leading-none">dashboard</span>
               <span>Dashboard</span>
@@ -66,7 +70,7 @@ const UserButton = () => {
             <DropdownMenuItem
               asChild
               disabled={path === "/dashboard/admin"}
-              className="focus:bg-white/20 focus:text-white"
+              className="hover:cursor-pointer focus:bg-white/20 focus:text-white"
             >
               <Link href="/dashboard/admin">
                 <span className="material-symbols-sharp text mr-1 size-5 text-xl leading-none">
@@ -80,7 +84,7 @@ const UserButton = () => {
           <DropdownMenuItem
             asChild
             disabled={path.includes("/profile/user_")}
-            className="focus:bg-white/20 focus:text-white"
+            className="hover:cursor-pointer focus:bg-white/20 focus:text-white"
           >
             <Link href={`/profile/${user?.id}`}>
               <span className="material-symbols-sharp text mr-1 size-5 text-xl leading-none">person</span>
@@ -91,7 +95,7 @@ const UserButton = () => {
           <DropdownMenuItem
             asChild
             disabled={path === "/profile/settings"}
-            className="focus:bg-white/20 focus:text-white"
+            className="hover:cursor-pointer focus:bg-white/20 focus:text-white"
           >
             <Link href="/profile/settings">
               <span className="material-symbols-sharp text mr-1 size-5 text-xl leading-none">settings</span>
@@ -106,7 +110,7 @@ const UserButton = () => {
           </DropdownMenuItem> */}
         </DropdownMenuGroup>
         <DropdownMenuSeparator className="bg-white/25" />
-        <DropdownMenuItem className="focus:bg-white/20 focus:text-white" onSelect={userSignOut}>
+        <DropdownMenuItem className="hover:cursor-pointer focus:bg-white/20 focus:text-white" onSelect={userSignOut}>
           <span className="material-symbols-sharp text mr-1 size-5 text-xl leading-none">logout</span>
           <span>Log out</span>
         </DropdownMenuItem>
