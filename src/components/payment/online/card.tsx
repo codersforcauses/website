@@ -12,6 +12,7 @@ import { Checkbox } from "~/components/ui/checkbox"
 interface CardProps {
   theme: string
   amount: string
+  setFocus: boolean
   paymentInstance: Payments
   cardDetails: [CheckedState, React.Dispatch<React.SetStateAction<CheckedState>>]
   loadingState: [boolean, React.Dispatch<React.SetStateAction<boolean>>]
@@ -21,7 +22,7 @@ interface CardProps {
 const containerID = "card-container"
 const buttonID = "card-button"
 
-const Card = ({ amount, paymentInstance, theme, ...props }: CardProps) => {
+const Card = ({ amount, paymentInstance, theme, setFocus, ...props }: CardProps) => {
   const btnRef = React.useRef<HTMLButtonElement>(null)
   const [card, setCard] = React.useState<Card | undefined>(() => undefined)
 
@@ -38,6 +39,9 @@ const Card = ({ amount, paymentInstance, theme, ...props }: CardProps) => {
           return
         }
         await card.attach(`#${containerID}`)
+        if (setFocus) {
+          void (await card.focus("cardNumber"))
+        }
         setCard(card)
 
         if (signal.aborted) {
@@ -51,7 +55,7 @@ const Card = ({ amount, paymentInstance, theme, ...props }: CardProps) => {
     return () => {
       abortController.abort()
     }
-  }, [paymentInstance])
+  }, [paymentInstance, setFocus])
 
   React.useEffect(() => {
     if (!card) return

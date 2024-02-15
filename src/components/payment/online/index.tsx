@@ -44,6 +44,7 @@ interface OnlinePaymentFormProps {
    */
   amount?: string
   label?: string
+  setFocus?: boolean
   afterPayment?: (paymentID: string) => Promise<void>
 }
 
@@ -62,7 +63,10 @@ const LOCATION_ID = env.NEXT_PUBLIC_SQUARE_LOCATION_ID
 //   return details
 // }
 
-const createPaymentRequest = ({ amount, label }: Omit<Required<OnlinePaymentFormProps>, "afterPayment">) => {
+const createPaymentRequest = ({
+  amount,
+  label,
+}: Omit<Required<OnlinePaymentFormProps>, "afterPayment" | "setFocus">) => {
   const request: PaymentRequestOptions = {
     countryCode: "AU",
     currencyCode: "AUD",
@@ -77,6 +81,7 @@ const createPaymentRequest = ({ amount, label }: Omit<Required<OnlinePaymentForm
 const OnlinePaymentForm = ({
   amount = "5.00",
   label = `CFC Membership ${new Date().getFullYear()}`,
+  setFocus = false,
   ...props
 }: OnlinePaymentFormProps) => {
   const { resolvedTheme: theme } = useTheme()
@@ -188,7 +193,12 @@ const OnlinePaymentForm = ({
         console.log(error)
       }
     }
-    if (paymentID) props.afterPayment?.(paymentID)
+    try {
+      if (paymentID) void (await props.afterPayment?.(paymentID))
+    } catch (error) {
+      // TODO: handle error
+      console.log(error)
+    }
   }
 
   const paymentOptions = {
@@ -208,7 +218,7 @@ const OnlinePaymentForm = ({
       <AccordionItem value="card" className="border-black/25 dark:border-white/25">
         <AccordionTrigger className="px-4">Debit/Credit card</AccordionTrigger>
         <AccordionContent className="mx-4">
-          <Card {...paymentOptions} amount={amount} cardDetails={cardDetails} />
+          <Card {...paymentOptions} setFocus={setFocus} amount={amount} cardDetails={cardDetails} />
         </AccordionContent>
       </AccordionItem>
       <AccordionItem value="wallet" className="border-black/25 dark:border-white/25">
