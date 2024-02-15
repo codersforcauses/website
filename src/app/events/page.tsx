@@ -1,34 +1,38 @@
 "use client"
 
-import { useState } from "react"
 import eventList from "data/events.json"
 import EventCard from "./eventcard"
 import TitleText from "../_components/title-text"
-import day from "dayjs"
-import customParseFormat from "dayjs/plugin/customParseFormat"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "~/components/ui/tabs"
+import { isAfter, isBefore, isSameDay, parse } from "date-fns"
 
 import { type Event } from "~/lib/types"
 
-day.extend(customParseFormat)
+const parseEventDate = (date: string, time: string) => {
+  return parse(`${date} ${time.toUpperCase()}`, "dd/MM/yy h:mma", new Date())
+}
 
-const sorted = (array: Array<Event>) =>
+const sorted = (array: Event[]) =>
   array.sort((event1, event2) => {
-    const eventDate = ({ date, time }: Event) => day(date + time.start, "DD/MM/YYh:mma")
-    return eventDate(event1).isAfter(eventDate(event2)) ? 1 : -1
+    const date1 = parseEventDate(event1.date, event1.time.start)
+    const date2 = parseEventDate(event2.date, event2.time.start)
+
+    return isAfter(date1, date2) ? 1 : -1
   })
 
 const events = {
-  past: sorted(eventList.filter((event) => day(event.date, "DD/MM/YY").isBefore(day()))),
+  past: sorted(
+    eventList.filter((event) =>
+      isBefore(parse(`${event.date} ${event.time.start}`, "dd/MM/yy h:mma", new Date()), new Date()),
+    ),
+  ),
   upcoming: sorted(
     eventList.filter((event) => {
-      const date = day(event.date, "DD/MM/YY")
-      return date.isAfter(day()) || date.isSame(day())
+      const date = parse(`${event.date} ${event.time.start}`, "dd/MM/yy h:mma", new Date())
+      return isAfter(date, new Date()) || isSameDay(date, new Date())
     }),
   ),
 }
-
-type EventFilter = keyof typeof events
 
 const EventsPage = () => {
   return (
