@@ -29,11 +29,12 @@ const UserButton = () => {
       const getUser = await getUserCookie()
       setUser(getUser)
     }
-    void getUser()
-  })
+    if (!user) void getUser()
+  }, [user])
 
   const userSignOut = React.useCallback(async () => {
     await Promise.all([removeUserCookie(), signOut()])
+    setUser(undefined)
     router.push("/")
   }, [signOut, router])
 
