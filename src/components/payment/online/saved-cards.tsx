@@ -1,5 +1,5 @@
-import { type Payments, type TokenResult } from "@square/web-sdk"
 import * as React from "react"
+import { type Payments, type TokenResult } from "@square/web-sdk"
 import { useForm } from "react-hook-form"
 import { siAmericanexpress, siMastercard, siVisa } from "simple-icons"
 import * as z from "zod"
@@ -114,7 +114,9 @@ const SavedCardsForm = ({ amount, cards, paymentInstance, ...props }: SavedCards
 }
 
 const SavedCards = (props: Omit<SavedCardsProps, "cards">) => {
-  const { data: cards, isInitialLoading } = api.payment.getCards.useQuery()
+  const { data: cards, isInitialLoading } = api.payment.getCards.useQuery(undefined, {
+    refetchInterval: false,
+  })
 
   if (isInitialLoading) {
     return <Skeleton className="h-10 w-full" />
