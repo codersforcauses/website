@@ -87,7 +87,7 @@ const FaqPage = () => {
           ))}
         </div>
         <div>
-          <h1 className="px-2 px-2 font-mono text-lg font-bold">Projects</h1>
+          <h1 className="px-2 font-mono text-lg font-bold">Projects</h1>
           {ProjectsFAQ.map((faq, idx) => (
             <Accordion type="multiple" key={idx} className="w-full">
               <AccordionItem value={`item-${idx}`}>
