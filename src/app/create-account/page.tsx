@@ -25,7 +25,7 @@ import { SITE_URL } from "~/lib/constants"
 import { cn } from "~/lib/utils"
 import { type User } from "~/lib/types"
 import { api } from "~/trpc/react"
-import { setUserCookie } from "../actions"
+import { setUserCookie } from "~/app/actions"
 
 type ActiveView = "form" | "payment"
 
