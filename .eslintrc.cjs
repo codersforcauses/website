@@ -31,6 +31,7 @@ const config = {
         checksVoidReturn: { attributes: false },
       },
     ],
+    "@typescript-eslint/prefer-nullish-coalescing": ["warn", { ignoreConditionalTests: true }],
   },
 }
 

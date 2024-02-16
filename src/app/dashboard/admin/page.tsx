@@ -1,31 +1,33 @@
 "use client"
 
 import * as React from "react"
+import { useRouter, useSearchParams } from "next/navigation"
 import Link from "next/link"
-import Image from "next/image"
-import Pie, { ProvidedProps, PieArcDatum } from "@visx/shape/lib/shapes/Pie"
+import { type ImperativePanelHandle } from "react-resizable-panels"
 
 import { ResizableHandle, ResizablePanel, ResizablePanelGroup } from "~/components/ui/resizable"
-import { ToggleGroup, ToggleGroupItem } from "~/components/ui/toggle-group"
-import { cn } from "~/lib/utils"
-import { type ImperativePanelHandle } from "react-resizable-panels"
 import { Separator } from "~/components/ui/separator"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "~/components/ui/tabs"
+import { cn } from "~/lib/utils"
 import UserData from "./_components/user-table"
+import Placeholder from "./_components/placeholder"
 
 const sidebarItems = [
-  { text: "Users", slug: "users", icon: "group" },
-  { text: "Projects", slug: "projects", icon: "devices" },
-  { text: "Events", slug: "events", icon: "event" },
-  { text: "Analytics", slug: "analytics", icon: "analytics" },
+  { text: "Users", slug: "users", icon: "group", component: <UserData /> },
+  { text: "Projects", slug: "projects", icon: "devices", component: <Placeholder /> },
+  { text: "Events", slug: "events", icon: "event", component: <Placeholder /> },
+  { text: "Analytics", slug: "analytics", icon: "analytics", component: <Placeholder /> },
 ]
 
 export default function AdminDashboard() {
+  const router = useRouter()
+  const searchParams = useSearchParams()
   const sidebarRef = React.useRef<ImperativePanelHandle>(null)
   const [collapsed, setCollapsed] = React.useState(false)
 
   return (
-    <main className="main">
-      <div className="container h-full py-4">
+    <main className="main container py-4">
+      <Tabs orientation="vertical" value={searchParams.get("tab") ?? sidebarItems[0]?.slug}>
         <ResizablePanelGroup direction="horizontal">
           <ResizablePanel
             ref={sidebarRef}
@@ -54,28 +56,32 @@ export default function AdminDashboard() {
               {!collapsed && <h1 className="ml-2 font-mono font-bold leading-tight">Admin Dashboard</h1>}
             </div>
             <Separator className="bg-background" />
-            <ToggleGroup type="single" defaultValue={sidebarItems[0]?.slug} className="flex flex-col p-1">
+            <TabsList className="grid h-auto w-full grid-cols-1 gap-1 p-1">
               {sidebarItems.map(({ slug, text, icon }) => (
-                <ToggleGroupItem
+                <TabsTrigger
+                  asChild
                   key={slug}
                   value={slug}
-                  className={cn(
-                    "box-border w-full data-[state=on]:bg-background data-[state=on]:text-foreground",
-                    !collapsed && "justify-start",
-                  )}
+                  className={cn(!collapsed && "justify-start", "h-[42px] focus:ring-1 focus:ring-muted-foreground")}
                 >
-                  <span className={cn("material-symbols-sharp size-6", !collapsed && "mr-2")}>{icon}</span>
-                  {!collapsed && text}
-                </ToggleGroupItem>
+                  <Link href={`?tab=${slug}`}>
+                    <span className={cn("material-symbols-sharp size-6", !collapsed && "mr-2")}>{icon}</span>
+                    {!collapsed && text}
+                  </Link>
+                </TabsTrigger>
               ))}
-            </ToggleGroup>
+            </TabsList>
           </ResizablePanel>
           <ResizableHandle withHandle className="w-3 bg-background" />
           <ResizablePanel defaultSize={75}>
-            <UserData />
+            {sidebarItems.map(({ slug, component }) => (
+              <TabsContent key={slug} value={slug}>
+                {component}
+              </TabsContent>
+            ))}
           </ResizablePanel>
         </ResizablePanelGroup>
-      </div>
+      </Tabs>
     </main>
   )
 }

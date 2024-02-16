@@ -1,12 +1,80 @@
-import Link from "next/link"
-import Image from "next/image"
+"use client"
 
-import { api } from "~/trpc/server"
+import * as React from "react"
+import { useRouter } from "next/navigation"
 
-export default async function Dashboard() {
+import TitleText from "../_components/title-text"
+import OnlinePaymentForm from "~/components/payment/online"
+import { toast } from "~/components/ui/use-toast"
+import { api } from "~/trpc/react"
+import { type User } from "~/lib/types"
+import { getUserCookie, setUserCookie } from "../actions"
+
+export default function Dashboard() {
+  const [user, setUser] = React.useState<User>()
+  const router = useRouter()
+
+  const updateRole = api.user.updateRole.useMutation()
+
+  React.useEffect(() => {
+    const getUser = async () => {
+      const tempUser = await getUserCookie()
+      setUser(tempUser)
+    }
+    void getUser()
+  }, [])
+
+  const handleAfterOnlinePayment = async (paymentID: string) => {
+    try {
+      const updatedUser = await updateRole.mutateAsync({
+        id: user!.id,
+        role: "member",
+        paymentID,
+      })
+      await setUserCookie(updatedUser!)
+      router.replace("/dashboard")
+    } catch (error) {
+      toast({
+        variant: "destructive",
+        title: "Failed to update role",
+        description: "An error occurred while trying to update your role.",
+      })
+    }
+  }
+
   return (
     <main className="main">
-      <div className="container">dashboard</div>
+      <TitleText typed>./dashboard</TitleText>
+      <div className="container flex flex-wrap gap-x-8 gap-y-4 py-8">
+        <div className="flex-grow">
+          <h2 className="font-bold">Hey, {user?.preferred_name}</h2>
+          <div className="flex h-full py-8">
+            <p className="self-center">This page is a work in progress. Keep an eye out for updates</p>
+          </div>
+        </div>
+        <div className="max-w-md">
+          {user?.role === null && (
+            <div className="space-y-4 ">
+              <div className="space-y-2">
+                <h2 className="font-semibold leading-none tracking-tight">Membership</h2>
+                <div className="text-sm text-muted-foreground">
+                  <p>
+                    You&apos;re not a member with us yet. Become a paying member of Coders for Causes for just $5 a year
+                    (ends on 31st Dec {new Date().getFullYear()}). There are many benefits to becoming a member which
+                    include:
+                  </p>
+                  <ul className="list-inside list-disc">
+                    <li>discounts to paid events such as industry nights</li>
+                    <li>the ability to vote and run for committee positions</li>
+                    <li>the ability to join our projects run during the winter and summer breaks.</li>
+                  </ul>
+                </div>
+              </div>
+              <OnlinePaymentForm afterPayment={handleAfterOnlinePayment} />
+            </div>
+          )}
+        </div>
+      </div>
     </main>
   )
 }

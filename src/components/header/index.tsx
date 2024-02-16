@@ -1,9 +1,14 @@
 import Link from "next/link"
+import dynamic from "next/dynamic"
 
 import { Button } from "~/components/ui/button"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "~/components/ui/dropdown-menu"
-import ThemeSwitcher from "./theme"
 import UserButton from "./user"
+
+const ThemeSwitcher = dynamic(() => import("./theme"), {
+  ssr: false,
+  loading: () => <Button variant="ghost-dark" size="icon" />,
+})
 
 interface HeaderItem {
   href: string

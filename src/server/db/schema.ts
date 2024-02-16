@@ -2,6 +2,8 @@ import { relations, sql } from "drizzle-orm"
 import {
   bigint,
   boolean,
+  decimal,
+  float,
   index,
   int,
   mysqlEnum,
@@ -37,6 +39,7 @@ export const users = mysqlTable(
     discord: varchar("discord", { length: 128 }),
     subscribe: boolean("subscribe").default(true).notNull(),
     role: mysqlEnum("role", NAMED_ROLES), // honorary: hlm, past: past committee
+    square_customer_id: varchar("square_customer_id", { length: 32 }).unique().notNull(),
 
     createdAt: timestamp("created_at")
       .default(sql`CURRENT_TIMESTAMP`)
@@ -49,13 +52,24 @@ export const users = mysqlTable(
   }),
 )
 
-export const payments = mysqlTable("payment", {
-  id: serial("id").primaryKey(),
-  user_id: varchar("user_id", { length: 32 }).notNull(),
-  token: varchar("token", { length: 64 }).notNull(),
+// for refunds and payment history
+export const payments = mysqlTable(
+  "payment",
+  {
+    id: serial("id").primaryKey(),
+    user_id: varchar("user_id", { length: 32 }), // guest access in future
+    amount: decimal("amount", { scale: 2 }).notNull(),
+    currency: varchar("currency", { length: 3 }).default("AUD").notNull(),
+    label: varchar("label", { length: 256 }).notNull(),
+    event_id: varchar("event_id", { length: 32 }), // TODO: link when events are implemented
 
-  createdAt: timestamp("created_at")
-    .default(sql`CURRENT_TIMESTAMP`)
-    .notNull(),
-  updatedAt: timestamp("updatedAt").onUpdateNow(),
-})
+    createdAt: timestamp("created_at")
+      .default(sql`CURRENT_TIMESTAMP`)
+      .notNull(),
+    updatedAt: timestamp("updatedAt").onUpdateNow(),
+  },
+  (payment) => ({
+    userIndex: index("user_id_idx").on(payment.user_id),
+    eventIndex: index("event_id_idx").on(payment.event_id),
+  }),
+)

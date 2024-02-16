@@ -119,7 +119,7 @@ export default async function Home() {
           </div>
         </div>
       </div>
-      <div className="w-screen select-none overflow-hidden bg-neutral-200 py-12 dark:bg-neutral-900">
+      <div className="w-full select-none overflow-hidden bg-neutral-200 py-12 dark:bg-neutral-900">
         <div className="flex animate-slide" style={{ width: width * 2 }}>
           {[1, 2].map((count) => (
             <div key={count} className="flex gap-x-24" style={{ width }}>
@@ -151,7 +151,7 @@ export default async function Home() {
           ))}
         </div>
       </div>
-      <div id="contact" className="scroll-mt-16 bg-black py-12 text-white md:py-24">
+      <div id="_contact_us" className="scroll-mt-16 bg-black py-12 text-white md:py-24">
         <div className="container flex gap-4">
           <div className="flex flex-grow flex-col gap-4">
             <p className="font-mono text-7xl">Let&apos;s talk.</p>

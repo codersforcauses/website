@@ -26,7 +26,9 @@ export interface User {
   discord: string | null
   subscribe: boolean
   role: (typeof NAMED_ROLES)[number] | null
+  square_customer_id: string
   createdAt: Date
+  updatedAt: Date | null
 }
 
 export interface ImageProps {
@@ -71,6 +73,22 @@ export interface ProjectModel {
   desc: string
   tech: TechIcons[]
   members: string[]
+}
+
+export interface Event {
+  slug: string
+  tags: Array<string>
+  title: string
+  image: ImageProps
+  date: string
+  time: {
+    start: string
+    end: string
+  }
+  location: string
+  desc: string
+  type?: "workshop" | "industry night" | "social event"
+  isPaid?: boolean
 }
 
 export const iconMap: Record<string, string> = {

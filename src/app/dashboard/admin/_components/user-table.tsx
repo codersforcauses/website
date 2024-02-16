@@ -14,7 +14,6 @@ import {
   getSortedRowModel,
   getFilteredRowModel,
   type SortingState,
-  type ColumnFiltersState,
   type VisibilityState,
 } from "@tanstack/react-table"
 
@@ -37,6 +36,15 @@ import {
   DropdownMenuTrigger,
 } from "~/components/ui/dropdown-menu"
 import { Input } from "~/components/ui/input"
+import {
+  Pagination,
+  PaginationContent,
+  PaginationEllipsis,
+  PaginationItem,
+  PaginationLink,
+  PaginationNext,
+  PaginationPrevious,
+} from "~/components/ui/pagination"
 import { Separator } from "~/components/ui/separator"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "~/components/ui/table"
 import { NAMED_ROLES } from "~/lib/constants"
@@ -86,8 +94,9 @@ const columns = (updateRole: ({ id, role }: UpdateUserRoleFunctionProps) => void
   {
     id: "Name",
     accessorKey: "name",
+    enableGlobalFilter: true,
     header: ({ column }) => (
-      <Button variant="ghost" onClick={column.getToggleSortingHandler()}>
+      <Button variant="ghost" className="-mx-1 w-full justify-start px-1" onClick={column.getToggleSortingHandler()}>
         Name
         <span className="material-symbols-sharp ml-2 size-6">{sortIcon(column.getIsSorted())}</span>
       </Button>
@@ -96,8 +105,9 @@ const columns = (updateRole: ({ id, role }: UpdateUserRoleFunctionProps) => void
   {
     id: "Email",
     accessorKey: "email",
+    enableGlobalFilter: true,
     header: ({ column }) => (
-      <Button variant="ghost" onClick={column.getToggleSortingHandler()}>
+      <Button variant="ghost" className="-mx-1 w-full justify-start px-1" onClick={column.getToggleSortingHandler()}>
         Email
         <span className="material-symbols-sharp ml-2 size-6">{sortIcon(column.getIsSorted())}</span>
       </Button>
@@ -107,6 +117,7 @@ const columns = (updateRole: ({ id, role }: UpdateUserRoleFunctionProps) => void
     id: "Role",
     header: "Role",
     accessorKey: "role",
+    enableGlobalFilter: true,
   },
   {
     id: "Pronouns",
@@ -116,6 +127,7 @@ const columns = (updateRole: ({ id, role }: UpdateUserRoleFunctionProps) => void
   {
     id: "University",
     header: "University",
+    // enableGlobalFilter: true, // TODO add global filter for university
     cell: ({ row }) => {
       const user = row.original
       return <span className="text-xs">{user.university ?? `${user.student_number} (UWA)`}</span>
@@ -214,8 +226,8 @@ const columns = (updateRole: ({ id, role }: UpdateUserRoleFunctionProps) => void
 
 const UserTable = () => {
   const [sorting, setSorting] = React.useState<SortingState>([])
-  const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([])
   const [columnVisibility, setColumnVisibility] = React.useState<VisibilityState>({})
+  const [globalFilter, setGlobalFilter] = React.useState("")
   const [rowSelection, setRowSelection] = React.useState({}) // shape: { [rowIndex: number]: true } only applies to selected rows
 
   const utils = api.useUtils()
@@ -262,7 +274,7 @@ const UserTable = () => {
     data,
     columns: cols,
     onSortingChange: setSorting,
-    onColumnFiltersChange: setColumnFilters,
+    onGlobalFilterChange: setGlobalFilter,
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
     getSortedRowModel: getSortedRowModel(),
@@ -271,7 +283,7 @@ const UserTable = () => {
     onRowSelectionChange: setRowSelection,
     state: {
       sorting,
-      columnFilters,
+      globalFilter,
       columnVisibility,
       rowSelection,
     },
@@ -281,7 +293,7 @@ const UserTable = () => {
 
   return (
     <>
-      <div className="flex h-[50px] gap-2 p-1">
+      <div className="flex h-[50px] p-1">
         {data.length > 0 && (
           <>
             {selectedRowIDs.length > 0 && (
@@ -311,24 +323,32 @@ const UserTable = () => {
                     </DropdownMenuRadioGroup>
                   </DropdownMenuContent>
                 </DropdownMenu>
-                <Button variant="ghost" className="text-destructive hover:bg-destructive/20 hover:text-destructive">
+                <Button
+                  variant="ghost"
+                  className="mx-2 text-destructive hover:bg-destructive/20 hover:text-destructive"
+                >
                   Ban user(s)
                 </Button>
 
-                <Button variant="ghost" className="text-destructive hover:bg-destructive/20 hover:text-destructive">
+                <Button
+                  variant="ghost"
+                  className="mr-2 text-destructive hover:bg-destructive/20 hover:text-destructive"
+                >
                   Delete user(s)
                 </Button>
               </>
             )}
             <Input
-              placeholder="Filter emails..."
-              value={(table.getColumn("Email")?.getFilterValue() as string) ?? ""}
-              onChange={(event) => table.getColumn("Email")?.setFilterValue(event.target.value)}
-              className="ml-auto max-w-sm"
+              type="search"
+              placeholder="Filter (name, email)"
+              autoComplete="off"
+              value={globalFilter ?? ""}
+              onChange={(event) => setGlobalFilter(event.target.value)}
+              className="ml-auto max-w-xs"
             />
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button variant="outline" className="items-center">
+                <Button variant="outline" className="ml-2 items-center">
                   <span>Columns</span>
                   <span className="material-symbols-sharp size-5">expand_more</span>
                 </Button>
@@ -387,25 +407,30 @@ const UserTable = () => {
             )}
           </TableBody>
         </Table>
-        <div className="flex items-center justify-end space-x-2 py-4">
+        <Pagination className="py-4">
           <div className="flex-1 text-sm text-muted-foreground">
             {table.getFilteredSelectedRowModel().rows.length} of {table.getFilteredRowModel().rows.length} row(s)
             selected.
           </div>
-          <div className="space-x-2">
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={() => table.previousPage()}
-              disabled={!table.getCanPreviousPage()}
-            >
-              Previous
-            </Button>
-            <Button variant="outline" size="sm" onClick={() => table.nextPage()} disabled={!table.getCanNextPage()}>
-              Next
-            </Button>
-          </div>
-        </div>
+          <PaginationContent>
+            {table.getCanPreviousPage() && (
+              <PaginationItem>
+                <PaginationPrevious href="#" />
+              </PaginationItem>
+            )}
+            <PaginationItem>
+              <PaginationLink href="#">1</PaginationLink>
+            </PaginationItem>
+            <PaginationItem>
+              <PaginationEllipsis />
+            </PaginationItem>
+            {table.getCanNextPage() && (
+              <PaginationItem>
+                <PaginationNext href="#" />
+              </PaginationItem>
+            )}
+          </PaginationContent>
+        </Pagination>
       </div>
     </>
   )

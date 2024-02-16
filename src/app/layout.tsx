@@ -3,6 +3,7 @@ import { type Metadata } from "next"
 import dynamic from "next/dynamic"
 import { IBM_Plex_Mono, IBM_Plex_Sans } from "next/font/google"
 import { ClerkProvider } from "@clerk/nextjs"
+import { Analytics } from "@vercel/analytics/react"
 
 import { type PropsWithChildren } from "~/lib/types"
 import { Toaster } from "~/components/ui/toaster"
@@ -59,6 +60,7 @@ export default function RootLayout({ children }: PropsWithChildren) {
             <Toaster />
           </Providers>
           {process.env.NODE_ENV === "production" && <Messenger />}
+          <Analytics />
         </body>
       </html>
     </ClerkProvider>
