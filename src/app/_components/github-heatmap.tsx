@@ -1,7 +1,5 @@
 import * as React from "react"
-import { scaleLinear } from "@visx/scale"
-import { HeatmapRect } from "@visx/heatmap"
-import ParentSize from "@visx/responsive/lib/components/ParentSize"
+import { Heatmap, Scale, Responsive } from "@visx/visx"
 import { format } from "date-fns"
 import { useTheme } from "next-themes"
 import { siGithub } from "simple-icons"
@@ -104,11 +102,11 @@ const GithubHeatmap = ({ data, theme, width, year }: GithubHeatmapProps) => {
   const days = (d: ContributionWeeks) => d.contributionDays
   const count = (d: ContributionDays) => d.contributionCount
 
-  const xScale = scaleLinear<number>({
+  const xScale = Scale.scaleLinear<number>({
     range: [0, HEATMAP_WIDTH],
     domain: [0, data.weeks.length], // weeks of year
   })
-  const yScale = scaleLinear<number>({
+  const yScale = Scale.scaleLinear<number>({
     range: [0, HEATMAP_HEIGHT],
     domain: [0, DAYS_IN_WEEK], // days of week
   })
@@ -161,7 +159,7 @@ const GithubHeatmap = ({ data, theme, width, year }: GithubHeatmapProps) => {
             />
           )}
           <TooltipProvider>
-            <HeatmapRect
+            <Heatmap.HeatmapRect
               data={data.weeks}
               xScale={(d) => xScale(d) ?? 0}
               yScale={(d) => yScale(d) ?? 0}
@@ -191,7 +189,7 @@ const GithubHeatmap = ({ data, theme, width, year }: GithubHeatmapProps) => {
                   )),
                 )
               }
-            </HeatmapRect>
+            </Heatmap.HeatmapRect>
           </TooltipProvider>
         </div>
         <ScrollBar orientation="horizontal" />
@@ -264,7 +262,7 @@ const GithubHeatmapWrapper = ({ username }: GithubHeatmapWrapperProps) => {
   const contributionTheme = resolvedTheme === "dark" ? darkTheme : lightTheme
 
   return (
-    <ParentSize>
+    <Responsive.ParentSize>
       {({ width }) => (
         <Tabs value={active} onValueChange={handleTabChange}>
           <div className="flex items-center gap-2 py-2">
@@ -291,7 +289,7 @@ const GithubHeatmapWrapper = ({ username }: GithubHeatmapWrapperProps) => {
           ))}
         </Tabs>
       )}
-    </ParentSize>
+    </Responsive.ParentSize>
   )
 }
 
