@@ -4,7 +4,7 @@ import TitleText from "../../_components/title-text"
 const Layout = async ({ children }: PropsWithChildren) => {
   return (
     <main className="main">
-      <TitleText typed>./profile/settings</TitleText>
+      <TitleText typed>./settings</TitleText>
       {children}
     </main>
   )

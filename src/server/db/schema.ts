@@ -1,16 +1,11 @@
 import { relations, sql } from "drizzle-orm"
 import {
-  bigint,
   boolean,
   decimal,
-  float,
   index,
-  int,
   mysqlEnum,
   mysqlTableCreator,
-  primaryKey,
   serial,
-  text,
   timestamp,
   varchar,
 } from "drizzle-orm/mysql-core"
