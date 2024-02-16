@@ -107,11 +107,6 @@ export const userRouter = createTRPCRouter({
     return userList.map(({ updatedAt, ...user }) => user)
   }),
 
-  getPayment: protectedProcedure.input(z.string()).mutation(async ({ ctx, input }) => {
-    const { result } = await paymentsApi.getPayment(input)
-    return result.payment
-  }),
-
   updateRole: protectedProcedure
     .input(
       z.object({
