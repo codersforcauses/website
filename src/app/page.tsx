@@ -89,7 +89,15 @@ export default async function Home() {
             <p className="text-pretty text-lg">
               Coders for Causes are a group of developers that empower charities and non-profit organizations by
               providing them solutions to their technical problems. We are student powered and all of our members are
-              volunteers dedicated to providing you the best results.
+              volunteers dedicated to providing you the best results. HELLO WORLD!!! I am a new developer and I am
+              excited to be a part of this community. I am looking forward to learning and growing with everyone here. I
+              am a new developer and I am excited to be a part of this community. I am looking forward to learning and
+              growing with everyone here. I am a new developer and I am excited to be a part of this community. I am
+              looking forward to learning and growing with everyone here. I am a new developer and I am excited to be a
+              part of this community. I am looking forward to learning and growing with everyone here. I am a new
+              developer and I am excited to be a part of this community. I am looking forward to learning and growing
+              with everyone here. I am a new developer and I am excited to be a part of this community. I am looking
+              forward to learning and growing with everyone here.
             </p>
             <div className="grid grid-cols-2 gap-2 font-semibold sm:gap-4">
               <Button asChild variant="dark" size="lg" className="sm:text-lg">
