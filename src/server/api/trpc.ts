@@ -106,7 +106,9 @@ export const rateLimiter = t.middleware(async ({ ctx, next }) => {
   }
 
   return next({
-    ctx,
+    ctx: {
+      user: ctx.user,
+    },
   })
 })
 
