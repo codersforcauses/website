@@ -5,8 +5,6 @@ import Contact from "~/components/contact"
 import { Button } from "~/components/ui/button"
 import { Collapsible, CollapsibleTrigger } from "~/components/ui/collapsible"
 import TypedText from "./_components/typed-text"
-import type { Metadata, Viewport } from "next"
-import { customMetadata } from "~/lib/metadata"
 
 const services = [
   {
@@ -80,24 +78,6 @@ const clients = [
 ]
 
 const width = clients.reduce((val, { width }) => val + width, clients.length * 16 * 6)
-
-export const viewport: Viewport = {
-  themeColor: "black",
-}
-
-export const metadata: Metadata = {
-  title: {
-    template: "%s | Coders for Causes",
-    default: "Coders for Causes",
-  },
-  ...customMetadata({
-    name: "Coders for Causes",
-    description:
-      "Coders for Causes is a software engineering club at UWA specializing in web development. We build custom software for charities and not for profits and give students the skills they need to succeed in the industry.",
-    image:
-      "https://og-social-cards.vercel.app/**.%2FInnovation%20with%20a%20mission**.png?theme=dark&md=1&fontSize=100px&images=https%3A%2Fcodersforcauses.org%2Flogo%2Fcfc_logo_white_full.svg",
-  }),
-}
 
 export default async function Home() {
   return (
