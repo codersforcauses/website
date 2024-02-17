@@ -205,7 +205,7 @@ export const userRouter = createTRPCRouter({
           })
           .optional(),
         student_number: z.string().nullish(),
-        uni: z.string().optional(),
+        uni: z.string().optional().nullish(),
         github: z.string().nullish(),
         discord: z.string().nullish(),
         subscribe: z.boolean(),

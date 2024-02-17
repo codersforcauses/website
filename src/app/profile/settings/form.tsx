@@ -120,6 +120,7 @@ export default function SettingsForm(props: { defaultValues?: FormSchema }) {
     updateUser({
       ...data,
       student_number: !data.isUWA ? null : data.student_number,
+      uni: !data.isUWA ? data.uni : null,
       github: data.github ?? null,
       discord: data.discord ?? null,
     })
