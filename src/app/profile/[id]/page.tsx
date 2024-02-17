@@ -1,10 +1,11 @@
-import TitleText from "~/app/_components/title-text"
-import { Badge } from "~/components/ui/badge"
-import { api } from "~/trpc/server"
-import { siGithub, siDiscord } from "simple-icons"
-import { Separator } from "~/components/ui/separator"
 import Link from "next/link"
-// import GithubHeatmapWrapper from "~/app/_components/github-heatmap"
+import TitleText from "~/app/_components/title-text"
+import { type User } from "~/lib/types"
+import { api } from "~/trpc/server"
+import { siDiscord, siGithub } from "simple-icons"
+import { Badge } from "~/components/ui/badge"
+import { Button } from "~/components/ui/button"
+import { getUserCookie } from "~/app/actions"
 
 const uni = [
   {
@@ -31,6 +32,7 @@ const uni = [
 
 const Profile = async ({ params: { id } }: { params: { id: string } }) => {
   const user = await api.user.get.query(id)
+  const currentUser = await getUserCookie()
 
   const universityLabel = user ? uni.find((u) => u.value === user.university)?.label : undefined
 
@@ -38,85 +40,89 @@ const Profile = async ({ params: { id } }: { params: { id: string } }) => {
     return (
       <main className="main">
         <TitleText typed>./profile</TitleText>
-        <div className="container mx-auto py-12">
-          <div>
-            <div className="mb-2 flex justify-between">
-              <div className="flex flex-col space-y-2">
-                <div className="flex flex-col">
-                  {user.role && <Badge className="w-min bg-primary/80 capitalize">{user.role}</Badge>}
-                  <h2 className="text-2xl font-bold">{user.preferred_name}</h2>
-                  <p className="text-sm capitalize italic text-primary/80">{user.pronouns}</p>
-                </div>
-                <div className="flex flex-col md:flex-row md:space-x-2">
-                  <div className="flex w-min flex-col space-y-2 md:flex-row md:space-x-2 md:space-y-0">
-                    {user.github && (
-                      <Badge className="h-full items-center">
-                        <svg
-                          aria-label="GitHub logo"
-                          viewBox="0 0 24 24"
-                          height={12}
-                          width={12}
-                          className="mr-1 fill-current"
-                        >
-                          <path d={siGithub.path} />
-                        </svg>
-                        {user.github}
-                      </Badge>
-                    )}
-                    {user.discord && (
-                      <Badge className="items-center bg-[#5865F2] hover:bg-[#5865F2]/80">
-                        <svg
-                          aria-label="Discord logo"
-                          viewBox="0 0 24 24"
-                          height={12}
-                          width={12}
-                          className="mr-1 fill-current"
-                        >
-                          <path d={siDiscord.path} />
-                        </svg>
-                        {user.discord}
-                      </Badge>
-                    )}
-                  </div>
-                  {user.student_number && (
-                    <div className="flex flex-row items-center">
-                      <span className="material-symbols-sharp text-2xl">account_circle</span>
-                      <p className="text-xs">{user.student_number}</p>
-                    </div>
-                  )}
-
-                  {user.university ? (
-                    <div className="flex flex-row items-center">
-                      <span className="material-symbols-sharp text-2xl">school</span>
-                      <p className="text-xs capitalize">{universityLabel}</p>
-                    </div>
-                  ) : (
-                    <div className="flex flex-row items-center">
-                      <span className="material-symbols-sharp text-2xl">school</span>
-                      <p className="text-xs">The University of Western Australia</p>
-                    </div>
+        <div className="container mx-auto p-4">
+          <div className="flex flex-col md:flex-row md:space-x-2 md:py-12">
+            <div className="space-y-2 bg-muted p-2 md:w-1/4">
+              <div>
+                <Badge className="bg-primary/80 capitalize">{user.role}</Badge>
+                <h2 className="text-2xl font-bold">{user.preferred_name}</h2>
+                <div className="flex flex-row space-x-1 italic text-primary/80">
+                  <p>{user.name}</p>{" "}
+                  {user.pronouns && (
+                    <>
+                      <p>·</p>
+                      <p className="capitalize">{user.pronouns}</p>
+                    </>
                   )}
                 </div>
               </div>
-              <Link
-                href="/profile/settings"
-                className="material-symbols-sharp text-3xl hover:cursor-pointer hover:text-primary/80"
-              >
-                settings
-              </Link>
-            </div>
-            <Separator className="h-1" />
-            <div id="_content" className="mb-32 py-6">
-              {/* {user.github && <GithubHeatmapWrapper username={user.github} />} */}
 
+              <div className="flex flex-row space-x-2">
+                {user.github && (
+                  <Badge className="items-center">
+                    <svg
+                      aria-label="GitHub logo"
+                      viewBox="0 0 24 24"
+                      height={24}
+                      width={24}
+                      className="mr-1 fill-current"
+                    >
+                      <path d={siGithub.path} />
+                    </svg>
+                    {user.github}
+                  </Badge>
+                )}
+                {user.discord && (
+                  <Badge className="items-center bg-[#5865F2] hover:bg-[#5865F2]/80">
+                    <svg
+                      aria-label="Discord logo"
+                      viewBox="0 0 24 24"
+                      height={24}
+                      width={24}
+                      className="mr-1 fill-current"
+                    >
+                      <path d={siDiscord.path} />
+                    </svg>
+                    {user.discord}
+                  </Badge>
+                )}
+              </div>
+              <div className="flex flex-col text-primary">
+                {user.student_number && (
+                  <div className="flex items-center space-x-1">
+                    <span className="material-symbols-sharp text-2xl">badge</span>
+                    <p className="text-xs">{user.student_number}</p>
+                  </div>
+                )}
+                {user.university ? (
+                  <div className="flex items-center space-x-1">
+                    <span className="material-symbols-sharp text-2xl">school</span>
+                    <p className="text-xs capitalize">{universityLabel}</p>
+                  </div>
+                ) : (
+                  <div className="flex items-center space-x-1">
+                    <span className="material-symbols-sharp text-2xl">school</span>
+                    <p className="text-xs">The University of Western Australia</p>
+                  </div>
+                )}
+              </div>
+              {currentUser?.id === user.id && (
+                <div className="pt-12">
+                  <Button className="h-min w-full bg-primary/80"> Edit Profile </Button>
+                </div>
+              )}
+            </div>
+            <div>
               <h1 className="text-2xl font-bold">Projects</h1>
-              <p className="italic">Coming soon...</p>
+              <p className="italic">There are no projects here currently...</p>
             </div>
           </div>
         </div>
       </main>
     )
   }
+
+  return <>loading</>
 }
 
 export default Profile
