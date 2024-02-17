@@ -30,10 +30,6 @@ const sans = IBM_Plex_Sans({
   subsets: ["latin"],
 })
 
-export const viewport: Viewport = {
-  themeColor: "black",
-}
-
 // export const viewport: Viewport = {
 //   themeColor: "black",
 // }
