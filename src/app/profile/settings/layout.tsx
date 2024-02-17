@@ -1,5 +1,5 @@
 import { type PropsWithChildren } from "~/lib/types"
-import TitleText from "../../_components/title-text"
+import TitleText from "~/app/_components/title-text"
 
 const Layout = async ({ children }: PropsWithChildren) => {
   return (

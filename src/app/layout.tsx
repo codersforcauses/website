@@ -9,6 +9,7 @@ import { type PropsWithChildren } from "~/lib/types"
 import { Toaster } from "~/components/ui/toaster"
 import Header from "~/components/header"
 import Footer from "~/components/footer"
+import User from "~/components/user"
 import Providers from "./providers"
 import { customMetadata } from "~/lib/metadata"
 
@@ -58,6 +59,7 @@ export default function RootLayout({ children }: PropsWithChildren) {
             {children}
             <Footer />
             <Toaster />
+            <User />
           </Providers>
           {process.env.NODE_ENV === "production" && <Messenger />}
           <Analytics />
