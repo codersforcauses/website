@@ -1,7 +1,11 @@
-import { type Metadata } from "next"
+import type { Metadata, Viewport } from "next"
 import TitleText from "../_components/title-text"
 import { type PropsWithChildren } from "~/lib/types"
 import { customMetadata } from "~/lib/metadata"
+
+export const viewport: Viewport = {
+  themeColor: "black",
+}
 
 export const metadata: Metadata = {
   title: "Sign Up",

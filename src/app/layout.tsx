@@ -1,5 +1,5 @@
 import "material-symbols/sharp.css"
-import { type Metadata } from "next"
+import type { Viewport, Metadata } from "next"
 import dynamic from "next/dynamic"
 import { IBM_Plex_Mono, IBM_Plex_Sans } from "next/font/google"
 import { ClerkProvider } from "@clerk/nextjs"
@@ -29,6 +29,10 @@ const sans = IBM_Plex_Sans({
   weight: ["400", "500", "700"],
   subsets: ["latin"],
 })
+
+export const viewport: Viewport = {
+  themeColor: "black",
+}
 
 export const metadata: Metadata = {
   title: {

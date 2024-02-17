@@ -1,6 +1,10 @@
-import { type Metadata } from "next"
+import type { Viewport, Metadata } from "next"
 import ProjectsPage from "../_components/projects/page"
 import { customMetadata } from "~/lib/metadata"
+
+export const viewport: Viewport = {
+  themeColor: "black",
+}
 
 export const metadata: Metadata = {
   title: "Projects",

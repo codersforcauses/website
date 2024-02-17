@@ -59,7 +59,6 @@ export const customMetadata = ({ name, page, description, image }: MetadataProps
       locale: "en_US",
       type: "website",
     },
-    themeColor: "#000000",
     twitter: {
       card: "summary_large_image",
       creator: "@codersforcauses",
