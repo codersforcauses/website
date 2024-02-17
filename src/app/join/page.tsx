@@ -102,7 +102,7 @@ export default function Join() {
               <span className="material-symbols-sharp size-4 text-xl leading-4">mail</span>
               <AlertTitle>Verification email sent!</AlertTitle>
               <AlertDescription>
-                It can take upto 10 minutes. Make sure to check your spam folder if you can&apos;t find it.
+                It can take up to 10 minutes. Make sure to check your spam folder if you can&apos;t find it.
               </AlertDescription>
             </Alert>
           )}
