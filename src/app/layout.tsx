@@ -30,19 +30,19 @@ const sans = IBM_Plex_Sans({
   subsets: ["latin"],
 })
 
-// export const metadata: Metadata = {
-//   title: {
-//     template: "%s | Coders for Causes",
-//     default: "Coders for Causes",
-//   },
-//   ...customMetadata({
-//     name: "Coders for Causes",
-//     description:
-//       "Coders for Causes is a software engineering club at UWA specializing in web development. We build custom software for charities and not for profits and give students the skills they need to succeed in the industry.",
-//     image:
-//       "https://og-social-cards.vercel.app/**.%2FInnovation%20with%20a%20mission**.png?theme=dark&md=1&fontSize=100px&images=https%3A%2Fcodersforcauses.org%2Flogo%2Fcfc_logo_white_full.svg",
-//   }),
-// }
+export const metadata: Metadata = {
+  title: {
+    template: "%s | Coders for Causes",
+    default: "Coders for Causes",
+  },
+  ...customMetadata({
+    name: "Coders for Causes",
+    description:
+      "Coders for Causes is a software engineering club at UWA specializing in web development. We build custom software for charities and not for profits and give students the skills they need to succeed in the industry.",
+    image:
+      "https://og-social-cards.vercel.app/**.%2FInnovation%20with%20a%20mission**.png?theme=dark&md=1&fontSize=100px&images=https%3A%2Fcodersforcauses.org%2Flogo%2Fcfc_logo_white_full.svg",
+  }),
+}
 
 export default function RootLayout({ children }: PropsWithChildren) {
   return (
