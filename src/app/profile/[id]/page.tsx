@@ -1,4 +1,3 @@
-import { Title } from "@radix-ui/react-toast"
 import TitleText from "~/app/_components/title-text"
 import { Badge } from "~/components/ui/badge"
 import { api } from "~/trpc/server"
@@ -22,10 +21,10 @@ const Profile = async ({ params: { id } }: { params: { id: string } }) => {
                   <h2 className="text-2xl font-bold">{user.preferred_name}</h2>
                   <p className="text-sm capitalize italic text-primary/80">{user.pronouns}</p>
                 </div>
-                <div>
-                  <div className="flex h-min w-min flex-col space-y-1 md:flex-row md:space-x-2 md:space-y-0">
+                <div className="flex flex-col md:flex-row md:space-x-2">
+                  <div className="flex w-min flex-col space-y-2 md:flex-row md:space-x-2 md:space-y-0">
                     {user.github && (
-                      <Badge className="items-center">
+                      <Badge className="h-full items-center">
                         <svg
                           aria-label="GitHub logo"
                           viewBox="0 0 24 24"
@@ -52,22 +51,24 @@ const Profile = async ({ params: { id } }: { params: { id: string } }) => {
                         {user.discord}
                       </Badge>
                     )}
-                    {user.student_number && (
-                      <Badge variant="outline" className="items-center">
-                        <span className="material-symbols-sharp text-2xl">account_circle</span>
-                        <p className="text-xs">{user.student_number}</p>
-                      </Badge>
-                    )}
-                    {user.university && (
-                      <div className="flex items-center">
-                        <span className="material-symbols-sharp text-2xl">school</span>
-                        {user.university}
-                      </div>
-                    )}
                   </div>
+                  {user.student_number && (
+                    <div className="flex flex-row items-center">
+                      <span className="material-symbols-sharp text-2xl">account_circle</span>
+                      <p className="text-xs">{user.student_number}</p>
+                    </div>
+                  )}
+                  {user.university && (
+                    <div className="flex flex-row items-center">
+                      <span className="material-symbols-sharp text-2xl">school</span>
+                      <p className="text-xs">{user.university}</p>
+                    </div>
+                  )}
                 </div>
               </div>
-              <span className="material-symbols-sharp text-3xl hover:cursor-pointer">settings</span>
+              <span className="material-symbols-sharp text-3xl hover:cursor-pointer hover:text-primary/80">
+                settings
+              </span>
             </div>
             <Separator className="h-1" />
             <div id="_content" className="mb-32 py-6">

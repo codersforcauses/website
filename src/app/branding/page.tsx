@@ -83,7 +83,7 @@ const BrandPage = () => {
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6">
             <ColourCard color="#000000" name="All Black (Primary)" className="bg-primary text-secondary" />
             <ColourCard color="#ffffff" name="All White (Secondary)" className="bg-secondary text-primary" />
-            <ColourCard color="#01f1cc" name="Electric Teal (Accent)" className="bg-accent text-primary" />
+            <ColourCard color="#01f1cc" name="Electric Teal (Accent)" className="bg-alt-accent text-primary" />
             <ColourCard color="#0070F3" name="Ocean Blue (Success)" className="bg-success text-secondary" />
             <ColourCard color="#F5A623" name="Signal Yellow (Warning)" className="bg-warning text-secondary" />
             <ColourCard color="#ff0000" name="Red Alert (Alert)" className="bg-danger text-secondary" />
