@@ -3,10 +3,36 @@ import { Badge } from "~/components/ui/badge"
 import { api } from "~/trpc/server"
 import { siGithub, siDiscord } from "simple-icons"
 import { Separator } from "~/components/ui/separator"
+import Link from "next/link"
 // import GithubHeatmapWrapper from "~/app/_components/github-heatmap"
+
+const uni = [
+  {
+    label: "Curtin University",
+    value: "curtin",
+  },
+  {
+    label: "Edith Cowan University",
+    value: "ecu",
+  },
+  {
+    label: "Murdoch University",
+    value: "murdoch",
+  },
+  {
+    label: "University of Notre Dame",
+    value: "notre-dame",
+  },
+  {
+    label: "TAFE",
+    value: "tafe",
+  },
+] as const
 
 const Profile = async ({ params: { id } }: { params: { id: string } }) => {
   const user = await api.user.get.query(id)
+
+  const universityLabel = user ? uni.find((u) => u.value === user.university)?.label : undefined
 
   if (user) {
     return (
@@ -17,7 +43,7 @@ const Profile = async ({ params: { id } }: { params: { id: string } }) => {
             <div className="mb-2 flex justify-between">
               <div className="flex flex-col space-y-2">
                 <div className="flex flex-col">
-                  <Badge className="w-min bg-primary/80 capitalize">{user.role}</Badge>
+                  {user.role && <Badge className="w-min bg-primary/80 capitalize">{user.role}</Badge>}
                   <h2 className="text-2xl font-bold">{user.preferred_name}</h2>
                   <p className="text-sm capitalize italic text-primary/80">{user.pronouns}</p>
                 </div>
@@ -58,24 +84,33 @@ const Profile = async ({ params: { id } }: { params: { id: string } }) => {
                       <p className="text-xs">{user.student_number}</p>
                     </div>
                   )}
-                  {user.university && (
+
+                  {user.university ? (
                     <div className="flex flex-row items-center">
                       <span className="material-symbols-sharp text-2xl">school</span>
-                      <p className="text-xs">{user.university}</p>
+                      <p className="text-xs capitalize">{universityLabel}</p>
+                    </div>
+                  ) : (
+                    <div className="flex flex-row items-center">
+                      <span className="material-symbols-sharp text-2xl">school</span>
+                      <p className="text-xs">The University of Western Australia</p>
                     </div>
                   )}
                 </div>
               </div>
-              <span className="material-symbols-sharp text-3xl hover:cursor-pointer hover:text-primary/80">
+              <Link
+                href="/profile/settings"
+                className="material-symbols-sharp text-3xl hover:cursor-pointer hover:text-primary/80"
+              >
                 settings
-              </span>
+              </Link>
             </div>
             <Separator className="h-1" />
             <div id="_content" className="mb-32 py-6">
               {/* {user.github && <GithubHeatmapWrapper username={user.github} />} */}
 
               <h1 className="text-2xl font-bold">Projects</h1>
-              <p className="italic">There are currently no projects here...</p>
+              <p className="italic">Coming soon...</p>
             </div>
           </div>
         </div>
