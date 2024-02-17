@@ -3,6 +3,7 @@ import TitleText from "~/app/_components/title-text"
 import { type User } from "~/lib/types"
 import { api } from "~/trpc/server"
 import { siDiscord, siGithub } from "simple-icons"
+import { Badge } from "~/components/ui/badge"
 
 const Profile = async ({ params: { id } }: { params: { id: string } }) => {
   const user = await api.user.get.query(id)
@@ -12,43 +13,43 @@ const Profile = async ({ params: { id } }: { params: { id: string } }) => {
       <main className="main">
         <TitleText typed>./profile</TitleText>
         <div className="container mx-auto p-4">
-          <div className="flex flex-row md:py-12">
-            <div className="w-1/2 space-y-2">
+          <div className="flex flex-col md:flex-row md:space-x-2 md:py-12">
+            <div className="h-full space-y-2 bg-muted p-2 md:w-1/4">
               <div>
-                <div className="inline-block capitalize">{user.role}</div>
+                <Badge className="bg-primary/80 capitalize">{user.role}</Badge>
                 <h2 className="text-2xl font-bold">{user.preferred_name}</h2>
-                <p className="capitalize italic text-gray-700">{user.pronouns}</p>
+                <p className="capitalize italic text-primary/80">{user.pronouns}</p>
               </div>
               <div className="flex flex-row space-x-2">
-                <Link className="flex flex-row items-center" href={`https://github.com/` + user.github}>
+                <Badge className="items-center">
                   <svg
                     aria-label="GitHub logo"
                     viewBox="0 0 24 24"
-                    height={36}
-                    width={30}
+                    height={24}
+                    width={24}
                     className="mr-1 fill-current"
                   >
                     <path d={siGithub.path} />
                   </svg>
-                  @{user.github}
-                </Link>
-                <div className="flex flex-row items-center">
+                  {user.github}
+                </Badge>
+                <Badge className="items-center bg-[#5865F2] hover:bg-[#5865F2]/80">
                   <svg
                     aria-label="Discord logo"
                     viewBox="0 0 24 24"
-                    height={36}
-                    width={30}
+                    height={24}
+                    width={24}
                     className="mr-1 fill-current"
                   >
                     <path d={siDiscord.path} />
                   </svg>
-                  @{user.discord}
-                </div>
+                  {user.discord}
+                </Badge>
               </div>
-              <div className="flex flex-col text-gray-700">
+              <div className="flex flex-col text-primary">
                 {user.student_number && (
                   <div className="flex items-center">
-                    <span className="material-symbols-sharp text-3xl">account_circle</span>
+                    <span className="material-symbols-sharp text-2xl">account_circle</span>
                     {user.student_number}
                   </div>
                 )}
@@ -62,7 +63,7 @@ const Profile = async ({ params: { id } }: { params: { id: string } }) => {
             </div>
             <div>
               <h1>Projects</h1>
-              <p>There are no projects here currently...</p>
+              <p className="italic">There are no projects here currently...</p>
             </div>
           </div>
         </div>
