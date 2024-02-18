@@ -47,6 +47,8 @@
     "@trpc/next": "10.45.0",
     "@trpc/react-query": "10.45.0",
     "@trpc/server": "10.45.0",
+    "@upstash/ratelimit": "^1.0.1",
+    "@upstash/redis": "^1.28.4",
     "@vercel/analytics": "1.1.4",
     "@visx/visx": "3.8.0",
     "class-variance-authority": "0.7.0",

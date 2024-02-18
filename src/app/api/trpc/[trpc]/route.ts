@@ -11,6 +11,9 @@ import { createTRPCContext } from "~/server/api/trpc"
  */
 const createContext = async (req: NextRequest) => {
   return createTRPCContext({
+    ip: req.ip,
+    method: req.method,
+    path: req.nextUrl.pathname,
     headers: req.headers,
   })
 }
