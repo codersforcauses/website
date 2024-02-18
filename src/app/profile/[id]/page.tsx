@@ -63,8 +63,8 @@ const Profile = async ({ params: { id } }: { params: { id: string } }) => {
                     <svg
                       aria-label="GitHub logo"
                       viewBox="0 0 24 24"
-                      height={24}
-                      width={24}
+                      height={12}
+                      width={12}
                       className="mr-1 fill-current"
                     >
                       <path d={siGithub.path} />
@@ -77,8 +77,8 @@ const Profile = async ({ params: { id } }: { params: { id: string } }) => {
                     <svg
                       aria-label="Discord logo"
                       viewBox="0 0 24 24"
-                      height={24}
-                      width={24}
+                      height={12}
+                      width={12}
                       className="mr-1 fill-current"
                     >
                       <path d={siDiscord.path} />
