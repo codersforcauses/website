@@ -1,8 +1,13 @@
+"use client"
+
+import dynamic from "next/dynamic"
 import Clients from "../_components/clients/page"
 import Committee from "../_components/committee/page"
 import Sponsors from "../_components/sponsors"
 
-export default async function About() {
+const Map = dynamic(() => import("~/components/map"), { ssr: false })
+
+export default function About() {
   return (
     <>
       <div className="container my-6 md:grid md:grid-cols-2 md:space-x-6">
@@ -14,8 +19,8 @@ export default async function About() {
             student-run club based in Perth, Western Australia with a wide range of clients.
           </p>
         </div>
-        <div id="_map" className="space-y-2">
-          map
+        <div id="_map" className="h-64 w-full">
+          <Map />
         </div>
       </div>
 
