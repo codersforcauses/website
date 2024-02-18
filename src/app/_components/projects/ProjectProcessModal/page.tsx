@@ -17,7 +17,7 @@ const ProjectProcessModal = () => {
       <DialogTrigger className="my-4 w-full border border-primary bg-transparent px-4 py-2 font-mono font-black text-black hover:bg-black hover:text-white focus:bg-black focus:text-white focus:outline-none dark:border-white dark:text-white dark:hover:bg-white dark:hover:text-black dark:focus:bg-white dark:focus:text-black">
         Project Development
       </DialogTrigger>
-      <DialogContent className="max-w-3xl">
+      <DialogContent className="max-h-screen max-w-3xl overflow-y-scroll md:overflow-y-auto">
         <DialogHeader>
           <DialogTitle>CFC Project Development Breakdown</DialogTitle>
           <DialogDescription>
