@@ -6,14 +6,14 @@ import { env } from "~/env"
 
 mapboxgl.accessToken = env.NEXT_PUBLIC_MAPBOX_API
 
+const UWA_COORDS: [number, number] = [115.816986, -31.98097] // [lng, lat]
+
 const Map = () => {
   const { resolvedTheme: theme } = useTheme()
 
   const mapContainer = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
-    const UWA_COORDS: [number, number] = [115.816986, -31.98097] // [lng, lat]
-
     const styledMap = `mapbox://styles/mapbox/${theme === "dark" ? "dark" : "light"}-v10`
 
     const map = new mapboxgl.Map({
@@ -33,11 +33,12 @@ const Map = () => {
       map.resize()
 
       // Insert the layer beneath any symbol layer.
-      const layers = map.getStyle().layers as any
+      const layers = map.getStyle().layers
       let labelLayerId
+
       for (let i = 0; i < layers?.length; i++) {
-        if (layers?.[i].type === "symbol" && layers[i].layout["text-field"]) {
-          labelLayerId = layers[i].id
+        if (layers[i]?.type === "symbol" && layers[i].layout["text-field"]) {
+          labelLayerId = layers[i]?.id
           break
         }
       }
@@ -71,6 +72,9 @@ const Map = () => {
 
       // button for full screen map
       map.addControl(new mapboxgl.FullscreenControl())
+
+      // button to improve the map
+      map.addControl(new mapboxgl.AttributionControl({ compact: true }))
 
       // fly to animation
       setTimeout(() => {
