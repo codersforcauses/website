@@ -42,7 +42,7 @@ const Profile = async ({ params: { id } }: { params: { id: string } }) => {
         <TitleText typed>./profile</TitleText>
         <div className="container mx-auto p-4">
           <div className="flex flex-col md:flex-row md:space-x-2 md:py-12">
-            <div className="space-y-2 bg-muted p-2 md:w-1/4">
+            <div className="space-y-2 p-2 md:w-1/4">
               <div>
                 <Badge className="bg-primary/80 capitalize">{user.role}</Badge>
                 <h2 className="text-2xl font-bold">{user.preferred_name}</h2>
