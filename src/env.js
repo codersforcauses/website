@@ -41,6 +41,7 @@ export const env = createEnv({
         "Update Square keys to production keys",
       ),
     NEXT_PUBLIC_SQUARE_LOCATION_ID: z.string(),
+    NEXT_PUBLIC_MAPBOX_API: z.string(),
   },
 
   /**
@@ -58,6 +59,7 @@ export const env = createEnv({
     CASH_PASSWORD: process.env.CASH_PASSWORD,
     SECRET_KEY: process.env.SECRET_KEY,
     SECRET_IV: process.env.SECRET_IV,
+    NEXT_PUBLIC_MAPBOX_API: process.env.NEXT_PUBLIC_MAPBOX_API,
     UPSTASH_REDIS_REST_URL: process.env.UPSTASH_REDIS_REST_URL,
     UPSTASH_REDIS_REST_TOKEN: process.env.UPSTASH_REDIS_REST_TOKEN,
   },
