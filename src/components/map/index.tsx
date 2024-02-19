@@ -35,9 +35,8 @@ const Map = () => {
       // Insert the layer beneath any symbol layer.
       const layers = map.getStyle().layers
       let labelLayerId
-
       for (let i = 0; i < layers?.length; i++) {
-        if (layers[i]?.type === "symbol" && layers[i].layout["text-field"]) {
+        if (layers[i]?.type === "symbol" && layers[i]?.layout["text-field"]) {
           labelLayerId = layers[i]?.id
           break
         }
