@@ -12,9 +12,10 @@ import { initTRPC, TRPCError } from "@trpc/server"
 import superjson from "superjson"
 import { ZodError } from "zod"
 
-import { db } from "~/server/db"
-import { buildIdentifier, globalRatelimit } from "./ratelimit"
+import { Ratelimit, type RatelimitConfig } from "@upstash/ratelimit"
 import { env } from "~/env"
+import { db } from "~/server/db"
+import { buildIdentifier, createRatelimit } from "./ratelimit"
 
 /**
  * 1. CONTEXT
@@ -98,28 +99,29 @@ const enforceUserIsAuthed = t.middleware(({ ctx, next }) => {
  * This is currently set to 10 requests every 10 seconds per procedure per user.
  * To set per-procedure rate limits, you can simply follow this pattern in the procedure itself.
  */
-export const rateLimiter = t.middleware(async ({ ctx, next }) => {
-  if (env.NODE_ENV !== "production") {
+export const createRatelimiter = (limiter?: RatelimitConfig["limiter"]) =>
+  t.middleware(async ({ ctx, next }) => {
+    if (env.NODE_ENV !== "production") {
+      return next({
+        ctx: {
+          user: ctx.user,
+        },
+      })
+    }
+
+    const identifier = buildIdentifier(ctx)
+    const { success } = await createRatelimit(limiter ?? Ratelimit.slidingWindow(10, "10s")).limit(identifier)
+
+    if (!success) {
+      throw new TRPCError({ code: "TOO_MANY_REQUESTS" })
+    }
+
     return next({
       ctx: {
         user: ctx.user,
       },
     })
-  }
-
-  const identifier = buildIdentifier(ctx)
-  const { success } = await globalRatelimit.limit(identifier)
-
-  if (!success) {
-    throw new TRPCError({ code: "TOO_MANY_REQUESTS" })
-  }
-
-  return next({
-    ctx: {
-      user: ctx.user,
-    },
   })
-})
 
 /**
  * 4. ROUTER & PROCEDURE (THE IMPORTANT BIT)

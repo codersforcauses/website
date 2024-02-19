@@ -1,14 +1,15 @@
-import { TRPCError } from "@trpc/server"
 import { clerkClient } from "@clerk/nextjs"
-import { Client, Environment } from "square"
+import { TRPCError } from "@trpc/server"
 import { randomUUID } from "crypto"
 import { eq } from "drizzle-orm"
+import { Client, Environment } from "square"
 import { z } from "zod"
 
-import { createTRPCRouter, protectedProcedure, publicProcedure, rateLimiter } from "~/server/api/trpc"
-import { NAMED_ROLES } from "~/lib/constants"
-import { users } from "~/server/db/schema"
+import { Ratelimit } from "@upstash/ratelimit"
 import { env } from "~/env"
+import { NAMED_ROLES } from "~/lib/constants"
+import { createTRPCRouter, protectedProcedure, publicProcedure, createRatelimiter } from "~/server/api/trpc"
+import { users } from "~/server/db/schema"
 
 const { customersApi, paymentsApi } = new Client({
   accessToken: env.SQUARE_ACCESS_TOKEN,
@@ -17,7 +18,7 @@ const { customersApi, paymentsApi } = new Client({
 
 export const userRouter = createTRPCRouter({
   create: publicProcedure
-    .use(rateLimiter)
+    .use(createRatelimiter(Ratelimit.fixedWindow(1, "30s")))
     .input(
       z.object({
         clerk_id: z.string().min(2, {
