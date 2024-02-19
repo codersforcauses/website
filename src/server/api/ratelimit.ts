@@ -1,3 +1,4 @@
+import { type ProcedureType } from "@trpc/server"
 import { Ratelimit, type RatelimitConfig } from "@upstash/ratelimit"
 import { Redis } from "@upstash/redis"
 import { type TRPCContext } from "./trpc"
@@ -10,6 +11,6 @@ export const createRatelimit = (limiter: RatelimitConfig["limiter"]) =>
     ephemeralCache: new Map(),
   })
 
-export const buildIdentifier = (ctx: TRPCContext) => {
-  return `${ctx.user?.id ?? ctx.ip ?? "unknown"}:${ctx.method}:${ctx.path}`
+export const buildIdentifier = ({ ctx, type, path }: { ctx: TRPCContext; type: ProcedureType; path: string }) => {
+  return `${ctx.user?.id ?? ctx.ip ?? "unknown"}:${type}:${path}`
 }

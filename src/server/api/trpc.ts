@@ -29,7 +29,7 @@ import { buildIdentifier, createRatelimit } from "./ratelimit"
  *
  * @see https://trpc.io/docs/server/context
  */
-export const createTRPCContext = async (opts: { method: string; path: string; ip?: string; headers: Headers }) => {
+export const createTRPCContext = async (opts: { ip?: string; headers: Headers }) => {
   const user = await currentUser()
 
   return {
@@ -100,7 +100,7 @@ const enforceUserIsAuthed = t.middleware(({ ctx, next }) => {
  * To set per-procedure rate limits, you can simply follow this pattern in the procedure itself.
  */
 export const createRatelimiter = (limiter?: RatelimitConfig["limiter"]) =>
-  t.middleware(async ({ ctx, next }) => {
+  t.middleware(async ({ next, ctx, type, path }) => {
     if (env.NODE_ENV !== "production") {
       return next({
         ctx: {
@@ -109,7 +109,7 @@ export const createRatelimiter = (limiter?: RatelimitConfig["limiter"]) =>
       })
     }
 
-    const identifier = buildIdentifier(ctx)
+    const identifier = buildIdentifier({ ctx, type, path })
     const { success } = await createRatelimit(limiter ?? Ratelimit.slidingWindow(10, "10s")).limit(identifier)
 
     if (!success) {
