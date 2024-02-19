@@ -29,6 +29,26 @@ const Map = () => {
       attributionControl: false,
     })
 
+    let timestampAtStart: number
+    let lastRequestId: number
+    function rotateCamera(timestamp: number) {
+      if (timestampAtStart < 0) {
+        timestampAtStart = timestamp
+      }
+      const timeSinceStart = timestamp - timestampAtStart
+      // clamp the rotation between 0 -360 degrees
+      // Divide timestamp by 100 to slow rotation to ~10 degrees / sec
+      map.rotateTo((timeSinceStart / 100) % 360, { duration: 0 })
+      // Request the next frame of the animation.
+      lastRequestId = requestAnimationFrame(rotateCamera)
+    }
+
+    function startAnimation() {
+      if (lastRequestId) window.cancelAnimationFrame(lastRequestId)
+      timestampAtStart = -1
+      lastRequestId = window.requestAnimationFrame(rotateCamera)
+    }
+
     map.on("load", () => {
       map.resize()
 
@@ -78,7 +98,7 @@ const Map = () => {
       // fly to animation
       setTimeout(() => {
         map.flyTo({
-          zoom: 17,
+          zoom: 13,
           speed: 0.6, // make the flying slow
 
           // This can be any easing function: it takes a number between
@@ -89,6 +109,10 @@ const Map = () => {
           essential: true,
         })
       }, 1000)
+
+      setTimeout(() => {
+        startAnimation()
+      }, 4800)
     })
 
     return () => map.remove()
