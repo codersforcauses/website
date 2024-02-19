@@ -39,21 +39,6 @@ export const createTRPCContext = async (opts: { ip?: string; headers: Headers })
   }
 }
 
-/**
- * The following is true for both client-side and server-side requests:
- * - `db` is the Prisma client
- * - `user` is the logged in user (if any)
- * - `headers` is the request headers
- *
- * In a client-side request, the following apply:
- * - `method` is the HTTP method (e.g. "GET", "POST")
- * - `path` is the URL path (e.g. "/api/trpc")
- * - `ip` is the client's IP address (undefined if local)
- *
- * In a server-side call, the following apply:
- * - `method` is the tRPC method (e.g. "query", "mutation", "subscription")
- * - `path` is the tRPC procedure path (e.g. "user.get")
- */
 export type TRPCContext = Awaited<ReturnType<typeof createTRPCContext>>
 
 /**
