@@ -6,6 +6,7 @@ export const globalRatelimit = new Ratelimit({
   redis: Redis.fromEnv(),
   limiter: Ratelimit.slidingWindow(10, "10s"),
   analytics: true,
+  ephemeralCache: new Map(),
 })
 
 export const buildIdentifier = (ctx: TRPCContext) => {

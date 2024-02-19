@@ -14,6 +14,7 @@ import { ZodError } from "zod"
 
 import { db } from "~/server/db"
 import { buildIdentifier, globalRatelimit } from "./ratelimit"
+import { env } from "~/env"
 
 /**
  * 1. CONTEXT
@@ -98,6 +99,14 @@ const enforceUserIsAuthed = t.middleware(({ ctx, next }) => {
  * To set per-procedure rate limits, you can simply follow this pattern in the procedure itself.
  */
 export const rateLimiter = t.middleware(async ({ ctx, next }) => {
+  if (env.NODE_ENV !== "production") {
+    return next({
+      ctx: {
+        user: ctx.user,
+      },
+    })
+  }
+
   const identifier = buildIdentifier(ctx)
   const { success } = await globalRatelimit.limit(identifier)
 
