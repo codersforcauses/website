@@ -5,7 +5,7 @@ import { randomUUID } from "crypto"
 import { eq } from "drizzle-orm"
 import { z } from "zod"
 
-import { createTRPCRouter, protectedProcedure, publicProcedure } from "~/server/api/trpc"
+import { createTRPCRouter, protectedProcedure, publicProcedure, rateLimiter } from "~/server/api/trpc"
 import { NAMED_ROLES } from "~/lib/constants"
 import { users } from "~/server/db/schema"
 import { env } from "~/env"
@@ -17,6 +17,7 @@ const { customersApi, paymentsApi } = new Client({
 
 export const userRouter = createTRPCRouter({
   create: publicProcedure
+    .use(rateLimiter)
     .input(
       z.object({
         clerk_id: z.string().min(2, {
