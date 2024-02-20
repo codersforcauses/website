@@ -3,7 +3,7 @@ interface ServerProps {
 }
 
 const Server = (props: ServerProps) => (
-  <svg xmlns="http://www.w3.org/2000/svg" data-name="Layer 1" viewBox="0 -4.65 826 545.65">
+  <svg xmlns="http://www.w3.org/2000/svg" data-name="Layer 1" viewBox="0 -4.65 826 545.65" {...props}>
     <path
       d="M990.63733,719.30506l1.22492-.02393a284.08018,284.08018,0,0,0-4.34823-40.59824c-5.29683-28.71268-14.10454-47.56977-26.17851-56.04732l-.70337,1.00242C988.837,643.44128,990.623,718.54845,990.63733,719.30506Z"
       transform="translate(-187 -179.5)"
