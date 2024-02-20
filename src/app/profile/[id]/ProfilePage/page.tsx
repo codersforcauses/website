@@ -1,13 +1,13 @@
 "use client"
 
-import TitleText from "~/app/_components/title-text"
+import { useState } from "react"
 import { siDiscord, siGithub } from "simple-icons"
+import TitleText from "~/app/_components/title-text"
 import { Badge } from "~/components/ui/badge"
 import { Button } from "~/components/ui/button"
 import { type User } from "~/lib/types"
-import { useEffect, useState } from "react"
-import EditProfile from "./EditProfile/page"
 import { api } from "~/trpc/react"
+import EditProfile from "./EditProfile/page"
 
 const uni = [
   {
@@ -125,7 +125,7 @@ const ProfilePage = ({ id, currentUser }: ProfilePageProps) => {
                   )}
                 </>
               ) : (
-                <EditProfile setIsEditing={setIsEditing} currentUser={currentUser} refetch={refetch} />
+                <EditProfile setIsEditing={setIsEditing} id={id} refetch={refetch} />
               )}
             </div>
             <div>

@@ -1,25 +1,21 @@
 "use client"
 
 import { zodResolver } from "@hookform/resolvers/zod"
+import Link from "next/link"
 import { FormProvider, useForm } from "react-hook-form"
-import { siGithub, siDiscord } from "simple-icons"
 import { z } from "zod"
-import { Badge } from "~/components/ui/badge"
 import { Button } from "~/components/ui/button"
+import { Checkbox } from "~/components/ui/checkbox"
 import { FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "~/components/ui/form"
 import { Input } from "~/components/ui/input"
 import { RadioGroup, RadioGroupItem } from "~/components/ui/radio-group"
-import user from "~/components/user"
-import { type User } from "~/lib/types"
-import { api } from "~/trpc/react"
 import { cn } from "~/lib/utils"
-import { Checkbox } from "~/components/ui/checkbox"
-import Link from "next/link"
+import { api } from "~/trpc/react"
 
 interface EditProfileProps {
   setIsEditing: (value: boolean) => void
-  refetch: () => any
-  currentUser?: User
+  refetch: ReturnType<typeof api.user.get.useQuery>["refetch"]
+  id: string
 }
 
 const pronouns = [
@@ -114,20 +110,26 @@ const defaultValues: FormSchema = {
   subscribe: true,
 }
 
-const EditProfile = ({ setIsEditing, currentUser, refetch }: EditProfileProps) => {
-  const { mutate: updateUser } = api.user.update.useMutation()
+const EditProfile = ({ setIsEditing, id, refetch }: EditProfileProps) => {
+  const { data: user } = api.user.get.useQuery(id)
+  const { mutate: updateUser } = api.user.update.useMutation({
+    onSuccess: async () => {
+      await refetch()
+      setIsEditing(false)
+    },
+  })
 
-  const userDefaultValues = currentUser && {
-    name: currentUser.name,
-    preferred_name: currentUser.preferred_name,
-    email: currentUser.email,
-    pronouns: currentUser.pronouns,
-    isUWA: !!currentUser.student_number,
-    student_number: currentUser.student_number ?? undefined,
-    uni: currentUser.university ?? undefined,
-    github: currentUser.github ?? undefined,
-    discord: currentUser.discord ?? undefined,
-    subscribe: currentUser.subscribe,
+  const userDefaultValues = user && {
+    name: user.name,
+    preferred_name: user.preferred_name,
+    email: user.email,
+    pronouns: user.pronouns,
+    isUWA: !!user.student_number,
+    student_number: user.student_number ?? undefined,
+    uni: user.university ?? undefined,
+    github: user.github ?? undefined,
+    discord: user.discord ?? undefined,
+    subscribe: user.subscribe,
   }
 
   const form = useForm<FormSchema>({
@@ -144,9 +146,6 @@ const EditProfile = ({ setIsEditing, currentUser, refetch }: EditProfileProps) =
       github: data.github ?? null,
       discord: data.discord ?? null,
     })
-
-    await refetch()
-    setIsEditing(false)
   }
 
   return (
