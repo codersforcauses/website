@@ -303,15 +303,18 @@ export default function CreateAccount() {
   const onSubmit = async (values: FormSchema) => {
     if (!isLoaded) return null
 
-    const { status: githubStatus } = await fetch(`https://api.github.com/users/${values.github}`)
+    if (values.github !== "") {
+      const { status: githubStatus } = await fetch(`https://api.github.com/users/${values.github}`)
 
-    if (githubStatus !== 200) {
-      setError("github", {
-        type: "custom",
-        message: "Github username not found",
-      })
-      return
+      if (githubStatus !== 200) {
+        setError("github", {
+          type: "custom",
+          message: "Github username not found",
+        })
+        return
+      }
     }
+
     setLoading(true)
     const userData: Omit<FormSchema, "isUWA"> = {
       name: values.name,
@@ -608,7 +611,7 @@ export default function CreateAccount() {
                   <FormItem>
                     <FormLabel className="font-mono">Github username</FormLabel>
                     <FormControl>
-                      <Input placeholder="johndoe" {...field} />
+                      <Input placeholder="john_doe" {...field} />
                     </FormControl>
                     <FormDescription>
                       Sign up at{" "}
