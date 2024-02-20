@@ -29,7 +29,9 @@ const Skeleton = () => (
 )
 
 const SvgDisplay = ({ children }: { children: ReactNode }) => {
-  return <div className="flex justify-center border dark:border-white/[0.2]">{children}</div>
+  return (
+    <div className="flex justify-center border dark:border-none dark:bg-neutral-900 dark:grayscale">{children}</div>
+  )
 }
 
 const items = [
@@ -38,7 +40,7 @@ const items = [
     description: "Build and maintain websites for your organisation",
     header: (
       <SvgDisplay>
-        <Building className="" />
+        <Building className="w-full" />
       </SvgDisplay>
     ),
     className: "md:col-span-1",
@@ -49,7 +51,7 @@ const items = [
     description: "Store and manage your user's data securely and efficiently",
     header: (
       <SvgDisplay>
-        <Server className="" />
+        <Server className="w-full" />
       </SvgDisplay>
     ),
     className: "md:col-span-1",
@@ -60,7 +62,7 @@ const items = [
     description: "Get advice and guidance on technical matters for your organisation",
     header: (
       <SvgDisplay>
-        <Chat className="" />
+        <Chat className="w-full" />
       </SvgDisplay>
     ),
     className: "md:col-span-1",
@@ -71,7 +73,7 @@ const items = [
     description: "Leverage the power of cloud computing to scale and grow your organisation",
     header: (
       <SvgDisplay>
-        <Cloud className="" />
+        <Cloud className="w-full" />
       </SvgDisplay>
     ),
     className: "md:col-span-1",

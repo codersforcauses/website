@@ -5,6 +5,7 @@ import Contact from "~/components/contact"
 import { Button } from "~/components/ui/button"
 import { Collapsible, CollapsibleTrigger } from "~/components/ui/collapsible"
 import TypedText from "./_components/typed-text"
+import BentoDisplay from "~/components/bento"
 
 const services = [
   {
@@ -130,7 +131,7 @@ export default async function Home() {
                     alt={alt}
                     title={alt}
                     height={100}
-                    className=" brightness-110 contrast-[0.2] grayscale transition duration-300"
+                    className="brightness-110 contrast-[0.2] grayscale transition duration-300"
                   />
                 </div>
               ))}
@@ -138,18 +139,8 @@ export default async function Home() {
           ))}
         </div>
       </div>
-      <div className="py-12 dark:bg-alt-dark dark:text-white md:py-24">
-        <div className="container grid grid-cols-1 grid-rows-4 gap-8 sm:grid-cols-2 sm:grid-rows-2 lg:grid-cols-4 lg:grid-rows-1">
-          {services.map((service) => (
-            <div key={service.icon} className="px-0 text-center">
-              <span aria-hidden className="material-symbols-sharp select-none text-7xl">
-                {service.icon}
-              </span>
-              <p className="mb-2 mt-4 font-mono text-2xl font-black">{service.title}</p>
-              <p className="mb-0">{service.description}</p>
-            </div>
-          ))}
-        </div>
+      <div className="px-8 py-12 dark:bg-alt-dark dark:text-white md:py-16">
+        <BentoDisplay />
       </div>
       <div id="_contact_us" className="scroll-mt-16 bg-black py-12 text-white md:py-24">
         <div className="container flex gap-4">
