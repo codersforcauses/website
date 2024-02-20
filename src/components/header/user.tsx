@@ -17,12 +17,15 @@ import {
 } from "~/components/ui/dropdown-menu"
 import { getUserCookie, removeUserCookie } from "~/app/actions"
 import { type User } from "~/lib/types"
+import { api } from "~/trpc/react"
 
 const UserButton = () => {
   const [user, setUser] = React.useState<User>()
   const router = useRouter()
   const { signOut } = useAuth()
   const path = usePathname()
+
+  const { data } = api.user.get.useQuery(user?.id ?? "")
 
   React.useEffect(() => {
     const getUser = async () => {
@@ -51,7 +54,7 @@ const UserButton = () => {
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button variant="secondary-dark" className="text-white">
-          {user?.preferred_name}
+          {data?.preferred_name}
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="-mr-1.5 mt-1 w-56 border-white/25 bg-black text-white ">
