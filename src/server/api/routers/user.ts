@@ -1,14 +1,15 @@
-import { TRPCError } from "@trpc/server"
 import { clerkClient } from "@clerk/nextjs"
-import { Client, Environment } from "square"
+import { TRPCError } from "@trpc/server"
+import { Ratelimit } from "@upstash/ratelimit"
 import { randomUUID } from "crypto"
 import { eq } from "drizzle-orm"
+import { Client, Environment } from "square"
 import { z } from "zod"
 
-import { createTRPCRouter, protectedProcedure, publicProcedure } from "~/server/api/trpc"
-import { NAMED_ROLES } from "~/lib/constants"
-import { users } from "~/server/db/schema"
 import { env } from "~/env"
+import { NAMED_ROLES } from "~/lib/constants"
+import { createTRPCRouter, protectedProcedure, protectedRatedProcedure, publicRatedProcedure } from "~/server/api/trpc"
+import { users } from "~/server/db/schema"
 
 const { customersApi, paymentsApi } = new Client({
   accessToken: env.SQUARE_ACCESS_TOKEN,
@@ -16,18 +17,27 @@ const { customersApi, paymentsApi } = new Client({
 })
 
 export const userRouter = createTRPCRouter({
-  create: publicProcedure
+  create: publicRatedProcedure(Ratelimit.fixedWindow(2, "30s"))
     .input(
       z.object({
-        clerk_id: z.string().min(2, {
-          message: "Clerk ID is required",
-        }),
-        name: z.string().min(2, {
-          message: "Name is required",
-        }),
-        preferred_name: z.string().min(2, {
-          message: "Preferred name is required",
-        }),
+        clerk_id: z
+          .string()
+          .min(2, {
+            message: "Clerk ID is required",
+          })
+          .trim(),
+        name: z
+          .string()
+          .min(2, {
+            message: "Name is required",
+          })
+          .trim(),
+        preferred_name: z
+          .string()
+          .min(2, {
+            message: "Preferred name is required",
+          })
+          .trim(),
         email: z
           .string()
           .email({
@@ -35,14 +45,18 @@ export const userRouter = createTRPCRouter({
           })
           .min(2, {
             message: "Email is required",
-          }),
-        pronouns: z.string().min(2, {
-          message: "Pronouns are required",
-        }),
-        student_number: z.string().optional(),
-        uni: z.string().optional(),
-        github: z.string().optional(),
-        discord: z.string().optional(),
+          })
+          .trim(),
+        pronouns: z
+          .string()
+          .min(2, {
+            message: "Pronouns are required",
+          })
+          .trim(),
+        student_number: z.string().trim().optional(),
+        uni: z.string().trim().optional(),
+        github: z.string().trim().optional(),
+        discord: z.string().trim().optional(),
         subscribe: z.boolean(),
       }),
     )
@@ -62,10 +76,10 @@ export const userRouter = createTRPCRouter({
 
         await ctx.db.insert(users).values({
           id: input.clerk_id,
-          name: input.name.trim(),
-          preferred_name: input.preferred_name.trim(),
-          email: input.email.trim(),
-          pronouns: input.pronouns.trim(),
+          name: input.name,
+          preferred_name: input.preferred_name,
+          email: input.email,
+          pronouns: input.pronouns,
           student_number: input.student_number,
           university: input.uni,
           github: input.github,
@@ -82,7 +96,7 @@ export const userRouter = createTRPCRouter({
       }
     }),
 
-  login: protectedProcedure.mutation(async ({ ctx }) => {
+  login: protectedRatedProcedure(Ratelimit.fixedWindow(2, "30s")).mutation(async ({ ctx }) => {
     try {
       const id = ctx.user?.id
       const [user] = await ctx.db.select().from(users).where(eq(users.id, id))
@@ -92,15 +106,17 @@ export const userRouter = createTRPCRouter({
     }
   }),
 
-  getCurrent: protectedProcedure.query(async ({ ctx }) => {
+  getCurrent: protectedRatedProcedure(Ratelimit.fixedWindow(2, "30s")).query(async ({ ctx }) => {
     const [user] = await ctx.db.select().from(users).where(eq(users.id, ctx.user.id))
     return user
   }),
 
-  get: publicProcedure.input(z.string()).query(async ({ ctx, input }) => {
-    const [user] = await ctx.db.select().from(users).where(eq(users.id, input))
-    return user
-  }),
+  get: publicRatedProcedure(Ratelimit.fixedWindow(10, "30s"))
+    .input(z.string())
+    .query(async ({ ctx, input }) => {
+      const [user] = await ctx.db.select().from(users).where(eq(users.id, input))
+      return user
+    }),
 
   getAll: protectedProcedure.query(async ({ ctx }) => {
     const user = await ctx.db.query.users.findFirst({
@@ -188,7 +204,7 @@ export const userRouter = createTRPCRouter({
       }
     }),
 
-  update: protectedProcedure
+  update: protectedRatedProcedure(Ratelimit.fixedWindow(2, "30s"))
     .input(
       z.object({
         name: z
@@ -252,7 +268,7 @@ export const userRouter = createTRPCRouter({
       }
     }),
 
-  updateSocial: protectedProcedure
+  updateSocial: protectedRatedProcedure(Ratelimit.fixedWindow(2, "30s"))
     .input(
       z.object({
         github: z.string().optional().nullish(),

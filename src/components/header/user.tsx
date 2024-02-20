@@ -98,7 +98,7 @@ const UserButton = () => {
           )}
           <DropdownMenuItem
             asChild
-            disabled={path.includes("/profile/user_")}
+            disabled={path.includes(`/profile/${user?.id}`)}
             className="hover:cursor-pointer focus:bg-white/20 focus:text-white"
           >
             <Link href={`/profile/${user?.id}`}>

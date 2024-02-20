@@ -25,6 +25,7 @@ module.exports = {
         },
         success: "#0070f3",
         warning: "#f5a623",
+        danger: "#ff0000",
         // shad ui
         border: "hsl(var(--border))",
         ring: "hsl(var(--ring))",

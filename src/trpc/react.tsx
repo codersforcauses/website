@@ -11,7 +11,17 @@ import { getUrl, transformer } from "./shared"
 export const api = createTRPCReact<AppRouter>()
 
 export function TRPCReactProvider(props: { children: React.ReactNode; cookies: string }) {
-  const [queryClient] = React.useState(() => new QueryClient())
+  const [queryClient] = React.useState(
+    () =>
+      new QueryClient({
+        defaultOptions: {
+          queries: {
+            // If enabled, this causes the SERVER to refetch on every window focus in a full page reload. Probably a bug.
+            refetchOnWindowFocus: false,
+          },
+        },
+      }),
+  )
 
   const [trpcClient] = React.useState(() =>
     api.createClient({
