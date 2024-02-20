@@ -12,6 +12,7 @@ const config = {
   typescript: {
     ignoreBuildErrors: true,
   },
+  future: {},
 }
 
 // export default config
