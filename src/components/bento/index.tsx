@@ -1,11 +1,11 @@
 import { type ReactNode } from "react"
-import Gemini from "../gemini"
 import { BentoGrid, BentoGridItem } from "../ui/bento-grid"
 
 import Building from "./svg/building"
 import Cloud from "./svg/cloud"
-import Server from "./svg/Secure Server"
+import Server from "./svg/server"
 import Chat from "./svg/chat"
+import { GoogleGeminiEffect } from "../ui/gemini"
 
 const BentoDisplay = () => {
   return (
@@ -24,9 +24,6 @@ const BentoDisplay = () => {
     </BentoGrid>
   )
 }
-const Skeleton = () => (
-  <div className="flex h-full min-h-[6rem] w-full flex-1 bg-gradient-to-br from-neutral-200 to-neutral-100 dark:from-neutral-900 dark:to-neutral-800"></div>
-)
 
 const SvgDisplay = ({ children }: { children: ReactNode }) => {
   return (
@@ -82,7 +79,11 @@ const items = [
   {
     title: "Artificial Intelligence",
     description: "Leverage the power of AI to automate and improve your organisation",
-    header: <Gemini />,
+    header: (
+      <div className="flex h-full items-center border dark:border-none dark:bg-neutral-900">
+        <GoogleGeminiEffect className="display-block w-full py-4" />
+      </div>
+    ),
     className: "sm:col-span-2",
     icon: "neurology",
   },
