@@ -4,6 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import Link from "next/link"
 import { FormProvider, useForm } from "react-hook-form"
 import { z } from "zod"
+import { removeUserCookie, setUserCookie } from "~/app/actions"
 import { Button } from "~/components/ui/button"
 import { Checkbox } from "~/components/ui/checkbox"
 import { FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "~/components/ui/form"
@@ -113,9 +114,11 @@ const defaultValues: FormSchema = {
 const EditProfile = ({ setIsEditing, id, refetch }: EditProfileProps) => {
   const { data: user } = api.user.get.useQuery(id)
   const { mutate: updateUser } = api.user.update.useMutation({
-    onSuccess: async () => {
+    onSuccess: async (data) => {
       await refetch()
       setIsEditing(false)
+      if (!data) return
+      await setUserCookie(data)
     },
   })
 

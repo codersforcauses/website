@@ -2,10 +2,7 @@ import Image from "next/image"
 
 const LogoCard = (props: { dark?: boolean; main?: boolean; svg: string; png: string }) => (
   <div
-    className={[
-      "flex flex-col border border-primary",
-      props.dark ? "bg-primary text-secondary" : "bg-secondary text-primary",
-    ]
+    className={["flex flex-col border border-primary", props.dark ? "bg-black text-white" : "bg-white text-black"]
       .join(" ")
       .trim()}
   >
@@ -17,7 +14,7 @@ const LogoCard = (props: { dark?: boolean; main?: boolean; svg: string; png: str
     <div className="flex items-center p-1 text-sm sm:px-2 md:px-3">
       <span className="flex-grow">
         <a href={props.png} download className="flex self-center">
-          <span className="material-icons-sharp">get_app</span>
+          <span className="material-symbols-sharp">download</span>
         </a>
       </span>
       <a href={props.svg} download className="hover:underline">
