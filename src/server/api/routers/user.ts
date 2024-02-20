@@ -62,10 +62,10 @@ export const userRouter = createTRPCRouter({
 
         await ctx.db.insert(users).values({
           id: input.clerk_id,
-          name: input.name,
-          preferred_name: input.preferred_name,
-          email: input.email,
-          pronouns: input.pronouns,
+          name: input.name.trim(),
+          preferred_name: input.preferred_name.trim(),
+          email: input.email.trim(),
+          pronouns: input.pronouns.trim(),
           student_number: input.student_number,
           university: input.uni,
           github: input.github,
@@ -103,9 +103,23 @@ export const userRouter = createTRPCRouter({
   }),
 
   getAll: protectedProcedure.query(async ({ ctx }) => {
-    const userList = await ctx.db.select().from(users)
+    const user = await ctx.db.query.users.findFirst({
+      columns: {
+        role: true,
+      },
+      where: eq(users.id, ctx.user.id),
+    })
+    if (!user) throw new TRPCError({ code: "NOT_FOUND", message: `Could not find user with id:${ctx.user.id}` })
+    if (user.role !== "admin" && user.role !== "committee")
+      throw new TRPCError({ code: "FORBIDDEN", message: "You do not have permission to view all users." })
+    const userList = await ctx.db.query.users.findMany({
+      columns: {
+        subscribe: false,
+        square_customer_id: false,
+      },
+    })
 
-    return userList.map(({ updatedAt, ...user }) => user)
+    return userList
   }),
 
   updateRole: protectedProcedure
@@ -205,10 +219,44 @@ export const userRouter = createTRPCRouter({
           })
           .optional(),
         student_number: z.string().nullish(),
-        uni: z.string().optional(),
-        github: z.string().nullish(),
-        discord: z.string().nullish(),
-        subscribe: z.boolean(),
+        uni: z.string().optional().nullish(),
+      }),
+    )
+    .mutation(async ({ ctx, input }) => {
+      try {
+        const currentUser = ctx.user
+        // TODO: update clerk email
+        await Promise.all([
+          clerkClient.users.updateUser(ctx.user.id, {
+            // emailAddress: input.email,
+            firstName: input.preferred_name,
+            lastName: input.name,
+          }),
+          ctx.db
+            .update(users)
+            .set({
+              name: input.name?.trim(),
+              preferred_name: input.preferred_name?.trim(),
+              email: input.email?.trim(),
+              pronouns: input.pronouns?.trim(),
+              student_number: input.student_number?.trim(),
+              university: input.uni?.trim(),
+            })
+            .where(eq(users.id, currentUser.id)),
+        ])
+
+        const [user] = await ctx.db.select().from(users).where(eq(users.id, currentUser.id))
+        return user
+      } catch (error) {
+        throw new TRPCError({ code: "INTERNAL_SERVER_ERROR", message: "Failed to update user" })
+      }
+    }),
+
+  updateSocial: protectedProcedure
+    .input(
+      z.object({
+        github: z.string().optional().nullish(),
+        discord: z.string().optional().nullish(),
       }),
     )
     .mutation(async ({ ctx, input }) => {
@@ -218,22 +266,15 @@ export const userRouter = createTRPCRouter({
         await ctx.db
           .update(users)
           .set({
-            name: input.name,
-            preferred_name: input.preferred_name,
-            email: input.email,
-            pronouns: input.pronouns,
-            student_number: input.student_number,
-            university: input.uni,
-            github: input.github,
-            discord: input.discord,
-            subscribe: input.subscribe,
+            github: input.github?.trim(),
+            discord: input.discord?.trim(),
           })
           .where(eq(users.id, currentUser.id))
 
         const [user] = await ctx.db.select().from(users).where(eq(users.id, currentUser.id))
         return user
       } catch (error) {
-        throw new TRPCError({ code: "INTERNAL_SERVER_ERROR", message: "Failed to update user" })
+        throw new TRPCError({ code: "INTERNAL_SERVER_ERROR", message: "Failed to update user's socials" })
       }
     }),
 })
