@@ -115,8 +115,10 @@ export default async function Home() {
           ))}
         </div>
       </div>
-      <div className="container py-16 dark:bg-alt-dark dark:text-white">
-        <BentoDisplay />
+      <div className="dark:bg-alt-dark">
+        <div className="container mx-auto w-full px-8 py-16 dark:bg-alt-dark dark:text-white">
+          <BentoDisplay />
+        </div>
       </div>
       <div id="_contact_us" className="scroll-mt-16 bg-black py-12 text-white md:py-24">
         <div className="container flex gap-4">
