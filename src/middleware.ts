@@ -1,6 +1,6 @@
 import { authMiddleware } from "@clerk/nextjs"
 import { NextResponse } from "next/server"
-import { getUserCookie } from "./src/app/actions"
+import { getUserCookie } from "./app/actions"
 
 const adminRoles = ["admin", "committee"]
 
