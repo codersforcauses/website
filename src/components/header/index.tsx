@@ -1,14 +1,8 @@
 import Link from "next/link"
-import dynamic from "next/dynamic"
 
 import { Button } from "~/components/ui/button"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "~/components/ui/dropdown-menu"
 import UserButton from "./user"
-
-const ThemeSwitcher = dynamic(() => import("./theme"), {
-  ssr: false,
-  loading: () => <Button variant="ghost-dark" size="icon" />,
-})
 
 interface HeaderItem {
   href: string
@@ -38,14 +32,18 @@ const Header = () => {
                 <span className="material-symbols-sharp">menu</span>
               </Button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent className="mt-2 w-screen border-white/25 bg-black text-white">
-              {links.map(({ text, href, isExternal = false }) => (
-                <DropdownMenuItem asChild key={text} className="focus:bg-white/20 focus:text-white">
-                  <Link href={href} target={isExternal ? "_blank" : undefined}>
-                    <span className="container">{text}</span>
-                  </Link>
-                </DropdownMenuItem>
-              ))}
+            <DropdownMenuContent align="center" className="mt-1 w-screen border-none p-0.5">
+              <div className="container px-6">
+                <div className="border border-white/25 bg-black px-2 py-1 text-white">
+                  {links.map(({ text, href, isExternal = false }) => (
+                    <DropdownMenuItem asChild key={text} className="focus:bg-white/20 focus:text-white">
+                      <Link href={href} target={isExternal ? "_blank" : undefined}>
+                        {text}
+                      </Link>
+                    </DropdownMenuItem>
+                  ))}
+                </div>
+              </div>
             </DropdownMenuContent>
           </DropdownMenu>
           <Button
@@ -68,10 +66,7 @@ const Header = () => {
             ))}
           </ul>
         </nav>
-        <div className="flex gap-2">
-          <ThemeSwitcher />
-          <UserButton />
-        </div>
+        <UserButton />
       </div>
     </header>
   )
