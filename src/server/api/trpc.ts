@@ -81,31 +81,23 @@ const enforceUserIsAuthed = t.middleware(({ ctx, next }) => {
 
 /**
  * Reusable middleware that enforces rate limits on requests.
- * This is currently set to 10 requests every 10 seconds per procedure per user.
+ * This is currently set to 5 requests every 10 seconds per procedure per user.
  * To set per-procedure rate limits, you can simply follow this pattern in the procedure itself.
  */
-export const createRatelimiter = (limiter?: RatelimitConfig["limiter"]) =>
+const createRatelimiter = (limiter?: RatelimitConfig["limiter"]) =>
   t.middleware(async ({ next, ctx, type, path }) => {
-    if (env.NODE_ENV !== "production") {
-      return next({
-        ctx: {
-          user: ctx.user,
-        },
-      })
+    if (env.NODE_ENV !== "production" || process.env.VERCEL_ENV === "production") {
+      return next()
     }
 
     const identifier = buildIdentifier({ ctx, type, path })
-    const { success } = await createRatelimit(limiter ?? Ratelimit.slidingWindow(10, "10s")).limit(identifier)
+    const { success } = await createRatelimit(limiter ?? Ratelimit.slidingWindow(5, "10s")).limit(identifier)
 
     if (!success) {
       throw new TRPCError({ code: "TOO_MANY_REQUESTS" })
     }
 
-    return next({
-      ctx: {
-        user: ctx.user,
-      },
-    })
+    return next()
   })
 
 /**
@@ -131,6 +123,17 @@ export const createTRPCRouter = t.router
  */
 export const publicProcedure = t.procedure
 /**
+ * @param limiter - The rate limit configuration to use for this procedure. Default is 5 request in a 10s sliding window.
+ *
+ * Public (unauthenticated) procedure
+ *
+ * This is the base piece you use to build new queries and mutations on your tRPC API. It does not
+ * guarantee that a user querying is authorized, but you can still access user session data if they
+ * are logged in.
+ */
+export const publicRatedProcedure = (limiter?: RatelimitConfig["limiter"]) =>
+  t.procedure.use(createRatelimiter(limiter))
+/**
  * Protected (authenticated) procedure
  *
  * If you want a query or mutation to ONLY be accessible to logged in users, use this. It verifies
@@ -139,3 +142,15 @@ export const publicProcedure = t.procedure
  * @see https://trpc.io/docs/procedures
  */
 export const protectedProcedure = t.procedure.use(enforceUserIsAuthed)
+/**
+ * @param limiter - The rate limit configuration to use for this procedure. Default is 5 request in a 10s sliding window.
+ *
+ * Protected (authenticated) procedure
+ *
+ * If you want a query or mutation to ONLY be accessible to logged in users, use this. It verifies
+ * the session is valid and guarantees `ctx.session.user` is not null.
+ *
+ * @see https://trpc.io/docs/procedures
+ */
+export const protectedRatedProcedure = (limiter?: RatelimitConfig["limiter"]) =>
+  t.procedure.use(createRatelimiter(limiter)).use(enforceUserIsAuthed)

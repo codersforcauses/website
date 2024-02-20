@@ -1,10 +1,11 @@
 import { TRPCError } from "@trpc/server"
+import { Ratelimit } from "@upstash/ratelimit"
 import { eq } from "drizzle-orm"
 import { z } from "zod"
 import { Client, Environment } from "square"
 import { randomUUID } from "crypto"
 
-import { createTRPCRouter, protectedProcedure } from "~/server/api/trpc"
+import { createTRPCRouter, protectedRatedProcedure } from "~/server/api/trpc"
 import { payments, users } from "~/server/db/schema"
 import { env } from "~/env"
 
@@ -14,7 +15,7 @@ const { cardsApi, paymentsApi } = new Client({
 })
 
 export const paymentRouter = createTRPCRouter({
-  cash: protectedProcedure
+  cash: protectedRatedProcedure(Ratelimit.fixedWindow(2, "30s"))
     .input(
       z.string().min(2, {
         message: "Password in required",
@@ -31,7 +32,7 @@ export const paymentRouter = createTRPCRouter({
       }
     }),
 
-  pay: protectedProcedure
+  pay: protectedRatedProcedure(Ratelimit.fixedWindow(2, "30s"))
     .input(
       z.object({
         sourceID: z.string().min(2, {
@@ -82,7 +83,7 @@ export const paymentRouter = createTRPCRouter({
       }
     }),
 
-  storeCard: protectedProcedure
+  storeCard: protectedRatedProcedure(Ratelimit.fixedWindow(2, "30s"))
     .input(
       z.object({
         sourceID: z.string().min(2, {
@@ -112,7 +113,7 @@ export const paymentRouter = createTRPCRouter({
       }
     }),
 
-  getCards: protectedProcedure.query(async ({ ctx }) => {
+  getCards: protectedRatedProcedure(Ratelimit.fixedWindow(2, "30s")).query(async ({ ctx }) => {
     try {
       const [user] = await ctx.db.select().from(users).where(eq(users.id, ctx.user.id))
       const { result } = await cardsApi.listCards(undefined, user?.square_customer_id)
