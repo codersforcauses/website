@@ -21,51 +21,13 @@ import { toast } from "~/components/ui/use-toast"
 // import { Avatar, AvatarFallback, AvatarImage } from "~/components/ui/avatar"
 // import GithubHeatmap from "../_components/github-heatmap"
 import OnlinePaymentForm from "~/components/payment/online"
-import { SITE_URL } from "~/lib/constants"
+import { SITE_URL, PRONOUNS, UNIVERSITIES } from "~/lib/constants"
 import { cn } from "~/lib/utils"
 import { type User } from "~/lib/types"
 import { api } from "~/trpc/react"
 import { setUserCookie } from "~/app/actions"
 
 type ActiveView = "form" | "payment"
-
-const pronouns = [
-  {
-    label: "He/Him",
-    value: "he/him",
-  },
-  {
-    label: "She/Her",
-    value: "she/her",
-  },
-  {
-    label: "They/Them",
-    value: "they/them",
-  },
-] as const
-
-const uni = [
-  {
-    label: "Curtin University",
-    value: "curtin",
-  },
-  {
-    label: "Edith Cowan University",
-    value: "ecu",
-  },
-  {
-    label: "Murdoch University",
-    value: "murdoch",
-  },
-  {
-    label: "University of Notre Dame",
-    value: "notre-dame",
-  },
-  {
-    label: "TAFE",
-    value: "tafe",
-  },
-] as const
 
 const formSchema = z
   .object({
@@ -111,10 +73,10 @@ type FormSchema = z.infer<typeof formSchema>
 const defaultValues = {
   name: "",
   preferred_name: "",
-  pronouns: pronouns[0].value,
+  pronouns: PRONOUNS[0].value,
   isUWA: true,
   student_number: "",
-  uni: uni[0].value,
+  uni: UNIVERSITIES[0].value,
   github: "",
   discord: "",
   subscribe: true,
@@ -486,7 +448,7 @@ export default function CreateAccount() {
                       defaultValue={field.value}
                       className="grid grid-cols-2 sm:grid-cols-3"
                     >
-                      {pronouns.map(({ label, value }) => (
+                      {PRONOUNS.map(({ label, value }) => (
                         <FormItem key={value} className="flex h-6 items-center space-x-3 space-y-0">
                           <FormControl>
                             <RadioGroupItem value={value} />
@@ -498,7 +460,7 @@ export default function CreateAccount() {
                         <FormControl>
                           <RadioGroupItem value="other" />
                         </FormControl>
-                        {Boolean(pronouns.find(({ value: val }) => val === field.value)) ? (
+                        {Boolean(PRONOUNS.find(({ value: val }) => val === field.value)) ? (
                           <FormLabel className="font-normal">Other</FormLabel>
                         ) : (
                           <FormControl>
@@ -551,7 +513,7 @@ export default function CreateAccount() {
                         defaultValue={field.value}
                         className="grid sm:grid-cols-2"
                       >
-                        {uni.map(({ label, value }) => (
+                        {UNIVERSITIES.map(({ label, value }) => (
                           <FormItem key={value} className="flex h-6 items-center space-x-3 space-y-0">
                             <FormControl>
                               <RadioGroupItem value={value} />
@@ -563,7 +525,7 @@ export default function CreateAccount() {
                           <FormControl>
                             <RadioGroupItem value="other" />
                           </FormControl>
-                          {Boolean(uni.find(({ value: val }) => val === field.value)) ? (
+                          {Boolean(UNIVERSITIES.find(({ value: val }) => val === field.value)) ? (
                             <FormLabel className="font-normal">Other university</FormLabel>
                           ) : (
                             <FormControl>
