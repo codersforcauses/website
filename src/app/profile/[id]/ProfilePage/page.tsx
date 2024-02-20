@@ -5,7 +5,7 @@ import { siDiscord, siGithub } from "simple-icons"
 import { Badge } from "~/components/ui/badge"
 import { Button } from "~/components/ui/button"
 import { type User } from "~/lib/types"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import EditProfile from "./EditProfile/page"
 import { api } from "~/trpc/react"
 
