@@ -3,7 +3,6 @@ import Image from "next/image"
 
 import Contact from "~/components/contact"
 import { Button } from "~/components/ui/button"
-import { Collapsible, CollapsibleTrigger } from "~/components/ui/collapsible"
 import TypedText from "./_components/typed-text"
 
 const services = [
@@ -160,12 +159,7 @@ export default async function Home() {
                 hello@codersforcauses.org
               </a>
             </div>
-            <Collapsible>
-              <CollapsibleTrigger asChild>
-                <Button variant="outline-dark">Contact us</Button>
-              </CollapsibleTrigger>
-              <Contact />
-            </Collapsible>
+            <Contact />
           </div>
           <div aria-hidden className="group hidden select-none font-mono text-9xl md:block">
             <span className="group-hover:hidden">:)</span>
