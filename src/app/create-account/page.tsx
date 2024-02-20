@@ -267,7 +267,7 @@ const PaymentBlock = () => {
 }
 
 export default function CreateAccount() {
-  const [activeView, setActiveView] = React.useState<ActiveView>("payment")
+  const [activeView, setActiveView] = React.useState<ActiveView>("form")
   const [loading, setLoading] = React.useState(false)
   const [user, setUser] = React.useState<User>()
   const router = useRouter()
