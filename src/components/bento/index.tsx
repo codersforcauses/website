@@ -24,15 +24,13 @@ const BentoDisplay = () => (
 )
 
 const SvgDisplay = ({ children }: { children: ReactNode }) => {
-  return (
-    <div className="flex justify-center border dark:border-none dark:bg-neutral-900 dark:grayscale">{children}</div>
-  )
+  return <div className="flex justify-center bg-neutral-200 dark:bg-neutral-900">{children}</div>
 }
 
 const items = [
   {
     title: "Websites",
-    description: "Build and maintain websites for your organization",
+    description: "Build and maintain websites for your organisation",
     header: (
       <SvgDisplay>
         <Building className="w-full" />
@@ -54,7 +52,7 @@ const items = [
   },
   {
     title: "Consulting",
-    description: "Get advice and guidance on technical matters for your organization",
+    description: "Get advice and guidance on technical matters for your organisation",
     header: (
       <SvgDisplay>
         <Chat className="w-full" />
@@ -65,7 +63,7 @@ const items = [
   },
   {
     title: "Cloud Services",
-    description: "Leverage the power of cloud computing to scale and grow your organization",
+    description: "Leverage the power of cloud computing to scale and grow your organisation",
     header: (
       <SvgDisplay>
         <Cloud className="w-full" />
@@ -78,7 +76,7 @@ const items = [
     title: "Artificial Intelligence",
     description: "Leverage the power of AI to automate and improve your organisation",
     header: (
-      <div className="flex h-full items-center border dark:border-none dark:bg-neutral-900">
+      <div className="flex h-full items-center border bg-neutral-200 dark:border-none dark:bg-neutral-900">
         <GoogleGeminiEffect className="display-block w-full py-4" />
       </div>
     ),

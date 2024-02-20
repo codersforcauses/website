@@ -9,11 +9,12 @@ const transition = {
   repeatDelay: 1,
 }
 
-const lineColor1 = "#d3d4d3"
-const lineColor2 = "#babcbb"
-const lineColor3 = "#a1a4a2"
-const lineColor4 = "#898c8a"
-const lineColor5 = "#707371"
+// "#d3d4d3"
+const lineColor1 = "#babcbb"
+const lineColor2 = "#a1a4a2"
+const lineColor3 = "#898c8a"
+const lineColor4 = "#707371"
+const lineColor5 = "#585a59"
 
 export const GoogleGeminiEffect = ({ className }: { className?: string }) => {
   return (
