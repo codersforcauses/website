@@ -293,7 +293,7 @@ const UserTable = () => {
 
   return (
     <>
-      <div className="flex h-[50px] p-1">
+      <div className="flex h-[50px] items-center p-1">
         {data.length > 0 && (
           <>
             {selectedRowIDs.length > 0 && (
@@ -323,7 +323,7 @@ const UserTable = () => {
                     </DropdownMenuRadioGroup>
                   </DropdownMenuContent>
                 </DropdownMenu>
-                <Button
+                {/* <Button
                   variant="ghost"
                   className="mx-2 text-destructive hover:bg-destructive/20 hover:text-destructive"
                 >
@@ -335,7 +335,7 @@ const UserTable = () => {
                   className="mr-2 text-destructive hover:bg-destructive/20 hover:text-destructive"
                 >
                   Delete user(s)
-                </Button>
+                </Button> */}
               </>
             )}
             <Input

@@ -78,7 +78,7 @@ const FaqPage = () => {
           {GeneralFAQ.map((faq, idx) => (
             <Accordion type="multiple" key={idx} className="w-full">
               <AccordionItem value={`item-${idx}`}>
-                <AccordionTrigger className="px-2 text-left transition-colors duration-300 hover:bg-slate-200 dark:hover:bg-neutral-800">
+                <AccordionTrigger className="px-2 text-left transition-colors duration-300 hover:bg-neutral-200 dark:hover:bg-neutral-800">
                   {faq.description}
                 </AccordionTrigger>
                 <AccordionContent className="px-2">{faq.answer}</AccordionContent>
@@ -91,7 +91,7 @@ const FaqPage = () => {
           {ProjectsFAQ.map((faq, idx) => (
             <Accordion type="multiple" key={idx} className="w-full">
               <AccordionItem value={`item-${idx}`}>
-                <AccordionTrigger className="px-2 text-left transition-colors duration-300 hover:bg-slate-200 dark:hover:bg-neutral-800">
+                <AccordionTrigger className="px-2 text-left transition-colors duration-300 hover:bg-neutral-200 dark:hover:bg-neutral-800">
                   {faq.description}
                 </AccordionTrigger>
                 <AccordionContent className="px-2">{faq.answer}</AccordionContent>

@@ -2,9 +2,11 @@
 
 import * as React from "react"
 import Link from "next/link"
+import dynamic from "next/dynamic"
 import { usePathname, useRouter } from "next/navigation"
 import { useAuth } from "@clerk/nextjs"
 
+import { Avatar, AvatarFallback } from "~/components/ui/avatar"
 import { Button } from "~/components/ui/button"
 import {
   DropdownMenu,
@@ -17,15 +19,17 @@ import {
 } from "~/components/ui/dropdown-menu"
 import { getUserCookie, removeUserCookie } from "~/app/actions"
 import { type User } from "~/lib/types"
-import { api } from "~/trpc/react"
+
+const ThemeSwitcher = dynamic(() => import("./theme"), {
+  ssr: false,
+  loading: () => <Button variant="ghost-dark" size="icon" />,
+})
 
 const UserButton = () => {
   const [user, setUser] = React.useState<User>()
   const router = useRouter()
   const { signOut } = useAuth()
   const path = usePathname()
-
-  const { data } = api.user.get.useQuery(user?.id ?? "")
 
   React.useEffect(() => {
     const getUser = async () => {
@@ -43,18 +47,25 @@ const UserButton = () => {
 
   if (!user)
     return (
-      <Button asChild variant="secondary-dark" className="dark:hover:bg-primary dark:hover:text-black">
-        <Link href="/join">Join us</Link>
-      </Button>
+      <div className="flex gap-2">
+        <ThemeSwitcher />
+        <Button asChild variant="secondary-dark" className="dark:hover:bg-primary dark:hover:text-black">
+          <Link href="/join">Join us</Link>
+        </Button>
+      </div>
     )
 
   const isAdmin = user?.role === "admin" || user?.role === "committee"
 
   return (
     <DropdownMenu>
+      {process.env.NODE_ENV === "development" && !!user && <ThemeSwitcher />}
       <DropdownMenuTrigger asChild>
-        <Button variant="secondary-dark" className="text-white">
-          {data?.preferred_name}
+        <Button variant="ghost-dark" className="max-w-40 space-x-2 text-white">
+          <Avatar size="sm">
+            <AvatarFallback className="bg-neutral-800">{user?.preferred_name[0]}</AvatarFallback>
+          </Avatar>
+          <span>{user?.preferred_name}</span>
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="-mr-1.5 mt-1 w-56 border-white/25 bg-black text-white ">
@@ -102,7 +113,7 @@ const UserButton = () => {
             className="hover:cursor-pointer focus:bg-white/20 focus:text-white"
           >
             <Link href="/profile/settings">
-              <span className="material-symbols-sharp text mr-1 size-5 text-xl leading-none">settings</span>
+              <span className="material-symbols-sharp text mr-1 size-5 text-xl leading-none">settings_account_box</span>
               <span>Settings</span>
               {/* <DropdownMenuShortcut>⌘S</DropdownMenuShortcut> */}
             </Link>

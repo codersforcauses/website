@@ -1,14 +1,14 @@
 import { clerkClient } from "@clerk/nextjs"
 import { TRPCError } from "@trpc/server"
+import { Ratelimit } from "@upstash/ratelimit"
 import { randomUUID } from "crypto"
 import { eq } from "drizzle-orm"
 import { Client, Environment } from "square"
 import { z } from "zod"
 
-import { Ratelimit } from "@upstash/ratelimit"
 import { env } from "~/env"
 import { NAMED_ROLES } from "~/lib/constants"
-import { createTRPCRouter, protectedProcedure, publicProcedure, createRatelimiter } from "~/server/api/trpc"
+import { createTRPCRouter, protectedProcedure, protectedRatedProcedure, publicRatedProcedure } from "~/server/api/trpc"
 import { users } from "~/server/db/schema"
 
 const { customersApi, paymentsApi } = new Client({
@@ -17,19 +17,27 @@ const { customersApi, paymentsApi } = new Client({
 })
 
 export const userRouter = createTRPCRouter({
-  create: publicProcedure
-    .use(createRatelimiter(Ratelimit.fixedWindow(1, "30s")))
+  create: publicRatedProcedure(Ratelimit.fixedWindow(2, "30s"))
     .input(
       z.object({
-        clerk_id: z.string().min(2, {
-          message: "Clerk ID is required",
-        }),
-        name: z.string().min(2, {
-          message: "Name is required",
-        }),
-        preferred_name: z.string().min(2, {
-          message: "Preferred name is required",
-        }),
+        clerk_id: z
+          .string()
+          .min(2, {
+            message: "Clerk ID is required",
+          })
+          .trim(),
+        name: z
+          .string()
+          .min(2, {
+            message: "Name is required",
+          })
+          .trim(),
+        preferred_name: z
+          .string()
+          .min(2, {
+            message: "Preferred name is required",
+          })
+          .trim(),
         email: z
           .string()
           .email({
@@ -37,14 +45,18 @@ export const userRouter = createTRPCRouter({
           })
           .min(2, {
             message: "Email is required",
-          }),
-        pronouns: z.string().min(2, {
-          message: "Pronouns are required",
-        }),
-        student_number: z.string().optional(),
-        uni: z.string().optional(),
-        github: z.string().optional(),
-        discord: z.string().optional(),
+          })
+          .trim(),
+        pronouns: z
+          .string()
+          .min(2, {
+            message: "Pronouns are required",
+          })
+          .trim(),
+        student_number: z.string().trim().optional(),
+        uni: z.string().trim().optional(),
+        github: z.string().trim().optional(),
+        discord: z.string().trim().optional(),
         subscribe: z.boolean(),
       }),
     )
@@ -84,7 +96,7 @@ export const userRouter = createTRPCRouter({
       }
     }),
 
-  login: protectedProcedure.mutation(async ({ ctx }) => {
+  login: protectedRatedProcedure(Ratelimit.fixedWindow(2, "30s")).mutation(async ({ ctx }) => {
     try {
       const id = ctx.user?.id
       const [user] = await ctx.db.select().from(users).where(eq(users.id, id))
@@ -94,20 +106,36 @@ export const userRouter = createTRPCRouter({
     }
   }),
 
-  getCurrent: protectedProcedure.query(async ({ ctx }) => {
+  getCurrent: protectedRatedProcedure(Ratelimit.fixedWindow(2, "30s")).query(async ({ ctx }) => {
     const [user] = await ctx.db.select().from(users).where(eq(users.id, ctx.user.id))
     return user
   }),
 
-  get: publicProcedure.input(z.string()).query(async ({ ctx, input }) => {
-    const [user] = await ctx.db.select().from(users).where(eq(users.id, input))
-    return user
-  }),
+  get: publicRatedProcedure(Ratelimit.fixedWindow(10, "30s"))
+    .input(z.string())
+    .query(async ({ ctx, input }) => {
+      const [user] = await ctx.db.select().from(users).where(eq(users.id, input))
+      return user
+    }),
 
   getAll: protectedProcedure.query(async ({ ctx }) => {
-    const userList = await ctx.db.select().from(users)
+    const user = await ctx.db.query.users.findFirst({
+      columns: {
+        role: true,
+      },
+      where: eq(users.id, ctx.user.id),
+    })
+    if (!user) throw new TRPCError({ code: "NOT_FOUND", message: `Could not find user with id:${ctx.user.id}` })
+    if (user.role !== "admin" && user.role !== "committee")
+      throw new TRPCError({ code: "FORBIDDEN", message: "You do not have permission to view all users." })
+    const userList = await ctx.db.query.users.findMany({
+      columns: {
+        subscribe: false,
+        square_customer_id: false,
+      },
+    })
 
-    return userList.map(({ updatedAt, ...user }) => user)
+    return userList
   }),
 
   updateRole: protectedProcedure
@@ -176,7 +204,7 @@ export const userRouter = createTRPCRouter({
       }
     }),
 
-  update: protectedProcedure
+  update: protectedRatedProcedure(Ratelimit.fixedWindow(2, "30s"))
     .input(
       z.object({
         name: z
@@ -208,9 +236,43 @@ export const userRouter = createTRPCRouter({
           .optional(),
         student_number: z.string().nullish(),
         uni: z.string().optional().nullish(),
-        github: z.string().nullish(),
-        discord: z.string().nullish(),
-        subscribe: z.boolean(),
+      }),
+    )
+    .mutation(async ({ ctx, input }) => {
+      try {
+        const currentUser = ctx.user
+        // TODO: update clerk email
+        await Promise.all([
+          clerkClient.users.updateUser(ctx.user.id, {
+            // emailAddress: input.email,
+            firstName: input.preferred_name,
+            lastName: input.name,
+          }),
+          ctx.db
+            .update(users)
+            .set({
+              name: input.name?.trim(),
+              preferred_name: input.preferred_name?.trim(),
+              email: input.email?.trim(),
+              pronouns: input.pronouns?.trim(),
+              student_number: input.student_number?.trim(),
+              university: input.uni?.trim(),
+            })
+            .where(eq(users.id, currentUser.id)),
+        ])
+
+        const [user] = await ctx.db.select().from(users).where(eq(users.id, currentUser.id))
+        return user
+      } catch (error) {
+        throw new TRPCError({ code: "INTERNAL_SERVER_ERROR", message: "Failed to update user" })
+      }
+    }),
+
+  updateSocial: protectedRatedProcedure(Ratelimit.fixedWindow(2, "30s"))
+    .input(
+      z.object({
+        github: z.string().optional().nullish(),
+        discord: z.string().optional().nullish(),
       }),
     )
     .mutation(async ({ ctx, input }) => {
@@ -220,22 +282,15 @@ export const userRouter = createTRPCRouter({
         await ctx.db
           .update(users)
           .set({
-            name: input.name,
-            preferred_name: input.preferred_name,
-            email: input.email,
-            pronouns: input.pronouns,
-            student_number: input.student_number,
-            university: input.uni,
-            github: input.github,
-            discord: input.discord,
-            subscribe: input.subscribe,
+            github: input.github?.trim(),
+            discord: input.discord?.trim(),
           })
           .where(eq(users.id, currentUser.id))
 
         const [user] = await ctx.db.select().from(users).where(eq(users.id, currentUser.id))
         return user
       } catch (error) {
-        throw new TRPCError({ code: "INTERNAL_SERVER_ERROR", message: "Failed to update user" })
+        throw new TRPCError({ code: "INTERNAL_SERVER_ERROR", message: "Failed to update user's socials" })
       }
     }),
 })

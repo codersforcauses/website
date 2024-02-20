@@ -6,7 +6,7 @@ export interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> 
   dark?: boolean
 }
 
-const Input = React.forwardRef<HTMLInputElement, InputProps>(({ className, dark, type, ...props }, ref) => {
+const Input = React.forwardRef<HTMLInputElement, InputProps>(({ className, dark = false, type, ...props }, ref) => {
   return (
     <input
       type={type}
