@@ -49,14 +49,14 @@ const EventsPage = () => {
               <TabsContent value="past">
                 <div className="space-y-6">
                   {events.past.length === 0 ? (
-                    <h2 className="font-mono text-4xl text-black dark:text-white">No past events</h2>
+                    <h2 className="font-mono text-4xl text-primary">No past events</h2>
                   ) : (
                     events.past.map((event) => (
                       <div
                         key={event.date + event.time.start}
                         className="relative border-l border-primary border-opacity-40 dark:border-secondary dark:border-opacity-40"
                       >
-                        <span className="absolute left-0 -translate-x-1/2 translate-y-full rotate-90 transform bg-secondary px-4 font-mono text-lg dark:bg-alt-dark lg:translate-y-0 lg:rotate-0">
+                        <span className="absolute left-0 -translate-x-1/2 translate-y-full rotate-90 transform bg-secondary px-4 font-mono text-lg text-primary dark:bg-alt-dark lg:translate-y-0 lg:rotate-0">
                           {event.date}
                         </span>
                         <EventCard key={event.slug} {...event} />
@@ -75,7 +75,7 @@ const EventsPage = () => {
                         key={event.date + event.time.start}
                         className="relative border-l border-primary border-opacity-40 dark:border-secondary dark:border-opacity-40"
                       >
-                        <span className="absolute left-0 -translate-x-1/2 translate-y-full rotate-90 transform bg-secondary px-4 font-mono text-lg dark:bg-alt-dark lg:translate-y-0 lg:rotate-0">
+                        <span className="absolute left-0 -translate-x-1/2 translate-y-full rotate-90 transform bg-secondary px-4 font-mono text-lg text-primary dark:bg-alt-dark lg:translate-y-0 lg:rotate-0">
                           {event.date}
                         </span>
                         <EventCard key={event.slug} {...event} />

@@ -8,7 +8,7 @@ const BrandPage = () => {
   const [typographyText, setTypographyText] = useState("Coders for Causes")
 
   return (
-    <div className="bg-secondary text-primary dark:bg-alt-dark dark:text-secondary">
+    <div className="bg-secondary text-primary dark:bg-alt-dark">
       <div className="container mx-auto space-y-12 px-3 py-12 md:py-24">
         <div>
           <h2 className="pb-2 font-mono text-3xl font-black">Our Logo</h2>
@@ -81,8 +81,8 @@ const BrandPage = () => {
         <div>
           <h2 className="pb-2 font-mono text-3xl font-black">Our colours</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6">
-            <ColourCard color="#000000" name="All Black (Primary)" className="bg-primary text-secondary" />
-            <ColourCard color="#ffffff" name="All White (Secondary)" className="bg-secondary text-primary" />
+            <ColourCard color="#000000" name="All Black (Primary)" className="bg-black text-white" />
+            <ColourCard color="#ffffff" name="All White (Secondary)" className="bg-white text-black" />
             <ColourCard color="#01f1cc" name="Electric Teal (Accent)" className="bg-alt-accent text-primary" />
             <ColourCard color="#0070F3" name="Ocean Blue (Success)" className="bg-success text-secondary" />
             <ColourCard color="#F5A623" name="Signal Yellow (Warning)" className="bg-warning text-secondary" />
