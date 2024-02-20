@@ -7,7 +7,7 @@ import ProjectProcessModal from "./ProjectProcessModal/page"
 
 const ProjectsPage = () => {
   return (
-    <main className="main dark:bg-alt-dark">
+    <main className="main">
       <TitleText typed>./projects</TitleText>
       <div className="container">
         <div className="flex flex-col md:flex-row md:gap-16">

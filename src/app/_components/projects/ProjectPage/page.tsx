@@ -1,12 +1,13 @@
 "use client"
 
-import { type ProjectModel } from "~/lib/types"
 import { type QueryFunctionContext, useQuery } from "@tanstack/react-query"
-import NotFound from "~/app/not-found"
 import Image from "next/image"
 import Link from "next/link"
-import WebsiteButton from "./button"
+
+import { type ProjectModel } from "~/lib/types"
 import TechList from "./Techlist/page"
+import NotFound from "~/app/not-found"
+import { Button } from "~/components/ui/button"
 
 interface ProjectPageProps {
   projectId: string
@@ -51,7 +52,7 @@ const ProjectPage = ({ projectId }: ProjectPageProps) => {
             objectFit="contain"
           />
         </div>
-        <div className="bg-secondary py-12 text-black dark:bg-alt-dark dark:text-white">
+        <div className="py-12">
           <nav className="container mx-auto mb-4 flex px-3 text-sm">
             <Link href="/projects">
               <p className="text-black hover:underline dark:text-white">Projects</p>
@@ -77,8 +78,16 @@ const ProjectPage = ({ projectId }: ProjectPageProps) => {
                 {parseDescription(data.desc)}
                 {data && (
                   <div className="mt-2 grid grid-cols-2 gap-4 sm:max-w-max lg:hidden">
-                    {data.url && <WebsiteButton link={data.url} text="Visit Website" />}
-                    {data.source && <WebsiteButton link={data.source} text="View Source" />}
+                    {data.url && (
+                      <Button asChild variant="outline" className="w-full font-mono" size="lg">
+                        <Link href={data.url}>Visit website</Link>
+                      </Button>
+                    )}
+                    {data.source && (
+                      <Button asChild variant="outline" className="w-full font-mono" size="lg">
+                        <Link href={data.source}>Visit source</Link>
+                      </Button>
+                    )}
                   </div>
                 )}
               </div>
@@ -111,8 +120,16 @@ const ProjectPage = ({ projectId }: ProjectPageProps) => {
               </div>
               {data && (
                 <div className="grid gap-4">
-                  {data.url && <WebsiteButton link={data.url} text="Visit Website" />}
-                  {data.source && <WebsiteButton link={data.source} text="View Source" />}
+                  {data.url && (
+                    <Button asChild variant="outline" className="w-full font-mono" size="lg">
+                      <Link href={data.url}>Visit website</Link>
+                    </Button>
+                  )}
+                  {data.source && (
+                    <Button asChild variant="outline" className="w-full font-mono" size="lg">
+                      <Link href={data.source}>Visit source</Link>
+                    </Button>
+                  )}
                 </div>
               )}
               <Impact impact={data.impact} />
