@@ -7,22 +7,20 @@ import TitleText from "../_components/title-text"
 import OnlinePaymentForm from "~/components/payment/online"
 import { toast } from "~/components/ui/use-toast"
 import { api } from "~/trpc/react"
-import { type User } from "~/lib/types"
-import { getUserCookie, setUserCookie } from "../actions"
+import { setUserCookie } from "../actions"
 
 export default function Dashboard() {
-  const [user, setUser] = React.useState<User>()
   const router = useRouter()
+  const { data: user } = api.user.getCurrent.useQuery(undefined, {
+    refetchInterval: 1000 * 60 * 10, // 10 minutes
+    select: (data) => ({
+      id: data!.id,
+      preferred_name: data!.preferred_name,
+      role: data!.role,
+    }),
+  })
 
   const updateRole = api.user.updateRole.useMutation()
-
-  React.useEffect(() => {
-    const getUser = async () => {
-      const tempUser = await getUserCookie()
-      setUser(tempUser)
-    }
-    void getUser()
-  }, [])
 
   const handleAfterOnlinePayment = async (paymentID: string) => {
     try {

@@ -17,8 +17,8 @@ import {
   // DropdownMenuShortcut,
   DropdownMenuTrigger,
 } from "~/components/ui/dropdown-menu"
-import { getUserCookie, removeUserCookie } from "~/app/actions"
-import { type User } from "~/lib/types"
+import { removeUserCookie } from "~/app/actions"
+import { api } from "~/trpc/react"
 
 const ThemeSwitcher = dynamic(() => import("./theme"), {
   ssr: false,
@@ -26,26 +26,28 @@ const ThemeSwitcher = dynamic(() => import("./theme"), {
 })
 
 const UserButton = () => {
-  const [user, setUser] = React.useState<User>()
   const router = useRouter()
-  const { signOut } = useAuth()
+  const { userId, signOut } = useAuth()
   const path = usePathname()
+  const utils = api.useUtils()
 
-  React.useEffect(() => {
-    const getUser = async () => {
-      const getUser = await getUserCookie()
-      setUser(getUser)
-    }
-    if (!user) void getUser()
-  }, [user])
+  const { data: user, isInitialLoading } = api.user.getCurrent.useQuery(undefined, {
+    enabled: !!userId,
+    refetchInterval: 1000 * 60 * 10, // 10 minutes
+    select: (data) => ({
+      id: data!.id,
+      preferred_name: data!.preferred_name,
+      name: data!.name,
+      role: data!.role,
+    }),
+  })
 
   const userSignOut = React.useCallback(async () => {
-    await Promise.all([removeUserCookie(), signOut()])
-    setUser(undefined)
+    await Promise.all([removeUserCookie(), signOut(), utils.user.getCurrent.reset()])
     router.push("/")
-  }, [signOut, router])
+  }, [signOut, utils.user, router])
 
-  if (!user)
+  if (!user || isInitialLoading)
     return (
       <div className="flex gap-2">
         <ThemeSwitcher />

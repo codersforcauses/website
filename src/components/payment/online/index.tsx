@@ -12,12 +12,11 @@ import {
 } from "@square/web-sdk"
 import { type CheckedState } from "@radix-ui/react-checkbox"
 
-import { env } from "~/env"
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "~/components/ui/accordion"
 import { Skeleton } from "~/components/ui/skeleton"
-// import { getUserCookie } from "~/app/actions"
-import { api } from "~/trpc/react"
 import { toast } from "~/components/ui/use-toast"
+import { api } from "~/trpc/react"
+import { env } from "~/env"
 
 const Card = dynamic(() => import("./card"), {
   ssr: false,
@@ -87,11 +86,8 @@ const OnlinePaymentForm = ({
   const { resolvedTheme: theme } = useTheme()
   const [canApplePay, setCanApplePay] = React.useState(false)
   const [paymentInstance, setPaymentInstance] = React.useState<Payments>()
-  // const [user, setUser] = React.useState<User>()
   const loadingState = React.useState(false)
   const cardDetails = React.useState<CheckedState>(true)
-
-  // const userDetails = props.user ? props.user : getUserCookie()
 
   const pay = api.payment.pay.useMutation({
     onError: () => {
@@ -112,20 +108,6 @@ const OnlinePaymentForm = ({
       })
     },
   })
-
-  // React.useEffect(() => {
-  //   void getUserCookie().then((user) => {
-  //     if (!user) setUser(props.user)
-  //     else {
-  //       setUser({
-  //         email: user.email,
-  //         preferred_name: user.preferred_name,
-  //         full_name: user.name,
-  //         customerID: user.square_customer_id,
-  //       })
-  //     }
-  //   })
-  // }, [props.user, userDetails])
 
   React.useEffect(() => {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
