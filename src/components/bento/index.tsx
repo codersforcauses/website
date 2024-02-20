@@ -1,9 +1,15 @@
+import { type ReactNode } from "react"
 import Gemini from "../gemini"
 import { BentoGrid, BentoGridItem } from "../ui/bento-grid"
 
+import Building from "./svg/building"
+import Cloud from "./svg/cloud"
+import Server from "./svg/Secure Server"
+import Chat from "./svg/chat"
+
 const BentoDisplay = () => {
   return (
-    <BentoGrid className="mx-auto max-w-4xl md:auto-rows-[20rem]">
+    <BentoGrid className="max-w-4xl] mx-auto">
       {items.map((item, i) => (
         <BentoGridItem
           key={i}
@@ -21,43 +27,62 @@ const BentoDisplay = () => {
 const Skeleton = () => (
   <div className="flex h-full min-h-[6rem] w-full flex-1 bg-gradient-to-br from-neutral-200 to-neutral-100 dark:from-neutral-900 dark:to-neutral-800"></div>
 )
+
+const SvgDisplay = ({ children }: { children: ReactNode }) => {
+  return <div className="flex justify-center border dark:border-white/[0.2]">{children}</div>
+}
+
 const items = [
   {
-    title: "Applications",
-    description: "Build custom web and mobile applications to engage with your audience",
-    header: <Skeleton />,
-    className: "md:col-span-1",
-    icon: "devices",
-  },
-  {
     title: "Websites",
-    description: "Build new websites or optimize existing pages to improve online visibility",
-    header: <Skeleton />,
+    description: "Build and maintain websites for your organisation",
+    header: (
+      <SvgDisplay>
+        <Building className="" />
+      </SvgDisplay>
+    ),
     className: "md:col-span-1",
     icon: "web",
   },
   {
     title: "Data Storage",
-    description: "Design and create databases for efficient information storage and retrieval",
-    header: <Gemini />,
+    description: "Store and manage your user's data securely and efficiently",
+    header: (
+      <SvgDisplay>
+        <Server className="" />
+      </SvgDisplay>
+    ),
     className: "md:col-span-1",
     icon: "storage",
   },
   {
     title: "Consulting",
-    description: "Empower your organization through technical knowledge and advice",
-    header: <Gemini />,
+    description: "Get advice and guidance on technical matters for your organisation",
+    header: (
+      <SvgDisplay>
+        <Chat className="" />
+      </SvgDisplay>
+    ),
     className: "md:col-span-1",
     icon: "how_to_reg",
-    // icon: <IconTableColumn className="w-4 h-4 text-neutral-500" />,
+  },
+  {
+    title: "Cloud Services",
+    description: "Leverage the power of cloud computing to scale and grow your organisation",
+    header: (
+      <SvgDisplay>
+        <Cloud className="" />
+      </SvgDisplay>
+    ),
+    className: "md:col-span-1",
+    icon: "cloud",
   },
   {
     title: "Artificial Intelligence",
-    description: "Empower your organization through technical knowledge and advice",
+    description: "Leverage the power of AI to automate and improve your organisation",
     header: <Gemini />,
-    className: "md:col-span-2",
+    className: "sm:col-span-2",
     icon: "neurology",
-    // icon: <IconTableColumn className="w-4 h-4 text-neutral-500" />,
   },
 ]
 
