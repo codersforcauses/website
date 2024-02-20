@@ -143,6 +143,5 @@ export const GoogleGeminiEffect = ({ className }: { className?: string }) => {
         </filter>
       </defs>
     </svg>
-    // </div>
   )
 }
