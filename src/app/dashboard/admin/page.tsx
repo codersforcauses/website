@@ -75,7 +75,7 @@ export default function AdminDashboard() {
           <ResizableHandle withHandle className="w-3 bg-background" />
           <ResizablePanel defaultSize={75}>
             {sidebarItems.map(({ slug, component }) => (
-              <TabsContent key={slug} value={slug}>
+              <TabsContent key={slug} value={slug} className="mt-0">
                 {component}
               </TabsContent>
             ))}
