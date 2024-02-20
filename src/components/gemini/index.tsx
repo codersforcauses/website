@@ -3,8 +3,8 @@ import { GoogleGeminiEffect } from "../ui/gemini"
 
 const Gemini = () => {
   return (
-    <div className="flex h-full items-center bg-black">
-      <GoogleGeminiEffect className="display-block py-4" />
+    <div className="flex h-full items-center border dark:border-white/[0.2] dark:bg-black">
+      <GoogleGeminiEffect className="display-block w-full py-4" />
     </div>
   )
 }
