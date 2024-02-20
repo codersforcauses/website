@@ -1,3 +1,6 @@
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+/* eslint-disable @typescript-eslint/no-unsafe-call */
 import * as React from "react"
 import Link from "next/link"
 import { FormProvider, useForm } from "react-hook-form"
@@ -42,7 +45,7 @@ const Socials = (props: { defaultValues?: FormSchema }) => {
   const onSubmit = async (data: FormSchema) => {
     setLoading(true)
     try {
-      const { status: githubStatus } = await fetch(`https://api.github.com/users/${values.github}`)
+      const { status: githubStatus } = await fetch(`https://api.github.com/users/${data.github}`)
 
       if (githubStatus !== 200) {
         form.setError("github", {
