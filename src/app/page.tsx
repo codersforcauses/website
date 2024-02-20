@@ -6,29 +6,6 @@ import { Button } from "~/components/ui/button"
 import TypedText from "./_components/typed-text"
 import BentoDisplay from "~/components/bento"
 
-const services = [
-  {
-    icon: "devices",
-    title: "Applications",
-    description: "Build custom web and mobile applications to engage with your audience",
-  },
-  {
-    icon: "web",
-    title: "Websites",
-    description: "Build new websites or optimize existing pages to improve online visibility",
-  },
-  {
-    icon: "storage",
-    title: "Data Storage",
-    description: "Design and create databases for efficient information storage and retrieval",
-  },
-  {
-    icon: "how_to_reg",
-    title: "Consulting",
-    description: "Empower your organization through technical knowledge and advice",
-  },
-]
-
 const clients = [
   {
     src: "/clients/foodbank_logo.svg",
@@ -138,7 +115,7 @@ export default async function Home() {
           ))}
         </div>
       </div>
-      <div className="px-8 py-12 dark:bg-alt-dark dark:text-white md:py-16">
+      <div className="container dark:bg-alt-dark dark:text-white md:py-16">
         <BentoDisplay />
       </div>
       <div id="_contact_us" className="scroll-mt-16 bg-black py-12 text-white md:py-24">
