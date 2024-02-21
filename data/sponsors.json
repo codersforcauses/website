@@ -2,13 +2,12 @@
   {
     "name": "WA Data Science Innovation Hub",
     "logo": "/sponsors/wadsih_logo.png",
-    "dark_logo": "",
-    "link": "https://wadsih.org.au/"
+    "dark_logo": "/sponsors/wadsih_logo_dark.png",
+    "link": "http://wadsih.org.au/"
   },
   {
     "name": "Venture: Student Innovation Centre - UWA Student Guild",
     "logo": "/sponsors/venture_horizontal_logo.png",
-    "dark_logo": "",
-    "link": "https://www.venture-student-innovation.com/"
+    "dark_logo": ""
   }
 ]

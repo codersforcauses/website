@@ -1,7 +1,27 @@
-module.exports = {
-  // swcMinify: true,
-  reactStrictMode: true,
+/**
+ * Run `build` or `dev` with `SKIP_ENV_VALIDATION` to skip env validation. This is especially useful
+ * for Docker builds.
+ */
+await import("./src/env.js")
+
+/** @type {import("next").NextConfig} */
+const config = {
   experimental: {
-    optimizeCss: true
-  }
+    typedRoutes: true,
+  },
+  typescript: {
+    ignoreBuildErrors: true,
+  },
 }
+
+// !In Dev mode, comment out the following line and uncomment the line
+// !after that to view SSR hydration errors
+export default config
+
+// export default process.env.SKIP_ENV_VALIDATION
+//   ? config
+//   : import("@builder.io/react-hydration-overlay/next").then(({ withHydrationOverlay }) =>
+//       withHydrationOverlay({
+//         appRootSelector: "main",
+//       })(config),
+//     )

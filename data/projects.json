@@ -3,7 +3,7 @@
     "id": "FoGUWA",
     "icon": "devices",
     "logo": "/clients/fog_logo.svg",
-    "dark_logo": "",
+    "dark_logo": "/clients/fog_logo.svg",
     "img": "foguwa.png",
     "name": "Friends of Grounds Tour Map",
     "client": "Friends of Grounds UWA",
@@ -21,20 +21,13 @@
       { "name": "Nuxt.js", "icon": "nuxtdotjs" },
       { "name": "Vuetify", "icon": "vuetify" }
     ],
-    "members": [
-      "Jeremiah Pinto",
-      "Thai Nguyen",
-      "Innocent Muisha",
-      "Drew Alexander",
-      "Daphne Yu",
-      "Victor John Wilson"
-    ]
+    "members": ["Jeremiah Pinto", "Thai Nguyen", "Innocent Muisha", "Drew Alexander", "Daphne Yu", "Victor John Wilson"]
   },
   {
     "id": "Home2Health",
     "icon": "devices",
     "logo": "/projects/h2h_logo.svg",
-    "dark_logo": "",
+    "dark_logo": "/projects/h2h_logo.svg",
     "img": "home2health.png",
     "name": "Home2Health Forum",
     "client": "Home2Health",
@@ -42,10 +35,7 @@
     "date": "May 2019",
     "purl": "/projects/home2health",
     "source": "https://github.com/codersforcauses/home2health",
-    "impact": [
-      "Raise awareness for homelessness",
-      "Facilitate communications and sharing of resources"
-    ],
+    "impact": ["Raise awareness for homelessness", "Facilitate communications and sharing of resources"],
     "desc": "With over 80 different organisations involved, this project is lead by researchers at the UWA School of Population Health to creating a multi-purpose website to not only host their research, but to create a forum for discussion, and collaboration, for professionals and individuals, to tackle the growing issues surrounding homelessness and health in Australia, and beyond.\nThe website consists of resource pages and allows the creations of blog posts that facilitates the communication and discussion of findings of the Home2Health research group and professionals regarding homeless health care.",
     "tech": [
       { "name": "MongoDB", "icon": "mongodb" },
@@ -75,11 +65,7 @@
     "date": "December 2018",
     "purl": "/projects/p2srugby",
     "source": "https://github.com/codersforcauses/p2s-frontend",
-    "impact": [
-      "Increase organisational transparency",
-      "Streamline administrative process",
-      "Easy data visualisation"
-    ],
+    "impact": ["Increase organisational transparency", "Streamline administrative process", "Easy data visualisation"],
     "desc": "The P2S RUGBYWORKS organisation runs a long-term skills development program for at risk youth. They help by mentoring them during sports and activities sessions. The project aims to transform the organisations previously paper-based review system into a webapp for simple data collection and storage.\nThe app allows coaches to log in, take attendence of students, and submit performance reviews for the session. Admins can log in and monitor student progress and coach reports.",
     "tech": [
       { "name": "Vue.js", "icon": "vuedotjs" },
@@ -87,20 +73,13 @@
       { "name": "Express", "icon": "express" },
       { "name": "MongoDB", "icon": "mongodb" }
     ],
-    "members": [
-      "Jeremiah Pinto",
-      "Ben Chidlow",
-      "Drew Alexander",
-      "Luke Stagoll",
-      "Sanath More",
-      "Ekin Bukulmez"
-    ]
+    "members": ["Jeremiah Pinto", "Ben Chidlow", "Drew Alexander", "Luke Stagoll", "Sanath More", "Ekin Bukulmez"]
   },
   {
     "id": "IgniteMentoring",
     "icon": "computer",
     "logo": "/clients/ignite_logo.svg",
-    "dark_logo": "",
+    "dark_logo": "/clients/ignite_logo.svg",
     "img": "ignite.png",
     "name": "Ignite Mentoring",
     "client": "Ignite Mentoring",
@@ -109,28 +88,20 @@
     "purl": "/projects/ignitementoring",
     "url": "https://codersforcauses.github.io/ignite-mentoring-2018/",
     "source": "https://github.com/codersforcauses/ignite-mentoring-2018",
-    "impact": [
-      "Reduce organisational workload",
-      "Increase program scalability"
-    ],
+    "impact": ["Reduce organisational workload", "Increase program scalability"],
     "desc": "The purpose of this project was to provide Ignite Mentoring a web based tool that allocates it's mentors to classes while learning the basics of web development. ",
     "tech": [
       { "name": "HTML", "icon": "html5" },
       { "name": "CSS", "icon": "css3" },
       { "name": "JavaScript", "icon": "javascript" }
     ],
-    "members": [
-      "David Yu",
-      "Innocent Muisha",
-      "Jong Kyung Kim",
-      "Daniel Jacobs"
-    ]
+    "members": ["David Yu", "Innocent Muisha", "Jong Kyung Kim", "Daniel Jacobs"]
   },
   {
     "id": "HomeForNow",
     "icon": "devices",
     "logo": "/clients/anglicare_logo.svg",
-    "dark_logo": "",
+    "dark_logo": "/clients/anglicare_logo.svg",
     "img": "homefornow.png",
     "name": "HomeForNow",
     "client": "Anglicare",
@@ -220,7 +191,7 @@
     "id": "Foodbank",
     "icon": "devices",
     "logo": "/clients/foodbank_logo.svg",
-    "dark_logo": "",
+    "dark_logo": "/clients/foodbank_logo.svg",
     "img": "superhero_foods.png",
     "name": "Foodbank Superhero Foods",
     "client": "Foodbank",
@@ -345,8 +316,8 @@
   {
     "id": "WADL",
     "icon": "devices",
-    "logo": "/clients/wadl_logo_light.png",
-    "dark_logo": "/clients/wadl_logo.svg",
+    "logo": "/clients/wadl_logo.svg",
+    "dark_logo": "/clients/wadl_logo_light.png",
     "img": "wadl.png",
     "name": "WADL Draw",
     "client": "WADL",
@@ -355,11 +326,7 @@
     "purl": "/projects/wadl",
     "url": "https://wadl.vercel.app/",
     "source": "https://github.com/codersforcauses/wadl",
-    "impact": [
-      "Improved efficiency",
-      "Enhanced user experience",
-      "Reduction in organisational costs"
-    ],
+    "impact": ["Improved efficiency", "Enhanced user experience", "Reduction in organisational costs"],
     "desc": "A web application to assist the Western Australian Debating League with their seasonal organizational needs. The application allows admins to create tournaments, and teams can register for these tournaments and get assigned to their respective divisions. The fixtures are then displayed to the public, ensuring everyone is up to date",
     "tech": [
       { "name": "Firebase", "icon": "firebase" },
@@ -391,8 +358,8 @@
   {
     "id": "CSF",
     "icon": "devices",
-    "logo": "/clients/csf_logo.png",
-    "dark_logo": "/clients/csf_logo_dark.png",
+    "logo": "/clients/csf_logo_dark.png",
+    "dark_logo": "/clients/csf_logo.png",
     "img": "csf.png",
     "name": "Stride For Education",
     "client": "Community Spirit Foundation",
