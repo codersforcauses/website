@@ -2,7 +2,7 @@ import { api } from "~/trpc/server"
 
 import SettingsTabs from "./_components/tabs"
 
-export default async function Settings() {
+export default async function Settings({ searchParams }: { searchParams: { tab?: string } }) {
   const user = await api.user.getCurrent.query()
 
   if (!user) return null
@@ -22,7 +22,7 @@ export default async function Settings() {
 
   return (
     <div className="container py-8">
-      <SettingsTabs defaultValues={defaultValues} />
+      <SettingsTabs defaultValues={defaultValues} currentTab={searchParams?.tab} />
     </div>
   )
 }

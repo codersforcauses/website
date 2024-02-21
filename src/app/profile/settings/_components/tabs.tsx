@@ -20,10 +20,14 @@ interface SettingsTabsProps {
     uni?: string
     isUWA: boolean
   }
+  currentTab?: string
 }
 
-const SettingsTabs = ({ defaultValues: { github, discord, subscribe, ...defaultValues } }: SettingsTabsProps) => {
-  const searchParams = useSearchParams()
+const SettingsTabs = ({
+  defaultValues: { github, discord, subscribe, ...defaultValues },
+  currentTab,
+}: SettingsTabsProps) => {
+  // const searchParams = useSearchParams()
   const sidebarItems = React.useMemo(
     () => [
       { text: "Personal", slug: "personal", icon: "face", component: <Personal defaultValues={defaultValues} /> },
@@ -42,7 +46,7 @@ const SettingsTabs = ({ defaultValues: { github, discord, subscribe, ...defaultV
   return (
     <Tabs
       //   orientation="vertical"
-      value={searchParams.get("tab") ?? sidebarItems[0]?.slug}
+      value={currentTab ?? sidebarItems[0]?.slug}
       className="flex flex-col md:flex-row"
     >
       <TabsList className="h-full flex-grow p-1 md:h-auto md:flex-grow-0">
