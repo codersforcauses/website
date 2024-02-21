@@ -11,6 +11,9 @@ dependencies:
   '@hookform/resolvers':
     specifier: 3.3.4
     version: 3.3.4(react-hook-form@7.50.1)
+  '@material-symbols/font-300':
+    specifier: 0.15.0
+    version: 0.15.0
   '@planetscale/database':
     specifier: 1.16.0
     version: 1.16.0
@@ -134,9 +137,6 @@ dependencies:
   mapbox-gl:
     specifier: 3.1.2
     version: 3.1.2
-  material-symbols:
-    specifier: 0.15.0
-    version: 0.15.0
   next:
     specifier: 14.1.0
     version: 14.1.0(react-dom@18.2.0)(react@18.2.0)
@@ -1174,6 +1174,10 @@ packages:
   /@mapbox/whoots-js@3.1.0:
     resolution: {integrity: sha512-Es6WcD0nO5l+2BOQS4uLfNPYQaNDfbot3X1XUoloz+x0mPDS3eeORZJl06HXjwBG1fOGwCRnzK88LMdxKRrd6Q==}
     engines: {node: '>=6.0.0'}
+    dev: false
+
+  /@material-symbols/font-300@0.15.0:
+    resolution: {integrity: sha512-2M8JAnxcVchLO8Y23eT9QoykfDGnXHHgYKeVP+2JuTW1hMgJv4bc00awtD+ifL70bCiX3ZE44CN1Hs84UYD7jg==}
     dev: false
 
   /@next/env@14.1.0:
@@ -6417,10 +6421,6 @@ packages:
       supercluster: 8.0.1
       tinyqueue: 2.0.3
       vt-pbf: 3.1.3
-    dev: false
-
-  /material-symbols@0.15.0:
-    resolution: {integrity: sha512-216LRlmN8fZb0CoIOaQBmRZ55BptWcd7z//0v7dXQA6aogsvI9Qp1nMQ5jZ44dbgBXntUQzWdB5Q2D+6bJXioA==}
     dev: false
 
   /math-expression-evaluator@1.4.0:

@@ -63,13 +63,8 @@
   .material-symbols-sharp {
     font-variation-settings:
       "FILL" 0,
-      "wght" 200,
       "GRAD" 0,
       "opsz" 24;
-  }
-
-  .ms-normal {
-    font-variation-settings: "wght" 400;
   }
 
   .sq-card-message {

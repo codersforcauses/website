@@ -1,4 +1,4 @@
-import "material-symbols/sharp.css"
+import "@material-symbols/font-300/sharp.css"
 import type { Viewport, Metadata } from "next"
 import { IBM_Plex_Mono, IBM_Plex_Sans } from "next/font/google"
 import { ClerkProvider } from "@clerk/nextjs"
