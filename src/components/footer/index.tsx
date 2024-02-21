@@ -1,10 +1,11 @@
 import Link from "next/link"
 import Image from "next/image"
+import dynamic from "next/dynamic"
 import { siDiscord, siFacebook, siGithub, siInstagram, siLinkedin, siX } from "simple-icons"
 
 import { Button } from "~/components/ui/button"
 import { Dialog, DialogTrigger } from "~/components/ui/dialog"
-import ConstitutionModal from "./constitution-modal"
+const ConstitutionModal = dynamic(() => import("./constitution-modal"), { ssr: false })
 
 const aboutLinks = [
   {

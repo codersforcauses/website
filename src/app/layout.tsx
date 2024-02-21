@@ -1,6 +1,5 @@
 import "material-symbols/sharp.css"
 import type { Viewport, Metadata } from "next"
-import dynamic from "next/dynamic"
 import { IBM_Plex_Mono, IBM_Plex_Sans } from "next/font/google"
 import { ClerkProvider } from "@clerk/nextjs"
 import { Analytics } from "@vercel/analytics/react"
@@ -13,10 +12,6 @@ import Providers from "./providers"
 import { customMetadata } from "~/lib/metadata"
 
 import "~/styles/globals.css"
-
-const Messenger = dynamic(() => import("~/components/messenger"), {
-  ssr: false,
-})
 
 const mono = IBM_Plex_Mono({
   variable: "--font-mono",
@@ -63,7 +58,6 @@ export default function RootLayout({ children }: PropsWithChildren) {
             <Footer />
             <Toaster />
           </Providers>
-          {process.env.NODE_ENV === "production" && <Messenger />}
           <Analytics />
         </body>
       </html>

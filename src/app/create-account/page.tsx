@@ -371,7 +371,7 @@ export default function CreateAccount() {
 
   const handleSkipPayment = async () => {
     if (user) {
-      await Promise.all([setUserCookie(user), utils.user.getCurrent.refetch()])
+      await Promise.all([setUserCookie(user), utils.user.getCurrent.fetch()])
       router.push("/dashboard")
     }
   }
