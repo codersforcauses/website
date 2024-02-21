@@ -1,3 +1,5 @@
+"use client"
+
 import { useTheme } from "next-themes"
 import * as RadioGroupPrimitive from "@radix-ui/react-radio-group"
 

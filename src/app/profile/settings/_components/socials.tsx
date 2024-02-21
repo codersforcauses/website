@@ -1,6 +1,5 @@
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
-/* eslint-disable @typescript-eslint/no-unsafe-call */
+"use client"
+
 import * as React from "react"
 import Link from "next/link"
 import { FormProvider, useForm } from "react-hook-form"
@@ -15,6 +14,7 @@ import { Input } from "~/components/ui/input"
 import { Separator } from "~/components/ui/separator"
 import { toast } from "~/components/ui/use-toast"
 import { api } from "~/trpc/react"
+import { da } from "date-fns/locale"
 
 const formSchema = z.object({
   github: z.string().optional(),
@@ -45,14 +45,16 @@ const Socials = (props: { defaultValues?: FormSchema }) => {
   const onSubmit = async (data: FormSchema) => {
     setLoading(true)
     try {
-      const { status: githubStatus } = await fetch(`https://api.github.com/users/${data.github}`)
+      if (data.github !== "") {
+        const { status: githubStatus } = await fetch(`https://api.github.com/users/${data.github}`)
 
-      if (githubStatus !== 200) {
-        form.setError("github", {
-          type: "custom",
-          message: "Github username not found",
-        })
-        return
+        if (githubStatus !== 200) {
+          form.setError("github", {
+            type: "custom",
+            message: "Github username not found",
+          })
+          return
+        }
       }
 
       updateUser.mutate({

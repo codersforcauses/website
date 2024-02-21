@@ -1,7 +1,4 @@
-"use client"
-
 import * as React from "react"
-import { useSearchParams } from "next/navigation"
 import dynamic from "next/dynamic"
 import Link from "next/link"
 
