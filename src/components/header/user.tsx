@@ -17,7 +17,7 @@ import {
   // DropdownMenuShortcut,
   DropdownMenuTrigger,
 } from "~/components/ui/dropdown-menu"
-import { removeUserCookie } from "~/app/actions"
+import { removeUserCookie, setUserCookie } from "~/app/actions"
 import { api } from "~/trpc/react"
 
 const ThemeSwitcher = dynamic(() => import("./theme"), {
@@ -34,12 +34,9 @@ const UserButton = () => {
   const { data: user, isInitialLoading } = api.user.getCurrent.useQuery(undefined, {
     enabled: !!userId,
     refetchInterval: 1000 * 60 * 10, // 10 minutes
-    select: (data) => ({
-      id: data!.id,
-      preferred_name: data!.preferred_name,
-      name: data!.name,
-      role: data!.role,
-    }),
+    onSuccess: (data) => {
+      void setUserCookie(data!)
+    },
   })
 
   const userSignOut = React.useCallback(async () => {
