@@ -12,7 +12,7 @@
     "lint:dev": "SKIP_ENV_VALIDATION=true next lint",
     "start": "next start",
     "prettier:fix": "prettier --write .",
-    "prepare": "husky install"
+    "prepare": "husky"
   },
   "dependencies": {
     "@clerk/nextjs": "4.29.7",

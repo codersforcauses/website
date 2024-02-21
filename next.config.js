@@ -12,15 +12,16 @@ const config = {
   typescript: {
     ignoreBuildErrors: true,
   },
-  future: {},
 }
 
-// export default config
+// !In Dev mode, comment out the following line and uncomment the line
+// !after that to view SSR hydration errors
+export default config
 
-export default process.env.SKIP_ENV_VALIDATION
-  ? config
-  : import("@builder.io/react-hydration-overlay/next").then(({ withHydrationOverlay }) =>
-      withHydrationOverlay({
-        appRootSelector: "main",
-      })(config),
-    )
+// export default process.env.SKIP_ENV_VALIDATION
+//   ? config
+//   : import("@builder.io/react-hydration-overlay/next").then(({ withHydrationOverlay }) =>
+//       withHydrationOverlay({
+//         appRootSelector: "main",
+//       })(config),
+//     )
