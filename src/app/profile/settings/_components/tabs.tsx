@@ -24,7 +24,6 @@ const SettingsTabs = ({
   defaultValues: { github, discord, subscribe, ...defaultValues },
   currentTab,
 }: SettingsTabsProps) => {
-  // const searchParams = useSearchParams()
   const sidebarItems = React.useMemo(
     () => [
       { text: "Personal", slug: "personal", icon: "face", component: <Personal defaultValues={defaultValues} /> },
