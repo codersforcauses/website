@@ -54,7 +54,7 @@ const ProfilePage = ({ id, currentUser }: ProfilePageProps) => {
               {!isEditing ? (
                 <>
                   <div>
-                    <Badge className="bg-primary/80 capitalize">{user.role}</Badge>
+                    {user.role && <Badge className="bg-primary/80 capitalize">{user.role}</Badge>}
                     <h2 className="text-2xl font-bold">{user.preferred_name}</h2>
                     <div className="flex flex-row space-x-1 italic text-primary/80">
                       <p>{user.name}</p>{" "}
