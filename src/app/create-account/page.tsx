@@ -245,6 +245,7 @@ export default function CreateAccount() {
   })
   const { getValues, setError } = form
 
+  const utils = api.useUtils()
   const createUser = api.user.create.useMutation({
     onSuccess: (data) => {
       if (!data) return
@@ -357,6 +358,7 @@ export default function CreateAccount() {
         paymentID,
       })
       await setUserCookie(updatedUser!)
+      utils.user.getCurrent.setData(undefined, updatedUser)
       router.replace("/dashboard")
     } catch (error) {
       toast({
@@ -369,7 +371,7 @@ export default function CreateAccount() {
 
   const handleSkipPayment = async () => {
     if (user) {
-      await setUserCookie(user)
+      await Promise.all([setUserCookie(user), utils.user.getCurrent.refetch()])
       router.push("/dashboard")
     }
   }
