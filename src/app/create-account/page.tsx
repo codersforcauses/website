@@ -266,6 +266,7 @@ export default function CreateAccount() {
   const onSubmit = async (values: FormSchema) => {
     if (!isLoaded) return null
 
+    setLoading(true)
     if (values.github !== "") {
       const { status: githubStatus } = await fetch(`https://api.github.com/users/${values.github}`)
 
@@ -274,11 +275,11 @@ export default function CreateAccount() {
           type: "custom",
           message: "Github username not found",
         })
+        setLoading(false)
         return
       }
     }
 
-    setLoading(true)
     const userData: Omit<FormSchema, "isUWA"> = {
       name: values.name,
       preferred_name: values.preferred_name,
