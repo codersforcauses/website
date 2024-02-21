@@ -5,7 +5,10 @@ import dynamic from "next/dynamic"
 import { Button } from "~/components/ui/button"
 import TypedText from "./_components/typed-text"
 import BentoDisplay from "~/components/bento"
-const Contact = dynamic(() => import("../components/contact"), { ssr: false })
+const Contact = dynamic(() => import("../components/contact"), {
+  ssr: false,
+  loading: () => <Button variant="outline-dark">Contact us</Button>,
+})
 
 const clients = [
   {
