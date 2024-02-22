@@ -7,8 +7,13 @@ interface MetadataProps {
   image: string
 }
 
+const url =
+  process.env.VERCEL_URL ?? process.env.NEXT_PUBLIC_VERCEL_URL ?? process.env.NODE_ENV === "development"
+    ? "localhost:3000"
+    : "codersforcauses.org"
+
 export const customMetadata = ({ name, page, description, image }: MetadataProps): Metadata => {
-  const link = page ? `https://codersforcauses.org/${page}` : "https://codersforcauses.org"
+  const link = page ? `https://${url}/${page}` : `https://${url}`
 
   return {
     description: description,
