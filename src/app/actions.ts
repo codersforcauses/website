@@ -5,8 +5,6 @@ import { cookies } from "next/headers"
 import { type User } from "~/lib/types"
 import { env } from "~/env"
 
-export const dynamic = "force-dynamic"
-
 const key = new TextEncoder().encode(env.SECRET_KEY)
 const iv = new TextEncoder().encode(env.SECRET_IV)
 
