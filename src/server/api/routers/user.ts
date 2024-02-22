@@ -97,11 +97,15 @@ export const userRouter = createTRPCRouter({
             id: true,
           },
         })
-        if (user) return user
-        else {
+        if (user) {
+          await Promise.all([
+            clerkClient.users.deleteUser(input.clerk_id),
+            ctx.db.delete(users).where(eq(users.id, input.clerk_id)),
+          ])
+        } else {
           await clerkClient.users.deleteUser(input.clerk_id)
-          throw new TRPCError({ code: "INTERNAL_SERVER_ERROR", message: `Failed to create user ${input.name}.` })
         }
+        throw new TRPCError({ code: "INTERNAL_SERVER_ERROR", message: `Failed to create user ${input.name}.` })
       }
     }),
 
