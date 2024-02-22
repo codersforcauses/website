@@ -3,6 +3,7 @@ import { api } from "~/trpc/server"
 import SettingsTabs from "./_components/tabs"
 
 export default async function Settings({ searchParams }: { searchParams: { tab?: string } }) {
+  // This will fetch every time a tab is clicked because the searchParams change.
   const user = await api.user.getCurrent.query()
 
   if (!user) return null
