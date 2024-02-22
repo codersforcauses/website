@@ -86,7 +86,7 @@ const enforceUserIsAuthed = t.middleware(({ ctx, next }) => {
  */
 const createRatelimiter = (limiter?: RatelimitConfig["limiter"]) =>
   t.middleware(async ({ next, ctx, type, path }) => {
-    if (env.NODE_ENV !== "production" || process.env.VERCEL_ENV === "production") {
+    if (env.NODE_ENV !== "production" || process.env.VERCEL_ENV !== "production") {
       return next()
     }
 
