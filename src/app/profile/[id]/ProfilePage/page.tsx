@@ -8,6 +8,7 @@ import { Button } from "~/components/ui/button"
 import { type User } from "~/lib/types"
 import { api } from "~/trpc/react"
 import EditProfile from "./EditProfile/page"
+import ProfilePageSkeleton from "./ProfilePageSkeleton/page"
 
 const uni = [
   {
@@ -137,6 +138,8 @@ const ProfilePage = ({ id, currentUser }: ProfilePageProps) => {
       </main>
     )
   }
+
+  return <ProfilePageSkeleton />
 }
 
 export default ProfilePage
