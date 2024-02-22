@@ -97,12 +97,20 @@ export default function Join() {
     <div className="container grid gap-y-8 py-8 md:grid-cols-2 md:gap-x-8">
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-          {showAlert && (
+          {showAlert ? (
             <Alert>
               <span className="material-symbols-sharp size-4 text-xl leading-4">mail</span>
               <AlertTitle>Verification email sent!</AlertTitle>
               <AlertDescription>
                 It can take up to 10 minutes. Make sure to check your spam folder if you can&apos;t find it.
+              </AlertDescription>
+            </Alert>
+          ) : (
+            <Alert>
+              <span className="material-symbols-sharp size-4 text-xl leading-4">help</span>
+              <AlertTitle>Welcome!</AlertTitle>
+              <AlertDescription>
+                No passwords here! Enter your email, and we&apos;ll email you a link to sign in or sign up.
               </AlertDescription>
             </Alert>
           )}
