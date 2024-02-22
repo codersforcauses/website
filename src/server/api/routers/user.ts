@@ -71,7 +71,11 @@ export const userRouter = createTRPCRouter({
         })
 
         if (!result.customer?.id) {
-          throw new TRPCError({ code: "INTERNAL_SERVER_ERROR", message: "Failed to create square customer" })
+          throw new TRPCError({
+            code: "INTERNAL_SERVER_ERROR",
+            message: "Failed to create square customer",
+            cause: result,
+          })
         }
 
         await ctx.db.insert(users).values({
@@ -105,7 +109,11 @@ export const userRouter = createTRPCRouter({
         } else {
           await clerkClient.users.deleteUser(input.clerk_id)
         }
-        throw new TRPCError({ code: "INTERNAL_SERVER_ERROR", message: `Failed to create user ${input.name}.` })
+        throw new TRPCError({
+          code: "INTERNAL_SERVER_ERROR",
+          message: `Failed to create user ${input.name}.`,
+          cause: error,
+        })
       }
     }),
 
@@ -115,7 +123,11 @@ export const userRouter = createTRPCRouter({
       const [user] = await ctx.db.select().from(users).where(eq(users.id, id))
       return user
     } catch (error) {
-      throw new TRPCError({ code: "INTERNAL_SERVER_ERROR", message: `Unable to retrieve user with id: ${ctx.user.id}` })
+      throw new TRPCError({
+        code: "INTERNAL_SERVER_ERROR",
+        message: `Unable to retrieve user with id: ${ctx.user.id}`,
+        cause: error,
+      })
     }
   }),
 
@@ -200,6 +212,7 @@ export const userRouter = createTRPCRouter({
                 throw new TRPCError({
                   code: "INTERNAL_SERVER_ERROR",
                   message: "Failed to verify membership payment.",
+                  cause: error,
                 })
               }
             } else {
@@ -213,7 +226,7 @@ export const userRouter = createTRPCRouter({
         const [user] = await ctx.db.select().from(users).where(eq(users.id, ctx.user.id))
         return user
       } catch (error) {
-        throw new TRPCError({ code: "INTERNAL_SERVER_ERROR", message: "Failed to update user role" })
+        throw new TRPCError({ code: "INTERNAL_SERVER_ERROR", message: "Failed to update user role", cause: error })
       }
     }),
 
@@ -277,7 +290,7 @@ export const userRouter = createTRPCRouter({
         const [user] = await ctx.db.select().from(users).where(eq(users.id, currentUser.id))
         return user
       } catch (error) {
-        throw new TRPCError({ code: "INTERNAL_SERVER_ERROR", message: "Failed to update user" })
+        throw new TRPCError({ code: "INTERNAL_SERVER_ERROR", message: "Failed to update user", cause: error })
       }
     }),
 
@@ -303,7 +316,7 @@ export const userRouter = createTRPCRouter({
         const [user] = await ctx.db.select().from(users).where(eq(users.id, currentUser.id))
         return user
       } catch (error) {
-        throw new TRPCError({ code: "INTERNAL_SERVER_ERROR", message: "Failed to update user's socials" })
+        throw new TRPCError({ code: "INTERNAL_SERVER_ERROR", message: "Failed to update user's socials", cause: error })
       }
     }),
 })

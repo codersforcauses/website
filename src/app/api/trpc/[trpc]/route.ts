@@ -30,7 +30,7 @@ const handler = (req: NextRequest) =>
       }
 
       if (error.code === "INTERNAL_SERVER_ERROR") {
-        console.error(error)
+        console.error(error) // TODO: Send to error monitoring
       }
     },
   })
