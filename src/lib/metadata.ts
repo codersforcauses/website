@@ -61,7 +61,7 @@ export const customMetadata = ({ name, page, description, image }: MetadataProps
           height: 293,
         },
       ],
-      locale: "en_US",
+      locale: "en_AU",
       type: "website",
     },
     twitter: {
