@@ -110,7 +110,8 @@ export default function Join() {
               <span className="material-symbols-sharp size-4 text-xl leading-4">help</span>
               <AlertTitle>Welcome!</AlertTitle>
               <AlertDescription>
-                No passwords here! Enter your email, and we&apos;ll email you a link to sign in or sign up.
+                No passwords here! Enter your email, and we&apos;ll email you a link to sign in or bring you to the sign
+                up page.
               </AlertDescription>
             </Alert>
           )}
