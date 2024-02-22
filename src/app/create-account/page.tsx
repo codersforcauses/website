@@ -247,10 +247,6 @@ export default function CreateAccount() {
 
   const utils = api.useUtils()
   const createUser = api.user.create.useMutation({
-    onSuccess: (data) => {
-      if (!data) return
-      setUser(data)
-    },
     onError: () => {
       toast({
         variant: "destructive",
@@ -312,10 +308,11 @@ export default function CreateAccount() {
         redirectUrl: `${SITE_URL}/verification`,
       })
 
-      createUser.mutate({
+      const user = await createUser.mutateAsync({
         clerk_id: su.createdUserId!,
         ...userData,
       })
+      setUser(user)
 
       const verification = su.verifications.emailAddress
       if (verification.status === "expired") {
@@ -332,7 +329,7 @@ export default function CreateAccount() {
       }
       setActiveView("payment")
     } catch (error) {
-      console.log(error)
+      console.error(error)
       toast({
         variant: "destructive",
         title: "Failed to create user",
