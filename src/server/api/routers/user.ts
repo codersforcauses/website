@@ -17,7 +17,7 @@ const { customersApi, paymentsApi } = new Client({
 })
 
 export const userRouter = createTRPCRouter({
-  create: publicRatedProcedure(Ratelimit.fixedWindow(2, "30s"))
+  create: publicRatedProcedure(Ratelimit.fixedWindow(4, "30s"))
     .input(
       z.object({
         clerk_id: z
@@ -91,12 +91,21 @@ export const userRouter = createTRPCRouter({
         return user
       } catch (error) {
         // add error handling
-        await clerkClient.users.deleteUser(input.clerk_id)
-        throw new TRPCError({ code: "INTERNAL_SERVER_ERROR", message: `Failed to create user ${input.name}.` })
+        const user = await ctx.db.query.users.findFirst({
+          where: eq(users.id, input.clerk_id),
+          columns: {
+            id: true,
+          },
+        })
+        if (user) return user
+        else {
+          await clerkClient.users.deleteUser(input.clerk_id)
+          throw new TRPCError({ code: "INTERNAL_SERVER_ERROR", message: `Failed to create user ${input.name}.` })
+        }
       }
     }),
 
-  login: protectedRatedProcedure(Ratelimit.fixedWindow(2, "30s")).mutation(async ({ ctx }) => {
+  login: protectedRatedProcedure(Ratelimit.fixedWindow(4, "30s")).mutation(async ({ ctx }) => {
     try {
       const id = ctx.user?.id
       const [user] = await ctx.db.select().from(users).where(eq(users.id, id))
@@ -106,12 +115,12 @@ export const userRouter = createTRPCRouter({
     }
   }),
 
-  getCurrent: protectedRatedProcedure(Ratelimit.fixedWindow(2, "30s")).query(async ({ ctx }) => {
+  getCurrent: protectedRatedProcedure(Ratelimit.fixedWindow(4, "30s")).query(async ({ ctx }) => {
     const [user] = await ctx.db.select().from(users).where(eq(users.id, ctx.user.id))
     return user
   }),
 
-  get: publicRatedProcedure(Ratelimit.fixedWindow(10, "30s"))
+  get: publicRatedProcedure(Ratelimit.fixedWindow(40, "30s"))
     .input(z.string())
     .query(async ({ ctx, input }) => {
       const [user] = await ctx.db.select().from(users).where(eq(users.id, input))
@@ -204,7 +213,7 @@ export const userRouter = createTRPCRouter({
       }
     }),
 
-  update: protectedRatedProcedure(Ratelimit.fixedWindow(2, "30s"))
+  update: protectedRatedProcedure(Ratelimit.fixedWindow(4, "30s"))
     .input(
       z.object({
         name: z
@@ -268,7 +277,7 @@ export const userRouter = createTRPCRouter({
       }
     }),
 
-  updateSocial: protectedRatedProcedure(Ratelimit.fixedWindow(2, "30s"))
+  updateSocial: protectedRatedProcedure(Ratelimit.fixedWindow(4, "30s"))
     .input(
       z.object({
         github: z.string().optional().nullish(),
