@@ -25,13 +25,8 @@ const handler = (req: NextRequest) =>
     router: appRouter,
     createContext: () => createContext(req),
     onError: ({ path, error }) => {
-      if (env.NODE_ENV === "development") {
-        console.error(`❌ tRPC failed on ${path ?? "<no-path>"}: ${error.message}`)
-      }
-
-      if (error.code === "INTERNAL_SERVER_ERROR") {
-        console.error(error) // TODO: Send to error monitoring
-      }
+      console.error(`❌ tRPC failed on ${path ?? "<no-path>"}: ${error.message}`) // TODO: Send to error monitoring
+      console.error(error)
     },
   })
 
