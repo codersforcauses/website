@@ -1,7 +1,7 @@
 "use client"
 
-import * as React from "react"
 import * as Sentry from "@sentry/nextjs"
+import * as React from "react"
 import { Button } from "~/components/ui/button"
 
 export default function GlobalError({ error, reset }: { error: Error & { digest?: string }; reset: () => void }) {
