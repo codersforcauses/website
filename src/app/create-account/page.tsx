@@ -231,6 +231,7 @@ const PaymentBlock = () => {
 export default function CreateAccount() {
   const [activeView, setActiveView] = React.useState<ActiveView>("form")
   const [loading, setLoading] = React.useState(false)
+  const [loadingSkipPayment, setLoadingSkipPayment] = React.useState(false)
   const [user, setUser] = React.useState<User>()
   const router = useRouter()
   const searchParams = useSearchParams()
@@ -369,9 +370,16 @@ export default function CreateAccount() {
 
   const handleSkipPayment = async () => {
     if (user) {
-      await setUserCookie(user)
-      utils.user.getCurrent.setData(undefined, user)
-      router.push("/dashboard")
+      setLoadingSkipPayment(true)
+      try {
+        await setUserCookie(user)
+        utils.user.getCurrent.setData(undefined, user)
+        router.push("/dashboard")
+      } catch (error) {
+        console.error(error)
+      } finally {
+        setLoadingSkipPayment(false)
+      }
     }
   }
 
@@ -706,8 +714,16 @@ export default function CreateAccount() {
               </p>
             </div>
           </div>
-          <Button variant="outline" className="w-full" onClick={handleSkipPayment}>
+          <Button
+            variant="outline"
+            disabled={loadingSkipPayment}
+            className="relative w-full"
+            onClick={handleSkipPayment}
+          >
             Skip payment
+            {loadingSkipPayment && (
+              <span className="material-symbols-sharp absolute right-4 animate-spin">progress_activity</span>
+            )}
           </Button>
         </div>
       ) : (
