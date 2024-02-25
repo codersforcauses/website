@@ -39,32 +39,32 @@ const eventLinks = [
 
 const socialLinks = [
   {
-    href: "",
+    href: "http://github.com/codersforcauses/",
     path: siGithub.path,
     title: siGithub.title,
   },
   {
-    href: "",
+    href: "https://discord.codersforcauses.org/",
     path: siDiscord.path,
     title: siDiscord.title,
   },
   {
-    href: "",
+    href: "https://www.facebook.com/codersforcauses",
     path: siFacebook.path,
     title: siFacebook.title,
   },
   {
-    href: "",
+    href: "https://www.linkedin.com/company/18611041/",
     path: siLinkedin.path,
     title: siLinkedin.title,
   },
   {
-    href: "",
+    href: "https://twitter.com/codersforcauses",
     path: siX.path,
     title: siX.title,
   },
   {
-    href: "",
+    href: "https://www.instagram.com/cfc_uwa",
     path: siInstagram.path,
     title: siInstagram.title,
   },

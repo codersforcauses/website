@@ -94,7 +94,7 @@ const DetailsBlock = () => {
       <div aria-hidden className="space-y-4">
         <div className="space-y-2">
           <h2 className="font-semibold leading-none tracking-tight">Personal details</h2>
-          <p className="text-sm text-muted-foreground">All fields here are required.</p>
+          <p className="text-sm text-muted-foreground">Fields marked with * are required.</p>
         </div>
         <div className="space-y-1.5">
           <p>Email address</p>
@@ -301,8 +301,9 @@ export default function CreateAccount() {
       })
 
       toast({
-        title: "Email Verification Sent",
-        description: "We've sent you an email with a link to verify your email address.",
+        title: "Email Verification Sent!",
+        description:
+          "We've sent you an email with a link to verify your email address. It can sometimes take up to 10 minutes to arrive. Please do not close this page.",
       })
 
       const su = await startEmailLinkFlow({
@@ -387,7 +388,7 @@ export default function CreateAccount() {
     <div className="container grid gap-x-8 gap-y-4 py-8 md:grid-cols-2 md:gap-y-8 lg:gap-x-16">
       <Alert className="md:col-span-2">
         <span className="material-symbols-sharp size-4 text-xl leading-4">mail</span>
-        <AlertTitle>Email not found!</AlertTitle>
+        <AlertTitle>New user detected!</AlertTitle>
         <AlertDescription>
           We couldn&apos;t find an account with that email address so you can create a new account here. If you think it
           was a mistake,{" "}
@@ -403,14 +404,17 @@ export default function CreateAccount() {
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
             <div className="space-y-2">
               <h2 className="font-semibold leading-none tracking-tight">Personal details</h2>
-              <p className="text-sm text-muted-foreground">All fields here are required.</p>
+              <p className="text-sm text-muted-foreground">Fields marked with * are required.</p>
             </div>
             <FormField
               control={form.control}
               name="email"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="font-mono">Email address</FormLabel>
+                  <FormLabel className="flex space-x-1 font-mono">
+                    <p>Email address</p>
+                    <p className="font-sans">*</p>
+                  </FormLabel>
                   <FormControl>
                     <Input type="email" placeholder="john.doe@codersforcauses.org" {...field} />
                   </FormControl>
@@ -423,7 +427,9 @@ export default function CreateAccount() {
               name="name"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="font-mono">Full name</FormLabel>
+                  <FormLabel className="flex space-x-1 font-mono">
+                    <p>Full name</p> <p className="font-sans">*</p>
+                  </FormLabel>
                   <FormControl>
                     <Input autoComplete="name" placeholder="John Doe" {...field} />
                   </FormControl>
@@ -439,7 +445,10 @@ export default function CreateAccount() {
               name="preferred_name"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="font-mono">Preferred name</FormLabel>
+                  <FormLabel className="flex space-x-1 font-mono">
+                    <p>Preferred name</p>
+                    <p className="font-sans">*</p>
+                  </FormLabel>
                   <FormControl>
                     <Input autoComplete="given-name" placeholder="John" {...field} />
                   </FormControl>
@@ -453,7 +462,10 @@ export default function CreateAccount() {
               name="pronouns"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="font-mono">Pronouns</FormLabel>
+                  <FormLabel className="flex space-x-1 font-mono">
+                    <p>Pronouns</p>
+                    <p className="font-sans">*</p>
+                  </FormLabel>
                   <FormControl>
                     <RadioGroup
                       onValueChange={field.onChange}
@@ -505,7 +517,10 @@ export default function CreateAccount() {
                 name="student_number"
                 render={({ field }) => (
                   <FormItem className={cn(!getValues().isUWA && "hidden")}>
-                    <FormLabel className="font-mono">UWA student number</FormLabel>
+                    <FormLabel className="flex space-x-1 font-mono">
+                      <p>UWA student number</p>
+                      <p className="font-sans">*</p>
+                    </FormLabel>
                     <FormControl>
                       <Input placeholder="21012345" inputMode="numeric" {...field} />
                     </FormControl>
