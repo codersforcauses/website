@@ -8,20 +8,29 @@ import { createTRPCReact } from "@trpc/react-query"
 import { type AppRouter } from "~/server/api/root"
 import { getUrl, transformer } from "./shared"
 
+const createQueryClient = () =>
+  new QueryClient({
+    defaultOptions: {
+      queries: {
+        // If enabled, this causes the SERVER to refetch on every window focus in a full page reload. Probably a bug.
+        refetchOnWindowFocus: false,
+      },
+    },
+  })
+
+let clientQueryClientSingleton: QueryClient | undefined = undefined
+const getQueryClient = () => {
+  if (typeof window === "undefined") {
+    // Server: always make a new query client
+    return createQueryClient()
+  }
+  // Browser: use singleton pattern to keep the same query client
+  return (clientQueryClientSingleton ??= createQueryClient())
+}
 export const api = createTRPCReact<AppRouter>()
 
 export function TRPCReactProvider(props: { children: React.ReactNode; cookies: string }) {
-  const [queryClient] = React.useState(
-    () =>
-      new QueryClient({
-        defaultOptions: {
-          queries: {
-            // If enabled, this causes the SERVER to refetch on every window focus in a full page reload. Probably a bug.
-            refetchOnWindowFocus: false,
-          },
-        },
-      }),
-  )
+  const queryClient = getQueryClient()
 
   const [trpcClient] = React.useState(() =>
     api.createClient({
