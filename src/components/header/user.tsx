@@ -31,7 +31,7 @@ const UserButton = () => {
   const path = usePathname()
   const utils = api.useUtils()
 
-  const { data: user, isInitialLoading } = api.user.getCurrent.useQuery(undefined, {
+  const { data: user } = api.user.getCurrent.useQuery(undefined, {
     enabled: !!userId,
     refetchInterval: 1000 * 60 * 10, // 10 minutes
     onSuccess: (data) => {
@@ -44,7 +44,7 @@ const UserButton = () => {
     router.push("/")
   }, [signOut, utils.user, router])
 
-  if (!user || isInitialLoading)
+  if (!user?.id)
     return (
       <div className="flex gap-2">
         <ThemeSwitcher />
