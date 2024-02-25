@@ -58,7 +58,7 @@ export default function RootLayout({ children }: PropsWithChildren) {
             <Footer />
             <Toaster />
           </Providers>
-          <Analytics />
+          {process.env.NEXT_PUBLIC_VERCEL_ENV === "production" && <Analytics />}
         </body>
       </html>
     </ClerkProvider>
