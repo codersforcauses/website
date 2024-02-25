@@ -302,7 +302,7 @@ export default function CreateAccount() {
       toast({
         title: "Email Verification Sent!",
         description:
-          "We've sent you an email with a link to verify your email address. It can sometimes take up to 10 minutes to arrive.",
+          "We've sent you an email with a link to verify your email address. It can sometimes take up to 10 minutes to arrive. Please do not close this page.",
       })
 
       const su = await startEmailLinkFlow({
