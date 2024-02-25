@@ -13,7 +13,7 @@ const createQueryClient = () =>
     defaultOptions: {
       queries: {
         // If enabled, this causes the SERVER to refetch on every window focus in a full page reload. Probably a bug.
-        refetchOnWindowFocus: false,
+        refetchOnWindowFocus: process.env.NEXT_PUBLIC_VERCEL_ENV === "production",
       },
     },
   })
