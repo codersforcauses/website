@@ -69,7 +69,7 @@ const ProfilePage = ({ id, currentUser }: ProfilePageProps) => {
                   </div>
                   <div className="flex flex-row space-x-2">
                     {user.github && (
-                      <Badge className="items-center">
+                      <Badge className="items-center hover:bg-primary">
                         <svg
                           aria-label="GitHub logo"
                           viewBox="0 0 24 24"
@@ -83,7 +83,7 @@ const ProfilePage = ({ id, currentUser }: ProfilePageProps) => {
                       </Badge>
                     )}
                     {user.discord && (
-                      <Badge className="items-center bg-[#5865F2] hover:bg-[#5865F2]/80">
+                      <Badge className="items-center bg-[#5865F2] text-white hover:bg-[#5865F2]">
                         <svg
                           aria-label="Discord logo"
                           viewBox="0 0 24 24"
