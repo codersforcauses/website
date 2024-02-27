@@ -12,7 +12,7 @@
     "lint:dev": "SKIP_ENV_VALIDATION=true next lint",
     "start": "next start",
     "prettier:fix": "prettier --write .",
-    "prepare": "husky"
+    "prepare": "node .husky/install.mjs"
   },
   "dependencies": {
     "@clerk/nextjs": "4.29.7",
@@ -91,8 +91,6 @@
     "drizzle-kit": "0.20.14",
     "eslint": "8.56.0",
     "eslint-config-next": "14.1.0",
-    "husky": "9.0.11",
-    "lint-staged": "15.2.2",
     "mysql2": "3.9.1",
     "postcss": "8.4.35",
     "prettier": "3.2.5",
@@ -101,6 +99,8 @@
     "typescript": "5.3.3"
   },
   "optionalDependencies": {
-    "@builder.io/react-hydration-overlay": "0.0.8"
+    "@builder.io/react-hydration-overlay": "0.0.8",
+    "husky": "9.0.11",
+    "lint-staged": "15.2.2"
   }
 }
