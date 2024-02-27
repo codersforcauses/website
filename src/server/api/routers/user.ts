@@ -119,8 +119,9 @@ export const userRouter = createTRPCRouter({
 
   login: protectedRatedProcedure(Ratelimit.fixedWindow(4, "30s")).mutation(async ({ ctx }) => {
     try {
-      const id = ctx.user?.id
-      const [user] = await ctx.db.select().from(users).where(eq(users.id, id))
+      const user = await ctx.db.query.users.findFirst({
+        where: eq(users.id, ctx.user?.id),
+      })
       return user
     } catch (error) {
       throw new TRPCError({
@@ -177,7 +178,7 @@ export const userRouter = createTRPCRouter({
         },
         where: eq(users.id, ctx.user.id),
       })
-      if (!user) throw new TRPCError({ code: "NOT_FOUND", message: `Could not find user with id:${ctx.user.id}` })
+      if (!user) throw new TRPCError({ code: "NOT_FOUND", message: `Could not find user with id: ${ctx.user.id}` })
       if (user.role !== "admin" && user.role !== "committee")
         throw new TRPCError({ code: "FORBIDDEN", message: "You do not have permission to view all users." })
 
