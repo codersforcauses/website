@@ -121,6 +121,14 @@ const EditProfile = ({ setIsEditing, id, refetch }: EditProfileProps) => {
       await setUserCookie(data)
     },
   })
+  const { mutate: updateSocial } = api.user.updateSocial.useMutation({
+    onSuccess: async (data) => {
+      await refetch()
+      setIsEditing(false)
+      if (!data) return
+      await setUserCookie(data)
+    },
+  })
 
   const userDefaultValues = user && {
     name: user.name,
@@ -146,6 +154,10 @@ const EditProfile = ({ setIsEditing, id, refetch }: EditProfileProps) => {
       ...data,
       student_number: data.isUWA ? data.student_number : null,
       uni: data.isUWA ? null : data.uni,
+    })
+
+    updateSocial({
+      ...data,
       github: data.github ?? null,
       discord: data.discord ?? null,
     })
