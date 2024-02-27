@@ -27,7 +27,7 @@ const ThemeSwitcher = dynamic(() => import("./theme"), {
 })
 
 interface HeaderUser {
-  cachedUser: User
+  cachedUser?: User
 }
 
 const UserButton = ({ cachedUser }: HeaderUser) => {
@@ -37,15 +37,13 @@ const UserButton = ({ cachedUser }: HeaderUser) => {
   const utils = api.useUtils()
 
   const { data: user } = api.user.getCurrent.useQuery(undefined, {
-    // enabled: !!userId,
+    enabled: !!(userId ?? cachedUser),
     initialData: cachedUser,
     refetchInterval: 1000 * 60 * 10, // 10 minutes
     onSuccess: (data) => {
       void setUserCookie(data!)
     },
   })
-
-  console.log(user, userId, "user")
 
   const userSignOut = React.useCallback(async () => {
     await Promise.all([removeUserCookie(), signOut(), utils.user.getCurrent.reset()])
