@@ -132,15 +132,35 @@ export const userRouter = createTRPCRouter({
   }),
 
   getCurrent: protectedRatedProcedure(Ratelimit.fixedWindow(40, "30s")).query(async ({ ctx }) => {
-    const [user] = await ctx.db.select().from(users).where(eq(users.id, ctx.user.id))
-    return user
+    try {
+      const user = await ctx.db.query.users.findFirst({
+        where: eq(users.id, ctx.user.id),
+      })
+      return user
+    } catch (error) {
+      throw new TRPCError({
+        code: "INTERNAL_SERVER_ERROR",
+        message: `Unable to retrieve user with id: ${ctx.user.id}`,
+        cause: error,
+      })
+    }
   }),
 
   get: publicRatedProcedure(Ratelimit.fixedWindow(4, "30s"))
     .input(z.string())
     .query(async ({ ctx, input }) => {
-      const [user] = await ctx.db.select().from(users).where(eq(users.id, input))
-      return user
+      try {
+        const user = await ctx.db.query.users.findFirst({
+          where: eq(users.id, input),
+        })
+        return user
+      } catch (error) {
+        throw new TRPCError({
+          code: "INTERNAL_SERVER_ERROR",
+          message: `Unable to retrieve user with id: ${input}`,
+          cause: error,
+        })
+      }
     }),
 
   getAll: protectedProcedure
