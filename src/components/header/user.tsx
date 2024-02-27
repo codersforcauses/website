@@ -44,7 +44,7 @@ const UserButton = () => {
     router.push("/")
   }, [signOut, utils.user, router])
 
-  if (!user?.id)
+  if (!user || !userId)
     return (
       <div className="flex gap-2">
         <ThemeSwitcher />

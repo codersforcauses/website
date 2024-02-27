@@ -6,10 +6,10 @@ const adminRoles = ["admin", "committee"]
 
 const adminPages = ["/dashboard/admin"]
 const protectedPages = ["/dashboard", "/profile/settings"]
-const publicPages = ["/"]
+// const publicPages = ["/"]
 
 export default authMiddleware({
-  publicRoutes: publicPages,
+  // publicRoutes: publicPages,
   async afterAuth(auth, req) {
     if (!auth.userId && (await hasUserCookie())) {
       await removeUserCookie()
