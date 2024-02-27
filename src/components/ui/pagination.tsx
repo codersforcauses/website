@@ -2,7 +2,7 @@ import * as React from "react"
 import Link from "next/link"
 
 import { cn } from "~/lib/utils"
-import { type ButtonProps, buttonVariants } from "~/components/ui/button"
+import { type ButtonProps, buttonVariants, Button } from "~/components/ui/button"
 
 const Pagination = ({ className, ...props }: React.ComponentProps<"nav">) => (
   <nav
@@ -36,7 +36,7 @@ const PaginationLink = ({ className, isActive, size = "icon", ...props }: Pagina
     aria-current={isActive ? "page" : undefined}
     className={cn(
       buttonVariants({
-        variant: isActive ? "outline" : "ghost",
+        variant: isActive ? "ghost" : "ghost",
         size,
       }),
       className,
@@ -46,7 +46,7 @@ const PaginationLink = ({ className, isActive, size = "icon", ...props }: Pagina
 )
 PaginationLink.displayName = "PaginationLink"
 
-const PaginationPrevious = ({ className, ...props }: React.ComponentProps<typeof PaginationLink>) => (
+const PaginationPreviousLink = ({ className, ...props }: React.ComponentProps<typeof PaginationLink>) => (
   <PaginationLink
     aria-label="Go to previous page"
     size="default"
@@ -57,15 +57,45 @@ const PaginationPrevious = ({ className, ...props }: React.ComponentProps<typeof
     <span>Previous</span>
   </PaginationLink>
 )
-PaginationPrevious.displayName = "PaginationPrevious"
+PaginationPreviousLink.displayName = "PaginationPreviousLink"
 
-const PaginationNext = ({ className, ...props }: React.ComponentProps<typeof PaginationLink>) => (
+const PaginationPreviousButton = ({ className, ...props }: React.ComponentProps<typeof Button>) => (
+  <Button
+    type="button"
+    variant="ghost"
+    aria-label="Go to previous page"
+    size="default"
+    className={cn("flex items-center gap-1 pl-2.5", className)}
+    {...props}
+  >
+    <span className="material-symbols-sharp w-5">chevron_left</span>
+    <span>Previous</span>
+  </Button>
+)
+PaginationPreviousButton.displayName = "PaginationPreviousButton"
+
+const PaginationNextLink = ({ className, ...props }: React.ComponentProps<typeof PaginationLink>) => (
   <PaginationLink aria-label="Go to next page" size="default" className={cn("gap-1 pr-2.5", className)} {...props}>
     <span>Next</span>
     <span className="material-symbols-sharp w-5">chevron_right</span>
   </PaginationLink>
 )
-PaginationNext.displayName = "PaginationNext"
+PaginationNextLink.displayName = "PaginationNextLink"
+
+const PaginationNextButton = ({ className, ...props }: React.ComponentProps<typeof Button>) => (
+  <Button
+    type="button"
+    variant="ghost"
+    aria-label="Go to next page"
+    size="default"
+    className={cn("gap-1 pr-2.5", className)}
+    {...props}
+  >
+    <span>Next</span>
+    <span className="material-symbols-sharp w-5">chevron_right</span>
+  </Button>
+)
+PaginationNextButton.displayName = "PaginationNextButton"
 
 const PaginationEllipsis = ({ className, ...props }: React.ComponentProps<"span">) => (
   <span aria-hidden className={cn("flex size-9 items-center justify-center", className)} {...props}>
@@ -81,6 +111,8 @@ export {
   PaginationEllipsis,
   PaginationItem,
   PaginationLink,
-  PaginationNext,
-  PaginationPrevious,
+  PaginationNextButton,
+  PaginationNextLink,
+  PaginationPreviousButton,
+  PaginationPreviousLink,
 }

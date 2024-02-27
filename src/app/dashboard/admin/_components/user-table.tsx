@@ -15,6 +15,7 @@ import {
   getFilteredRowModel,
   type SortingState,
   type VisibilityState,
+  // type PaginationState,
 } from "@tanstack/react-table"
 
 import { Badge } from "~/components/ui/badge"
@@ -39,17 +40,16 @@ import { Input } from "~/components/ui/input"
 import {
   Pagination,
   PaginationContent,
-  PaginationEllipsis,
   PaginationItem,
-  PaginationLink,
-  PaginationNext,
-  PaginationPrevious,
+  PaginationNextButton,
+  PaginationPreviousButton,
 } from "~/components/ui/pagination"
 import { Separator } from "~/components/ui/separator"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "~/components/ui/table"
 import { NAMED_ROLES } from "~/lib/constants"
 import { type User } from "~/lib/types"
 import { api } from "~/trpc/react"
+import { cn } from "~/lib/utils"
 
 interface UpdateUserRoleFunctionProps {
   id: string
@@ -67,7 +67,9 @@ const sortIcon = (sortOrder: string | boolean) => {
   }
 }
 
-const columns = (updateRole: ({ id, role }: UpdateUserRoleFunctionProps) => void): ColumnDef<User>[] => [
+const columns = (
+  updateRole: ({ id, role }: UpdateUserRoleFunctionProps) => void,
+): ColumnDef<Omit<User, "square_customer_id" | "updatedAt" | "subscribe">>[] => [
   {
     id: "Select",
     enableSorting: false,
@@ -92,12 +94,23 @@ const columns = (updateRole: ({ id, role }: UpdateUserRoleFunctionProps) => void
     ),
   },
   {
+    id: "Preferred name",
+    accessorKey: "preferred_name",
+    enableGlobalFilter: true,
+    header: ({ column }) => (
+      <Button variant="ghost" className="-mx-1 w-full justify-start px-1" onClick={column.getToggleSortingHandler()}>
+        Name
+        <span className="material-symbols-sharp ml-2 size-6">{sortIcon(column.getIsSorted())}</span>
+      </Button>
+    ),
+  },
+  {
     id: "Name",
     accessorKey: "name",
     enableGlobalFilter: true,
     header: ({ column }) => (
       <Button variant="ghost" className="-mx-1 w-full justify-start px-1" onClick={column.getToggleSortingHandler()}>
-        Name
+        Full name
         <span className="material-symbols-sharp ml-2 size-6">{sortIcon(column.getIsSorted())}</span>
       </Button>
     ),
@@ -127,19 +140,15 @@ const columns = (updateRole: ({ id, role }: UpdateUserRoleFunctionProps) => void
   {
     id: "University",
     header: "University",
-    // enableGlobalFilter: true, // TODO add global filter for university
-    cell: ({ row }) => {
-      const user = row.original
-      return <span className="text-xs">{user.university ?? `${user.student_number} (UWA)`}</span>
-    },
+    enableGlobalFilter: true,
+    accessorFn: (user) => user.university ?? `${user.student_number} (UWA)`,
+    cell: (cell) => <span className="text-xs">{cell.getValue()}</span>,
   },
   {
     id: "Date joined",
     header: "Date joined",
-    cell: ({ row }) => {
-      const user = row.original
-      return <span className="text-xs">{format(user.createdAt, "Pp", { locale: enAU })}</span>
-    },
+    cell: (cell) => <span className="text-xs">{cell.getValue()}</span>,
+    accessorFn: (user) => format(user.createdAt, "Pp", { locale: enAU }),
   },
   {
     header: "Socials",
@@ -148,7 +157,7 @@ const columns = (updateRole: ({ id, role }: UpdateUserRoleFunctionProps) => void
       return (
         <span className="flex w-min flex-wrap gap-px">
           {user.github && (
-            <Badge className="items-center">
+            <Badge className="pointer-events-none items-center">
               <svg aria-label="Github logo" viewBox="0 0 24 24" height={12} width={12} className="mr-1 fill-current">
                 <path d={siGithub.path} />
               </svg>
@@ -156,7 +165,7 @@ const columns = (updateRole: ({ id, role }: UpdateUserRoleFunctionProps) => void
             </Badge>
           )}
           {user.discord && (
-            <Badge className="items-center bg-[#5865F2] text-white">
+            <Badge className="pointer-events-none items-center bg-[#5865F2] text-white">
               <svg aria-label="Discord logo" viewBox="0 0 24 24" height={12} width={12} className="mr-1 fill-current">
                 <path d={siDiscord.path} />
               </svg>
@@ -227,11 +236,25 @@ const columns = (updateRole: ({ id, role }: UpdateUserRoleFunctionProps) => void
 const UserTable = () => {
   const [sorting, setSorting] = React.useState<SortingState>([])
   const [columnVisibility, setColumnVisibility] = React.useState<VisibilityState>({})
+  // const [{ pageIndex, pageSize }, setPagination] = React.useState<PaginationState>({
+  //   pageIndex: 0,
+  //   pageSize: 2,
+  // })
   const [globalFilter, setGlobalFilter] = React.useState("")
   const [rowSelection, setRowSelection] = React.useState({}) // shape: { [rowIndex: number]: true } only applies to selected rows
 
   const utils = api.useUtils()
-  const { data = [], isLoading } = api.user.getAll.useQuery()
+  const { data, isInitialLoading, refetch, isRefetching } = api.user.getAll.useQuery(
+    // {
+    //   limit: pageSize,
+    //   offset: pageIndex * pageSize,
+    // },
+    undefined,
+    {
+      refetchInterval: 1000 * 30, // 30 seconds
+      // keepPreviousData: true,
+    },
+  )
   const updateUserRole = api.user.updateRole.useMutation({
     onMutate: async (updateRole) => {
       // Cancel the user getter refetch
@@ -240,21 +263,33 @@ const UserTable = () => {
       const prev = utils.user.getAll.getData()
 
       // Optimistically update to new role
-      utils.user.getAll.setData(undefined, (oldQueryData) => {
-        if (!oldQueryData) return []
-        const userIndex = oldQueryData.findIndex((user) => user.id === updateRole.id)
-        oldQueryData[userIndex]!.role = updateRole.role
+      utils.user.getAll.setData(
+        // {}
+        undefined,
+        (data) => {
+          if (!data)
+            return {
+              users: [],
+              count: 0,
+              // pageCount: 0,
+            }
 
-        return oldQueryData
-      })
+          return {
+            ...data,
+            users: data.users.map((user) => (user.id === updateRole.id ? { ...user, role: updateRole.role } : user)),
+          }
+        },
+      )
 
-      return {
-        prevUserList: prev,
-      }
+      return { prev }
     },
     onError: (err, _, context) => {
       // Rollback to the previous value if mutation fails
-      utils.user.getAll.setData(undefined, context?.prevUserList)
+      utils.user.getAll.setData(
+        // {}
+        undefined,
+        context?.prev,
+      )
     },
     onSettled: () => {
       void utils.user.getAll.invalidate()
@@ -269,23 +304,34 @@ const UserTable = () => {
   )
 
   const cols = columns(updateRole)
+  // const pagination = React.useMemo(
+  //   () => ({
+  //     pageIndex,
+  //     pageSize,
+  //   }),
+  //   [pageIndex, pageSize],
+  // )
 
   const table = useReactTable({
-    data,
+    data: data?.users ?? [],
     columns: cols,
     onSortingChange: setSorting,
     onGlobalFilterChange: setGlobalFilter,
+    // onPaginationChange: setPagination,
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
     getSortedRowModel: getSortedRowModel(),
     getFilteredRowModel: getFilteredRowModel(),
     onColumnVisibilityChange: setColumnVisibility,
     onRowSelectionChange: setRowSelection,
+    // pageCount: data?.pageCount ?? -1,
+    // manualPagination: true,
     state: {
       sorting,
       globalFilter,
       columnVisibility,
       rowSelection,
+      // pagination,
     },
   })
 
@@ -294,7 +340,7 @@ const UserTable = () => {
   return (
     <>
       <div className="flex h-[50px] items-center p-1">
-        {data.length > 0 && (
+        {(data?.users ?? []).length > 0 && (
           <>
             {selectedRowIDs.length > 0 && (
               <>
@@ -340,7 +386,7 @@ const UserTable = () => {
             )}
             <Input
               type="search"
-              placeholder="Filter (name, email)"
+              placeholder="Filter (name, full name, email)"
               autoComplete="off"
               value={globalFilter ?? ""}
               onChange={(event) => setGlobalFilter(event.target.value)}
@@ -370,6 +416,10 @@ const UserTable = () => {
                   })}
               </DropdownMenuContent>
             </DropdownMenu>
+            <Button variant="secondary" disabled={isRefetching} className="ml-2" onClick={() => refetch()}>
+              <span className={cn("material-symbols-sharp", isRefetching && "animate-spin")}>autorenew</span>
+              <span className="ml-2 hidden sm:block">Force refresh</span>
+            </Button>
           </>
         )}
       </div>
@@ -413,22 +463,18 @@ const UserTable = () => {
             selected.
           </div>
           <PaginationContent>
-            {table.getCanPreviousPage() && (
-              <PaginationItem>
-                <PaginationPrevious href="#" />
-              </PaginationItem>
-            )}
             <PaginationItem>
-              <PaginationLink href="#">1</PaginationLink>
+              <PaginationPreviousButton
+                disabled={isRefetching || !table.getCanPreviousPage()}
+                onClick={() => table.previousPage()}
+              />
             </PaginationItem>
             <PaginationItem>
-              <PaginationEllipsis />
+              <PaginationNextButton
+                disabled={isRefetching || !table.getCanNextPage()}
+                onClick={() => table.nextPage()}
+              />
             </PaginationItem>
-            {table.getCanNextPage() && (
-              <PaginationItem>
-                <PaginationNext href="#" />
-              </PaginationItem>
-            )}
           </PaginationContent>
         </Pagination>
       </div>
