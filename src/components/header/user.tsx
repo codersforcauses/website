@@ -37,7 +37,7 @@ const UserButton = ({ cachedUser }: HeaderUser) => {
   const utils = api.useUtils()
 
   const { data: user, ...other } = api.user.getCurrent.useQuery(undefined, {
-    enabled: !!(userId ?? cachedUser),
+    enabled: !!userId,
     placeholderData: cachedUser,
     refetchInterval: 1000 * 60 * 10, // 10 minutes
     onSuccess: (data) => {
