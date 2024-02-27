@@ -8,7 +8,7 @@ import { useSignIn } from "@clerk/nextjs"
 import * as z from "zod"
 
 import { SITE_URL } from "~/lib/constants"
-import { type ClerkError } from "~/lib/types"
+import type { ClerkError } from "~/lib/types"
 import { Alert, AlertDescription, AlertTitle } from "~/components/ui/alert"
 import { Button } from "~/components/ui/button"
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "~/components/ui/form"
@@ -43,7 +43,11 @@ export default function Join() {
     defaultValues,
   })
 
-  const userData = api.user.login.useMutation()
+  const userData = api.user.login.useMutation({
+    onSuccess: async (data) => {
+      await setUserCookie(data!)
+    },
+  })
 
   const onSubmit = async ({ email }: FormSchema) => {
     if (!isLoaded) return null
@@ -75,8 +79,7 @@ export default function Join() {
       if (res.status === "complete") {
         // needs to be in this order or fails
         await setActive({ session: res.createdSessionId }) // sets token from clerk
-        const user = await userData.mutateAsync() // get user details and sets cookie on success
-        await setUserCookie(user!)
+        userData.mutate() // get user details and sets cookie on success
 
         router.push("/dashboard")
       }
@@ -90,48 +93,43 @@ export default function Join() {
   }
 
   return (
-    <div className="container grid gap-y-8 py-8 md:grid-cols-2 md:gap-x-8">
-      <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-          {showAlert ? (
-            <Alert>
-              <span className="material-symbols-sharp size-4 text-xl leading-4">mail</span>
-              <AlertTitle>Verification email sent!</AlertTitle>
-              <AlertDescription>
-                It can take up to 10 minutes. Make sure to check your spam folder if you can&apos;t find it.
-              </AlertDescription>
-            </Alert>
-          ) : (
-            <Alert>
-              <span className="material-symbols-sharp size-4 text-xl leading-4">help</span>
-              <AlertTitle>Welcome!</AlertTitle>
-              <AlertDescription>
-                No passwords here! Enter your email, and we&apos;ll email you a link to sign in or bring you to the sign
-                up page.
-              </AlertDescription>
-            </Alert>
+    <Form {...form}>
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+        {showAlert ? (
+          <Alert>
+            <span className="material-symbols-sharp size-4 text-xl leading-4">mail</span>
+            <AlertTitle>Verification email sent!</AlertTitle>
+            <AlertDescription>
+              It can take up to 10 minutes. Make sure to check your spam folder if you can&apos;t find it.
+            </AlertDescription>
+          </Alert>
+        ) : (
+          <Alert>
+            <span className="material-symbols-sharp size-4 text-xl leading-4">help</span>
+            <AlertTitle>Welcome!</AlertTitle>
+            <AlertDescription>
+              No passwords here! Enter your email, and we&apos;ll email you a link to sign in or bring you to the sign
+              up page.
+            </AlertDescription>
+          </Alert>
+        )}
+        <FormField
+          control={form.control}
+          name="email"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel className="font-mono">Email address</FormLabel>
+              <FormControl>
+                <Input type="email" placeholder="hello@codersforcauses.org" {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
           )}
-          <FormField
-            control={form.control}
-            name="email"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel className="font-mono">Email address</FormLabel>
-                <FormControl>
-                  <Input type="email" placeholder="hello@codersforcauses.org" {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <Button type="submit" disabled={showAlert} className="w-full">
-            {showAlert ? "Waiting for email verification" : "Continue"}
-          </Button>
-        </form>
-      </Form>
-      <div aria-hidden className="hidden place-items-center font-mono leading-none md:grid">
-        <span className="text-8xl">:)</span>
-      </div>
-    </div>
+        />
+        <Button type="submit" disabled={showAlert} className="w-full">
+          {showAlert ? "Waiting for email verification" : "Continue"}
+        </Button>
+      </form>
+    </Form>
   )
 }
