@@ -6,14 +6,12 @@ const adminRoles = ["admin", "committee"]
 
 const adminPages = ["/dashboard/admin"]
 const protectedPages = ["/dashboard", "/profile/settings"]
-// const publicPages = ["/"]
 
 export default authMiddleware({
-  // publicRoutes: publicPages,
   async afterAuth(auth, req) {
-    if (!auth.userId && (await hasUserCookie())) {
-      await removeUserCookie()
-    }
+    // if (!auth.userId && (await hasUserCookie())) {
+    //   await removeUserCookie()
+    // }
     if (!auth.userId && protectedPages.includes(req.nextUrl.pathname)) {
       const joinURL = new URL("/join", req.nextUrl.origin)
       return NextResponse.redirect(joinURL)
