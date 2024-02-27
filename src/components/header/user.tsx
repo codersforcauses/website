@@ -38,12 +38,14 @@ const UserButton = ({ cachedUser }: HeaderUser) => {
 
   const { data: user } = api.user.getCurrent.useQuery(undefined, {
     enabled: !!(userId ?? cachedUser),
-    initialData: cachedUser,
+    placeholderData: cachedUser,
     refetchInterval: 1000 * 60 * 10, // 10 minutes
     onSuccess: (data) => {
       void setUserCookie(data!)
     },
   })
+
+  console.log("enabled", !!(userId ?? cachedUser))
 
   const userSignOut = React.useCallback(async () => {
     await Promise.all([removeUserCookie(), signOut(), utils.user.getCurrent.reset()])
