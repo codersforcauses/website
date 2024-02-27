@@ -92,6 +92,10 @@ export async function getUserCookie() {
   return user
 }
 
+export async function hasUserCookie() {
+  return cookies().has("user")
+}
+
 export async function removeUserCookie() {
   cookies().delete("user")
 }
