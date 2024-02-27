@@ -79,7 +79,7 @@ export default function Join() {
       if (res.status === "complete") {
         // needs to be in this order or fails
         await setActive({ session: res.createdSessionId }) // sets token from clerk
-        await userData.mutateAsync() // get user details and sets cookie on success
+        userData.mutate() // get user details and sets cookie on success
 
         router.push("/dashboard")
       }
