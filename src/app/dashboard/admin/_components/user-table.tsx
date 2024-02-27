@@ -386,7 +386,7 @@ const UserTable = () => {
             )}
             <Input
               type="search"
-              placeholder="Filter (name, full name, email)"
+              placeholder="Filter (name, full name, email, university)"
               autoComplete="off"
               value={globalFilter ?? ""}
               onChange={(event) => setGlobalFilter(event.target.value)}

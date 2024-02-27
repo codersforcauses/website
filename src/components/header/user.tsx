@@ -39,6 +39,8 @@ const UserButton = () => {
     },
   })
 
+  console.log(user, userId, "user")
+
   const userSignOut = React.useCallback(async () => {
     await Promise.all([removeUserCookie(), signOut(), utils.user.getCurrent.reset()])
     router.push("/")
