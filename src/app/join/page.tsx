@@ -43,12 +43,7 @@ export default function Join() {
     defaultValues,
   })
 
-  const userData = api.user.login.useMutation({
-    onSuccess: async (data) => {
-      if (!data) return
-      await setUserCookie(data)
-    },
-  })
+  const userData = api.user.login.useMutation()
 
   const onSubmit = async ({ email }: FormSchema) => {
     if (!isLoaded) return null
@@ -80,7 +75,8 @@ export default function Join() {
       if (res.status === "complete") {
         // needs to be in this order or fails
         await setActive({ session: res.createdSessionId }) // sets token from clerk
-        userData.mutate() // get user details and sets cookie on success
+        const user = await userData.mutateAsync() // get user details and sets cookie on success
+        await setUserCookie(user!)
 
         router.push("/dashboard")
       }
