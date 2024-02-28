@@ -236,25 +236,13 @@ const columns = (
 const UserTable = () => {
   const [sorting, setSorting] = React.useState<SortingState>([])
   const [columnVisibility, setColumnVisibility] = React.useState<VisibilityState>({})
-  // const [{ pageIndex, pageSize }, setPagination] = React.useState<PaginationState>({
-  //   pageIndex: 0,
-  //   pageSize: 2,
-  // })
   const [globalFilter, setGlobalFilter] = React.useState("")
   const [rowSelection, setRowSelection] = React.useState({}) // shape: { [rowIndex: number]: true } only applies to selected rows
 
   const utils = api.useUtils()
-  const { data, isInitialLoading, refetch, isRefetching } = api.user.getAll.useQuery(
-    // {
-    //   limit: pageSize,
-    //   offset: pageIndex * pageSize,
-    // },
-    undefined,
-    {
-      refetchInterval: 1000 * 30, // 30 seconds
-      // keepPreviousData: true,
-    },
-  )
+  const { data, isInitialLoading, refetch, isRefetching } = api.user.getAll.useQuery(undefined, {
+    refetchInterval: 1000 * 30, // 30 seconds
+  })
   const updateUserRole = api.user.updateRole.useMutation({
     onMutate: async (updateRole) => {
       // Cancel the user getter refetch
@@ -271,7 +259,6 @@ const UserTable = () => {
             return {
               users: [],
               count: 0,
-              // pageCount: 0,
             }
 
           return {
@@ -285,11 +272,7 @@ const UserTable = () => {
     },
     onError: (err, _, context) => {
       // Rollback to the previous value if mutation fails
-      utils.user.getAll.setData(
-        // {}
-        undefined,
-        context?.prev,
-      )
+      utils.user.getAll.setData(undefined, context?.prev)
     },
     onSettled: () => {
       void utils.user.getAll.invalidate()
@@ -304,34 +287,24 @@ const UserTable = () => {
   )
 
   const cols = columns(updateRole)
-  // const pagination = React.useMemo(
-  //   () => ({
-  //     pageIndex,
-  //     pageSize,
-  //   }),
-  //   [pageIndex, pageSize],
-  // )
+  const users = React.useMemo(() => data?.users ?? [], [data?.users])
 
   const table = useReactTable({
-    data: data?.users ?? [],
+    data: users,
     columns: cols,
     onSortingChange: setSorting,
     onGlobalFilterChange: setGlobalFilter,
-    // onPaginationChange: setPagination,
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
     getSortedRowModel: getSortedRowModel(),
     getFilteredRowModel: getFilteredRowModel(),
     onColumnVisibilityChange: setColumnVisibility,
     onRowSelectionChange: setRowSelection,
-    // pageCount: data?.pageCount ?? -1,
-    // manualPagination: true,
     state: {
       sorting,
       globalFilter,
       columnVisibility,
       rowSelection,
-      // pagination,
     },
   })
 
