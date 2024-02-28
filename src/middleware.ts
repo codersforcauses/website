@@ -1,6 +1,6 @@
 import { authMiddleware } from "@clerk/nextjs"
 import { NextResponse } from "next/server"
-import { getUserCookie, hasUserCookie } from "./app/actions"
+import { getUserCookie } from "./app/actions"
 
 const adminRoles = ["admin", "committee"]
 
@@ -9,9 +9,6 @@ const protectedPages = ["/dashboard", "/profile/settings", ...adminPages]
 
 export default authMiddleware({
   async afterAuth(auth, req) {
-    if (!auth.userId && (await hasUserCookie())) {
-      req.cookies.delete("user")
-    }
     if (protectedPages.includes(req.nextUrl.pathname)) {
       const joinURL = new URL("/join", req.nextUrl.origin)
       const dashboardURL = new URL("/dashboard", req.nextUrl.origin)
