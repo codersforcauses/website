@@ -119,8 +119,9 @@ export const userRouter = createTRPCRouter({
 
   login: protectedRatedProcedure(Ratelimit.fixedWindow(4, "30s")).mutation(async ({ ctx }) => {
     try {
-      const id = ctx.user?.id
-      const [user] = await ctx.db.select().from(users).where(eq(users.id, id))
+      const user = await ctx.db.query.users.findFirst({
+        where: eq(users.id, ctx.user?.id),
+      })
       return user
     } catch (error) {
       throw new TRPCError({
@@ -132,15 +133,35 @@ export const userRouter = createTRPCRouter({
   }),
 
   getCurrent: protectedRatedProcedure(Ratelimit.fixedWindow(40, "30s")).query(async ({ ctx }) => {
-    const [user] = await ctx.db.select().from(users).where(eq(users.id, ctx.user.id))
-    return user
+    try {
+      const user = await ctx.db.query.users.findFirst({
+        where: eq(users.id, ctx.user.id),
+      })
+      return user
+    } catch (error) {
+      throw new TRPCError({
+        code: "INTERNAL_SERVER_ERROR",
+        message: `Unable to retrieve user with id: ${ctx.user.id}`,
+        cause: error,
+      })
+    }
   }),
 
   get: publicRatedProcedure(Ratelimit.fixedWindow(4, "30s"))
     .input(z.string())
     .query(async ({ ctx, input }) => {
-      const [user] = await ctx.db.select().from(users).where(eq(users.id, input))
-      return user
+      try {
+        const user = await ctx.db.query.users.findFirst({
+          where: eq(users.id, input),
+        })
+        return user
+      } catch (error) {
+        throw new TRPCError({
+          code: "INTERNAL_SERVER_ERROR",
+          message: `Unable to retrieve user with id: ${input}`,
+          cause: error,
+        })
+      }
     }),
 
   getAll: protectedProcedure
@@ -157,7 +178,7 @@ export const userRouter = createTRPCRouter({
         },
         where: eq(users.id, ctx.user.id),
       })
-      if (!user) throw new TRPCError({ code: "NOT_FOUND", message: `Could not find user with id:${ctx.user.id}` })
+      if (!user) throw new TRPCError({ code: "NOT_FOUND", message: `Could not find user with id: ${ctx.user.id}` })
       if (user.role !== "admin" && user.role !== "committee")
         throw new TRPCError({ code: "FORBIDDEN", message: "You do not have permission to view all users." })
 

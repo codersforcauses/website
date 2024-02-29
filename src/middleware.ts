@@ -1,28 +1,25 @@
 import { authMiddleware } from "@clerk/nextjs"
 import { NextResponse } from "next/server"
-import { getUserCookie, hasUserCookie, removeUserCookie } from "./app/actions"
+import { getUserCookie } from "./app/actions"
 
 const adminRoles = ["admin", "committee"]
 
 const adminPages = ["/dashboard/admin"]
-const protectedPages = ["/dashboard", "/profile/settings"]
-// const publicPages = ["/"]
+const protectedPages = ["/dashboard", "/profile/settings", ...adminPages]
 
 export default authMiddleware({
-  // publicRoutes: publicPages,
   async afterAuth(auth, req) {
-    if (!auth.userId && (await hasUserCookie())) {
-      await removeUserCookie()
-    }
-    if (!auth.userId && protectedPages.includes(req.nextUrl.pathname)) {
+    if (protectedPages.includes(req.nextUrl.pathname)) {
       const joinURL = new URL("/join", req.nextUrl.origin)
-      return NextResponse.redirect(joinURL)
-    }
-    if (adminPages.includes(req.nextUrl.pathname)) {
-      const user = await getUserCookie()
-      if (!adminRoles.includes(user?.role ?? "")) {
-        const dashboardURL = new URL("/dashboard", req.nextUrl.origin)
-        return NextResponse.redirect(dashboardURL)
+      const dashboardURL = new URL("/dashboard", req.nextUrl.origin)
+      if (!auth.userId) {
+        return NextResponse.redirect(joinURL)
+      }
+      if (adminPages.includes(req.nextUrl.pathname)) {
+        const user = await getUserCookie()
+        if (!adminRoles.includes(user?.role ?? "")) {
+          return NextResponse.redirect(dashboardURL)
+        }
       }
     }
     return NextResponse.next()

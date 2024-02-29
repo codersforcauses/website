@@ -19,13 +19,18 @@ import {
 } from "~/components/ui/dropdown-menu"
 import { removeUserCookie, setUserCookie } from "~/app/actions"
 import { api } from "~/trpc/react"
+import type { User } from "~/lib/types"
 
 const ThemeSwitcher = dynamic(() => import("./theme"), {
   ssr: false,
   loading: () => <Button variant="ghost-dark" size="icon" />,
 })
 
-const UserButton = () => {
+interface HeaderUser {
+  cachedUser?: User
+}
+
+const UserButton = ({ cachedUser }: HeaderUser) => {
   const router = useRouter()
   const { userId, signOut } = useAuth()
   const path = usePathname()
@@ -33,6 +38,7 @@ const UserButton = () => {
 
   const { data: user } = api.user.getCurrent.useQuery(undefined, {
     enabled: !!userId,
+    placeholderData: cachedUser,
     refetchInterval: 1000 * 60 * 10, // 10 minutes
     onSuccess: (data) => {
       void setUserCookie(data!)
