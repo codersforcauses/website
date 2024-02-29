@@ -8,12 +8,10 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { Button } from "~/components/ui/button"
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "~/components/ui/form"
 import { RadioGroup, RadioGroupItem } from "~/components/ui/radio-group"
-import { Skeleton } from "~/components/ui/skeleton"
-import { api } from "~/trpc/react"
 
 interface Cards {
   id: string
-  brand: string
+  brand?: string
   number: string
   expiry: string
 }
@@ -57,7 +55,7 @@ const formSchema = z.object({
 
 type FormSchema = z.infer<typeof formSchema>
 
-const SavedCardsForm = ({ amount, cards, paymentInstance, ...props }: SavedCardsProps) => {
+const SavedCardsForm = ({ amount, cards, ...props }: SavedCardsProps) => {
   const form = useForm<FormSchema>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -104,7 +102,7 @@ const SavedCardsForm = ({ amount, cards, paymentInstance, ...props }: SavedCards
                         className="font-normal"
                       >
                         <div key={card.id} className="flex gap-x-4">
-                          <CardIcon brand={card.brand} />
+                          <CardIcon brand={`${card.brand}`} />
                           <div className="flex flex-col justify-evenly">
                             <div className="font-mono">{card.number}</div>
                             <div className="text-xs text-muted-foreground">{card.expiry}</div>
@@ -130,17 +128,9 @@ const SavedCardsForm = ({ amount, cards, paymentInstance, ...props }: SavedCards
   )
 }
 
-const SavedCards = (props: Omit<SavedCardsProps, "cards">) => {
-  const { data: cards, isInitialLoading } = api.payment.getCards.useQuery(undefined, {
-    refetchInterval: false,
-  })
-
-  if (isInitialLoading) {
-    return <Skeleton className="h-10 w-full" />
-  }
-
-  return (cards ?? []).length > 0 ? (
-    <SavedCardsForm {...props} cards={cards!} />
+const SavedCards = (props: SavedCardsProps) => {
+  return props.cards.length > 0 ? (
+    <SavedCardsForm {...props} />
   ) : (
     <div>
       <p className="text-muted-foreground">No cards have been saved.</p>

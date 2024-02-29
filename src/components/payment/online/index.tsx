@@ -3,13 +3,7 @@
 import * as React from "react"
 import dynamic from "next/dynamic"
 import { useTheme } from "next-themes"
-import {
-  payments,
-  type TokenResult,
-  type Payments,
-  // type StoreVerifyBuyerDetails,
-  type PaymentRequestOptions,
-} from "@square/web-sdk"
+import { payments, type TokenResult, type Payments, type PaymentRequestOptions } from "@square/web-sdk"
 import { type CheckedState } from "@radix-ui/react-checkbox"
 
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "~/components/ui/accordion"
@@ -50,18 +44,6 @@ interface OnlinePaymentFormProps {
 const APP_ID = env.NEXT_PUBLIC_SQUARE_APP_ID
 const LOCATION_ID = env.NEXT_PUBLIC_SQUARE_LOCATION_ID
 
-// const storeVerificationDetails = (user: User) => {
-//   const details: StoreVerifyBuyerDetails = {
-//     intent: "STORE",
-//     billingContact: {
-//       familyName: user.full_name,
-//       givenName: user.preferred_name,
-//       email: user.email,
-//     },
-//   }
-//   return details
-// }
-
 const createPaymentRequest = ({
   amount,
   label,
@@ -88,6 +70,10 @@ const OnlinePaymentForm = ({
   const [paymentInstance, setPaymentInstance] = React.useState<Payments>()
   const loadingState = React.useState(false)
   const cardDetails = React.useState<CheckedState>(true)
+
+  const { data: cards, isInitialLoading } = api.payment.getCards.useQuery(undefined, {
+    refetchInterval: false,
+  })
 
   const pay = api.payment.pay.useMutation({
     onError: () => {
@@ -144,15 +130,11 @@ const OnlinePaymentForm = ({
       return
     }
 
-    // if (!user) throw new Error("User details must be provided to verify payment method")
-
-    // const verifyBuyerResults = await paymentInstance?.verifyBuyer(String(result.token), storeVerificationDetails(user))
     let paymentID: string | undefined = ""
     if (cardDetails[0] && (result?.details?.method as string) === "Card") {
       try {
         const id = await storeCard.mutateAsync({
           sourceID: result.token!,
-          // verificationToken: verifyBuyerResults!.token,
         })
         paymentID = await pay.mutateAsync({
           sourceID: id!,
@@ -190,11 +172,11 @@ const OnlinePaymentForm = ({
     loadingState,
   }
 
-  return paymentInstance ? (
+  return paymentInstance && !isInitialLoading ? (
     <Accordion
       type="single"
       disabled={loadingState[0]}
-      defaultValue="card"
+      defaultValue={(cards ?? [])?.length > 0 ? "saved" : "card"}
       className="w-full border border-black/25 dark:border-white/25"
     >
       <AccordionItem value="card" className="border-black/25 dark:border-white/25">
@@ -213,7 +195,11 @@ const OnlinePaymentForm = ({
       <AccordionItem value="saved" className="border-black/25 dark:border-white/25">
         <AccordionTrigger className="px-4">Saved cards</AccordionTrigger>
         <AccordionContent className="mx-4">
-          <SavedCards {...paymentOptions} amount={amount} />
+          {isInitialLoading ? (
+            <Skeleton className="h-10 w-full" />
+          ) : (
+            <SavedCards {...paymentOptions} amount={amount} cards={cards ?? []} />
+          )}
         </AccordionContent>
       </AccordionItem>
     </Accordion>
