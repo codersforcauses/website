@@ -72,6 +72,7 @@ export default function Join() {
       // Check the verification result.
       if (verification.status === "expired") {
         toast({
+          variant: "destructive",
           title: "Link expired",
           description: "The email verification link has expired. Please try again.",
         })
@@ -89,6 +90,8 @@ export default function Join() {
         router.replace(`/create-account?email=${email}`)
       }
       console.error(error)
+    } finally {
+      setShowAlert(false)
     }
   }
 
