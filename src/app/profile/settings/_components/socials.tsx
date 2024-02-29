@@ -14,7 +14,6 @@ import { Input } from "~/components/ui/input"
 import { Separator } from "~/components/ui/separator"
 import { toast } from "~/components/ui/use-toast"
 import { api } from "~/trpc/react"
-import { da } from "date-fns/locale"
 
 const formSchema = z.object({
   github: z.string().optional(),
