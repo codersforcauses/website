@@ -1,8 +1,12 @@
 import * as React from "react"
 import Link from "next/link"
 
-import { cn } from "~/lib/utils"
 import { type ButtonProps, buttonVariants, Button } from "~/components/ui/button"
+import { cn } from "~/lib/utils"
+
+interface PaginationButton {
+  withText?: boolean
+}
 
 const Pagination = ({ className, ...props }: React.ComponentProps<"nav">) => (
   <nav
@@ -46,56 +50,149 @@ const PaginationLink = ({ className, isActive, size = "icon", ...props }: Pagina
 )
 PaginationLink.displayName = "PaginationLink"
 
-const PaginationPreviousLink = ({ className, ...props }: React.ComponentProps<typeof PaginationLink>) => (
+const PaginationFirstPageLink = ({
+  className,
+  withText = true,
+  ...props
+}: PaginationButton & React.ComponentProps<typeof PaginationLink>) => (
+  <PaginationLink
+    aria-label="Go to first page"
+    size={withText ? "default" : "icon"}
+    className={cn(withText && "gap-1 pl-2.5", className)}
+    {...props}
+  >
+    <span className="material-symbols-sharp w-5">first_page</span>
+    {withText && <span>First page</span>}
+  </PaginationLink>
+)
+PaginationFirstPageLink.displayName = "PaginationFirstPageLink"
+
+const PaginationFirstPageButton = ({
+  className,
+  withText = true,
+  ...props
+}: PaginationButton & React.ComponentProps<typeof Button>) => (
+  <Button
+    type="button"
+    variant="ghost"
+    aria-label="Go to first page"
+    size={withText ? "default" : "icon"}
+    className={cn(withText && "gap-1 pl-2.5", className)}
+    {...props}
+  >
+    <span className="material-symbols-sharp w-5">first_page</span>
+    {withText && <span>First page</span>}
+  </Button>
+)
+PaginationFirstPageButton.displayName = "PaginationFirstPageButton"
+
+const PaginationPreviousLink = ({
+  className,
+  withText = true,
+  ...props
+}: PaginationButton & React.ComponentProps<typeof PaginationLink>) => (
   <PaginationLink
     aria-label="Go to previous page"
-    size="default"
-    className={cn("flex items-center gap-1 pl-2.5", className)}
+    size={withText ? "default" : "icon"}
+    className={cn(withText && "gap-1 pl-2.5", className)}
     {...props}
   >
     <span className="material-symbols-sharp w-5">chevron_left</span>
-    <span>Previous</span>
+    {withText && <span>Previous</span>}
   </PaginationLink>
 )
 PaginationPreviousLink.displayName = "PaginationPreviousLink"
 
-const PaginationPreviousButton = ({ className, ...props }: React.ComponentProps<typeof Button>) => (
+const PaginationPreviousButton = ({
+  className,
+  withText = true,
+  ...props
+}: PaginationButton & React.ComponentProps<typeof Button>) => (
   <Button
     type="button"
     variant="ghost"
     aria-label="Go to previous page"
-    size="default"
-    className={cn("flex items-center gap-1 pl-2.5", className)}
+    size={withText ? "default" : "icon"}
+    className={cn(withText && "gap-1 pl-2.5", className)}
     {...props}
   >
     <span className="material-symbols-sharp w-5">chevron_left</span>
-    <span>Previous</span>
+    {withText && <span>Previous</span>}
   </Button>
 )
 PaginationPreviousButton.displayName = "PaginationPreviousButton"
 
-const PaginationNextLink = ({ className, ...props }: React.ComponentProps<typeof PaginationLink>) => (
-  <PaginationLink aria-label="Go to next page" size="default" className={cn("gap-1 pr-2.5", className)} {...props}>
-    <span>Next</span>
+const PaginationNextLink = ({
+  className,
+  withText = true,
+  ...props
+}: PaginationButton & React.ComponentProps<typeof PaginationLink>) => (
+  <PaginationLink
+    aria-label="Go to next page"
+    size={withText ? "default" : "icon"}
+    className={cn(withText && "gap-1 pr-2.5", className)}
+    {...props}
+  >
+    {withText && <span>Next</span>}
     <span className="material-symbols-sharp w-5">chevron_right</span>
   </PaginationLink>
 )
 PaginationNextLink.displayName = "PaginationNextLink"
 
-const PaginationNextButton = ({ className, ...props }: React.ComponentProps<typeof Button>) => (
+const PaginationNextButton = ({
+  className,
+  withText = true,
+  ...props
+}: PaginationButton & React.ComponentProps<typeof Button>) => (
   <Button
     type="button"
     variant="ghost"
     aria-label="Go to next page"
-    size="default"
-    className={cn("gap-1 pr-2.5", className)}
+    size={withText ? "default" : "icon"}
+    className={cn(withText && "gap-1 pr-2.5", className)}
     {...props}
   >
-    <span>Next</span>
+    {withText && <span>Next</span>}
     <span className="material-symbols-sharp w-5">chevron_right</span>
   </Button>
 )
 PaginationNextButton.displayName = "PaginationNextButton"
+
+const PaginationLastPageLink = ({
+  className,
+  withText = true,
+  ...props
+}: PaginationButton & React.ComponentProps<typeof PaginationLink>) => (
+  <PaginationLink
+    aria-label="Go to last page"
+    size={withText ? "default" : "icon"}
+    className={cn(withText && "gap-1 pr-2.5", className)}
+    {...props}
+  >
+    {withText && <span>Last page</span>}
+    <span className="material-symbols-sharp w-5">last_page</span>
+  </PaginationLink>
+)
+PaginationLastPageLink.displayName = "PaginationLastPageLink"
+
+const PaginationLastPageButton = ({
+  className,
+  withText = true,
+  ...props
+}: PaginationButton & React.ComponentProps<typeof Button>) => (
+  <Button
+    type="button"
+    variant="ghost"
+    aria-label="Go to last page"
+    size={withText ? "default" : "icon"}
+    className={cn(withText && "gap-1 pr-2.5", className)}
+    {...props}
+  >
+    {withText && <span>Last page</span>}
+    <span className="material-symbols-sharp w-5">last_page</span>
+  </Button>
+)
+PaginationLastPageButton.displayName = "PaginationLastPageButton"
 
 const PaginationEllipsis = ({ className, ...props }: React.ComponentProps<"span">) => (
   <span aria-hidden className={cn("flex size-9 items-center justify-center", className)} {...props}>
@@ -111,8 +208,12 @@ export {
   PaginationEllipsis,
   PaginationItem,
   PaginationLink,
+  PaginationLastPageButton,
+  PaginationLastPageLink,
   PaginationNextButton,
   PaginationNextLink,
+  PaginationFirstPageButton,
+  PaginationFirstPageLink,
   PaginationPreviousButton,
   PaginationPreviousLink,
 }
