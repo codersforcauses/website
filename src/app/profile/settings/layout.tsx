@@ -20,7 +20,7 @@ const Layout = async ({ children, ...props }: UserSettingsLayoutProps) => {
     },
     { text: "Appearance", icon: "palette", component: props.appearance },
     // { text: "Notifications", icon: "notifications", component:  },
-    // { text: "Membership", icon: "stars", component: props.membership },
+    { text: "Membership", icon: "stars", component: props.membership },
   ]
 
   return (
