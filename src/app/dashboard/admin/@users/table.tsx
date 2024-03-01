@@ -6,16 +6,16 @@ import { format } from "date-fns"
 import { enAU } from "date-fns/locale"
 import { siDiscord, siGithub } from "simple-icons"
 import {
-  type ColumnDef,
   flexRender,
-  getCoreRowModel,
   useReactTable,
+  getCoreRowModel,
   getPaginationRowModel,
   getSortedRowModel,
   getFilteredRowModel,
+  type ColumnDef,
+  type PaginationState,
   type SortingState,
   type VisibilityState,
-  // type PaginationState,
 } from "@tanstack/react-table"
 
 import { Badge } from "~/components/ui/badge"
@@ -40,16 +40,27 @@ import { Input } from "~/components/ui/input"
 import {
   Pagination,
   PaginationContent,
+  PaginationFirstPageButton,
+  PaginationPreviousButton,
   PaginationItem,
   PaginationNextButton,
-  PaginationPreviousButton,
+  PaginationLastPageButton,
 } from "~/components/ui/pagination"
 import { Separator } from "~/components/ui/separator"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "~/components/ui/table"
 import { NAMED_ROLES } from "~/lib/constants"
-import { type User } from "~/lib/types"
-import { api } from "~/trpc/react"
+import type { User } from "~/lib/types"
 import { cn } from "~/lib/utils"
+import { api } from "~/trpc/react"
+
+type UserProps = Omit<User, "subscribe" | "square_customer_id" | "updatedAt">
+
+interface UserTableProps {
+  data: {
+    users: Array<UserProps>
+    count: number
+  }
+}
 
 interface UpdateUserRoleFunctionProps {
   id: string
@@ -67,9 +78,7 @@ const sortIcon = (sortOrder: string | boolean) => {
   }
 }
 
-const columns = (
-  updateRole: ({ id, role }: UpdateUserRoleFunctionProps) => void,
-): ColumnDef<Omit<User, "square_customer_id" | "updatedAt" | "subscribe">>[] => [
+const columns = (updateRole: ({ id, role }: UpdateUserRoleFunctionProps) => void): ColumnDef<UserProps>[] => [
   {
     id: "Select",
     enableSorting: false,
@@ -233,15 +242,20 @@ const columns = (
   },
 ]
 
-const UserTable = () => {
+const UserTable = (props: UserTableProps) => {
   const [sorting, setSorting] = React.useState<SortingState>([])
   const [columnVisibility, setColumnVisibility] = React.useState<VisibilityState>({})
+  const [pagination, setPagination] = React.useState<PaginationState>({
+    pageIndex: 0,
+    pageSize: 10,
+  })
   const [globalFilter, setGlobalFilter] = React.useState("")
   const [rowSelection, setRowSelection] = React.useState({}) // shape: { [rowIndex: number]: true } only applies to selected rows
 
   const utils = api.useUtils()
-  const { data, isInitialLoading, refetch, isRefetching } = api.user.getAll.useQuery(undefined, {
-    refetchInterval: 1000 * 30, // 30 seconds
+  const { data, refetch, isRefetching } = api.user.getAll.useQuery(undefined, {
+    initialData: props.data,
+    refetchInterval: 1000 * 60 * 1, // 1 minute
   })
   const updateUserRole = api.user.updateRole.useMutation({
     onMutate: async (updateRole) => {
@@ -251,22 +265,18 @@ const UserTable = () => {
       const prev = utils.user.getAll.getData()
 
       // Optimistically update to new role
-      utils.user.getAll.setData(
-        // {}
-        undefined,
-        (data) => {
-          if (!data)
-            return {
-              users: [],
-              count: 0,
-            }
-
+      utils.user.getAll.setData(undefined, (data) => {
+        if (!data)
           return {
-            ...data,
-            users: data.users.map((user) => (user.id === updateRole.id ? { ...user, role: updateRole.role } : user)),
+            users: [],
+            count: 0,
           }
-        },
-      )
+
+        return {
+          ...data,
+          users: data.users.map((user) => (user.id === updateRole.id ? { ...user, role: updateRole.role } : user)),
+        }
+      })
 
       return { prev }
     },
@@ -295,16 +305,18 @@ const UserTable = () => {
     onSortingChange: setSorting,
     onGlobalFilterChange: setGlobalFilter,
     getCoreRowModel: getCoreRowModel(),
+    getFilteredRowModel: getFilteredRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
     getSortedRowModel: getSortedRowModel(),
-    getFilteredRowModel: getFilteredRowModel(),
     onColumnVisibilityChange: setColumnVisibility,
     onRowSelectionChange: setRowSelection,
+    onPaginationChange: setPagination,
     state: {
-      sorting,
-      globalFilter,
       columnVisibility,
+      globalFilter,
+      pagination,
       rowSelection,
+      sorting,
     },
   })
 
@@ -391,7 +403,7 @@ const UserTable = () => {
             </DropdownMenu>
             <Button variant="secondary" disabled={isRefetching} className="ml-2" onClick={() => refetch()}>
               <span className={cn("material-symbols-sharp", isRefetching && "animate-spin")}>autorenew</span>
-              <span className="ml-2 hidden sm:block">Force refresh</span>
+              <span className="ml-2 hidden sm:block">Sync{isRefetching && "ing"}</span>
             </Button>
           </>
         )}
@@ -430,22 +442,45 @@ const UserTable = () => {
             )}
           </TableBody>
         </Table>
-        <Pagination className="py-4">
-          <div className="flex-1 text-sm text-muted-foreground">
-            {table.getFilteredSelectedRowModel().rows.length} of {table.getFilteredRowModel().rows.length} row(s)
-            selected.
+        <Pagination className="mt-2">
+          <div className="flex flex-1 items-center text-sm text-muted-foreground">
+            <span>
+              {table.getFilteredSelectedRowModel().rows.length} of {table.getFilteredRowModel().rows.length} row(s)
+              selected.
+            </span>
           </div>
           <PaginationContent>
             <PaginationItem>
+              <PaginationFirstPageButton
+                withText={false}
+                disabled={isRefetching || !table.getCanPreviousPage()}
+                onClick={() => table.firstPage()}
+              />
+            </PaginationItem>
+            <PaginationItem>
               <PaginationPreviousButton
+                withText={false}
                 disabled={isRefetching || !table.getCanPreviousPage()}
                 onClick={() => table.previousPage()}
               />
             </PaginationItem>
             <PaginationItem>
+              <span className="select-none px-2 text-xs leading-10">
+                {pagination.pageIndex + 1} of {table.getPageCount()}
+              </span>
+            </PaginationItem>
+            <PaginationItem>
               <PaginationNextButton
+                withText={false}
                 disabled={isRefetching || !table.getCanNextPage()}
                 onClick={() => table.nextPage()}
+              />
+            </PaginationItem>
+            <PaginationItem>
+              <PaginationLastPageButton
+                withText={false}
+                disabled={isRefetching || !table.getCanNextPage()}
+                onClick={() => table.lastPage()}
               />
             </PaginationItem>
           </PaginationContent>

@@ -1,36 +1,22 @@
-"use client"
-
 import * as React from "react"
-import { useRouter } from "next/navigation"
 
-import TitleText from "../_components/title-text"
 import OnlinePaymentForm from "~/components/payment/online"
 import { toast } from "~/components/ui/use-toast"
-import { api } from "~/trpc/react"
-import { setUserCookie } from "../actions"
+import { api } from "~/trpc/server"
+import { setUserCookie } from "~/app/actions"
 
-export default function Dashboard() {
-  const router = useRouter()
-  const { data: user } = api.user.getCurrent.useQuery(undefined, {
-    refetchInterval: 1000 * 60 * 10, // 10 minutes
-    select: (data) => ({
-      id: data!.id,
-      preferred_name: data!.preferred_name,
-      role: data!.role,
-    }),
-  })
-
-  const updateRole = api.user.updateRole.useMutation()
+export default async function Dashboard() {
+  const user = await api.user.getCurrent.query()
 
   const handleAfterOnlinePayment = async (paymentID: string) => {
+    "use server"
     try {
-      const updatedUser = await updateRole.mutateAsync({
+      const updatedUser = await api.user.updateRole.mutate({
         id: user!.id,
         role: "member",
         paymentID,
       })
       await setUserCookie(updatedUser!)
-      router.replace("/dashboard")
     } catch (error) {
       toast({
         variant: "destructive",
@@ -41,8 +27,7 @@ export default function Dashboard() {
   }
 
   return (
-    <main className="main">
-      <TitleText typed>./dashboard</TitleText>
+    <>
       <div className="container flex flex-wrap gap-x-8 gap-y-4 py-8">
         <div className="flex-grow">
           <h2 className="font-bold">Hey, {user?.preferred_name}</h2>
@@ -73,6 +58,6 @@ export default function Dashboard() {
           )}
         </div>
       </div>
-    </main>
+    </>
   )
 }
