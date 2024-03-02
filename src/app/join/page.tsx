@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { useSignIn } from "@clerk/nextjs"
+import { track } from "@vercel/analytics/react"
 import * as z from "zod"
 
 import { SITE_URL } from "~/lib/constants"
@@ -51,6 +52,8 @@ export default function Join() {
 
   const onSubmit = async ({ email }: FormSchema) => {
     if (!isLoaded) return null
+
+    if (process.env.VERCEL_ENV === "production") track("click-join")
 
     const { startEmailLinkFlow } = signIn.createEmailLinkFlow()
     try {

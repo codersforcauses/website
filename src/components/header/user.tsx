@@ -5,6 +5,7 @@ import Link from "next/link"
 import dynamic from "next/dynamic"
 import { usePathname, useRouter } from "next/navigation"
 import { useAuth } from "@clerk/nextjs"
+import { track } from "@vercel/analytics/react"
 
 import { Avatar, AvatarFallback } from "~/components/ui/avatar"
 import { Button } from "~/components/ui/button"
@@ -54,7 +55,14 @@ const UserButton = ({ cachedUser }: HeaderUser) => {
     return (
       <div className="flex gap-2">
         <ThemeSwitcher />
-        <Button asChild variant="secondary-dark" className="dark:hover:bg-primary dark:hover:text-black">
+        <Button
+          asChild
+          variant="secondary-dark"
+          className="dark:hover:bg-primary dark:hover:text-black"
+          onClick={() => {
+            if (process.env.VERCEL_ENV === "production") track("join", { location: "header" })
+          }}
+        >
           <Link href="/join">Join us</Link>
         </Button>
       </div>

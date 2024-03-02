@@ -7,6 +7,7 @@ import Link from "next/link"
 import { siDiscord } from "simple-icons"
 import { useRouter, useSearchParams } from "next/navigation"
 import { useSignUp } from "@clerk/nextjs"
+import { track } from "@vercel/analytics/react"
 import * as z from "zod"
 
 import { Alert, AlertDescription, AlertTitle } from "~/components/ui/alert"
@@ -262,6 +263,8 @@ export default function CreateAccount() {
 
   const onSubmit = async (values: FormSchema) => {
     if (!isLoaded) return null
+
+    if (process.env.VERCEL_ENV === "production") track("created-account")
 
     setLoading(true)
     if (values.github !== "") {

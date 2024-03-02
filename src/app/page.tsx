@@ -5,6 +5,7 @@ import dynamic from "next/dynamic"
 import { Button } from "~/components/ui/button"
 import TypedText from "./_components/typed-text"
 import BentoDisplay from "~/components/bento"
+import JoinUs from "./join-us"
 const Contact = dynamic(() => import("../components/contact"), {
   ssr: false,
   loading: () => <Button variant="outline-dark">Contact us</Button>,
@@ -73,9 +74,7 @@ export default async function Home() {
               volunteers dedicated to providing you the best results.
             </p>
             <div className="grid grid-cols-2 gap-2 font-semibold sm:gap-4">
-              <Button asChild variant="dark" size="lg" className="sm:text-lg">
-                <Link href="/join">Join us</Link>
-              </Button>
+              <JoinUs />
               <Button asChild variant="outline-dark" size="lg" className="w-full sm:text-lg">
                 <Link href="#contact">Work with us</Link>
               </Button>
