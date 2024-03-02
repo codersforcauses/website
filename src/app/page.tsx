@@ -76,7 +76,7 @@ export default async function Home() {
             <div className="grid grid-cols-2 gap-2 font-semibold sm:gap-4">
               <JoinUs />
               <Button asChild variant="outline-dark" size="lg" className="w-full sm:text-lg">
-                <Link href="#contact">Work with us</Link>
+                <Link href="#_contact_us">Work with us</Link>
               </Button>
             </div>
           </div>
