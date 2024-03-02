@@ -52,14 +52,16 @@ import { NAMED_ROLES } from "~/lib/constants"
 import type { User } from "~/lib/types"
 import { cn } from "~/lib/utils"
 import { api } from "~/trpc/react"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "~/components/ui/select"
 
 type UserProps = Omit<User, "subscribe" | "square_customer_id" | "updatedAt">
 
-interface UserTableProps {
-  data: {
-    users: Array<UserProps>
-    count: number
-  }
+interface TableProps {
+  data: Array<UserProps>
+}
+interface UserTableProps extends TableProps {
+  refetch: () => void
+  isRefetching: boolean
 }
 
 interface UpdateUserRoleFunctionProps {
@@ -242,7 +244,7 @@ const columns = (updateRole: ({ id, role }: UpdateUserRoleFunctionProps) => void
   },
 ]
 
-const UserTable = (props: UserTableProps) => {
+const UserTable = ({ data, isRefetching, ...props }: UserTableProps) => {
   const [sorting, setSorting] = React.useState<SortingState>([])
   const [columnVisibility, setColumnVisibility] = React.useState<VisibilityState>({})
   const [pagination, setPagination] = React.useState<PaginationState>({
@@ -253,10 +255,6 @@ const UserTable = (props: UserTableProps) => {
   const [rowSelection, setRowSelection] = React.useState({}) // shape: { [rowIndex: number]: true } only applies to selected rows
 
   const utils = api.useUtils()
-  const { data, refetch, isRefetching } = api.user.getAll.useQuery(undefined, {
-    initialData: props.data,
-    refetchInterval: 1000 * 60 * 1, // 1 minute
-  })
   const updateUserRole = api.user.updateRole.useMutation({
     onMutate: async (updateRole) => {
       // Cancel the user getter refetch
@@ -266,16 +264,9 @@ const UserTable = (props: UserTableProps) => {
 
       // Optimistically update to new role
       utils.user.getAll.setData(undefined, (data) => {
-        if (!data)
-          return {
-            users: [],
-            count: 0,
-          }
+        if (!data) return []
 
-        return {
-          ...data,
-          users: data.users.map((user) => (user.id === updateRole.id ? { ...user, role: updateRole.role } : user)),
-        }
+        return data.map((user) => (user.id === updateRole.id ? { ...user, role: updateRole.role } : user))
       })
 
       return { prev }
@@ -297,10 +288,9 @@ const UserTable = (props: UserTableProps) => {
   )
 
   const cols = columns(updateRole)
-  const users = React.useMemo(() => data?.users ?? [], [data?.users])
 
   const table = useReactTable({
-    data: users,
+    data,
     columns: cols,
     onSortingChange: setSorting,
     onGlobalFilterChange: setGlobalFilter,
@@ -325,7 +315,7 @@ const UserTable = (props: UserTableProps) => {
   return (
     <>
       <div className="flex h-[50px] items-center p-1">
-        {(data?.users ?? []).length > 0 && (
+        {data.length > 0 && (
           <>
             {selectedRowIDs.length > 0 && (
               <>
@@ -401,7 +391,7 @@ const UserTable = (props: UserTableProps) => {
                   })}
               </DropdownMenuContent>
             </DropdownMenu>
-            <Button variant="secondary" disabled={isRefetching} className="ml-2" onClick={() => refetch()}>
+            <Button variant="secondary" disabled={isRefetching} className="ml-2" onClick={props.refetch}>
               <span className={cn("material-symbols-sharp", isRefetching && "animate-spin")}>autorenew</span>
               <span className="ml-2 hidden sm:block">Sync{isRefetching && "ing"}</span>
             </Button>
@@ -442,12 +432,30 @@ const UserTable = (props: UserTableProps) => {
             )}
           </TableBody>
         </Table>
-        <Pagination className="mt-2">
-          <div className="flex flex-1 items-center text-sm text-muted-foreground">
+        <Pagination className="mt-2 gap-x-2">
+          <div className="flex flex-1 items-center gap-x-2 text-sm text-muted-foreground">
             <span>
               {table.getFilteredSelectedRowModel().rows.length} of {table.getFilteredRowModel().rows.length} row(s)
               selected.
             </span>
+            <div className="ml-auto flex items-center space-x-2">
+              <span>Rows per page:</span>
+              <Select
+                value={String(pagination.pageSize)}
+                onValueChange={(val) => setPagination((prev) => ({ ...prev, pageSize: Number(val) }))}
+              >
+                <SelectTrigger className="w-[6.5rem]">
+                  <SelectValue placeholder="Row size" />
+                </SelectTrigger>
+                <SelectContent align="end" className="w-32">
+                  {["10", "25", "50", "100"].map((pageSize) => (
+                    <SelectItem key={pageSize} value={pageSize}>
+                      {pageSize}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
           </div>
           <PaginationContent>
             <PaginationItem>
@@ -490,4 +498,16 @@ const UserTable = (props: UserTableProps) => {
   )
 }
 
-export default UserTable
+const TableWrapper = (props: TableProps) => {
+  const { data, refetch, isRefetching } = api.user.getAll.useQuery(undefined, {
+    initialData: props.data,
+    refetchInterval: 1000 * 60 * 1, // 1 minute
+  })
+  const users = React.useMemo(() => data ?? [], [data])
+  const refetchUsers = React.useCallback(() => {
+    void refetch()
+  }, [refetch])
+  return <UserTable data={users} refetch={refetchUsers} isRefetching={isRefetching} />
+}
+
+export default TableWrapper

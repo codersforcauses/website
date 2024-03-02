@@ -171,7 +171,7 @@ export const userRouter = createTRPCRouter({
     //     offset: z.number().default(0),
     //   }),
     // )
-    .query(async ({ ctx, input }) => {
+    .query(async ({ ctx }) => {
       const user = await ctx.db.query.users.findFirst({
         columns: {
           role: true,
@@ -182,24 +182,28 @@ export const userRouter = createTRPCRouter({
       if (user.role !== "admin" && user.role !== "committee")
         throw new TRPCError({ code: "FORBIDDEN", message: "You do not have permission to view all users." })
 
-      const [userList, [{ count } = { count: 0 }]] = await Promise.all([
-        ctx.db.query.users.findMany({
-          // ...input,
-          columns: {
-            subscribe: false,
-            square_customer_id: false,
-            updatedAt: false,
-          },
-          orderBy: [desc(users.createdAt), desc(users.id)],
-        }),
-        ctx.db.select({ count: sql<number>`count(*)`.mapWith(Number) }).from(users),
-      ])
+      const userList = await ctx.db.query.users.findMany({
+        columns: {
+          subscribe: false,
+          square_customer_id: false,
+          updatedAt: false,
+        },
+        orderBy: [desc(users.createdAt), desc(users.id)],
+      })
+      // const [userList, [{ count } = { count: 0 }]] = await Promise.all([
+      //   ctx.db.query.users.findMany({
+      //     // ...input,
+      //     columns: {
+      //       subscribe: false,
+      //       square_customer_id: false,
+      //       updatedAt: false,
+      //     },
+      //     orderBy: [desc(users.createdAt), desc(users.id)],
+      //   }),
+      //   ctx.db.select({ count: sql<number>`count(*)`.mapWith(Number) }).from(users),
+      // ])
 
-      return {
-        users: userList,
-        count,
-        //  pageCount: Math.ceil(count / input.limit)
-      }
+      return userList
     }),
 
   updateRole: protectedProcedure
