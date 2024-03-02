@@ -1,12 +1,15 @@
 "use client"
 
 import { zodResolver } from "@hookform/resolvers/zod"
+import { setUser } from "@sentry/nextjs"
 import Link from "next/link"
+import { useState } from "react"
 import { FormProvider, useForm } from "react-hook-form"
 import { z } from "zod"
 import { removeUserCookie, setUserCookie } from "~/app/actions"
 import { Button } from "~/components/ui/button"
 import { Checkbox } from "~/components/ui/checkbox"
+import CircleProgress from "~/components/ui/circle-progress"
 import { FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "~/components/ui/form"
 import { Input } from "~/components/ui/input"
 import { RadioGroup, RadioGroupItem } from "~/components/ui/radio-group"
@@ -112,19 +115,16 @@ const defaultValues: FormSchema = {
 }
 
 const EditProfile = ({ setIsEditing, id, refetch }: EditProfileProps) => {
+  const [showCircleProgress, setShowCircleProgress] = useState(false)
   const { data: user } = api.user.get.useQuery(id)
-  const { mutate: updateUser } = api.user.update.useMutation({
+  const { mutateAsync: updateUser } = api.user.update.useMutation({
     onSuccess: async (data) => {
-      await refetch()
-      setIsEditing(false)
       if (!data) return
       await setUserCookie(data)
     },
   })
-  const { mutate: updateSocial } = api.user.updateSocial.useMutation({
+  const { mutateAsync: updateSocial } = api.user.updateSocial.useMutation({
     onSuccess: async (data) => {
-      await refetch()
-      setIsEditing(false)
       if (!data) return
       await setUserCookie(data)
     },
@@ -150,17 +150,28 @@ const EditProfile = ({ setIsEditing, id, refetch }: EditProfileProps) => {
   const { getValues } = form
 
   const onSubmit = async (data: FormSchema) => {
-    updateUser({
-      ...data,
-      student_number: data.isUWA ? data.student_number : null,
-      uni: data.isUWA ? null : data.uni,
-    })
+    setShowCircleProgress(true)
+    try {
+      await Promise.all([
+        updateUser({
+          ...data,
+          student_number: data.isUWA ? data.student_number : null,
+          uni: data.isUWA ? null : data.uni,
+        }),
 
-    updateSocial({
-      ...data,
-      github: data.github ?? null,
-      discord: data.discord ?? null,
-    })
+        updateSocial({
+          ...data,
+          github: data.github ?? null,
+          discord: data.discord ?? null,
+        }),
+      ])
+
+      await refetch()
+    } catch (e) {
+      console.error(e, "Error updating user")
+    }
+
+    setIsEditing(false)
   }
 
   return (
@@ -345,10 +356,19 @@ const EditProfile = ({ setIsEditing, id, refetch }: EditProfileProps) => {
             />
           </section>
         </div>
-        <section className="space-x-2">
-          <Button type="submit" variant={"outline"}>
-            Save
-          </Button>
+        <section className="flex flex-row items-center space-x-2">
+          {showCircleProgress ? (
+            <Button variant="outline" disabled>
+              <div className="flex items-center justify-center space-x-1">
+                <CircleProgress />
+                <p>Saving...</p>
+              </div>
+            </Button>
+          ) : (
+            <Button type="submit" variant={"outline"}>
+              Save
+            </Button>
+          )}
           <Button type="button" onClick={() => setIsEditing(false)}>
             Cancel
           </Button>
