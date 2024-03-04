@@ -2,7 +2,7 @@
 
 import * as React from "react"
 import { useTheme } from "next-themes"
-import { Responsive, Curve, XYChart } from "@visx/visx"
+import { Curve, XYChart } from "@visx/visx"
 import { format } from "date-fns"
 
 interface DataProps {
@@ -16,8 +16,6 @@ interface UsersPerDayProps {
 }
 
 interface GraphProps extends UsersPerDayProps {
-  width: number
-  height: number
   theme: string
 }
 
@@ -128,11 +126,7 @@ const Graph = ({ theme, data }: GraphProps) => {
 const UsersPerDay = (props: UsersPerDayProps) => {
   const { resolvedTheme: theme } = useTheme()
 
-  return (
-    <Responsive.ParentSize>
-      {({ width, height }) => <Graph {...props} width={width} height={height} theme={theme ?? "light"} />}
-    </Responsive.ParentSize>
-  )
+  return <Graph {...props} theme={theme ?? "light"} />
 }
 
 export default UsersPerDay
