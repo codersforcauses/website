@@ -6,16 +6,17 @@ import { payments, users } from "~/server/db/schema"
 
 export const analyticsRouter = createTRPCRouter({
   count: adminProcedure.query(async ({ ctx }) => {
-    const [[userCount]] = await Promise.all([
+    const [[userCount], [memberCount]] = await Promise.all([
       ctx.db.select({ count: sql<number>`count(*)`.mapWith(Number) }).from(users),
       ctx.db
         .select({ count: sql<number>`count(*)`.mapWith(Number) })
         .from(users)
-        .groupBy(),
+        .where(isNotNull(users.role)),
     ])
 
     return {
       users: userCount?.count ?? 0,
+      members: memberCount?.count ?? 0,
     }
   }),
 

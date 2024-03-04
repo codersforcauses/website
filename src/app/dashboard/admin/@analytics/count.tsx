@@ -26,7 +26,8 @@ const Count = async () => {
 
   return (
     <>
-      <Card heading="Total Users" count={count.users} icon="group" />
+      <Card heading="Users" count={count.users} icon="group" />
+      <Card heading="Members" count={count.members} icon="group" />
       <Card heading="Projects" count={"N/A"} icon="devices" />
       <Card heading="Events" count={"N/A"} icon="event" />
     </>
