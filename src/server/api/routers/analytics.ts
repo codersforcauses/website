@@ -66,4 +66,16 @@ export const analyticsRouter = createTRPCRouter({
 
     return data
   }),
+
+  gender: adminProcedure.query(async ({ ctx }) => {
+    const data = await ctx.db
+      .select({
+        count: sql<number>`count(*)`.mapWith(Number),
+        pronouns: users.pronouns,
+      })
+      .from(users)
+      .groupBy(users.pronouns)
+
+    return data
+  }),
 })

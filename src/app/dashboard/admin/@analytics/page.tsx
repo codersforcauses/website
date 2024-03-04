@@ -1,4 +1,5 @@
 import Count from "./count"
+import GenderDistribution from "./gender-distribution"
 import UsersGraph from "./users-graph"
 
 export default async function AdminAnalyticsTable() {
@@ -10,6 +11,7 @@ export default async function AdminAnalyticsTable() {
       <div className="grid grid-cols-5 gap-4">
         <Count />
         <UsersGraph />
+        <GenderDistribution />
       </div>
     </>
   )
