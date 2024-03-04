@@ -2,13 +2,19 @@ import { clerkClient } from "@clerk/nextjs"
 import { TRPCError } from "@trpc/server"
 import { Ratelimit } from "@upstash/ratelimit"
 import { randomUUID } from "crypto"
-import { desc, eq, sql } from "drizzle-orm"
+import { desc, eq } from "drizzle-orm"
 import { Client, Environment } from "square"
 import { z } from "zod"
 
 import { env } from "~/env"
 import { NAMED_ROLES } from "~/lib/constants"
-import { createTRPCRouter, protectedProcedure, protectedRatedProcedure, publicRatedProcedure } from "~/server/api/trpc"
+import {
+  adminProcedure,
+  createTRPCRouter,
+  protectedProcedure,
+  protectedRatedProcedure,
+  publicRatedProcedure,
+} from "~/server/api/trpc"
 import { users } from "~/server/db/schema"
 
 const { customersApi, paymentsApi } = new Client({
@@ -164,47 +170,18 @@ export const userRouter = createTRPCRouter({
       }
     }),
 
-  getAll: protectedProcedure
-    // .input(
-    //   z.object({
-    //     limit: z.number().min(1).max(100).default(10),
-    //     offset: z.number().default(0),
-    //   }),
-    // )
-    .query(async ({ ctx }) => {
-      const user = await ctx.db.query.users.findFirst({
-        columns: {
-          role: true,
-        },
-        where: eq(users.id, ctx.user.id),
-      })
-      if (!user) throw new TRPCError({ code: "NOT_FOUND", message: `Could not find user with id: ${ctx.user.id}` })
-      if (user.role !== "admin" && user.role !== "committee")
-        throw new TRPCError({ code: "FORBIDDEN", message: "You do not have permission to view all users." })
+  getAll: adminProcedure.query(async ({ ctx }) => {
+    const userList = await ctx.db.query.users.findMany({
+      columns: {
+        subscribe: false,
+        square_customer_id: false,
+        updatedAt: false,
+      },
+      orderBy: [desc(users.createdAt), desc(users.id)],
+    })
 
-      const userList = await ctx.db.query.users.findMany({
-        columns: {
-          subscribe: false,
-          square_customer_id: false,
-          updatedAt: false,
-        },
-        orderBy: [desc(users.createdAt), desc(users.id)],
-      })
-      // const [userList, [{ count } = { count: 0 }]] = await Promise.all([
-      //   ctx.db.query.users.findMany({
-      //     // ...input,
-      //     columns: {
-      //       subscribe: false,
-      //       square_customer_id: false,
-      //       updatedAt: false,
-      //     },
-      //     orderBy: [desc(users.createdAt), desc(users.id)],
-      //   }),
-      //   ctx.db.select({ count: sql<number>`count(*)`.mapWith(Number) }).from(users),
-      // ])
-
-      return userList
-    }),
+    return userList
+  }),
 
   updateRole: protectedProcedure
     .input(

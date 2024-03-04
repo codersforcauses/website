@@ -9,11 +9,13 @@
 
 import { currentUser } from "@clerk/nextjs"
 import { initTRPC, TRPCError } from "@trpc/server"
+import { Ratelimit, type RatelimitConfig } from "@upstash/ratelimit"
 import superjson from "superjson"
 import { ZodError } from "zod"
+import { eq } from "drizzle-orm"
 
-import { Ratelimit, type RatelimitConfig } from "@upstash/ratelimit"
 import { db } from "~/server/db"
+import { users } from "~/server/db/schema"
 import { buildIdentifier, createRatelimit } from "./ratelimit"
 
 /**
@@ -153,3 +155,29 @@ export const protectedProcedure = t.procedure.use(enforceUserIsAuthed)
  */
 export const protectedRatedProcedure = (limiter?: RatelimitConfig["limiter"]) =>
   t.procedure.use(createRatelimiter(limiter)).use(enforceUserIsAuthed)
+/**
+ * Protected (authenticated) procedure for admin users
+ *
+ * If you want a query or mutation to ONLY be accessible to admin users, use this. It verifies
+ * the session is valid while guaranteeing `ctx.session.user` is not null. Also checks if the user
+ * is an admin or committee member.
+ *
+ * @see https://trpc.io/docs/procedures
+ */
+export const adminProcedure = t.procedure.use(enforceUserIsAuthed).use(async ({ ctx, next }) => {
+  const user = await ctx.db.query.users.findFirst({
+    columns: {
+      role: true,
+    },
+    where: eq(users.id, ctx.user.id),
+  })
+  if (!user) throw new TRPCError({ code: "NOT_FOUND", message: `Could not find user with id: ${ctx.user.id}` })
+  if (user.role !== "admin" && user.role !== "committee")
+    throw new TRPCError({ code: "FORBIDDEN", message: "You do not have permission to access this API." })
+
+  return next({
+    ctx: {
+      user: ctx.user,
+    },
+  })
+})
