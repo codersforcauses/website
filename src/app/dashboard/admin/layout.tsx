@@ -13,7 +13,7 @@ interface AdminDashLayoutProps extends PropsWithChildren {
   users: React.ReactNode
   // projects: React.ReactNode
   // events: React.ReactNode
-  // analytics: React.ReactNode
+  analytics: React.ReactNode
 }
 
 const Layout = ({ children, ...props }: AdminDashLayoutProps) => {
@@ -24,7 +24,7 @@ const Layout = ({ children, ...props }: AdminDashLayoutProps) => {
     { text: "Users", icon: "group", component: props.users },
     // { text: "Projects", icon: "devices", component: <Placeholder /> },
     // { text: "Events", icon: "event", component: <Placeholder /> },
-    // { text: "Analytics", icon: "analytics", component: <Placeholder /> },
+    { text: "Analytics", icon: "analytics", component: props.analytics },
   ]
 
   return (
