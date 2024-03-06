@@ -1,19 +1,19 @@
 "use client"
 
-import { type ProjectModel } from "~/lib/types"
 import Image from "next/image"
 import Link from "next/link"
 import { useTheme } from "next-themes"
+
+import type { ProjectModel } from "./types"
 
 interface ProjectCardProps {
   project: ProjectModel
 }
 
-const ProjectCard = ({ project }: ProjectCardProps) => {
+const Card = ({ project }: ProjectCardProps) => {
   const { resolvedTheme: theme } = useTheme()
-
   return (
-    <div className="relative aspect-square bg-alt-light hover:cursor-pointer dark:bg-black">
+    <div className="relative aspect-square hover:cursor-pointer">
       <Link key={project.id} href={`projects/${project.id}`}>
         <div className="relative h-full flex-grow">
           <Image
@@ -32,4 +32,4 @@ const ProjectCard = ({ project }: ProjectCardProps) => {
   )
 }
 
-export default ProjectCard
+export default Card

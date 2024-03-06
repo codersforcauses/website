@@ -21,7 +21,7 @@ line-height: 1.625;
 }
 .list-heading {
 margin-bottom: 0.5rem;
-font-size: 1.25rem;
+font-size: 1rem;
 line-height: 1.75rem;
 font-weight: 700;
 }

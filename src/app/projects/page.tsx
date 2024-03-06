@@ -1,6 +1,14 @@
 import type { Viewport, Metadata } from "next"
-import ProjectsPage from "../_components/projects/page"
+import dynamic from "next/dynamic"
+
+import projectData from "data/projects.json"
 import { customMetadata } from "~/lib/metadata"
+const Card = dynamic(() => import("./card"), {
+  ssr: false,
+})
+const ProjectProcessModal = dynamic(() => import("./modal"), {
+  ssr: false,
+})
 
 export const viewport: Viewport = {
   themeColor: "black",
@@ -16,12 +24,22 @@ export const metadata: Metadata = {
       "https://og-social-cards.vercel.app/**.%2Fprojects**.png?theme=dark&md=1&fontSize=125px&images=https%3A%2Fcodersforcauses.org%2Flogo%2Fcfc_logo_white_full.svg",
   }),
 }
-const Projects = () => {
+
+export default function ProjectsPage() {
   return (
-    <>
-      <ProjectsPage />
-    </>
+    <div className="container">
+      <div className="flex flex-col md:flex-row md:gap-16">
+        <div className="flex-grow">
+          <div className="grid gap-6 py-6 md:grid-cols-3">
+            {projectData.map((project) => (
+              <Card key={project.id} project={project} />
+            ))}
+          </div>
+        </div>
+        <div className="mt-6 text-primary dark:text-white md:w-1/4">
+          <ProjectProcessModal />
+        </div>
+      </div>
+    </div>
   )
 }
-
-export default Projects

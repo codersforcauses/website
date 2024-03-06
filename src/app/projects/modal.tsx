@@ -1,5 +1,6 @@
 import { Button } from "~/components/ui/button"
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "~/components/ui/dialog"
+import { ScrollArea } from "~/components/ui/scroll-area"
 
 const ProjectProcessModal = () => {
   return (
@@ -13,12 +14,14 @@ const ProjectProcessModal = () => {
           Project Development
         </Button>
       </DialogTrigger>
-      <DialogContent className="max-h-screen max-w-3xl overflow-y-scroll md:overflow-y-auto">
+      <DialogContent className="max-h-screen max-w-2xl overflow-hidden sm:max-h-[calc(95vh)]">
         <DialogHeader>
           <DialogTitle>CFC Project Development Breakdown</DialogTitle>
-          <div className="space-y-4 text-black dark:text-white">
-            <div className="mt-6 space-y-2">
-              <h3 className="font-mono font-bold">Initial Meeting</h3>
+        </DialogHeader>
+        <ScrollArea className="h-full w-full font-sans text-sm">
+          <div className="space-y-4">
+            <div className="space-y-2">
+              <h3 className="font-mono text-base font-bold leading-7">Initial Meeting</h3>
               <p>
                 The primary focus of this stage is to develop a basic understanding on our side about your project.
                 Through this initial discussion we are able to construct a basic idea of the technical requirements.
@@ -27,7 +30,7 @@ const ProjectProcessModal = () => {
               </p>
             </div>
             <div className="space-y-2">
-              <h3 className="font-mono font-bold">Subsequent Pre-development Planning</h3>
+              <h3 className="font-mono text-base font-bold leading-7">Subsequent Pre-development Planning</h3>
               <p>
                 The focus here is refining the project specifications &ndash; what is being developed at each stage of
                 the project, down to the specific features. The purpose here is to get to the core functionality of the
@@ -37,7 +40,7 @@ const ProjectProcessModal = () => {
               </p>
             </div>
             <div className="space-y-2">
-              <h3 className="font-mono font-bold">Development Phase</h3>
+              <h3 className="font-mono text-base font-bold leading-7">Development Phase</h3>
               <p>
                 We work using an agile development process. This means that we work in two week sprints, and require the
                 client&apos;s feedback at the end of the two weeks as it helps us refine our work and ensure that the
@@ -45,21 +48,21 @@ const ProjectProcessModal = () => {
               </p>
             </div>
             <div className="space-y-2">
-              <h3 className="font-mono font-bold">Handover</h3>
+              <h3 className="font-mono text-base font-bold leading-7">Handover</h3>
               <p>
                 We provide the client with an APK (Application Program Key) which allows the application to be
                 downloaded or run by the client along with documentation for the source code and the user guide.
               </p>
             </div>
             <div className="space-y-2">
-              <h3 className="font-mono font-bold">Post-Handover Care</h3>
+              <h3 className="font-mono text-base font-bold leading-7">Post-Handover Care</h3>
               <p>
                 For some projects, we may need to provide maintenance and other support services for servers, routes and
                 other technical tools.
               </p>
             </div>
           </div>
-        </DialogHeader>
+        </ScrollArea>
       </DialogContent>
     </Dialog>
   )
