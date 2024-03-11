@@ -28,15 +28,15 @@ export const metadata: Metadata = {
 export default function ProjectsPage() {
   return (
     <div className="container">
-      <div className="flex flex-col md:flex-row md:gap-16">
+      <div className="flex flex-col md:flex-row md:gap-12">
         <div className="flex-grow">
-          <div className="grid gap-6 py-6 md:grid-cols-3">
+          <div className="grid grid-cols-[repeat(auto-fill,minmax(14rem,1fr))] gap-4 py-6">
             {projectData.map((project) => (
               <Card key={project.id} project={project} />
             ))}
           </div>
         </div>
-        <div className="mt-6 text-primary dark:text-white md:w-1/4">
+        <div className="mt-6 md:w-1/4">
           <ProjectProcessModal />
         </div>
       </div>
