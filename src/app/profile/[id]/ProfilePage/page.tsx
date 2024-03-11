@@ -7,8 +7,8 @@ import { Badge } from "~/components/ui/badge"
 import { Button } from "~/components/ui/button"
 import { type User } from "~/lib/types"
 import { api } from "~/trpc/react"
-import EditProfile from "./EditProfile/page"
-import ProfilePageSkeleton from "./ProfilePageSkeleton/page"
+import EditProfile from "~/app/_components/clients/EditProfile/page"
+import ProfilePageSkeleton from "~/app/_components/clients/ProfilePageSkeleton/page"
 
 const uni = [
   {
