@@ -1,8 +1,13 @@
 import Image from "next/image"
 
+import { Button } from "~/components/ui/button"
+
 const LogoCard = (props: { dark?: boolean; main?: boolean; svg: string; png: string }) => (
   <div
-    className={["flex flex-col border border-primary", props.dark ? "bg-black text-white" : "bg-white text-black"]
+    className={[
+      "flex flex-col border border-black/25 dark:border-white/25",
+      props.dark ? "bg-neutral-950 text-white" : "bg-white text-neutral-950",
+    ]
       .join(" ")
       .trim()}
   >
@@ -13,17 +18,23 @@ const LogoCard = (props: { dark?: boolean; main?: boolean; svg: string; png: str
     </div>
     <div className="flex items-center p-1 text-sm sm:px-2 md:px-3">
       <span className="flex-grow">
-        <a href={props.png} download className="flex self-center">
-          <span className="material-symbols-sharp">download</span>
-        </a>
+        <Button variant="ghost" asChild>
+          <a href={props.png} download className="flex self-center">
+            <span className="material-symbols-sharp">download</span>
+          </a>
+        </Button>
       </span>
-      <a href={props.svg} download className="hover:underline">
-        .svg
-      </a>
-      &emsp;
-      <a href={props.png} download className="hover:underline">
-        .png
-      </a>
+      <Button variant="ghost" size="icon" asChild>
+        <a href={props.svg} download>
+          .svg
+        </a>
+      </Button>
+      &nbsp;
+      <Button variant="ghost" size="icon" asChild>
+        <a href={props.png} download>
+          .png
+        </a>
+      </Button>
     </div>
   </div>
 )
