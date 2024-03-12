@@ -3,10 +3,10 @@ import Image from "next/image"
 import dynamic from "next/dynamic"
 
 import { Button } from "~/components/ui/button"
-import TypedText from "./_components/typed-text"
+import TypedText from "../_components/typed-text"
 import BentoDisplay from "~/components/bento"
 import JoinUs from "./join-us"
-const Contact = dynamic(() => import("../components/contact"), {
+const Contact = dynamic(() => import("./contact"), {
   ssr: false,
   loading: () => <Button variant="outline-dark">Contact us</Button>,
 })
