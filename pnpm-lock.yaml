@@ -119,6 +119,12 @@ dependencies:
   '@visx/visx':
     specifier: 3.10.2
     version: 3.10.2(@react-spring/web@9.7.3)(react-dom@18.2.0)(react@18.2.0)
+  '@xata.io/client':
+    specifier: 0.29.3
+    version: 0.29.3(typescript@5.4.2)
+  '@xata.io/drizzle':
+    specifier: 0.0.19
+    version: 0.0.19(drizzle-orm@0.30.1)(typescript@5.4.2)
   class-variance-authority:
     specifier: 0.7.0
     version: 0.7.0
@@ -3855,6 +3861,25 @@ packages:
     dependencies:
       '@webassemblyjs/ast': 1.11.6
       '@xtuc/long': 4.2.2
+    dev: false
+
+  /@xata.io/client@0.29.3(typescript@5.4.2):
+    resolution: {integrity: sha512-GsH3RNU2P0fP+YKTFVZZ/DAkczJ6/25xyXg383GIlgLW9juy5PpMumscFIgfjWIbvnasATKNVN2127C4ONfOTg==}
+    peerDependencies:
+      typescript: '>=4.5'
+    dependencies:
+      typescript: 5.4.2
+    dev: false
+
+  /@xata.io/drizzle@0.0.19(drizzle-orm@0.30.1)(typescript@5.4.2):
+    resolution: {integrity: sha512-fLBJxL20Qj4P+67lqhklapsKbozrT2qXHhdcr4sqHe2iRSdnwgVRHJ7y7PX96U9bv6x+fWrOvpUW82NRq6AW9w==}
+    peerDependencies:
+      drizzle-orm: ^0.28.5
+    dependencies:
+      '@xata.io/client': 0.29.3(typescript@5.4.2)
+      drizzle-orm: 0.30.1(@planetscale/database@1.16.0)(@types/react@18.2.64)(mysql2@3.9.2)(react@18.2.0)
+    transitivePeerDependencies:
+      - typescript
     dev: false
 
   /@xtuc/ieee754@1.2.0:

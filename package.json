@@ -53,6 +53,8 @@
     "@upstash/redis": "1.28.4",
     "@vercel/analytics": "1.2.2",
     "@visx/visx": "3.10.2",
+    "@xata.io/client": "0.29.3",
+    "@xata.io/drizzle": "0.0.19",
     "class-variance-authority": "0.7.0",
     "clsx": "2.1.0",
     "cmdk": "1.0.0",
