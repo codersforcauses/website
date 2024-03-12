@@ -1,11 +1,12 @@
 "use client"
 
 import dynamic from "next/dynamic"
-import Clients from "../_components/clients/page"
-import Committee from "../_components/committee/page"
-import Sponsors from "../_components/sponsors"
 
-const Map = dynamic(() => import("~/components/map"), { ssr: false })
+import Clients from "./clients"
+import Committee from "./committee"
+import Sponsors from "./sponsors"
+
+const Map = dynamic(() => import("~/app/about/map"), { ssr: false })
 
 export default function About() {
   return (
@@ -15,8 +16,8 @@ export default function About() {
           <div id="_what_we_do" className="space-y-2">
             <h2 className="mb-4 font-mono text-3xl font-black">We build software for charities</h2>
             <p className="text-lg">
-              Coders for Causes is a not for profit organisation that empowers charities and other not for profit
-              organisations by connecting them with university students to develop technical solutions. We are a
+              Coders for Causes is a not for profit organization that empowers charities and other not for profit
+              organizations by connecting them with university students to develop technical solutions. We are a
               student-run club based in Perth, Western Australia with a wide range of clients.
             </p>
           </div>

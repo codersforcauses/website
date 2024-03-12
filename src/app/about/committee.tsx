@@ -1,8 +1,9 @@
-import { Fragment } from "react"
+import * as React from "react"
 import Image from "next/image"
 import { siGithub } from "simple-icons"
 
-import { type CardItemProps } from "~/lib/types"
+import committee from "data/committee.json"
+import type { CardItemProps } from "~/lib/types"
 
 const CommitteeCard = ({ name, position, about, social, picture: { src, alt } }: CardItemProps) => (
   <div className="group relative flex">
@@ -16,7 +17,7 @@ const CommitteeCard = ({ name, position, about, social, picture: { src, alt } }:
       <p className="text-sm">{about}</p>
       <div className="flex items-center space-x-2">
         {Object.entries(social).map(([key, value]) => (
-          <Fragment key={key}>
+          <React.Fragment key={key}>
             {key === "email" ? (
               <a href={"mailto:" + value} className="flex self-center" title={value}>
                 <span className="material-symbols-sharp">email</span>
@@ -29,11 +30,21 @@ const CommitteeCard = ({ name, position, about, social, picture: { src, alt } }:
                 </svg>
               </a>
             )}
-          </Fragment>
+          </React.Fragment>
         ))}
       </div>
     </div>
   </div>
 )
 
-export default CommitteeCard
+const Committee = () => {
+  return (
+    <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+      {committee.map((member) => (
+        <CommitteeCard key={member.name} {...member} />
+      ))}
+    </div>
+  )
+}
+
+export default Committee

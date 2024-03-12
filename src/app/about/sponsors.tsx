@@ -1,6 +1,6 @@
 import sponsors from "data/sponsors.json"
 import { type ImageProps } from "~/lib/types"
-import ImageGrid from "../image-grid"
+import ImageGrid from "./image-grid"
 
 interface Sponsor {
   name: string
