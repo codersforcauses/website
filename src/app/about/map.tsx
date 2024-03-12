@@ -1,4 +1,6 @@
-import { memo, useEffect, useRef } from "react"
+"use client"
+
+import * as React from "react"
 import { useTheme } from "next-themes"
 import mapboxgl from "mapbox-gl"
 import "mapbox-gl/dist/mapbox-gl.css"
@@ -11,10 +13,10 @@ const UWA_COORDS: [number, number] = [115.816986, -31.98097] // [lng, lat]
 const Map = () => {
   const { resolvedTheme: theme } = useTheme()
 
-  const mapContainer = useRef<HTMLDivElement>(null)
+  const mapContainer = React.useRef<HTMLDivElement>(null)
 
-  useEffect(() => {
-    const styledMap = `mapbox://styles/mapbox/${theme === "dark" ? "dark" : "light"}-v10`
+  React.useEffect(() => {
+    const styledMap = `mapbox://styles/mapbox/${theme === "dark" ? "dark" : "light"}-v11`
 
     const map = new mapboxgl.Map({
       container: mapContainer.current!,
@@ -28,26 +30,6 @@ const Map = () => {
       cooperativeGestures: true,
       attributionControl: false,
     })
-
-    let timestampAtStart: number
-    let lastRequestId: number
-    function rotateCamera(timestamp: number) {
-      if (timestampAtStart < 0) {
-        timestampAtStart = timestamp
-      }
-      const timeSinceStart = timestamp - timestampAtStart
-      // clamp the rotation between 0 -360 degrees
-      // Divide timestamp by 100 to slow rotation to ~10 degrees / sec
-      map.rotateTo((timeSinceStart / 100) % 360, { duration: 0 })
-      // Request the next frame of the animation.
-      lastRequestId = requestAnimationFrame(rotateCamera)
-    }
-
-    function startAnimation() {
-      if (lastRequestId) window.cancelAnimationFrame(lastRequestId)
-      timestampAtStart = -1
-      lastRequestId = window.requestAnimationFrame(rotateCamera)
-    }
 
     map.on("load", () => {
       map.resize()
@@ -109,10 +91,6 @@ const Map = () => {
           essential: true,
         })
       }, 1000)
-
-      setTimeout(() => {
-        startAnimation()
-      }, 4800)
     })
 
     return () => map.remove()
@@ -121,4 +99,4 @@ const Map = () => {
   return <div ref={mapContainer} className="h-full w-full" />
 }
 
-export default memo(Map)
+export default React.memo(Map)
