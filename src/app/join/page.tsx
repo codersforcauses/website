@@ -48,6 +48,14 @@ export default function Join() {
     onSuccess: async (data) => {
       await setUserCookie(data)
     },
+    onError: (error) => {
+      toast({
+        variant: "destructive",
+        title: "Error",
+        description: "An error occurred while signing in. Please try again.",
+      })
+      console.error(error)
+    },
   })
 
   const onSubmit = async ({ email }: FormSchema) => {
