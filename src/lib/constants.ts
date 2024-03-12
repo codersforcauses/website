@@ -1,3 +1,5 @@
+import * as SimpleIcons from "simple-icons/icons"
+
 export const SITE_URL =
   process.env.NEXT_PUBLIC_VERCEL_ENV === "production"
     ? "https://codersforcauses.org"
@@ -42,3 +44,26 @@ export const UNIVERSITIES = [
     value: "tafe",
   },
 ] as const
+
+export const iconMap: Record<string, string> = {
+  mongodb: SimpleIcons.siMongodb.path,
+  vuedotjs: SimpleIcons.siVuedotjs.path,
+  nodedotjs: SimpleIcons.siNodedotjs.path,
+  express: SimpleIcons.siExpress.path,
+  nuxtdotjs: SimpleIcons.siNuxtdotjs.path,
+  vuetify: SimpleIcons.siVuetify.path,
+  nextdotjs: SimpleIcons.siNextdotjs.path,
+  vercel: SimpleIcons.siVercel.path,
+  html5: SimpleIcons.siHtml5.path,
+  css3: SimpleIcons.siCss3.path,
+  javascript: SimpleIcons.siJavascript.path,
+  heroku: SimpleIcons.siHeroku.path,
+  microsoftsqlserver: SimpleIcons.siMicrosoftsqlserver.path,
+  microsoftazure: SimpleIcons.siMicrosoftazure.path,
+  firebase: SimpleIcons.siFirebase.path,
+  react: SimpleIcons.siReact.path,
+  typescript: SimpleIcons.siTypescript.path,
+  tailwindcss: SimpleIcons.siTailwindcss.path,
+  django: SimpleIcons.siDjango.path,
+  digitalocean: SimpleIcons.siDigitalocean.path,
+}
