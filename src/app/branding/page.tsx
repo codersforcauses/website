@@ -4,8 +4,8 @@ import * as React from "react"
 import Link from "next/link"
 
 import { Button } from "~/components/ui/button"
-import LogoCard from "./logocard"
-import ColourCard from "./colourcard"
+import LogoCard from "./logo-card"
+import ColourCard from "./colour-card"
 
 export default function BrandPage() {
   const [typographyText, setTypographyText] = React.useState("Coders for Causes")

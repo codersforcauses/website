@@ -13,7 +13,7 @@ const LogoCard = (props: { dark?: boolean; main?: boolean; svg: string; png: str
   >
     <div className="flex h-24 flex-grow items-center justify-center p-2 md:h-56 md:p-4">
       <div className="relative h-full w-2/3">
-        <Image src={props.svg} alt="CFC logo" layout="fill" />
+        <Image src={props.svg} alt="CFC logo" fill />
       </div>
     </div>
     <div className="flex items-center p-1 text-sm sm:px-2 md:px-3">
