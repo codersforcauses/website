@@ -8,7 +8,7 @@ import { type Event } from "~/lib/types"
 const date = new Date()
 
 const parseEventDate = (date: string, time: string) => {
-  return parse(`${date} ${time.toUpperCase()}`, "dd/MM/yy h:mma", date)
+  return parse(`${date} ${time.toUpperCase()}`, "dd/MM/yy h:mma", new Date())
 }
 
 const sort = (array: Event[], isReversed = false) =>
@@ -20,7 +20,7 @@ const sort = (array: Event[], isReversed = false) =>
     return isAfter(date1, date2) ? 1 : -1
   })
 
-const filterYears = (array: Array<Event>) => {
+const filter = (array: Array<Event>, isReversed = false) => {
   const data: Record<string, Array<Event>> = {}
 
   array.forEach((event) => {
@@ -33,23 +33,25 @@ const filterYears = (array: Array<Event>) => {
     }
   })
 
-  return data
+  return Object.entries(data).sort((data1, data2) => {
+    const year1 = Number(data1[0])
+    const year2 = Number(data2[0])
+
+    if (isReversed) return year1 > year2 ? -1 : 1
+    return year1 > year2 ? 1 : -1
+  })
 }
 
 const events = {
-  past: filterYears(
-    sort(
-      eventList.filter((event) => isBefore(parse(`${event.date} ${event.time.start}`, "dd/MM/yy h:mma", date), date)),
-      true,
-    ),
+  past: filter(
+    eventList.filter((event) => isBefore(parse(`${event.date} ${event.time.start}`, "dd/MM/yy h:mma", date), date)),
+    true,
   ),
-  upcoming: filterYears(
-    sort(
-      eventList.filter((event) => {
-        const _date = parse(`${event.date} ${event.time.start}`, "dd/MM/yy h:mma", date)
-        return isAfter(_date, date) || isSameDay(_date, date)
-      }),
-    ),
+  upcoming: filter(
+    eventList.filter((event) => {
+      const _date = parse(`${event.date} ${event.time.start}`, "dd/MM/yy h:mma", date)
+      return isAfter(_date, date) || isSameDay(_date, date)
+    }),
   ),
 }
 
@@ -70,14 +72,14 @@ export default function EventsPage() {
       </TabsList>
       <TabsContent value="past">
         <div className="space-y-6">
-          {Object.keys(events.past).length === 0 ? (
+          {events.past.length === 0 ? (
             <h2 className="font-mono text-3xl text-primary">No past events</h2>
           ) : (
-            Object.entries(events.past).map(([year, events]) => (
+            events.past.map(([year, events]) => (
               <div key={year}>
                 <h3 className="mb-2 ml-4 font-mono text-lg lg:ml-16">{year}</h3>
                 <div className="space-y-4">
-                  {events.map((event) => (
+                  {sort(events, true).map((event) => (
                     <div
                       key={event.date + event.time.start}
                       className="relative border-l border-black/25 dark:border-white/25"
@@ -96,13 +98,13 @@ export default function EventsPage() {
       </TabsContent>
       <TabsContent value="upcoming">
         <div className="space-y-6">
-          {Object.keys(events.upcoming).length === 0 ? (
+          {events.upcoming.length === 0 ? (
             <h2 className="font-mono text-3xl text-black dark:text-white">No upcoming events</h2>
           ) : (
-            Object.entries(events.upcoming).map(([year, events]) => (
+            events.upcoming.map(([year, events]) => (
               <div key={year}>
                 <h3 className="mb-2 ml-4 font-mono text-lg lg:ml-16">{year}</h3>
-                {events.map((event) => (
+                {sort(events).map((event) => (
                   <div
                     key={event.date + event.time.start}
                     className="relative border-l border-black/25 dark:border-white/25"
