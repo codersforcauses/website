@@ -46,7 +46,7 @@ export default function Join() {
 
   const userData = api.user.login.useMutation({
     onSuccess: async (data) => {
-      await setUserCookie(data!)
+      await setUserCookie(data)
     },
   })
 
