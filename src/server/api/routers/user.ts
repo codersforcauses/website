@@ -124,50 +124,33 @@ export const userRouter = createTRPCRouter({
     }),
 
   login: protectedRatedProcedure(Ratelimit.fixedWindow(4, "30s")).mutation(async ({ ctx }) => {
-    try {
-      const user = await ctx.db.query.users.findFirst({
-        where: eq(users.id, ctx.user?.id),
-      })
-      return user
-    } catch (error) {
+    const user = await ctx.db.query.users.findFirst({
+      where: eq(users.id, ctx.user?.id),
+    })
+
+    if (!user) {
       throw new TRPCError({
-        code: "INTERNAL_SERVER_ERROR",
-        message: `Unable to retrieve user with id: ${ctx.user.id}`,
-        cause: error,
+        code: "NOT_FOUND",
+        message: `Could not find user with id:${ctx.user.id}`,
       })
     }
+    return user
   }),
 
   getCurrent: protectedRatedProcedure(Ratelimit.fixedWindow(40, "30s")).query(async ({ ctx }) => {
-    try {
-      const user = await ctx.db.query.users.findFirst({
-        where: eq(users.id, ctx.user.id),
-      })
-      return user
-    } catch (error) {
-      throw new TRPCError({
-        code: "INTERNAL_SERVER_ERROR",
-        message: `Unable to retrieve user with id: ${ctx.user.id}`,
-        cause: error,
-      })
-    }
+    const user = await ctx.db.query.users.findFirst({
+      where: eq(users.id, ctx.user.id),
+    })
+    return user
   }),
 
   get: publicRatedProcedure(Ratelimit.fixedWindow(4, "30s"))
     .input(z.string())
     .query(async ({ ctx, input }) => {
-      try {
-        const user = await ctx.db.query.users.findFirst({
-          where: eq(users.id, input),
-        })
-        return user
-      } catch (error) {
-        throw new TRPCError({
-          code: "INTERNAL_SERVER_ERROR",
-          message: `Unable to retrieve user with id: ${input}`,
-          cause: error,
-        })
-      }
+      const user = await ctx.db.query.users.findFirst({
+        where: eq(users.id, input),
+      })
+      return user
     }),
 
   getAll: adminProcedure.query(async ({ ctx }) => {
@@ -194,60 +177,48 @@ export const userRouter = createTRPCRouter({
       }),
     )
     .mutation(async ({ ctx, input }) => {
-      try {
-        const [currentUser] = await ctx.db.select().from(users).where(eq(users.id, ctx.user.id))
-        if (!currentUser)
-          throw new TRPCError({ code: "NOT_FOUND", message: `Could not find user with id:${ctx.user.id}` })
+      const [currentUser] = await ctx.db.select().from(users).where(eq(users.id, ctx.user.id))
+      if (!currentUser)
+        throw new TRPCError({ code: "NOT_FOUND", message: `Could not find user with id:${ctx.user.id}` })
 
-        // allow admin and committee to update to any role
-        if (currentUser.role === "admin" || currentUser.role === "committee") {
-          await ctx.db.update(users).set({ role: input.role }).where(eq(users.id, input.id))
-        } else {
-          if (currentUser.id === input.id) {
-            // allow user to remove their role
-            if (input.role === null) {
-              await ctx.db.update(users).set({ role: input.role }).where(eq(users.id, ctx.user?.id))
-            } else if (input.role === "member") {
-              if (!input.paymentID) throw new TRPCError({ code: "BAD_REQUEST", message: "Payment ID is required" })
+      // allow admin and committee to update to any role
+      if (currentUser.role === "admin" || currentUser.role === "committee") {
+        await ctx.db.update(users).set({ role: input.role }).where(eq(users.id, input.id))
+      } else {
+        if (currentUser.id === input.id) {
+          // allow user to remove their role
+          if (input.role === null) {
+            await ctx.db.update(users).set({ role: input.role }).where(eq(users.id, ctx.user?.id))
+          } else if (input.role === "member") {
+            if (!input.paymentID) throw new TRPCError({ code: "BAD_REQUEST", message: "Payment ID is required" })
 
-              try {
-                // check payment
-                const { result } = await paymentsApi.getPayment(input.paymentID)
-                if (
-                  result.payment?.status === "COMPLETED" &&
-                  result.payment?.referenceId === ctx.user.id &&
-                  result.payment.note?.includes("CFC Membership")
-                ) {
-                  // only update role if payment successful and user is not already a member
-                  if (currentUser.role === null) {
-                    await ctx.db.update(users).set({ role: input.role }).where(eq(users.id, ctx.user?.id))
-                  }
-                } else {
-                  throw new TRPCError({
-                    code: "BAD_REQUEST",
-                    message: "Payment is not valid or was unable to be verified.",
-                  })
-                }
-              } catch (error) {
-                throw new TRPCError({
-                  code: "INTERNAL_SERVER_ERROR",
-                  message: "Failed to verify membership payment.",
-                  cause: error,
-                })
+            // check payment
+            const { result } = await paymentsApi.getPayment(input.paymentID)
+            if (
+              result.payment?.status === "COMPLETED" &&
+              result.payment?.referenceId === ctx.user.id &&
+              result.payment.note?.includes("CFC Membership")
+            ) {
+              // only update role if payment successful and user is not already a member
+              if (currentUser.role === null) {
+                await ctx.db.update(users).set({ role: input.role }).where(eq(users.id, ctx.user?.id))
               }
             } else {
-              throw new TRPCError({ code: "FORBIDDEN", message: "You cannot give yourself higher access." })
+              throw new TRPCError({
+                code: "BAD_REQUEST",
+                message: "Payment is not valid or was unable to be verified.",
+              })
             }
           } else {
-            throw new TRPCError({ code: "FORBIDDEN", message: "You do not have permission to update this user." })
+            throw new TRPCError({ code: "FORBIDDEN", message: "You cannot give yourself higher access." })
           }
+        } else {
+          throw new TRPCError({ code: "FORBIDDEN", message: "You do not have permission to update this user." })
         }
-
-        const [user] = await ctx.db.select().from(users).where(eq(users.id, ctx.user.id))
-        return user
-      } catch (error) {
-        throw new TRPCError({ code: "INTERNAL_SERVER_ERROR", message: "Failed to update user role", cause: error })
       }
+
+      const [user] = await ctx.db.select().from(users).where(eq(users.id, ctx.user.id))
+      return user
     }),
 
   update: protectedRatedProcedure(Ratelimit.fixedWindow(4, "30s"))
@@ -285,33 +256,29 @@ export const userRouter = createTRPCRouter({
       }),
     )
     .mutation(async ({ ctx, input }) => {
-      try {
-        const currentUser = ctx.user
-        // TODO: update clerk email
-        await Promise.all([
-          clerkClient.users.updateUser(ctx.user.id, {
-            // emailAddress: input.email,
-            firstName: input.preferred_name,
-            lastName: input.name,
-          }),
-          ctx.db
-            .update(users)
-            .set({
-              name: input.name?.trim(),
-              preferred_name: input.preferred_name?.trim(),
-              email: input.email?.trim(),
-              pronouns: input.pronouns?.trim(),
-              student_number: input.student_number?.trim(),
-              university: input.uni?.trim(),
-            })
-            .where(eq(users.id, currentUser.id)),
-        ])
+      const currentUser = ctx.user
+      // TODO: update clerk email
+      await Promise.all([
+        clerkClient.users.updateUser(ctx.user.id, {
+          // emailAddress: input.email,
+          firstName: input.preferred_name,
+          lastName: input.name,
+        }),
+        ctx.db
+          .update(users)
+          .set({
+            name: input.name?.trim(),
+            preferred_name: input.preferred_name?.trim(),
+            email: input.email?.trim(),
+            pronouns: input.pronouns?.trim(),
+            student_number: input.student_number?.trim(),
+            university: input.uni?.trim(),
+          })
+          .where(eq(users.id, currentUser.id)),
+      ])
 
-        const [user] = await ctx.db.select().from(users).where(eq(users.id, currentUser.id))
-        return user
-      } catch (error) {
-        throw new TRPCError({ code: "INTERNAL_SERVER_ERROR", message: "Failed to update user", cause: error })
-      }
+      const [user] = await ctx.db.select().from(users).where(eq(users.id, currentUser.id))
+      return user
     }),
 
   updateSocial: protectedRatedProcedure(Ratelimit.fixedWindow(4, "30s"))
@@ -322,21 +289,17 @@ export const userRouter = createTRPCRouter({
       }),
     )
     .mutation(async ({ ctx, input }) => {
-      try {
-        const currentUser = ctx.user
+      const currentUser = ctx.user
 
-        await ctx.db
-          .update(users)
-          .set({
-            github: input.github?.trim(),
-            discord: input.discord?.trim(),
-          })
-          .where(eq(users.id, currentUser.id))
+      await ctx.db
+        .update(users)
+        .set({
+          github: input.github?.trim(),
+          discord: input.discord?.trim(),
+        })
+        .where(eq(users.id, currentUser.id))
 
-        const [user] = await ctx.db.select().from(users).where(eq(users.id, currentUser.id))
-        return user
-      } catch (error) {
-        throw new TRPCError({ code: "INTERNAL_SERVER_ERROR", message: "Failed to update user's socials", cause: error })
-      }
+      const [user] = await ctx.db.select().from(users).where(eq(users.id, currentUser.id))
+      return user
     }),
 })
