@@ -1,6 +1,6 @@
 import { Skeleton } from "~/components/ui/skeleton"
 
-const ProjectPageSkeleton = () => {
+const Loading = () => {
   return (
     <>
       <div className="relative bg-black py-32 md:py-48">
@@ -56,4 +56,4 @@ const ProjectPageSkeleton = () => {
   )
 }
 
-export default ProjectPageSkeleton
+export default Loading

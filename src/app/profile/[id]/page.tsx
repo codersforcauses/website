@@ -1,5 +1,5 @@
 import NotFound from "~/app/not-found"
-import ProfilePage from "./ProfilePage/page"
+import ProfilePage from "./profile/page"
 import { getUserCookie } from "~/app/actions"
 
 const Profile = async ({ params: { id } }: { params: { id: string } }) => {

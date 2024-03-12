@@ -30,7 +30,7 @@ export default function ProjectsPage() {
     <div className="container">
       <div className="flex flex-col md:flex-row md:gap-12">
         <div className="flex-grow">
-          <div className="grid grid-cols-[repeat(auto-fill,minmax(14rem,1fr))] gap-4 py-6">
+          <div className="grid grid-cols-[repeat(auto-fit,minmax(14rem,1fr))] gap-4 py-6">
             {projectData.map((project) => (
               <Card key={project.id} project={project} />
             ))}

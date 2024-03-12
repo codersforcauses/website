@@ -9,29 +9,7 @@ import { type User } from "~/lib/types"
 import { api } from "~/trpc/react"
 import EditProfile from "~/app/_components/clients/EditProfile/page"
 import ProfilePageSkeleton from "~/app/_components/clients/ProfilePageSkeleton/page"
-
-const uni = [
-  {
-    label: "Curtin University",
-    value: "curtin",
-  },
-  {
-    label: "Edith Cowan University",
-    value: "ecu",
-  },
-  {
-    label: "Murdoch University",
-    value: "murdoch",
-  },
-  {
-    label: "University of Notre Dame",
-    value: "notre-dame",
-  },
-  {
-    label: "TAFE",
-    value: "tafe",
-  },
-] as const
+import { UNIVERSITIES } from "~/lib/constants"
 
 interface ProfilePageProps {
   // user: User,
@@ -43,7 +21,7 @@ const ProfilePage = ({ id, currentUser }: ProfilePageProps) => {
   const [isEditing, setIsEditing] = useState(false)
 
   const { data: user, refetch } = api.user.get.useQuery(id)
-  const universityLabel = user ? uni.find((u) => u.value === user.university)?.label : undefined
+  const universityLabel = user ? UNIVERSITIES.find((u) => u.value === user.university)?.label : undefined
 
   if (user) {
     return (

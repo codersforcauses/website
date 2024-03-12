@@ -1,9 +1,13 @@
-import { type TechIcons, iconMap } from "~/lib/types"
+import { iconMap } from "~/lib/constants"
+import type { TechIcons } from "../types"
+
+interface TechListProps {
+  data: TechIcons[]
+}
 
 const TechList = ({ data }: TechListProps) => (
   <div className="grid grid-cols-2 gap-4">
     {data.map((tech: TechIcons) => {
-      console.log(tech.icon)
       const iconPath = typeof tech.icon === "string" ? iconMap[tech.icon] : undefined
 
       return (
@@ -17,9 +21,5 @@ const TechList = ({ data }: TechListProps) => (
     })}
   </div>
 )
-
-interface TechListProps {
-  data: TechIcons[]
-}
 
 export default TechList
