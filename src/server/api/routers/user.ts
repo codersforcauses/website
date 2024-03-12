@@ -67,23 +67,23 @@ export const userRouter = createTRPCRouter({
       }),
     )
     .mutation(async ({ ctx, input }) => {
-      try {
-        const { result } = await customersApi.createCustomer({
-          idempotencyKey: randomUUID(),
-          givenName: input.preferred_name,
-          familyName: input.name,
-          emailAddress: input.email,
-          referenceId: input.clerk_id,
+      const { result, statusCode } = await customersApi.createCustomer({
+        idempotencyKey: randomUUID(),
+        givenName: input.preferred_name,
+        familyName: input.name,
+        emailAddress: input.email,
+        referenceId: input.clerk_id,
+      })
+
+      if (!result.customer?.id) {
+        throw new TRPCError({
+          code: "INTERNAL_SERVER_ERROR",
+          message: `Failed to create square customer ${statusCode}`,
+          cause: JSON.stringify(result),
         })
+      }
 
-        if (!result.customer?.id) {
-          throw new TRPCError({
-            code: "INTERNAL_SERVER_ERROR",
-            message: "Failed to create square customer",
-            cause: result,
-          })
-        }
-
+      try {
         await ctx.db.insert(users).values({
           id: input.clerk_id,
           name: input.name,
