@@ -1,7 +1,8 @@
+import Link from "next/link"
 import { format, isAfter, isBefore, isSameDay, parse } from "date-fns"
 
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "~/components/ui/tabs"
 import eventList from "data/events.json"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "~/components/ui/tabs"
 import EventCard from "./card"
 import { type Event } from "~/lib/types"
 
@@ -59,15 +60,15 @@ const smallDate = (date: string) => {
   return format(parse(date, "dd/MM/yy", new Date()), "MMM dd")
 }
 
-export default function EventsPage() {
+export default function EventsPage({ searchParams }: { searchParams: { type: string } }) {
   return (
-    <Tabs defaultValue="upcoming" className="container py-12">
+    <Tabs defaultValue={searchParams.type ?? "upcoming"} className="container py-12">
       <TabsList className="mb-2 w-full max-w-xs">
-        <TabsTrigger value="past" className="w-full">
-          Past
+        <TabsTrigger asChild value="past" className="w-full">
+          <Link href="?type=past">Past</Link>
         </TabsTrigger>
         <TabsTrigger value="upcoming" className="w-full">
-          Upcoming
+          <Link href="?type=upcoming">Upcoming</Link>
         </TabsTrigger>
       </TabsList>
       <TabsContent value="past">

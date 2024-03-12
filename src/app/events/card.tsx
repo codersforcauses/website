@@ -10,10 +10,10 @@ const EventCard = (event: Omit<Event, "type">) => {
       <div className="relative col-span-full @xl/card:col-span-2 @xl/card:row-span-2">
         <Skeleton className="size-full" />
         <Image
-          priority
+          fill
           src={event.image.src}
           alt={event.image.alt}
-          layout="fill"
+          sizes="100%"
           className="size-full object-cover object-center"
         />
       </div>
