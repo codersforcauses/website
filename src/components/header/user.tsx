@@ -48,7 +48,7 @@ const UserButton = ({ cachedUser }: HeaderUser) => {
 
   const userSignOut = React.useCallback(async () => {
     await Promise.all([removeUserCookie(), signOut(), utils.user.getCurrent.reset()])
-    router.push("/")
+    router.replace("/")
   }, [signOut, utils.user, router])
 
   if (!user || !userId)

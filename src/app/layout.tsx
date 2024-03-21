@@ -44,7 +44,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: PropsWithChildren) {
   return (
-    <ClerkProvider clerkJSVariant="headless">
+    <ClerkProvider clerkJSVariant="headless" afterSignInUrl="/dashboard">
       <html
         lang="en-AU"
         suppressHydrationWarning
