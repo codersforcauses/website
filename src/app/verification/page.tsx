@@ -2,9 +2,13 @@
 
 import * as React from "react"
 import { EmailLinkErrorCode, isEmailLinkError, useClerk } from "@clerk/nextjs"
+import { useRouter } from "next/navigation"
+
+type VerificationStatus = "loading" | "verified" | "expired" | "failed"
 
 export default function Verification() {
-  const [verificationStatus, setVerificationStatus] = React.useState("loading")
+  const router = useRouter()
+  const [verificationStatus, setVerificationStatus] = React.useState<VerificationStatus>("loading")
   const { handleEmailLinkVerification } = useClerk()
 
   React.useEffect(() => {
@@ -16,7 +20,7 @@ export default function Verification() {
         setVerificationStatus("verified")
       } catch (err) {
         // Verification has failed.
-        let status = "failed"
+        let status: VerificationStatus = "failed"
         if (isEmailLinkError(err as Error) && err?.code === EmailLinkErrorCode.Expired) {
           status = "expired"
         }
@@ -28,6 +32,16 @@ export default function Verification() {
     })
   }, [handleEmailLinkVerification])
 
+  React.useEffect(() => {
+    // If the user closes the tab, we should still mark the verification as failed.
+    const timeout = setTimeout(() => {
+      if (verificationStatus === "verified") {
+        router.push("/dashboard")
+      }
+    }, 5000)
+    return () => clearTimeout(timeout)
+  }, [router, verificationStatus])
+
   switch (verificationStatus) {
     case "loading":
       return <main className="main container grid place-items-center text-xl">Loading...</main>
@@ -38,7 +52,8 @@ export default function Verification() {
     default:
       return (
         <main className="main container grid place-items-center text-xl">
-          Verification successful. Return to the original tab to continue. You may close this tab.
+          Verification successful. Return to the original tab to continue. You may close this tab. You will be
+          redirected in 5 seconds.
         </main>
       )
   }
