@@ -44,7 +44,7 @@ export default function Join() {
     defaultValues,
   })
 
-  const userData = api.user.login.useMutation({
+  const login = api.user.login.useMutation({
     onError: (error) => {
       toast({
         variant: "destructive",
@@ -86,9 +86,8 @@ export default function Join() {
         })
       }
       if (res.status === "complete") {
-        // needs to be in this order or fails
         await setActive({ session: res.createdSessionId }) // sets token from clerk
-        const user = await userData.mutateAsync() // get user details
+        const user = await login.mutateAsync() // get user details
         setUser(user)
 
         router.push("/dashboard")
