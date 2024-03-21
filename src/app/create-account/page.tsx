@@ -26,7 +26,6 @@ import { SITE_URL, PRONOUNS, UNIVERSITIES } from "~/lib/constants"
 import { cn } from "~/lib/utils"
 import { type User } from "~/lib/types"
 import { api } from "~/trpc/react"
-import { setUserCookie } from "~/app/actions"
 
 type ActiveView = "form" | "payment"
 
@@ -364,7 +363,6 @@ export default function CreateAccount() {
         role: "member",
         paymentID,
       })
-      await setUserCookie(updatedUser!)
       utils.user.getCurrent.setData(undefined, updatedUser)
       router.replace("/dashboard")
     } catch (error) {
@@ -380,7 +378,6 @@ export default function CreateAccount() {
     if (user) {
       setLoadingSkipPayment(true)
       try {
-        await setUserCookie(user)
         utils.user.getCurrent.setData(undefined, user)
         router.push("/dashboard")
       } catch (error) {

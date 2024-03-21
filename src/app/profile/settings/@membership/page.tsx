@@ -1,7 +1,6 @@
 import OnlinePaymentForm from "~/components/payment/online"
 import { Separator } from "~/components/ui/separator"
 import { toast } from "~/components/ui/use-toast"
-import { setUserCookie } from "~/app/actions"
 import { api } from "~/trpc/server"
 
 export default async function Membership() {
@@ -10,12 +9,11 @@ export default async function Membership() {
   const handleAfterOnlinePayment = async (paymentID: string) => {
     "use server"
     try {
-      const updatedUser = await api.user.updateRole.mutate({
+      await api.user.updateRole.mutate({
         id: user.id,
         role: "member",
         paymentID,
       })
-      await setUserCookie(updatedUser!)
     } catch (error) {
       toast({
         variant: "destructive",

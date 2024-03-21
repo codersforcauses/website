@@ -12,7 +12,6 @@ import ProfilePageSkeleton from "~/app/_components/clients/ProfilePageSkeleton/p
 import { UNIVERSITIES } from "~/lib/constants"
 
 interface ProfilePageProps {
-  // user: User,
   id: string
   currentUser: User
 }

@@ -79,7 +79,9 @@ const PersonalForm = (props: { defaultValues?: Partial<FormSchema> }) => {
 
   const form = useForm<FormSchema>({
     resolver: zodResolver(formSchema),
-    defaultValues: { ...props.defaultValues, uni: props.defaultValues?.uni ?? UNIVERSITIES[0].value },
+    defaultValues: props.defaultValues
+      ? { ...props.defaultValues, uni: props.defaultValues?.uni ?? UNIVERSITIES[0].value }
+      : defaultValues,
   })
   const { getValues } = form
 

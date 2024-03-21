@@ -3,7 +3,6 @@ import * as React from "react"
 import OnlinePaymentForm from "~/components/payment/online"
 import { toast } from "~/components/ui/use-toast"
 import { api } from "~/trpc/server"
-import { setUserCookie } from "~/app/actions"
 
 export default async function Dashboard() {
   const user = await api.user.getCurrent.query()
@@ -11,12 +10,11 @@ export default async function Dashboard() {
   const handleAfterOnlinePayment = async (paymentID: string) => {
     "use server"
     try {
-      const updatedUser = await api.user.updateRole.mutate({
+      await api.user.updateRole.mutate({
         id: user.id,
         role: "member",
         paymentID,
       })
-      await setUserCookie(updatedUser!)
     } catch (error) {
       toast({
         variant: "destructive",

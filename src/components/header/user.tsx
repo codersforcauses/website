@@ -1,11 +1,11 @@
 "use client"
 
-import * as React from "react"
-import Link from "next/link"
-import dynamic from "next/dynamic"
-import { usePathname, useRouter } from "next/navigation"
 import { useAuth } from "@clerk/nextjs"
 import { track } from "@vercel/analytics/react"
+import dynamic from "next/dynamic"
+import Link from "next/link"
+import { usePathname, useRouter } from "next/navigation"
+import * as React from "react"
 
 import { Avatar, AvatarFallback } from "~/components/ui/avatar"
 import { Button } from "~/components/ui/button"
@@ -18,20 +18,14 @@ import {
   // DropdownMenuShortcut,
   DropdownMenuTrigger,
 } from "~/components/ui/dropdown-menu"
-import { removeUserCookie, setUserCookie } from "~/app/actions"
 import { api } from "~/trpc/react"
-import type { User } from "~/lib/types"
 
 const ThemeSwitcher = dynamic(() => import("./theme"), {
   ssr: false,
   loading: () => <Button variant="ghost-dark" size="icon" />,
 })
 
-interface HeaderUser {
-  cachedUser?: User
-}
-
-const UserButton = ({ cachedUser }: HeaderUser) => {
+const UserButton = () => {
   const router = useRouter()
   const { userId, signOut } = useAuth()
   const path = usePathname()
@@ -39,15 +33,11 @@ const UserButton = ({ cachedUser }: HeaderUser) => {
 
   const { data: user } = api.user.getCurrent.useQuery(undefined, {
     enabled: !!userId,
-    placeholderData: cachedUser,
     refetchInterval: 1000 * 60 * 10, // 10 minutes
-    onSuccess: (data) => {
-      void setUserCookie(data)
-    },
   })
 
   const userSignOut = React.useCallback(async () => {
-    await Promise.all([removeUserCookie(), signOut(), utils.user.getCurrent.reset()])
+    await Promise.all([signOut(), utils.user.getCurrent.reset()])
     router.replace("/")
   }, [signOut, utils.user, router])
 

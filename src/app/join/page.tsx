@@ -1,22 +1,22 @@
 "use client"
 
-import * as React from "react"
-import { useRouter } from "next/navigation"
-import { zodResolver } from "@hookform/resolvers/zod"
-import { useForm } from "react-hook-form"
 import { useSignIn } from "@clerk/nextjs"
+import { zodResolver } from "@hookform/resolvers/zod"
 import { track } from "@vercel/analytics/react"
+import { useRouter } from "next/navigation"
+import * as React from "react"
+import { useForm } from "react-hook-form"
 import * as z from "zod"
 
-import { SITE_URL } from "~/lib/constants"
-import type { ClerkError } from "~/lib/types"
+import { setUser } from "@sentry/nextjs"
 import { Alert, AlertDescription, AlertTitle } from "~/components/ui/alert"
 import { Button } from "~/components/ui/button"
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "~/components/ui/form"
 import { Input } from "~/components/ui/input"
 import { toast } from "~/components/ui/use-toast"
+import { SITE_URL } from "~/lib/constants"
+import type { ClerkError } from "~/lib/types"
 import { api } from "~/trpc/react"
-import { setUserCookie } from "../actions"
 
 const formSchema = z.object({
   email: z
@@ -45,9 +45,6 @@ export default function Join() {
   })
 
   const userData = api.user.login.useMutation({
-    onSuccess: async (data) => {
-      await setUserCookie(data)
-    },
     onError: (error) => {
       toast({
         variant: "destructive",
@@ -91,7 +88,8 @@ export default function Join() {
       if (res.status === "complete") {
         // needs to be in this order or fails
         await setActive({ session: res.createdSessionId }) // sets token from clerk
-        await userData.mutateAsync() // get user details and sets cookie on success
+        const user = await userData.mutateAsync() // get user details
+        setUser(user)
 
         router.push("/dashboard")
       }
