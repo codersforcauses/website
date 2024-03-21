@@ -8,7 +8,6 @@ import * as React from "react"
 import { useForm } from "react-hook-form"
 import * as z from "zod"
 
-import { setUser } from "@sentry/nextjs"
 import { Alert, AlertDescription, AlertTitle } from "~/components/ui/alert"
 import { Button } from "~/components/ui/button"
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "~/components/ui/form"
@@ -87,8 +86,7 @@ export default function Join() {
       }
       if (res.status === "complete") {
         await setActive({ session: res.createdSessionId }) // sets token from clerk
-        const user = await login.mutateAsync() // get user details
-        setUser(user)
+        await login.mutateAsync()
 
         router.push("/dashboard")
       }
