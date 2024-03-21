@@ -34,12 +34,15 @@ export default function Verification() {
 
   React.useEffect(() => {
     // If the user closes the tab, we should still mark the verification as failed.
-    const timeout = setTimeout(() => {
-      if (verificationStatus === "verified") {
+    let timeout: NodeJS.Timeout
+    if (verificationStatus === "verified") {
+      timeout = setTimeout(() => {
         router.push("/dashboard")
-      }
-    }, 5000)
-    return () => clearTimeout(timeout)
+      }, 5000)
+    }
+    return () => {
+      timeout && clearTimeout(timeout)
+    }
   }, [router, verificationStatus])
 
   switch (verificationStatus) {

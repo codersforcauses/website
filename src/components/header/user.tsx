@@ -29,7 +29,6 @@ const UserButton = () => {
   const router = useRouter()
   const { userId, signOut } = useAuth()
   const path = usePathname()
-  const utils = api.useUtils()
 
   const { data: user } = api.user.getCurrent.useQuery(undefined, {
     enabled: !!userId,
@@ -37,9 +36,10 @@ const UserButton = () => {
   })
 
   const userSignOut = React.useCallback(async () => {
-    await Promise.all([signOut(), utils.user.getCurrent.reset()])
-    router.replace("/")
-  }, [signOut, utils.user, router])
+    await signOut(() => {
+      router.push("/")
+    })
+  }, [signOut, router])
 
   if (!user || !userId)
     return (
