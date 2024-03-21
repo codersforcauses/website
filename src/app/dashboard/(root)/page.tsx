@@ -12,7 +12,7 @@ export default async function Dashboard() {
     "use server"
     try {
       const updatedUser = await api.user.updateRole.mutate({
-        id: user!.id,
+        id: user.id,
         role: "member",
         paymentID,
       })

@@ -138,10 +138,7 @@ export const userRouter = createTRPCRouter({
   }),
 
   getCurrent: protectedRatedProcedure(Ratelimit.fixedWindow(40, "30s")).query(async ({ ctx }) => {
-    const user = await ctx.db.query.users.findFirst({
-      where: eq(users.id, ctx.user.id),
-    })
-    return user
+    return ctx.user
   }),
 
   get: publicRatedProcedure(Ratelimit.fixedWindow(4, "30s"))

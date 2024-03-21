@@ -31,7 +31,12 @@ import { buildIdentifier, createRatelimit } from "./ratelimit"
  * @see https://trpc.io/docs/server/context
  */
 export const createTRPCContext = async (opts: { ip?: string; headers: Headers }) => {
-  const user = await currentUser()
+  const clerkUser = await currentUser()
+  const user = clerkUser
+    ? await db.query.users.findFirst({
+        where: eq(users.id, clerkUser.id),
+      })
+    : null
 
   return {
     db,
@@ -165,14 +170,7 @@ export const protectedRatedProcedure = (limiter?: RatelimitConfig["limiter"]) =>
  * @see https://trpc.io/docs/procedures
  */
 export const adminProcedure = t.procedure.use(enforceUserIsAuthed).use(async ({ ctx, next }) => {
-  const user = await ctx.db.query.users.findFirst({
-    columns: {
-      role: true,
-    },
-    where: eq(users.id, ctx.user.id),
-  })
-  if (!user) throw new TRPCError({ code: "NOT_FOUND", message: `Could not find user with id: ${ctx.user.id}` })
-  if (user.role !== "admin" && user.role !== "committee")
+  if (ctx.user.role !== "admin" && ctx.user.role !== "committee")
     throw new TRPCError({ code: "FORBIDDEN", message: "You do not have permission to access this API." })
 
   return next({
