@@ -311,7 +311,7 @@ const EditProfile = ({ setIsEditing, id, refetch }: EditProfileProps) => {
               )}
             />
           </section>
-          <section>
+          <section className="space-y-4">
             <FormField
               control={form.control}
               name="github"
