@@ -30,3 +30,21 @@ pnpm i <dep_name> -E
 # Update all packages
 pnpm upgrade -L
 ```
+
+## Planned Features
+
+### Project Integration Enhancements
+
+- Profiles will soon showcase the projects that users have contributed to, highlighting their work and collaborations.
+- Applications to join our seasonal Summer and Winter projects will be directly accessible through the site for our members.
+- Committee members and Administrators will gain the ability to upload project specifics directly to the platform.
+
+### User Profile Enhancements
+
+- The platform will support multiple role assignments for users, offering tailored experiences based on their involvement and interests.
+- Enhanced profile customization options will be introduced.
+
+### Event Participation and Management
+
+- Users will be able to purchase event tickets directly through the platform, making attendance simpler and more integrated.
+- Event management will be streamlined for Committee members and Administrators, with capabilities to upload and update event information directly to the platform.
