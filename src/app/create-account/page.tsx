@@ -296,7 +296,7 @@ export default function CreateAccount() {
       userData.uni = values.uni
     }
     try {
-      const { startEmailLinkFlow } = signUp.createEmailLinkFlow()
+      const { startEmailLinkFlow, cancelEmailLinkFlow } = signUp.createEmailLinkFlow()
       await signUp.create({
         emailAddress: values.email,
         firstName: values.preferred_name,
@@ -317,8 +317,18 @@ export default function CreateAccount() {
         redirectUrl: `${SITE_URL}/verification`,
       })
 
+      if (!su.createdUserId) {
+        toast({
+          variant: "destructive",
+          title: "Failed to create user",
+          description: "An error occurred while trying to create user. Please try again.",
+        })
+        cancelEmailLinkFlow()
+        return
+      }
+
       const user = await createUser.mutateAsync({
-        clerk_id: su.createdUserId!,
+        clerk_id: su.createdUserId,
         ...userData,
       })
       setUser(user)
