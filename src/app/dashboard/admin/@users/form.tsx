@@ -354,7 +354,7 @@ const AddUserForm = () => {
         />
         <Button type="submit" disabled={isLoading} className="w-full">
           {isLoading ? "Please wait" : "Submit"}
-          {isLoading && <span className="material-symbols-sharp absolute right-4 animate-spin">progress_activity</span>}
+          {isLoading && <span className="material-symbols-sharp ml-2 animate-spin">progress_activity</span>}
         </Button>
       </form>
     </Form>
