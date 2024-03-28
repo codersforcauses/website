@@ -404,13 +404,14 @@ const UserTable = ({ data, isRefetching, ...props }: UserTableProps) => {
               <span className={cn("material-symbols-sharp", isRefetching && "animate-spin")}>autorenew</span>
               <span className="ml-2 hidden sm:block">Sync{isRefetching && "ing"}</span>
             </Button>
+            {/* Add user manually */}
             <Dialog>
               <DialogTrigger asChild>
                 <Button>Add user</Button>
               </DialogTrigger>
-              <DialogContent>
+              <DialogContent className="h-full overflow-auto sm:max-w-5xl">
                 <DialogHeader>
-                  <DialogTitle>Create user manually</DialogTitle>
+                  <DialogTitle>Add user manually</DialogTitle>
                   <DialogDescription>
                     <AddUserForm />
                   </DialogDescription>

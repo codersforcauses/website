@@ -57,9 +57,23 @@ const formSchema = z
 
 type FormSchema = z.infer<typeof formSchema>
 
+const defaultValues: FormSchema = {
+  email: "",
+  name: "",
+  preferred_name: "",
+  pronouns: PRONOUNS[0].value,
+  isUWA: true,
+  student_number: "",
+  uni: UNIVERSITIES[0].value,
+  github: "",
+  discord: "",
+  subscribe: true,
+}
+
 const AddUserForm = () => {
   const form = useForm<FormSchema>({
     resolver: zodResolver(formSchema),
+    defaultValues,
   })
   const { isLoading, mutate: createUserManual } = api.user.createManual.useMutation({
     onSuccess: () => {
@@ -101,7 +115,7 @@ const AddUserForm = () => {
 
   return (
     <Form {...form}>
-      <form className="grid grid-cols-2 gap-4" onSubmit={form.handleSubmit(onSubmit)}>
+      <form className="flex flex-col flex-wrap gap-4" onSubmit={form.handleSubmit(onSubmit)}>
         <FormField
           control={form.control}
           name="email"
@@ -338,7 +352,7 @@ const AddUserForm = () => {
             </FormItem>
           )}
         />
-        <Button type="submit" disabled={isLoading} className="relative w-full">
+        <Button type="submit" disabled={isLoading} className="w-full">
           {isLoading ? "Please wait" : "Submit"}
           {isLoading && <span className="material-symbols-sharp absolute right-4 animate-spin">progress_activity</span>}
         </Button>
