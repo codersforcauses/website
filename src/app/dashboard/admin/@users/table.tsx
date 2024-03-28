@@ -1,26 +1,34 @@
 "use client"
 
-import * as React from "react"
-import Link from "next/link"
-import { format } from "date-fns"
-import { enAU } from "date-fns/locale"
-import { siDiscord, siGithub } from "simple-icons"
 import {
   flexRender,
-  useReactTable,
   getCoreRowModel,
+  getFilteredRowModel,
   getPaginationRowModel,
   getSortedRowModel,
-  getFilteredRowModel,
+  useReactTable,
   type ColumnDef,
   type PaginationState,
   type SortingState,
   type VisibilityState,
 } from "@tanstack/react-table"
+import { format } from "date-fns"
+import { enAU } from "date-fns/locale"
+import Link from "next/link"
+import * as React from "react"
+import { siDiscord, siGithub } from "simple-icons"
 
 import { Badge } from "~/components/ui/badge"
 import { Button } from "~/components/ui/button"
 import { Checkbox } from "~/components/ui/checkbox"
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "~/components/ui/dialog"
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
@@ -41,18 +49,19 @@ import {
   Pagination,
   PaginationContent,
   PaginationFirstPageButton,
-  PaginationPreviousButton,
   PaginationItem,
-  PaginationNextButton,
   PaginationLastPageButton,
+  PaginationNextButton,
+  PaginationPreviousButton,
 } from "~/components/ui/pagination"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "~/components/ui/select"
 import { Separator } from "~/components/ui/separator"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "~/components/ui/table"
 import { NAMED_ROLES } from "~/lib/constants"
 import type { User } from "~/lib/types"
 import { cn } from "~/lib/utils"
 import { api } from "~/trpc/react"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "~/components/ui/select"
+import AddUserForm from "./form"
 
 type UserProps = Omit<User, "subscribe" | "square_customer_id" | "updatedAt">
 
@@ -153,12 +162,12 @@ const columns = (updateRole: ({ id, role }: UpdateUserRoleFunctionProps) => void
     header: "University",
     enableGlobalFilter: true,
     accessorFn: (user) => user.university ?? `${user.student_number} (UWA)`,
-    cell: (cell) => <span className="text-xs">{cell.getValue()}</span>,
+    cell: (cell) => <span className="text-xs">{cell.getValue<React.ReactNode>()}</span>,
   },
   {
     id: "Date joined",
     header: "Date joined",
-    cell: (cell) => <span className="text-xs">{cell.getValue()}</span>,
+    cell: (cell) => <span className="text-xs">{cell.getValue<React.ReactNode>()}</span>,
     accessorFn: (user) => format(user.createdAt, "Pp", { locale: enAU }),
   },
   {
@@ -314,7 +323,7 @@ const UserTable = ({ data, isRefetching, ...props }: UserTableProps) => {
 
   return (
     <>
-      <div className="flex h-[50px] items-center p-1">
+      <div className="flex h-[50px] items-center gap-2 p-1">
         {data.length > 0 && (
           <>
             {selectedRowIDs.length > 0 && (
@@ -369,7 +378,7 @@ const UserTable = ({ data, isRefetching, ...props }: UserTableProps) => {
             />
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button variant="outline" className="ml-2 items-center">
+                <Button variant="outline" className="items-center">
                   <span>Columns</span>
                   <span className="material-symbols-sharp size-5">expand_more</span>
                 </Button>
@@ -391,10 +400,23 @@ const UserTable = ({ data, isRefetching, ...props }: UserTableProps) => {
                   })}
               </DropdownMenuContent>
             </DropdownMenu>
-            <Button variant="secondary" disabled={isRefetching} className="ml-2" onClick={props.refetch}>
+            <Button variant="secondary" disabled={isRefetching} onClick={props.refetch}>
               <span className={cn("material-symbols-sharp", isRefetching && "animate-spin")}>autorenew</span>
               <span className="ml-2 hidden sm:block">Sync{isRefetching && "ing"}</span>
             </Button>
+            <Dialog>
+              <DialogTrigger asChild>
+                <Button>Add user</Button>
+              </DialogTrigger>
+              <DialogContent>
+                <DialogHeader>
+                  <DialogTitle>Create user manually</DialogTitle>
+                  <DialogDescription>
+                    <AddUserForm />
+                  </DialogDescription>
+                </DialogHeader>
+              </DialogContent>
+            </Dialog>
           </>
         )}
       </div>
