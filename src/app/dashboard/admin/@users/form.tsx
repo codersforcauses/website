@@ -115,7 +115,7 @@ const AddUserForm = () => {
 
   return (
     <Form {...form}>
-      <form className="flex flex-col flex-wrap gap-4" onSubmit={form.handleSubmit(onSubmit)}>
+      <form className="flex flex-col flex-wrap gap-4 text-left" onSubmit={form.handleSubmit(onSubmit)}>
         <FormField
           control={form.control}
           name="email"
@@ -280,7 +280,7 @@ const AddUserForm = () => {
               These fields are optional but are required if you plan on applying for projects during the winter and
               summer breaks.
             </p>
-            <Alert>
+            <Alert className="text-left">
               <svg viewBox="0 0 24 24" width={16} height={16} className="mr-2 fill-current">
                 <title>{siDiscord.title}</title>
                 <path d={siDiscord.path} />
