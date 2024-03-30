@@ -118,14 +118,22 @@ export default function Join() {
             </AlertDescription>
           </Alert>
         ) : (
-          <Alert>
-            <span className="material-symbols-sharp size-4 text-xl leading-4">help</span>
+          <Alert variant="destructive">
             <AlertTitle>Welcome!</AlertTitle>
             <AlertDescription>
-              No passwords here! Enter your email, and we&apos;ll email you a link to sign in or bring you to the sign
-              up page.
+              We&apos;re currently making some improvements to our system. During this period, the creation of new
+              accounts will be temporarily disabled. We apologise for any inconvenience and appreciate your patience.
+              Please check back soon!
             </AlertDescription>
           </Alert>
+          // <Alert>
+          //   <span className="material-symbols-sharp size-4 text-xl leading-4">help</span>
+          //   <AlertTitle>Welcome!</AlertTitle>
+          //   <AlertDescription>
+          //     No passwords here! Enter your email, and we&apos;ll email you a link to sign in or bring you to the sign
+          //     up page.
+          //   </AlertDescription>
+          // </Alert>
         )}
         <FormField
           control={form.control}
@@ -140,8 +148,11 @@ export default function Join() {
             </FormItem>
           )}
         />
-        <Button type="submit" disabled={showAlert} className="w-full">
+        {/* <Button type="submit" disabled={showAlert} className="w-full">
           {showAlert ? "Waiting for email verification" : "Continue"}
+        </Button> */}
+        <Button type="submit" disabled className="w-full">
+          Continue
         </Button>
       </form>
     </Form>
