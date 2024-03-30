@@ -1,14 +1,4 @@
-import { relations, sql } from "drizzle-orm"
-import {
-  boolean,
-  decimal,
-  index,
-  mysqlEnum,
-  mysqlTableCreator,
-  serial,
-  timestamp,
-  varchar,
-} from "drizzle-orm/mysql-core"
+import { boolean, decimal, index, pgEnum, pgTableCreator, serial, timestamp, varchar } from "drizzle-orm/pg-core"
 
 import { NAMED_ROLES } from "~/lib/constants"
 
@@ -18,9 +8,11 @@ import { NAMED_ROLES } from "~/lib/constants"
  *
  * @see https://orm.drizzle.team/docs/goodies#multi-project-schema
  */
-export const mysqlTable = mysqlTableCreator((name) => `cfc-website_${name}`)
+export const pgTable = pgTableCreator((name) => `cfc-website_${name}`)
 
-export const users = mysqlTable(
+export const roleEnum = pgEnum("role", NAMED_ROLES) // honorary: hlm, past: past committee
+
+export const users = pgTable(
   "user",
   {
     id: varchar("id", { length: 32 }).primaryKey(),
@@ -33,22 +25,22 @@ export const users = mysqlTable(
     github: varchar("github", { length: 128 }),
     discord: varchar("discord", { length: 128 }),
     subscribe: boolean("subscribe").default(true).notNull(),
-    role: mysqlEnum("role", NAMED_ROLES), // honorary: hlm, past: past committee
+    role: roleEnum("role"),
     square_customer_id: varchar("square_customer_id", { length: 32 }).unique().notNull(),
 
+    // might not need since xata handles it
     createdAt: timestamp("created_at")
-      .default(sql`CURRENT_TIMESTAMP`)
+      .$default(() => new Date())
       .notNull(),
-    updatedAt: timestamp("updatedAt").onUpdateNow(),
+    updatedAt: timestamp("updated_at").$onUpdate(() => new Date()),
   },
   (user) => ({
-    emailIndex: index("email_idx").on(user.email),
     roleIndex: index("role_idx").on(user.role),
   }),
 )
 
 // for refunds and payment history
-export const payments = mysqlTable(
+export const payments = pgTable(
   "payment",
   {
     id: serial("id").primaryKey(),
@@ -58,10 +50,11 @@ export const payments = mysqlTable(
     label: varchar("label", { length: 256 }).notNull(),
     event_id: varchar("event_id", { length: 32 }), // TODO: link when events are implemented
 
+    // might not need since xata handles it
     createdAt: timestamp("created_at")
-      .default(sql`CURRENT_TIMESTAMP`)
+      .$default(() => new Date())
       .notNull(),
-    updatedAt: timestamp("updatedAt").onUpdateNow(),
+    updatedAt: timestamp("updated_at").$onUpdate(() => new Date()),
   },
   (payment) => ({
     userIndex: index("user_id_idx").on(payment.user_id),
