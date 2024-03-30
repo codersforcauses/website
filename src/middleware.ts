@@ -5,7 +5,8 @@ import { getUserCookie } from "./app/actions"
 const adminRoles = ["admin", "committee"]
 
 const adminPages = ["/dashboard/admin"]
-const protectedPages = ["/dashboard", "/profile/settings", ...adminPages]
+const createAccountPage = ["/create-account"]
+const protectedPages = ["/dashboard", "/profile/settings", ...adminPages, ...createAccountPage]
 
 export default authMiddleware({
   async afterAuth(auth, req) {
