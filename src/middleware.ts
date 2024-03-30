@@ -4,7 +4,7 @@ import { getUserCookie } from "./app/actions"
 
 const adminRoles = ["admin", "committee"]
 
-const adminPages = ["/dashboard/admin"]
+const adminPages = ["/dashboard/admin", "/create-account"]
 const protectedPages = ["/dashboard", "/profile/settings", ...adminPages]
 
 export default authMiddleware({
@@ -15,6 +15,7 @@ export default authMiddleware({
       if (!auth.userId) {
         return NextResponse.redirect(joinURL)
       }
+
       if (adminPages.includes(req.nextUrl.pathname)) {
         const user = await getUserCookie()
         if (!adminRoles.includes(user?.role ?? "")) {
