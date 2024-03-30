@@ -121,8 +121,8 @@ export default function Join() {
           <Alert variant="destructive">
             <AlertTitle>Welcome!</AlertTitle>
             <AlertDescription>
-              We&apos;re currently making some improvements to our system. During this period, the creation of new
-              accounts will be temporarily disabled. We apologise for any inconvenience and appreciate your patience.
+              We&apos;re currently making some improvements to our system. During this period, account creation and
+              sign-in will be temporarily unavailable. We apologise for any inconvenience and appreciate your patience.
               Please check back soon!
             </AlertDescription>
           </Alert>
