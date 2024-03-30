@@ -4,9 +4,8 @@ import { getUserCookie } from "./app/actions"
 
 const adminRoles = ["admin", "committee"]
 
-const adminPages = ["/dashboard/admin"]
-const createAccountPage = ["/create-account"]
-const protectedPages = ["/dashboard", "/profile/settings", ...adminPages, ...createAccountPage]
+const adminPages = ["/dashboard/admin", "/create-account"]
+const protectedPages = ["/dashboard", "/profile/settings", ...adminPages]
 
 export default authMiddleware({
   async afterAuth(auth, req) {
@@ -21,13 +20,7 @@ export default authMiddleware({
         const user = await getUserCookie()
         if (!adminRoles.includes(user?.role ?? "")) {
           return NextResponse.redirect(dashboardURL)
-        } else {
-          return NextResponse.next()
         }
-      }
-
-      if (!adminPages.includes(req.nextUrl.pathname) && req.nextUrl.pathname !== "/dashboard") {
-        return NextResponse.redirect(dashboardURL)
       }
     }
     return NextResponse.next()
