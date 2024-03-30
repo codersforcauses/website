@@ -59,6 +59,7 @@ const addToRemoveQueue = (toastId: string) => {
   }
 
   const timeout = setTimeout(() => {
+    // eslint-disable-next-line
     toastTimeouts.delete(toastId)
     dispatch({
       type: "REMOVE_TOAST",

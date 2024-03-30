@@ -7,6 +7,7 @@ const tables = [] as const
 export type SchemaTables = typeof tables
 export type InferredTypes = SchemaInference<SchemaTables>
 
+// eslint-disable-next-line
 export type DatabaseSchema = {}
 
 const DatabaseClient = buildClient()
