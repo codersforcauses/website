@@ -16,14 +16,18 @@ export default authMiddleware({
       if (!auth.userId) {
         return NextResponse.redirect(joinURL)
       }
-      if (auth.userId && req.nextUrl.pathname !== "/dashboard") {
-        return NextResponse.redirect(dashboardURL)
-      }
+
       if (adminPages.includes(req.nextUrl.pathname)) {
         const user = await getUserCookie()
         if (!adminRoles.includes(user?.role ?? "")) {
           return NextResponse.redirect(dashboardURL)
+        } else {
+          return NextResponse.next()
         }
+      }
+
+      if (!adminPages.includes(req.nextUrl.pathname) && req.nextUrl.pathname !== "/dashboard") {
+        return NextResponse.redirect(dashboardURL)
       }
     }
     return NextResponse.next()
