@@ -1,12 +1,11 @@
 import type { Config } from "drizzle-kit"
+import { getXataClient } from "~/server/db/xata"
 
-import { env } from "~/env"
+// const xata = getXataClient()
 
 export default {
   schema: "./src/server/db/schema.ts",
-  driver: "mysql2",
-  dbCredentials: {
-    uri: env.DATABASE_URL,
-  },
+  verbose: true,
+  driver: "pg",
   tablesFilter: ["cfc-website_*"],
 } satisfies Config
