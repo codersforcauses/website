@@ -1,18 +1,17 @@
-import * as React from "react"
-
+import { setUserCookie } from "~/app/actions"
 import OnlinePaymentForm from "~/components/payment/online"
 import { toast } from "~/components/ui/use-toast"
 import { api } from "~/trpc/server"
-import { setUserCookie } from "~/app/actions"
 
 export default async function Dashboard() {
   const user = await api.user.getCurrent.query()
 
   const handleAfterOnlinePayment = async (paymentID: string) => {
     "use server"
+
     try {
       const updatedUser = await api.user.updateRole.mutate({
-        id: user!.id,
+        id: user!.id, // maybe??
         role: "member",
         paymentID,
       })
@@ -53,7 +52,7 @@ export default async function Dashboard() {
                   </ul>
                 </div>
               </div>
-              <OnlinePaymentForm afterPayment={handleAfterOnlinePayment} />
+              {user && <OnlinePaymentForm afterPayment={handleAfterOnlinePayment} />}
             </div>
           )}
         </div>

@@ -71,79 +71,83 @@ const UserButton = ({ cachedUser }: HeaderUser) => {
   const isAdmin = user?.role === "admin" || user?.role === "committee"
 
   return (
-    <DropdownMenu>
+    <div className="flex">
       {process.env.NODE_ENV === "development" && !!user && <ThemeSwitcher />}
-      <DropdownMenuTrigger asChild>
-        <Button variant="ghost-dark" className="max-w-40 space-x-2 text-white">
-          <Avatar size="sm">
-            <AvatarFallback className="bg-neutral-800">{user?.preferred_name[0]}</AvatarFallback>
-          </Avatar>
-          <span>{user?.preferred_name}</span>
-        </Button>
-      </DropdownMenuTrigger>
-      <DropdownMenuContent align="end" className="-mr-1.5 mt-1 w-56 border-white/25 bg-black text-white ">
-        <DropdownMenuGroup>
-          <DropdownMenuItem
-            asChild
-            disabled={path === "/dashboard"}
-            className=" hover:cursor-pointer focus:bg-white/20 focus:text-white"
-          >
-            <Link href="/dashboard">
-              <span className="material-symbols-sharp text mr-1 size-5 text-xl leading-none">dashboard</span>
-              <span>Dashboard</span>
-            </Link>
-            {/* <DropdownMenuShortcut>⌘S</DropdownMenuShortcut> */}
-          </DropdownMenuItem>
-          {isAdmin && (
+      <DropdownMenu>
+        <DropdownMenuTrigger asChild>
+          <Button variant="ghost-dark" className="max-w-40 space-x-2 text-white">
+            <Avatar size="sm">
+              <AvatarFallback className="bg-neutral-800">{user?.preferred_name[0]}</AvatarFallback>
+            </Avatar>
+            <span>{user?.preferred_name}</span>
+          </Button>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent align="end" className="-mr-1.5 mt-1 w-56 border-white/25 bg-black text-white ">
+          <DropdownMenuGroup>
             <DropdownMenuItem
               asChild
-              disabled={path === "/dashboard/admin"}
+              disabled={path === "/dashboard"}
+              className=" hover:cursor-pointer focus:bg-white/20 focus:text-white"
+            >
+              <Link href="/dashboard">
+                <span className="material-symbols-sharp text mr-1 size-5 text-xl leading-none">dashboard</span>
+                <span>Dashboard</span>
+              </Link>
+              {/* <DropdownMenuShortcut>⌘S</DropdownMenuShortcut> */}
+            </DropdownMenuItem>
+            {isAdmin && (
+              <DropdownMenuItem
+                asChild
+                disabled={path === "/dashboard/admin"}
+                className="hover:cursor-pointer focus:bg-white/20 focus:text-white"
+              >
+                <Link href="/dashboard/admin">
+                  <span className="material-symbols-sharp text mr-1 size-5 text-xl leading-none">
+                    admin_panel_settings
+                  </span>
+                  <span>Admin Dashboard</span>
+                  {/* <DropdownMenuShortcut>⌘S</DropdownMenuShortcut> */}
+                </Link>
+              </DropdownMenuItem>
+            )}
+            <DropdownMenuItem
+              asChild
+              disabled={path.includes(`/profile/${user?.id}`)}
               className="hover:cursor-pointer focus:bg-white/20 focus:text-white"
             >
-              <Link href="/dashboard/admin">
+              <Link href={`/profile/${user?.id}`}>
+                <span className="material-symbols-sharp text mr-1 size-5 text-xl leading-none">person</span>
+                <span>Profile</span>
+                {/* <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut> */}
+              </Link>
+            </DropdownMenuItem>
+            <DropdownMenuItem
+              asChild
+              disabled={path === "/profile/settings"}
+              className="hover:cursor-pointer focus:bg-white/20 focus:text-white"
+            >
+              <Link href="/profile/settings">
                 <span className="material-symbols-sharp text mr-1 size-5 text-xl leading-none">
-                  admin_panel_settings
+                  settings_account_box
                 </span>
-                <span>Admin Dashboard</span>
+                <span>Settings</span>
                 {/* <DropdownMenuShortcut>⌘S</DropdownMenuShortcut> */}
               </Link>
             </DropdownMenuItem>
-          )}
-          <DropdownMenuItem
-            asChild
-            disabled={path.includes(`/profile/${user?.id}`)}
-            className="hover:cursor-pointer focus:bg-white/20 focus:text-white"
-          >
-            <Link href={`/profile/${user?.id}`}>
-              <span className="material-symbols-sharp text mr-1 size-5 text-xl leading-none">person</span>
-              <span>Profile</span>
-              {/* <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut> */}
-            </Link>
-          </DropdownMenuItem>
-          <DropdownMenuItem
-            asChild
-            disabled={path === "/profile/settings"}
-            className="hover:cursor-pointer focus:bg-white/20 focus:text-white"
-          >
-            <Link href="/profile/settings">
-              <span className="material-symbols-sharp text mr-1 size-5 text-xl leading-none">settings_account_box</span>
-              <span>Settings</span>
-              {/* <DropdownMenuShortcut>⌘S</DropdownMenuShortcut> */}
-            </Link>
-          </DropdownMenuItem>
-          {/* <DropdownMenuItem className="focus:bg-white/20 focus:text-white">
+            {/* <DropdownMenuItem className="focus:bg-white/20 focus:text-white">
             <span className="mr-1 text-xl leading-none material-symbols-sharp text size-5">keyboard_keys</span>
             <span>Keyboard shortcuts</span>
             <DropdownMenuShortcut>⌘K</DropdownMenuShortcut>
           </DropdownMenuItem> */}
-        </DropdownMenuGroup>
-        <DropdownMenuSeparator className="bg-white/25" />
-        <DropdownMenuItem className="hover:cursor-pointer focus:bg-white/20 focus:text-white" onSelect={userSignOut}>
-          <span className="material-symbols-sharp text mr-1 size-5 text-xl leading-none">logout</span>
-          <span>Log out</span>
-        </DropdownMenuItem>
-      </DropdownMenuContent>
-    </DropdownMenu>
+          </DropdownMenuGroup>
+          <DropdownMenuSeparator className="bg-white/25" />
+          <DropdownMenuItem className="hover:cursor-pointer focus:bg-white/20 focus:text-white" onSelect={userSignOut}>
+            <span className="material-symbols-sharp text mr-1 size-5 text-xl leading-none">logout</span>
+            <span>Log out</span>
+          </DropdownMenuItem>
+        </DropdownMenuContent>
+      </DropdownMenu>
+    </div>
   )
 }
 

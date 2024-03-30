@@ -46,7 +46,15 @@ export default function Join() {
 
   const userData = api.user.login.useMutation({
     onSuccess: async (data) => {
-      await setUserCookie(data!)
+      await setUserCookie(data)
+    },
+    onError: (error) => {
+      toast({
+        variant: "destructive",
+        title: "Error",
+        description: "An error occurred while signing in. Please try again.",
+      })
+      console.error(error)
     },
   })
 
