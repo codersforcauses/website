@@ -243,7 +243,7 @@ The Committee of the Club shall only consist of:
 The Ordinary Committee who shall consist of:
 <ul class='pad-left' role='list'>
 <li>1 Marketing Officer</li>
-<li>4 Ordinary Committee Members</li>
+<li>6 Ordinary Committee Members</li>
 <li>1 Fresher Representative</li>
 </ul>
 and be elected by the financial Ordinary Members of the Club by optional preferential ballot of the Annual General Meeting subsequent to the election of Office Bearers.
@@ -491,7 +491,7 @@ If upon the dissolution of the club, any property of the club remains after sati
 </ol>
 </div>
 
-**Adopted by General Meeting - 16/03/2023**
+**Adopted by General Meeting - 20/03/2024**
 
 `)
     .replace(/(<h1>.*<\/h1>)/, "")
