@@ -1,12 +1,8 @@
-import { Client } from "@planetscale/database"
-import { drizzle } from "drizzle-orm/planetscale-serverless"
+import { drizzle } from "drizzle-orm/xata-http"
+import { getXataClient } from "./xata"
 
-import { env } from "~/env"
 import * as schema from "./schema"
 
-export const db = drizzle(
-  new Client({
-    url: env.DATABASE_URL,
-  }),
-  { schema },
-)
+const xata = getXataClient()
+
+export const db = drizzle(xata, { schema })
