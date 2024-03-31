@@ -30,26 +30,42 @@ export const analyticsRouter = createTRPCRouter({
     const [userCount, memberCount] = await Promise.all([
       ctx.db
         .select({
-          day: sql<number>`day(created_at)`.mapWith(Number),
-          month: sql<number>`month(created_at)`.mapWith(Number),
-          year: sql<number>`year(created_at)`.mapWith(Number),
+          day: sql<number>`extract(day from created_at)`.mapWith(Number),
+          month: sql<number>`extract(month from created_at)`.mapWith(Number),
+          year: sql<number>`extract(year from created_at)`.mapWith(Number),
           count: sql<number>`count(*)`.mapWith(Number),
         })
         .from(users)
         .where(between(users.createdAt, twoMonths, new Date()))
-        .groupBy(sql`day(created_at)`, sql`month(created_at)`, sql`year(created_at)`)
-        .orderBy(sql`year(created_at)`, sql`month(created_at)`, sql`day(created_at)`),
+        .groupBy(
+          sql`extract(day from created_at)`,
+          sql`extract(month from created_at)`,
+          sql`extract(year from created_at)`,
+        )
+        .orderBy(
+          sql`extract(year from created_at)`,
+          sql`extract(month from created_at)`,
+          sql`extract(day from created_at)`,
+        ),
       ctx.db
         .select({
-          day: sql<number>`day(created_at)`.mapWith(Number),
-          month: sql<number>`month(created_at)`.mapWith(Number),
-          year: sql<number>`year(created_at)`.mapWith(Number),
+          day: sql<number>`extract(day from created_at)`.mapWith(Number),
+          month: sql<number>`extract(month from created_at)`.mapWith(Number),
+          year: sql<number>`extract(year from created_at)`.mapWith(Number),
           count: sql<number>`count(*)`.mapWith(Number),
         })
         .from(users)
         .where(and(isNotNull(users.role), between(users.createdAt, twoMonths, new Date())))
-        .groupBy(sql`day(created_at)`, sql`month(created_at)`, sql`year(created_at)`)
-        .orderBy(sql`year(created_at)`, sql`month(created_at)`, sql`day(created_at)`),
+        .groupBy(
+          sql`extract(day from created_at)`,
+          sql`extract(month from created_at)`,
+          sql`extract(year from created_at)`,
+        )
+        .orderBy(
+          sql`extract(year from created_at)`,
+          sql`extract(month from created_at)`,
+          sql`extract(day from created_at)`,
+        ),
     ])
 
     const data = days.map((date) => {
