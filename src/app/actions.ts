@@ -97,6 +97,5 @@ export async function hasUserCookie() {
 }
 
 export async function removeUserCookie() {
-  // eslint-disable-next-line
   cookies().delete("user")
 }
