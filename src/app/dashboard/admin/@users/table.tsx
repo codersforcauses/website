@@ -319,7 +319,7 @@ const UserTable = ({ data, isRefetching, ...props }: UserTableProps) => {
 
   return (
     <>
-      <div className="flex h-[50px] items-center gap-2 p-1">
+      <div className="flex h-[50px] items-center gap-2 p-1 pr-0">
         {data.length > 0 && (
           <>
             {selectedRowIDs.length > 0 && (
@@ -418,7 +418,7 @@ const UserTable = ({ data, isRefetching, ...props }: UserTableProps) => {
         )}
       </div>
       <Separator className="bg-background" />
-      <div className="p-1">
+      <div className="p-1 pr-0">
         <Table className="border border-black/25 dark:border-white/25">
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (
