@@ -114,25 +114,21 @@ const columns = (updateRole: ({ id, role }: UpdateUserRoleFunctionProps) => void
     ),
   },
   {
-    id: "Preferred name",
-    accessorKey: "preferred_name",
+    id: "Name",
+    accessorFn: (user) => `${user.preferred_name} ${user.name}`,
     enableGlobalFilter: true,
+    sortingFn: "text",
     header: ({ column }) => (
       <Button variant="ghost" className="-mx-1 w-full justify-start px-1" onClick={column.getToggleSortingHandler()}>
         Name
         <span className="material-symbols-sharp ml-2 size-6">{sortIcon(column.getIsSorted())}</span>
       </Button>
     ),
-  },
-  {
-    id: "Name",
-    accessorKey: "name",
-    enableGlobalFilter: true,
-    header: ({ column }) => (
-      <Button variant="ghost" className="-mx-1 w-full justify-start px-1" onClick={column.getToggleSortingHandler()}>
-        Full name
-        <span className="material-symbols-sharp ml-2 size-6">{sortIcon(column.getIsSorted())}</span>
-      </Button>
+    cell: (cell) => (
+      <span className="grid grid-rows-2">
+        <span>{cell.row.original.preferred_name}</span>
+        <span className="text-muted-foreground">{cell.row.original.name}</span>
+      </span>
     ),
   },
   {
