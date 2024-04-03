@@ -89,7 +89,7 @@ const Graph = ({ theme, data }: GraphProps) => {
         showDatumGlyph
         showSeriesGlyphs
         renderTooltip={({ tooltipData, colorScale }) => (
-          <div className="bg-muted p-2 text-sm">
+          <div className="border border-black/25 bg-background p-2 text-sm dark:border-white/25">
             {/** date */}
             <p className="mb-2 text-xs">
               {(tooltipData?.nearestDatum?.datum && format(accessors.date(tooltipData?.nearestDatum.datum), "PPP")) ??

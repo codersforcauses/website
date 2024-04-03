@@ -91,7 +91,7 @@ const Graph = ({ width, height, data }: GraphProps) => {
           applyPositionStyle
           top={tooltip.tooltipTop}
           left={tooltip.tooltipLeft}
-          className="text-bg-muted-foreground bg-muted p-2 text-sm"
+          className="border border-black/25 bg-background p-2 text-sm text-primary dark:border-white/25"
         >
           {tooltip.tooltipData.pronouns}: {tooltip.tooltipData.count}
         </Tooltip.Tooltip>
