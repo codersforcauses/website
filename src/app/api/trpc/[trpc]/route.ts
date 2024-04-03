@@ -1,3 +1,4 @@
+import * as Sentry from "@sentry/nextjs"
 import { fetchRequestHandler } from "@trpc/server/adapters/fetch"
 import { type NextRequest } from "next/server"
 
@@ -24,8 +25,10 @@ const handler = (req: NextRequest) =>
     router: appRouter,
     createContext: () => createContext(req),
     onError: ({ path, error }) => {
-      console.error(`❌ tRPC failed on ${path ?? "<no-path>"}: ${error.message}`) // TODO: Send to error monitoring
-      console.error(error)
+      if (error.code === "INTERNAL_SERVER_ERROR") {
+        console.error(`❌ tRPC failed on ${path ?? "<no-path>"}: ${error.message}`)
+        Sentry.captureException(error)
+      }
     },
   })
 

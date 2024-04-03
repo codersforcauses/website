@@ -8,11 +8,12 @@
  */
 
 import { currentUser } from "@clerk/nextjs"
+import * as Sentry from "@sentry/nextjs"
 import { initTRPC, TRPCError } from "@trpc/server"
 import { Ratelimit, type RatelimitConfig } from "@upstash/ratelimit"
+import { eq } from "drizzle-orm"
 import superjson from "superjson"
 import { ZodError } from "zod"
-import { eq } from "drizzle-orm"
 
 import { db } from "~/server/db"
 import { users } from "~/server/db/schema"
@@ -68,6 +69,9 @@ const t = initTRPC.context<TRPCContext>().create({
  * This is where you can define reusable middleware that can be used across multiple procedures.
  */
 
+/** Middleware that makes sure transactions related to RPCs are well-named */
+const sentryMiddleware = t.middleware(Sentry.Handlers.trpcMiddleware({ attachRpcInput: true }))
+
 /** Reusable middleware that enforces users are logged in before running the procedure. */
 const enforceUserIsAuthed = t.middleware(({ ctx, next }) => {
   if (!ctx.user) {
@@ -122,7 +126,8 @@ export const createTRPCRouter = t.router
  * guarantee that a user querying is authorized, but you can still access user session data if they
  * are logged in.
  */
-export const publicProcedure = t.procedure
+export const publicProcedure = t.procedure.use(sentryMiddleware)
+
 /**
  * @param limiter - The rate limit configuration to use for this procedure. Default is 5 request in a 10s sliding window.
  *
@@ -133,7 +138,7 @@ export const publicProcedure = t.procedure
  * are logged in.
  */
 export const publicRatedProcedure = (limiter?: RatelimitConfig["limiter"]) =>
-  t.procedure.use(createRatelimiter(limiter))
+  t.procedure.use(createRatelimiter(limiter)).use(sentryMiddleware)
 /**
  * Protected (authenticated) procedure
  *
@@ -142,7 +147,7 @@ export const publicRatedProcedure = (limiter?: RatelimitConfig["limiter"]) =>
  *
  * @see https://trpc.io/docs/procedures
  */
-export const protectedProcedure = t.procedure.use(enforceUserIsAuthed)
+export const protectedProcedure = t.procedure.use(enforceUserIsAuthed).use(sentryMiddleware)
 /**
  * @param limiter - The rate limit configuration to use for this procedure. Default is 5 request in a 10s sliding window.
  *
@@ -154,7 +159,7 @@ export const protectedProcedure = t.procedure.use(enforceUserIsAuthed)
  * @see https://trpc.io/docs/procedures
  */
 export const protectedRatedProcedure = (limiter?: RatelimitConfig["limiter"]) =>
-  t.procedure.use(createRatelimiter(limiter)).use(enforceUserIsAuthed)
+  t.procedure.use(createRatelimiter(limiter)).use(enforceUserIsAuthed).use(sentryMiddleware)
 /**
  * Protected (authenticated) procedure for admin users
  *
@@ -164,20 +169,23 @@ export const protectedRatedProcedure = (limiter?: RatelimitConfig["limiter"]) =>
  *
  * @see https://trpc.io/docs/procedures
  */
-export const adminProcedure = t.procedure.use(enforceUserIsAuthed).use(async ({ ctx, next }) => {
-  const user = await ctx.db.query.users.findFirst({
-    columns: {
-      role: true,
-    },
-    where: eq(users.id, ctx.user.id),
-  })
-  if (!user) throw new TRPCError({ code: "NOT_FOUND", message: `Could not find user with id: ${ctx.user.id}` })
-  if (user.role !== "admin" && user.role !== "committee")
-    throw new TRPCError({ code: "FORBIDDEN", message: "You do not have permission to access this API." })
+export const adminProcedure = t.procedure
+  .use(enforceUserIsAuthed)
+  .use(sentryMiddleware)
+  .use(async ({ ctx, next }) => {
+    const user = await ctx.db.query.users.findFirst({
+      columns: {
+        role: true,
+      },
+      where: eq(users.id, ctx.user.id),
+    })
+    if (!user) throw new TRPCError({ code: "NOT_FOUND", message: `Could not find user with id: ${ctx.user.id}` })
+    if (user.role !== "admin" && user.role !== "committee")
+      throw new TRPCError({ code: "FORBIDDEN", message: "You do not have permission to access this API." })
 
-  return next({
-    ctx: {
-      user: ctx.user,
-    },
+    return next({
+      ctx: {
+        user: ctx.user,
+      },
+    })
   })
-})
