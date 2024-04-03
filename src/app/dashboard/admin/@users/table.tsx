@@ -306,6 +306,7 @@ const UserTable = ({ data, isRefetching, ...props }: UserTableProps) => {
     onColumnVisibilityChange: setColumnVisibility,
     onRowSelectionChange: setRowSelection,
     onPaginationChange: setPagination,
+    autoResetPageIndex: false,
     state: {
       columnVisibility,
       globalFilter,
