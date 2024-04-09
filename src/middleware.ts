@@ -4,7 +4,7 @@ import { getUserCookie } from "./app/actions"
 
 const adminRoles = ["admin", "committee"]
 
-const adminPages = ["/dashboard/admin", "/create-account"]
+const adminPages = ["/dashboard/admin"]
 const protectedPages = ["/dashboard", "/profile/settings", ...adminPages]
 
 export default authMiddleware({
