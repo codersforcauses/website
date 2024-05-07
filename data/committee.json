@@ -1,144 +1,170 @@
 [
   {
-    "name": "Jun Yap",
+    "name": "Celine Wang",
     "position": "President",
-    "about": "",
+    "about": "She/Her",
     "social": {
       "email": "president@codersforcauses.org",
-      "github": "https://github.com/skyheat"
+      "github": "https://github.com/latrodexia"
     },
     "picture": {
-      "src": "/committee/jundp_23.webp",
+      "src": "/committee/celinedp_24.png",
       "alt": "CFC President"
     }
   },
   {
-    "name": "Chantelle Kerr",
+    "name": "Ash Ithape",
     "position": "Vice President",
-    "about": "",
+    "about": "He/Him",
     "social": {
       "email": "vicepresident@codersforcauses.org",
-      "github": "https://github.com/ChantelleKerr"
+      "github": "https://github.com/CodeWithTheDoctor"
     },
     "picture": {
-      "src": "/committee/chandp_23.webp",
+      "src": "/committee/ashdp_24.png",
       "alt": "CFC Vice President"
     }
   },
   {
-    "name": "Danish Hilmann",
+    "name": "Aleksandra Lozyk",
     "position": "Secretary",
-    "about": "",
+    "about": "She/Her",
     "social": {
       "email": "secretary@codersforcauses.org",
-      "github": "https://github.com/BoboJeager"
+      "github": "https://github.com/olalozyk"
     },
     "picture": {
-      "src": "/committee/danishdp_23.webp",
+      "src": "/committee/oladp_24.png",
       "alt": "CFC Secretary"
     }
   },
   {
-    "name": "Celine Wang",
+    "name": "Kirsty Straiton",
     "position": "Treasurer",
-    "about": "",
+    "about": "They/Them",
     "social": {
       "email": "treasurer@codersforcauses.org",
-      "github": "https://github.com/latrodexia"
+      "github": "https://github.com/K-Straiton"
     },
     "picture": {
-      "src": "/committee/celinedp_23.webp",
+      "src": "/committee/kirstydp_24.png",
       "alt": "CFC Treasurer"
     }
   },
   {
-    "name": "Nicholas Choong",
+    "name": "Dylan To",
     "position": "Technical Lead",
-    "about": "",
+    "about": "He/Him",
     "social": {
       "email": "dev@codersforcauses.org",
-      "github": "https://github.com/NicholasChoong"
+      "github": "https://github.com/dct0"
     },
     "picture": {
-      "src": "/committee/nickdp_23.webp",
+      "src": "/committee/dylandp_24.png",
       "alt": "CFC Tech Lead"
     }
   },
   {
-    "name": "Sersang Ngedup",
+    "name": "Juliana Salazar Franco",
     "position": "Marketing Officer",
-    "about": "",
+    "about": "She/They",
     "social": {
       "email": "publicity@codersforcauses.org",
-      "github": ""
+      "github": "https://github.com/Julie-Salazar"
     },
     "picture": {
-      "src": "/committee/sersangdp_23.webp",
+      "src": "/committee/julesdp_24.png",
       "alt": "CFC Marketing Officer"
     }
   },
   {
-    "name": "Amy Neve",
+    "name": "Aarif Lamat",
     "position": "Ordinary Committee Member",
-    "about": "",
+    "about": "He/Him",
     "social": {
       "email": "committee@codersforcauses.org",
-      "github": "https://github.com/RadioArsenic"
+      "github": "https://github.com/AarifLamat"
     },
     "picture": {
-      "src": "/committee/amydp_23.webp",
+      "src": "/committee/aarifdp_24.png",
       "alt": "CFC OCM"
     }
   },
   {
-    "name": "Dylan To",
+    "name": "Lauren Pudney",
     "position": "Ordinary Committee Member",
-    "about": "",
+    "about": "She/Her",
+    "social": {
+      "email": "committee@codersforcauses.org",
+      "github": "https://github.com/laurenpudz"
+    },
+    "picture": {
+      "src": "/committee/laurendp_24.png",
+      "alt": "CFC OCM"
+    }
+  },
+  {
+    "name": "Huxley Berry",
+    "position": "Ordinary Committee Member",
+    "about": "He/Him",
+    "social": {
+      "email": "committee@codersforcauses.org",
+      "github": "https://github.com/HuxleyBerry"
+    },
+    "picture": {
+      "src": "/committee/huxleydp_24.png",
+      "alt": "CFC OCM"
+    }
+  },
+  {
+    "name": "Yunho Ding",
+    "position": "Ordinary Committee Member",
+    "about": "He/Him",
+    "social": {
+      "email": "committee@codersforcauses.org",
+      "github": "https://github.com/yunho7687"
+    },
+    "picture": {
+      "src": "/committee/yunhodp_24.png",
+      "alt": "CFC OCM"
+    }
+  },
+  {
+    "name": "Alex Hawking",
+    "position": "Ordinary Committee Member",
+    "about": "He/Him",
+    "social": {
+      "email": "committee@codersforcauses.org",
+      "github": "https://github.com/Alex-Hawking"
+    },
+    "picture": {
+      "src": "/committee/alexdp_24.png",
+      "alt": "CFC OCM"
+    }
+  },
+  {
+    "name": "Richelle Chen",
+    "position": "Ordinary Committee Member",
+    "about": "She/Her",
     "social": {
       "email": "committee@codersforcauses.org",
       "github": ""
     },
     "picture": {
-      "src": "/committee/dylandp_23.webp",
+      "src": "/committee/richelledp_24.png",
       "alt": "CFC OCM"
     }
   },
   {
-    "name": "Vyvienne Bautista",
-    "position": "Ordinary Committee Member",
-    "about": "",
-    "social": {
-      "email": "committee@codersforcauses.org",
-      "github": ""
-    },
-    "picture": {
-      "src": "/committee/vyvdp_23.webp",
-      "alt": "CFC OCM"
-    }
-  },
-  {
-    "name": "Feifan Wu",
-    "position": "Ordinary Committee Member",
-    "about": "",
-    "social": {
-      "email": "committee@codersforcauses.org",
-      "github": "https://github.com/Wolfgang1208"
-    },
-    "picture": {
-      "src": "/committee/feifandp_23.webp",
-      "alt": "CFC OCM"
-    }
-  },
-  {
-    "name": "John Kosonlawat",
+    "name": "Torry Hogan",
     "position": "Fresher Representative",
-    "about": "",
+    "about": "He/Him",
     "social": {
       "email": "firstyear@codersforcauses.org",
-      "github": "https://github.com/Techno-UWA"
+      "github": "https://github.com/torry2"
     },
     "picture": {
-      "src": "/committee/johndp_23.webp",
+      "src": "/committee/torrydp_24.png",
       "alt": "CFC Fresher Rep."
     }
   }

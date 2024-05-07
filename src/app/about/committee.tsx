@@ -13,8 +13,8 @@ const CommitteeCard = ({ name, position, about, social, picture: { src, alt } }:
     </div>
     <div className="absolute inset-x-0 bottom-0 p-4 text-secondary opacity-0 transition-opacity duration-300 group-hover:bg-primary group-hover:opacity-100">
       <p className="font-mono font-black">{name}</p>
-      <p className="mb-1 text-secondary/75">{position}</p>
-      <p className="text-sm">{about}</p>
+      <p className="mb-0.5 text-secondary/75">{position}</p>
+      <p className="mb-1 text-sm">{about}</p>
       <div className="flex items-center space-x-2">
         {Object.entries(social).map(([key, value]) => (
           <React.Fragment key={key}>
