@@ -25,6 +25,11 @@ const links: Array<HeaderItem> = [
     text: "Guides",
     isExternal: true,
   },
+  {
+    href: "https://workshops.codersforcauses.org/",
+    text: "Workshops",
+    isExternal: true,
+  },
 ]
 
 const Header = async () => {
