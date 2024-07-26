@@ -84,7 +84,7 @@ export const userRouter = createTRPCRouter({
       }
 
       try {
-        const user = await ctx.db
+        const [user] = await ctx.db
           .insert(users)
           .values({
             id: input.clerk_id,
@@ -260,12 +260,18 @@ export const userRouter = createTRPCRouter({
 
       // allow admin and committee to update to any role
       if (currentUser.role === "admin" || currentUser.role === "committee") {
-        return await ctx.db.update(users).set({ role: input.role }).where(eq(users.id, input.id)).returning()
+        const [user] = await ctx.db.update(users).set({ role: input.role }).where(eq(users.id, input.id)).returning()
+        return user
       } else {
         if (currentUser.id === input.id) {
           // allow user to remove their role
           if (input.role === null) {
-            return await ctx.db.update(users).set({ role: input.role }).where(eq(users.id, ctx.user?.id)).returning()
+            const [user] = await ctx.db
+              .update(users)
+              .set({ role: input.role })
+              .where(eq(users.id, ctx.user?.id))
+              .returning()
+            return user
           } else if (input.role === "member") {
             if (!input.paymentID) throw new TRPCError({ code: "BAD_REQUEST", message: "Payment ID is required" })
 
@@ -278,11 +284,12 @@ export const userRouter = createTRPCRouter({
             ) {
               // only update role if payment successful and user is not already a member
               if (currentUser.role === null) {
-                return await ctx.db
+                const [user] = await ctx.db
                   .update(users)
                   .set({ role: input.role })
                   .where(eq(users.id, ctx.user?.id))
                   .returning()
+                return user
               }
             } else {
               throw new TRPCError({
@@ -336,25 +343,24 @@ export const userRouter = createTRPCRouter({
     .mutation(async ({ ctx, input }) => {
       const currentUser = ctx.user
       // TODO: update clerk email
-      const [, user] = await Promise.allSettled([
-        clerkClient.users.updateUser(ctx.user.id, {
-          // emailAddress: input.email,
-          firstName: input.preferred_name,
-          lastName: input.name,
-        }),
-        ctx.db
-          .update(users)
-          .set({
-            name: input.name?.trim(),
-            preferred_name: input.preferred_name?.trim(),
-            email: input.email?.trim(),
-            pronouns: input.pronouns?.trim(),
-            student_number: input.student_number?.trim(),
-            university: input.uni?.trim(),
-          })
-          .where(eq(users.id, currentUser.id))
-          .returning(),
-      ])
+      await clerkClient.users.updateUser(ctx.user.id, {
+        // emailAddress: input.email,
+        firstName: input.preferred_name,
+        lastName: input.name,
+      })
+
+      const [user] = await ctx.db
+        .update(users)
+        .set({
+          name: input.name?.trim(),
+          preferred_name: input.preferred_name?.trim(),
+          email: input.email?.trim(),
+          pronouns: input.pronouns?.trim(),
+          student_number: input.student_number?.trim(),
+          university: input.uni?.trim(),
+        })
+        .where(eq(users.id, currentUser.id))
+        .returning()
 
       return user
     }),
@@ -369,7 +375,7 @@ export const userRouter = createTRPCRouter({
     .mutation(async ({ ctx, input }) => {
       const currentUser = ctx.user
 
-      const user = await ctx.db
+      const [user] = await ctx.db
         .update(users)
         .set({
           github: input.github?.trim(),
