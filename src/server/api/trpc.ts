@@ -70,7 +70,7 @@ const t = initTRPC.context<TRPCContext>().create({
  */
 
 /** Middleware that makes sure transactions related to RPCs are well-named */
-const sentryMiddleware = t.middleware(Sentry.Handlers.trpcMiddleware({ attachRpcInput: true }))
+const sentryMiddleware = t.middleware(Sentry.trpcMiddleware({ attachRpcInput: true }))
 
 /** Reusable middleware that enforces users are logged in before running the procedure. */
 const enforceUserIsAuthed = t.middleware(({ ctx, next }) => {
