@@ -7,15 +7,8 @@ import { withSentryConfig } from "@sentry/nextjs"
 
 /** @type {import("next").NextConfig} */
 const config = {
-  sentry: {
-    hideSourceMaps: true,
-    tunnelRoute: "/monitoring-tunnel",
-  },
   experimental: {
-    // typedRoutes: true,
-  },
-  typescript: {
-    ignoreBuildErrors: true,
+    instrumentationHook: true,
   },
 }
 
