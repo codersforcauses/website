@@ -1,5 +1,5 @@
 import * as React from "react"
-import { type Payments, type TokenResult } from "@square/web-sdk"
+import { TokenStatus, type Payments, type TokenResult } from "@square/web-sdk"
 import { useForm } from "react-hook-form"
 import { siAmericanexpress, siMastercard, siVisa } from "simple-icons"
 import * as z from "zod"
@@ -67,7 +67,7 @@ const SavedCardsForm = ({ amount, cards, ...props }: SavedCardsProps) => {
     try {
       props.loadingState[1](true)
       await props.cardTokenizeResponseReceived({
-        status: "OK",
+        status: TokenStatus.OK,
         token: values.card,
       })
     } catch (error) {

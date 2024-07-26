@@ -67,6 +67,7 @@ export default function Join() {
     try {
       const si = await signIn.create({ identifier: email })
 
+      // @ts-expect-error - Clerk typings are incorrect
       const { emailAddressId } = si.supportedFirstFactors.find(
         (ff) => ff.strategy === "email_link" && ff.safeIdentifier === email,
       )!

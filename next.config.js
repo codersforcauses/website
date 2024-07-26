@@ -12,7 +12,7 @@ const config = {
     tunnelRoute: "/monitoring-tunnel",
   },
   experimental: {
-    typedRoutes: true,
+    // typedRoutes: true,
   },
   typescript: {
     ignoreBuildErrors: true,

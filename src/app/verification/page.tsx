@@ -17,6 +17,7 @@ export default function Verification() {
       } catch (err) {
         // Verification has failed.
         let status = "failed"
+        // @ts-expect-error - Clerk typings are incorrect
         if (isEmailLinkError(err as Error) && err?.code === EmailLinkErrorCode.Expired) {
           status = "expired"
         }
