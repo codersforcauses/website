@@ -113,7 +113,8 @@ export const paymentRouter = createTRPCRouter({
       }
     }),
 
-  getCards: protectedRatedProcedure(Ratelimit.fixedWindow(2, "30s")).query(async ({ ctx }) => {
+  // ! FIXME -- there might be some weird rerender issue that I can't be bothered to fix
+  getCards: protectedRatedProcedure(Ratelimit.fixedWindow(60, "30s")).query(async ({ ctx }) => {
     try {
       const [user] = await ctx.db.select().from(users).where(eq(users.id, ctx.user.id))
       const { result } = await cardsApi.listCards(undefined, user?.square_customer_id)
