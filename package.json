@@ -8,8 +8,11 @@
     "db:push": "drizzle-kit push:pg",
     "db:studio": "drizzle-kit studio",
     "dev": "next dev",
+    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
+    "format:check": "prettier --check \"**/*.{ts,tsx,md}\"",
     "lint": "next lint",
     "lint:dev": "SKIP_ENV_VALIDATION=true next lint",
+    "typecheck": "tsc --noEmit",
     "start": "next start",
     "prettier:fix": "prettier --write .",
     "prepare": "node .husky/install.mjs || true"
