@@ -13,6 +13,8 @@ const config = {
 }
 
 export default withSentryConfig(config, {
+  telemetry: false,
+
   // For all available options, see:
   // https://github.com/getsentry/sentry-webpack-plugin#options
 
