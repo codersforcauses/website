@@ -165,7 +165,7 @@ export const userRouter = createTRPCRouter({
       }),
     )
     .mutation(async ({ ctx, input }) => {
-      let clerkRes: ClerkUser
+      let clerkRes: ClerkUser | undefined
       try {
         clerkRes = await clerkClient.users.createUser({
           emailAddress: [input.email],
@@ -174,8 +174,14 @@ export const userRouter = createTRPCRouter({
         })
       } catch (err) {
         // user might exist already
-        clerkRes = await clerkClient.users.getUser(input.email)
+        ;[clerkRes] = await clerkClient.users.getUserList({ emailAddress: [input.email] })
       }
+
+      if (!clerkRes)
+        throw new TRPCError({
+          code: "INTERNAL_SERVER_ERROR",
+          message: "Failed to create or repair user. What the hell?",
+        })
 
       const { result, statusCode } = await customersApi.createCustomer({
         idempotencyKey: randomUUID(),
@@ -364,8 +370,8 @@ export const userRouter = createTRPCRouter({
           preferred_name: input.preferred_name?.trim(),
           email: input.email?.trim(),
           pronouns: input.pronouns?.trim(),
-          student_number: input.student_number?.trim(),
-          university: input.uni?.trim(),
+          student_number: input.student_number?.trim() ?? null,
+          university: input.uni?.trim() ?? null,
         })
         .where(eq(users.id, currentUser.id))
         .returning()
