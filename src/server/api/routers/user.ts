@@ -1,4 +1,5 @@
 import { clerkClient } from "@clerk/nextjs"
+import { User as ClerkUser } from "@clerk/nextjs/server"
 import { TRPCError } from "@trpc/server"
 import { Ratelimit } from "@upstash/ratelimit"
 import { randomUUID } from "crypto"
@@ -164,11 +165,18 @@ export const userRouter = createTRPCRouter({
       }),
     )
     .mutation(async ({ ctx, input }) => {
-      const clerkRes = await clerkClient.users.createUser({
-        emailAddress: [input.email],
-        firstName: input.preferred_name,
-        lastName: input.name, // we treat clerk.lastName as the user's full name
-      })
+      let clerkRes: ClerkUser
+      try {
+        clerkRes = await clerkClient.users.createUser({
+          emailAddress: [input.email],
+          firstName: input.preferred_name,
+          lastName: input.name, // we treat clerk.lastName as the user's full name
+        })
+      } catch (err) {
+        // user might exist already
+        clerkRes = await clerkClient.users.getUser(input.email)
+      }
+
       const { result, statusCode } = await customersApi.createCustomer({
         idempotencyKey: randomUUID(),
         givenName: input.preferred_name,
