@@ -232,6 +232,14 @@ export const userRouter = createTRPCRouter({
     const user = await ctx.db.query.users.findFirst({
       where: eq(users.id, ctx.user.id),
     })
+
+    if (!user) {
+      throw new TRPCError({
+        code: "NOT_FOUND",
+        message: `Could not find user with id:${ctx.user.id} (current user)`,
+      })
+    }
+
     return user
   }),
 

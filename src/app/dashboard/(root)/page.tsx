@@ -8,10 +8,9 @@ export default async function Dashboard() {
 
   const handleAfterOnlinePayment = async (paymentID: string) => {
     "use server"
-
     try {
       const updatedUser = await api.user.updateRole.mutate({
-        id: user!.id, // maybe??
+        id: user.id,
         role: "member",
         paymentID,
       })
