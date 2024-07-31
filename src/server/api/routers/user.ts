@@ -1,4 +1,5 @@
 import { clerkClient } from "@clerk/nextjs"
+import { User as ClerkUser } from "@clerk/nextjs/server"
 import { TRPCError } from "@trpc/server"
 import { Ratelimit } from "@upstash/ratelimit"
 import { randomUUID } from "crypto"
@@ -164,11 +165,24 @@ export const userRouter = createTRPCRouter({
       }),
     )
     .mutation(async ({ ctx, input }) => {
-      const clerkRes = await clerkClient.users.createUser({
-        emailAddress: [input.email],
-        firstName: input.preferred_name,
-        lastName: input.name, // we treat clerk.lastName as the user's full name
-      })
+      let clerkRes: ClerkUser | undefined
+      try {
+        clerkRes = await clerkClient.users.createUser({
+          emailAddress: [input.email],
+          firstName: input.preferred_name,
+          lastName: input.name, // we treat clerk.lastName as the user's full name
+        })
+      } catch (err) {
+        // user might exist already
+        ;[clerkRes] = await clerkClient.users.getUserList({ emailAddress: [input.email] })
+      }
+
+      if (!clerkRes)
+        throw new TRPCError({
+          code: "INTERNAL_SERVER_ERROR",
+          message: "Failed to create or repair user. What the hell?",
+        })
+
       const { result, statusCode } = await customersApi.createCustomer({
         idempotencyKey: randomUUID(),
         givenName: input.preferred_name,
@@ -356,8 +370,8 @@ export const userRouter = createTRPCRouter({
           preferred_name: input.preferred_name?.trim(),
           email: input.email?.trim(),
           pronouns: input.pronouns?.trim(),
-          student_number: input.student_number?.trim(),
-          university: input.uni?.trim(),
+          student_number: input.student_number?.trim() ?? null,
+          university: input.uni?.trim() ?? null,
         })
         .where(eq(users.id, currentUser.id))
         .returning()
