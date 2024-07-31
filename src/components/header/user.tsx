@@ -77,7 +77,7 @@ const UserButton = ({ cachedUser }: HeaderUser) => {
         <DropdownMenuTrigger asChild>
           <Button variant="ghost-dark" className="max-w-40 space-x-2 text-white">
             <Avatar size="sm">
-              <AvatarFallback className="bg-neutral-800">{user?.preferred_name[0]}</AvatarFallback>
+              <AvatarFallback className="bg-neutral-800">{Array.from(user?.preferred_name ?? "?")[0]}</AvatarFallback>
             </Avatar>
             <span>{user?.preferred_name}</span>
           </Button>
