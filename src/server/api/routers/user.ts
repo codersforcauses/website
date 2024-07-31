@@ -1,5 +1,5 @@
 import { clerkClient } from "@clerk/nextjs"
-import { User as ClerkUser } from "@clerk/nextjs/server"
+import { type User as ClerkUser } from "@clerk/nextjs/server"
 import { TRPCError } from "@trpc/server"
 import { Ratelimit } from "@upstash/ratelimit"
 import { randomUUID } from "crypto"
