@@ -1,5 +1,5 @@
 import { clerkClient } from "@clerk/nextjs"
-import { User as ClerkUser } from "@clerk/nextjs/server"
+import { type User as ClerkUser } from "@clerk/nextjs/server"
 import { TRPCError } from "@trpc/server"
 import { Ratelimit } from "@upstash/ratelimit"
 import { randomUUID } from "crypto"
@@ -232,6 +232,14 @@ export const userRouter = createTRPCRouter({
     const user = await ctx.db.query.users.findFirst({
       where: eq(users.id, ctx.user.id),
     })
+
+    if (!user) {
+      throw new TRPCError({
+        code: "NOT_FOUND",
+        message: `Could not find user with id:${ctx.user.id} (current user)`,
+      })
+    }
+
     return user
   }),
 

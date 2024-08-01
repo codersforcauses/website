@@ -52,16 +52,6 @@ const formSchema = z
 
 type FormSchema = z.infer<typeof formSchema>
 
-const defaultValues: FormSchema = {
-  name: "",
-  preferred_name: "",
-  email: "",
-  pronouns: PRONOUNS[0].value,
-  isUWA: true,
-  student_number: "",
-  uni: UNIVERSITIES[0].value,
-}
-
 const PersonalForm = (props: { defaultValues?: Partial<FormSchema> }) => {
   const utils = api.useUtils()
   const updateUser = api.user.update.useMutation({

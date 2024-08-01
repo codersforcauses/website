@@ -1,12 +1,11 @@
 "use client"
 
 import { zodResolver } from "@hookform/resolvers/zod"
-import { setUser } from "@sentry/nextjs"
 import Link from "next/link"
 import { useState } from "react"
 import { FormProvider, useForm } from "react-hook-form"
 import { z } from "zod"
-import { removeUserCookie, setUserCookie } from "~/app/actions"
+import { setUserCookie } from "~/app/actions"
 import { Button } from "~/components/ui/button"
 import { Checkbox } from "~/components/ui/checkbox"
 import CircleProgress from "~/components/ui/circle-progress"

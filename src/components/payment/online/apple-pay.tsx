@@ -16,7 +16,7 @@ interface ApplePayProps {
 
 const applePayID = "apple-pay-container"
 
-const ApplePay = ({ paymentInstance, payRequest, theme, ...props }: ApplePayProps) => {
+const ApplePay = ({ paymentInstance, payRequest, ...props }: ApplePayProps) => {
   const [applePay, setApplePay] = React.useState<ApplePay | undefined>(() => undefined)
 
   React.useEffect(() => {
