@@ -86,7 +86,7 @@ const defaultValues = {
 
 const ImpactForm = () => {
   const { control } = useFormContext()
-  const { fields, append, remove, swap, move } = useFieldArray({
+  const { fields, append, remove } = useFieldArray({
     name: "impact",
   })
 

@@ -42,7 +42,7 @@ const UserButton = ({ cachedUser }: HeaderUser) => {
     placeholderData: cachedUser,
     refetchInterval: 1000 * 60 * 10, // 10 minutes
     onSuccess: (data) => {
-      void setUserCookie(data!)
+      void setUserCookie(data)
     },
   })
 

@@ -1,8 +1,8 @@
-import { and, between, isNotNull, sql } from "drizzle-orm"
 import { eachDayOfInterval, subMonths } from "date-fns"
+import { and, between, isNotNull, sql } from "drizzle-orm"
 
 import { adminProcedure, createTRPCRouter } from "~/server/api/trpc"
-import { payments, users } from "~/server/db/schema"
+import { users } from "~/server/db/schema"
 
 export const analyticsRouter = createTRPCRouter({
   count: adminProcedure.query(async ({ ctx }) => {
