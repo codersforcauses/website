@@ -19,8 +19,10 @@ export default clerkMiddleware(async (auth, req) => {
     console.log("MIDDLEWARE", user)
 
     if (!adminRoles.includes(user?.role ?? "")) {
-      console.log("YOU ARE NOT ADMIN")
-      auth().redirectToSignIn()
+      // non-existent clerk role so we go to 404 page cleanly
+      auth().protect({
+        role: "lmfaooo",
+      })
     }
   }
 
