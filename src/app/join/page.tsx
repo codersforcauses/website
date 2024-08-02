@@ -17,7 +17,6 @@ import { toast } from "~/components/ui/use-toast"
 import { SITE_URL } from "~/lib/constants"
 import type { ClerkError } from "~/lib/types"
 import { api } from "~/trpc/react"
-import { setUserCookie } from "../actions"
 
 const formSchema = z.object({
   email: z
@@ -39,24 +38,11 @@ const defaultValues = {
 export default function Join() {
   const [showAlert, setShowAlert] = React.useState(false)
   const router = useRouter()
+  const utils = api.useUtils()
   const { signIn, isLoaded, setActive } = useSignIn()
   const form = useForm<FormSchema>({
     resolver: zodResolver(formSchema),
     defaultValues,
-  })
-
-  const userData = api.user.login.useMutation({
-    onSuccess: async (data) => {
-      await setUserCookie(data)
-    },
-    onError: (error) => {
-      toast({
-        variant: "destructive",
-        title: "Error",
-        description: "An error occurred while signing in. Please try again.",
-      })
-      console.error(error)
-    },
   })
 
   const onSubmit = async ({ email }: FormSchema) => {
@@ -90,9 +76,9 @@ export default function Join() {
         })
       }
       if (res.status === "complete") {
-        // needs to be in this order or fails
+        // careful of order
         await setActive({ session: res.createdSessionId }) // sets token from clerk
-        userData.mutate() // get user details and sets cookie on success
+        await utils.user.getCurrent.refetch()
 
         router.push("/dashboard")
       }

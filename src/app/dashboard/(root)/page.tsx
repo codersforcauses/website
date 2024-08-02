@@ -1,28 +1,8 @@
-import { setUserCookie } from "~/app/actions"
-import OnlinePaymentForm from "~/components/payment/online"
-import { toast } from "~/components/ui/use-toast"
+import OnlinePaymentBlock from "~/components/payment/online/block"
 import { api } from "~/trpc/server"
 
 export default async function Dashboard() {
   const user = await api.user.getCurrent.query()
-
-  const handleAfterOnlinePayment = async (paymentID: string) => {
-    "use server"
-    try {
-      const updatedUser = await api.user.updateRole.mutate({
-        id: user.id,
-        role: "member",
-        paymentID,
-      })
-      await setUserCookie(updatedUser!)
-    } catch (error) {
-      toast({
-        variant: "destructive",
-        title: "Failed to update role",
-        description: "An error occurred while trying to update your role.",
-      })
-    }
-  }
 
   return (
     <>
@@ -51,7 +31,7 @@ export default async function Dashboard() {
                   </ul>
                 </div>
               </div>
-              {user && <OnlinePaymentForm afterPayment={handleAfterOnlinePayment} />}
+              {user && <OnlinePaymentBlock user={user} />}
             </div>
           )}
         </div>

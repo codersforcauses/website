@@ -213,23 +213,12 @@ export const userRouter = createTRPCRouter({
       })
     }),
 
-  login: protectedRatedProcedure(Ratelimit.fixedWindow(4, "30s")).mutation(async ({ ctx }) => {
-    const user = await ctx.db.query.users.findFirst({
-      where: eq(users.id, ctx.user?.id),
-    })
-
-    if (!user) {
-      throw new TRPCError({
-        code: "NOT_FOUND",
-        message: `Could not find user with id:${ctx.user.id}`,
-      })
-    }
-    return user
-  }),
-
   getCurrent: protectedRatedProcedure(Ratelimit.fixedWindow(40, "30s")).query(async ({ ctx }) => {
     const user = await ctx.db.query.users.findFirst({
       where: eq(users.id, ctx.user.id),
+      columns: {
+        square_customer_id: false,
+      },
     })
 
     if (!user) {
