@@ -283,7 +283,7 @@ export const userRouter = createTRPCRouter({
             const [user] = await ctx.db
               .update(users)
               .set({ role: input.role })
-              .where(eq(users.id, ctx.user?.id))
+              .where(eq(users.id, ctx.user.id))
               .returning()
             return user
           } else if (input.role === "member") {
@@ -301,7 +301,7 @@ export const userRouter = createTRPCRouter({
                 const [user] = await ctx.db
                   .update(users)
                   .set({ role: input.role })
-                  .where(eq(users.id, ctx.user?.id))
+                  .where(eq(users.id, ctx.user.id))
                   .returning()
                 return user
               }

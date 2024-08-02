@@ -1,11 +1,12 @@
-import type { Config } from "drizzle-kit"
-import { getXataClient } from "~/server/db/xata"
+import { defineConfig } from "drizzle-kit"
 
-// const xata = getXataClient()
-
-export default {
+export default defineConfig({
+  dialect: "postgresql",
   schema: "./src/server/db/schema.ts",
   verbose: true,
-  driver: "pg",
   tablesFilter: ["cfc-website_*"],
-} satisfies Config
+  // drizzle-kit does not support http connections, use the xata cli instead
+  // dbCredentials: {
+  //   url: process.env.XATA_DATABASE_URL!,
+  // },
+})
