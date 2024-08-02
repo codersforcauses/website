@@ -7,7 +7,7 @@
  * need to use are documented accordingly near the end.
  */
 
-import { currentUser } from "@clerk/nextjs"
+import { currentUser } from "@clerk/nextjs/server"
 import * as Sentry from "@sentry/nextjs"
 import { initTRPC, TRPCError } from "@trpc/server"
 import { Ratelimit, type RatelimitConfig } from "@upstash/ratelimit"

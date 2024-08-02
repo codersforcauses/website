@@ -1,20 +1,21 @@
 "use client"
 
-import * as React from "react"
-import { useRouter } from "next/navigation"
-import { zodResolver } from "@hookform/resolvers/zod"
-import { useForm } from "react-hook-form"
 import { useSignIn } from "@clerk/nextjs"
+import { type EmailLinkFactor } from "@clerk/types"
+import { zodResolver } from "@hookform/resolvers/zod"
 import { track } from "@vercel/analytics/react"
+import { useRouter } from "next/navigation"
+import * as React from "react"
+import { useForm } from "react-hook-form"
 import * as z from "zod"
 
-import { SITE_URL } from "~/lib/constants"
-import type { ClerkError } from "~/lib/types"
 import { Alert, AlertDescription, AlertTitle } from "~/components/ui/alert"
 import { Button } from "~/components/ui/button"
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "~/components/ui/form"
 import { Input } from "~/components/ui/input"
 import { toast } from "~/components/ui/use-toast"
+import { SITE_URL } from "~/lib/constants"
+import type { ClerkError } from "~/lib/types"
 import { api } from "~/trpc/react"
 import { setUserCookie } from "../actions"
 
@@ -67,17 +68,16 @@ export default function Join() {
     try {
       const si = await signIn.create({ identifier: email })
 
-      // @ts-expect-error - Clerk typings are incorrect
-      const { emailAddressId } = si.supportedFirstFactors.find(
+      const emailLinkFactor = si.supportedFirstFactors.find(
         (ff) => ff.strategy === "email_link" && ff.safeIdentifier === email,
-      )!
+      ) as EmailLinkFactor | undefined
 
-      if (!emailAddressId) return
+      if (!emailLinkFactor) throw new Error("Email link is not a supported first factor??")
 
       setShowAlert(true)
       // Start the magic link flow.
       const res = await startEmailLinkFlow({
-        emailAddressId: emailAddressId as string,
+        emailAddressId: emailLinkFactor.emailAddressId,
         redirectUrl: `${SITE_URL}/verification`,
       })
       const verification = res.firstFactorVerification

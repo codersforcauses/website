@@ -1,5 +1,4 @@
-import { clerkClient } from "@clerk/nextjs"
-import { type User as ClerkUser } from "@clerk/nextjs/server"
+import { clerkClient, type User as ClerkUser } from "@clerk/nextjs/server"
 import { TRPCError } from "@trpc/server"
 import { Ratelimit } from "@upstash/ratelimit"
 import { randomUUID } from "crypto"
@@ -174,7 +173,7 @@ export const userRouter = createTRPCRouter({
         })
       } catch (err) {
         // user might exist already
-        ;[clerkRes] = await clerkClient.users.getUserList({ emailAddress: [input.email] })
+        clerkRes = (await clerkClient.users.getUserList({ emailAddress: [input.email] })).data[0]
       }
 
       if (!clerkRes)
@@ -236,10 +235,9 @@ export const userRouter = createTRPCRouter({
     if (!user) {
       throw new TRPCError({
         code: "NOT_FOUND",
-        message: `Could not find user with id:${ctx.user.id} (current user)`,
+        message: `Could not find currentuser with id:${ctx.user.id}`,
       })
     }
-
     return user
   }),
 
@@ -291,7 +289,7 @@ export const userRouter = createTRPCRouter({
             const [user] = await ctx.db
               .update(users)
               .set({ role: input.role })
-              .where(eq(users.id, ctx.user?.id))
+              .where(eq(users.id, ctx.user.id))
               .returning()
             return user
           } else if (input.role === "member") {
@@ -309,7 +307,7 @@ export const userRouter = createTRPCRouter({
                 const [user] = await ctx.db
                   .update(users)
                   .set({ role: input.role })
-                  .where(eq(users.id, ctx.user?.id))
+                  .where(eq(users.id, ctx.user.id))
                   .returning()
                 return user
               }

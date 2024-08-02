@@ -1,7 +1,9 @@
 "use client"
 
 import * as React from "react"
-import { EmailLinkErrorCode, isEmailLinkError, useClerk } from "@clerk/nextjs"
+import { EmailLinkErrorCode, isEmailLinkError } from "@clerk/nextjs/errors"
+import { useClerk } from "@clerk/nextjs"
+import { error } from "console"
 
 export default function Verification() {
   const [verificationStatus, setVerificationStatus] = React.useState("loading")
@@ -17,7 +19,8 @@ export default function Verification() {
       } catch (err) {
         // Verification has failed.
         let status = "failed"
-        // @ts-expect-error - Clerk typings are incorrect
+
+        // @ts-expect-error - Yes it does
         if (isEmailLinkError(err as Error) && err?.code === EmailLinkErrorCode.Expired) {
           status = "expired"
         }
