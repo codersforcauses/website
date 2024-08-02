@@ -83,47 +83,39 @@ export const userRouter = createTRPCRouter({
         })
       }
 
-      try {
-        const [user] = await ctx.db
-          .insert(users)
-          .values({
-            id: input.clerk_id,
-            name: input.name,
-            preferred_name: input.preferred_name,
-            email: input.email,
-            pronouns: input.pronouns,
-            student_number: input.student_number,
-            university: input.uni,
-            github: input.github,
-            discord: input.discord,
-            subscribe: input.subscribe ?? true,
-            square_customer_id: result.customer.id,
-          })
-          .returning()
+      let clerkUser = await clerkClient.users.getUser(input.clerk_id)
 
-        return user
-      } catch (error) {
-        // add error handling
-        const user = await ctx.db.query.users.findFirst({
-          where: eq(users.id, input.clerk_id),
-          columns: {
-            id: true,
-          },
+      if (!clerkUser) {
+        // ! fucked, try manually creating a user
+        clerkUser = await clerkClient.users.createUser({
+          emailAddress: [input.email],
+          firstName: input.preferred_name,
+          lastName: input.name, // we treat clerk.lastName as the user's full name
         })
-        if (user) {
-          await Promise.all([
-            clerkClient.users.deleteUser(input.clerk_id),
-            ctx.db.delete(users).where(eq(users.id, input.clerk_id)),
-          ])
-        } else {
-          await clerkClient.users.deleteUser(input.clerk_id)
-        }
-        throw new TRPCError({
-          code: "INTERNAL_SERVER_ERROR",
-          message: `Failed to create user ${input.name}.`,
-          cause: error,
-        })
+        // throw new TRPCError({
+        //   code: "NOT_FOUND",
+        //   message: `Clerk user with id:${input.clerk_id} does not exist`,
+        // })
       }
+
+      const [user] = await ctx.db
+        .insert(users)
+        .values({
+          id: input.clerk_id,
+          name: input.name,
+          preferred_name: input.preferred_name,
+          email: input.email,
+          pronouns: input.pronouns,
+          student_number: input.student_number,
+          university: input.uni,
+          github: input.github,
+          discord: input.discord,
+          subscribe: input.subscribe ?? true,
+          square_customer_id: result.customer.id,
+        })
+        .returning()
+
+      return user
     }),
 
   createManual: adminProcedure

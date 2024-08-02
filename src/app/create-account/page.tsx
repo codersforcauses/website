@@ -251,7 +251,7 @@ export default function CreateAccount() {
     onError: (error) => {
       toast({
         variant: "destructive",
-        title: "Failed to create account",
+        title: "Failed to create database user",
         description: error.message,
       })
     },
@@ -320,7 +320,7 @@ export default function CreateAccount() {
       if (!su.createdUserId) {
         toast({
           variant: "destructive",
-          title: "Failed to create user",
+          title: "Failed to create Clerk user",
           description: "Email link flow failed. Please try again.",
         })
         cancelEmailLinkFlow()
