@@ -67,7 +67,7 @@ const UserButton = ({ cachedUser }: HeaderUser) => {
           variant="secondary-dark"
           className="dark:hover:bg-primary dark:hover:text-black"
           onClick={() => {
-            if (process.env.VERCEL_ENV === "production") track("join", { location: "header" })
+            if (process.env.NEXT_PUBLIC_VERCEL_ENV === "production") track("join", { location: "header" })
           }}
         >
           <Link href="/join">Join us</Link>

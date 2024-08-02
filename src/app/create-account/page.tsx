@@ -263,7 +263,7 @@ export default function CreateAccount() {
   const onSubmit = async (values: FormSchema) => {
     if (!isLoaded) return null
 
-    if (process.env.VERCEL_ENV === "production") track("created-account")
+    if (process.env.NEXT_PUBLIC_VERCEL_ENV === "production") track("created-account")
 
     setLoading(true)
     if (values.github !== "") {

@@ -48,7 +48,7 @@ export default function Join() {
   const onSubmit = async ({ email }: FormSchema) => {
     if (!isLoaded) return null
 
-    if (process.env.VERCEL_ENV === "production") track("click-join")
+    if (process.env.NEXT_PUBLIC_VERCEL_ENV === "production") track("click-join")
 
     const { startEmailLinkFlow } = signIn.createEmailLinkFlow()
     try {

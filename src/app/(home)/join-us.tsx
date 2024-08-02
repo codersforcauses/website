@@ -12,7 +12,7 @@ const JoinUs = () => (
     size="lg"
     className="sm:text-lg"
     onClick={() => {
-      if (process.env.VERCEL_ENV === "production") track("join", { location: "home page" })
+      if (process.env.NEXT_PUBLIC_VERCEL_ENV === "production") track("join", { location: "home page" })
     }}
   >
     <Link href="/join">Join us</Link>
