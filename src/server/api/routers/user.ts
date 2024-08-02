@@ -83,18 +83,18 @@ export const userRouter = createTRPCRouter({
         })
       }
 
-      let clerkUser = await clerkClient.users.getUser(input.clerk_id)
+      const clerkUser = await clerkClient.users.getUser(input.clerk_id)
 
       if (!clerkUser) {
-        // ! fucked, try manually creating a user
-        clerkUser = await clerkClient.users.createUser({
-          emailAddress: [input.email],
-          firstName: input.preferred_name,
-          lastName: input.name, // we treat clerk.lastName as the user's full name
+        // ! fucked, don't manually create a user because that can be abused
+        throw new TRPCError({
+          code: "NOT_FOUND",
+          message: `Clerk user with id:${input.clerk_id} does not exist`,
         })
-        // throw new TRPCError({
-        //   code: "NOT_FOUND",
-        //   message: `Clerk user with id:${input.clerk_id} does not exist`,
+        // clerkUser = await clerkClient.users.createUser({
+        //   emailAddress: [input.email],
+        //   firstName: input.preferred_name,
+        //   lastName: input.name, // we treat clerk.lastName as the user's full name
         // })
       }
 

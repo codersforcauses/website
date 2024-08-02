@@ -317,22 +317,6 @@ export default function CreateAccount() {
         redirectUrl: `${SITE_URL}/verification`,
       })
 
-      if (!su.createdUserId) {
-        toast({
-          variant: "destructive",
-          title: "Failed to create Clerk user",
-          description: "Email link flow failed. Please try again.",
-        })
-        cancelEmailLinkFlow()
-        return
-      }
-
-      const user = await createUser.mutateAsync({
-        clerk_id: su.createdUserId,
-        ...userData,
-      })
-      setUser(user)
-
       const verification = su.verifications.emailAddress
       if (verification.status === "expired") {
         toast({
@@ -342,6 +326,21 @@ export default function CreateAccount() {
         })
       }
       if (su.status === "complete") {
+        if (!su.createdUserId) {
+          toast({
+            variant: "destructive",
+            title: "Failed to create Clerk user",
+            description: "Email link flow failed. Please try again.",
+          })
+          cancelEmailLinkFlow()
+          return
+        }
+
+        const user = await createUser.mutateAsync({
+          clerk_id: su.createdUserId,
+          ...userData,
+        })
+        setUser(user)
         await setActive({
           session: su.createdSessionId,
         })
