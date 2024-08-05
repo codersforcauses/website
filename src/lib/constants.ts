@@ -2,8 +2,10 @@ import * as SimpleIcons from "simple-icons/icons"
 
 export const SITE_URL =
   process.env.NEXT_PUBLIC_VERCEL_ENV === "production"
-    ? process.env.NEXT_PUBLIC_VERCEL_PROJECT_PRODUCTION_URL
-    : process.env.NEXT_PUBLIC_VERCEL_URL ?? `http://localhost:${process.env.PORT ?? 3000}`
+    ? `https://${process.env.NEXT_PUBLIC_VERCEL_PROJECT_PRODUCTION_URL}`
+    : process.env.NEXT_PUBLIC_VERCEL_URL
+      ? `https://${process.env.NEXT_PUBLIC_VERCEL_URL}`
+      : `http://localhost:${process.env.PORT ?? 3000}`
 
 export const NAMED_ROLES = ["member", "honorary", "past", "committee", "admin"] as const
 
