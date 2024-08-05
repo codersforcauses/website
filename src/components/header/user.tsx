@@ -1,12 +1,13 @@
 "use client"
 
-import * as React from "react"
-import Link from "next/link"
-import dynamic from "next/dynamic"
-import { usePathname, useRouter } from "next/navigation"
 import { useAuth } from "@clerk/nextjs"
 import { track } from "@vercel/analytics/react"
+import dynamic from "next/dynamic"
+import Link from "next/link"
+import { usePathname } from "next/navigation"
+import * as React from "react"
 
+import { setUser } from "@sentry/nextjs"
 import { Avatar, AvatarFallback } from "~/components/ui/avatar"
 import { Button } from "~/components/ui/button"
 import {
@@ -18,9 +19,9 @@ import {
   // DropdownMenuShortcut,
   DropdownMenuTrigger,
 } from "~/components/ui/dropdown-menu"
-import { removeUserCookie, setUserCookie } from "~/app/actions"
-import { api } from "~/trpc/react"
+import { SITE_URL } from "~/lib/constants"
 import type { User } from "~/lib/types"
+import { api } from "~/trpc/react"
 
 const ThemeSwitcher = dynamic(() => import("./theme"), {
   ssr: false,
@@ -32,7 +33,6 @@ interface HeaderUser {
 }
 
 const UserButton = ({ cachedUser }: HeaderUser) => {
-  const router = useRouter()
   const { userId, signOut } = useAuth()
   const path = usePathname()
   const utils = api.useUtils()
@@ -41,15 +41,22 @@ const UserButton = ({ cachedUser }: HeaderUser) => {
     enabled: !!userId,
     placeholderData: cachedUser,
     refetchInterval: 1000 * 60 * 10, // 10 minutes
-    onSuccess: (data) => {
-      void setUserCookie(data)
-    },
   })
 
+  // track sentry user
+  React.useEffect(() => {
+    if (!user) return
+    setUser(user)
+  }, [user])
+
+  // TODO move to new page to handle
   const userSignOut = React.useCallback(async () => {
-    await Promise.all([removeUserCookie(), signOut(), utils.user.getCurrent.reset()])
-    router.push("/")
-  }, [signOut, utils.user, router])
+    await utils.user.getCurrent.reset()
+    setUser(null)
+    await signOut({
+      redirectUrl: SITE_URL,
+    })
+  }, [signOut, utils.user])
 
   if (!user || !userId)
     return (
@@ -60,7 +67,7 @@ const UserButton = ({ cachedUser }: HeaderUser) => {
           variant="secondary-dark"
           className="dark:hover:bg-primary dark:hover:text-black"
           onClick={() => {
-            if (process.env.VERCEL_ENV === "production") track("join", { location: "header" })
+            if (process.env.NEXT_PUBLIC_VERCEL_ENV === "production") track("join", { location: "header" })
           }}
         >
           <Link href="/join">Join us</Link>

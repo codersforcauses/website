@@ -61,7 +61,7 @@ const clients = [
 
 const width = clients.reduce((val, { width }) => val + width, clients.length * 16 * 6)
 
-export default async function Home() {
+export default function Home() {
   return (
     <main>
       <div className="bg-black text-white">

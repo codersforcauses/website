@@ -1,14 +1,8 @@
 import Link from "next/link"
-import dynamic from "next/dynamic"
 
 import { Button } from "~/components/ui/button"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "~/components/ui/dropdown-menu"
-import { getUserCookie } from "~/app/actions"
-
-const UserButton = dynamic(() => import("./user"), {
-  ssr: false,
-  loading: () => <Button variant="ghost-dark" size="icon" />,
-})
+import UserButton from "./user"
 
 interface HeaderItem {
   href: string
@@ -33,7 +27,6 @@ const links: Array<HeaderItem> = [
 ]
 
 const Header = async () => {
-  const cachedUser = await getUserCookie()
   return (
     <header className="container fixed inset-x-0 top-2 z-30">
       <div className="-mx-1.5 flex items-center justify-between bg-black p-1.5">
@@ -78,7 +71,7 @@ const Header = async () => {
             ))}
           </ul>
         </nav>
-        <UserButton cachedUser={cachedUser} />
+        <UserButton />
       </div>
     </header>
   )

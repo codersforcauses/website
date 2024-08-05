@@ -1,5 +1,4 @@
-import { clerkClient } from "@clerk/nextjs"
-import { type User as ClerkUser } from "@clerk/nextjs/server"
+import { clerkClient, type User as ClerkUser } from "@clerk/nextjs/server"
 import { TRPCError } from "@trpc/server"
 import { Ratelimit } from "@upstash/ratelimit"
 import { randomUUID } from "crypto"
@@ -84,47 +83,39 @@ export const userRouter = createTRPCRouter({
         })
       }
 
-      try {
-        const [user] = await ctx.db
-          .insert(users)
-          .values({
-            id: input.clerk_id,
-            name: input.name,
-            preferred_name: input.preferred_name,
-            email: input.email,
-            pronouns: input.pronouns,
-            student_number: input.student_number,
-            university: input.uni,
-            github: input.github,
-            discord: input.discord,
-            subscribe: input.subscribe ?? true,
-            square_customer_id: result.customer.id,
-          })
-          .returning()
+      const clerkUser = await clerkClient.users.getUser(input.clerk_id)
 
-        return user
-      } catch (error) {
-        // add error handling
-        const user = await ctx.db.query.users.findFirst({
-          where: eq(users.id, input.clerk_id),
-          columns: {
-            id: true,
-          },
-        })
-        if (user) {
-          await Promise.all([
-            clerkClient.users.deleteUser(input.clerk_id),
-            ctx.db.delete(users).where(eq(users.id, input.clerk_id)),
-          ])
-        } else {
-          await clerkClient.users.deleteUser(input.clerk_id)
-        }
+      if (!clerkUser) {
+        // ! fucked, don't manually create a user because that can be abused
         throw new TRPCError({
-          code: "INTERNAL_SERVER_ERROR",
-          message: `Failed to create user ${input.name}.`,
-          cause: error,
+          code: "NOT_FOUND",
+          message: `Clerk user with id:${input.clerk_id} does not exist`,
         })
+        // clerkUser = await clerkClient.users.createUser({
+        //   emailAddress: [input.email],
+        //   firstName: input.preferred_name,
+        //   lastName: input.name, // we treat clerk.lastName as the user's full name
+        // })
       }
+
+      const [user] = await ctx.db
+        .insert(users)
+        .values({
+          id: input.clerk_id,
+          name: input.name,
+          preferred_name: input.preferred_name,
+          email: input.email,
+          pronouns: input.pronouns,
+          student_number: input.student_number,
+          university: input.uni,
+          github: input.github,
+          discord: input.discord,
+          subscribe: input.subscribe ?? true,
+          square_customer_id: result.customer.id,
+        })
+        .returning()
+
+      return user
     }),
 
   createManual: adminProcedure
@@ -174,7 +165,7 @@ export const userRouter = createTRPCRouter({
         })
       } catch (err) {
         // user might exist already
-        ;[clerkRes] = await clerkClient.users.getUserList({ emailAddress: [input.email] })
+        clerkRes = (await clerkClient.users.getUserList({ emailAddress: [input.email] })).data[0]
       }
 
       if (!clerkRes)
@@ -214,32 +205,20 @@ export const userRouter = createTRPCRouter({
       })
     }),
 
-  login: protectedRatedProcedure(Ratelimit.fixedWindow(4, "30s")).mutation(async ({ ctx }) => {
-    const user = await ctx.db.query.users.findFirst({
-      where: eq(users.id, ctx.user?.id),
-    })
-
-    if (!user) {
-      throw new TRPCError({
-        code: "NOT_FOUND",
-        message: `Could not find user with id:${ctx.user.id}`,
-      })
-    }
-    return user
-  }),
-
   getCurrent: protectedRatedProcedure(Ratelimit.fixedWindow(40, "30s")).query(async ({ ctx }) => {
     const user = await ctx.db.query.users.findFirst({
       where: eq(users.id, ctx.user.id),
+      columns: {
+        square_customer_id: false,
+      },
     })
 
     if (!user) {
       throw new TRPCError({
         code: "NOT_FOUND",
-        message: `Could not find user with id:${ctx.user.id} (current user)`,
+        message: `Could not find currentuser with id:${ctx.user.id}`,
       })
     }
-
     return user
   }),
 
@@ -291,7 +270,7 @@ export const userRouter = createTRPCRouter({
             const [user] = await ctx.db
               .update(users)
               .set({ role: input.role })
-              .where(eq(users.id, ctx.user?.id))
+              .where(eq(users.id, ctx.user.id))
               .returning()
             return user
           } else if (input.role === "member") {
@@ -309,7 +288,7 @@ export const userRouter = createTRPCRouter({
                 const [user] = await ctx.db
                   .update(users)
                   .set({ role: input.role })
-                  .where(eq(users.id, ctx.user?.id))
+                  .where(eq(users.id, ctx.user.id))
                   .returning()
                 return user
               }

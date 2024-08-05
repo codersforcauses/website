@@ -1,13 +1,13 @@
 "use client"
 
-import * as React from "react"
-import { zodResolver } from "@hookform/resolvers/zod"
-import { useForm } from "react-hook-form"
-import Link from "next/link"
-import { siDiscord } from "simple-icons"
-import { useRouter, useSearchParams } from "next/navigation"
 import { useSignUp } from "@clerk/nextjs"
+import { zodResolver } from "@hookform/resolvers/zod"
 import { track } from "@vercel/analytics/react"
+import Link from "next/link"
+import { useRouter, useSearchParams } from "next/navigation"
+import * as React from "react"
+import { useForm } from "react-hook-form"
+import { siDiscord } from "simple-icons"
 import * as z from "zod"
 
 import { Alert, AlertDescription, AlertTitle } from "~/components/ui/alert"
@@ -22,11 +22,10 @@ import { toast } from "~/components/ui/use-toast"
 // import { Avatar, AvatarFallback, AvatarImage } from "~/components/ui/avatar"
 // import GithubHeatmap from "../_components/github-heatmap"
 import OnlinePaymentForm from "~/components/payment/online"
-import { SITE_URL, PRONOUNS, UNIVERSITIES } from "~/lib/constants"
-import { cn } from "~/lib/utils"
+import { PRONOUNS, SITE_URL, UNIVERSITIES } from "~/lib/constants"
 import { type User } from "~/lib/types"
+import { cn } from "~/lib/utils"
 import { api } from "~/trpc/react"
-import { setUserCookie } from "~/app/actions"
 
 type ActiveView = "form" | "payment"
 
@@ -249,11 +248,11 @@ export default function CreateAccount() {
 
   const utils = api.useUtils()
   const createUser = api.user.create.useMutation({
-    onError: () => {
+    onError: (error) => {
       toast({
         variant: "destructive",
-        title: "Failed to create account",
-        description: "An error occurred while creating your account. Please try again later.",
+        title: "Failed to create database user",
+        description: error.message,
       })
     },
   })
@@ -264,7 +263,7 @@ export default function CreateAccount() {
   const onSubmit = async (values: FormSchema) => {
     if (!isLoaded) return null
 
-    if (process.env.VERCEL_ENV === "production") track("created-account")
+    if (process.env.NEXT_PUBLIC_VERCEL_ENV === "production") track("created-account")
 
     setLoading(true)
     if (values.github !== "") {
@@ -295,6 +294,7 @@ export default function CreateAccount() {
     } else {
       userData.uni = values.uni
     }
+
     try {
       const { startEmailLinkFlow, cancelEmailLinkFlow } = signUp.createEmailLinkFlow()
       await signUp.create({
@@ -317,22 +317,6 @@ export default function CreateAccount() {
         redirectUrl: `${SITE_URL}/verification`,
       })
 
-      if (!su.createdUserId) {
-        toast({
-          variant: "destructive",
-          title: "Failed to create user",
-          description: "An error occurred while trying to create user. Please try again.",
-        })
-        cancelEmailLinkFlow()
-        return
-      }
-
-      const user = await createUser.mutateAsync({
-        clerk_id: su.createdUserId,
-        ...userData,
-      })
-      setUser(user)
-
       const verification = su.verifications.emailAddress
       if (verification.status === "expired") {
         toast({
@@ -342,6 +326,21 @@ export default function CreateAccount() {
         })
       }
       if (su.status === "complete") {
+        if (!su.createdUserId) {
+          toast({
+            variant: "destructive",
+            title: "Failed to create Clerk user",
+            description: "Email link flow failed. Please try again.",
+          })
+          cancelEmailLinkFlow()
+          return
+        }
+
+        const user = await createUser.mutateAsync({
+          clerk_id: su.createdUserId,
+          ...userData,
+        })
+        setUser(user)
         await setActive({
           session: su.createdSessionId,
         })
@@ -374,7 +373,6 @@ export default function CreateAccount() {
         role: "member",
         paymentID,
       })
-      await setUserCookie(updatedUser!)
       utils.user.getCurrent.setData(undefined, updatedUser)
       router.replace("/dashboard")
     } catch (error) {
@@ -390,7 +388,6 @@ export default function CreateAccount() {
     if (user) {
       setLoadingSkipPayment(true)
       try {
-        await setUserCookie(user)
         utils.user.getCurrent.setData(undefined, user)
         router.push("/dashboard")
       } catch (error) {

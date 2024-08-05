@@ -1,22 +1,22 @@
 "use client"
 
-import * as React from "react"
-import { useRouter } from "next/navigation"
-import { zodResolver } from "@hookform/resolvers/zod"
-import { useForm } from "react-hook-form"
 import { useSignIn } from "@clerk/nextjs"
+import { type EmailLinkFactor } from "@clerk/types"
+import { zodResolver } from "@hookform/resolvers/zod"
 import { track } from "@vercel/analytics/react"
+import { useRouter } from "next/navigation"
+import * as React from "react"
+import { useForm } from "react-hook-form"
 import * as z from "zod"
 
-import { SITE_URL } from "~/lib/constants"
-import type { ClerkError } from "~/lib/types"
 import { Alert, AlertDescription, AlertTitle } from "~/components/ui/alert"
 import { Button } from "~/components/ui/button"
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "~/components/ui/form"
 import { Input } from "~/components/ui/input"
 import { toast } from "~/components/ui/use-toast"
+import { SITE_URL } from "~/lib/constants"
+import type { ClerkError } from "~/lib/types"
 import { api } from "~/trpc/react"
-import { setUserCookie } from "../actions"
 
 const formSchema = z.object({
   email: z
@@ -38,46 +38,32 @@ const defaultValues = {
 export default function Join() {
   const [showAlert, setShowAlert] = React.useState(false)
   const router = useRouter()
+  const utils = api.useUtils()
   const { signIn, isLoaded, setActive } = useSignIn()
   const form = useForm<FormSchema>({
     resolver: zodResolver(formSchema),
     defaultValues,
   })
 
-  const userData = api.user.login.useMutation({
-    onSuccess: async (data) => {
-      await setUserCookie(data)
-    },
-    onError: (error) => {
-      toast({
-        variant: "destructive",
-        title: "Error",
-        description: "An error occurred while signing in. Please try again.",
-      })
-      console.error(error)
-    },
-  })
-
   const onSubmit = async ({ email }: FormSchema) => {
     if (!isLoaded) return null
 
-    if (process.env.VERCEL_ENV === "production") track("click-join")
+    if (process.env.NEXT_PUBLIC_VERCEL_ENV === "production") track("click-join")
 
     const { startEmailLinkFlow } = signIn.createEmailLinkFlow()
     try {
       const si = await signIn.create({ identifier: email })
 
-      // @ts-expect-error - Clerk typings are incorrect
-      const { emailAddressId } = si.supportedFirstFactors.find(
+      const emailLinkFactor = si.supportedFirstFactors.find(
         (ff) => ff.strategy === "email_link" && ff.safeIdentifier === email,
-      )!
+      ) as EmailLinkFactor | undefined
 
-      if (!emailAddressId) return
+      if (!emailLinkFactor) throw new Error("Email link is not a supported first factor??")
 
       setShowAlert(true)
       // Start the magic link flow.
       const res = await startEmailLinkFlow({
-        emailAddressId: emailAddressId as string,
+        emailAddressId: emailLinkFactor.emailAddressId,
         redirectUrl: `${SITE_URL}/verification`,
       })
       const verification = res.firstFactorVerification
@@ -90,9 +76,9 @@ export default function Join() {
         })
       }
       if (res.status === "complete") {
-        // needs to be in this order or fails
+        // careful of order
         await setActive({ session: res.createdSessionId }) // sets token from clerk
-        userData.mutate() // get user details and sets cookie on success
+        await utils.user.getCurrent.refetch()
 
         router.push("/dashboard")
       }

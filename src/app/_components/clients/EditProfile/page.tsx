@@ -5,7 +5,6 @@ import Link from "next/link"
 import { useState } from "react"
 import { FormProvider, useForm } from "react-hook-form"
 import { z } from "zod"
-import { setUserCookie } from "~/app/actions"
 import { Button } from "~/components/ui/button"
 import { Checkbox } from "~/components/ui/checkbox"
 import CircleProgress from "~/components/ui/circle-progress"
@@ -116,18 +115,8 @@ const defaultValues: FormSchema = {
 const EditProfile = ({ setIsEditing, id, refetch }: EditProfileProps) => {
   const [showCircleProgress, setShowCircleProgress] = useState(false)
   const { data: user } = api.user.get.useQuery(id)
-  const { mutateAsync: updateUser } = api.user.update.useMutation({
-    onSuccess: async (data) => {
-      if (!data) return
-      await setUserCookie(data)
-    },
-  })
-  const { mutateAsync: updateSocial } = api.user.updateSocial.useMutation({
-    onSuccess: async (data) => {
-      if (!data) return
-      await setUserCookie(data)
-    },
-  })
+  const { mutateAsync: updateUser } = api.user.update.useMutation()
+  const { mutateAsync: updateSocial } = api.user.updateSocial.useMutation()
 
   const userDefaultValues = user && {
     name: user.name,
