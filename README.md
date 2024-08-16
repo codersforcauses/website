@@ -24,15 +24,16 @@ pnpm i
 # To run in dev
 pnpm dev
 
-# To start inngest dev server for testing webhooks (e.g. user signups)
-pnpm dev:inngest
-
 # To add a dependency. We use the -E to install the latest dependency and pin it.
 pnpm i <dep_name> -E
 
 # Update all packages
 pnpm upgrade -L
 ```
+
+### Working with webhooks (Inngest)
+
+To test changes to the Clerk webhooks (user signup syncing), you need to push changes to a branch. Inngest will then route them to the correct endpoint.
 
 ## Planned Features
 

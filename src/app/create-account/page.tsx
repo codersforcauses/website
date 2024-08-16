@@ -248,6 +248,7 @@ export default function CreateAccount() {
 
   const utils = api.useUtils()
   const { data: currentUser } = api.user.getCurrent.useQuery(undefined, {
+    keepPreviousData: false,
     enabled: signUp?.status === "complete",
     retry: signUp?.status === "complete",
     retryDelay: 1000,
