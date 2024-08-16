@@ -19,7 +19,7 @@
     "prepare": "node .husky/install.mjs || true"
   },
   "dependencies": {
-    "@clerk/nextjs": "5.2.10",
+    "@clerk/nextjs": "5.3.1",
     "@hookform/resolvers": "3.3.4",
     "@material-symbols/font-300": "0.17.1",
     "@radix-ui/react-accordion": "1.1.2",
