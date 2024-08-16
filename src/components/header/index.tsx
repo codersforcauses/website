@@ -3,6 +3,8 @@ import Link from "next/link"
 import { Button } from "~/components/ui/button"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "~/components/ui/dropdown-menu"
 import ActionButtons from "./action-buttons"
+import { Suspense } from "react"
+import JoinButton from "./join-button"
 
 interface HeaderItem {
   href: string
@@ -71,7 +73,9 @@ const Header = () => {
             ))}
           </ul>
         </nav>
-        <ActionButtons />
+        <Suspense fallback={<JoinButton />}>
+          <ActionButtons />
+        </Suspense>
       </div>
     </header>
   )
