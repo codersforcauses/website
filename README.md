@@ -18,11 +18,14 @@ Bootstrapped using the create-t3-app using:
 We use [pnpm](https://pnpm.io/) as the package manager for this project.
 
 ```bash
-# To Install
+# To install
 pnpm i
 
 # To run in dev
 pnpm dev
+
+# To start inngest dev server for testing webhooks (e.g. user signups)
+pnpm dev:inngest
 
 # To add a dependency. We use the -E to install the latest dependency and pin it.
 pnpm i <dep_name> -E

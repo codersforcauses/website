@@ -247,18 +247,19 @@ export default function CreateAccount() {
   const { getValues, setError } = form
 
   const utils = api.useUtils()
-  const createUser = api.user.create.useMutation({
-    onError: (error) => {
-      toast({
-        variant: "destructive",
-        title: "Failed to create database user",
-        description: error.message,
-      })
-    },
+  const { data: currentUser } = api.user.getCurrent.useQuery(undefined, {
+    enabled: signUp?.status === "complete",
+    retry: signUp?.status === "complete",
+    retryDelay: 1000,
   })
   const updateRole = api.user.updateRole.useMutation()
 
   // const user_github = getValues().github
+
+  // wait for the db user to be created in the webhook
+  React.useEffect(() => {
+    if (currentUser) setActiveView("payment")
+  }, [currentUser])
 
   const onSubmit = async (values: FormSchema) => {
     if (!isLoaded) return null
@@ -301,6 +302,14 @@ export default function CreateAccount() {
         emailAddress: values.email,
         firstName: values.preferred_name,
         lastName: values.name, // we treat clerk.lastName as the user's full name
+        unsafeMetadata: {
+          pronouns: values.pronouns,
+          student_number: values.student_number,
+          university: values.uni,
+          github: values.github,
+          discord: values.discord,
+          subscribe: values.subscribe,
+        },
       })
 
       toast({
@@ -336,16 +345,18 @@ export default function CreateAccount() {
           return
         }
 
-        const user = await createUser.mutateAsync({
-          clerk_id: su.createdUserId,
-          ...userData,
-        })
         setUser(user)
         await setActive({
           session: su.createdSessionId,
         })
+        toast({
+          title: "Verification Complete",
+          description: "Please wait a moment...",
+        })
+        // * now we wait for the webhook to successfully create the user in the db,
+        // * then we can redirect to the dashboard
+        // * use the useEffect hook to wait for the user to be created
       }
-      setActiveView("payment")
     } catch (error) {
       console.error(error)
       toast({
