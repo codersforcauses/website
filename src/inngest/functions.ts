@@ -4,6 +4,7 @@ import { env } from "~/env"
 import { db } from "~/server/db"
 import { users } from "~/server/db/schema"
 import { inngest } from "./client"
+import { createRedis } from "~/server/api/redis"
 
 export const syncUser = inngest.createFunction(
   { id: "sync-user-from-clerk" }, // ←The 'id' is an arbitrary string used to identify the function in the dashboard
@@ -61,6 +62,8 @@ export const syncUser = inngest.createFunction(
         square_customer_id,
       })
     })
+
+    await createRedis().publish(`user:created:${id}`, id)
 
     return { id }
   },

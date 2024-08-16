@@ -2,7 +2,7 @@ import Link from "next/link"
 
 import { Button } from "~/components/ui/button"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "~/components/ui/dropdown-menu"
-import UserButton from "./user"
+import ActionButtons from "./action-buttons"
 
 interface HeaderItem {
   href: string
@@ -26,7 +26,7 @@ const links: Array<HeaderItem> = [
   },
 ]
 
-const Header = async () => {
+const Header = () => {
   return (
     <header className="container fixed inset-x-0 top-2 z-30">
       <div className="-mx-1.5 flex items-center justify-between bg-black p-1.5">
@@ -71,7 +71,7 @@ const Header = async () => {
             ))}
           </ul>
         </nav>
-        <UserButton />
+        <ActionButtons />
       </div>
     </header>
   )

@@ -1,13 +1,15 @@
 import { clerkClient, type User as ClerkUser } from "@clerk/nextjs/server"
 import { TRPCError } from "@trpc/server"
+import { observable } from "@trpc/server/observable"
 import { Ratelimit } from "@upstash/ratelimit"
 import { randomUUID } from "crypto"
-import { desc, eq, sql } from "drizzle-orm"
+import { desc, eq } from "drizzle-orm"
 import { Client, Environment } from "square"
 import { z } from "zod"
 
 import { env } from "~/env"
 import { NAMED_ROLES } from "~/lib/constants"
+import { type User } from "~/lib/types"
 import {
   adminProcedure,
   createTRPCRouter,
@@ -16,6 +18,7 @@ import {
   publicRatedProcedure,
 } from "~/server/api/trpc"
 import { users } from "~/server/db/schema"
+import { createRedisClient } from "../redis"
 
 const { customersApi, paymentsApi } = new Client({
   accessToken: env.SQUARE_ACCESS_TOKEN,
@@ -205,17 +208,18 @@ export const userRouter = createTRPCRouter({
       })
     }),
 
-  currentUserExists: publicRatedProcedure(Ratelimit.fixedWindow(120, "30s")).query(async ({ ctx }) => {
-    if (!ctx.user?.id) return false
+  onOwnCreated: protectedProcedure.subscription(async ({ ctx }) => {
+    const redis = await createRedisClient()
 
-    const isExist = await ctx.db.execute(
-      sql`SELECT EXISTS (SELECT 1 FROM ${users} WHERE ${ctx.user.id} = ${123}) AS isExist`,
-    )
+    return observable<User["id"]>((emit) => {
+      void redis.subscribe(`user:created:${ctx.user.id}`, (data: string) => {
+        emit.next(data)
+      })
 
-    if (!isExist) {
-      return false
-    }
-    return true
+      return () => {
+        void redis.unsubscribe(`user:created:${ctx.user.id}`)
+      }
+    })
   }),
 
   getCurrent: protectedRatedProcedure(Ratelimit.fixedWindow(60, "30s")).query(async ({ ctx }) => {

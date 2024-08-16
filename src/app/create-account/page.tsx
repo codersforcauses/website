@@ -246,21 +246,17 @@ export default function CreateAccount() {
   })
   const { getValues, setError } = form
 
-  const utils = api.useUtils()
-  const { data: currentUserExists } = api.user.currentUserExists.useQuery(undefined, {
-    keepPreviousData: false,
-    enabled: signUp?.status === "complete",
-    retry: signUp?.status === "complete",
-    retryDelay: 1000,
+  // * wait for the db user to be created in the webhook
+  api.user.onOwnCreated.useSubscription(undefined, {
+    enabled: !!user?.id && activeView !== "payment",
+    onData: () => {
+      setActiveView("payment")
+    },
   })
+  const utils = api.useUtils()
   const updateRole = api.user.updateRole.useMutation()
 
   // const user_github = getValues().github
-
-  // wait for the db user to be created in the webhook
-  React.useEffect(() => {
-    if (currentUserExists) setActiveView("payment")
-  }, [currentUserExists])
 
   const onSubmit = async (values: FormSchema) => {
     if (!isLoaded) return null
@@ -350,13 +346,13 @@ export default function CreateAccount() {
         await setActive({
           session: su.createdSessionId,
         })
+        // * now we wait for the webhook to successfully create the user in the db,
+        // * then we can redirect to the dashboard
+        // * use the subscribe hook and wait for the user to be created
         toast({
           title: "Verification Complete",
           description: "Please wait a moment...",
         })
-        // * now we wait for the webhook to successfully create the user in the db,
-        // * then we can redirect to the dashboard
-        // * use the useEffect hook to wait for the user to be created
       }
     } catch (error) {
       console.error(error)
