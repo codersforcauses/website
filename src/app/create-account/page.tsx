@@ -247,7 +247,7 @@ export default function CreateAccount() {
   const { getValues, setError } = form
 
   const utils = api.useUtils()
-  const { data: currentUser } = api.user.getCurrent.useQuery(undefined, {
+  const { data: currentUserExists } = api.user.currentUserExists.useQuery(undefined, {
     keepPreviousData: false,
     enabled: signUp?.status === "complete",
     retry: signUp?.status === "complete",
@@ -259,8 +259,8 @@ export default function CreateAccount() {
 
   // wait for the db user to be created in the webhook
   React.useEffect(() => {
-    if (currentUser) setActiveView("payment")
-  }, [currentUser])
+    if (currentUserExists) setActiveView("payment")
+  }, [currentUserExists])
 
   const onSubmit = async (values: FormSchema) => {
     if (!isLoaded) return null

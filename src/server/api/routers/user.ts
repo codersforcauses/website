@@ -2,7 +2,7 @@ import { clerkClient, type User as ClerkUser } from "@clerk/nextjs/server"
 import { TRPCError } from "@trpc/server"
 import { Ratelimit } from "@upstash/ratelimit"
 import { randomUUID } from "crypto"
-import { desc, eq } from "drizzle-orm"
+import { desc, eq, sql } from "drizzle-orm"
 import { Client, Environment } from "square"
 import { z } from "zod"
 
@@ -204,6 +204,19 @@ export const userRouter = createTRPCRouter({
         square_customer_id: result.customer.id,
       })
     }),
+
+  currentUserExists: publicRatedProcedure(Ratelimit.fixedWindow(120, "30s")).query(async ({ ctx }) => {
+    if (!ctx.user?.id) return false
+
+    const isExist = await ctx.db.execute(
+      sql`SELECT EXISTS (SELECT 1 FROM ${users} WHERE ${ctx.user.id} = ${123}) AS isExist`,
+    )
+
+    if (!isExist) {
+      return false
+    }
+    return true
+  }),
 
   getCurrent: protectedRatedProcedure(Ratelimit.fixedWindow(60, "30s")).query(async ({ ctx }) => {
     const user = await ctx.db.query.users.findFirst({
