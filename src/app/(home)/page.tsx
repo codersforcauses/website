@@ -6,7 +6,6 @@ import BentoDisplay from "~/components/bento"
 import { Button } from "~/components/ui/button"
 import TypedText from "../_components/typed-text"
 import JoinUs from "./join-us"
-
 const Contact = dynamic(() => import("./contact"), {
   ssr: false,
   loading: () => <Button variant="outline-dark">Contact us</Button>,
@@ -65,37 +64,39 @@ const width = clients.reduce((val, { width }) => val + width, clients.length * 1
 export default function Home() {
   return (
     <main>
-      <section className="container grid gap-20 bg-black pb-12 pt-28 text-white sm:grid-cols-2 md:py-36">
-        <div className="space-y-4">
-          <h1 className="font-mono text-4xl font-bold">We are developers.</h1>
-          <p className="text-pretty text-lg">
-            Coders for Causes are a group of developers that empower charities and non-profit organizations by providing
-            them solutions to their technical problems. We are student powered and all of our members are volunteers
-            dedicated to providing you the best results.
-          </p>
-          <div className="grid grid-cols-2 gap-2 font-semibold sm:gap-4">
-            <JoinUs />
-            <Button asChild variant="outline-dark" size="lg" className="w-full sm:text-lg">
-              <Link href="#_contact_us">Work with us</Link>
-            </Button>
+      <section className="bg-black text-white">
+        <div className="container grid gap-20 pb-12 pt-28 sm:grid-cols-2 md:py-36">
+          <div className="space-y-4">
+            <h1 className="font-mono text-4xl font-bold">We are developers.</h1>
+            <p className="text-pretty text-lg">
+              Coders for Causes are a group of developers that empower charities and non-profit organizations by
+              providing them solutions to their technical problems. We are student powered and all of our members are
+              volunteers dedicated to providing you the best results.
+            </p>
+            <div className="grid grid-cols-2 gap-2 font-semibold sm:gap-4">
+              <JoinUs />
+              <Button asChild variant="outline-dark" size="lg" className="w-full sm:text-lg">
+                <Link href="#_contact_us">Work with us</Link>
+              </Button>
+            </div>
           </div>
-        </div>
-        <div aria-hidden className="hidden select-none border border-white/25 p-4 font-mono sm:block">
-          <p>
-            <span className="text-white">$ </span>
-            <TypedText
-              text={[
-                'echo "./Innovation with a mission"',
-                "Programming with purpose",
-                "Do good. ^200Write code",
-                "Made with code",
-                "Made with ^500❤",
-                "#include git.c",
-                "yarn add codersforcauses",
-                "sudo rm -rf /",
-              ]}
-            />
-          </p>
+          <div aria-hidden className="hidden select-none border border-white/25 p-4 font-mono sm:block">
+            <p>
+              <span className="text-white">$ </span>
+              <TypedText
+                text={[
+                  'echo "./Innovation with a mission"',
+                  "Programming with purpose",
+                  "Do good. ^200Write code",
+                  "Made with code",
+                  "Made with ^500❤",
+                  "#include git.c",
+                  "yarn add codersforcauses",
+                  "sudo rm -rf /",
+                ]}
+              />
+            </p>
+          </div>
         </div>
       </section>
       <section className="w-full select-none overflow-hidden bg-neutral-200 py-12 dark:bg-neutral-900">
@@ -117,8 +118,10 @@ export default function Home() {
           ))}
         </div>
       </section>
-      <section className="container py-16 dark:bg-alt-dark dark:text-white">
-        <BentoDisplay />
+      <section className="dark:bg-alt-dark">
+        <div className="container mx-auto w-full px-8 py-16 dark:bg-alt-dark dark:text-white">
+          <BentoDisplay />
+        </div>
       </section>
       <section id="_contact_us" className="scroll-mt-16 bg-black py-12 text-white md:py-24">
         <div className="container flex gap-4">
