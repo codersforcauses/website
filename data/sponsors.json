@@ -1,29 +1,34 @@
 [
   {
     "name": "Jane Street",
+    "alt": "Jane Street logo",
     "logo": "/sponsors/jane_street_logo.png",
     "dark_logo": "/sponsors/jane_street_logo_dark.png",
     "link": "https://janestreet.com/"
   },
   {
     "name": "Woodside",
+    "alt": "Woodside logo",
     "logo": "/sponsors/woodside_logo.png",
     "dark_logo": "/sponsors/woodside_logo_dark.png",
     "link": "https://woodside.com.au/"
   },
   {
     "name": "UWA Data Institute",
+    "alt": "UWA Data Institute logo",
     "logo": "/sponsors/uwa_data_institute_logo.png",
     "link": "https://uwadatainstitute.org.au/"
   },
   {
     "name": "WA Data Science Innovation Hub",
+    "alt": "WA Data Science Innovation Hub logo",
     "logo": "/sponsors/wadsih_logo.png",
     "dark_logo": "/sponsors/wadsih_logo_dark.png",
     "link": "http://wadsih.org.au/"
   },
   {
     "name": "Venture: Student Innovation Centre - UWA Student Guild",
+    "alt": "Venture: Student Innovation Centre - UWA Student Guild logo",
     "logo": "/sponsors/venture_horizontal_logo.png",
     "link": "https://www.venture-student-innovation.com/"
   }
