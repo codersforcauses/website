@@ -5,8 +5,8 @@ import ImageGrid from "./image-grid"
 interface Sponsor {
   name: string
   logo: string
-  dark_logo: string
-  link: string
+  dark_logo?: string
+  link?: string
 }
 
 const Sponsors = () => {

@@ -1,15 +1,15 @@
-import "@material-symbols/font-300/sharp.css"
-import type { Viewport, Metadata } from "next"
-import { IBM_Plex_Mono, IBM_Plex_Sans } from "next/font/google"
 import { ClerkProvider } from "@clerk/nextjs"
+import "@material-symbols/font-300/sharp.css"
 import { Analytics } from "@vercel/analytics/react"
+import type { Metadata, Viewport } from "next"
+import { IBM_Plex_Mono, IBM_Plex_Sans } from "next/font/google"
 
-import { type PropsWithChildren } from "~/lib/types"
-import { Toaster } from "~/components/ui/toaster"
-import Header from "~/components/header"
 import Footer from "~/components/footer"
-import Providers from "./providers"
+import Header from "~/components/header"
+import { Toaster } from "~/components/ui/toaster"
 import { customMetadata } from "~/lib/metadata"
+import { type PropsWithChildren } from "~/lib/types"
+import Providers from "./providers"
 
 import "~/styles/globals.css"
 

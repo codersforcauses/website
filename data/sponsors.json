@@ -1,5 +1,16 @@
 [
   {
+    "name": "Jane Street",
+    "logo": "/sponsors/jane_street_logo.png",
+    "dark_logo": "/sponsors/jane_street_logo_dark.png",
+    "link": "https://janestreet.com/"
+  },
+  {
+    "name": "UWA Data Institute",
+    "logo": "/sponsors/uwa_data_institute_logo.png",
+    "link": "https://uwadatainstitute.org.au/"
+  },
+  {
     "name": "WA Data Science Innovation Hub",
     "logo": "/sponsors/wadsih_logo.png",
     "dark_logo": "/sponsors/wadsih_logo_dark.png",
@@ -7,7 +18,6 @@
   },
   {
     "name": "Venture: Student Innovation Centre - UWA Student Guild",
-    "logo": "/sponsors/venture_horizontal_logo.png",
-    "dark_logo": ""
+    "logo": "/sponsors/venture_horizontal_logo.png"
   }
 ]
