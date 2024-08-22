@@ -6,6 +6,12 @@
     "link": "https://janestreet.com/"
   },
   {
+    "name": "Woodside",
+    "logo": "/sponsors/woodside_logo.png",
+    "dark_logo": "/sponsors/woodside_logo_dark.png",
+    "link": "https://woodside.com.au/"
+  },
+  {
     "name": "UWA Data Institute",
     "logo": "/sponsors/uwa_data_institute_logo.png",
     "link": "https://uwadatainstitute.org.au/"

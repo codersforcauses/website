@@ -10,7 +10,7 @@ interface ImageGridProps {
   images: ImageProps[]
 }
 
-// display both light and dark versions of images if they exist and switch between them with media queries
+// render both light and dark versions of images if they exist and switch between them with media queries
 // this is a hack to get around light mode images displaying instead of dark mode after refreshing the page
 // i.e. leave the displaying up to the browser instead of ssr
 const ImageGrid = (props: ImageGridProps) => {
