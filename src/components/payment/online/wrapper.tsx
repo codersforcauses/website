@@ -1,5 +1,6 @@
 "use client"
 
+import { useRouter } from "next/navigation"
 import OnlinePaymentForm, { type OnlinePaymentFormProps } from "~/components/payment/online"
 import { toast } from "~/components/ui/use-toast"
 import { api } from "~/trpc/react"
@@ -10,8 +11,9 @@ interface PaymentBlockProps extends OnlinePaymentFormProps {
 }
 
 // wrapped in a client component because the dashboard should be server-rendered
-export default function PaymentFormWrapper({ cards, user }: PaymentBlockProps) {
+export default function PaymentFormWrapper({ cards, user }: Pick<PaymentBlockProps, "cards" | "user">) {
   const updateRole = api.user.updateRole.useMutation()
+  const router = useRouter()
 
   const handleAfterPayment = async (paymentID: string) => {
     await updateRole.mutateAsync({
@@ -24,6 +26,8 @@ export default function PaymentFormWrapper({ cards, user }: PaymentBlockProps) {
       title: "Successfully updated role",
       description: "You are now a member of Coders for Causes",
     })
+
+    router.refresh()
   }
 
   return <OnlinePaymentForm cards={cards} afterPayment={handleAfterPayment} />

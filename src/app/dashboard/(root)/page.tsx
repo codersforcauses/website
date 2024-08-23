@@ -1,24 +1,9 @@
-import { toast } from "~/components/ui/use-toast"
 import { api } from "~/trpc/server"
-import PaymentBlock from "../../../components/payment/online/wrapper"
+import PaymentFormWrapper from "~/components/payment/online/wrapper"
 
 export default async function Dashboard() {
   const user = await api.user.getCurrent.query()
   const cards = await api.payment.getCards.query()
-
-  const handleAfterPayment = async (paymentID: string) => {
-    "use server"
-    await api.user.updateRole.mutate({
-      id: user.id,
-      role: "member",
-      paymentID,
-    })
-
-    toast({
-      title: "Successfully updated role",
-      description: "You are now a member of Coders for Causes",
-    })
-  }
 
   return (
     <>
@@ -47,7 +32,7 @@ export default async function Dashboard() {
                   </ul>
                 </div>
               </div>
-              <PaymentBlock user={user} cards={cards} afterPayment={handleAfterPayment} />
+              <PaymentFormWrapper user={user} cards={cards} />
             </div>
           )}
         </div>

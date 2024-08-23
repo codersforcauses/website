@@ -247,7 +247,7 @@ export default function CreateAccount() {
       paymentID,
     })
     utils.user.getCurrent.setData(undefined, updatedUser)
-    router.replace("/dashboard")
+    router.push("/dashboard")
   }
 
   const handleSkipPayment = async () => {
