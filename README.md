@@ -18,7 +18,7 @@ Bootstrapped using the create-t3-app using:
 We use [pnpm](https://pnpm.io/) as the package manager for this project.
 
 ```bash
-# To Install
+# To install
 pnpm i
 
 # To run in dev
@@ -30,6 +30,10 @@ pnpm i <dep_name> -E
 # Update all packages
 pnpm upgrade -L
 ```
+
+### Working with webhooks (Inngest)
+
+To test changes to the Clerk webhooks (user signup syncing), you need to push changes to a branch. Inngest will then route them to the correct endpoint.
 
 ## Planned Features
 

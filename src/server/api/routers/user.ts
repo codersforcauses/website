@@ -1,5 +1,6 @@
 import { clerkClient, type User as ClerkUser } from "@clerk/nextjs/server"
 import { TRPCError } from "@trpc/server"
+import { observable } from "@trpc/server/observable"
 import { Ratelimit } from "@upstash/ratelimit"
 import { randomUUID } from "crypto"
 import { desc, eq } from "drizzle-orm"
@@ -8,6 +9,7 @@ import { z } from "zod"
 
 import { env } from "~/env"
 import { NAMED_ROLES } from "~/lib/constants"
+import { type User } from "~/lib/types"
 import {
   adminProcedure,
   createTRPCRouter,
@@ -16,6 +18,7 @@ import {
   publicRatedProcedure,
 } from "~/server/api/trpc"
 import { users } from "~/server/db/schema"
+import { createRedisClient } from "../redis"
 
 const { customersApi, paymentsApi } = new Client({
   accessToken: env.SQUARE_ACCESS_TOKEN,
@@ -205,7 +208,21 @@ export const userRouter = createTRPCRouter({
       })
     }),
 
-  getCurrent: protectedRatedProcedure(Ratelimit.fixedWindow(40, "30s")).query(async ({ ctx }) => {
+  onOwnCreated: protectedProcedure.subscription(async ({ ctx }) => {
+    const redis = await createRedisClient()
+
+    return observable<User["id"]>((emit) => {
+      void redis.subscribe(`user:created:${ctx.user.id}`, (data: string) => {
+        emit.next(data)
+      })
+
+      return () => {
+        void redis.unsubscribe(`user:created:${ctx.user.id}`)
+      }
+    })
+  }),
+
+  getCurrent: protectedRatedProcedure(Ratelimit.fixedWindow(60, "30s")).query(async ({ ctx }) => {
     const user = await ctx.db.query.users.findFirst({
       where: eq(users.id, ctx.user.id),
       columns: {

@@ -54,7 +54,7 @@ export default function Join() {
     try {
       const si = await signIn.create({ identifier: email })
 
-      const emailLinkFactor = si.supportedFirstFactors.find(
+      const emailLinkFactor = si.supportedFirstFactors?.find(
         (ff) => ff.strategy === "email_link" && ff.safeIdentifier === email,
       ) as EmailLinkFactor | undefined
 

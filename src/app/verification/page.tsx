@@ -11,8 +11,10 @@ export default function Verification() {
   React.useEffect(() => {
     const verify = async () => {
       try {
-        // TODO redirect to dashboard if signing in, or to the create account page if signing up
-        await handleEmailLinkVerification({})
+        await handleEmailLinkVerification({
+          // TODO redirect to dashboard if signing in, or some sort of waiting page if signing up
+          // redirectUrlComplete: `${SITE_URL}/dashboard`,
+        })
         // If we're not redirected at this point, it means
         // that the flow has completed on another device.
         setVerificationStatus("verified")
