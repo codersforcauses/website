@@ -16,16 +16,17 @@ import { Checkbox } from "~/components/ui/checkbox"
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "~/components/ui/form"
 import { Input } from "~/components/ui/input"
 import { RadioGroup, RadioGroupItem } from "~/components/ui/radio-group"
-import { Skeleton } from "~/components/ui/skeleton"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "~/components/ui/tabs"
 import { toast } from "~/components/ui/use-toast"
 // import { Avatar, AvatarFallback, AvatarImage } from "~/components/ui/avatar"
 // import GithubHeatmap from "../_components/github-heatmap"
-import OnlinePaymentBlock from "~/components/payment/online/block"
+import OnlinePaymentForm from "~/components/payment/online"
 import { PRONOUNS, SITE_URL, UNIVERSITIES } from "~/lib/constants"
 import { type User } from "~/lib/types"
 import { cn } from "~/lib/utils"
 import { api } from "~/trpc/react"
+import DetailsBlock from "./details"
+import PaymentBlock from "./payment"
 
 type ActiveView = "form" | "payment"
 
@@ -82,152 +83,6 @@ const defaultValues = {
   subscribe: true,
 }
 
-const DetailsBlock = () => {
-  return (
-    <div className="relative hidden md:block">
-      <div className="absolute inset-0 z-10 -m-4 grid p-4 backdrop-blur-sm">
-        <div className="flex select-none items-center place-self-center px-4 py-2">
-          <span className="material-symbols-sharp text-6xl">lock</span>
-          <p>Complete part 2 to join us!</p>
-        </div>
-      </div>
-      <div aria-hidden className="space-y-4">
-        <div className="space-y-2">
-          <h2 className="font-semibold leading-none tracking-tight">Personal details</h2>
-          <p className="text-sm text-muted-foreground">Fields marked with * are required.</p>
-        </div>
-        <div className="space-y-1.5">
-          <p>Email address</p>
-          <Skeleton className="h-10 w-full" />
-        </div>
-        <div className="space-y-1.5">
-          <p>Full name</p>
-          <Skeleton className="h-10 w-full" />
-          <p>We use your full name for internal committee records and official correspondence</p>
-        </div>
-        <div className="space-y-1.5">
-          <p>Preferred name</p>
-          <Skeleton className="h-10 w-full" />
-          <p>This is how we normally refer to you</p>
-        </div>
-        <div className="space-y-1.5">
-          <p>Pronouns</p>
-          <div className="grid grid-cols-3 gap-2">
-            <Skeleton className="h-6 w-full" />
-            <Skeleton className="h-6 w-full" />
-            <Skeleton className="h-6 w-full" />
-            <Skeleton className="h-6 w-full" />
-          </div>
-        </div>
-        <Skeleton className="h-4 w-full" />
-        <div className="space-y-1.5">
-          <p>UWA student number</p>
-          <Skeleton className="h-10 w-full" />
-        </div>
-        <div className="space-y-2 sm:col-span-2">
-          <h2 className="font-semibold leading-none tracking-tight">Socials</h2>
-          <p className="text-sm text-muted-foreground">
-            These fields are optional but are required if you plan on applying for projects during the winter and summer
-            breaks.
-          </p>
-          <Alert>
-            <svg viewBox="0 0 24 24" width={16} height={16} className="mr-2 fill-current">
-              <title>{siDiscord.title}</title>
-              <path d={siDiscord.path} />
-            </svg>
-            <AlertTitle>Join our Discord!</AlertTitle>
-            <AlertDescription>
-              You can join our Discord server at <strong>discord.codersforcauses.org</strong>
-            </AlertDescription>
-          </Alert>
-        </div>
-        <div className="grid grid-cols-2 gap-x-4">
-          <div className="space-y-1.5">
-            <p>Github username</p>
-            <Skeleton className="h-10 w-full" />
-          </div>
-          <div className="space-y-1.5">
-            <p>Discord username</p>
-            <Skeleton className="h-10 w-full" />
-          </div>
-        </div>
-        <Skeleton className="h-4 w-full" />
-        <Button disabled className="w-full">
-          Next
-        </Button>
-      </div>
-    </div>
-  )
-}
-const PaymentBlock = () => {
-  return (
-    <div className="relative hidden md:block">
-      <div className="absolute inset-0 z-10 -m-4 grid p-4 backdrop-blur-sm">
-        <div className="flex select-none items-center place-self-center px-4 py-2">
-          <span className="material-symbols-sharp text-6xl">lock</span>
-          <p>Complete part 1 to continue to this part.</p>
-        </div>
-      </div>
-      <div aria-hidden className="space-y-4">
-        <div className="space-y-2">
-          <h2 className="font-semibold leading-none tracking-tight">Payment</h2>
-          <div className="text-sm text-muted-foreground">
-            <p>
-              Become a paying member of Coders for Causes for just $5 a year (ends on 31st Dec{" "}
-              {new Date().getFullYear()}
-              ). There are many benefits to becoming a member which include:
-            </p>
-            <ul className="list-inside list-disc">
-              <li>discounts to paid events such as industry nights</li>
-              <li>the ability to vote and run for committee positions</li>
-              <li>the ability to join our projects run during the winter and summer breaks.</li>
-            </ul>
-          </div>
-        </div>
-        <p className="text-sm text-muted-foreground">
-          Our online payment system is handled by <strong>Square</strong>. We do not store your card details but we do
-          record the information Square provides us after confirming your card.
-        </p>
-        <Skeleton className="h-10 w-full" />
-        <div>
-          <div className="border border-black/25 p-4 dark:border-white/25">
-            <Skeleton className="h-10 w-full" />
-            <Skeleton className="mt-8 h-[99px] w-full" />
-            <Skeleton className="mt-8 h-5 w-full" />
-            <Skeleton className="mt-4 h-10 w-full" />
-          </div>
-          <div className="border border-t-0 border-black/25 p-4 dark:border-white/25">
-            <Skeleton className="h-10 w-full" />
-          </div>
-          <div className="border border-t-0 border-black/25 p-4 dark:border-white/25">
-            <Skeleton className="h-10 w-full" />
-          </div>
-        </div>
-        <div className="relative select-none">
-          <div className="absolute inset-0 flex items-center">
-            <span className="w-full border-t" />
-          </div>
-          <div className="relative flex justify-center text-xs uppercase">
-            <span className="bg-background px-2 text-muted-foreground">Or</span>
-          </div>
-        </div>
-        <div className="space-y-2">
-          <h2 className="text-sm font-semibold leading-none tracking-tight">Skipping payment</h2>
-          <div className="text-sm text-muted-foreground">
-            <p>
-              You can skip payment for now but you will miss out on the benefits mentioned above until you do. You can
-              always pay later by going to your account dashboard.
-            </p>
-          </div>
-        </div>
-        <Button disabled variant="outline" className="w-full">
-          Skip payment
-        </Button>
-      </div>
-    </div>
-  )
-}
-
 export default function CreateAccount() {
   const [activeView, setActiveView] = React.useState<ActiveView>("form")
   const [loading, setLoading] = React.useState(false)
@@ -256,7 +111,26 @@ export default function CreateAccount() {
       })
     },
   })
-  const updateRole = api.user.updateRole.useMutation()
+  const updateRole = api.user.updateRole.useMutation({
+    onSuccess: () => {
+      toast({
+        title: "Successfully updated role",
+        description: "You are now a member of Coders for Causes",
+      })
+    },
+    onError: (error) => {
+      console.error(error)
+      toast({
+        variant: "destructive",
+        title: "Failed to update role",
+        description: "An error occurred while trying to update your role.",
+      })
+    },
+  })
+  const { data: cards } = api.payment.getCards.useQuery(undefined, {
+    enabled: !!user,
+    staleTime: Infinity, // this is ok because this will be the first time ever the user will fetch cards, no risk of it being out of date
+  })
 
   // const user_github = getValues().github
 
@@ -367,21 +241,13 @@ export default function CreateAccount() {
       })
       return
     }
-    try {
-      const updatedUser = await updateRole.mutateAsync({
-        id: user.id,
-        role: "member",
-        paymentID,
-      })
-      utils.user.getCurrent.setData(undefined, updatedUser)
-      router.replace("/dashboard")
-    } catch (error) {
-      toast({
-        variant: "destructive",
-        title: "Failed to update role",
-        description: "An error occurred while trying to update your role.",
-      })
-    }
+    const updatedUser = await updateRole.mutateAsync({
+      id: user.id,
+      role: "member",
+      paymentID,
+    })
+    utils.user.getCurrent.setData(undefined, updatedUser)
+    router.replace("/dashboard")
   }
 
   const handleSkipPayment = async () => {
@@ -707,7 +573,7 @@ export default function CreateAccount() {
                 . We do not store your card details but we do record the information Square provides us after confirming
                 your card.
               </p>
-              <OnlinePaymentBlock afterPayment={handleAfterOnlinePayment} />
+              <OnlinePaymentForm cards={cards} afterPayment={handleAfterOnlinePayment} />
             </TabsContent>
             <TabsContent value="in-person" className="space-y-4">
               <p className="text-sm text-muted-foreground">

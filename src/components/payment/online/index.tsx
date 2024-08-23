@@ -30,7 +30,7 @@ const SavedCards = dynamic(() => import("./saved-cards"), {
   loading: () => <Skeleton className="h-10 w-full" />,
 })
 
-interface OnlinePaymentFormProps {
+export interface OnlinePaymentFormProps {
   cards: RouterOutputs["payment"]["getCards"]
   /**
    * The amount to be charged.
