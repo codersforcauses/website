@@ -69,13 +69,31 @@ export const paymentRouter = createTRPCRouter({
           amount: BigInt(parseFloat(input.amount) * 100),
         },
       })
+
+      if (result.errors) {
+        throw new TRPCError({
+          code: "INTERNAL_SERVER_ERROR",
+          message: "Failed to create payment",
+          cause: result.errors,
+        })
+      }
+
+      if (!result.payment?.amountMoney?.amount) {
+        throw new TRPCError({
+          code: "INTERNAL_SERVER_ERROR",
+          message: "Failed to create payment",
+        })
+      }
+
       await ctx.db.insert(payments).values({
         user_id: ctx.user.id,
         label: input.label,
-        amount: input.amount,
-        currency: input.currency,
+        amount: result.payment.amountMoney.amount.toString(),
+        currency: result.payment.amountMoney.currency,
       })
-      return result.payment?.id
+
+      // TODO: just update the user role here instead of calling updateRole afterwards
+      return result.payment.id
     }),
 
   storeCard: protectedRatedProcedure(Ratelimit.fixedWindow(2, "30s"))
@@ -103,11 +121,10 @@ export const paymentRouter = createTRPCRouter({
       return result.card?.id
     }),
 
-  // ! FIXME -- there might be some weird rerender issue that I can't be bothered to fix
   getCards: protectedRatedProcedure(Ratelimit.fixedWindow(60, "30s")).query(async ({ ctx }) => {
     const [user] = await ctx.db.select().from(users).where(eq(users.id, ctx.user.id))
     const { result } = await cardsApi.listCards(undefined, user?.square_customer_id)
-    if (result.cards?.length === 0) return []
+
     return result.cards?.map((card) => ({
       id: card.id ?? "",
       number: `**** **** **** ${card.last4}`,

@@ -46,3 +46,7 @@ yarn-error.log*
 
 # Sentry Config File
 .env.sentry-build-plugin
+
+# xata
+.xatarc
+.xata/
