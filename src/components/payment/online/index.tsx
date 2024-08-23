@@ -1,16 +1,17 @@
 "use client"
 
-import * as React from "react"
-import dynamic from "next/dynamic"
-import { useTheme } from "next-themes"
-import { payments, type TokenResult, type Payments, type PaymentRequestOptions } from "@square/web-sdk"
 import { type CheckedState } from "@radix-ui/react-checkbox"
+import { payments, type PaymentRequestOptions, type Payments, type TokenResult } from "@square/web-sdk"
+import { useTheme } from "next-themes"
+import dynamic from "next/dynamic"
+import * as React from "react"
 
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "~/components/ui/accordion"
 import { Skeleton } from "~/components/ui/skeleton"
 import { toast } from "~/components/ui/use-toast"
-import { api } from "~/trpc/react"
 import { env } from "~/env"
+import { api } from "~/trpc/react"
+import { type RouterOutputs } from "~/trpc/shared"
 
 const Card = dynamic(() => import("./card"), {
   ssr: false,
@@ -30,6 +31,7 @@ const SavedCards = dynamic(() => import("./saved-cards"), {
 })
 
 interface OnlinePaymentFormProps {
+  cards: RouterOutputs["payment"]["getCards"]
   /**
    * The amount to be charged.
    * Must have decimal point and two decimal places.
@@ -44,10 +46,7 @@ interface OnlinePaymentFormProps {
 const APP_ID = env.NEXT_PUBLIC_SQUARE_APP_ID
 const LOCATION_ID = env.NEXT_PUBLIC_SQUARE_LOCATION_ID
 
-const createPaymentRequest = ({
-  amount,
-  label,
-}: Omit<Required<OnlinePaymentFormProps>, "afterPayment" | "setFocus">) => {
+const createPaymentRequest = ({ amount, label }: PaymentRequestOptions["total"]) => {
   const request: PaymentRequestOptions = {
     countryCode: "AU",
     currencyCode: "AUD",
@@ -60,20 +59,17 @@ const createPaymentRequest = ({
 }
 
 const OnlinePaymentForm = ({
+  cards,
   amount = "5.00",
   label = `CFC Membership ${new Date().getFullYear()}`,
   setFocus = false,
-  ...props
+  afterPayment,
 }: OnlinePaymentFormProps) => {
   const { resolvedTheme: theme } = useTheme()
   const [canApplePay, setCanApplePay] = React.useState(false)
   const [paymentInstance, setPaymentInstance] = React.useState<Payments>()
   const loadingState = React.useState(false)
   const cardDetails = React.useState<CheckedState>(true)
-
-  const { data: cards, isInitialLoading } = api.payment.getCards.useQuery(undefined, {
-    refetchInterval: false,
-  })
 
   const pay = api.payment.pay.useMutation({
     onError: () => {
@@ -157,12 +153,8 @@ const OnlinePaymentForm = ({
         console.log(error)
       }
     }
-    try {
-      if (paymentID) void (await props.afterPayment?.(paymentID))
-    } catch (error) {
-      // TODO: handle error
-      console.log(error)
-    }
+
+    if (paymentID) await afterPayment?.(paymentID)
   }
 
   const paymentOptions = {
@@ -172,7 +164,7 @@ const OnlinePaymentForm = ({
     loadingState,
   }
 
-  return paymentInstance && !isInitialLoading ? (
+  return paymentInstance ? (
     <Accordion
       type="single"
       disabled={loadingState[0]}
@@ -195,11 +187,7 @@ const OnlinePaymentForm = ({
       <AccordionItem value="saved" className="border-black/25 dark:border-white/25">
         <AccordionTrigger className="px-4">Saved cards</AccordionTrigger>
         <AccordionContent className="mx-4">
-          {isInitialLoading ? (
-            <Skeleton className="h-10 w-full" />
-          ) : (
-            <SavedCards {...paymentOptions} amount={amount} cards={cards ?? []} />
-          )}
+          <SavedCards {...paymentOptions} amount={amount} cards={cards ?? []} />
         </AccordionContent>
       </AccordionItem>
     </Accordion>

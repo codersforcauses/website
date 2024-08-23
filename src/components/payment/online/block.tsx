@@ -1,29 +1,12 @@
-"use client"
-
 import OnlinePaymentForm from "~/components/payment/online"
-import { toast } from "~/components/ui/use-toast"
-import { api } from "~/trpc/react"
-import { type RouterOutputs } from "~/trpc/shared"
+import { api } from "~/trpc/server"
 
-export default function OnlinePaymentBlock({ user }: { user: RouterOutputs["user"]["getCurrent"] }) {
-  const { mutateAsync: updateRole } = api.user.updateRole.useMutation()
+export default async function OnlinePaymentBlock({
+  afterPayment,
+}: {
+  afterPayment?: (paymentID: string) => Promise<void>
+}) {
+  const cards = await api.payment.getCards.query()
 
-  const handleAfterOnlinePayment = async (paymentID: string) => {
-    try {
-      await updateRole({
-        id: user.id,
-        role: "member",
-        paymentID,
-      })
-    } catch (error) {
-      console.error(error)
-      toast({
-        variant: "destructive",
-        title: "Failed to update role",
-        description: "An error occurred while trying to update your role.",
-      })
-    }
-  }
-
-  return <OnlinePaymentForm afterPayment={handleAfterOnlinePayment} />
+  return <OnlinePaymentForm cards={cards} afterPayment={afterPayment} />
 }

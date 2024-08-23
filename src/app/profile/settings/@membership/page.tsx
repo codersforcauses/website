@@ -1,5 +1,7 @@
+import { Suspense } from "react"
 import OnlinePaymentBlock from "~/components/payment/online/block"
 import { Separator } from "~/components/ui/separator"
+import { Skeleton } from "~/components/ui/skeleton"
 import { api } from "~/trpc/server"
 
 export default async function Membership() {
@@ -96,7 +98,9 @@ export default async function Membership() {
               </ul>
             </div>
             <div className="max-w-lg">
-              <OnlinePaymentBlock user={user} />
+              <Suspense fallback={<Skeleton className="h-[320px] w-full" />}>
+                <OnlinePaymentBlock />
+              </Suspense>
             </div>
           </div>
         )}

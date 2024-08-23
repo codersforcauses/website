@@ -1,4 +1,6 @@
+import { Suspense } from "react"
 import OnlinePaymentBlock from "~/components/payment/online/block"
+import { Skeleton } from "~/components/ui/skeleton"
 import { api } from "~/trpc/server"
 
 export default async function Dashboard() {
@@ -31,7 +33,9 @@ export default async function Dashboard() {
                   </ul>
                 </div>
               </div>
-              {user && <OnlinePaymentBlock user={user} />}
+              <Suspense fallback={<Skeleton className="h-[320px] w-full" />}>
+                <OnlinePaymentBlock />
+              </Suspense>
             </div>
           )}
         </div>

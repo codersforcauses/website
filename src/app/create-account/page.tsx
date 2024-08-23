@@ -21,7 +21,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "~/components/ui/tabs"
 import { toast } from "~/components/ui/use-toast"
 // import { Avatar, AvatarFallback, AvatarImage } from "~/components/ui/avatar"
 // import GithubHeatmap from "../_components/github-heatmap"
-import OnlinePaymentForm from "~/components/payment/online"
+import OnlinePaymentBlock from "~/components/payment/online/block"
 import { PRONOUNS, SITE_URL, UNIVERSITIES } from "~/lib/constants"
 import { type User } from "~/lib/types"
 import { cn } from "~/lib/utils"
@@ -707,7 +707,7 @@ export default function CreateAccount() {
                 . We do not store your card details but we do record the information Square provides us after confirming
                 your card.
               </p>
-              <OnlinePaymentForm afterPayment={handleAfterOnlinePayment} />
+              <OnlinePaymentBlock afterPayment={handleAfterOnlinePayment} />
             </TabsContent>
             <TabsContent value="in-person" className="space-y-4">
               <p className="text-sm text-muted-foreground">
