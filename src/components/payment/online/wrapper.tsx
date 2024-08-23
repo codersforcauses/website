@@ -1,6 +1,6 @@
 "use client"
 
-import OnlinePaymentForm, { OnlinePaymentFormProps } from "~/components/payment/online"
+import OnlinePaymentForm, { type OnlinePaymentFormProps } from "~/components/payment/online"
 import { toast } from "~/components/ui/use-toast"
 import { api } from "~/trpc/react"
 import { RouterOutputs } from "~/trpc/shared"
@@ -10,7 +10,7 @@ interface PaymentBlockProps extends OnlinePaymentFormProps {
 }
 
 // wrapped in a client component because the dashboard should be server-rendered
-export default function PaymentBlock({ cards, user }: PaymentBlockProps) {
+export default function PaymentFormWrapper({ cards, user }: PaymentBlockProps) {
   const updateRole = api.user.updateRole.useMutation()
 
   const handleAfterPayment = async (paymentID: string) => {

@@ -1,11 +1,10 @@
-import { Suspense } from "react"
-import OnlinePaymentBlock from "~/components/payment/online/block"
+import PaymentFormWrapper from "~/components/payment/online/wrapper"
 import { Separator } from "~/components/ui/separator"
-import { Skeleton } from "~/components/ui/skeleton"
 import { api } from "~/trpc/server"
 
 export default async function Membership() {
   const user = await api.user.getCurrent.query()
+  const cards = await api.payment.getCards.query()
 
   return (
     <div className="space-y-4">
@@ -98,9 +97,7 @@ export default async function Membership() {
               </ul>
             </div>
             <div className="max-w-lg">
-              <Suspense fallback={<Skeleton className="h-[320px] w-full" />}>
-                <OnlinePaymentBlock />
-              </Suspense>
+              <PaymentFormWrapper user={user} cards={cards} />
             </div>
           </div>
         )}

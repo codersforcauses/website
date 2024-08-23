@@ -1,6 +1,6 @@
 import { toast } from "~/components/ui/use-toast"
 import { api } from "~/trpc/server"
-import PaymentBlock from "./payment-block"
+import PaymentBlock from "../../../components/payment/online/wrapper"
 
 export default async function Dashboard() {
   const user = await api.user.getCurrent.query()
