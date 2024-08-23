@@ -9,6 +9,7 @@ interface PaymentBlockProps extends OnlinePaymentFormProps {
   user: RouterOutputs["user"]["getCurrent"]
 }
 
+// wrapped in a client component because the dashboard should be server-rendered
 export default function PaymentBlock({ cards, user }: PaymentBlockProps) {
   const updateRole = api.user.updateRole.useMutation()
 
