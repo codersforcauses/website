@@ -265,7 +265,7 @@ export default function CreateAccount() {
   }
 
   return (
-    <div className="container grid gap-x-8 gap-y-4 py-8 md:grid-cols-2 md:gap-y-8 lg:gap-x-16">
+    <div className="container grid gap-x-8 gap-y-4 py-12 md:grid-cols-2 md:gap-y-8 lg:gap-x-16">
       <Alert className="md:col-span-2">
         <span className="material-symbols-sharp size-4 text-xl leading-4">mail</span>
         <AlertTitle>New user detected!</AlertTitle>

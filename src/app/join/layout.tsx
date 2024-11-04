@@ -28,7 +28,7 @@ const Layout = ({ children }: PropsWithChildren) => {
   return (
     <main className="main">
       <TitleText typed>./join</TitleText>
-      <div className="container grid gap-y-8 py-8 md:grid-cols-2 md:gap-x-8">
+      <div className="container grid gap-y-8 py-12 md:grid-cols-2 md:gap-x-8">
         {children}
         <div aria-hidden className="hidden place-items-center font-mono leading-none md:grid">
           <span className="text-8xl">:)</span>
