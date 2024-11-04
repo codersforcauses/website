@@ -8,8 +8,11 @@ import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, For
 import { Button } from "~/components/ui/button"
 import { Textarea } from "~/components/ui/textarea"
 import { RadioGroup, RadioGroupItem } from "~/components/ui/radio-group"
+import TitleText from "~/app/_components/title-text"
+import { Alert, AlertDescription, AlertTitle } from "~/components/ui/alert"
 
 const formSchema = z.object({
+  type: z.string(),
   experience: z.string().min(2, {
     message: "Name is required.",
   }),
@@ -20,6 +23,14 @@ const formSchema = z.object({
 })
 
 type FormSchema = z.infer<typeof formSchema>
+
+const dates = {
+  applyBy: "27th of October",
+  programStart: "16th of November 2024",
+  programEnd: "15th of February 2025",
+  breakStart: "18th of December 2024",
+  breakEnd: "1st of January 2025",
+}
 
 export default function Register() {
   const form = useForm<FormSchema>({
@@ -40,9 +51,65 @@ export default function Register() {
 
   return (
     <main className="main">
-      <div className="container">
+      <TitleText typed>./project_application</TitleText>
+      <div className="container py-12">
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="max-w-xl space-y-4">
+          <form onSubmit={form.handleSubmit(onSubmit)} className="max-w-2xl space-y-4">
+            <div className="space-y-2 pb-2">
+              <h1 className="font-mono text-xl font-bold">Coders for Causes Summer 2024/25 Project Application</h1>
+              <Alert>
+                <span className="material-symbols-sharp size-4 text-xl leading-4">info</span>
+                <AlertTitle>Important Dates</AlertTitle>
+                <AlertDescription>
+                  <p>The last day to apply for a project is {dates.applyBy} at 11:59pm.</p>
+                  <p>
+                    The program will run from {dates.programStart} to {dates.programEnd} with a Christmas break in
+                    between.
+                  </p>
+                  <p>
+                    The Christmas break will run from {dates.breakStart} to {dates.breakEnd}.
+                  </p>
+                </AlertDescription>
+              </Alert>
+            </div>
+            <FormField
+              control={form.control}
+              name="type"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel className="font-mono">
+                    Are you applying for our charity projects or our beginner-friendly project?
+                  </FormLabel>
+                  <FormControl>
+                    <RadioGroup
+                      onValueChange={field.onChange}
+                      defaultValue={field.value}
+                      className="flex flex-col space-y-1"
+                    >
+                      <FormItem className="flex items-center space-x-3 space-y-0">
+                        <FormControl>
+                          <RadioGroupItem value="charity" />
+                        </FormControl>
+                        <FormLabel className="font-normal">Charity/NFP</FormLabel>
+                      </FormItem>
+                      <FormItem className="flex items-center space-x-3 space-y-0">
+                        <FormControl>
+                          <RadioGroupItem value="beginner" />
+                        </FormControl>
+                        <FormLabel className="font-normal">Beginner</FormLabel>
+                      </FormItem>
+                      <FormItem className="flex items-center space-x-3 space-y-0">
+                        <FormControl>
+                          <RadioGroupItem value="both" />
+                        </FormControl>
+                        <FormLabel className="font-normal">Both</FormLabel>
+                      </FormItem>
+                    </RadioGroup>
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
             <FormField
               control={form.control}
               name="experience"
