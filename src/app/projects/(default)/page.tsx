@@ -27,7 +27,7 @@ export const metadata: Metadata = {
 
 export default function ProjectsPage() {
   return (
-    <div className="container">
+    <div className="container py-12">
       <div className="flex flex-col md:flex-row md:gap-12">
         <div className="flex-grow">
           <div className="grid grid-cols-[repeat(auto-fit,minmax(14rem,1fr))] gap-4 py-6">

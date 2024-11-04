@@ -7,11 +7,11 @@ export default async function Dashboard() {
 
   return (
     <>
-      <div className="container flex flex-wrap gap-x-8 gap-y-4 py-8">
+      <div className="container flex flex-wrap gap-x-8 gap-y-4 py-12">
         <div className="flex-grow">
           <h2 className="font-bold">Hey, {user?.preferred_name}</h2>
           <div className="flex h-full py-8">
-            <p className="self-center">This page is a work in progress. Keep an eye out for updates</p>
+            <p className="self-center">This page is a work in progress. Keep an eye out for updates.</p>
           </div>
         </div>
         <div className="max-w-md">
