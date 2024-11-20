@@ -4,7 +4,6 @@ import { api } from "~/trpc/server"
 
 export default async function Membership() {
   const user = await api.user.getCurrent.query()
-  const cards = await api.payment.getCards.query()
 
   return (
     <div className="space-y-4">
@@ -97,7 +96,7 @@ export default async function Membership() {
               </ul>
             </div>
             <div className="max-w-lg">
-              <PaymentFormWrapper user={user} cards={cards} />
+              <PaymentFormWrapper user={user} />
             </div>
           </div>
         )}
