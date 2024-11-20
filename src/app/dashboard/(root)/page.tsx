@@ -3,7 +3,6 @@ import PaymentFormWrapper from "~/components/payment/online/wrapper"
 
 export default async function Dashboard() {
   const user = await api.user.getCurrent.query()
-  const cards = await api.payment.getCards.query()
 
   return (
     <>
@@ -32,7 +31,7 @@ export default async function Dashboard() {
                   </ul>
                 </div>
               </div>
-              <PaymentFormWrapper user={user} cards={cards} />
+              <PaymentFormWrapper user={user} />
             </div>
           )}
         </div>
