@@ -4,14 +4,15 @@ import { useRouter } from "next/navigation"
 import OnlinePaymentForm, { type OnlinePaymentFormProps } from "~/components/payment/online"
 import { toast } from "~/components/ui/use-toast"
 import { api } from "~/trpc/react"
-import { RouterOutputs } from "~/trpc/shared"
+import { type RouterOutputs } from "~/trpc/shared"
 
 interface PaymentBlockProps extends OnlinePaymentFormProps {
   user: RouterOutputs["user"]["getCurrent"]
 }
 
 // wrapped in a client component because the dashboard should be server-rendered
-export default function PaymentFormWrapper({ cards, user }: Pick<PaymentBlockProps, "cards" | "user">) {
+export default function PaymentFormWrapper({ user }: Pick<PaymentBlockProps, "user">) {
+  const { data: cards } = api.payment.getCards.useQuery()
   const updateRole = api.user.updateRole.useMutation()
   const router = useRouter()
 

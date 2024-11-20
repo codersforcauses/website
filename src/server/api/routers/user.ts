@@ -5,6 +5,7 @@ import { randomUUID } from "crypto"
 import { desc, eq } from "drizzle-orm"
 import { Client, Environment } from "square"
 import { z } from "zod"
+import { updateEmail } from "~/app/actions"
 
 import { env } from "~/env"
 import { NAMED_ROLES } from "~/lib/constants"
@@ -386,5 +387,30 @@ export const userRouter = createTRPCRouter({
         .returning()
 
       return user
+    }),
+
+  updateEmail: adminProcedure
+    .input(z.object({ userId: z.string(), oldEmail: z.string().email(), newEmail: z.string().email() }))
+    .mutation(async ({ input }) => {
+      const clerkUser = await clerkClient.users.getUser(input.userId)
+      if (!clerkUser)
+        throw new TRPCError({ code: "NOT_FOUND", message: `Clerk user with id:${input.userId} does not exist` })
+      if (!clerkUser.primaryEmailAddressId)
+        throw new TRPCError({
+          code: "NOT_FOUND",
+          message: `Clerk user with id:${input.userId} does not have a primary email address???`,
+        })
+
+      // sorry
+      if (clerkUser.primaryEmailAddress?.emailAddress !== input.oldEmail)
+        throw new TRPCError({ code: "BAD_REQUEST", message: "Old email does not match" })
+      try {
+        await updateEmail(clerkUser.id, clerkUser.primaryEmailAddressId, input.newEmail)
+      } catch (err) {
+        console.error(err)
+        throw new TRPCError({ code: "INTERNAL_SERVER_ERROR", message: "Failed to update email" })
+      }
+
+      return clerkUser
     }),
 })

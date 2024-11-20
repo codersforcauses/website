@@ -406,7 +406,7 @@ const UserTable = ({ data, isRefetching, ...props }: UserTableProps) => {
               <DialogTrigger asChild>
                 <Button>Add user</Button>
               </DialogTrigger>
-              <DialogContent className="h-full overflow-auto sm:max-w-5xl">
+              <DialogContent className="max-h-screen overflow-auto sm:max-w-5xl">
                 <DialogHeader>
                   <DialogTitle>Add user manually</DialogTitle>
                   <DialogDescription>
