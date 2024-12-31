@@ -16,7 +16,8 @@ export async function GET(request: NextRequest) {
 
   // TODO backup with xata cli and put into aws bucket
 
-  const dbRes = await db.update(users).set({ role: null }).where(eq(users.role, "member")).returning()
+  const dbRes = await db.select().from(users).where(eq(users.role, "member"))
+  // const dbRes = await db.update(users).set({ role: null }).where(eq(users.role, "member")).returning()
 
   return Response.json({
     success: true,
