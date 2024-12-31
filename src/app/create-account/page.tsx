@@ -23,7 +23,7 @@ import { toast } from "~/components/ui/use-toast"
 import OnlinePaymentForm from "~/components/payment/online"
 import { PRONOUNS, SITE_URL, UNIVERSITIES } from "~/lib/constants"
 import { type User } from "~/lib/types"
-import { cn } from "~/lib/utils"
+import { cn, getIsMembershipOpen } from "~/lib/utils"
 import { api } from "~/trpc/react"
 import DetailsBlock from "./details"
 import PaymentBlock from "./payment"
@@ -553,73 +553,81 @@ export default function CreateAccount() {
               </ul>
             </div>
           </div>
-          <Tabs defaultValue="online">
-            <TabsList className="w-full">
-              <TabsTrigger value="online" className="w-full">
-                Online
-              </TabsTrigger>
-              <TabsTrigger value="in-person" className="w-full">
-                In-person
-              </TabsTrigger>
-            </TabsList>
-            <TabsContent value="online" className="space-y-4">
-              <p className="text-sm text-muted-foreground">
-                Our online payment system is handled by{" "}
-                <Button asChild variant="link" className="h-auto p-0">
-                  <Link href="https://squareup.com/au/en" target="_blank">
-                    Square
-                  </Link>
-                </Button>
-                . We do not store your card details but we do record the information Square provides us after confirming
-                your card.
-              </p>
-              <OnlinePaymentForm cards={cards} afterPayment={handleAfterOnlinePayment} />
-            </TabsContent>
-            <TabsContent value="in-person" className="space-y-4">
-              <p className="text-sm text-muted-foreground">
-                We accept cash and card payments in-person. We use{" "}
-                <Button asChild variant="link" className="h-auto p-0">
-                  <Link href="https://squareup.com/au/en" target="_blank">
-                    Square&apos;s
-                  </Link>
-                </Button>{" "}
-                Point-of-Sale terminals to accept card payments. Reach out to a committee member via our Discord or a
-                CFC event to pay in-person. A committee member will update your status as a member on payment
-                confirmation.
-              </p>
-              <Button className="w-full" onClick={handleSkipPayment}>
-                I&apos;ve paid in cash
+          {getIsMembershipOpen() ? (
+            <>
+              <Tabs defaultValue="online">
+                <TabsList className="w-full">
+                  <TabsTrigger value="online" className="w-full">
+                    Online
+                  </TabsTrigger>
+                  <TabsTrigger value="in-person" className="w-full">
+                    In-person
+                  </TabsTrigger>
+                </TabsList>
+                <TabsContent value="online" className="space-y-4">
+                  <p className="text-sm text-muted-foreground">
+                    Our online payment system is handled by{" "}
+                    <Button asChild variant="link" className="h-auto p-0">
+                      <Link href="https://squareup.com/au/en" target="_blank">
+                        Square
+                      </Link>
+                    </Button>
+                    . We do not store your card details but we do record the information Square provides us after
+                    confirming your card.
+                  </p>
+                  <OnlinePaymentForm cards={cards} afterPayment={handleAfterOnlinePayment} />
+                </TabsContent>
+                <TabsContent value="in-person" className="space-y-4">
+                  <p className="text-sm text-muted-foreground">
+                    We accept cash and card payments in-person. We use{" "}
+                    <Button asChild variant="link" className="h-auto p-0">
+                      <Link href="https://squareup.com/au/en" target="_blank">
+                        Square&apos;s
+                      </Link>
+                    </Button>{" "}
+                    Point-of-Sale terminals to accept card payments. Reach out to a committee member via our Discord or
+                    a CFC event to pay in-person. A committee member will update your status as a member on payment
+                    confirmation.
+                  </p>
+                  <Button className="w-full" onClick={handleSkipPayment}>
+                    I&apos;ve paid in cash
+                  </Button>
+                </TabsContent>
+              </Tabs>
+              <div className="relative select-none">
+                <div className="absolute inset-0 flex items-center">
+                  <span className="w-full border-t" />
+                </div>
+                <div className="relative flex justify-center text-xs uppercase">
+                  <span className="bg-background px-2 text-muted-foreground">Or</span>
+                </div>
+              </div>
+              <div className="space-y-2">
+                <h2 className="text-sm font-semibold leading-none tracking-tight">Skipping payment</h2>
+                <div className="text-sm text-muted-foreground">
+                  <p>
+                    You can skip payment for now but you will miss out on the benefits mentioned above until you do. You
+                    can always pay later by going to your account dashboard.
+                  </p>
+                </div>
+              </div>
+              <Button
+                variant="outline"
+                disabled={loadingSkipPayment}
+                className="relative w-full"
+                onClick={handleSkipPayment}
+              >
+                Skip payment
+                {loadingSkipPayment && (
+                  <span className="material-symbols-sharp absolute right-4 animate-spin">progress_activity</span>
+                )}
               </Button>
-            </TabsContent>
-          </Tabs>
-          <div className="relative select-none">
-            <div className="absolute inset-0 flex items-center">
-              <span className="w-full border-t" />
-            </div>
-            <div className="relative flex justify-center text-xs uppercase">
-              <span className="bg-background px-2 text-muted-foreground">Or</span>
-            </div>
-          </div>
-          <div className="space-y-2">
-            <h2 className="text-sm font-semibold leading-none tracking-tight">Skipping payment</h2>
-            <div className="text-sm text-muted-foreground">
-              <p>
-                You can skip payment for now but you will miss out on the benefits mentioned above until you do. You can
-                always pay later by going to your account dashboard.
-              </p>
-            </div>
-          </div>
-          <Button
-            variant="outline"
-            disabled={loadingSkipPayment}
-            className="relative w-full"
-            onClick={handleSkipPayment}
-          >
-            Skip payment
-            {loadingSkipPayment && (
-              <span className="material-symbols-sharp absolute right-4 animate-spin">progress_activity</span>
-            )}
-          </Button>
+            </>
+          ) : (
+            <p className="text-sm text-warning">
+              Memberships are temporarily closed for the new year. Please check back later.
+            </p>
+          )}
         </div>
       ) : (
         <PaymentBlock />

@@ -1,5 +1,6 @@
 import { api } from "~/trpc/server"
 import PaymentFormWrapper from "~/components/payment/online/wrapper"
+import { getIsMembershipOpen } from "~/lib/utils"
 
 export default async function Dashboard() {
   const user = await api.user.getCurrent.query()
@@ -31,7 +32,13 @@ export default async function Dashboard() {
                   </ul>
                 </div>
               </div>
-              <PaymentFormWrapper user={user} />
+              {getIsMembershipOpen() ? (
+                <PaymentFormWrapper user={user} />
+              ) : (
+                <p className="text-sm text-warning">
+                  Memberships are temporarily closed for the new year. Please check back later.
+                </p>
+              )}
             </div>
           )}
         </div>
