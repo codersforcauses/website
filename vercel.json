@@ -1,0 +1,8 @@
+{
+  "crons": [
+    {
+      "path": "/api/refresh-memberships",
+      "schedule": "59 7 1 1 *"
+    }
+  ]
+}
