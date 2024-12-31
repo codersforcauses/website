@@ -20,9 +20,9 @@ export async function GET(request: NextRequest) {
 
   await Sentry.withMonitor("cycle-memberships", async () => {
     // TODO backup with xata cli and put into aws bucket
-    dbRes = await db.select().from(users).where(eq(users.role, "member"))
+    // dbRes = await db.select().from(users).where(eq(users.role, "member"))
+    dbRes = await db.update(users).set({ role: null }).where(eq(users.role, "member")).returning()
     console.log(dbRes.length)
-    // const dbRes = await db.update(users).set({ role: null }).where(eq(users.role, "member")).returning()
   })
 
   if (!dbRes.length) {
