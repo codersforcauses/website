@@ -15,24 +15,18 @@ export async function GET(request: NextRequest) {
     })
   }
 
-  const checkInId = Sentry.captureCheckIn({
-    monitorSlug: "cycle-memberships",
-    status: "in_progress",
+  await Sentry.withMonitor("cycle-memberships", async () => {
+    // TODO backup with xata cli and put into aws bucket
+    const dbRes = await db.select().from(users).where(eq(users.role, "member"))
+    // const dbRes = await db.update(users).set({ role: null }).where(eq(users.role, "member")).returning()
+    return Response.json({
+      success: true,
+      message: `Memberships for ${new Date().getFullYear()} have been cycled.`,
+      count: dbRes.length,
+    })
   })
 
-  // TODO backup with xata cli and put into aws bucket
-  const dbRes = await db.select().from(users).where(eq(users.role, "member"))
-  // const dbRes = await db.update(users).set({ role: null }).where(eq(users.role, "member")).returning()
-
-  Sentry.captureCheckIn({
-    checkInId,
-    monitorSlug: "cycle-memberships",
-    status: "ok",
-  })
-
-  return Response.json({
-    success: true,
-    message: `Memberships for ${new Date().getFullYear()} have been cycled.`,
-    count: dbRes.length,
+  return new Response("Internal Server Error", {
+    status: 500,
   })
 }
