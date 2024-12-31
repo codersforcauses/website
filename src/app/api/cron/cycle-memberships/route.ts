@@ -21,10 +21,9 @@ export async function GET(request: NextRequest) {
   await Sentry.withMonitor("cycle-memberships", async () => {
     // TODO backup with xata cli and put into aws bucket
     dbRes = await db.select().from(users).where(eq(users.role, "member"))
-    console.log(dbRes)
+    console.log(dbRes.length)
     // const dbRes = await db.update(users).set({ role: null }).where(eq(users.role, "member")).returning()
   })
-  console.log(dbRes)
 
   if (!dbRes.length) {
     return new Response("Internal Server Error", {
@@ -32,11 +31,9 @@ export async function GET(request: NextRequest) {
     })
   }
 
-  return new Response(
-    JSON.stringify({
-      success: true,
-      message: `Memberships for ${new Date().getFullYear()} have been cycled.`,
-      count: dbRes.length,
-    }),
-  )
+  return Response.json({
+    success: true,
+    message: `Memberships for ${new Date().getFullYear()} have been cycled.`,
+    count: dbRes.length,
+  })
 }
