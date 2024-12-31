@@ -2,7 +2,7 @@
   "crons": [
     {
       "path": "/api/cron/cycle-memberships",
-      "schedule": "59 7 1 1 *"
+      "schedule": "59 15 31 12 *"
     }
   ]
 }
