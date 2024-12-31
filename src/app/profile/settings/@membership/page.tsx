@@ -1,5 +1,6 @@
 import PaymentFormWrapper from "~/components/payment/online/wrapper"
 import { Separator } from "~/components/ui/separator"
+import { getIsMembershipOpen } from "~/lib/utils"
 import { api } from "~/trpc/server"
 
 export default async function Membership() {
@@ -96,7 +97,13 @@ export default async function Membership() {
               </ul>
             </div>
             <div className="max-w-lg">
-              <PaymentFormWrapper user={user} />
+              {getIsMembershipOpen() ? (
+                <PaymentFormWrapper user={user} />
+              ) : (
+                <p className="text-sm text-warning">
+                  Memberships are temporarily closed for the new year. Please check back later.
+                </p>
+              )}
             </div>
           </div>
         )}
