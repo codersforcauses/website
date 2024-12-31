@@ -1,7 +1,7 @@
 {
   "crons": [
     {
-      "path": "/api/cycle-memberships",
+      "path": "/api/cron/cycle-memberships",
       "schedule": "59 7 1 1 *"
     }
   ]
