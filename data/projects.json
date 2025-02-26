@@ -378,6 +378,8 @@
       { "name": "Django", "icon": "django" },
       { "name": "Vercel", "icon": "vercel" },
       { "name": "Vue", "icon": "vuedotjs" },
+      { "name": "Vuetify", "icon": "vuetify" },
+      { "name": "Docker", "icon": "docker" },
       { "name": "Digital Ocean", "icon": "digitalocean" }
     ],
     "members": [
@@ -407,6 +409,69 @@
       "Jamie Turner",
       "Jack Sun",
       "Nicholas Choong"
+    ]
+  },
+  {
+    "id": "repair-lab",
+    "icon": "devices",
+    "logo": "/clients/repair_lab_logo.png",
+    "dark_logo": "/clients/repair_lab_logo.png",
+    "img": "repair_lab.png",
+    "name": "Repair Lab",
+    "client": "Repair Lab Perth",
+    "type": "Web Application",
+    "date": "Dec 2023",
+    "purl": "/projects/repair-lab",
+    "url": "https://repair-labs.vercel.app/",
+    "source": "https://github.com/codersforcauses/repair-lab",
+    "impact": [
+      "Handles the organisation and tracking of things repaired at Repair Labs sessions",
+      "Helps advocate for the Right to Repair movement"
+    ],
+    "desc": "Repair Labs is a grassroots initiative aimed to encourage and help people with repairing their old broken items with main goal of reducing wastage.",
+    "tech": [
+      { "name": "Vercel", "icon": "vercel" },
+      { "name": "React.js", "icon": "react" },
+      { "name": "Next.js", "icon": "nextdotjs" },
+      { "name": "Typescript", "icon": "typescript" },
+      { "name": "Tailwind CSS", "icon": "tailwindcss" },
+      { "name": "Prisma", "icon": "prisma" },
+      { "name": "Clerk", "icon": "clerk" },
+      { "name": "Docker", "icon": "docker" }
+    ],
+    "members": [
+      "Dylan To",
+      "Danish Hilmann",
+      "Jun Yap",
+      "Feifan Wu",
+      "Nicholas Choong",
+      "Justin Liang",
+      "Dominic Davies",
+      "Valerie Tan",
+      "Aarif Lamat",
+      "Aswin T Vinod",
+      "Juan Selvan",
+      "Ellen Xiao",
+      "Lily Yang",
+      "Fritz Xu",
+      "Kyle Leung",
+      "Joel Wildman",
+      "Yun-Chuan Kung",
+      "Hui-Xin Yang",
+      "Jasleen Hundal",
+      "Mia Wu",
+      "Chloe Chang",
+      "Stanley Nautilius",
+      "Haitian Wang",
+      "Harry Komah",
+      "Siting Xiang",
+      "Joshua Mance",
+      "Richelle Chen",
+      "Tommy Liu",
+      "Qitong Lan",
+      "John Alderson",
+      "Delta Oliver",
+      "Alex Barker"
     ]
   }
 ]

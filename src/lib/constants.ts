@@ -68,4 +68,7 @@ export const iconMap: Record<string, string> = {
   tailwindcss: SimpleIcons.siTailwindcss.path,
   django: SimpleIcons.siDjango.path,
   digitalocean: SimpleIcons.siDigitalocean.path,
+  prisma: SimpleIcons.siPrisma.path,
+  clerk: SimpleIcons.siClerk.path,
+  docker: SimpleIcons.siDocker.path,
 }

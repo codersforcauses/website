@@ -52,5 +52,11 @@
     "dark_logo": "/clients/csf_logo.png",
     "name": "CSF",
     "width": 100
+  },
+  {
+    "logo": "/clients/repair_lab_logo.png",
+    "dark_logo": "/clients/repair_lab_logo.png",
+    "name": "Repair Lab",
+    "width": 100
   }
 ]
