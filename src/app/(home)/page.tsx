@@ -57,6 +57,11 @@ const clients = [
     alt: "/clients/csf_logo.svg",
     width: 200,
   },
+  {
+    src: "/clients/repair_lab_logo.png",
+    alt: "Repair Lab logo",
+    width: 140,
+  },
 ]
 
 const width = clients.reduce((val, { width }) => val + width, clients.length * 16 * 6)
