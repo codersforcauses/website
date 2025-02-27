@@ -9,6 +9,7 @@ import { updateEmail } from "~/app/actions"
 
 import { env } from "~/env"
 import { NAMED_ROLES } from "~/lib/constants"
+import { EmptyStringToNull } from "~/lib/utils"
 import {
   adminProcedure,
   createTRPCRouter,
@@ -60,10 +61,10 @@ export const userRouter = createTRPCRouter({
             message: "Pronouns are required",
           })
           .trim(),
-        student_number: z.string().trim().optional(),
-        uni: z.string().trim().optional(),
-        github: z.string().trim().optional(),
-        discord: z.string().trim().optional(),
+        student_number: EmptyStringToNull,
+        uni: EmptyStringToNull,
+        github: EmptyStringToNull,
+        discord: EmptyStringToNull,
         subscribe: z.boolean(),
       }),
     )
@@ -149,10 +150,10 @@ export const userRouter = createTRPCRouter({
             message: "Pronouns are required",
           })
           .trim(),
-        student_number: z.string().trim().optional(),
-        uni: z.string().trim().optional(),
-        github: z.string().trim().optional(),
-        discord: z.string().trim().optional(),
+        student_number: EmptyStringToNull,
+        uni: EmptyStringToNull,
+        github: EmptyStringToNull,
+        discord: EmptyStringToNull,
         subscribe: z.boolean(),
       }),
     )
@@ -338,8 +339,8 @@ export const userRouter = createTRPCRouter({
             message: "Pronouns are required",
           })
           .optional(),
-        student_number: z.string().nullish(),
-        uni: z.string().optional().nullish(),
+        student_number: EmptyStringToNull,
+        uni: EmptyStringToNull,
       }),
     )
     .mutation(async ({ ctx, input }) => {
@@ -370,8 +371,8 @@ export const userRouter = createTRPCRouter({
   updateSocial: protectedRatedProcedure(Ratelimit.fixedWindow(4, "30s"))
     .input(
       z.object({
-        github: z.string().optional().nullish(),
-        discord: z.string().optional().nullish(),
+        github: EmptyStringToNull,
+        discord: EmptyStringToNull,
       }),
     )
     .mutation(async ({ ctx, input }) => {
