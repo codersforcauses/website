@@ -68,9 +68,9 @@ const clients = [
     width: 140,
   },
   {
-    src: "/clients/oy_logo.png",
+    src: "/clients/oy_logo.svg",
     alt: "Ocean Youth logo",
-    width: 120,
+    width: 220,
   },
 ]
 

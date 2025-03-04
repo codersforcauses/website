@@ -66,9 +66,9 @@
     "width": 140
   },
   {
-    "logo": "/clients/oy_logo.png",
-    "dark_logo": "/clients/oy_logo.png",
+    "logo": "/clients/oy_logo.svg",
+    "dark_logo": "/clients/oy_logo.svg",
     "name": "Ocean Youth",
-    "width": 120
+    "width": 200
   }
 ]
