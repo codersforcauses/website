@@ -471,5 +471,53 @@
       "Delta Oliver",
       "Alex Barker"
     ]
+  },
+  {
+    "id": "bluecrew",
+    "icon": "devices",
+    "logo": "/clients/blue_crew_x_oy_logo_grey_line.png",
+    "dark_logo": "/clients/blue_crew_x_oy_logo_grey_line.png",
+    "img": "blingo.png",
+    "name": "Blingo",
+    "client": "Blue Crew Australia and Ocean Youth",
+    "type": "Web Application",
+    "date": "Dec 2024",
+    "purl": "/projects/blingo",
+    "url": "https://blingo.com.au",
+    "source": "https://github.com/codersforcauses/bluecrew",
+    "impact": [
+      "Provides an engaging, gamified platform which facilitates Blue Crew and Ocean Youth's engagement with youth.",
+      "Enables a way to measure the aggregated impact of a global community taking positive actions for our ocean."
+    ],
+    "desc": "Blue Crew is a relatively new organisation which focuses on hands-on ocean sustainability, including pollution and biodiversity. Ocean Youth is a youth-focused ocean action and innovation organisation. Both organisations work with youth, schools, and community groups, and share a mission to connect people to the ocean and inspire positive actions for local blue spaces by activating the next generation of ocean advocates, decision makers, innovators and marine scientists.",
+    "tech": [
+      { "name": "Django", "icon": "django" },
+      { "name": "Vercel", "icon": "vercel" },
+      { "name": "Vue", "icon": "vuedotjs" },
+      { "name": "Vuetify", "icon": "vuetify" },
+      { "name": "Docker", "icon": "docker" },
+      { "name": "Digital Ocean", "icon": "digitalocean" }
+    ],
+    "members": [
+      "Huxley Berry",
+      "Richelle Chen",
+      "Kirsty Straiton",
+      "Ola Lozyk",
+      "Adam Aradavi",
+      "Zhihao Lin",
+      "Minghui Ye",
+      "William Tai",
+      "Mahit Gupta",
+      "Laurel Chow",
+      "Zichen Zhang",
+      "James Lee",
+      "Yu-Weng Choong",
+      "Samuel Theodore",
+      "Cohen Rafiq",
+      "Melissa Bauer",
+      "Laine Mulvay",
+      "Lauren Pudney",
+      "Alex Hawking"
+    ]
   }
 ]

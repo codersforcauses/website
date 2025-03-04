@@ -62,6 +62,16 @@ const clients = [
     alt: "Repair Lab logo",
     width: 140,
   },
+  {
+    src: "/clients/blue_crew_logo.png",
+    alt: "Blue Crew Australia logo",
+    width: 140,
+  },
+  {
+    src: "/clients/oy_logo.png",
+    alt: "Ocean Youth logo",
+    width: 120,
+  },
 ]
 
 const width = clients.reduce((val, { width }) => val + width, clients.length * 16 * 6)
