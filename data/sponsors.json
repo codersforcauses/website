@@ -1,5 +1,12 @@
 [
   {
+    "name": "Atlassian",
+    "alt": "Atlassian logo",
+    "logo": "/sponsors/atlassian_logo_dark.svg",
+    "dark_logo": "/sponsors/atlassian_logo_dark.svg",
+    "link": "https://janestreet.com/"
+  },
+  {
     "name": "Jane Street",
     "alt": "Jane Street logo",
     "logo": "/sponsors/jane_street_logo.png",
