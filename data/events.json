@@ -158,5 +158,85 @@
     },
     "location": "UWA EZONE",
     "desc": "We will be giving a brief recap of the past year, saying bye to the current committee and electing this year’s committee."
+  },
+  {
+    "slug": "winter_projects_2024",
+    "tags": ["project", "social"],
+    "title": "Winter Projects 2024",
+    "image": {
+      "src": "/events/winter_2024_projects.jpg",
+      "alt": "volunteers at working during a winter project workshop"
+    },
+    "date": "22/06/24",
+    "time": {
+      "start": "11:00am",
+      "end": "4:00pm"
+    },
+    "location": "UWA EZONE",
+    "desc": "Get industry level experience and skills by working on fun projects."
+  },
+  {
+    "slug": "battle_of_the_bots_2024",
+    "tags": ["competition"],
+    "title": "Battle of the Bots",
+    "image": {
+      "src": "/events/botb_opening_ceremony.JPG",
+      "alt": "Battle of the Bots opening ceremony"
+    },
+    "date": "11/09/24",
+    "time": {
+      "start": "5:00pm",
+      "end": "6:00pm"
+    },
+    "location": "Weatherburn Lecture Theatre",
+    "desc": "A competition hosted in collaboration with QFin UWA in which participants compete in programming bots to play the card game \"Big Two\"."
+  },
+  {
+    "slug": "summer_projects_2024",
+    "tags": ["project", "social"],
+    "title": "Summer Projects 2024",
+    "image": {
+      "src": "/events/summer_2024_projects.jpg",
+      "alt": "Introductory session for the summer projects"
+    },
+    "date": "23/11/24",
+    "time": {
+      "start": "11:00am",
+      "end": "4:00pm"
+    },
+    "location": "UWA EZONE",
+    "desc": "Get industry level experience and skills by working on fun projects."
+  },
+  {
+    "slug": "software_industry_night_2025",
+    "tags": ["industry", "social", "networking"],
+    "title": "Software Industry Night 2025",
+    "image": {
+      "src": "/events/industry_night_2025.jpeg",
+      "alt": "Image of people mingling at the industry night"
+    },
+    "date": "06/03/25",
+    "time": {
+      "start": "6:00pm",
+      "end": "9:00pm"
+    },
+    "location": "UWA EZONE",
+    "desc": "Come down to UWA EZONE and talk with representatives from the industry to gain insights into career opportunities as well as tips for the rest of your development career. We will be having amazing speakers who will be speaking about the industry, their experiences and technical knowledge to help you get ahead whether you're a first year or have just graduated."
+  },
+  {
+    "slug": "agm_2025",
+    "tags": ["agm", "meeting"],
+    "title": "Annual General Meeting 2025",
+    "image": {
+      "src": "/events/2024_agm.png",
+      "alt": "Image of people holding an annual general meeting"
+    },
+    "date": "21/03/25",
+    "time": {
+      "start": "5:30pm",
+      "end": "7:30pm"
+    },
+    "location": "UWA EZONE",
+    "desc": "We will be giving a brief recap of the past year, saying bye to the current committee and electing this year’s committee."
   }
 ]
