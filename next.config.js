@@ -6,11 +6,7 @@ await import("./src/env.js")
 import { withSentryConfig } from "@sentry/nextjs"
 
 /** @type {import("next").NextConfig} */
-const config = {
-  experimental: {
-    instrumentationHook: true,
-  },
-}
+const config = {}
 
 export default withSentryConfig(config, {
   telemetry: false,
@@ -35,9 +31,6 @@ export default withSentryConfig(config, {
   // Note: Check that the configured route will not match with your Next.js middleware, otherwise reporting of client-
   // side errors will fail.
   tunnelRoute: "/monitoring",
-
-  // Hides source maps from generated client bundles
-  hideSourceMaps: true,
 
   // Automatically tree-shake Sentry logger statements to reduce bundle size
   disableLogger: true,
