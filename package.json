@@ -1,6 +1,6 @@
 {
   "name": "website",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "private": true,
   "type": "module",
   "scripts": {
@@ -83,7 +83,7 @@
     "zod": "3.22.4"
   },
   "devDependencies": {
-    "@clerk/types": "^4.10.0",
+    "@clerk/types": "^4.49.1",
     "@next/eslint-plugin-next": "14.1.4",
     "@types/eslint": "8.56.6",
     "@types/mapbox-gl": "3.1.0",
@@ -101,11 +101,25 @@
     "prettier": "3.2.5",
     "prettier-plugin-tailwindcss": "0.5.13",
     "tailwindcss": "3.4.3",
-    "typescript": "5.4.3"
+    "typescript": "5.4.3",
+    "webpack": "^5.98.0"
   },
   "optionalDependencies": {
-    "@builder.io/react-hydration-overlay": "0.1.0",
+    "@builder.io/react-hydration-overlay": "0.3.0",
     "husky": "9.0.11",
     "lint-staged": "15.2.2"
+  },
+  "pnpm": {
+    "overrides": {
+      "axios@>=0.8.1 <0.28.0": ">=0.28.0",
+      "micromatch@<4.0.8": ">=4.0.8",
+      "webpack@>=5.0.0-alpha.0 <5.94.0": ">=5.94.0",
+      "cookie@<0.7.0": ">=0.7.0",
+      "esbuild@<=0.24.2": ">=0.25.0",
+      "axios@<1.8.2": ">=1.8.2"
+    },
+    "onlyBuiltDependencies": [
+      "esbuild"
+    ]
   }
 }
