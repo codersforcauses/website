@@ -1,11 +1,6 @@
-DO $$ BEGIN
- CREATE TYPE "role" AS ENUM('member', 'honorary', 'past', 'committee', 'admin');
-EXCEPTION
- WHEN duplicate_object THEN null;
-END $$;
---> statement-breakpoint
-CREATE TABLE IF NOT EXISTS "cfc-website_payment" (
-	"id" serial PRIMARY KEY NOT NULL,
+CREATE TYPE "public"."role" AS ENUM('member', 'honorary', 'past', 'committee', 'admin');--> statement-breakpoint
+CREATE TABLE "cfc-website_payment" (
+	"id" varchar(32) PRIMARY KEY NOT NULL,
 	"user_id" varchar(32),
 	"amount" numeric NOT NULL,
 	"currency" varchar(3) DEFAULT 'AUD' NOT NULL,
@@ -15,7 +10,7 @@ CREATE TABLE IF NOT EXISTS "cfc-website_payment" (
 	"updated_at" timestamp
 );
 --> statement-breakpoint
-CREATE TABLE IF NOT EXISTS "cfc-website_user" (
+CREATE TABLE "cfc-website_user" (
 	"id" varchar(32) PRIMARY KEY NOT NULL,
 	"email" varchar(256) NOT NULL,
 	"name" varchar(256) NOT NULL,
@@ -35,6 +30,6 @@ CREATE TABLE IF NOT EXISTS "cfc-website_user" (
 	CONSTRAINT "cfc-website_user_square_customer_id_unique" UNIQUE("square_customer_id")
 );
 --> statement-breakpoint
-CREATE INDEX IF NOT EXISTS "user_id_idx" ON "cfc-website_payment" ("user_id");--> statement-breakpoint
-CREATE INDEX IF NOT EXISTS "event_id_idx" ON "cfc-website_payment" ("event_id");--> statement-breakpoint
-CREATE INDEX IF NOT EXISTS "role_idx" ON "cfc-website_user" ("role");
+CREATE INDEX "user_id_idx" ON "cfc-website_payment" USING btree ("user_id");--> statement-breakpoint
+CREATE INDEX "event_id_idx" ON "cfc-website_payment" USING btree ("event_id");--> statement-breakpoint
+CREATE INDEX "role_idx" ON "cfc-website_user" USING btree ("role");
