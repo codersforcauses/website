@@ -1,6 +1,6 @@
 {
-  "id": "d1233bc4-6a82-4f4c-97b1-d1f727b6d043",
-  "prevId": "00000000-0000-0000-0000-000000000000",
+  "id": "aed0d52f-105c-492c-8d39-7a2864af68ca",
+  "prevId": "d1233bc4-6a82-4f4c-97b1-d1f727b6d043",
   "version": "7",
   "dialect": "postgresql",
   "tables": {
@@ -90,7 +90,21 @@
           "with": {}
         }
       },
-      "foreignKeys": {},
+      "foreignKeys": {
+        "cfc-website_payment_user_id_cfc-website_user_id_fk": {
+          "name": "cfc-website_payment_user_id_cfc-website_user_id_fk",
+          "tableFrom": "cfc-website_payment",
+          "tableTo": "cfc-website_user",
+          "columnsFrom": [
+            "user_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
       "compositePrimaryKeys": {},
       "uniqueConstraints": {},
       "policies": {},
