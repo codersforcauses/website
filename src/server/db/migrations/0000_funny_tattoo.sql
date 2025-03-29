@@ -1,6 +1,6 @@
 CREATE TYPE "public"."role" AS ENUM('member', 'honorary', 'past', 'committee', 'admin');--> statement-breakpoint
 CREATE TABLE "cfc-website_payment" (
-	"id" varchar(32) PRIMARY KEY NOT NULL,
+	"id" uuid PRIMARY KEY NOT NULL,
 	"user_id" varchar(32),
 	"amount" numeric NOT NULL,
 	"currency" varchar(3) DEFAULT 'AUD' NOT NULL,
@@ -30,6 +30,7 @@ CREATE TABLE "cfc-website_user" (
 	CONSTRAINT "cfc-website_user_square_customer_id_unique" UNIQUE("square_customer_id")
 );
 --> statement-breakpoint
+ALTER TABLE "cfc-website_payment" ADD CONSTRAINT "cfc-website_payment_user_id_cfc-website_user_id_fk" FOREIGN KEY ("user_id") REFERENCES "public"."cfc-website_user"("id") ON DELETE no action ON UPDATE no action;--> statement-breakpoint
 CREATE INDEX "user_id_idx" ON "cfc-website_payment" USING btree ("user_id");--> statement-breakpoint
 CREATE INDEX "event_id_idx" ON "cfc-website_payment" USING btree ("event_id");--> statement-breakpoint
 CREATE INDEX "role_idx" ON "cfc-website_user" USING btree ("role");

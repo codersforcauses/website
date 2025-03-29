@@ -5,15 +5,8 @@
     {
       "idx": 0,
       "version": "7",
-      "when": 1743177208467,
-      "tag": "0000_red_rockslide",
-      "breakpoints": true
-    },
-    {
-      "idx": 1,
-      "version": "7",
-      "when": 1743177642963,
-      "tag": "0001_gigantic_night_nurse",
+      "when": 1743222064040,
+      "tag": "0000_funny_tattoo",
       "breakpoints": true
     }
   ]

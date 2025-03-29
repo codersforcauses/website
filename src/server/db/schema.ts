@@ -1,5 +1,5 @@
-import { boolean, decimal, index, pgEnum, pgTableCreator, timestamp, varchar } from "drizzle-orm/pg-core"
-
+import { boolean, decimal, index, pgEnum, pgTableCreator, timestamp, uuid, varchar } from "drizzle-orm/pg-core"
+import { v7 as uuidv7 } from "uuid"
 import { NAMED_ROLES } from "~/lib/constants"
 
 /**
@@ -15,7 +15,10 @@ export const roleEnum = pgEnum("role", NAMED_ROLES) // honorary: hlm, past: past
 export const users = pgTable(
   "user",
   {
-    id: varchar("id", { length: 32 }).primaryKey(),
+    id: uuid("id")
+      .primaryKey()
+      .$defaultFn(() => uuidv7()),
+    clerk_id: varchar("id", { length: 32 }).primaryKey(),
     email: varchar("email", { length: 256 }).unique().notNull(),
     name: varchar("name", { length: 256 }).notNull(),
     preferred_name: varchar("preferred_name", { length: 64 }).notNull(),
@@ -40,7 +43,9 @@ export const users = pgTable(
 export const payments = pgTable(
   "payment",
   {
-    id: varchar("id", { length: 32 }).primaryKey(),
+    id: uuid("id")
+      .primaryKey()
+      .$defaultFn(() => uuidv7()),
     user_id: varchar("user_id", { length: 32 }).references(() => users.id), // guest access in future
     amount: decimal("amount", { scale: 2 }).notNull(),
     currency: varchar("currency", { length: 3 }).default("AUD").notNull(),

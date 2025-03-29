@@ -16,6 +16,7 @@ export interface User {
   email: string
   name: string
   id: string
+  clerk_id: string
   preferred_name: string
   pronouns: string
   student_number: string | null
