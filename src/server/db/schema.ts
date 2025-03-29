@@ -1,5 +1,5 @@
-import { boolean, decimal, index, pgEnum, pgTableCreator, serial, timestamp, varchar } from "drizzle-orm/pg-core"
-
+import { boolean, decimal, index, pgEnum, pgTableCreator, timestamp, uuid, varchar } from "drizzle-orm/pg-core"
+import { v7 as uuidv7 } from "uuid"
 import { NAMED_ROLES } from "~/lib/constants"
 
 /**
@@ -15,7 +15,10 @@ export const roleEnum = pgEnum("role", NAMED_ROLES) // honorary: hlm, past: past
 export const users = pgTable(
   "user",
   {
-    id: varchar("id", { length: 32 }).primaryKey(),
+    id: uuid("id")
+      .primaryKey()
+      .$defaultFn(() => uuidv7()),
+    clerk_id: varchar("clerk_id", { length: 32 }).unique().notNull(),
     email: varchar("email", { length: 256 }).unique().notNull(),
     name: varchar("name", { length: 256 }).notNull(),
     preferred_name: varchar("preferred_name", { length: 64 }).notNull(),
@@ -28,36 +31,31 @@ export const users = pgTable(
     role: roleEnum("role"),
     square_customer_id: varchar("square_customer_id", { length: 32 }).unique().notNull(),
 
-    // might not need since xata handles it
     createdAt: timestamp("created_at")
       .$default(() => new Date())
       .notNull(),
     updatedAt: timestamp("updated_at").$onUpdate(() => new Date()),
   },
-  (user) => ({
-    roleIndex: index("role_idx").on(user.role),
-  }),
+  (user) => [index("role_idx").on(user.role)],
 )
 
 // for refunds and payment history
 export const payments = pgTable(
   "payment",
   {
-    id: serial("id").primaryKey(),
-    user_id: varchar("user_id", { length: 32 }), // guest access in future
+    id: uuid("id")
+      .primaryKey()
+      .$defaultFn(() => uuidv7()),
+    user_id: uuid("user_id").references(() => users.id), // guest access in future
     amount: decimal("amount", { scale: 2 }).notNull(),
     currency: varchar("currency", { length: 3 }).default("AUD").notNull(),
     label: varchar("label", { length: 256 }).notNull(),
     event_id: varchar("event_id", { length: 32 }), // TODO: link when events are implemented
 
-    // might not need since xata handles it
     createdAt: timestamp("created_at")
       .$default(() => new Date())
       .notNull(),
     updatedAt: timestamp("updated_at").$onUpdate(() => new Date()),
   },
-  (payment) => ({
-    userIndex: index("user_id_idx").on(payment.user_id),
-    eventIndex: index("event_id_idx").on(payment.event_id),
-  }),
+  (payment) => [index("user_id_idx").on(payment.user_id), index("event_id_idx").on(payment.event_id)],
 )
