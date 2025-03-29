@@ -1,0 +1,1 @@
+ALTER TABLE "cfc-website_user" ALTER COLUMN "clerk_id" SET NOT NULL;

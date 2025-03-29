@@ -18,7 +18,7 @@ export const users = pgTable(
     id: uuid("id")
       .primaryKey()
       .$defaultFn(() => uuidv7()),
-    clerk_id: varchar("clerk_id", { length: 32 }).unique(),
+    clerk_id: varchar("clerk_id", { length: 32 }).unique().notNull(),
     email: varchar("email", { length: 256 }).unique().notNull(),
     name: varchar("name", { length: 256 }).notNull(),
     preferred_name: varchar("preferred_name", { length: 64 }).notNull(),
