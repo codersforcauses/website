@@ -41,6 +41,7 @@ export const paymentRouter = createTRPCRouter({
         label: z.string().min(2, {
           message: "Payment label is required",
         }),
+        // TODO: Remove this. Currently exists so frontend doesn't break
         amount: z.string().min(2, {
           message: "Amount is required",
         }),
@@ -65,8 +66,9 @@ export const paymentRouter = createTRPCRouter({
         statementDescriptionIdentifier: input.label,
         note: `Payment for ${input.label}`,
         amountMoney: {
-          currency: input.currency,
-          amount: BigInt(parseFloat(input.amount) * 100),
+          // TODO: fix
+          currency: "AUD",
+          amount: BigInt(500),
         },
       })
 
