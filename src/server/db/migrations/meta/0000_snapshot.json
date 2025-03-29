@@ -1,5 +1,5 @@
 {
-  "id": "4a4390fc-8f9a-4f15-aa67-15ee0f0e75d6",
+  "id": "b8fb22ca-35f4-43dc-9315-200338adfd7c",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
@@ -16,7 +16,7 @@
         },
         "user_id": {
           "name": "user_id",
-          "type": "varchar(32)",
+          "type": "uuid",
           "primaryKey": false,
           "notNull": false
         },
@@ -117,9 +117,15 @@
       "columns": {
         "id": {
           "name": "id",
-          "type": "varchar(32)",
+          "type": "uuid",
           "primaryKey": true,
           "notNull": true
+        },
+        "clerk_id": {
+          "name": "clerk_id",
+          "type": "varchar(32)",
+          "primaryKey": false,
+          "notNull": false
         },
         "email": {
           "name": "email",
@@ -222,6 +228,13 @@
       "foreignKeys": {},
       "compositePrimaryKeys": {},
       "uniqueConstraints": {
+        "cfc-website_user_clerk_id_unique": {
+          "name": "cfc-website_user_clerk_id_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "clerk_id"
+          ]
+        },
         "cfc-website_user_email_unique": {
           "name": "cfc-website_user_email_unique",
           "nullsNotDistinct": false,

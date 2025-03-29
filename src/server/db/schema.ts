@@ -18,7 +18,7 @@ export const users = pgTable(
     id: uuid("id")
       .primaryKey()
       .$defaultFn(() => uuidv7()),
-    clerk_id: varchar("id", { length: 32 }).primaryKey(),
+    clerk_id: varchar("clerk_id", { length: 32 }).unique(),
     email: varchar("email", { length: 256 }).unique().notNull(),
     name: varchar("name", { length: 256 }).notNull(),
     preferred_name: varchar("preferred_name", { length: 64 }).notNull(),
@@ -46,7 +46,7 @@ export const payments = pgTable(
     id: uuid("id")
       .primaryKey()
       .$defaultFn(() => uuidv7()),
-    user_id: varchar("user_id", { length: 32 }).references(() => users.id), // guest access in future
+    user_id: uuid("user_id").references(() => users.id), // guest access in future
     amount: decimal("amount", { scale: 2 }).notNull(),
     currency: varchar("currency", { length: 3 }).default("AUD").notNull(),
     label: varchar("label", { length: 256 }).notNull(),
