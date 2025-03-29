@@ -32,11 +32,11 @@ import { buildIdentifier, createRatelimit } from "./ratelimit"
  * @see https://trpc.io/docs/server/context
  */
 export const createTRPCContext = async (opts: { ip?: string; headers: Headers }) => {
-  const user = await currentUser()
+  const clerkUser = await currentUser()
 
   return {
     db,
-    user,
+    clerkUser,
     ...opts,
   }
 }
@@ -73,13 +73,23 @@ const t = initTRPC.context<TRPCContext>().create({
 const sentryMiddleware = t.middleware(Sentry.trpcMiddleware({ attachRpcInput: true }))
 
 /** Reusable middleware that enforces users are logged in before running the procedure. */
-const enforceUserIsAuthed = t.middleware(({ ctx, next }) => {
-  if (!ctx.user) {
+const enforceUserIsAuthed = t.middleware(async ({ ctx, next }) => {
+  if (!ctx.clerkUser) {
     throw new TRPCError({ code: "UNAUTHORIZED" })
   }
+
+  const user = await ctx.db.query.users.findFirst({
+    where: eq(users.clerk_id, ctx.clerkUser.id),
+  })
+
+  if (!user) {
+    throw new TRPCError({ code: "NOT_FOUND", message: `Could not find the user with Clerk id: ${ctx.clerkUser.id}` })
+  }
+
   return next({
     ctx: {
-      user: ctx.user,
+      user,
+      clerkUser: ctx.clerkUser,
     },
   })
 })
@@ -173,19 +183,10 @@ export const adminProcedure = t.procedure
   .use(enforceUserIsAuthed)
   .use(sentryMiddleware)
   .use(async ({ ctx, next }) => {
-    const user = await ctx.db.query.users.findFirst({
-      columns: {
-        role: true,
-      },
-      where: eq(users.id, ctx.user.id),
-    })
-    if (!user) throw new TRPCError({ code: "NOT_FOUND", message: `Could not find user with id: ${ctx.user.id}` })
-    if (user.role !== "admin" && user.role !== "committee")
+    const currentUser = ctx.user
+
+    if (currentUser.role !== "admin" && currentUser.role !== "committee")
       throw new TRPCError({ code: "FORBIDDEN", message: "You do not have permission to access this API." })
 
-    return next({
-      ctx: {
-        user: ctx.user,
-      },
-    })
+    return next()
   })
