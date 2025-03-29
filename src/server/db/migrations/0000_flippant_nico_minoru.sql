@@ -1,7 +1,7 @@
 CREATE TYPE "public"."role" AS ENUM('member', 'honorary', 'past', 'committee', 'admin');--> statement-breakpoint
 CREATE TABLE "cfc-website_payment" (
 	"id" uuid PRIMARY KEY NOT NULL,
-	"user_id" varchar(32),
+	"user_id" uuid,
 	"amount" numeric NOT NULL,
 	"currency" varchar(3) DEFAULT 'AUD' NOT NULL,
 	"label" varchar(256) NOT NULL,
@@ -11,7 +11,8 @@ CREATE TABLE "cfc-website_payment" (
 );
 --> statement-breakpoint
 CREATE TABLE "cfc-website_user" (
-	"id" varchar(32) PRIMARY KEY NOT NULL,
+	"id" uuid PRIMARY KEY NOT NULL,
+	"clerk_id" varchar(32),
 	"email" varchar(256) NOT NULL,
 	"name" varchar(256) NOT NULL,
 	"preferred_name" varchar(64) NOT NULL,
@@ -25,6 +26,7 @@ CREATE TABLE "cfc-website_user" (
 	"square_customer_id" varchar(32) NOT NULL,
 	"created_at" timestamp NOT NULL,
 	"updated_at" timestamp,
+	CONSTRAINT "cfc-website_user_clerk_id_unique" UNIQUE("clerk_id"),
 	CONSTRAINT "cfc-website_user_email_unique" UNIQUE("email"),
 	CONSTRAINT "cfc-website_user_student_number_unique" UNIQUE("student_number"),
 	CONSTRAINT "cfc-website_user_square_customer_id_unique" UNIQUE("square_customer_id")

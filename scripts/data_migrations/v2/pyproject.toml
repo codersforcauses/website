@@ -1,0 +1,24 @@
+[tool.poetry]
+name = "db-migration-v2"
+version = "0.1.0"
+description = ""
+authors = ["Jack Sun <jsun1590@gmail.com>"]
+readme = "README.md"
+package-mode = false 
+
+[tool.poetry.dependencies]
+python = "^3.12"
+pandas = "^2.2.3"
+psycopg2-binary = "^2.9.10"
+sqlalchemy = "^2.0.40"
+ipykernel = "^6.29.5"
+python-dotenv = "^1.1.0"
+uuid7 = "^0.1.0"
+
+
+[tool.poetry.group.dev.dependencies]
+black = "^25.1.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
