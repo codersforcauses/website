@@ -102,7 +102,7 @@ export const userRouter = createTRPCRouter({
       const [user] = await ctx.db
         .insert(users)
         .values({
-          id: input.clerk_id,
+          clerk_id: input.clerk_id,
           name: input.name,
           preferred_name: input.preferred_name,
           email: input.email,
@@ -192,7 +192,7 @@ export const userRouter = createTRPCRouter({
       }
 
       await ctx.db.insert(users).values({
-        id: clerkRes.id,
+        clerk_id: clerkRes.id,
         name: input.name,
         preferred_name: input.preferred_name,
         email: input.email,
