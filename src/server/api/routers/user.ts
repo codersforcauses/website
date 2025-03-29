@@ -282,7 +282,7 @@ export const userRouter = createTRPCRouter({
             if (
               result.payment?.status === "COMPLETED" &&
               result.payment?.referenceId === ctx.user.id &&
-              result.payment.note === `CFC Membership ${new Date().getFullYear()}`
+              result.payment.note === `Payment for CFC Membership ${new Date().getFullYear()}`
             ) {
               // only update role if payment successful and user is not already a member
               if (currentUser.role === null) {
