@@ -15,23 +15,6 @@ const { cardsApi, paymentsApi } = new Client({
 })
 
 export const paymentRouter = createTRPCRouter({
-  cash: protectedRatedProcedure(Ratelimit.fixedWindow(2, "30s"))
-    .input(
-      z.string().min(2, {
-        message: "Password in required",
-      }),
-    )
-    .mutation(({ input }) => {
-      if (input === env.CASH_PASSWORD) {
-        return "Cash payment successful"
-      } else {
-        throw new TRPCError({
-          code: "FORBIDDEN",
-          message: "Invalid password",
-        })
-      }
-    }),
-
   pay: protectedRatedProcedure(Ratelimit.fixedWindow(2, "30s"))
     .input(
       z.object({
@@ -55,13 +38,16 @@ export const paymentRouter = createTRPCRouter({
       }),
     )
     .mutation(async ({ ctx, input }) => {
-      const [user] = await ctx.db.select().from(users).where(eq(users.id, ctx.user.id))
+      const currentUser = ctx.user
 
+      // TODO: validate already paid or have role
+
+      // TODO: wrap this in a transaction
       const { result } = await paymentsApi.createPayment({
         idempotencyKey: randomUUID(),
         locationId: env.NEXT_PUBLIC_SQUARE_LOCATION_ID,
         sourceId: input.sourceID,
-        customerId: user?.square_customer_id,
+        customerId: currentUser?.square_customer_id,
         referenceId: ctx.user.id,
         statementDescriptionIdentifier: input.label,
         note: `Payment for ${input.label}`,
@@ -88,13 +74,14 @@ export const paymentRouter = createTRPCRouter({
       }
 
       await ctx.db.insert(payments).values({
-        user_id: ctx.user.id,
+        user_id: currentUser.id,
         label: input.label,
         amount: result.payment.amountMoney.amount.toString(),
         currency: result.payment.amountMoney.currency,
       })
 
-      // TODO: just update the user role here instead of calling updateRole afterwards
+      await ctx.db.update(users).set({ role: "member" }).where(eq(users.id, currentUser.id))
+
       return result.payment.id
     }),
 
@@ -110,22 +97,22 @@ export const paymentRouter = createTRPCRouter({
       }),
     )
     .mutation(async ({ ctx, input }) => {
-      const [user] = await ctx.db.select().from(users).where(eq(users.id, ctx.user.id))
+      const currentUser = ctx.user
       const { result } = await cardsApi.createCard({
         idempotencyKey: randomUUID(),
         sourceId: input.sourceID,
         // verificationToken: input.verificationToken,
         card: {
-          customerId: user?.square_customer_id,
-          referenceId: ctx.user.id,
+          customerId: currentUser?.square_customer_id,
+          referenceId: currentUser.id,
         },
       })
       return result.card?.id
     }),
 
   getCards: protectedRatedProcedure(Ratelimit.fixedWindow(60, "30s")).query(async ({ ctx }) => {
-    const [user] = await ctx.db.select().from(users).where(eq(users.id, ctx.user.id))
-    const { result } = await cardsApi.listCards(undefined, user?.square_customer_id)
+    const currentUser = ctx.user
+    const { result } = await cardsApi.listCards(undefined, currentUser?.square_customer_id)
 
     return result.cards?.map((card) => ({
       id: card.id ?? "",
