@@ -5,22 +5,8 @@
     {
       "idx": 0,
       "version": "7",
-      "when": 1743241151559,
-      "tag": "0000_flippant_nico_minoru",
-      "breakpoints": true
-    },
-    {
-      "idx": 1,
-      "version": "7",
-      "when": 1743243210900,
-      "tag": "0001_common_wither",
-      "breakpoints": true
-    },
-    {
-      "idx": 2,
-      "version": "7",
-      "when": 1743505065551,
-      "tag": "0002_sweet_warhawk",
+      "when": 1743506045393,
+      "tag": "0000_chunky_proudstar",
       "breakpoints": true
     }
   ]

@@ -1,1 +1,0 @@
-ALTER TABLE "cfc-website_payment" ALTER COLUMN "amount" SET DATA TYPE integer;

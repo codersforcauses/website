@@ -2,7 +2,7 @@ CREATE TYPE "public"."role" AS ENUM('member', 'honorary', 'past', 'committee', '
 CREATE TABLE "cfc-website_payment" (
 	"id" uuid PRIMARY KEY NOT NULL,
 	"user_id" uuid,
-	"amount" numeric NOT NULL,
+	"amount" bigint NOT NULL,
 	"currency" varchar(3) DEFAULT 'AUD' NOT NULL,
 	"label" varchar(256) NOT NULL,
 	"event_id" varchar(32),
@@ -12,7 +12,7 @@ CREATE TABLE "cfc-website_payment" (
 --> statement-breakpoint
 CREATE TABLE "cfc-website_user" (
 	"id" uuid PRIMARY KEY NOT NULL,
-	"clerk_id" varchar(32),
+	"clerk_id" varchar(32) NOT NULL,
 	"email" varchar(256) NOT NULL,
 	"name" varchar(256) NOT NULL,
 	"preferred_name" varchar(64) NOT NULL,
