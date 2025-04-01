@@ -111,22 +111,6 @@ export default function CreateAccount() {
       })
     },
   })
-  const updateRole = api.user.updateRole.useMutation({
-    onSuccess: () => {
-      toast({
-        title: "Successfully updated role",
-        description: "You are now a member of Coders for Causes",
-      })
-    },
-    onError: (error) => {
-      console.error(error)
-      toast({
-        variant: "destructive",
-        title: "Failed to update role",
-        description: "An error occurred while trying to update your role.",
-      })
-    },
-  })
   const { data: cards } = api.payment.getCards.useQuery(undefined, {
     enabled: !!user,
     staleTime: Infinity, // this is ok because this will be the first time ever the user will fetch cards, no risk of it being out of date
@@ -241,12 +225,9 @@ export default function CreateAccount() {
       })
       return
     }
-    const updatedUser = await updateRole.mutateAsync({
-      id: user.id,
-      role: "member",
-      paymentID,
-    })
-    utils.user.getCurrent.setData(undefined, updatedUser)
+
+    user.role = "member"
+    utils.user.getCurrent.setData(undefined, user)
     router.push("/dashboard")
   }
 

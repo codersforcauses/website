@@ -260,15 +260,15 @@ const UserTable = ({ data, isRefetching, ...props }: UserTableProps) => {
   const [rowSelection, setRowSelection] = React.useState({}) // shape: { [rowIndex: number]: true } only applies to selected rows
 
   const utils = api.useUtils()
-  const updateUserRole = api.user.updateRole.useMutation({
+  const updateUserRole = api.user.updateRoleAdmin.useMutation({
     onMutate: async (updateRole) => {
       // Cancel the user getter refetch
-      await utils.user.getAll.cancel()
+      await utils.user.getAllAdmin.cancel()
       // Snapshot the previous value
-      const prev = utils.user.getAll.getData()
+      const prev = utils.user.getAllAdmin.getData()
 
       // Optimistically update to new role
-      utils.user.getAll.setData(undefined, (data) => {
+      utils.user.getAllAdmin.setData(undefined, (data) => {
         if (!data) return []
 
         return data.map((user) => (user.id === updateRole.id ? { ...user, role: updateRole.role } : user))
@@ -278,10 +278,10 @@ const UserTable = ({ data, isRefetching, ...props }: UserTableProps) => {
     },
     onError: (err, _, context) => {
       // Rollback to the previous value if mutation fails
-      utils.user.getAll.setData(undefined, context?.prev)
+      utils.user.getAllAdmin.setData(undefined, context?.prev)
     },
     onSettled: () => {
-      void utils.user.getAll.invalidate()
+      void utils.user.getAllAdmin.invalidate()
     },
   })
 
@@ -519,7 +519,7 @@ const UserTable = ({ data, isRefetching, ...props }: UserTableProps) => {
 }
 
 const TableWrapper = (props: TableProps) => {
-  const { data, refetch, isRefetching } = api.user.getAll.useQuery(undefined, {
+  const { data, refetch, isRefetching } = api.user.getAllAdmin.useQuery(undefined, {
     initialData: props.data,
     refetchInterval: 1000 * 60 * 1, // 1 minute
   })

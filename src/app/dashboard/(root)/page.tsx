@@ -33,7 +33,7 @@ export default async function Dashboard() {
                 </div>
               </div>
               {getIsMembershipOpen() ? (
-                <PaymentFormWrapper user={user} />
+                <PaymentFormWrapper />
               ) : (
                 <p className="text-sm text-warning">
                   Memberships are temporarily closed for the new year. Please check back later.

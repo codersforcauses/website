@@ -15,6 +15,13 @@
       "when": 1743243210900,
       "tag": "0001_common_wither",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1743505065551,
+      "tag": "0002_sweet_warhawk",
+      "breakpoints": true
     }
   ]
 }

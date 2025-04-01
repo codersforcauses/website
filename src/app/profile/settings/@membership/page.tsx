@@ -98,7 +98,7 @@ export default async function Membership() {
             </div>
             <div className="max-w-lg">
               {getIsMembershipOpen() ? (
-                <PaymentFormWrapper user={user} />
+                <PaymentFormWrapper />
               ) : (
                 <p className="text-sm text-warning">
                   Memberships are temporarily closed for the new year. Please check back later.
