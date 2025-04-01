@@ -1,4 +1,4 @@
-import { boolean, decimal, index, pgEnum, pgTableCreator, timestamp, uuid, varchar } from "drizzle-orm/pg-core"
+import { boolean, index, integer, pgEnum, pgTableCreator, timestamp, uuid, varchar } from "drizzle-orm/pg-core"
 import { v7 as uuidv7 } from "uuid"
 import { NAMED_ROLES } from "~/lib/constants"
 
@@ -47,7 +47,7 @@ export const payments = pgTable(
       .primaryKey()
       .$defaultFn(() => uuidv7()),
     user_id: uuid("user_id").references(() => users.id), // guest access in future
-    amount: decimal("amount", { scale: 2 }).notNull(),
+    amount: integer("amount", { scale: 2 }).notNull(),
     currency: varchar("currency", { length: 3 }).default("AUD").notNull(),
     label: varchar("label", { length: 256 }).notNull(),
     event_id: varchar("event_id", { length: 32 }), // TODO: link when events are implemented

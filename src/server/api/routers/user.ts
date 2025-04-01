@@ -79,19 +79,13 @@ export const userRouter = createTRPCRouter({
         })
       }
 
-      const clerkUser = await clerkClient.users.getUser(input.clerk_id)
+      const clerkUser = await clerkClient().users.getUser(input.clerk_id)
 
       if (!clerkUser) {
-        // ! fucked, don't manually create a user because that can be abused
         throw new TRPCError({
           code: "NOT_FOUND",
           message: `Clerk user with id: ${input.clerk_id} does not exist`,
         })
-        // clerkUser = await clerkClient.users.createUser({
-        //   emailAddress: [input.email],
-        //   firstName: input.preferred_name,
-        //   lastName: input.name, // we treat clerk.lastName as the user's full name
-        // })
       }
 
       const [user] = await ctx.db
@@ -155,14 +149,14 @@ export const userRouter = createTRPCRouter({
       let clerkRes: ClerkUser | undefined
       // TODO: wrap in a transaction
       try {
-        clerkRes = await clerkClient.users.createUser({
+        clerkRes = await clerkClient().users.createUser({
           emailAddress: [input.email],
           firstName: input.preferred_name,
           lastName: input.name, // we treat clerk.lastName as the user's full name
         })
       } catch (err) {
         // user might exist already
-        clerkRes = (await clerkClient.users.getUserList({ emailAddress: [input.email] })).data[0]
+        clerkRes = (await clerkClient().users.getUserList({ emailAddress: [input.email] })).data[0]
       }
 
       if (!clerkRes)
@@ -292,7 +286,7 @@ export const userRouter = createTRPCRouter({
       const currentUser = ctx.user
       // TODO: update clerk email
       // TODO: Wrap in a transaction
-      await clerkClient.users.updateUser(currentUser.clerk_id, {
+      await clerkClient().users.updateUser(currentUser.clerk_id, {
         // emailAddress: input.email,
         firstName: input.preferred_name,
         lastName: input.name,
@@ -354,7 +348,7 @@ export const userRouter = createTRPCRouter({
         throw new TRPCError({ code: "NOT_FOUND", message: `User with id: ${input.userId} does not exist` })
       }
 
-      const clerkUser = await clerkClient.users.getUser(user.clerk_id)
+      const clerkUser = await clerkClient().users.getUser(user.clerk_id)
       if (!clerkUser.primaryEmailAddressId)
         throw new TRPCError({
           code: "NOT_FOUND",

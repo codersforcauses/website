@@ -20,5 +20,6 @@ export const createRatelimit = (limiter: RatelimitConfig["limiter"]) =>
   })
 
 export const buildIdentifier = ({ ctx, type, path }: { ctx: TRPCContext; type: ProcedureType; path: string }) => {
-  return `${ctx.user?.id ?? ctx.ip ?? "unknown"}:${type}:${path}`
+  // TODO: use UUID instead of clerkUser.id
+  return `${ctx.clerkUser?.id ?? ctx.ip ?? "unknown"}:${type}:${path}`
 }
