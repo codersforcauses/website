@@ -333,10 +333,7 @@ export const userRouter = createTRPCRouter({
   updateEmailAdmin: adminProcedure
     .input(z.object({ userId: z.string(), oldEmail: z.string().email(), newEmail: z.string().email() }))
     .mutation(async ({ ctx, input }) => {
-      const currentUser = ctx.user
-      if (currentUser.email !== input.oldEmail) {
-        throw new TRPCError({ code: "BAD_REQUEST", message: "Old email does not match" })
-      }
+      // TODO: check if old email is the same as the user's email in db
 
       // TODO: wrap in a transaction
       const [user] = await ctx.db
