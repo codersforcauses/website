@@ -76,7 +76,7 @@ export const paymentRouter = createTRPCRouter({
       await ctx.db.insert(payments).values({
         user_id: currentUser.id,
         label: input.label,
-        amount: result.payment.amountMoney.amount.toString(),
+        amount: result.payment.amountMoney.amount,
         currency: result.payment.amountMoney.currency,
       })
 

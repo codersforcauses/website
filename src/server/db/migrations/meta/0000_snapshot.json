@@ -1,5 +1,5 @@
 {
-  "id": "b8fb22ca-35f4-43dc-9315-200338adfd7c",
+  "id": "34d33ffa-81f2-4e7f-817d-6866d4bf6551",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
@@ -22,7 +22,7 @@
         },
         "amount": {
           "name": "amount",
-          "type": "numeric",
+          "type": "bigint",
           "primaryKey": false,
           "notNull": true
         },
@@ -125,7 +125,7 @@
           "name": "clerk_id",
           "type": "varchar(32)",
           "primaryKey": false,
-          "notNull": false
+          "notNull": true
         },
         "email": {
           "name": "email",
