@@ -39,7 +39,7 @@ const UpdateEmail = () => {
       <div className="w-full p-6 pt-0">
         <Dialog>
           <DialogTrigger asChild>
-            <Button>Open from</Button>
+            <Button>Open form</Button>
           </DialogTrigger>
           <DialogContent className="max-h-screen overflow-auto sm:max-w-5xl">
             <DialogHeader>
@@ -94,7 +94,7 @@ const UpdateEmailForm = () => {
                 <p className="font-sans">*</p>
               </FormLabel>
               <FormControl>
-                <Input type="text" placeholder="user_***************************" {...field} />
+                <Input type="text" placeholder="xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>

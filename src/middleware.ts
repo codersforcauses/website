@@ -9,11 +9,11 @@ const isAdminPage = createRouteMatcher(["/dashboard/admin(.*)"])
 const isProtectedPage = createRouteMatcher(["/dashboard(.*)", "/profile/settings(.*)"])
 
 export default clerkMiddleware(async (auth, req) => {
-  const userId = auth().userId
+  const clerkId = auth().userId
 
-  if (isAdminPage(req) && userId) {
+  if (isAdminPage(req) && clerkId) {
     const user = await db.query.users.findFirst({
-      where: eq(users.id, userId),
+      where: eq(users.clerk_id, clerkId),
     })
 
     if (!adminRoles.includes(user?.role ?? "")) {
