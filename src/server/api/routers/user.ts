@@ -68,6 +68,7 @@ export const userRouter = createTRPCRouter({
         givenName: input.preferred_name,
         familyName: input.name,
         emailAddress: input.email,
+        // TODO: convert to user ID (UUIDv7)
         referenceId: input.clerk_id,
       })
 
@@ -170,6 +171,7 @@ export const userRouter = createTRPCRouter({
         givenName: input.preferred_name,
         familyName: input.name,
         emailAddress: input.email,
+        // TODO: convert to user ID (UUIDv7)
         referenceId: clerkRes.id,
       })
 
