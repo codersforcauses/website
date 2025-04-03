@@ -23,7 +23,10 @@ export const users = pgTable(
     name: varchar("name", { length: 256 }).notNull(),
     preferred_name: varchar("preferred_name", { length: 64 }).notNull(),
     pronouns: varchar("pronouns", { length: 32 }).notNull(),
-    student_number: varchar("student_number", { length: 8 }).unique(),
+    /// This is not forced to be unique because we don't verify student number at the moment
+    /// If this was unique someone could claim an student number of another student and
+    /// prevent them from signing up.
+    student_number: varchar("student_number", { length: 8 }),
     university: varchar("university", { length: 128 }), // non UWA
     github: varchar("github", { length: 128 }),
     discord: varchar("discord", { length: 128 }),
@@ -46,7 +49,7 @@ export const payments = pgTable(
     id: uuid("id")
       .primaryKey()
       .$defaultFn(() => uuidv7()),
-    user_id: uuid("user_id").references(() => users.id), // guest access in future
+    user_id: uuid("user_id").references(() => users.id, { onDelete: "set null" }), // guest access in future
     amount: bigint("amount", {
       mode: "bigint",
     }).notNull(),

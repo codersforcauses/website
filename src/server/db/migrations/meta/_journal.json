@@ -8,6 +8,20 @@
       "when": 1743506045393,
       "tag": "0000_chunky_proudstar",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1743697296569,
+      "tag": "0001_useful_namora",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1743699037631,
+      "tag": "0002_curved_the_hand",
+      "breakpoints": true
     }
   ]
 }

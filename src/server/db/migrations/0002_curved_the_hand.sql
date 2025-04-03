@@ -1,0 +1,1 @@
+ALTER TABLE "cfc-website_user" DROP CONSTRAINT "cfc-website_user_student_number_unique";
