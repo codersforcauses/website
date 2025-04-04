@@ -75,7 +75,7 @@ const AddUserForm = () => {
     resolver: zodResolver(formSchema),
     defaultValues,
   })
-  const { isLoading, mutate: createUserManual } = api.user.createManual.useMutation({
+  const { isLoading, mutate: createUserManual } = api.users.createManual.useMutation({
     onSuccess: () => {
       form.reset()
       toast({

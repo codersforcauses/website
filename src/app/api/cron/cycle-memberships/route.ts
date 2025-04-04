@@ -1,10 +1,9 @@
 import type { NextRequest } from "next/server"
 import { env } from "~/env"
 import { db } from "~/server/db"
-import { users } from "~/server/db/schema"
+import { User } from "~/server/db/schema"
 import { eq } from "drizzle-orm"
 import * as Sentry from "@sentry/nextjs"
-import { type User } from "~/lib/types"
 
 export const dynamic = "force-dynamic"
 
@@ -16,12 +15,11 @@ export async function GET(request: NextRequest) {
     })
   }
 
-  let dbRes: User[] = []
+  let dbRes: (typeof User.$inferSelect)[] = []
 
   await Sentry.withMonitor("cycle-memberships", async () => {
     // TODO backup with xata cli and put into aws bucket
-    // dbRes = await db.select().from(users).where(eq(users.role, "member"))
-    dbRes = await db.update(users).set({ role: null }).where(eq(users.role, "member")).returning()
+    dbRes = await db.update(User).set({ role: null }).where(eq(User.role, "member")).returning()
     console.log(dbRes.length)
   })
 

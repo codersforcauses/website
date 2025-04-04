@@ -7,7 +7,7 @@ import { api } from "~/trpc/react"
 
 // wrapped in a client component because the dashboard should be server-rendered
 export default function PaymentFormWrapper() {
-  const { data: cards } = api.payment.getCards.useQuery()
+  const { data: cards } = api.payments.getCards.useQuery()
   const router = useRouter()
 
   const handleAfterPayment = async () => {

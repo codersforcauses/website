@@ -1,7 +1,7 @@
 import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server"
 import { eq } from "drizzle-orm"
 import { db } from "./server/db"
-import { users } from "./server/db/schema"
+import { User } from "./server/db/schema"
 
 const adminRoles = ["admin", "committee"]
 
@@ -12,8 +12,8 @@ export default clerkMiddleware(async (auth, req) => {
   const clerkId = auth().userId
 
   if (isAdminPage(req) && clerkId) {
-    const user = await db.query.users.findFirst({
-      where: eq(users.clerk_id, clerkId),
+    const user = await db.query.User.findFirst({
+      where: eq(User.clerk_id, clerkId),
     })
 
     if (!adminRoles.includes(user?.role ?? "")) {

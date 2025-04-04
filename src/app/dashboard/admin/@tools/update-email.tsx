@@ -60,7 +60,7 @@ const UpdateEmailForm = () => {
     resolver: zodResolver(formSchema),
     defaultValues,
   })
-  const { isLoading, mutate: updateEmailAdmin } = api.user.updateEmailAdmin.useMutation({
+  const { isLoading, mutate: updateEmailAdmin } = api.admin.users.updateEmail.useMutation({
     onSuccess: () => {
       toast({
         title: "Email updated",

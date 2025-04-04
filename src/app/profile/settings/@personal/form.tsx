@@ -54,9 +54,9 @@ type FormSchema = z.infer<typeof formSchema>
 
 const PersonalForm = (props: { defaultValues?: Partial<FormSchema> }) => {
   const utils = api.useUtils()
-  const updateUser = api.user.update.useMutation({
+  const updateUser = api.users.update.useMutation({
     onSuccess: async () => {
-      await utils.user.getCurrent.refetch()
+      await utils.users.getCurrent.refetch()
     },
     onError: () => {
       toast({

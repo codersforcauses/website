@@ -16,7 +16,7 @@ import { api } from "~/trpc/react"
 
 interface EditProfileProps {
   setIsEditing: (value: boolean) => void
-  refetch: ReturnType<typeof api.user.get.useQuery>["refetch"]
+  refetch: ReturnType<typeof api.users.get.useQuery>["refetch"]
   id: string
 }
 
@@ -114,9 +114,9 @@ const defaultValues: FormSchema = {
 
 const EditProfile = ({ setIsEditing, id, refetch }: EditProfileProps) => {
   const [showCircleProgress, setShowCircleProgress] = useState(false)
-  const { data: user } = api.user.get.useQuery(id)
-  const { mutateAsync: updateUser } = api.user.update.useMutation()
-  const { mutateAsync: updateSocial } = api.user.updateSocial.useMutation()
+  const { data: user } = api.users.get.useQuery(id)
+  const { mutateAsync: updateUser } = api.users.update.useMutation()
+  const { mutateAsync: updateSocials } = api.users.updateSocials.useMutation()
 
   const userDefaultValues = user && {
     name: user.name,
@@ -147,7 +147,7 @@ const EditProfile = ({ setIsEditing, id, refetch }: EditProfileProps) => {
           uni: data.isUWA ? null : data.uni,
         }),
 
-        updateSocial({
+        updateSocials({
           ...data,
           github: data.github ?? null,
           discord: data.discord ?? null,

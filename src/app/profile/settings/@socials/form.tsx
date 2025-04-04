@@ -29,9 +29,9 @@ const defaultValues: FormSchema = {
 const SocialsForm = (props: { defaultValues?: Partial<FormSchema> }) => {
   const [loading, setLoading] = React.useState(false)
   const utils = api.useUtils()
-  const updateUser = api.user.updateSocial.useMutation({
+  const updateSocials = api.users.updateSocials.useMutation({
     onSuccess: async () => {
-      await utils.user.getCurrent.refetch()
+      await utils.users.getCurrent.refetch()
     },
   })
 
@@ -55,7 +55,7 @@ const SocialsForm = (props: { defaultValues?: Partial<FormSchema> }) => {
         }
       }
 
-      updateUser.mutate({
+      updateSocials.mutate({
         github: (data.github ?? "").trim() || null,
         discord: (data.discord ?? "").trim() || null,
       })

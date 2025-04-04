@@ -4,7 +4,7 @@ import { getIsMembershipOpen } from "~/lib/utils"
 import { api } from "~/trpc/server"
 
 export default async function Membership() {
-  const user = await api.user.getCurrent.query()
+  const user = await api.users.getCurrent.query()
 
   return (
     <div className="space-y-4">

@@ -3,7 +3,7 @@ import { api } from "~/trpc/server"
 import SocialsForm from "./form"
 
 export default async function Socials() {
-  const data = await api.user.getCurrent.query()
+  const data = await api.users.getCurrent.query()
 
   const defaultValues = {
     github: data?.github ?? undefined,

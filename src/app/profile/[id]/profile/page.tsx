@@ -13,13 +13,13 @@ import { type RouterOutputs } from "~/trpc/shared"
 
 interface ProfilePageProps {
   id: string
-  currentUser: RouterOutputs["user"]["getCurrent"]
+  currentUser: RouterOutputs["users"]["getCurrent"]
 }
 
 const ProfilePage = ({ id, currentUser }: ProfilePageProps) => {
   const [isEditing, setIsEditing] = useState(false)
 
-  const { data: user, refetch } = api.user.get.useQuery(id)
+  const { data: user, refetch } = api.users.get.useQuery(id)
   const universityLabel = user ? UNIVERSITIES.find((u) => u.value === user.university)?.label : undefined
 
   if (user) {

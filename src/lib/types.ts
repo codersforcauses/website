@@ -12,24 +12,6 @@ export interface ClerkError {
   }>
 }
 
-export interface User {
-  email: string
-  name: string
-  id: string
-  clerk_id: string
-  preferred_name: string
-  pronouns: string
-  student_number: string | null
-  university: string | null
-  github: string | null
-  discord: string | null
-  subscribe: boolean
-  role: (typeof NAMED_ROLES)[number] | null
-  square_customer_id: string
-  createdAt: Date
-  updatedAt: Date | null
-}
-
 export interface ImageProps {
   src: string
   srcDark?: string

@@ -3,7 +3,7 @@ import { api } from "~/trpc/server"
 import PersonalForm from "./form"
 
 export default async function Personal() {
-  const data = await api.user.getCurrent.query()
+  const data = await api.users.getCurrent.query()
 
   const defaultValues = {
     name: data?.name,

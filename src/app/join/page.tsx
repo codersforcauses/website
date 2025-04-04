@@ -78,7 +78,7 @@ export default function Join() {
       if (res.status === "complete") {
         // careful of order
         await setActive({ session: res.createdSessionId }) // sets token from clerk
-        await utils.user.getCurrent.refetch()
+        await utils.users.getCurrent.refetch()
 
         router.push("/dashboard")
       }

@@ -3,7 +3,7 @@ import PaymentFormWrapper from "~/components/payment/online/wrapper"
 import { getIsMembershipOpen } from "~/lib/utils"
 
 export default async function Dashboard() {
-  const user = await api.user.getCurrent.query()
+  const user = await api.users.getCurrent.query()
 
   return (
     <>

@@ -20,8 +20,8 @@ import {
   DropdownMenuTrigger,
 } from "~/components/ui/dropdown-menu"
 import { SITE_URL } from "~/lib/constants"
-import type { User } from "~/lib/types"
 import { api } from "~/trpc/react"
+import { type User } from "~/server/db/types"
 
 const ThemeSwitcher = dynamic(() => import("./theme"), {
   ssr: false,
@@ -37,7 +37,7 @@ const UserButton = ({ cachedUser }: HeaderUser) => {
   const path = usePathname()
   const utils = api.useUtils()
 
-  const { data: user } = api.user.getCurrent.useQuery(undefined, {
+  const { data: user } = api.users.getCurrent.useQuery(undefined, {
     enabled: !!userId,
     placeholderData: cachedUser,
     refetchInterval: 1000 * 60 * 10, // 10 minutes
@@ -51,12 +51,12 @@ const UserButton = ({ cachedUser }: HeaderUser) => {
 
   // TODO move to new page to handle
   const userSignOut = React.useCallback(async () => {
-    await utils.user.getCurrent.reset()
+    await utils.users.getCurrent.reset()
     setUser(null)
     await signOut({
       redirectUrl: SITE_URL,
     })
-  }, [signOut, utils.user])
+  }, [signOut, utils.users])
 
   if (!user || !userId)
     return (
