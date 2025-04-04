@@ -9,11 +9,6 @@ import { getCurrent } from "./get-current"
 import { update } from "./update"
 import { updateSocials } from "./update-socials"
 
-export const { customersApi } = new Client({
-  accessToken: env.SQUARE_ACCESS_TOKEN,
-  environment: env.NEXT_PUBLIC_SQUARE_APP_ID.includes("sandbox") ? Environment.Sandbox : Environment.Production,
-})
-
 export const usersRouter = createTRPCRouter({
   create,
   getCurrent,
