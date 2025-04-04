@@ -6,7 +6,7 @@ import { z } from "zod"
 import { adminProcedure } from "~/server/api/trpc"
 import { User } from "~/server/db/schema"
 
-import { customersApi } from "."
+import { customersApi } from "../../users"
 
 export const createManual = adminProcedure
   .input(

@@ -4,7 +4,6 @@ import { env } from "~/env"
 import { createTRPCRouter } from "~/server/api/trpc"
 
 import { create } from "./create"
-import { createManual } from "./create-manual"
 import { get } from "./get"
 import { getCurrent } from "./get-current"
 import { update } from "./update"
@@ -17,7 +16,6 @@ export const { customersApi } = new Client({
 
 export const usersRouter = createTRPCRouter({
   create,
-  createManual,
   getCurrent,
   get,
   update,
