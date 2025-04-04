@@ -1,7 +1,8 @@
-import { sql, isNotNull, and, between } from "drizzle-orm"
-import { User } from "~/server/db/schema"
+import { eachDayOfInterval, subMonths } from "date-fns"
+import { and, between, isNotNull, sql } from "drizzle-orm"
+
 import { adminProcedure } from "~/server/api/trpc"
-import { subMonths, eachDayOfInterval } from "date-fns"
+import { User } from "~/server/db/schema"
 
 export const getUsersPerDay = adminProcedure.query(async ({ ctx }) => {
   const twoMonths = subMonths(new Date(), 2)

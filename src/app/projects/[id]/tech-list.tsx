@@ -1,4 +1,5 @@
 import { iconMap } from "~/lib/constants"
+
 import type { TechIcons } from "../types"
 
 interface TechListProps {

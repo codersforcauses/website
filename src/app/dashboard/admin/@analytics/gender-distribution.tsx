@@ -1,6 +1,7 @@
 import dynamic from "next/dynamic"
 
 import { api } from "~/trpc/server"
+
 const GenderDistributionGraph = dynamic(() => import("./_components/gender-distribution"), {
   ssr: false,
 })

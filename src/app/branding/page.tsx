@@ -1,11 +1,12 @@
 "use client"
 
-import * as React from "react"
 import Link from "next/link"
+import * as React from "react"
 
 import { Button } from "~/components/ui/button"
-import LogoCard from "./logo-card"
+
 import ColourCard from "./colour-card"
+import LogoCard from "./logo-card"
 
 export default function BrandPage() {
   const [typographyText, setTypographyText] = React.useState("Coders for Causes")

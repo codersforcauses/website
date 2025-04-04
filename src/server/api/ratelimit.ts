@@ -1,8 +1,10 @@
 import { type ProcedureType } from "@trpc/server"
 import { Ratelimit, type RatelimitConfig } from "@upstash/ratelimit"
 import { Redis } from "@upstash/redis"
-import { type TRPCContext } from "./trpc"
+
 import { env } from "~/env"
+
+import { type TRPCContext } from "./trpc"
 
 export const createRatelimit = (limiter: RatelimitConfig["limiter"]) =>
   new Ratelimit({

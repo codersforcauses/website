@@ -1,17 +1,18 @@
 "use client"
 
-import * as React from "react"
-import Link from "next/link"
-import { FormProvider, useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { z } from "zod"
+import Link from "next/link"
+import * as React from "react"
+import { FormProvider, useForm } from "react-hook-form"
 import { siDiscord } from "simple-icons"
+import { z } from "zod"
 
 import { Alert, AlertDescription, AlertTitle } from "~/components/ui/alert"
 import { Button } from "~/components/ui/button"
 import { FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "~/components/ui/form"
 import { Input } from "~/components/ui/input"
 import { toast } from "~/components/ui/use-toast"
+
 import { api } from "~/trpc/react"
 
 const formSchema = z.object({

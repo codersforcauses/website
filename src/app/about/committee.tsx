@@ -1,8 +1,8 @@
-import * as React from "react"
+import committee from "data/committee.json"
 import Image from "next/image"
+import * as React from "react"
 import { siGithub } from "simple-icons"
 
-import committee from "data/committee.json"
 import type { CardItemProps } from "~/lib/types"
 
 const CommitteeCard = ({ name, position, about, social, picture: { src, alt } }: CardItemProps) => (

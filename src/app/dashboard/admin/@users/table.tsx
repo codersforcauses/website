@@ -1,16 +1,16 @@
 "use client"
 
 import {
+  type ColumnDef,
+  type PaginationState,
+  type SortingState,
+  type VisibilityState,
   flexRender,
   getCoreRowModel,
   getFilteredRowModel,
   getPaginationRowModel,
   getSortedRowModel,
   useReactTable,
-  type ColumnDef,
-  type PaginationState,
-  type SortingState,
-  type VisibilityState,
 } from "@tanstack/react-table"
 import { format } from "date-fns"
 import { enAU } from "date-fns/locale"
@@ -57,11 +57,13 @@ import {
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "~/components/ui/select"
 import { Separator } from "~/components/ui/separator"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "~/components/ui/table"
+
 import { NAMED_ROLES } from "~/lib/constants"
 import { cn } from "~/lib/utils"
-import { api } from "~/trpc/react"
-import AddUserForm from "./form"
 import { type User } from "~/server/db/types"
+import { api } from "~/trpc/react"
+
+import AddUserForm from "./form"
 
 type UserProps = Omit<User, "subscribe" | "square_customer_id" | "updatedAt">
 

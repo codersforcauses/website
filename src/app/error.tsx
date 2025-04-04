@@ -2,6 +2,7 @@
 
 import * as Sentry from "@sentry/nextjs"
 import * as React from "react"
+
 import { Button } from "~/components/ui/button"
 
 export default function Error({ error, reset }: { error: Error & { digest?: string }; reset: () => void }) {

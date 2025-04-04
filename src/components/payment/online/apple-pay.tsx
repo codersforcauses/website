@@ -1,9 +1,10 @@
 "use client"
 
+import { type ApplePay, type PaymentRequestOptions, type Payments, type TokenResult } from "@square/web-sdk"
 import * as React from "react"
-import { type TokenResult, type Payments, type PaymentRequestOptions, type ApplePay } from "@square/web-sdk"
 
 import { Skeleton } from "~/components/ui/skeleton"
+
 import { cn } from "~/lib/utils"
 
 interface ApplePayProps {

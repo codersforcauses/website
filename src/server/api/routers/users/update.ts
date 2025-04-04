@@ -1,9 +1,10 @@
-import { Ratelimit } from "@upstash/ratelimit"
-import { z } from "zod"
-import { User } from "~/server/db/schema"
-import { protectedRatedProcedure } from "~/server/api/trpc"
-import { eq } from "drizzle-orm"
 import { clerkClient } from "@clerk/nextjs/server"
+import { Ratelimit } from "@upstash/ratelimit"
+import { eq } from "drizzle-orm"
+import { z } from "zod"
+
+import { protectedRatedProcedure } from "~/server/api/trpc"
+import { User } from "~/server/db/schema"
 
 export const update = protectedRatedProcedure(Ratelimit.fixedWindow(4, "30s"))
   .input(

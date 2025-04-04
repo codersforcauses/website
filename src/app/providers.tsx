@@ -1,7 +1,8 @@
 import { cookies } from "next/headers"
 
-import { type PropsWithChildren } from "~/lib/types"
 import { ThemeProvider } from "~/components/theme-provider"
+
+import { type PropsWithChildren } from "~/lib/types"
 import { TRPCReactProvider } from "~/trpc/react"
 
 export default function Providers({ children }: PropsWithChildren) {

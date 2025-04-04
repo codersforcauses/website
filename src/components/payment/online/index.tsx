@@ -1,7 +1,7 @@
 "use client"
 
 import { type CheckedState } from "@radix-ui/react-checkbox"
-import { payments, type PaymentRequestOptions, type Payments, type TokenResult } from "@square/web-sdk"
+import { type PaymentRequestOptions, type Payments, type TokenResult, payments } from "@square/web-sdk"
 import { useTheme } from "next-themes"
 import dynamic from "next/dynamic"
 import * as React from "react"
@@ -9,6 +9,7 @@ import * as React from "react"
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "~/components/ui/accordion"
 import { Skeleton } from "~/components/ui/skeleton"
 import { toast } from "~/components/ui/use-toast"
+
 import { env } from "~/env"
 import { api } from "~/trpc/react"
 import { type RouterOutputs } from "~/trpc/shared"

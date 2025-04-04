@@ -1,6 +1,7 @@
-import { api } from "~/trpc/server"
 import PaymentFormWrapper from "~/components/payment/online/wrapper"
+
 import { getIsMembershipOpen } from "~/lib/utils"
+import { api } from "~/trpc/server"
 
 export default async function Dashboard() {
   const user = await api.users.getCurrent.query()

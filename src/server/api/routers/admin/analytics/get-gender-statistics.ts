@@ -1,6 +1,7 @@
 import { sql } from "drizzle-orm"
-import { User } from "~/server/db/schema"
+
 import { adminProcedure } from "~/server/api/trpc"
+import { User } from "~/server/db/schema"
 
 export const getGenderStatistics = adminProcedure.query(async ({ ctx }) => {
   const data = await ctx.db

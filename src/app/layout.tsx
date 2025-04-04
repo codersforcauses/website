@@ -7,11 +7,12 @@ import { IBM_Plex_Mono, IBM_Plex_Sans } from "next/font/google"
 import Footer from "~/components/footer"
 import Header from "~/components/header"
 import { Toaster } from "~/components/ui/toaster"
+
 import { customMetadata } from "~/lib/metadata"
 import { type PropsWithChildren } from "~/lib/types"
-import Providers from "./providers"
-
 import "~/styles/globals.css"
+
+import Providers from "./providers"
 
 const mono = IBM_Plex_Mono({
   variable: "--font-mono",

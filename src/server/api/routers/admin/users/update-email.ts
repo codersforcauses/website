@@ -2,9 +2,10 @@ import { clerkClient } from "@clerk/nextjs/server"
 import { TRPCError } from "@trpc/server"
 import { eq } from "drizzle-orm"
 import { z } from "zod"
+
 import { adminProcedure } from "~/server/api/trpc"
-import { User } from "~/server/db/schema"
 import { db } from "~/server/db"
+import { User } from "~/server/db/schema"
 
 export const updateEmail = adminProcedure
   .input(z.object({ userId: z.string(), oldEmail: z.string().email(), newEmail: z.string().email() }))

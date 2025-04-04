@@ -1,8 +1,8 @@
 "use client"
 
 import { track } from "@vercel/analytics/react"
-
 import Link from "next/link"
+
 import { Button } from "~/components/ui/button"
 
 const JoinUs = () => (

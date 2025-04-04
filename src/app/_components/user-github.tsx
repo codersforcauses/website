@@ -1,4 +1,5 @@
 "use server"
+
 import { formatISO } from "date-fns"
 
 const contributionByYear = `

@@ -1,13 +1,13 @@
 "use client"
 
 import { useAuth } from "@clerk/nextjs"
+import { setUser } from "@sentry/nextjs"
 import { track } from "@vercel/analytics/react"
 import dynamic from "next/dynamic"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import * as React from "react"
 
-import { setUser } from "@sentry/nextjs"
 import { Avatar, AvatarFallback } from "~/components/ui/avatar"
 import { Button } from "~/components/ui/button"
 import {
@@ -19,9 +19,10 @@ import {
   // DropdownMenuShortcut,
   DropdownMenuTrigger,
 } from "~/components/ui/dropdown-menu"
+
 import { SITE_URL } from "~/lib/constants"
-import { api } from "~/trpc/react"
 import { type User } from "~/server/db/types"
+import { api } from "~/trpc/react"
 
 const ThemeSwitcher = dynamic(() => import("./theme"), {
   ssr: false,

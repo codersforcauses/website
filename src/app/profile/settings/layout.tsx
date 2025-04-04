@@ -1,7 +1,9 @@
 import * as React from "react"
-import { type PropsWithChildren } from "~/lib/types"
-import TitleText from "~/app/_components/title-text"
+
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "~/components/ui/tabs"
+
+import TitleText from "~/app/_components/title-text"
+import { type PropsWithChildren } from "~/lib/types"
 
 interface UserSettingsLayoutProps extends PropsWithChildren {
   personal: React.ReactNode

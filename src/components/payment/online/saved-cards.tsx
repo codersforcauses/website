@@ -1,9 +1,9 @@
+import { zodResolver } from "@hookform/resolvers/zod"
+import { type Payments, type TokenResult, type TokenStatus } from "@square/web-sdk"
 import * as React from "react"
-import { type TokenStatus, type Payments, type TokenResult } from "@square/web-sdk"
 import { useForm } from "react-hook-form"
 import { siAmericanexpress, siMastercard, siVisa } from "simple-icons"
 import * as z from "zod"
-import { zodResolver } from "@hookform/resolvers/zod"
 
 import { Button } from "~/components/ui/button"
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "~/components/ui/form"

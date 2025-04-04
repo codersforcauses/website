@@ -1,5 +1,7 @@
 import { Separator } from "~/components/ui/separator"
+
 import { api } from "~/trpc/server"
+
 import PersonalForm from "./form"
 
 export default async function Personal() {

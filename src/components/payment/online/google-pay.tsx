@@ -1,9 +1,10 @@
 "use client"
 
+import { type GooglePay, type PaymentRequestOptions, type Payments, type TokenResult } from "@square/web-sdk"
 import * as React from "react"
-import { type TokenResult, type Payments, type PaymentRequestOptions, type GooglePay } from "@square/web-sdk"
 
 import { Skeleton } from "~/components/ui/skeleton"
+
 import { cn } from "~/lib/utils"
 
 interface GooglePayProps {

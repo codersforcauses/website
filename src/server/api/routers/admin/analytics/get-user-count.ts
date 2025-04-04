@@ -1,6 +1,7 @@
-import { sql, isNotNull } from "drizzle-orm"
-import { User } from "~/server/db/schema"
+import { isNotNull, sql } from "drizzle-orm"
+
 import { adminProcedure } from "~/server/api/trpc"
+import { User } from "~/server/db/schema"
 
 export const getUserCount = adminProcedure.query(async ({ ctx }) => {
   const [[userCount], [memberCount]] = await Promise.all([

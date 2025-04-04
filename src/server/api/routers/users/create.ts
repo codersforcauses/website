@@ -3,8 +3,10 @@ import { TRPCError } from "@trpc/server"
 import { Ratelimit } from "@upstash/ratelimit"
 import { randomUUID } from "crypto"
 import { z } from "zod"
-import { User } from "~/server/db/schema"
+
 import { publicRatedProcedure } from "~/server/api/trpc"
+import { User } from "~/server/db/schema"
+
 import { customersApi } from "."
 
 export const create = publicRatedProcedure(Ratelimit.fixedWindow(4, "30s"))

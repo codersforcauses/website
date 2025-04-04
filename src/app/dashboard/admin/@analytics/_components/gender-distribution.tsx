@@ -1,7 +1,7 @@
 "use client"
 
-import * as React from "react"
 import { Group, Responsive, Shape, Tooltip } from "@visx/visx"
+import * as React from "react"
 
 interface DataProps {
   count: number

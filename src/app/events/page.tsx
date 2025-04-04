@@ -1,10 +1,12 @@
-import Link from "next/link"
-import { format, isAfter, isBefore, isSameDay, parse } from "date-fns"
-
 import eventList from "data/events.json"
+import { format, isAfter, isBefore, isSameDay, parse } from "date-fns"
+import Link from "next/link"
+
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "~/components/ui/tabs"
-import EventCard from "./card"
+
 import { type Event } from "~/lib/types"
+
+import EventCard from "./card"
 
 const date = new Date()
 

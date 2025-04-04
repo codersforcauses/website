@@ -1,8 +1,8 @@
 "use client"
 
-import * as React from "react"
-import { EmailLinkErrorCode, isEmailLinkError } from "@clerk/nextjs/errors"
 import { useClerk } from "@clerk/nextjs"
+import { EmailLinkErrorCode, isEmailLinkError } from "@clerk/nextjs/errors"
+import * as React from "react"
 
 export default function Verification() {
   const [verificationStatus, setVerificationStatus] = React.useState("loading")

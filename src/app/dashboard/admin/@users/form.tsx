@@ -1,10 +1,12 @@
 "use client"
+
 import { zodResolver } from "@hookform/resolvers/zod"
 import { track } from "@vercel/analytics/react"
 import Link from "next/link"
 import { useForm } from "react-hook-form"
 import { siDiscord } from "simple-icons"
 import { z } from "zod"
+
 import { Alert, AlertDescription, AlertTitle } from "~/components/ui/alert"
 import { Button } from "~/components/ui/button"
 import { Checkbox } from "~/components/ui/checkbox"
@@ -12,6 +14,7 @@ import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, For
 import { Input } from "~/components/ui/input"
 import { RadioGroup, RadioGroupItem } from "~/components/ui/radio-group"
 import { toast } from "~/components/ui/use-toast"
+
 import { PRONOUNS, UNIVERSITIES } from "~/lib/constants"
 import { cn } from "~/lib/utils"
 import { api } from "~/trpc/react"

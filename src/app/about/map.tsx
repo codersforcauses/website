@@ -1,9 +1,10 @@
 "use client"
 
-import * as React from "react"
-import { useTheme } from "next-themes"
 import mapboxgl from "mapbox-gl"
 import "mapbox-gl/dist/mapbox-gl.css"
+import { useTheme } from "next-themes"
+import * as React from "react"
+
 import { env } from "~/env"
 
 mapboxgl.accessToken = env.NEXT_PUBLIC_MAPBOX_API

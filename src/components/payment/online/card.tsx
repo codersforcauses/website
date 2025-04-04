@@ -1,13 +1,14 @@
 "use client"
 
-import * as React from "react"
-import { type TokenResult, type Payments, type Card } from "@square/web-sdk"
 import { type CheckedState } from "@radix-ui/react-checkbox"
+import { type Card, type Payments, type TokenResult } from "@square/web-sdk"
+import * as React from "react"
 
 import { Button } from "~/components/ui/button"
-import { Skeleton } from "~/components/ui/skeleton"
-import { style } from "./styles"
 import { Checkbox } from "~/components/ui/checkbox"
+import { Skeleton } from "~/components/ui/skeleton"
+
+import { style } from "./styles"
 
 interface CardProps {
   theme: string

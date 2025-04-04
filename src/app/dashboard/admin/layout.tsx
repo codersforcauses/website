@@ -6,6 +6,7 @@ import type { ImperativePanelHandle } from "react-resizable-panels"
 import { ResizableHandle, ResizablePanel, ResizablePanelGroup } from "~/components/ui/resizable"
 import { Separator } from "~/components/ui/separator"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "~/components/ui/tabs"
+
 import type { PropsWithChildren } from "~/lib/types"
 import { cn } from "~/lib/utils"
 
