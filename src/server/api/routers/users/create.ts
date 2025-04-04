@@ -6,8 +6,7 @@ import { z } from "zod"
 
 import { publicRatedProcedure } from "~/server/api/trpc"
 import { User } from "~/server/db/schema"
-
-import { customersApi } from "."
+import { squareClient } from "~/server/services/square"
 
 export const create = publicRatedProcedure(Ratelimit.fixedWindow(4, "30s"))
   .input(
@@ -54,7 +53,7 @@ export const create = publicRatedProcedure(Ratelimit.fixedWindow(4, "30s"))
   )
   .mutation(async ({ ctx, input }) => {
     // TODO: wrap in a transaction
-    const { result, statusCode } = await customersApi.createCustomer({
+    const { result, statusCode } = await squareClient.customersApi.createCustomer({
       idempotencyKey: randomUUID(),
       givenName: input.preferred_name,
       familyName: input.name,
