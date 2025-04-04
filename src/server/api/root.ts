@@ -1,6 +1,7 @@
-import { createTRPCRouter } from "~/server/api/trpc"
-import { usersRouter } from "~/server/api/routers/users"
 import { paymentsRouter } from "~/server/api/routers/payments"
+import { usersRouter } from "~/server/api/routers/users"
+import { createTRPCRouter } from "~/server/api/trpc"
+
 import { adminRouter } from "./routers/admin"
 
 /**

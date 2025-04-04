@@ -6,7 +6,10 @@ const config = {
   printWidth: 120,
   tabWidth: 2,
   tailwindConfig: "./tailwind.config.ts",
-  plugins: ["prettier-plugin-tailwindcss"],
+  importOrder: ["^~/components/(.*)$", "^~/(.*)$", "^[./]"],
+  importOrderSeparation: true,
+  importOrderSortSpecifiers: true,
+  plugins: ["prettier-plugin-tailwindcss", "@trivago/prettier-plugin-sort-imports"],
 }
 
 export default config

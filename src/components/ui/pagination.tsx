@@ -1,7 +1,8 @@
-import * as React from "react"
 import Link from "next/link"
+import * as React from "react"
 
-import { type ButtonProps, buttonVariants, Button } from "~/components/ui/button"
+import { Button, type ButtonProps, buttonVariants } from "~/components/ui/button"
+
 import { cn } from "~/lib/utils"
 
 interface PaginationButton {

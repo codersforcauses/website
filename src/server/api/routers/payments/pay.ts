@@ -4,8 +4,9 @@ import { randomUUID } from "crypto"
 import { eq } from "drizzle-orm"
 import { env } from "process"
 import { z } from "zod"
-import { Payment, User } from "~/server/db/schema"
+
 import { protectedRatedProcedure } from "~/server/api/trpc"
+import { Payment, User } from "~/server/db/schema"
 import { squareClient } from "~/server/services/square"
 
 export const pay = protectedRatedProcedure(Ratelimit.fixedWindow(2, "30s"))

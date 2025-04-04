@@ -2,11 +2,13 @@
 
 import { useState } from "react"
 import { siDiscord, siGithub } from "simple-icons"
+
+import { Badge } from "~/components/ui/badge"
+import { Button } from "~/components/ui/button"
+
 import EditProfile from "~/app/_components/clients/EditProfile/page"
 import ProfilePageSkeleton from "~/app/_components/clients/ProfilePageSkeleton/page"
 import TitleText from "~/app/_components/title-text"
-import { Badge } from "~/components/ui/badge"
-import { Button } from "~/components/ui/button"
 import { UNIVERSITIES } from "~/lib/constants"
 import { api } from "~/trpc/react"
 import { type RouterOutputs } from "~/trpc/shared"

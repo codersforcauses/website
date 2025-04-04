@@ -1,11 +1,11 @@
 import { type ReactNode } from "react"
-import { BentoGrid, BentoGridItem } from "../ui/bento-grid"
 
+import { BentoGrid, BentoGridItem } from "../ui/bento-grid"
+import { GoogleGeminiEffect } from "../ui/gemini"
 import Building from "./svg/building"
+import Chat from "./svg/chat"
 import Cloud from "./svg/cloud"
 import Server from "./svg/server"
-import Chat from "./svg/chat"
-import { GoogleGeminiEffect } from "../ui/gemini"
 
 const BentoDisplay = () => (
   <BentoGrid>

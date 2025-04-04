@@ -1,4 +1,4 @@
-import type { iconMap, NAMED_ROLES } from "./constants"
+import type { NAMED_ROLES, iconMap } from "./constants"
 
 export interface PropsWithChildren {
   children: React.ReactNode

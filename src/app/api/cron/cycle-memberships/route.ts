@@ -1,9 +1,10 @@
+import * as Sentry from "@sentry/nextjs"
+import { eq } from "drizzle-orm"
 import type { NextRequest } from "next/server"
+
 import { env } from "~/env"
 import { db } from "~/server/db"
 import { User } from "~/server/db/schema"
-import { eq } from "drizzle-orm"
-import * as Sentry from "@sentry/nextjs"
 
 export const dynamic = "force-dynamic"
 

@@ -1,4 +1,5 @@
 import { defineConfig } from "drizzle-kit"
+
 import { getXataClient } from "~/server/db/xata"
 
 export default defineConfig({

@@ -1,8 +1,9 @@
 import { Ratelimit } from "@upstash/ratelimit"
 import { eq } from "drizzle-orm"
 import { z } from "zod"
-import { User } from "~/server/db/schema"
+
 import { protectedRatedProcedure } from "~/server/api/trpc"
+import { User } from "~/server/db/schema"
 
 export const updateSocials = protectedRatedProcedure(Ratelimit.fixedWindow(4, "30s"))
   .input(

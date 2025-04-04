@@ -2,6 +2,7 @@ import Image from "next/image"
 
 import { Badge } from "~/components/ui/badge"
 import { Skeleton } from "~/components/ui/skeleton"
+
 import type { Event } from "~/lib/types"
 
 const EventCard = (event: Omit<Event, "type">) => {

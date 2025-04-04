@@ -1,2 +1,7 @@
 scripts/
 .next/
+
+src/server/db/migrations
+
+**/*.yaml
+**/*.yml

@@ -1,9 +1,11 @@
-import { clerkClient, type User as ClerkUser } from "@clerk/nextjs/server"
+import { type User as ClerkUser, clerkClient } from "@clerk/nextjs/server"
 import { TRPCError } from "@trpc/server"
 import { randomUUID } from "crypto"
 import { z } from "zod"
-import { User } from "~/server/db/schema"
+
 import { adminProcedure } from "~/server/api/trpc"
+import { User } from "~/server/db/schema"
+
 import { customersApi } from "."
 
 export const createManual = adminProcedure

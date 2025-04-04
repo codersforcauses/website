@@ -1,13 +1,14 @@
-import * as React from "react"
-import { Heatmap, Scale, Responsive } from "@visx/visx"
+import { Heatmap, Responsive, Scale } from "@visx/visx"
 import { format } from "date-fns"
 import { useTheme } from "next-themes"
+import * as React from "react"
 import { siGithub } from "simple-icons"
 
-import { getUserGithub, getUserGithubYears } from "./user-github"
 import { ScrollArea, ScrollBar } from "~/components/ui/scroll-area"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "~/components/ui/tabs"
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "~/components/ui/tooltip"
+
+import { getUserGithub, getUserGithubYears } from "./user-github"
 
 type GithubContributionLevels = "NONE" | "FIRST_QUARTILE" | "SECOND_QUARTILE" | "THIRD_QUARTILE" | "FOURTH_QUARTILE"
 

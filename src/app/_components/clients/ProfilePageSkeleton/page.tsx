@@ -1,5 +1,6 @@
-import TitleText from "~/app/_components/title-text"
 import { Skeleton } from "~/components/ui/skeleton"
+
+import TitleText from "~/app/_components/title-text"
 
 const ProfilePageSkeleton = () => {
   return (

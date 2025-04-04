@@ -1,8 +1,9 @@
-import type { Viewport, Metadata } from "next"
+import projectData from "data/projects.json"
+import type { Metadata, Viewport } from "next"
 import dynamic from "next/dynamic"
 
-import projectData from "data/projects.json"
 import { customMetadata } from "~/lib/metadata"
+
 const Card = dynamic(() => import("./card"), {
   ssr: false,
 })

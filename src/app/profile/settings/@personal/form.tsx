@@ -1,7 +1,7 @@
 "use client"
 
-import { FormProvider, useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
+import { FormProvider, useForm } from "react-hook-form"
 import { z } from "zod"
 
 import { Button } from "~/components/ui/button"
@@ -10,6 +10,7 @@ import { FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessa
 import { Input } from "~/components/ui/input"
 import { RadioGroup, RadioGroupItem } from "~/components/ui/radio-group"
 import { toast } from "~/components/ui/use-toast"
+
 import { PRONOUNS, UNIVERSITIES } from "~/lib/constants"
 import { cn } from "~/lib/utils"
 import { api } from "~/trpc/react"

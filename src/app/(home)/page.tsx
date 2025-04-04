@@ -4,8 +4,10 @@ import Link from "next/link"
 
 import BentoDisplay from "~/components/bento"
 import { Button } from "~/components/ui/button"
+
 import TypedText from "../_components/typed-text"
 import JoinUs from "./join-us"
+
 const Contact = dynamic(() => import("./contact"), {
   ssr: false,
   loading: () => <Button variant="outline-dark">Contact us</Button>,

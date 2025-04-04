@@ -1,9 +1,10 @@
 import { TRPCError } from "@trpc/server"
 import { Ratelimit } from "@upstash/ratelimit"
-import { z } from "zod"
-import { User } from "~/server/db/schema"
-import { publicRatedProcedure } from "~/server/api/trpc"
 import { eq } from "drizzle-orm"
+import { z } from "zod"
+
+import { publicRatedProcedure } from "~/server/api/trpc"
+import { User } from "~/server/db/schema"
 
 export const get = publicRatedProcedure(Ratelimit.fixedWindow(4, "30s"))
   .input(z.string())

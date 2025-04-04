@@ -1,5 +1,6 @@
 import { buildClient } from "@xata.io/client"
 import type { BaseClientOptions, SchemaInference } from "@xata.io/client"
+
 import { env } from "~/env"
 
 const tables = [] as const

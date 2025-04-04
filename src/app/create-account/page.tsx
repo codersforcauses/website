@@ -10,6 +10,9 @@ import { useForm } from "react-hook-form"
 import { siDiscord } from "simple-icons"
 import * as z from "zod"
 
+// import { Avatar, AvatarFallback, AvatarImage } from "~/components/ui/avatar"
+// import GithubHeatmap from "../_components/github-heatmap"
+import OnlinePaymentForm from "~/components/payment/online"
 import { Alert, AlertDescription, AlertTitle } from "~/components/ui/alert"
 import { Button } from "~/components/ui/button"
 import { Checkbox } from "~/components/ui/checkbox"
@@ -18,15 +21,14 @@ import { Input } from "~/components/ui/input"
 import { RadioGroup, RadioGroupItem } from "~/components/ui/radio-group"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "~/components/ui/tabs"
 import { toast } from "~/components/ui/use-toast"
-// import { Avatar, AvatarFallback, AvatarImage } from "~/components/ui/avatar"
-// import GithubHeatmap from "../_components/github-heatmap"
-import OnlinePaymentForm from "~/components/payment/online"
+
 import { PRONOUNS, SITE_URL, UNIVERSITIES } from "~/lib/constants"
 import { cn, getIsMembershipOpen } from "~/lib/utils"
+import { type User } from "~/server/db/types"
 import { api } from "~/trpc/react"
+
 import DetailsBlock from "./details"
 import PaymentBlock from "./payment"
-import { type User } from "~/server/db/types"
 
 type ActiveView = "form" | "payment"
 

@@ -1,5 +1,7 @@
 import clients from "data/clients.json"
+
 import { type ImageProps } from "~/lib/types"
+
 import ImageGrid from "./image-grid"
 
 interface Client {

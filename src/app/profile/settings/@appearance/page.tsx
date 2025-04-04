@@ -1,7 +1,7 @@
 "use client"
 
-import { useTheme } from "next-themes"
 import * as RadioGroupPrimitive from "@radix-ui/react-radio-group"
+import { useTheme } from "next-themes"
 
 import { Label } from "~/components/ui/label"
 import { Separator } from "~/components/ui/separator"

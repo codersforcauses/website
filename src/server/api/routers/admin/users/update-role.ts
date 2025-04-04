@@ -1,9 +1,10 @@
 import { TRPCError } from "@trpc/server"
-import { z } from "zod"
 import { eq } from "drizzle-orm"
+import { z } from "zod"
+
+import { NAMED_ROLES } from "~/lib/constants"
 import { adminProcedure } from "~/server/api/trpc"
 import { User } from "~/server/db/schema"
-import { NAMED_ROLES } from "~/lib/constants"
 
 export const updateRole = adminProcedure
   .input(

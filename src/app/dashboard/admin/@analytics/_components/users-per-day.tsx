@@ -1,9 +1,9 @@
 "use client"
 
-import * as React from "react"
-import { useTheme } from "next-themes"
 import { Curve, XYChart } from "@visx/visx"
 import { format } from "date-fns"
+import { useTheme } from "next-themes"
+import * as React from "react"
 
 interface DataProps {
   date: Date
