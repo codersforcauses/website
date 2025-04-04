@@ -5,8 +5,7 @@ import { z } from "zod"
 
 import { adminProcedure } from "~/server/api/trpc"
 import { User } from "~/server/db/schema"
-
-import { customersApi } from "."
+import { squareClient } from "~/server/services/square"
 
 export const createManual = adminProcedure
   .input(
@@ -65,7 +64,7 @@ export const createManual = adminProcedure
         message: "Failed to create or repair user. What the hell?",
       })
 
-    const { result, statusCode } = await customersApi.createCustomer({
+    const { result, statusCode } = await squareClient.customersApi.createCustomer({
       idempotencyKey: randomUUID(),
       givenName: input.preferred_name,
       familyName: input.name,
