@@ -31,7 +31,7 @@ const SavedCards = dynamic(() => import("./saved-cards"), {
 })
 
 export interface OnlinePaymentFormProps {
-  cards: RouterOutputs["payment"]["getCards"]
+  cards: RouterOutputs["payments"]["getCards"]
   /**
    * The amount to be charged.
    * Must have decimal point and two decimal places.
@@ -71,7 +71,7 @@ const OnlinePaymentForm = ({
   const loadingState = React.useState(false)
   const cardDetails = React.useState<CheckedState>(true)
 
-  const pay = api.payment.pay.useMutation({
+  const pay = api.payments.pay.useMutation({
     onError: () => {
       toast({
         variant: "destructive",
@@ -80,7 +80,7 @@ const OnlinePaymentForm = ({
       })
     },
   })
-  const storeCard = api.payment.storeCard.useMutation({
+  const storeCard = api.payments.storeCard.useMutation({
     onError: () => {
       toast({
         variant: "destructive",

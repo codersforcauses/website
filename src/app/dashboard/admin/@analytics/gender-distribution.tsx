@@ -6,7 +6,7 @@ const GenderDistributionGraph = dynamic(() => import("./_components/gender-distr
 })
 
 const GenderDistribution = async () => {
-  const gender = await api.analytics.gender.query()
+  const gender = await api.admin.analytics.getGenderStatistics.query()
 
   return (
     <div className="col-span-2 border bg-card text-card-foreground">

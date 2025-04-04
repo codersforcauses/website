@@ -7,7 +7,7 @@ const UsersPerDay = dynamic(() => import("./_components/users-per-day"), {
 })
 
 const UsersGraph = async () => {
-  const userCount = await api.analytics.usersPerDay.query()
+  const userCount = await api.admin.analytics.getUsersPerDay.query()
 
   return (
     <div className="col-span-3 border bg-card text-card-foreground">

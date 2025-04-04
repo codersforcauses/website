@@ -16,7 +16,7 @@ import superjson from "superjson"
 import { ZodError } from "zod"
 
 import { db } from "~/server/db"
-import { users } from "~/server/db/schema"
+import { User } from "~/server/db/schema"
 import { buildIdentifier, createRatelimit } from "./ratelimit"
 
 /**
@@ -78,8 +78,8 @@ const enforceUserIsAuthed = t.middleware(async ({ ctx, next }) => {
     throw new TRPCError({ code: "UNAUTHORIZED" })
   }
 
-  const user = await ctx.db.query.users.findFirst({
-    where: eq(users.clerk_id, ctx.clerkUser.id),
+  const user = await ctx.db.query.User.findFirst({
+    where: eq(User.clerk_id, ctx.clerkUser.id),
   })
 
   if (!user) {

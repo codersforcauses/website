@@ -22,7 +22,7 @@ const Card = (props: CardProps) => {
 }
 
 const Count = async () => {
-  const count = await api.analytics.count.query()
+  const count = await api.admin.analytics.getUserCount.query()
 
   return (
     <>

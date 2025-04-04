@@ -12,7 +12,7 @@ export const pgTable = pgTableCreator((name) => `cfc-website_${name}`)
 
 export const roleEnum = pgEnum("role", NAMED_ROLES) // honorary: hlm, past: past committee
 
-export const users = pgTable(
+export const User = pgTable(
   "user",
   {
     id: uuid("id")
@@ -43,13 +43,13 @@ export const users = pgTable(
 )
 
 // for refunds and payment history
-export const payments = pgTable(
+export const Payment = pgTable(
   "payment",
   {
     id: uuid("id")
       .primaryKey()
       .$defaultFn(() => uuidv7()),
-    user_id: uuid("user_id").references(() => users.id, { onDelete: "set null" }), // guest access in future
+    user_id: uuid("user_id").references(() => User.id, { onDelete: "set null" }), // guest access in future
     amount: bigint("amount", {
       mode: "bigint",
     }).notNull(),

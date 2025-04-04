@@ -22,11 +22,11 @@ import { toast } from "~/components/ui/use-toast"
 // import GithubHeatmap from "../_components/github-heatmap"
 import OnlinePaymentForm from "~/components/payment/online"
 import { PRONOUNS, SITE_URL, UNIVERSITIES } from "~/lib/constants"
-import { type User } from "~/lib/types"
 import { cn, getIsMembershipOpen } from "~/lib/utils"
 import { api } from "~/trpc/react"
 import DetailsBlock from "./details"
 import PaymentBlock from "./payment"
+import { type User } from "~/server/db/types"
 
 type ActiveView = "form" | "payment"
 
@@ -102,7 +102,7 @@ export default function CreateAccount() {
   const { getValues, setError } = form
 
   const utils = api.useUtils()
-  const createUser = api.user.create.useMutation({
+  const createUser = api.users.create.useMutation({
     onError: (error) => {
       toast({
         variant: "destructive",
@@ -111,7 +111,7 @@ export default function CreateAccount() {
       })
     },
   })
-  const { data: cards } = api.payment.getCards.useQuery(undefined, {
+  const { data: cards } = api.payments.getCards.useQuery(undefined, {
     enabled: !!user,
     staleTime: Infinity, // this is ok because this will be the first time ever the user will fetch cards, no risk of it being out of date
   })
@@ -227,7 +227,7 @@ export default function CreateAccount() {
     }
 
     user.role = "member"
-    utils.user.getCurrent.setData(undefined, user)
+    utils.users.getCurrent.setData(undefined, user)
     router.push("/dashboard")
   }
 
@@ -235,7 +235,7 @@ export default function CreateAccount() {
     if (user) {
       setLoadingSkipPayment(true)
       try {
-        utils.user.getCurrent.setData(undefined, user)
+        utils.users.getCurrent.setData(undefined, user)
         router.push("/dashboard")
       } catch (error) {
         console.error(error)
