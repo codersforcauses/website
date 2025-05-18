@@ -238,5 +238,21 @@
     },
     "location": "UWA EZONE",
     "desc": "We will be giving a brief recap of the past year, saying bye to the current committee and electing this year’s committee."
+  },
+  {
+    "slug": "winter_projects_2025",
+    "tags": ["project", "social"],
+    "title": "Winter Projects 2025",
+    "image": {
+      "src": "/events/IMG_8679.webp",
+      "alt": "volunteers at working during a project "
+    },
+    "date": "21/06/25",
+    "time": {
+      "start": "11:00am",
+      "end": "4:00pm"
+    },
+    "location": "UWA EZONE",
+    "desc": "Get industry level experience and skills by working on fun projects."
   }
 ]
