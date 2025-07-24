@@ -31,5 +31,12 @@
     "alt": "Venture: Student Innovation Centre - UWA Student Guild logo",
     "logo": "/sponsors/venture_horizontal_logo.png",
     "link": "https://www.venture-student-innovation.com/"
+  },
+  {
+    "name": "U Group",
+    "alt": "U Group",
+    "logo": "/sponsors/u_group_logo.png",
+    "dark_logo": "/sponsors/u_group_logo.png",
+    "link": "http://www.theugroup.co//"
   }
 ]
