@@ -3,7 +3,6 @@
     "name": "Atlassian",
     "alt": "Atlassian logo",
     "logo": "/sponsors/atlassian_logo_dark.svg",
-    "dark_logo": "/sponsors/atlassian_logo_dark.svg",
     "link": "https://www.atlassian.com/"
   },
   {
@@ -36,7 +35,6 @@
     "name": "U Group",
     "alt": "U Group",
     "logo": "/sponsors/u_group_logo.png",
-    "dark_logo": "/sponsors/u_group_logo.png",
     "link": "http://www.theugroup.co//"
   }
 ]
