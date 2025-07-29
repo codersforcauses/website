@@ -80,7 +80,7 @@ const UserButton = ({ cachedUser }: HeaderUser) => {
 
   return (
     <div className="flex">
-      {process.env.NODE_ENV === "development" && !!user && <ThemeSwitcher />}
+      <ThemeSwitcher />
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <Button variant="ghost-dark" className="max-w-40 space-x-2 text-white">
