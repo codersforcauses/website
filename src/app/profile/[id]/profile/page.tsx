@@ -25,6 +25,8 @@ const ProfilePage = ({ id, currentUser }: ProfilePageProps) => {
   let universityLabel: string | undefined
   if (user && user.student_number && user.student_number.length > 0) {
     universityLabel = "University of Western Australia"
+  } else if (user && !UNIVERSITIES.find((u) => u.value === user.university) && user.university != "UWA") {
+    universityLabel = user.university ? user.university : undefined
   } else {
     universityLabel = user ? UNIVERSITIES.find((u) => u.value === user.university)?.label : undefined
   }
