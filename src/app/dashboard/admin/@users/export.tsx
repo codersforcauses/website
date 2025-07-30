@@ -21,7 +21,7 @@ export default function ExportButton({ data }: TableProps) {
       return
     }
 
-    const headers = Object.keys(data[0] as Record<string, any>).join(",")
+    const headers = Object.keys(data[0] as Record<string, unknown>).join(",")
     const rows = data.map((row) => Object.values(row).join(",")).join("\n")
     const csv = headers + "\n" + rows
     const blob = new Blob([csv], { type: "text/csv" })
