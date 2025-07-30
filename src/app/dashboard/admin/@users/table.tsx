@@ -68,7 +68,7 @@ import AddUserForm from "./form"
 
 type UserProps = Omit<User, "subscribe" | "square_customer_id" | "updatedAt">
 
-interface TableProps {
+export interface TableProps {
   data: Array<UserProps>
 }
 interface UserTableProps extends TableProps {

@@ -5,15 +5,9 @@ import { useEffect, useState } from "react"
 import { Alert, AlertDescription, AlertTitle } from "~/components/ui/alert"
 import { Button } from "~/components/ui/button"
 
-type ExportButtonProps<T extends Record<string, any>> = {
-  data: T[]
-  filename?: string
-}
+import { TableProps } from "./table"
 
-export default function ExportButton<T extends Record<string, any>>({
-  data,
-  filename = "output.csv",
-}: ExportButtonProps<T>) {
+export default function ExportButton({ data }: TableProps) {
   const [open, setOpen] = useState(false)
   useEffect(() => {
     if (!open) return
@@ -35,7 +29,7 @@ export default function ExportButton<T extends Record<string, any>>({
 
     const a = document.createElement("a")
     a.setAttribute("href", url)
-    a.setAttribute("download", filename)
+    a.setAttribute("download", "output.csv")
     a.click()
     window.URL.revokeObjectURL(url)
     setOpen(true)
