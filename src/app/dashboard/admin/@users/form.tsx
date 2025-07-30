@@ -49,8 +49,8 @@ const formSchema = z
     message: "Student number is required",
     path: ["student_number"],
   })
-  .refine(({ isUWA, student_number = "" }) => !Boolean(isUWA) || student_number.length === 8, {
-    message: "Student number must be 8 digits long",
+  .refine(({ isUWA, student_number = "" }) => !Boolean(isUWA) || /^\d{8}$/.test(student_number), {
+    message: "Student number must be 8 digits",
     path: ["student_number"],
   })
   .refine(({ isUWA, uni = "" }) => Boolean(isUWA) || uni || uni === "other", {
@@ -99,6 +99,9 @@ const AddUserForm = () => {
 
   const onSubmit = async (values: FormSchema) => {
     if (process.env.NEXT_PUBLIC_VERCEL_ENV === "production") track("created-account")
+    if (values.isUWA) {
+      values.uni = "UWA"
+    }
 
     // move to react hook form?
     if (values.github !== "") {

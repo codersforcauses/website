@@ -42,8 +42,8 @@ const formSchema = z
     message: "Student number is required",
     path: ["student_number"],
   })
-  .refine(({ isUWA, student_number = "" }) => !Boolean(isUWA) || student_number?.length === 8, {
-    message: "Student number must be 8 digits long",
+  .refine(({ isUWA, student_number = "" }) => !Boolean(isUWA) || /^\d{8}$/.test(student_number), {
+    message: "Student number must be 8 digits",
     path: ["student_number"],
   })
   .refine(({ isUWA, uni = "" }) => Boolean(isUWA) || uni || uni === "other", {
@@ -78,7 +78,7 @@ const PersonalForm = (props: { defaultValues?: Partial<FormSchema> }) => {
     updateUser.mutate({
       ...data,
       student_number: !data.isUWA ? null : data.student_number,
-      uni: data.isUWA ? null : data.uni,
+      uni: data.isUWA ? "UWA" : data.uni,
     })
   }
 

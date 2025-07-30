@@ -62,8 +62,8 @@ const formSchema = z
     message: "Student number is required",
     path: ["student_number"],
   })
-  .refine(({ isUWA, student_number = "" }) => !Boolean(isUWA) || student_number.length === 8, {
-    message: "Student number must be 8 digits long",
+  .refine(({ isUWA, student_number = "" }) => !Boolean(isUWA) || /^\d{8}$/.test(student_number), {
+    message: "Student number must be 8 digits",
     path: ["student_number"],
   })
   .refine(({ isUWA, uni = "" }) => Boolean(isUWA) || uni || uni === "other", {
@@ -151,6 +151,7 @@ export default function CreateAccount() {
 
     if (values.isUWA) {
       userData.student_number = values.student_number
+      userData.uni = "UWA"
     } else {
       userData.uni = values.uni
     }

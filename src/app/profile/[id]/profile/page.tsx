@@ -20,9 +20,14 @@ interface ProfilePageProps {
 
 const ProfilePage = ({ id, currentUser }: ProfilePageProps) => {
   const [isEditing, setIsEditing] = useState(false)
-
   const { data: user, refetch } = api.users.get.useQuery(id)
-  const universityLabel = user ? UNIVERSITIES.find((u) => u.value === user.university)?.label : undefined
+
+  let universityLabel: string | undefined
+  if (user && user.student_number && user.student_number.length > 0) {
+    universityLabel = "University of Western Australia"
+  } else {
+    universityLabel = user ? UNIVERSITIES.find((u) => u.value === user.university)?.label : undefined
+  }
 
   if (user) {
     return (
