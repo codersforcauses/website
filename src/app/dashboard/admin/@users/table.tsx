@@ -63,6 +63,7 @@ import { cn } from "~/lib/utils"
 import { type User } from "~/server/db/types"
 import { api } from "~/trpc/react"
 
+import ExportButton from "./export"
 import AddUserForm from "./form"
 
 type UserProps = Omit<User, "subscribe" | "square_customer_id" | "updatedAt">
@@ -399,6 +400,7 @@ const UserTable = ({ data, isRefetching, ...props }: UserTableProps) => {
                   })}
               </DropdownMenuContent>
             </DropdownMenu>
+            <ExportButton data={data} />
             <Button variant="secondary" disabled={isRefetching} onClick={props.refetch}>
               <span className={cn("material-symbols-sharp", isRefetching && "animate-spin")}>autorenew</span>
               <span className="ml-2 hidden sm:block">Sync{isRefetching && "ing"}</span>

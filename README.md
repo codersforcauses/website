@@ -14,6 +14,7 @@ Bootstrapped using the create-t3-app using:
 - [Drizzle ORM](https://orm.drizzle.team/docs/overview)
 - [Clerk authentication](https://clerk.com/docs)
 - [Vercel](https://vercel.com)
+- [Xata](https://app.xata.io)
 
 We use [pnpm](https://pnpm.io/) as the package manager for this project.
 
