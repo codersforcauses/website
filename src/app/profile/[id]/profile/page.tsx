@@ -23,10 +23,10 @@ const ProfilePage = ({ id, currentUser }: ProfilePageProps) => {
   const { data: user, refetch } = api.users.get.useQuery(id)
 
   let universityLabel: string | undefined
-  if (user && user.student_number && user.student_number.length > 0) {
+  if (user?.student_number?.length) {
     universityLabel = "University of Western Australia"
-  } else if (user && !UNIVERSITIES.find((u) => u.value === user.university) && user.university != "UWA") {
-    universityLabel = user.university ? user.university : undefined
+  } else if (!UNIVERSITIES.find((u) => u.value === user?.university) && user?.university !== "UWA") {
+    universityLabel = user?.university || undefined
   } else {
     universityLabel = user ? UNIVERSITIES.find((u) => u.value === user.university)?.label : undefined
   }
