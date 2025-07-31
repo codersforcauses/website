@@ -16,6 +16,12 @@ export const updateEmail = adminProcedure
     if (!user_data) {
       throw new TRPCError({ code: "NOT_FOUND", message: `User with email: ${input.oldEmail} does not exist` })
     }
+    const user_email_data = await ctx.db.query.User.findFirst({
+      where: eq(User.email, input.newEmail),
+    })
+    if (!user_email_data) {
+      throw new TRPCError({ code: "FORBIDDEN", message: `User with email: ${input.newEmail} already exist` })
+    }
     const user = await ctx.db.query.User.findFirst({
       where: eq(User.id, input.userId),
     })
