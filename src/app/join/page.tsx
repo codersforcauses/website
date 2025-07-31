@@ -80,10 +80,8 @@ export default function Join() {
         // careful of order
         await setActive({ session: res.createdSessionId }) // sets token from clerk
         await utils.users.getCurrent.refetch()
-        const { data: user, isLoading } = api.users.getCurrent.useQuery()
-        !isLoading && (user?.role === "admin" || user?.role === "committee")
-          ? router.push("/dashboard/admin")
-          : router.push("/dashboard")
+
+        router.push("/dashboard")
       }
     } catch (error) {
       const { errors = [] } = error as ClerkError
