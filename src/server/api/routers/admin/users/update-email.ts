@@ -19,7 +19,7 @@ export const updateEmail = adminProcedure
     const user_email_data = await ctx.db.query.User.findFirst({
       where: eq(User.email, input.newEmail),
     })
-    if (!user_email_data) {
+    if (user_email_data) {
       throw new TRPCError({ code: "FORBIDDEN", message: `User with email: ${input.newEmail} already exist` })
     }
     const user = await ctx.db.query.User.findFirst({
@@ -40,7 +40,7 @@ export const updateEmail = adminProcedure
     if (clerkUser.primaryEmailAddress?.emailAddress !== input.oldEmail.toLowerCase())
       throw new TRPCError({ code: "BAD_REQUEST", message: "Old email does not match" })
     try {
-      await updateClerkUserEmail(clerkUser.id, input.newEmail)
+      await updateClerkUserEmail(clerkUser.id, clerkUser.primaryEmailAddressId, input.newEmail)
       await ctx.db.update(User).set({ email: input.newEmail }).where(eq(User.id, input.userId))
     } catch (err) {
       console.error(err)
@@ -50,18 +50,12 @@ export const updateEmail = adminProcedure
     return user
   })
 
-const updateClerkUserEmail = async (userId: string, newEmailAddress: string) => {
+const updateClerkUserEmail = async (userId: string, oldEmailAddressId: string, newEmailAddress: string) => {
   await clerkClient().emailAddresses.createEmailAddress({
     userId,
     emailAddress: newEmailAddress,
     verified: true,
     primary: true,
   })
-  const user = await clerkClient().users.getUser(userId)
-  const primaryId = user.primaryEmailAddressId
-  const nonPrimaryEmails = user.emailAddresses.filter((email) => email.id !== primaryId)
-
-  for (const email of nonPrimaryEmails) {
-    await clerkClient().emailAddresses.deleteEmailAddress(email.id)
-  }
+  await clerkClient().emailAddresses.deleteEmailAddress(oldEmailAddressId)
 }
