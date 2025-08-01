@@ -534,8 +534,8 @@
     "url": "https://wajo.yunho.vip",
     "source": "https://github.com/codersforcauses/wajo",
     "impact": [
-      "Provides an online quizzes platform which helps identify the most gifted students in Mathematics.",
-      "Enables a way to manage participants easier."
+      "Provides an online quizzes platform which helps identify gifted students in Mathematics",
+      "Provides a platform for students to practice and improve their mathematical skills"
     ],
     "desc": "WAJO is an annual maths competition hosted by The University of Western Australia (UWA) in partnership with the Western Australia Mathematical Olympiad Committee (WA MOC). It’s designed for bright Year 8 and 9 students, and occasionally exceptional Year 7 students, to compete in challenging mathematical problems beyond the school curriculum.",
     "tech": [
