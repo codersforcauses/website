@@ -10,10 +10,21 @@ import { User } from "~/server/db/schema"
 export const updateEmail = adminProcedure
   .input(z.object({ userId: z.string(), oldEmail: z.string().email(), newEmail: z.string().email() }))
   .mutation(async ({ ctx, input }) => {
-    // TODO: check if old email is the same as the user's email in db
-
-    // TODO: wrap in a transaction
-    const [user] = await ctx.db.update(User).set({ email: input.newEmail }).where(eq(User.id, input.userId)).returning()
+    const user_data = await ctx.db.query.User.findFirst({
+      where: eq(User.email, input.oldEmail),
+    })
+    if (!user_data) {
+      throw new TRPCError({ code: "NOT_FOUND", message: `User with email: ${input.oldEmail} does not exist` })
+    }
+    const user_email_data = await ctx.db.query.User.findFirst({
+      where: eq(User.email, input.newEmail),
+    })
+    if (user_email_data) {
+      throw new TRPCError({ code: "FORBIDDEN", message: `User with email: ${input.newEmail} already exist` })
+    }
+    const user = await ctx.db.query.User.findFirst({
+      where: eq(User.id, input.userId),
+    })
     if (!user) {
       throw new TRPCError({ code: "NOT_FOUND", message: `User with id: ${input.userId} does not exist` })
     }
@@ -25,10 +36,12 @@ export const updateEmail = adminProcedure
         message: `Clerk user with id: ${input.userId} does not have a primary email address???`,
       })
 
-    if (clerkUser.primaryEmailAddress?.emailAddress !== input.oldEmail)
+    // Clerk will always return the lowercased email from its API
+    if (clerkUser.primaryEmailAddress?.emailAddress !== input.oldEmail.toLowerCase())
       throw new TRPCError({ code: "BAD_REQUEST", message: "Old email does not match" })
     try {
-      await updateDbUserEmail(clerkUser.id, clerkUser.primaryEmailAddressId, input.newEmail)
+      await updateClerkUserEmail(clerkUser.id, clerkUser.primaryEmailAddressId, input.newEmail)
+      await ctx.db.update(User).set({ email: input.newEmail }).where(eq(User.id, input.userId))
     } catch (err) {
       console.error(err)
       throw new TRPCError({ code: "INTERNAL_SERVER_ERROR", message: "Failed to update email" })
@@ -37,13 +50,12 @@ export const updateEmail = adminProcedure
     return user
   })
 
-const updateDbUserEmail = async (userId: string, oldEmailAddressId: string, newEmailAddress: string) => {
-  const res = await clerkClient().emailAddresses.createEmailAddress({
+const updateClerkUserEmail = async (userId: string, oldEmailAddressId: string, newEmailAddress: string) => {
+  await clerkClient().emailAddresses.createEmailAddress({
     userId,
     emailAddress: newEmailAddress,
     verified: true,
     primary: true,
   })
-  await db.update(User).set({ email: res.emailAddress }).where(eq(User.id, userId))
-  await clerkClient().emailAddresses.deleteEmailAddress(oldEmailAddressId) // cleanup
+  await clerkClient().emailAddresses.deleteEmailAddress(oldEmailAddressId)
 }
