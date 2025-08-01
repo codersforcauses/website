@@ -1,4 +1,5 @@
 import { bigint, boolean, index, pgEnum, pgTableCreator, timestamp, uuid, varchar } from "drizzle-orm/pg-core"
+import { invoicePaymentReminderSchema } from "square/dist/types/models/invoicePaymentReminder"
 import { v7 as uuidv7 } from "uuid"
 
 import { NAMED_ROLES } from "~/lib/constants"
@@ -39,6 +40,8 @@ export const User = pgTable(
       .$default(() => new Date())
       .notNull(),
     updatedAt: timestamp("updated_at").$onUpdate(() => new Date()),
+    // `reminder_sent` can only be "pending" or null. A Flag used to send reminders for membership renewal bc Resend can only send 100 emails per day
+    reminder_sent: varchar("reminder_sent", { length: 32 }),
   },
   (user) => [index("role_idx").on(user.role)],
 )
