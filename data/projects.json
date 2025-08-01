@@ -420,7 +420,7 @@
     "name": "Repair Lab",
     "client": "Repair Lab Perth",
     "type": "Web Application",
-    "date": "Dec 2023",
+    "date": "December 2023",
     "purl": "/projects/repair-lab",
     "url": "https://repair-labs.vercel.app/",
     "source": "https://github.com/codersforcauses/repair-lab",
@@ -481,7 +481,7 @@
     "name": "Blingo",
     "client": "Blue Crew Australia and Ocean Youth",
     "type": "Web Application",
-    "date": "Dec 2024",
+    "date": "December 2024",
     "purl": "/projects/blingo",
     "url": "https://blingo.com.au",
     "source": "https://github.com/codersforcauses/bluecrew",
@@ -518,6 +518,98 @@
       "Laine Mulvay",
       "Lauren Pudney",
       "Alex Hawking"
+    ]
+  },
+  {
+    "id": "wajo",
+    "icon": "devices",
+    "logo": "/clients/wajo_logo_light.svg",
+    "dark_logo": "/clients/wajo_logo_light.svg",
+    "img": "wajo.png",
+    "name": "WAJO",
+    "client": "Western Australian Junior mathematics Olympiad",
+    "type": "Web Application",
+    "date": "December 2024",
+    "purl": "/projects/wajo",
+    "url": "https://wajo.yunho.vip",
+    "source": "https://github.com/codersforcauses/wajo",
+    "impact": [
+      "Provides an online quizzes platform which helps identify gifted students in Mathematics",
+      "Provides a platform for students to practice and improve their mathematical skills"
+    ],
+    "desc": "WAJO is an annual maths competition hosted by The University of Western Australia (UWA) in partnership with the Western Australia Mathematical Olympiad Committee (WA MOC). It’s designed for bright Year 8 and 9 students, and occasionally exceptional Year 7 students, to compete in challenging mathematical problems beyond the school curriculum.",
+    "tech": [
+      { "name": "Django", "icon": "django" },
+      { "name": "Vercel", "icon": "vercel" },
+      { "name": "React.js", "icon": "react" },
+      { "name": "Next.js", "icon": "nextdotjs" },
+      { "name": "Typescript", "icon": "typescript" },
+      { "name": "Tailwind CSS", "icon": "tailwindcss" },
+      { "name": "Docker", "icon": "docker" }
+    ],
+    "members": [
+      "Juliana Salazar Franco",
+      "Yunho Ding",
+      "Aarif Lamat",
+      " Joel Raju ",
+      " Alan Lam ",
+      " Tang Fung Leung ",
+      " Joshua Chai ",
+      " Minn Khant (Scotty) Ma ",
+      " Yiu Xuan Lok ",
+      " Runlong Li ",
+      " Chloe Wu ",
+      " Erica Kong ",
+      " Philip Wu ",
+      " Alexandra Harrison ",
+      " Mingyu (Arthur) Lian ",
+      " Thomas Norton "
+    ]
+  },
+  {
+    "id": "robodrone",
+    "icon": "devices",
+    "logo": "/clients/aicode_logo.png",
+    "dark_logo": "/clients/aicode_logo.png",
+    "img": "robodrone.png",
+    "name": "Robodrone",
+    "client": "AICODE AUS",
+    "type": "Web Application",
+    "date": "July 2025",
+    "purl": "/projects/robodrone",
+    "url": "https://robodrone.codersforcauses.org",
+    "source": "https://github.com/codersforcauses/robodrone",
+    "impact": [
+      "Provides a platform that offers clear information about the event",
+      "Allow manual leaderboard updates during the competition"
+    ],
+    "desc": "The RoboPro World Youth Drone Tournament (WRCYDT) is the largest youth-focused drone competition in Australia, created to spark curiosity and excitement in STEM through hands-on drone experiences. ",
+    "tech": [
+      { "name": "Django", "icon": "django" },
+      { "name": "Vercel", "icon": "vercel" },
+      { "name": "React.js", "icon": "react" },
+      { "name": "Next.js", "icon": "nextdotjs" },
+      { "name": "Typescript", "icon": "typescript" },
+      { "name": "Tailwind CSS", "icon": "tailwindcss" },
+      { "name": "Docker", "icon": "docker" },
+      { "name": "Digital Ocean", "icon": "digitalocean" }
+    ],
+    "members": [
+      "Samuel Theodore",
+      " Joshua Chai ",
+      " Alisa Rose ",
+      " Joel Brooker ",
+      " Zihao Wang ",
+      " Zac Doruk Maslen ",
+      " Jason Aradea Yulfan ",
+      " Ekaterina Grabovskaya ",
+      " Zichen Zhang ",
+      " ANQI HUANG  ",
+      " Peitong Du ",
+      " Kushan Sanka Jayasekera  ",
+      " Kunyang (Olivia) Xie ",
+      " Jozelle Rebecca Manaay Almero ",
+      " Mandy Song Yue Yen "
     ]
   }
 ]
