@@ -71,12 +71,16 @@ export default function ProjectPage({ params: { id } }: { params: { id: string }
                 <div className="mt-2 grid grid-cols-2 gap-4 sm:max-w-max lg:hidden">
                   {data.url && (
                     <Button asChild variant="outline" className="w-full font-mono" size="lg">
-                      <Link href={data.url}>Visit website</Link>
+                      <Link href={data.url} target="_blank" rel="noopener noreferrer">
+                        Visit website
+                      </Link>
                     </Button>
                   )}
                   {data.source && (
                     <Button asChild variant="outline" className="w-full font-mono" size="lg">
-                      <Link href={data.source}>Visit source</Link>
+                      <Link href={data.source} target="_blank" rel="noopener noreferrer">
+                        Visit source
+                      </Link>
                     </Button>
                   )}
                 </div>
