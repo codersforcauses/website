@@ -66,7 +66,7 @@ import { api } from "~/trpc/react"
 import ExportButton from "./export"
 import AddUserForm from "./form"
 
-type UserProps = Omit<User, "subscribe" | "square_customer_id" | "updatedAt">
+type UserProps = Omit<User, "subscribe" | "square_customer_id" | "updatedAt" | "reminder_pending">
 
 export interface TableProps {
   data: Array<UserProps>

@@ -1,0 +1,1 @@
+ALTER TABLE "cfc-website_user" ADD COLUMN "reminder_pending" boolean DEFAULT false NOT NULL;
