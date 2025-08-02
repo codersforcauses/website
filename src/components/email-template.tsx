@@ -73,6 +73,7 @@ const title = {
     "'Open Sans', 'HelveticaNeue-Light', 'Helvetica Neue Light', 'Helvetica Neue', Helvetica, Arial, 'Lucida Grande', sans-serif",
   fontWeight: "600",
   color: "#000",
+  lineHeight: "36px",
   marginBottom: "20px",
 }
 const text = {
