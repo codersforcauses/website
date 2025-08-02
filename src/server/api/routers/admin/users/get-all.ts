@@ -9,6 +9,7 @@ export const getAll = adminProcedure.query(async ({ ctx }) => {
       subscribe: false,
       square_customer_id: false,
       updatedAt: false,
+      reminder_pending: false,
     },
     orderBy: [desc(User.createdAt), desc(User.id)],
   })
