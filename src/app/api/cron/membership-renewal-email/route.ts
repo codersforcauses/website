@@ -26,7 +26,7 @@ export async function GET(request: NextRequest) {
 
   await Sentry.withMonitor("reminder-memberships-renewal", async () => {
     try {
-      pendings = await db.select().from(User).where(eq(User.reminder_sent, "pending"))
+      pendings = await db.select().from(User).where(eq(User.reminder_pending, true))
       console.log(pendings.length)
     } catch (err) {
       Sentry.captureException(err)
@@ -49,14 +49,14 @@ export async function GET(request: NextRequest) {
           react: MembershipRenewalReminderEmail({}),
         })
 
-        await db.update(User).set({ reminder_sent: null }).where(eq(User.id, member.id))
+        await db.update(User).set({ reminder_pending: false }).where(eq(User.id, member.id))
       } catch (err) {
         console.error(`Failed to send email to ${member.email}`, err)
         Sentry.captureException(err, { extra: { memberId: member.id } })
       }
     }
     for (const member of pendings.slice(99)) {
-      await db.update(User).set({ reminder_sent: "pending" }).where(eq(User.id, member.id))
+      await db.update(User).set({ reminder_pending: false }).where(eq(User.id, member.id))
     }
     count = 99
   } else {
@@ -69,7 +69,7 @@ export async function GET(request: NextRequest) {
           react: MembershipRenewalReminderEmail({}),
         })
 
-        await db.update(User).set({ reminder_sent: null }).where(eq(User.id, member.id))
+        await db.update(User).set({ reminder_pending: false }).where(eq(User.id, member.id))
       } catch (err) {
         console.error(`Failed to send email to ${member.email}`, err)
         Sentry.captureException(err, { extra: { memberId: member.id } })

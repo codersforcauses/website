@@ -1,5 +1,5 @@
 {
-  "id": "c4a66ca9-7b47-46e2-a0f3-1397ac0ec0c8",
+  "id": "2f715dfd-3757-4d61-ab98-3c17785ff541",
   "prevId": "04057603-53f5-4702-8f49-43b73d6e423a",
   "version": "7",
   "dialect": "postgresql",
@@ -207,11 +207,12 @@
           "primaryKey": false,
           "notNull": false
         },
-        "reminder_sent": {
-          "name": "reminder_sent",
-          "type": "varchar(32)",
+        "reminder_pending": {
+          "name": "reminder_pending",
+          "type": "boolean",
           "primaryKey": false,
-          "notNull": false
+          "notNull": true,
+          "default": false
         }
       },
       "indexes": {

@@ -1,1 +1,0 @@
-ALTER TABLE "cfc-website_user" ADD COLUMN "reminder_sent" varchar(32);

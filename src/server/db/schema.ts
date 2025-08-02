@@ -40,8 +40,8 @@ export const User = pgTable(
       .$default(() => new Date())
       .notNull(),
     updatedAt: timestamp("updated_at").$onUpdate(() => new Date()),
-    // `reminder_sent` can only be "pending" or null. A Flag used to send reminders for membership renewal bc Resend can only send 100 emails per day
-    reminder_sent: varchar("reminder_sent", { length: 32 }),
+    // `reminder_pending` id a Flag used to send reminders for membership renewal bc Resend can only send 100 emails per day
+    reminder_pending: boolean("reminder_pending").default(false).notNull(),
   },
   (user) => [index("role_idx").on(user.role)],
 )
