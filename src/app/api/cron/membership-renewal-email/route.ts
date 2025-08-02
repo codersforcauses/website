@@ -63,10 +63,10 @@ export async function GET(request: NextRequest) {
     for (const member of pendings) {
       try {
         await resend.emails.send({
-          from: "Coders for Causes <send@codersforcauses.org>",
+          from: "Coders for Causes <noreply@codersforcauses.org>",
           to: member.email,
           subject: "Reminder of your membership renewal",
-          react: MembershipRenewalReminderEmail({}),
+          react: MembershipRenewalReminderEmail({ Firstname: member.preferred_name }),
         })
 
         await db.update(User).set({ reminder_pending: false }).where(eq(User.id, member.id))
