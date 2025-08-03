@@ -254,5 +254,21 @@
     },
     "location": "UWA EZONE",
     "desc": "Get industry level experience and skills by working on fun projects."
+  },
+  {
+    "slug": "hack_for_homes_2025",
+    "tags": ["competition"],
+    "title": "Hack For Homes 2025",
+    "image": {
+      "src": "/events/IMG_8679.webp",
+      "alt": "Hackthon poster "
+    },
+    "date": "28/08/25",
+    "time": {
+      "start": "9:00am",
+      "end": "5:00pm"
+    },
+    "location": "UWA EZONE",
+    "desc": "Find innovative solutions to current challenges and turn creative ideas into impactful projects. "
   }
 ]

@@ -52,16 +52,16 @@
     }
   },
   {
-    "name": "Jack Sun",
-    "position": "Technical Lead",
-    "about": "He/Him",
+    "name": "Erica Kong",
+    "position": "Tech Lead",
+    "about": "She/Her",
     "social": {
-      "email": "dev@codersforcauses.org",
-      "github": "https://github.com/jsun1590"
+      "email": "committee@codersforcauses.org",
+      "github": "https://github.com/ErikaKK"
     },
     "picture": {
-      "src": "/committee/jackdp_22.webp",
-      "alt": "CFC Tech Lead"
+      "src": "/committee/ericadp_25.jpg",
+      "alt": "CFC OCM"
     }
   },
   {
@@ -87,19 +87,6 @@
     },
     "picture": {
       "src": "/committee/tomdp_25.png",
-      "alt": "CFC OCM"
-    }
-  },
-  {
-    "name": "Erica Kong",
-    "position": "Ordinary Committee Member",
-    "about": "She/Her",
-    "social": {
-      "email": "committee@codersforcauses.org",
-      "github": "https://github.com/ErikaKK"
-    },
-    "picture": {
-      "src": "/committee/ericadp_25.jpg",
       "alt": "CFC OCM"
     }
   },
