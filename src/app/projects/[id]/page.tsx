@@ -27,7 +27,7 @@ const Impact = ({ impact, ...props }: { impact: string[]; className?: string }) 
     </ul>
   </div>
 )
-
+// TODO: need to add find from database
 export default function ProjectPage({ params: { id } }: { params: { id: string } }) {
   const data = projects.find((project) => id === project.id)
 
@@ -54,13 +54,13 @@ export default function ProjectPage({ params: { id } }: { params: { id: string }
           <div className="space-y-8 lg:mr-8">
             <div className="space-y-4">
               <h1 className="mb-6 font-mono text-4xl md:text-6xl">{data.name}</h1>
-              <div className="grid grid-cols-2 items-center font-mono lg:hidden">
+              <div className="grid grid-cols-2 items-center gap-3 font-mono lg:hidden">
                 <div className="flex items-center">
-                  <span className="material-icons-sharp mr-3 select-none">{data.icon}</span>
+                  <span className="material-symbols-sharp mr-2 select-none">{data.icon}</span>
                   {data.type}
                 </div>
                 <div className="flex items-center">
-                  <span className="material-icons-sharp mr-3 select-none" title="Start Date">
+                  <span className="material-symbols-sharp mr-2 select-none" title="Start Date">
                     date_range
                   </span>
                   {data.date}
@@ -103,7 +103,7 @@ export default function ProjectPage({ params: { id } }: { params: { id: string }
           <div className="hidden w-full max-w-xs space-y-8 lg:block">
             <div className="space-y-4 font-mono">
               <div className="flex items-center">
-                <span className="material-symbols-sharp mr-3 select-none">devices</span>
+                <span className="material-symbols-sharp mr-3 select-none">{data.icon}</span>
                 {data.type}
               </div>
               <div className="flex items-center">
