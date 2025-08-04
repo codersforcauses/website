@@ -10,7 +10,7 @@ const GenderDistribution = async () => {
   const gender = await api.admin.analytics.getGenderStatistics.query()
 
   return (
-    <div className="col-span-2 border bg-card text-card-foreground">
+    <div className=" md:col-span-2 border bg-card text-card-foreground">
       <div className="flex flex-row items-center justify-between space-y-0 p-6 pb-2">
         <h3 className="text-sm font-medium tracking-tight">Gender distribution</h3>
       </div>
