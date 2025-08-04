@@ -265,10 +265,10 @@
     },
     "date": "28/08/25",
     "time": {
-      "start": "9:00am",
-      "end": "5:00pm"
+      "start": "5:00pm",
+      "end": "11:59pm"
     },
-    "location": "UWA EZONE",
-    "desc": "Find innovative solutions to current challenges and turn creative ideas into impactful projects. "
+    "location": "Bloom Innovation Space, St Catherine's College UWA Campus ",
+    "desc": "Bringing together some of Perth's most talented student developers to tackle real-world problems over four intensive days."
   }
 ]
