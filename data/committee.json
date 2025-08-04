@@ -52,16 +52,16 @@
     }
   },
   {
-    "name": "Jack Sun",
-    "position": "Technical Lead",
-    "about": "He/Him",
+    "name": "Erica Kong",
+    "position": "Tech Lead",
+    "about": "She/Her",
     "social": {
-      "email": "dev@codersforcauses.org",
-      "github": "https://github.com/jsun1590"
+      "email": "committee@codersforcauses.org",
+      "github": "https://github.com/ErikaKK"
     },
     "picture": {
-      "src": "/committee/jackdp_22.webp",
-      "alt": "CFC Tech Lead"
+      "src": "/committee/ericadp_25.jpg",
+      "alt": "CFC OCM"
     }
   },
   {
@@ -87,19 +87,6 @@
     },
     "picture": {
       "src": "/committee/tomdp_25.png",
-      "alt": "CFC OCM"
-    }
-  },
-  {
-    "name": "Erica Kong",
-    "position": "Ordinary Committee Member",
-    "about": "She/Her",
-    "social": {
-      "email": "committee@codersforcauses.org",
-      "github": "https://github.com/ErikaKK"
-    },
-    "picture": {
-      "src": "/committee/ericadp_25.jpg",
       "alt": "CFC OCM"
     }
   },
@@ -143,15 +130,28 @@
     }
   },
   {
-    "name": "Samuel Theodore",
+    "name": "James Lee",
     "position": "Ordinary Committee Member",
     "about": "He/Him",
     "social": {
       "email": "committee@codersforcauses.org",
-      "github": "https://github.com/samueltl21"
+      "github": "https://github.com/SafetyInObscurity"
     },
     "picture": {
-      "src": "/committee/samdp_25.jpg",
+      "src": "/committee/jamesdp_25.webp",
+      "alt": "CFC OCM"
+    }
+  },
+  {
+    "name": "Samuel Jackson",
+    "position": "Ordinary Committee Member",
+    "about": "He/Him",
+    "social": {
+      "email": "committee@codersforcauses.org",
+      "github": "https://github.com/samjjacko"
+    },
+    "picture": {
+      "src": "/committee/samjdp_25.jpg",
       "alt": "CFC OCM"
     }
   },

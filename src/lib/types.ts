@@ -41,6 +41,7 @@ export interface Event {
     start: string
     end: string
   }
+  link?: string
   location: string
   desc: string
   type?: "workshop" | "industry night" | "social event"
@@ -48,3 +49,18 @@ export interface Event {
 }
 
 export type IconKey = keyof typeof iconMap
+
+export interface Agenda {
+  id: number
+  title: string
+  day: "Friday" | "Saturday" | "Sunday"
+  start: string
+  end: string
+}
+
+export interface Participant {
+  id: number
+  name: string
+  role: "Judge" | "Mentor"
+  description: string
+}
