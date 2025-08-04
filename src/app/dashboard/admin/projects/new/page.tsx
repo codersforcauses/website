@@ -2,6 +2,7 @@
 
 import { zodResolver } from "@hookform/resolvers/zod"
 import { format } from "date-fns"
+import { date } from "drizzle-orm/mysql-core"
 import { useFieldArray, useForm, useFormContext } from "react-hook-form"
 import * as simpleIcons from "simple-icons"
 import * as z from "zod"
@@ -60,12 +61,17 @@ const formSchema = z.object({
 type FormSchema = z.infer<typeof formSchema>
 
 const defaultValues = {
+  icon: "devices",
+  logo: "",
+  dark_logo: "",
+  img: "", // img url. The image need to be uploaded in the `/public` folder
   name: "",
-  slug: "",
-  description: "",
+  client: "",
   type: "website",
+  date: "",
   source: "",
-  link: "",
+  url: "",
+  desc: "",
   impact: [
     {
       value: "",
@@ -83,6 +89,7 @@ const defaultValues = {
       value: "",
     },
   ],
+  is_public: false,
 }
 
 const ImpactForm = () => {
