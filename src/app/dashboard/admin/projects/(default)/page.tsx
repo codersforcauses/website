@@ -28,7 +28,7 @@ export const metadata: Metadata = {
 
 export default function ProjectsPage() {
   return (
-    <div className="md:ml-4">
+    <>
       <div className="my-4">
         <Link href={"admin/project/new"}>
           <Button>Create New Project</Button>
@@ -43,6 +43,6 @@ export default function ProjectsPage() {
           </div>
         </div>
       </div>
-    </div>
+    </>
   )
 }
