@@ -35,14 +35,19 @@ export default function ProjectPage({ params: { id } }: { params: { id: string }
 
   return (
     <main className="main">
-      <div className="relative bg-black py-32 md:py-48">
-        <Image
-          alt={`An image of the front page of ${data.name}`}
-          src={`/projects/${data.img}`}
-          layout="fill"
-          objectFit="contain"
-        />
-      </div>
+      {data.img ? (
+        <div className="relative bg-black py-32 md:py-48">
+          <Image
+            alt={`An image of the front page of ${data.name}`}
+            src={`/projects/${data.img}`}
+            layout="fill"
+            objectFit="contain"
+          />
+        </div>
+      ) : (
+        <></>
+      )}
+
       <div className="py-12">
         <nav className="container mx-auto mb-4 flex px-3 text-sm">
           <Link href="/projects">

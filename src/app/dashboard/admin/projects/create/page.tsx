@@ -5,11 +5,13 @@ import { format } from "date-fns"
 import { date } from "drizzle-orm/mysql-core"
 import { useFieldArray, useForm, useFormContext } from "react-hook-form"
 import * as simpleIcons from "simple-icons"
+import { cli } from "webpack"
 import * as z from "zod"
 
 import { Badge } from "~/components/ui/badge"
 import { Button } from "~/components/ui/button"
 import { Calendar } from "~/components/ui/calendar"
+import { Checkbox } from "~/components/ui/checkbox"
 import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem } from "~/components/ui/command"
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "~/components/ui/form"
 import { Input } from "~/components/ui/input"
@@ -23,13 +25,17 @@ const formSchema = z.object({
   name: z.string().min(2, {
     message: "Name is required.",
   }),
-  slug: z.string().min(2, {
-    message: "Slug is required.",
+  client: z.string().min(2, {
+    message: "Client is required.",
+  }),
+  logo: z.string().min(2, {
+    message: "Logo is required.",
   }),
   description: z.string().min(10, {
     message: "Description is required.",
   }),
-  type: z.string().optional(),
+  img: z.string().optional(),
+  type: z.string(),
   completion_date: z.date().optional(),
   source: z.string().optional(),
   link: z.string().optional(),
@@ -56,14 +62,13 @@ const formSchema = z.object({
       }),
     )
     .optional(),
+  is_public: z.boolean().optional(),
 })
 
 type FormSchema = z.infer<typeof formSchema>
 
 const defaultValues = {
-  icon: "devices",
   logo: "",
-  dark_logo: "",
   img: "", // img url. The image need to be uploaded in the `/public` folder
   name: "",
   client: "",
@@ -333,161 +338,175 @@ export default function Register() {
   }
 
   return (
-    <main className="main">
-      <div className="container py-8">
-        <h1>Create project</h1>
-        <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-            <FormField
-              control={form.control}
-              name="name"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel className="font-mono">Name</FormLabel>
-                  <FormControl>
-                    <Input placeholder="Coders for causes website" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="slug"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel className="font-mono">Project slug</FormLabel>
-                  <FormControl>
-                    <Input placeholder="cfc" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="description"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel className="font-mono">Description</FormLabel>
-                  <FormControl>
-                    <Textarea placeholder="A website for cfc members to register" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="type"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel className="font-mono">Project type</FormLabel>
-                  <FormControl>
-                    <RadioGroup
-                      onValueChange={field.onChange}
-                      defaultValue={field.value}
-                      className="flex flex-col space-y-1"
-                    >
-                      <FormItem className="flex items-center space-x-3 space-y-0">
-                        <FormControl>
-                          <RadioGroupItem value="app" />
-                        </FormControl>
-                        <FormLabel className="font-normal">Mobile application</FormLabel>
-                      </FormItem>
-                      <FormItem className="flex items-center space-x-3 space-y-0">
-                        <FormControl>
-                          <RadioGroupItem value="website" />
-                        </FormControl>
-                        <FormLabel className="font-normal">Website</FormLabel>
-                      </FormItem>
-                      <FormItem className="flex items-center space-x-3 space-y-0">
-                        <FormControl>
-                          <RadioGroupItem value="webapp" />
-                        </FormControl>
-                        <FormLabel className="font-normal">Progressive Web App (PWA)</FormLabel>
-                      </FormItem>
-                    </RadioGroup>
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="completion_date"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel className="font-mono">Expected completion date</FormLabel>
-                  <Popover>
-                    <PopoverTrigger asChild>
-                      <FormControl>
-                        <Button
-                          type="button"
-                          variant="outline"
-                          className={cn("w-full pl-3 text-left font-normal", !field.value && "text-muted-foreground")}
-                        >
-                          {field.value ? format(field.value, "PPP") : <span>Pick a date</span>}
-                          <span className="material-symbols-sharp ml-auto h-6 w-6 opacity-50">date_range</span>
-                        </Button>
-                      </FormControl>
-                    </PopoverTrigger>
-                    <PopoverContent className="w-auto p-0" align="start">
-                      <Calendar
-                        mode="single"
-                        selected={field.value}
-                        onSelect={field.onChange}
-                        disabled={(date) => date < new Date("2020-01-01")}
-                        initialFocus
-                      />
-                    </PopoverContent>
-                  </Popover>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="source"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel className="font-mono">Source code</FormLabel>
-                  <FormControl>
-                    <Input type="url" placeholder="https://github.com/codersforcauses" {...field} />
-                  </FormControl>
-                  <FormDescription>Link to source code</FormDescription>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="link"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel className="font-mono">Project link</FormLabel>
-                  <FormControl>
-                    <Input type="url" placeholder="https://codersforcauses.org" {...field} />
-                  </FormControl>
-                  <FormDescription>Link to project website/app</FormDescription>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <ImpactForm />
-            <TechForm />
-            <MembersForm />
-            <div className="flex flex-row-reverse justify-between">
-              <Button type="submit" size="lg">
-                Submit
-              </Button>
-              <Button variant="ghost" type="button">
-                Cancel
-              </Button>
-            </div>
-          </form>
-        </Form>
+    <div className="container ">
+      <div className="flex h-[50px] items-center p-1">
+        <h2 className="text-2xl font-semibold">Create New Project</h2>
       </div>
-    </main>
+      <Form {...form}>
+        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+          <FormField
+            control={form.control}
+            name="name"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel className="font-mono">Name</FormLabel>
+                <FormControl>
+                  <Input placeholder="Coders for causes website" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="client"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel className="font-mono">Client</FormLabel>
+                <FormControl>
+                  <Input placeholder="cfc" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="description"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel className="font-mono">Description</FormLabel>
+                <FormControl>
+                  <Textarea placeholder="A website for cfc members to register" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="type"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel className="font-mono">Project type</FormLabel>
+                <FormControl>
+                  <RadioGroup
+                    onValueChange={field.onChange}
+                    defaultValue={field.value}
+                    className="flex flex-col space-y-1"
+                  >
+                    <FormItem className="flex items-center space-x-3 space-y-0">
+                      <FormControl>
+                        <RadioGroupItem value="app" />
+                      </FormControl>
+                      <FormLabel className="font-normal">Mobile application</FormLabel>
+                    </FormItem>
+                    <FormItem className="flex items-center space-x-3 space-y-0">
+                      <FormControl>
+                        <RadioGroupItem value="website" />
+                      </FormControl>
+                      <FormLabel className="font-normal">Website</FormLabel>
+                    </FormItem>
+                    <FormItem className="flex items-center space-x-3 space-y-0">
+                      <FormControl>
+                        <RadioGroupItem value="webapp" />
+                      </FormControl>
+                      <FormLabel className="font-normal">Progressive Web App (PWA)</FormLabel>
+                    </FormItem>
+                  </RadioGroup>
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="completion_date"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel className="font-mono">Expected completion date</FormLabel>
+                <Popover>
+                  <PopoverTrigger asChild>
+                    <FormControl>
+                      <Button
+                        type="button"
+                        variant="outline"
+                        className={cn("w-full pl-3 text-left font-normal", !field.value && "text-muted-foreground")}
+                      >
+                        {field.value ? format(field.value, "PPP") : <span>Pick a date</span>}
+                        <span className="material-symbols-sharp ml-auto h-6 w-6 opacity-50">date_range</span>
+                      </Button>
+                    </FormControl>
+                  </PopoverTrigger>
+                  <PopoverContent className="w-auto p-0" align="start">
+                    <Calendar
+                      mode="single"
+                      selected={field.value}
+                      onSelect={field.onChange}
+                      disabled={(date) => date < new Date("2020-01-01")}
+                      initialFocus
+                    />
+                  </PopoverContent>
+                </Popover>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="source"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel className="font-mono">Source code</FormLabel>
+                <FormControl>
+                  <Input type="url" placeholder="https://github.com/codersforcauses" {...field} />
+                </FormControl>
+                <FormDescription>Link to source code</FormDescription>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="link"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel className="font-mono">Project link</FormLabel>
+                <FormControl>
+                  <Input type="url" placeholder="https://codersforcauses.org" {...field} />
+                </FormControl>
+                <FormDescription>Link to project website/app</FormDescription>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <ImpactForm />
+          <TechForm />
+          <MembersForm />
+          <FormField
+            control={form.control}
+            name="is_public"
+            render={({ field }) => (
+              <FormItem className="flex flex-row items-center space-x-3 space-y-0">
+                <FormLabel className="font-mono">Make this project public?</FormLabel>
+                <FormControl>
+                  <Checkbox checked={field.value} onCheckedChange={field.onChange} />
+                </FormControl>
+                <FormDescription>Public means everyone can see it</FormDescription>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <div className="flex flex-row-reverse justify-between">
+            <Button type="submit" size="lg">
+              Submit
+            </Button>
+            <Button variant="ghost" type="button">
+              Cancel
+            </Button>
+          </div>
+        </form>
+      </Form>
+    </div>
   )
 }
