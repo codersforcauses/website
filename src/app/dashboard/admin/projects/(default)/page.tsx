@@ -30,7 +30,7 @@ export default function ProjectsPage() {
   return (
     <>
       <div className="my-4">
-        <Link href={"admin/project/new"}>
+        <Link href={"/dashboard/admin/projects/create"}>
           <Button>Create New Project</Button>
         </Link>
       </div>

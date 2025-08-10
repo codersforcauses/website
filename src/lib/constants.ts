@@ -72,3 +72,7 @@ export const iconMap: Record<string, string> = {
   clerk: SimpleIcons.siClerk.path,
   docker: SimpleIcons.siDocker.path,
 }
+
+export const PROJECT_ICONS = ["devices", "computer", "mobile"] as const
+
+export const PROJECT_TYPES = ["Mobile application", "Progressive Web App (PWA)", "Website"] as const
