@@ -1,4 +1,7 @@
+"use client"
+
 import Link from "next/link"
+import { usePathname } from "next/navigation"
 
 import { Button } from "~/components/ui/button"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "~/components/ui/dropdown-menu"
@@ -25,9 +28,17 @@ const links: Array<HeaderItem> = [
     text: "Workshops",
     isExternal: true,
   },
+  {
+    href: "/merch",
+    text: "Merch",
+    isExternal: false,
+  },
 ]
 
 const Header = async () => {
+  const pathname = usePathname()
+  const currentPath = pathname.split("/")[1] || null
+
   return (
     <header className="container fixed inset-x-0 top-2 z-30">
       <div className="-mx-1.5 flex items-center justify-between bg-black p-1.5">
@@ -43,7 +54,11 @@ const Header = async () => {
                 <div className="border border-white/25 bg-black px-2 py-1 text-white">
                   {links.map(({ text, href, isExternal = false }) => (
                     <DropdownMenuItem asChild key={text} className="focus:bg-white/20 focus:text-white">
-                      <Link href={href} target={isExternal ? "_blank" : undefined}>
+                      <Link
+                        href={href}
+                        target={isExternal ? "_blank" : undefined}
+                        className={`${currentPath === href.split("/")[1] ? "text-alt-accent" : "text-neutral-50"}`}
+                      >
                         {text}
                       </Link>
                     </DropdownMenuItem>
@@ -64,7 +79,11 @@ const Header = async () => {
             {links.map(({ text, href, isExternal = false }) => (
               <li key={text}>
                 <Button asChild variant="link-dark">
-                  <Link href={href} target={isExternal ? "_blank" : undefined}>
+                  <Link
+                    href={href}
+                    target={isExternal ? "_blank" : undefined}
+                    className={`${currentPath === href.split("/")[1] ? "text-alt-accent" : "text-neutral-50"}`}
+                  >
                     {text}
                   </Link>
                 </Button>

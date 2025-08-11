@@ -1,0 +1,9 @@
+[
+  {
+    "image": "/merch/merch1.png",
+    "name": "T-Shirt",
+    "price": 19.99,
+    "sizes": ["S", "M", "L", "XL"],
+    "isWishlisted": true
+  }
+]
