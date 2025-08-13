@@ -1,5 +1,5 @@
 {
-  "id": "5c9cebb4-05ab-4b1e-9d69-42700b1842cc",
+  "id": "8ce50367-cb81-4dfe-97fa-0efeb2817023",
   "prevId": "2f715dfd-3757-4d61-ab98-3c17785ff541",
   "version": "7",
   "dialect": "postgresql",
@@ -123,19 +123,19 @@
         },
         "icon": {
           "name": "icon",
-          "type": "type",
+          "type": "icon",
           "typeSchema": "public",
           "primaryKey": false,
           "notNull": true
         },
-        "logo": {
-          "name": "logo",
+        "logo_path": {
+          "name": "logo_path",
           "type": "varchar(256)",
           "primaryKey": false,
           "notNull": true
         },
-        "img": {
-          "name": "img",
+        "img_path": {
+          "name": "img_path",
           "type": "varchar(256)",
           "primaryKey": false,
           "notNull": false
@@ -152,6 +152,13 @@
           "primaryKey": false,
           "notNull": true
         },
+        "type": {
+          "name": "type",
+          "type": "type",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": true
+        },
         "start_date": {
           "name": "start_date",
           "type": "timestamp",
@@ -164,14 +171,14 @@
           "primaryKey": false,
           "notNull": false
         },
-        "url": {
-          "name": "url",
+        "website_url": {
+          "name": "website_url",
           "type": "varchar(256)",
           "primaryKey": false,
           "notNull": false
         },
-        "source": {
-          "name": "source",
+        "github_url": {
+          "name": "github_url",
           "type": "varchar(256)",
           "primaryKey": false,
           "notNull": false
@@ -180,22 +187,22 @@
           "name": "impact",
           "type": "varchar(1024)[]",
           "primaryKey": false,
-          "notNull": true
+          "notNull": false
         },
-        "desc": {
-          "name": "desc",
-          "type": "varchar(2048)",
+        "description": {
+          "name": "description",
+          "type": "varchar(256)",
           "primaryKey": false,
           "notNull": true
         },
         "tech": {
           "name": "tech",
-          "type": "varchar(256)[]",
+          "type": "jsonb",
           "primaryKey": false,
-          "notNull": true
+          "notNull": false
         },
-        "is_receiving_application": {
-          "name": "is_receiving_application",
+        "is_application_open": {
+          "name": "is_application_open",
           "type": "boolean",
           "primaryKey": false,
           "notNull": true,
@@ -207,8 +214,8 @@
           "primaryKey": false,
           "notNull": false
         },
-        "is_archived": {
-          "name": "is_archived",
+        "is_public": {
+          "name": "is_public",
           "type": "boolean",
           "primaryKey": false,
           "notNull": true,
@@ -224,7 +231,7 @@
           "name": "updated_at",
           "type": "timestamp",
           "primaryKey": false,
-          "notNull": true
+          "notNull": false
         }
       },
       "indexes": {
@@ -246,7 +253,15 @@
       },
       "foreignKeys": {},
       "compositePrimaryKeys": {},
-      "uniqueConstraints": {},
+      "uniqueConstraints": {
+        "cfc-website_project_name_unique": {
+          "name": "cfc-website_project_name_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "name"
+          ]
+        }
+      },
       "policies": {},
       "checkConstraints": {},
       "isRLSEnabled": false
@@ -273,8 +288,8 @@
           "primaryKey": false,
           "notNull": false
         },
-        "joined_at": {
-          "name": "joined_at",
+        "created_at": {
+          "name": "created_at",
           "type": "timestamp",
           "primaryKey": false,
           "notNull": true

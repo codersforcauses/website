@@ -1,4 +1,5 @@
-import { bigint, boolean, index, pgEnum, pgTableCreator, timestamp, uuid, varchar } from "drizzle-orm/pg-core"
+import { bigint, boolean, index, jsonb, pgEnum, pgTableCreator, timestamp, uuid, varchar } from "drizzle-orm/pg-core"
+import { createInsertSchema, createSelectSchema } from "drizzle-zod"
 import { invoicePaymentReminderSchema } from "square/dist/types/models/invoicePaymentReminder"
 import { v7 as uuidv7 } from "uuid"
 
@@ -71,6 +72,11 @@ export const Payment = pgTable(
 
 export const iconEnum = pgEnum("icon", PROJECT_ICONS)
 export const typeEnum = pgEnum("type", PROJECT_TYPES)
+type TechItem = {
+  label: string
+  value: string
+  path: string
+}
 
 // TODO: add view for project members
 // for projects
@@ -80,32 +86,31 @@ export const Project = pgTable(
     id: uuid("id")
       .primaryKey()
       .$defaultFn(() => uuidv7()),
-    icon: iconEnum("icon").notNull(), // icon for the types of project
-    logo: varchar("logo", { length: 256 }).notNull(),
-    img: varchar("img", { length: 256 }),
-    name: varchar("name", { length: 256 }).notNull(),
+    icon: iconEnum("icon").notNull(), // icon for the types of project, auto created and updated. depends on the type
+    logo_path: varchar("logo_path", { length: 256 }).notNull(),
+    img_path: varchar("img_path", { length: 256 }),
+    name: varchar("name", { length: 256 }).notNull().unique(),
     client: varchar("client", { length: 256 }).notNull(),
-    type: typeEnum("icon").notNull(), // e.g. Mobile application, PWA, Website
-    start_date: timestamp("start_date").$default(() => new Date()), // start_date in the form
-    end_date: timestamp("end_date").$default(() => new Date()), // end_date in the form
-    website_url: varchar("url", { length: 256 }), // link in the form
-    source: varchar("source", { length: 256 }), // source code link
-    impact: varchar("impact", { length: 1024 }).array().notNull(), // impact of the project, <string>[]
-    desc: varchar("desc", { length: 2048 }).notNull(), // description of the project
-    tech: varchar("tech", { length: 256 }).array().notNull(), // technologies used in the project, <string>[]
-    is_receiving_application: boolean("is_receiving_application").default(false).notNull(), // whether the project is receiving applications or not
+    type: typeEnum("type").notNull(), // e.g. Mobile application, PWA, Website
+    start_date: timestamp("start_date"), // start_date in the form
+    end_date: timestamp("end_date"), // end_date in the form
+    website_url: varchar("website_url", { length: 256 }), // link in the form
+    github_url: varchar("github_url", { length: 256 }), // source code link
+    impact: varchar("impact", { length: 1024 }).array(), // impact of the project, <string>[]
+    description: varchar("description", { length: 256 }).notNull(), // description of the project
+    tech: jsonb("tech").$type<TechItem[]>(), // technologies used in the project, <string>[]
+    is_application_open: boolean("is_application_open").default(false).notNull(), // whether the project is receiving applications or not
     application_url: varchar("application_url", { length: 256 }), // link to the application form
-    is_archived: boolean("is_archived").default(false).notNull(), // archived projects means they are visible on projects page
+    is_public: boolean("is_public").default(false).notNull(), //  means they are visible on projects page
     createdAt: timestamp("created_at")
       .$default(() => new Date())
       .notNull(),
-    updatedAt: timestamp("updated_at")
-      .$onUpdate(() => new Date())
-      .notNull(),
+    updatedAt: timestamp("updated_at").$onUpdate(() => new Date()),
   },
   (project) => [index("name_idx").on(project.name)],
 )
-
+export const insertProjectSchema = createInsertSchema(Project)
+export const selectProjectSchema = createSelectSchema(Project)
 // for project members
 export const ProjectMember = pgTable(
   "project_member",
@@ -115,7 +120,7 @@ export const ProjectMember = pgTable(
       .$defaultFn(() => uuidv7()),
     project_id: uuid("project_id").references(() => Project.id, { onDelete: "cascade", onUpdate: "cascade" }),
     user_id: uuid("user_id").references(() => User.id, { onDelete: "cascade", onUpdate: "cascade" }),
-    joinedAt: timestamp("joined_at")
+    createdAt: timestamp("created_at")
       .$default(() => new Date())
       .notNull(),
   },

@@ -1,0 +1,84 @@
+import { z } from "zod"
+
+import { PROJECT_ICONS, PROJECT_TYPES } from "~/lib/constants"
+import { adminProcedure } from "~/server/api/trpc"
+import { Project } from "~/server/db/schema"
+import { insertProjectSchema } from "~/server/db/schema"
+
+type ProjectIcon = (typeof PROJECT_ICONS)[number]
+
+export const create = adminProcedure
+  .input(
+    z.object({
+      logo_path: z
+        .string()
+        .min(2, {
+          message: "Project logo_path url is required",
+        })
+        .trim(),
+      img_path: z.string().trim().optional(),
+
+      name: z
+        .string()
+        .min(2, {
+          message: "Name is required",
+        })
+        .trim(),
+      client: z
+        .string()
+        .min(2, {
+          message: "Client name is required",
+        })
+        .trim(),
+      type: z.enum(PROJECT_TYPES),
+      start_date: z.date().optional(),
+      end_date: z.date().optional(),
+      website_url: z.string().trim().optional(),
+      github_url: z.string().trim().optional(),
+      description: z.string().trim(),
+      tech: z
+        .array(
+          z.object({
+            label: z.string(),
+            value: z.string(),
+            path: z.string(),
+          }),
+        )
+        .optional(),
+      impact: z.string().array().optional(),
+      is_application_open: z.boolean().default(false),
+      application_url: z.string().trim().optional(),
+      is_public: z.boolean().default(false),
+    }),
+  )
+  .mutation(async ({ ctx, input }) => {
+    let icon: ProjectIcon = "devices" // default "devices"
+    if (input.type === "Mobile application") {
+      icon = "mobile"
+    } else if (input.type === "Website") {
+      icon = "computer"
+    }
+    const [project] = await ctx.db
+      .insert(Project)
+      .values({
+        icon: icon, // default to website icon if not specified
+        logo_path: input.logo_path,
+        img_path: input.img_path,
+        name: input.name,
+        client: input.client,
+        type: input.type,
+        start_date: input.start_date,
+        end_date: input.end_date,
+        website_url: input.website_url,
+        github_url: input.github_url,
+        description: input.description,
+        tech: input.tech,
+        impact: input.impact,
+        is_application_open: input.is_application_open,
+        application_url: input.application_url,
+        is_public: input.is_public,
+      })
+      .returning()
+
+    return project
+  })
