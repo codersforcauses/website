@@ -4,6 +4,8 @@ import { useTheme } from "next-themes"
 import Image from "next/image"
 import Link from "next/link"
 
+import type { Project, ProjectMember } from "~/server/db/types"
+
 import type { ProjectModel } from "../types"
 
 interface ProjectCardProps {
@@ -19,6 +21,29 @@ const Card = ({ project }: ProjectCardProps) => {
           <Image
             src={theme === "dark" ? project.dark_logo : project.logo}
             alt={project.client}
+            fill
+            className="object-contain object-center p-6"
+          />
+          <div className="absolute left-0 top-0 flex size-full items-center justify-center bg-black opacity-0 transition-opacity duration-300 hover:opacity-90">
+            <p className="w-3/4 text-center font-mono text-white">{project.name}</p>
+          </div>
+        </div>
+      </Link>
+    </div>
+  )
+}
+interface DBProjectCardProps {
+  project: { name: string; logo_path: string; is_public: boolean }
+}
+
+export const DBProjectCard = ({ project }: DBProjectCardProps) => {
+  return (
+    <div className="relative aspect-square border border-black/25 hover:cursor-pointer dark:border-white/25">
+      <Link href={`Projects/${project.name}`}>
+        <div className="relative h-full flex-grow">
+          <Image
+            src={project.logo_path}
+            alt={`Client Logo of ${project.name}`}
             fill
             className="object-contain object-center p-6"
           />

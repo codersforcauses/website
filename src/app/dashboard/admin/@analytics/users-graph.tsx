@@ -10,7 +10,7 @@ const UsersGraph = async () => {
   const userCount = await api.admin.analytics.getUsersPerDay.query()
 
   return (
-    <div className="md:col-span-3 border bg-card text-card-foreground">
+    <div className="sm:col-span-2 border bg-card text-card-foreground">
       <div className="flex flex-row items-center justify-between space-y-0 p-6 pb-2">
         <h3 className="text-sm font-medium tracking-tight">Sign-ups per day</h3>
       </div>

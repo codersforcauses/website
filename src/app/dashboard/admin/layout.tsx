@@ -19,9 +19,6 @@ interface AdminDashLayoutProps extends PropsWithChildren {
 }
 
 const Layout = ({ children, ...props }: AdminDashLayoutProps) => {
-  const sidebarRef = React.useRef<ImperativePanelHandle>(null)
-  const [collapsed, setCollapsed] = React.useState(false)
-
   const sidebarItems = [
     { text: "Users", icon: "group", component: props.users },
     { text: "Projects", icon: "devices", component: props.projects },
@@ -39,7 +36,7 @@ const Layout = ({ children, ...props }: AdminDashLayoutProps) => {
               <div className="grid size-[42px] min-w-[42px] place-items-center bg-black font-mono font-semibold text-white dark:bg-white dark:text-black">
                 cfc
               </div>
-              <h1 className="ml-2 font-mono font-bold leading-tight text-black">Admin Dashboard</h1>
+              <h1 className="hidden md:block ml-2 font-mono font-bold leading-tight text-black">Admin Dashboard</h1>
             </div>
             {sidebarItems.map(({ text, icon }) => (
               <TabsTrigger
@@ -53,6 +50,13 @@ const Layout = ({ children, ...props }: AdminDashLayoutProps) => {
             ))}
           </div>
         </TabsList>
+        <div className="flex-grow py-8 md:px-8 md:py-0">
+          {sidebarItems.map(({ text, component }) => (
+            <TabsContent key={text} value={text} className="mt-0">
+              {component}
+            </TabsContent>
+          ))}
+        </div>
       </Tabs>
       {children}
     </main>
