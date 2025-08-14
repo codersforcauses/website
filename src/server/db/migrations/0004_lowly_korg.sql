@@ -2,7 +2,7 @@ CREATE TYPE "public"."icon" AS ENUM('devices', 'computer', 'mobile');--> stateme
 CREATE TYPE "public"."type" AS ENUM('Mobile application', 'Progressive Web App (PWA)', 'Website');--> statement-breakpoint
 CREATE TABLE "cfc-website_project" (
 	"id" uuid PRIMARY KEY NOT NULL,
-	"icon" "icon" NOT NULL,
+	"icon" "icon",
 	"logo_path" varchar(256) NOT NULL,
 	"img_path" varchar(256),
 	"name" varchar(256) NOT NULL,

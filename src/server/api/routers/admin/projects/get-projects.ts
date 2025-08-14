@@ -3,7 +3,7 @@ import { desc } from "drizzle-orm"
 import { adminProcedure } from "~/server/api/trpc"
 import { Project } from "~/server/db/schema"
 
-export const getAll = adminProcedure.query(async ({ ctx }) => {
+export const getProjects = adminProcedure.query(async ({ ctx }) => {
   const projectList = await ctx.db.query.Project.findMany({
     columns: {
       icon: false,

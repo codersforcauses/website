@@ -7,7 +7,7 @@ import { Project } from "~/server/db/schema"
 
 type ProjectIcon = (typeof PROJECT_ICONS)[number]
 
-export const create = adminProcedure
+export const update = adminProcedure
   .input(
     z.object({
       logo_path: z
@@ -15,8 +15,15 @@ export const create = adminProcedure
         .min(2, {
           message: "Project logo_path url is required",
         })
-        .trim(),
-      img_path: z.string().trim().optional(),
+        .trim()
+        .optional(),
+      img_path: z
+        .string()
+        .min(2, {
+          message: "Project image url is required",
+        })
+        .trim()
+        .optional(),
 
       name: z
         .string()
@@ -29,13 +36,14 @@ export const create = adminProcedure
         .min(2, {
           message: "Client name is required",
         })
-        .trim(),
+        .trim()
+        .optional(),
       type: z.enum(PROJECT_TYPES),
       start_date: z.date().optional(),
       end_date: z.date().optional(),
-      website_url: z.string().trim().optional(),
-      github_url: z.string().trim().optional(),
-      description: z.string().trim(),
+      website_url: z.string().trim().nullable(),
+      github_url: z.string().trim().nullable(),
+      description: z.string().trim().optional(),
       tech: z
         .array(
           z.object({
@@ -46,42 +54,40 @@ export const create = adminProcedure
         )
         .optional(),
       impact: z.string().array().optional(),
-      is_application_open: z.boolean().default(false),
-      application_url: z.string().trim().optional(),
-      is_public: z.boolean().default(false),
+      is_application_open: z.boolean().default(false).optional(),
+      application_url: z.string().trim().nullable(),
+      is_public: z.boolean().default(false).optional(),
     }),
   )
   .mutation(async ({ ctx, input }) => {
-    const project_data = await ctx.db.query.Project.findFirst({
-      where: eq(Project.name, input.name),
-    })
-    if (project_data) throw new Error(`Project ${input.name} already exist`)
     let icon: ProjectIcon = "devices" // default "devices"
     if (input.type === "Mobile application") {
       icon = "mobile"
     } else if (input.type === "Website") {
       icon = "computer"
     }
+
     const [project] = await ctx.db
-      .insert(Project)
-      .values({
-        icon: icon, // default to website icon if not specified
-        logo_path: input.logo_path,
-        img_path: input.img_path,
+      .update(Project)
+      .set({
         name: input.name,
-        client: input.client,
+        icon: icon,
+        logo_path: input.logo_path?.trim(),
+        img_path: input.img_path?.trim(),
+        client: input.client?.trim(),
         type: input.type,
         start_date: input.start_date,
         end_date: input.end_date,
-        website_url: input.website_url,
-        github_url: input.github_url,
-        description: input.description,
+        website_url: input.website_url?.trim() ?? null,
+        github_url: input.github_url?.trim() ?? null,
+        description: input.description?.trim(),
         tech: input.tech,
         impact: input.impact,
-        is_application_open: input.is_application_open,
-        application_url: input.application_url,
-        is_public: input.is_public,
+        is_application_open: input.is_application_open ?? false,
+        application_url: input.application_url?.trim() ?? null,
+        is_public: input.is_public ?? false,
       })
+      .where(eq(Project.name, input.name))
       .returning()
 
     return project

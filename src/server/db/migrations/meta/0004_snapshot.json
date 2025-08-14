@@ -1,5 +1,5 @@
 {
-  "id": "8ce50367-cb81-4dfe-97fa-0efeb2817023",
+  "id": "cac4de90-28fd-400d-bc8a-4ef909f64588",
   "prevId": "2f715dfd-3757-4d61-ab98-3c17785ff541",
   "version": "7",
   "dialect": "postgresql",
@@ -126,7 +126,7 @@
           "type": "icon",
           "typeSchema": "public",
           "primaryKey": false,
-          "notNull": true
+          "notNull": false
         },
         "logo_path": {
           "name": "logo_path",

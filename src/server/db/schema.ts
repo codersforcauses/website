@@ -23,7 +23,7 @@ export const User = pgTable(
       .$defaultFn(() => uuidv7()),
     clerk_id: varchar("clerk_id", { length: 32 }).unique().notNull(),
     email: varchar("email", { length: 256 }).unique().notNull(),
-    name: varchar("name", { length: 256 }).notNull().primaryKey(),
+    name: varchar("name", { length: 256 }).notNull(),
     preferred_name: varchar("preferred_name", { length: 64 }).notNull(),
     pronouns: varchar("pronouns", { length: 32 }).notNull(),
     /// This is not forced to be unique because we don't verify student number at the moment
@@ -78,15 +78,16 @@ type TechItem = {
   path: string
 }
 
-// TODO: add view for project members
-// for projects
 export const Project = pgTable(
   "project",
   {
-    name: varchar("name", { length: 256 }).notNull().unique().primaryKey(),
-    icon: iconEnum("icon").notNull(), // icon for the types of project, auto created and updated. depends on the type
+    id: uuid("id")
+      .primaryKey()
+      .$defaultFn(() => uuidv7()),
+    icon: iconEnum("icon"), // icon for the types of project, auto created and updated. depends on the type
     logo_path: varchar("logo_path", { length: 256 }).notNull(),
     img_path: varchar("img_path", { length: 256 }),
+    name: varchar("name", { length: 256 }).notNull().unique(),
     client: varchar("client", { length: 256 }).notNull(),
     type: typeEnum("type").notNull(), // e.g. Mobile application, PWA, Website
     start_date: timestamp("start_date"), // start_date in the form
@@ -115,11 +116,11 @@ export const ProjectMember = pgTable(
     id: uuid("id")
       .primaryKey()
       .$defaultFn(() => uuidv7()),
-    project_name: varchar("project_name").references(() => Project.name, { onDelete: "cascade", onUpdate: "cascade" }),
+    project_id: uuid("project_id").references(() => Project.id, { onDelete: "cascade", onUpdate: "cascade" }),
     user_id: uuid("user_id").references(() => User.id, { onDelete: "cascade", onUpdate: "cascade" }),
     createdAt: timestamp("created_at")
       .$default(() => new Date())
       .notNull(),
   },
-  (projectMember) => [index("project_user_idx").on(projectMember.project_name, projectMember.user_id)],
+  (projectMember) => [index("project_user_idx").on(projectMember.project_id, projectMember.user_id)],
 )

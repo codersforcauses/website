@@ -2,15 +2,9 @@
 
 import { zodResolver } from "@hookform/resolvers/zod"
 import { track } from "@vercel/analytics/react"
-import exp from "constants"
 import { format } from "date-fns"
 import { is } from "drizzle-orm"
-import { date } from "drizzle-orm/mysql-core"
-import { useState } from "react"
 import { useFieldArray, useForm, useFormContext } from "react-hook-form"
-import type { SimpleIcon } from "simple-icons"
-import * as SimpleIcons from "simple-icons/icons"
-import { cli } from "webpack"
 import * as z from "zod"
 
 import { Badge } from "~/components/ui/badge"
@@ -20,6 +14,7 @@ import { Checkbox } from "~/components/ui/checkbox"
 import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem } from "~/components/ui/command"
 import {
   Dialog,
+  DialogClose,
   DialogContent,
   DialogDescription,
   DialogHeader,
@@ -40,9 +35,6 @@ import { Project } from "~/server/db/schema"
 import { insertProjectSchema } from "~/server/db/schema"
 import { api } from "~/trpc/react"
 
-// const insertProjectSchema = createInsertSchema(Project, {
-//   start_date: z.date().optional(),
-// })
 const TypeEnum = z.enum(PROJECT_TYPES)
 const formSchema = insertProjectSchema.extend({
   name: z.string().min(2, {
@@ -170,15 +162,6 @@ const ImpactForm = () => {
   )
 }
 
-const icons =
-  typeof SimpleIcons === "object" && SimpleIcons !== null
-    ? (Object.values(SimpleIcons) as SimpleIcon[]).map(({ title, slug, path }) => ({
-        label: title,
-        value: slug,
-        path,
-      }))
-    : []
-
 const TechForm = () => {
   const { getValues } = useFormContext<FormSchema>()
   const { append, remove } = useFieldArray({
@@ -275,17 +258,18 @@ function CreateProjectForm() {
       })
       await utils.admin.projects.invalidate()
     },
-    onError: () => {
+    onError: (error) => {
+      console.error(error)
       toast({
         variant: "destructive",
         title: "Failed to create project",
-        description: "An error occurred while trying to update your personal details. Please try again later.",
+        description: error.message,
       })
     },
   })
+
   const onSubmit = (values: FormSchema) => {
-    // TODO: something with the form values.
-    // ✅ This will be type-safe and validated.
+    console.log(values)
     createProject.mutate({
       name: values.name,
       client: values.client,
@@ -306,12 +290,10 @@ function CreateProjectForm() {
       logo_path: values.logo_path.trim(),
       img_path: values.img_path?.trim(),
     })
-
-    console.log(values)
   }
 
   return (
-    <div className="container ">
+    <div className="container">
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
           <FormField
@@ -319,7 +301,7 @@ function CreateProjectForm() {
             name="name"
             render={({ field }) => (
               <FormItem>
-                <FormLabel className="font-mono">Name</FormLabel>
+                <FormLabel className="font-mono">Name *</FormLabel>
                 <FormControl>
                   <Input placeholder="Coders for causes website" {...field} />
                 </FormControl>
@@ -332,7 +314,7 @@ function CreateProjectForm() {
             name="client"
             render={({ field }) => (
               <FormItem>
-                <FormLabel className="font-mono">Client</FormLabel>
+                <FormLabel className="font-mono">Client *</FormLabel>
                 <FormControl>
                   <Input placeholder="cfc" {...field} />
                 </FormControl>
@@ -345,7 +327,7 @@ function CreateProjectForm() {
             name="description"
             render={({ field }) => (
               <FormItem>
-                <FormLabel className="font-mono">Description</FormLabel>
+                <FormLabel className="font-mono">Description *</FormLabel>
                 <FormControl>
                   <Textarea placeholder="A website for cfc members to register" {...field} />
                 </FormControl>
@@ -358,7 +340,7 @@ function CreateProjectForm() {
             name="type"
             render={({ field }) => (
               <FormItem>
-                <FormLabel className="font-mono">Project type</FormLabel>
+                <FormLabel className="font-mono">Project type *</FormLabel>
                 <FormControl>
                   <RadioGroup
                     onValueChange={field.onChange}
@@ -394,7 +376,7 @@ function CreateProjectForm() {
             name="logo_path"
             render={({ field }) => (
               <FormItem>
-                <FormLabel className="font-mono">Logo path</FormLabel>
+                <FormLabel className="font-mono">Logo path *</FormLabel>
                 <FormControl>
                   <Input placeholder="Coders for causes website" {...field} />
                 </FormControl>
@@ -540,7 +522,7 @@ function CreateProjectForm() {
                 <FormControl>
                   <Checkbox checked={field.value} onCheckedChange={field.onChange} />
                 </FormControl>
-                <FormDescription>Public means everyone can see it</FormDescription>
+                <FormDescription>Means everyone can see it</FormDescription>
                 <FormMessage />
               </FormItem>
             )}
@@ -561,7 +543,7 @@ function CreateProjectForm() {
 
 export default function CreateProject() {
   return (
-    <div className="w-full p-4 pt-0">
+    <div className="p-4 pt-0">
       <Dialog>
         <DialogTrigger asChild>
           <Button>Create New Project</Button>
@@ -569,10 +551,9 @@ export default function CreateProject() {
         <DialogContent className="max-h-screen overflow-auto sm:max-w-5xl">
           <DialogHeader>
             <DialogTitle>Create New Project</DialogTitle>
-            <DialogDescription>
-              <CreateProjectForm />
-            </DialogDescription>
+            <DialogDescription></DialogDescription>
           </DialogHeader>
+          <CreateProjectForm />
         </DialogContent>
       </Dialog>
     </div>

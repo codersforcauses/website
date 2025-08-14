@@ -1,13 +1,15 @@
 import { createTRPCRouter } from "~/server/api/trpc"
 
+import { createMember } from "./add-member"
 import { create } from "./create"
-import { getAll } from "./get-all"
-import { getProjectById } from "./get-by-id"
+import { getProjectById } from "./get-project-by-id"
+import { getProjects } from "./get-projects"
 import { update } from "./update"
 
 export const projectsAdminRouter = createTRPCRouter({
   create,
-  getAll,
+  getProjects,
   update,
   getProjectById,
+  createMember,
 })

@@ -47,10 +47,9 @@ const UpdateEmail = () => {
           <DialogContent className="max-h-screen overflow-auto sm:max-w-5xl">
             <DialogHeader>
               <DialogTitle>Update user email</DialogTitle>
-              <DialogDescription>
-                <UpdateEmailForm />
-              </DialogDescription>
+              <DialogDescription></DialogDescription>
             </DialogHeader>
+            <UpdateEmailForm />
           </DialogContent>
         </Dialog>
       </div>

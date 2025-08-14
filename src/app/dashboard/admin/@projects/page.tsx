@@ -4,12 +4,14 @@ import { Metadata } from "next"
 import dynamic from "next/dynamic"
 import Head from "next/head"
 import Link from "next/link"
+import { O } from "node_modules/@upstash/redis/zmscore-07021e27"
 
 import { Button } from "~/components/ui/button"
 
 import { customMetadata } from "~/lib/metadata"
 import { api } from "~/trpc/react"
 
+import AddMember from "./add-members"
 import CreateProject from "./create-project"
 
 const DBProjectCard = dynamic(() => import("~/app/projects/(default)/card").then((mod) => mod.DBProjectCard), {
@@ -27,7 +29,8 @@ export default function ProjectsPage() {
   //   })
 
   const utils = api.useUtils()
-  const { data: projects } = api.admin.projects.getAll.useQuery()
+  const { data: projects } = api.admin.projects.getProjects.useQuery()
+
   return (
     <>
       <Head>
@@ -38,8 +41,9 @@ export default function ProjectsPage() {
       <div className="flex h-[50px] items-center p-1">
         <h2 className="text-2xl font-semibold">Projects</h2>
       </div>
-      <div className="my-4">
+      <div className="my-4 flex ">
         <CreateProject />
+        <AddMember />
       </div>
       <div className="flex flex-col md:flex-row md:gap-12">
         <div className="flex-grow">
