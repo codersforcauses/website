@@ -32,28 +32,5 @@ const Card = ({ project }: ProjectCardProps) => {
     </div>
   )
 }
-interface DBProjectCardProps {
-  project: { name: string; logo_path: string; is_public: boolean }
-}
-
-export const DBProjectCard = ({ project }: DBProjectCardProps) => {
-  return (
-    <div className="relative aspect-square border border-black/25 hover:cursor-pointer dark:border-white/25">
-      <Link href={`Projects/${project.name}`}>
-        <div className="relative h-full flex-grow">
-          <Image
-            src={project.logo_path}
-            alt={`Client Logo of ${project.name}`}
-            fill
-            className="object-contain object-center p-6"
-          />
-          <div className="absolute left-0 top-0 flex size-full items-center justify-center bg-black opacity-0 transition-opacity duration-300 hover:opacity-90">
-            <p className="w-3/4 text-center font-mono text-white">{project.name}</p>
-          </div>
-        </div>
-      </Link>
-    </div>
-  )
-}
 
 export default Card

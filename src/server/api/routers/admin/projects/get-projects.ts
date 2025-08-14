@@ -1,31 +1,41 @@
 import { desc } from "drizzle-orm"
+import { eq } from "drizzle-orm"
+import { z } from "zod"
 
 import { adminProcedure } from "~/server/api/trpc"
 import { Project } from "~/server/db/schema"
 
-export const getProjects = adminProcedure.query(async ({ ctx }) => {
-  const projectList = await ctx.db.query.Project.findMany({
-    columns: {
-      icon: false,
-      logo_path: true,
-      img_path: false,
-      name: true,
-      client: false,
-      type: false,
-      start_date: false,
-      end_date: false,
-      website_url: false,
-      github_url: false,
-      impact: false,
-      description: false,
-      tech: false,
-      is_application_open: false,
-      application_url: false,
-      is_public: true,
-    },
+export const getProjects = adminProcedure
+  .input(
+    z.object({
+      name: z.string().optional(),
+    }),
+  )
+  .query(async ({ input, ctx }) => {
+    const { name } = input
+    const projectList = await ctx.db.query.Project.findMany({
+      columns: {
+        icon: false,
+        logo_path: true,
+        img_path: false,
+        name: true,
+        client: false,
+        type: false,
+        start_date: false,
+        end_date: false,
+        website_url: false,
+        github_url: false,
+        impact: false,
+        description: false,
+        tech: false,
+        is_application_open: false,
+        application_url: false,
+        is_public: true,
+        id: true,
+      },
+      where: name ? eq(Project.name, name) : undefined,
+      orderBy: [desc(Project.createdAt), desc(Project.id)],
+    })
 
-    orderBy: [desc(Project.createdAt), desc(Project.id)],
+    return projectList
   })
-
-  return projectList
-})

@@ -6,7 +6,7 @@ import exp from "constants"
 import { format } from "date-fns"
 import { is } from "drizzle-orm"
 import { date } from "drizzle-orm/mysql-core"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { useFieldArray, useForm, useFormContext, useWatch } from "react-hook-form"
 import type { SimpleIcon } from "simple-icons"
 import * as SimpleIcons from "simple-icons/icons"
@@ -34,17 +34,15 @@ import { cn } from "~/lib/utils"
 import { api } from "~/trpc/react"
 
 const formSchema = z.object({
-  project_name: z
-    .string()
-    .min(2, {
-      message: "Name is required",
-    })
-    .trim(),
   user_emails: z.array(z.string()),
 })
 type FormSchema = z.infer<typeof formSchema>
 const defaultValues = {
   user_emails: [],
+}
+
+type UpdateMembersProps = {
+  project_name: string
 }
 const SelectMembersForm = () => {
   const { getValues } = useFormContext<FormSchema>()
@@ -54,6 +52,30 @@ const SelectMembersForm = () => {
   const utils = api.useUtils()
   const { data: users } = api.admin.users.getAll.useQuery()
   const { user_emails: emailArray } = getValues()
+  const { data: projects } = api.admin.projects.getProjects.useQuery({ name: "cfc" })
+  const projectId = projects?.[0]?.id
+
+  const { data: project } = api.admin.projects.getProjectById.useQuery(
+    { id: projectId! },
+    {
+      enabled: !!projectId, // only run query if projectId is truthy
+    },
+  )
+  const existMemberEmails = project?.members
+    .map((member) => member?.userEmail)
+    .filter((email): email is string => email != null)
+  const existEmails: string[] = existMemberEmails ?? []
+  console.log("existEmails", existEmails)
+
+  useEffect(() => {
+    if (project?.members?.length) {
+      project.members.forEach((member) => {
+        if (member.userEmail && !emailArray.includes(member.userEmail)) {
+          append(member.userEmail)
+        }
+      })
+    }
+  }, [project?.members])
 
   return (
     <div className="space-y-1.5">
@@ -121,7 +143,7 @@ const SelectMembersForm = () => {
   )
 }
 
-const MembersForm = () => {
+const MembersForm = ({ project_name }: UpdateMembersProps) => {
   const form = useForm<FormSchema>({
     resolver: zodResolver(formSchema),
     defaultValues,
@@ -148,7 +170,7 @@ const MembersForm = () => {
   const onSubmit = (values: FormSchema) => {
     console.log("form:", values)
     createMember.mutate({
-      project_name: values.project_name,
+      project_name: project_name,
       user_emails: values.user_emails,
     })
   }
@@ -156,19 +178,6 @@ const MembersForm = () => {
     <div className="container">
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-          <FormField
-            control={form.control}
-            name="project_name"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel className="font-mono">Project Name *</FormLabel>
-                <FormControl>
-                  <Input placeholder="Coders for causes website" {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
           <SelectMembersForm />
           <div className="flex flex-row-reverse justify-between">
             <Button type="submit" size="lg">
@@ -186,19 +195,19 @@ const MembersForm = () => {
   )
 }
 
-export default function AddMembers() {
+export default function UpdateMembers({ project_name }: UpdateMembersProps) {
   return (
     <div className=" pt-0">
       <Dialog>
         <DialogTrigger asChild>
-          <Button>Add Members</Button>
+          <Button>Update Members</Button>
         </DialogTrigger>
         <DialogContent className="max-h-screen overflow-auto sm:max-w-5xl">
           <DialogHeader>
-            <DialogTitle>Add Members</DialogTitle>
+            <DialogTitle>Update Members</DialogTitle>
             <DialogDescription></DialogDescription>
           </DialogHeader>
-          <MembersForm />
+          <MembersForm project_name={project_name} />
         </DialogContent>
       </Dialog>
     </div>
