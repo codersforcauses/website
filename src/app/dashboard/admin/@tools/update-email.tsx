@@ -44,7 +44,7 @@ const UpdateEmail = () => {
           <DialogTrigger asChild>
             <Button>Open form</Button>
           </DialogTrigger>
-          <DialogContent className="max-h-screen overflow-auto sm:max-w-5xl">
+          <DialogContent className="max-h-screen overflow-auto sm:max-w-md">
             <DialogHeader>
               <DialogTitle>Update user email</DialogTitle>
               <DialogDescription></DialogDescription>

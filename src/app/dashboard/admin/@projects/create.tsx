@@ -5,7 +5,6 @@ import Image from "next/image"
 import { Button } from "~/components/ui/button"
 import {
   Dialog,
-  DialogClose,
   DialogContent,
   DialogDescription,
   DialogHeader,
@@ -13,7 +12,7 @@ import {
   DialogTrigger,
 } from "~/components/ui/dialog"
 
-import { ProjectForm } from "./projectForm"
+import ProjectForm from "./projectForm"
 
 export default function CreateProject() {
   return (

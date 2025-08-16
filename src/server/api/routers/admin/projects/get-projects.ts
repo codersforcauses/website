@@ -1,5 +1,5 @@
 import { desc } from "drizzle-orm"
-import { eq } from "drizzle-orm"
+import { and, eq } from "drizzle-orm"
 import { z } from "zod"
 
 import { adminProcedure } from "~/server/api/trpc"

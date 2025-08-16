@@ -6,7 +6,7 @@ import Head from "next/head"
 import { customMetadata } from "~/lib/metadata"
 import { api } from "~/trpc/react"
 
-import CreateProject from "./projectForm"
+import CreateProject from "./create"
 
 const DBProjectCard = dynamic(() => import("./update").then((mod) => mod.DBProjectCard), {
   ssr: false,

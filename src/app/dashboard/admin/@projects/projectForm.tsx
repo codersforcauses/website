@@ -31,9 +31,11 @@ import { toast } from "~/components/ui/use-toast"
 import { PROJECT_TYPES } from "~/lib/constants"
 import { iconMap } from "~/lib/constants"
 import { cn } from "~/lib/utils"
-import { Project } from "~/server/db/schema"
 import { insertProjectSchema } from "~/server/db/schema"
 import { api } from "~/trpc/react"
+
+import DeleteProject from "./delete"
+import PreviewProject from "./preview"
 
 const TypeEnum = z.enum(PROJECT_TYPES)
 const formSchema = insertProjectSchema.extend({
@@ -50,7 +52,7 @@ const formSchema = insertProjectSchema.extend({
     message: "Description is required. Minimum 10 characters.",
   }),
   img_path: z.string().optional(),
-  type: TypeEnum.default("Website"),
+  type: TypeEnum.default("Progressive Web App (PWA)"),
   start_date: z.date().optional(),
   end_date: z.date().optional(),
   github_url: z.string().optional(),
@@ -74,14 +76,13 @@ const formSchema = insertProjectSchema.extend({
     )
     .optional(),
   members: z.string().array().optional(),
-  is_application_open: z.boolean().optional(),
-  is_public: z.boolean().optional(),
+  is_application_open: z.boolean(),
+  is_public: z.boolean(),
 })
 export type ProjectType = z.infer<typeof TypeEnum>
-type FormSchema = z.infer<typeof formSchema>
-const defaultValues: {
+export type defaultValueType = {
   logo_path: string
-  img_path?: string
+  img_path?: string | undefined
   name: string
   client: string
   type: ProjectType
@@ -89,18 +90,21 @@ const defaultValues: {
   end_date?: Date | undefined
   github_url?: string
   website_url?: string
-  application_url?: string
   description: string
-  impact: { value: string }[]
-  members: string[]
-  tech: { label: string; value: string; path: string }[]
+  impact?: { value: string }[]
+  members?: string[]
+  tech?: { label: string; value: string; path: string }[]
   is_application_open: boolean
+  application_url?: string
   is_public: boolean
-} = {
+  id?: string
+}
+type FormSchema = z.infer<typeof formSchema>
+const defaultValues: defaultValueType = {
   logo_path: "", // logo_path url.
   name: "",
   client: "",
-  type: "Website",
+  type: "Progressive Web App (PWA)",
   description: "",
   impact: [
     {
@@ -325,11 +329,11 @@ const MembersForm = () => {
 }
 
 type ProjectFormProps = {
-  formDefaultValues?: Record<string, unknown>
+  formDefaultValues?: defaultValueType
   isNew?: boolean //create new project or update project
 }
 
-export function ProjectForm({
+export default function ProjectForm({
   formDefaultValues = defaultValues, // default empty
   isNew = true, // default false
 }: ProjectFormProps) {
@@ -373,8 +377,6 @@ export function ProjectForm({
     },
   })
   const onSubmit = (values: FormSchema) => {
-    console.log(values)
-    console.log(isNew)
     if (isNew) {
       createProject.mutate({
         name: values.name,
@@ -420,8 +422,14 @@ export function ProjectForm({
         is_public: values.is_public,
         logo_path: values.logo_path.trim(),
         img_path: values.img_path?.trim(),
+        id: formDefaultValues.id ?? "",
       })
     }
+  }
+
+  const handlePreview = () => {
+    const allValues = form.getValues() // <-- get all current form values
+    console.log(allValues)
   }
 
   return (
@@ -678,6 +686,12 @@ export function ProjectForm({
             <Button type="submit" size="lg">
               Submit
             </Button>
+            {!isNew && formDefaultValues.name != "" && (
+              <>
+                <DeleteProject name={formDefaultValues.name} />
+                <PreviewProject data={form.getValues()} />
+              </>
+            )}
             <DialogClose>
               <Button variant="ghost" type="button">
                 Cancel
@@ -686,25 +700,6 @@ export function ProjectForm({
           </div>
         </form>
       </Form>
-    </div>
-  )
-}
-
-export default function CreateProject() {
-  return (
-    <div className=" pt-0">
-      <Dialog>
-        <DialogTrigger asChild>
-          <Button>Create New Project</Button>
-        </DialogTrigger>
-        <DialogContent className="max-h-screen overflow-auto sm:max-w-5xl">
-          <DialogHeader>
-            <DialogTitle className="text-center">Create New Project</DialogTitle>
-            <DialogDescription></DialogDescription>
-          </DialogHeader>
-          <ProjectForm />
-        </DialogContent>
-      </Dialog>
     </div>
   )
 }

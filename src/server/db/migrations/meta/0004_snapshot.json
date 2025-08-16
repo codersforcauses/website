@@ -1,5 +1,5 @@
 {
-  "id": "256e65ac-f7f5-4ad2-b63a-2ef0fbcfa783",
+  "id": "d9cd6d8b-7ed7-4227-8c74-7ce7f3047dca",
   "prevId": "2f715dfd-3757-4d61-ab98-3c17785ff541",
   "version": "7",
   "dialect": "postgresql",
@@ -191,7 +191,7 @@
         },
         "description": {
           "name": "description",
-          "type": "varchar(256)",
+          "type": "varchar(1024)",
           "primaryKey": false,
           "notNull": true
         },
@@ -203,7 +203,7 @@
         },
         "members": {
           "name": "members",
-          "type": "varchar(4096)[]",
+          "type": "varchar(256)[]",
           "primaryKey": false,
           "notNull": false
         },

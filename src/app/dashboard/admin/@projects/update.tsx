@@ -14,8 +14,8 @@ import {
 
 import { api } from "~/trpc/react"
 
-import type { ProjectType } from "./projectForm"
-import { ProjectForm } from "./projectForm"
+import type { ProjectType, defaultValueType } from "./projectForm"
+import ProjectForm from "./projectForm"
 
 interface DBProjectCardProps {
   project: { id: string; name: string; logo_path: string; is_public: boolean }
@@ -24,24 +24,7 @@ interface DBProjectCardProps {
 export const DBProjectCard = ({ project }: DBProjectCardProps) => {
   const { data: data } = api.admin.projects.getProjectById.useQuery({ id: project.id })
 
-  const defaultValues: {
-    logo_path: string
-    img_path?: string | null
-    name: string
-    client: string
-    type: ProjectType
-    start_date?: Date | undefined
-    end_date?: Date | undefined
-    github_url?: string
-    website_url?: string
-    description: string
-    impact: { value: string }[]
-    members: string[]
-    tech: { label: string; value: string; path: string }[]
-    is_application_open: boolean
-    application_url?: string
-    is_public: boolean
-  } = {
+  const defaultValues: defaultValueType = {
     logo_path: data?.logo_path || "",
     img_path: data?.img_path || undefined,
     name: data?.name || "",
@@ -62,6 +45,7 @@ export const DBProjectCard = ({ project }: DBProjectCardProps) => {
     is_application_open: data?.is_application_open || false,
     application_url: data?.application_url || undefined,
     is_public: data?.is_public || false,
+    id: data?.id,
   }
   return (
     <div className="w-full pt-0">

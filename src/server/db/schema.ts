@@ -1,5 +1,5 @@
 import { bigint, boolean, index, jsonb, pgEnum, pgTableCreator, timestamp, uuid, varchar } from "drizzle-orm/pg-core"
-import { createInsertSchema, createSelectSchema } from "drizzle-zod"
+import { createInsertSchema } from "drizzle-zod"
 import { invoicePaymentReminderSchema } from "square/dist/types/models/invoicePaymentReminder"
 import { v7 as uuidv7 } from "uuid"
 
@@ -95,7 +95,7 @@ export const Project = pgTable(
     website_url: varchar("website_url", { length: 256 }), // link in the form
     github_url: varchar("github_url", { length: 256 }), // source code link
     impact: varchar("impact", { length: 1024 }).array(), // impact of the project, <string>[]
-    description: varchar("description", { length: 256 }).notNull(), // description of the project
+    description: varchar("description", { length: 1024 }).notNull(), // description of the project
     tech: jsonb("tech").$type<TechItem[]>(), // technologies used in the project, <string>[]
     members: varchar("members", { length: 256 }).array(), // impact of the project, <string>[]
     is_application_open: boolean("is_application_open").default(false).notNull(), // whether the project is receiving applications or not
@@ -109,4 +109,3 @@ export const Project = pgTable(
   (project) => [index("name_idx").on(project.name)],
 )
 export const insertProjectSchema = createInsertSchema(Project)
-export const selectProjectSchema = createSelectSchema(Project)

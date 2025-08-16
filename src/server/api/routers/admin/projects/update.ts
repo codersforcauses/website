@@ -1,4 +1,4 @@
-import { eq } from "drizzle-orm"
+import { and, eq, ne } from "drizzle-orm"
 import { z } from "zod"
 
 import { PROJECT_ICONS, PROJECT_TYPES } from "~/lib/constants"
@@ -58,11 +58,12 @@ export const update = adminProcedure
       is_application_open: z.boolean().default(false).optional(),
       application_url: z.string().trim().nullable(),
       is_public: z.boolean().default(false).optional(),
+      id: z.string().trim(),
     }),
   )
   .mutation(async ({ ctx, input }) => {
     const project_data = await ctx.db.query.Project.findFirst({
-      where: eq(Project.name, input.name),
+      where: and(eq(Project.name, input.name), ne(Project.id, input.id)),
     })
     if (project_data) throw new Error(`Project ${input.name} already exist`)
     let icon: ProjectIcon = "devices" // default "devices"

@@ -4,8 +4,6 @@ import { useTheme } from "next-themes"
 import Image from "next/image"
 import Link from "next/link"
 
-import type { Project, ProjectMember } from "~/server/db/types"
-
 import type { ProjectModel } from "../types"
 
 interface ProjectCardProps {
