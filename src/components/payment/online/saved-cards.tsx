@@ -1,5 +1,6 @@
 import { zodResolver } from "@hookform/resolvers/zod"
 import { type Payments, type TokenResult, type TokenStatus } from "@square/web-sdk"
+import { type TokenStatusType } from "@square/web-sdk"
 import * as React from "react"
 import { useForm } from "react-hook-form"
 import { siAmericanexpress, siMastercard, siVisa } from "simple-icons"
@@ -68,7 +69,7 @@ const SavedCardsForm = ({ amount, cards, ...props }: SavedCardsProps) => {
       props.loadingState[1](true)
       await props.cardTokenizeResponseReceived({
         // fuck you square
-        status: "OK" as TokenStatus,
+        status: "OK" as TokenStatusType,
         token: values.card,
       })
     } catch (error) {
