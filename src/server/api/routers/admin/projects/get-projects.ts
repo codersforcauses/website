@@ -34,6 +34,7 @@ export const getProjects = adminProcedure
         id: true,
       },
       where: name ? eq(Project.name, name) : undefined,
+
       orderBy: [desc(Project.createdAt), desc(Project.id)],
     })
 

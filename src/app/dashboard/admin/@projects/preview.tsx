@@ -21,7 +21,10 @@ import type { DBProjectProps } from "~/app/projects/(default)/db-project"
 import DBProject from "~/app/projects/(default)/db-project"
 import { api } from "~/trpc/react"
 
-export default function PreviewProject({ data }: DBProjectProps) {
+import { DashboardCardProps } from "../../(root)/card"
+import type { defaultValueType } from "./project-form"
+
+export default function PreviewProject({ data }: { data: DashboardCardProps }) {
   return (
     <div className=" pt-0">
       <Dialog>

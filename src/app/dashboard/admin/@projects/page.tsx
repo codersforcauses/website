@@ -40,9 +40,9 @@ export default function ProjectsPage() {
       </div>
       <div className="flex flex-col md:flex-row md:gap-12">
         <div className="flex-grow">
-          <div className="grid grid-cols-[repeat(auto-fit,minmax(14rem,300px))] gap-4 justify-center">
-            {projects?.map((project) => (
-              <div>
+          <div className="grid grid-cols-[repeat(auto-fit,minmax(14rem,300px))] gap-4 ">
+            {projects?.map((project, index) => (
+              <div key={index}>
                 <DBProjectCard key={project.name} project={project} />
               </div>
             ))}

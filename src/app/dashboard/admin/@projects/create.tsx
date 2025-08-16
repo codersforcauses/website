@@ -12,7 +12,7 @@ import {
   DialogTrigger,
 } from "~/components/ui/dialog"
 
-import ProjectForm from "./projectForm"
+import ProjectForm from "./project-form"
 
 export default function CreateProject() {
   return (

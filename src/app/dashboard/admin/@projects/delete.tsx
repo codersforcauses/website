@@ -46,12 +46,12 @@ const DeleteProjectPopover = ({ name = "" }: DeleteProjectProps) => {
   }
   return (
     <>
-      <div className=" text-center">Do you confirm to delete this project?</div>
+      <div className=" text-center py-6">Are you sure you want to delete this project?</div>
       <div className="flex justify-between">
         <DialogClose asChild>
           <Button variant="ghost">Cancel</Button>
         </DialogClose>
-        <Button type="button" onClick={handleClick}>
+        <Button type="button" variant="destructive" onClick={handleClick}>
           Delete
         </Button>
       </div>
@@ -64,7 +64,7 @@ export default function DeleteProject({ name }: DeleteProjectProps) {
     <div className=" pt-0">
       <Dialog>
         <DialogTrigger asChild>
-          <Button type="button" variant="outline">
+          <Button type="button" variant="destructive">
             Delete
           </Button>
         </DialogTrigger>

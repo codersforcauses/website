@@ -11,6 +11,7 @@ import { api } from "~/trpc/react"
 
 import { Impact } from "../(default)/db-project"
 import DBProject from "../(default)/db-project"
+import Loading from "./loading"
 import TechList from "./tech-list"
 
 const parseDescription = (text: string) =>
@@ -24,28 +25,10 @@ export default function ProjectPage({ params: { id } }: { params: { id: string }
   const data = projects.find((project) => id === project.id)
 
   if (!data) {
-    const { data: project } = api.projects.getProjectByName.useQuery({ name: id })
-    const nomalisedProject = {
-      ...project,
-      img_path: project?.img_path ?? undefined,
-      start_date: project?.start_date ?? undefined,
-      end_date: project?.end_date ?? undefined,
-      logo_path: project?.logo_path ?? "",
-      name: project?.name ?? "",
-      client: project?.client ?? "",
-      type: project?.type ?? "Website",
-      github_url: project?.github_url ?? undefined,
-      website_url: project?.website_url ?? undefined,
-      description: project?.description ?? "",
-      impact: project?.impact?.map((item: string) => ({ value: item })),
-      members: project?.members ?? [],
-      tech: project?.tech ?? undefined,
-      is_application_open: project?.is_application_open ?? false,
-      application_url: project?.application_url ?? undefined,
-      is_public: project?.is_public ?? false,
-    }
+    const { isLoading, data: project } = api.projects.getProjectByName.useQuery({ name: id })
 
-    return project ? <DBProject data={nomalisedProject} /> : null
+    if (isLoading) return <Loading />
+    return project ? <DBProject data={project} /> : null
   } else {
     return (
       <main className="main">

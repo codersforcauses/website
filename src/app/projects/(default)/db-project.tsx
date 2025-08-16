@@ -17,7 +17,8 @@ import {
 } from "~/components/ui/dialog"
 import { toast } from "~/components/ui/use-toast"
 
-import type { defaultValueType } from "~/app/dashboard/admin/@projects/projectForm"
+import type { DashboardCardProps } from "~/app/dashboard/(root)/card"
+import type { defaultValueType } from "~/app/dashboard/admin/@projects/project-form"
 import { api } from "~/trpc/react"
 
 const parseDescription = (text: string) =>
@@ -27,7 +28,7 @@ const parseDescription = (text: string) =>
     </p>
   ))
 export type DBProjectProps = {
-  data: defaultValueType
+  data: DashboardCardProps
 }
 
 type DBTechListProps = {
@@ -111,7 +112,7 @@ export default function DBProject({ data }: DBProjectProps) {
                   {data.start_date?.toISOString().slice(0, 10)}
                 </div>
               </div>
-              {parseDescription(data.description)}
+              {parseDescription(data.description ?? "")}
               {data && (
                 <div className="mt-2 grid grid-cols-2 gap-4 sm:max-w-max lg:hidden">
                   {data.website_url && (
@@ -131,10 +132,13 @@ export default function DBProject({ data }: DBProjectProps) {
                 </div>
               )}
             </div>
-            <Impact impact={data.impact?.map((item) => item.value)} className="lg:hidden" />
+            <Impact
+              impact={data.impact?.map((item) => (typeof item === "string" ? item ?? "" : item.value))}
+              className="lg:hidden"
+            />
             <div className="space-y-4">
               <h2 className="font-mono text-2xl font-black">Technologies used</h2>
-              <DBTechList data={data.tech} />
+              {data.tech && <DBTechList data={data.tech} />}
             </div>
             <div className="space-y-4">
               <h2 className="font-mono text-2xl font-black">Members</h2>
@@ -170,7 +174,7 @@ export default function DBProject({ data }: DBProjectProps) {
                 )}
               </div>
             )}
-            <Impact impact={data.impact?.map((item) => item.value)} />
+            <Impact impact={data.impact?.map((item) => (typeof item === "string" ? item ?? "" : item.value))} />
           </div>
         </div>
       </div>

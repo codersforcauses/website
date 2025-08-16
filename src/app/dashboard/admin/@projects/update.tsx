@@ -14,8 +14,8 @@ import {
 
 import { api } from "~/trpc/react"
 
-import type { ProjectType, defaultValueType } from "./projectForm"
-import ProjectForm from "./projectForm"
+import type { ProjectType, defaultValueType } from "./project-form"
+import ProjectForm from "./project-form"
 
 interface DBProjectCardProps {
   project: { id: string; name: string; logo_path: string; is_public: boolean }
