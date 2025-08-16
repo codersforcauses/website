@@ -24,10 +24,9 @@ export default function DBCards() {
   const { data: projects } = api.projects.getPublic.useQuery()
   return (
     <>
-      {projects &&
-        projects.map((project) => (
-          <DBCard key={project.id} name={project.name} logo={project.logo_path} client={project.client} />
-        ))}
+      {projects?.map((project) => (
+        <DBCard key={project.id} name={project.name} logo={project.logo_path} client={project.client} />
+      ))}
     </>
   )
 }
