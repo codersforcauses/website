@@ -97,6 +97,7 @@ export const Project = pgTable(
     impact: varchar("impact", { length: 1024 }).array(), // impact of the project, <string>[]
     description: varchar("description", { length: 256 }).notNull(), // description of the project
     tech: jsonb("tech").$type<TechItem[]>(), // technologies used in the project, <string>[]
+    members: varchar("members", { length: 256 }).array(), // impact of the project, <string>[]
     is_application_open: boolean("is_application_open").default(false).notNull(), // whether the project is receiving applications or not
     application_url: varchar("application_url", { length: 256 }), // link to the application form
     is_public: boolean("is_public").default(false).notNull(), //  means they are visible on projects page
@@ -109,18 +110,3 @@ export const Project = pgTable(
 )
 export const insertProjectSchema = createInsertSchema(Project)
 export const selectProjectSchema = createSelectSchema(Project)
-// for project members
-export const ProjectMember = pgTable(
-  "project_member",
-  {
-    id: uuid("id")
-      .primaryKey()
-      .$defaultFn(() => uuidv7()),
-    project_id: uuid("project_id").references(() => Project.id, { onDelete: "cascade", onUpdate: "cascade" }),
-    user_id: uuid("user_id").references(() => User.id, { onDelete: "cascade", onUpdate: "cascade" }),
-    createdAt: timestamp("created_at")
-      .$default(() => new Date())
-      .notNull(),
-  },
-  (projectMember) => [index("project_user_idx").on(projectMember.project_id, projectMember.user_id)],
-)

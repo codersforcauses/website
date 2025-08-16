@@ -45,6 +45,7 @@ export const create = adminProcedure
           }),
         )
         .optional(),
+      members: z.string().array().optional(),
       impact: z.string().array().optional(),
       is_application_open: z.boolean().default(false),
       application_url: z.string().trim().optional(),
@@ -52,6 +53,7 @@ export const create = adminProcedure
     }),
   )
   .mutation(async ({ ctx, input }) => {
+    // throw new Error(` ${input.members},,,${input.impact}  ,,, `)
     const project_data = await ctx.db.query.Project.findFirst({
       where: eq(Project.name, input.name),
     })
@@ -62,6 +64,7 @@ export const create = adminProcedure
     } else if (input.type === "Website") {
       icon = "computer"
     }
+
     const [project] = await ctx.db
       .insert(Project)
       .values({
@@ -78,6 +81,7 @@ export const create = adminProcedure
         description: input.description,
         tech: input.tech,
         impact: input.impact,
+        members: input.members,
         is_application_open: input.is_application_open,
         application_url: input.application_url,
         is_public: input.is_public,

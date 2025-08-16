@@ -15,6 +15,7 @@ CREATE TABLE "cfc-website_project" (
 	"impact" varchar(1024)[],
 	"description" varchar(256) NOT NULL,
 	"tech" jsonb,
+	"members" varchar(4096)[],
 	"is_application_open" boolean DEFAULT false NOT NULL,
 	"application_url" varchar(256),
 	"is_public" boolean DEFAULT false NOT NULL,
@@ -23,14 +24,4 @@ CREATE TABLE "cfc-website_project" (
 	CONSTRAINT "cfc-website_project_name_unique" UNIQUE("name")
 );
 --> statement-breakpoint
-CREATE TABLE "cfc-website_project_member" (
-	"id" uuid PRIMARY KEY NOT NULL,
-	"project_id" uuid,
-	"user_id" uuid,
-	"created_at" timestamp NOT NULL
-);
---> statement-breakpoint
-ALTER TABLE "cfc-website_project_member" ADD CONSTRAINT "cfc-website_project_member_project_id_cfc-website_project_id_fk" FOREIGN KEY ("project_id") REFERENCES "public"."cfc-website_project"("id") ON DELETE cascade ON UPDATE cascade;--> statement-breakpoint
-ALTER TABLE "cfc-website_project_member" ADD CONSTRAINT "cfc-website_project_member_user_id_cfc-website_user_id_fk" FOREIGN KEY ("user_id") REFERENCES "public"."cfc-website_user"("id") ON DELETE cascade ON UPDATE cascade;--> statement-breakpoint
-CREATE INDEX "name_idx" ON "cfc-website_project" USING btree ("name");--> statement-breakpoint
-CREATE INDEX "project_user_idx" ON "cfc-website_project_member" USING btree ("project_id","user_id");
+CREATE INDEX "name_idx" ON "cfc-website_project" USING btree ("name");

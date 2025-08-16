@@ -55,6 +55,7 @@ const formSchema = insertProjectSchema.extend({
   end_date: z.date().optional(),
   github_url: z.string().optional(),
   website_url: z.string().optional(),
+  application_url: z.string().optional(),
   impact: z
     .array(
       z.object({
@@ -62,6 +63,7 @@ const formSchema = insertProjectSchema.extend({
       }),
     )
     .optional(),
+
   tech: z
     .array(
       z.object({
@@ -71,10 +73,11 @@ const formSchema = insertProjectSchema.extend({
       }),
     )
     .optional(),
+  members: z.string().array().optional(),
   is_application_open: z.boolean().optional(),
   is_public: z.boolean().optional(),
 })
-type ProjectType = z.infer<typeof TypeEnum>
+export type ProjectType = z.infer<typeof TypeEnum>
 type FormSchema = z.infer<typeof formSchema>
 const defaultValues: {
   logo_path: string
@@ -86,8 +89,10 @@ const defaultValues: {
   end_date?: Date | undefined
   github_url?: string
   website_url?: string
+  application_url?: string
   description: string
   impact: { value: string }[]
+  members: string[]
   tech: { label: string; value: string; path: string }[]
   is_application_open: boolean
   is_public: boolean
@@ -102,6 +107,7 @@ const defaultValues: {
       value: "",
     },
   ],
+  members: [],
   tech: [],
   is_application_open: false,
   is_public: false,
@@ -243,11 +249,93 @@ const TechForm = () => {
     </div>
   )
 }
+const MembersForm = () => {
+  const { getValues } = useFormContext<FormSchema>()
+  const { append, remove } = useFieldArray({
+    name: "members",
+  })
 
-function CreateProjectForm() {
+  const { data: users } = api.admin.users.getAll.useQuery()
+  const { members: emailArray = [] } = getValues()
+
+  return (
+    <div className="space-y-1.5">
+      <FormItem className="flex flex-col">
+        <FormLabel className="font-mono">Members</FormLabel>
+        <Popover>
+          <PopoverTrigger asChild>
+            <FormControl>
+              <Button variant="outline" role="combobox" className="w-full justify-between">
+                Select user
+                <span className="material-symbols-sharp ml-2 h-6 w-6 shrink-0 opacity-50">unfold_more</span>
+              </Button>
+            </FormControl>
+          </PopoverTrigger>
+          <PopoverContent className="w-[--radix-popover-trigger-width] p-0">
+            <Command>
+              <CommandInput placeholder="Search user..." />
+              <CommandEmpty>User not found.</CommandEmpty>
+              <CommandGroup className="max-h-52 overflow-y-scroll">
+                {users?.map((user) => (
+                  <CommandItem
+                    key={user.id}
+                    value={user.email}
+                    onSelect={() => {
+                      if (!emailArray.some((email) => email === user.email)) append(user.email)
+                    }}
+                  >
+                    <span
+                      className={cn(
+                        "material-symbols-sharp mr-2 h-6 w-6 text-black",
+                        emailArray.some((email) => email === user.email) ? "opacity-100" : "opacity-0",
+                      )}
+                    >
+                      check
+                    </span>
+                    {user.email}
+                  </CommandItem>
+                ))}
+              </CommandGroup>
+            </Command>
+          </PopoverContent>
+        </Popover>
+        <FormMessage />
+      </FormItem>
+      <ul className="flex flex-wrap gap-1.5">
+        {Array.isArray(emailArray) &&
+          emailArray.map((item, index) => (
+            <li key={index} className="flex">
+              <Badge variant="secondary" className="select-none">
+                {item}
+              </Badge>
+              <Button
+                type="button"
+                aria-label="Remove item"
+                size="icon"
+                variant="secondary"
+                onClick={() => remove(index)}
+              >
+                <span className="material-symbols-sharp">close</span>
+              </Button>
+            </li>
+          ))}
+      </ul>
+    </div>
+  )
+}
+
+type ProjectFormProps = {
+  formDefaultValues?: Record<string, unknown>
+  isNew?: boolean //create new project or update project
+}
+
+export function ProjectForm({
+  formDefaultValues = defaultValues, // default empty
+  isNew = true, // default false
+}: ProjectFormProps) {
   const form = useForm<FormSchema>({
     resolver: zodResolver(formSchema),
-    defaultValues,
+    defaultValues: formDefaultValues,
   })
   const utils = api.useUtils()
   const createProject = api.admin.projects.create.useMutation({
@@ -267,29 +355,73 @@ function CreateProjectForm() {
       })
     },
   })
-
+  const updateProject = api.admin.projects.update.useMutation({
+    onSuccess: async () => {
+      toast({
+        title: "Project updated successfully",
+        description: "Your project has been updated and is now available.",
+      })
+      await utils.admin.projects.invalidate()
+    },
+    onError: (error) => {
+      console.error(error)
+      toast({
+        variant: "destructive",
+        title: "Failed to update project",
+        description: error.message,
+      })
+    },
+  })
   const onSubmit = (values: FormSchema) => {
     console.log(values)
-    createProject.mutate({
-      name: values.name,
-      client: values.client,
-      type: values.type,
-      start_date: values.start_date ? values.start_date : undefined,
-      end_date: values.end_date ? values.end_date : undefined,
-      github_url: values.github_url,
-      website_url: values.website_url,
-      description: values.description,
-      impact: values.impact?.map((item) => item.value),
-      tech: values.tech?.map((item) => ({
-        label: item.label,
-        value: item.value,
-        path: item.path,
-      })),
-      is_application_open: values.is_application_open,
-      is_public: values.is_public,
-      logo_path: values.logo_path.trim(),
-      img_path: values.img_path?.trim(),
-    })
+    console.log(isNew)
+    if (isNew) {
+      createProject.mutate({
+        name: values.name,
+        client: values.client,
+        type: values.type,
+        start_date: values.start_date ? values.start_date : undefined,
+        end_date: values.end_date ? values.end_date : undefined,
+        github_url: values.github_url,
+        website_url: values.website_url,
+        application_url: values.application_url ? values.application_url : "",
+        description: values.description,
+        impact: values.impact?.map((item) => item.value),
+        tech: values.tech?.map((item) => ({
+          label: item.label,
+          value: item.value,
+          path: item.path,
+        })),
+        members: values.members,
+        is_application_open: values.is_application_open,
+        is_public: values.is_public,
+        logo_path: values.logo_path.trim(),
+        img_path: values.img_path?.trim(),
+      })
+    } else {
+      updateProject.mutate({
+        name: values.name,
+        client: values.client,
+        type: values.type,
+        start_date: values.start_date ? values.start_date : undefined,
+        end_date: values.end_date ? values.end_date : undefined,
+        github_url: values.github_url,
+        website_url: values.website_url,
+        application_url: values.application_url ? values.application_url : "",
+        description: values.description,
+        impact: values.impact?.map((item) => item.value),
+        tech: values.tech?.map((item) => ({
+          label: item.label,
+          value: item.value,
+          path: item.path,
+        })),
+        members: values.members,
+        is_application_open: values.is_application_open,
+        is_public: values.is_public,
+        logo_path: values.logo_path.trim(),
+        img_path: values.img_path?.trim(),
+      })
+    }
   }
 
   return (
@@ -474,7 +606,7 @@ function CreateProjectForm() {
             name="github_url"
             render={({ field }) => (
               <FormItem>
-                <FormLabel className="font-mono">Source code link</FormLabel>
+                <FormLabel className="font-mono">Source</FormLabel>
                 <FormControl>
                   <Input type="url" placeholder="https://github.com/codersforcauses" {...field} />
                 </FormControl>
@@ -488,7 +620,7 @@ function CreateProjectForm() {
             name="website_url"
             render={({ field }) => (
               <FormItem>
-                <FormLabel className="font-mono">Project website link</FormLabel>
+                <FormLabel className="font-mono">Website</FormLabel>
                 <FormControl>
                   <Input type="url" placeholder="https://codersforcauses.org" {...field} />
                 </FormControl>
@@ -499,6 +631,7 @@ function CreateProjectForm() {
           />
           <ImpactForm />
           <TechForm />
+          <MembersForm />
           <FormField
             control={form.control}
             name="is_application_open"
@@ -509,6 +642,20 @@ function CreateProjectForm() {
                   <Checkbox checked={field.value} onCheckedChange={field.onChange} />
                 </FormControl>
                 <FormDescription>Start taking applications</FormDescription>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="application_url"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel className="font-mono">Application form link</FormLabel>
+                <FormControl>
+                  <Input type="url" placeholder="https://docs.google.com/forms" {...field} />
+                </FormControl>
+                <FormDescription></FormDescription>
                 <FormMessage />
               </FormItem>
             )}
@@ -552,10 +699,10 @@ export default function CreateProject() {
         </DialogTrigger>
         <DialogContent className="max-h-screen overflow-auto sm:max-w-5xl">
           <DialogHeader>
-            <DialogTitle>Create New Project</DialogTitle>
+            <DialogTitle className="text-center">Create New Project</DialogTitle>
             <DialogDescription></DialogDescription>
           </DialogHeader>
-          <CreateProjectForm />
+          <ProjectForm />
         </DialogContent>
       </Dialog>
     </div>

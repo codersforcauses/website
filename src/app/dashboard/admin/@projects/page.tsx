@@ -1,21 +1,14 @@
 "use client"
 
-import { Metadata } from "next"
 import dynamic from "next/dynamic"
 import Head from "next/head"
-import Image from "next/image"
-import Link from "next/link"
-import { O } from "node_modules/@upstash/redis/zmscore-07021e27"
-
-import { Button } from "~/components/ui/button"
 
 import { customMetadata } from "~/lib/metadata"
 import { api } from "~/trpc/react"
 
-import CreateProject from "./create-project"
-import UpdateMembers from "./update-members"
+import CreateProject from "./projectForm"
 
-const DBProjectCard = dynamic(() => import("./update-project").then((mod) => mod.DBProjectCard), {
+const DBProjectCard = dynamic(() => import("./update").then((mod) => mod.DBProjectCard), {
   ssr: false,
 })
 
@@ -44,12 +37,15 @@ export default function ProjectsPage() {
       </div>
       <div className="my-4 flex gap-6">
         <CreateProject />
-        <UpdateMembers project_name="cfc" />
       </div>
       <div className="flex flex-col md:flex-row md:gap-12">
         <div className="flex-grow">
-          <div className="grid grid-cols-[repeat(auto-fit,minmax(14rem,300px))] gap-4">
-            {projects?.map((project) => <DBProjectCard key={project.name} project={project} />)}
+          <div className="grid grid-cols-[repeat(auto-fit,minmax(14rem,300px))] gap-4 justify-center">
+            {projects?.map((project) => (
+              <div>
+                <DBProjectCard key={project.name} project={project} />
+              </div>
+            ))}
           </div>
         </div>
       </div>

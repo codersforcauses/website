@@ -41,8 +41,8 @@ export const update = adminProcedure
       type: z.enum(PROJECT_TYPES),
       start_date: z.date().optional(),
       end_date: z.date().optional(),
-      website_url: z.string().trim().nullable(),
-      github_url: z.string().trim().nullable(),
+      website_url: z.string().trim().optional(),
+      github_url: z.string().trim().optional(),
       description: z.string().trim().optional(),
       tech: z
         .array(
@@ -54,12 +54,17 @@ export const update = adminProcedure
         )
         .optional(),
       impact: z.string().array().optional(),
+      members: z.string().array().optional(),
       is_application_open: z.boolean().default(false).optional(),
       application_url: z.string().trim().nullable(),
       is_public: z.boolean().default(false).optional(),
     }),
   )
   .mutation(async ({ ctx, input }) => {
+    const project_data = await ctx.db.query.Project.findFirst({
+      where: eq(Project.name, input.name),
+    })
+    if (project_data) throw new Error(`Project ${input.name} already exist`)
     let icon: ProjectIcon = "devices" // default "devices"
     if (input.type === "Mobile application") {
       icon = "mobile"
@@ -83,6 +88,7 @@ export const update = adminProcedure
         description: input.description?.trim(),
         tech: input.tech,
         impact: input.impact,
+        members: input.members,
         is_application_open: input.is_application_open ?? false,
         application_url: input.application_url?.trim() ?? null,
         is_public: input.is_public ?? false,

@@ -4,7 +4,7 @@ import { F } from "node_modules/@upstash/redis/zmscore-07021e27"
 import { z } from "zod"
 
 import { adminProcedure } from "~/server/api/trpc"
-import { Project, ProjectMember, User } from "~/server/db/schema"
+import { Project } from "~/server/db/schema"
 
 export const getProjectById = adminProcedure
   .input(z.object({ id: z.string().min(1) }))
@@ -22,6 +22,7 @@ export const getProjectById = adminProcedure
         website_url: true,
         github_url: true,
         impact: true,
+        members: true,
         description: true,
         tech: true,
         is_application_open: true,
@@ -35,19 +36,6 @@ export const getProjectById = adminProcedure
     if (!projectData) {
       throw new TRPCError({ code: "NOT_FOUND", message: "Project not found" })
     }
-    const memberData = await ctx.db
-      .select({
-        userId: ProjectMember.user_id,
-        userEmail: User.email,
-      })
-      .from(ProjectMember)
-      .leftJoin(User, eq(ProjectMember.user_id, User.id))
-      .where(eq(ProjectMember.project_id, input.id))
 
-    const projectWithMembers = {
-      ...projectData,
-      members: memberData,
-    }
-
-    return projectWithMembers
+    return projectData
   })

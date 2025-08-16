@@ -1,5 +1,5 @@
 {
-  "id": "cac4de90-28fd-400d-bc8a-4ef909f64588",
+  "id": "256e65ac-f7f5-4ad2-b63a-2ef0fbcfa783",
   "prevId": "2f715dfd-3757-4d61-ab98-3c17785ff541",
   "version": "7",
   "dialect": "postgresql",
@@ -201,6 +201,12 @@
           "primaryKey": false,
           "notNull": false
         },
+        "members": {
+          "name": "members",
+          "type": "varchar(4096)[]",
+          "primaryKey": false,
+          "notNull": false
+        },
         "is_application_open": {
           "name": "is_application_open",
           "type": "boolean",
@@ -262,92 +268,6 @@
           ]
         }
       },
-      "policies": {},
-      "checkConstraints": {},
-      "isRLSEnabled": false
-    },
-    "public.cfc-website_project_member": {
-      "name": "cfc-website_project_member",
-      "schema": "",
-      "columns": {
-        "id": {
-          "name": "id",
-          "type": "uuid",
-          "primaryKey": true,
-          "notNull": true
-        },
-        "project_id": {
-          "name": "project_id",
-          "type": "uuid",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "user_id": {
-          "name": "user_id",
-          "type": "uuid",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "created_at": {
-          "name": "created_at",
-          "type": "timestamp",
-          "primaryKey": false,
-          "notNull": true
-        }
-      },
-      "indexes": {
-        "project_user_idx": {
-          "name": "project_user_idx",
-          "columns": [
-            {
-              "expression": "project_id",
-              "isExpression": false,
-              "asc": true,
-              "nulls": "last"
-            },
-            {
-              "expression": "user_id",
-              "isExpression": false,
-              "asc": true,
-              "nulls": "last"
-            }
-          ],
-          "isUnique": false,
-          "concurrently": false,
-          "method": "btree",
-          "with": {}
-        }
-      },
-      "foreignKeys": {
-        "cfc-website_project_member_project_id_cfc-website_project_id_fk": {
-          "name": "cfc-website_project_member_project_id_cfc-website_project_id_fk",
-          "tableFrom": "cfc-website_project_member",
-          "tableTo": "cfc-website_project",
-          "columnsFrom": [
-            "project_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "cascade",
-          "onUpdate": "cascade"
-        },
-        "cfc-website_project_member_user_id_cfc-website_user_id_fk": {
-          "name": "cfc-website_project_member_user_id_cfc-website_user_id_fk",
-          "tableFrom": "cfc-website_project_member",
-          "tableTo": "cfc-website_user",
-          "columnsFrom": [
-            "user_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "cascade",
-          "onUpdate": "cascade"
-        }
-      },
-      "compositePrimaryKeys": {},
-      "uniqueConstraints": {},
       "policies": {},
       "checkConstraints": {},
       "isRLSEnabled": false
