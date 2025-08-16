@@ -1,6 +1,7 @@
 "use client"
 
 import Image from "next/image"
+import Link from "next/link"
 
 import { Button } from "~/components/ui/button"
 import {
@@ -36,7 +37,7 @@ export type DashboardCardProps = {
   is_public: boolean | null
   id?: string | null
 }
-export const DashboardCard = ({ project }: { project: DashboardCardProps }) => {
+export const DashboardCard = ({ project, upcoming = false }: { project: DashboardCardProps; upcoming?: boolean }) => {
   return (
     <div className="w-full pt-0">
       <Dialog>
@@ -57,13 +58,24 @@ export const DashboardCard = ({ project }: { project: DashboardCardProps }) => {
         </DialogTrigger>
         <DialogContent className="max-h-screen overflow-auto sm:w-full">
           <DialogHeader>
-            <DialogTitle className="text-center"></DialogTitle>
+            <DialogTitle className="text-center">Project Details</DialogTitle>
             <DialogDescription></DialogDescription>
           </DialogHeader>
           <DBProject data={project} />
-          <DialogClose asChild>
-            <Button variant="ghost">Cancel</Button>
-          </DialogClose>
+          <div className="flex justify-between mx-10">
+            <DialogClose asChild>
+              <Button variant="ghost">Cancel</Button>
+            </DialogClose>
+            {upcoming && project.application_url ? (
+              <Link href={project.application_url}>
+                <Button type="button">Apply Now</Button>
+              </Link>
+            ) : (
+              <Button type="button" disabled>
+                Apply Now
+              </Button>
+            )}
+          </div>
         </DialogContent>
       </Dialog>
     </div>

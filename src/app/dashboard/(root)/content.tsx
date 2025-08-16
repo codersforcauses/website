@@ -49,7 +49,7 @@ export default function DashboardContent() {
             <div className="grid grid-cols-[repeat(auto-fit,minmax(14rem,300px))] gap-4">
               {openProjects.map((project, index) => (
                 <div key={index}>
-                  <DashboardCard project={project} />
+                  <DashboardCard project={project} upcoming={true} />
                 </div>
               ))}
             </div>
