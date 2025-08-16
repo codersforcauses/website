@@ -65,36 +65,3 @@ export const getProjectByUser = protectedRatedProcedure(Ratelimit.fixedWindow(60
 
     return projectData
   })
-
-export const getProjectByUserName = protectedRatedProcedure(Ratelimit.fixedWindow(60, "30s"))
-  .input(z.object({ user: z.string(), name: z.string().optional() }))
-  .query(async ({ input, ctx }) => {
-    const conditions = [
-      input.user ? arrayContains(Project.members, [input.user]) : undefined,
-      input.name ? eq(Project.name, input.name) : undefined,
-    ].filter(Boolean) // remove undefined
-
-    const projectData = await ctx.db.query.Project.findMany({
-      columns: {
-        logo_path: true,
-        img_path: true,
-        name: true,
-        client: true,
-        type: true,
-        start_date: true,
-        end_date: true,
-        github_url: true,
-        website_url: true,
-        description: true,
-        impact: true,
-        members: true,
-        tech: true,
-        is_application_open: true,
-        application_url: true,
-        is_public: true,
-      },
-      where: conditions.length > 1 ? and(...conditions) : conditions[0],
-    })
-
-    return projectData
-  })
