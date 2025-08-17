@@ -157,7 +157,6 @@ export default function CreateAccount() {
     }
 
     try {
-      const { startEmailLinkFlow, cancelEmailLinkFlow } = signUp.createEmailLinkFlow()
       await signUp.create({
         emailAddress: values.email,
         firstName: values.preferred_name,
@@ -173,7 +172,7 @@ export default function CreateAccount() {
           </>
         ),
       })
-
+      const { startEmailLinkFlow, cancelEmailLinkFlow } = signUp.createEmailLinkFlow()
       const su = await startEmailLinkFlow({
         redirectUrl: `${SITE_URL}/verification`,
       })
@@ -208,7 +207,7 @@ export default function CreateAccount() {
       }
       setActiveView("payment")
     } catch (error) {
-      console.error(error)
+      console.error("signup error", error)
       toast({
         variant: "destructive",
         title: "Failed to create user",

@@ -52,49 +52,72 @@ export const create = publicRatedProcedure(Ratelimit.fixedWindow(4, "30s"))
     }),
   )
   .mutation(async ({ ctx, input }) => {
-    // TODO: wrap in a transaction
-    const { result, statusCode } = await squareClient.customersApi.createCustomer({
-      idempotencyKey: randomUUID(),
-      givenName: input.preferred_name,
-      familyName: input.name,
-      emailAddress: input.email,
-      // TODO: convert to user ID (UUIDv7)
-      referenceId: input.clerk_id,
-    })
+    let createdSquareCustomerId: string | null = null
+    let createdClerkUserId: string | null = null
 
-    if (!result.customer?.id) {
+    try {
+      const { result, statusCode } = await squareClient.customersApi.createCustomer({
+        idempotencyKey: randomUUID(),
+        givenName: input.preferred_name,
+        familyName: input.name,
+        emailAddress: input.email,
+        // TODO: convert to user ID (UUIDv7)
+        referenceId: input.clerk_id,
+      })
+
+      if (!result.customer?.id) {
+        throw new TRPCError({
+          code: "INTERNAL_SERVER_ERROR",
+          message: `Failed to create square customer ${statusCode}`,
+          cause: JSON.stringify(result),
+        })
+      }
+      createdSquareCustomerId = result.customer.id
+      const clerkUser = await clerkClient().users.getUser(input.clerk_id)
+
+      if (!clerkUser) {
+        throw new TRPCError({
+          code: "NOT_FOUND",
+          message: `Clerk user with id: ${input.clerk_id} does not exist`,
+        })
+      }
+      createdClerkUserId = clerkUser.id
+
+      const [user] = await ctx.db
+        .insert(User)
+        .values({
+          clerk_id: input.clerk_id,
+          name: input.name,
+          preferred_name: input.preferred_name,
+          email: input.email,
+          pronouns: input.pronouns,
+          student_number: input.student_number,
+          university: input.uni,
+          github: input.github,
+          discord: input.discord,
+          subscribe: input.subscribe ?? true,
+          square_customer_id: result.customer.id,
+        })
+        .returning()
+      return user
+    } catch (err) {
+      if (createdSquareCustomerId) {
+        try {
+          await squareClient.customersApi.deleteCustomer(createdSquareCustomerId)
+        } catch (cleanupErr) {
+          console.error("Failed to cleanup Square customer", cleanupErr)
+        }
+      }
+      if (createdClerkUserId) {
+        try {
+          await clerkClient().users.deleteUser(createdClerkUserId)
+        } catch (cleanupErr) {
+          console.error("Failed to cleanup Clerk user", cleanupErr)
+        }
+      }
       throw new TRPCError({
         code: "INTERNAL_SERVER_ERROR",
-        message: `Failed to create square customer ${statusCode}`,
-        cause: JSON.stringify(result),
+        message: `Failed to register user: ${err}`,
       })
     }
-
-    const clerkUser = await clerkClient().users.getUser(input.clerk_id)
-
-    if (!clerkUser) {
-      throw new TRPCError({
-        code: "NOT_FOUND",
-        message: `Clerk user with id: ${input.clerk_id} does not exist`,
-      })
-    }
-
-    const [user] = await ctx.db
-      .insert(User)
-      .values({
-        clerk_id: input.clerk_id,
-        name: input.name,
-        preferred_name: input.preferred_name,
-        email: input.email,
-        pronouns: input.pronouns,
-        student_number: input.student_number,
-        university: input.uni,
-        github: input.github,
-        discord: input.discord,
-        subscribe: input.subscribe ?? true,
-        square_customer_id: result.customer.id,
-      })
-      .returning()
-
-    return user
   })
