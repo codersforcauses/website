@@ -66,15 +66,16 @@ export const DashboardCard = ({ project, upcoming = false }: { project: Dashboar
             <DialogClose asChild>
               <Button variant="ghost">Cancel</Button>
             </DialogClose>
-            {upcoming && project.application_url ? (
-              <Link href={project.application_url}>
-                <Button type="button">Apply Now</Button>
-              </Link>
-            ) : (
-              <Button type="button" disabled>
-                Apply Now
-              </Button>
-            )}
+            {upcoming &&
+              (project.application_url ? (
+                <Link href={project.application_url}>
+                  <Button type="button">Apply Now</Button>
+                </Link>
+              ) : (
+                <Button type="button" disabled>
+                  Apply Now
+                </Button>
+              ))}
           </div>
         </DialogContent>
       </Dialog>
