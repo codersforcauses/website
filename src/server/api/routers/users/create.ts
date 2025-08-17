@@ -100,7 +100,7 @@ export const create = publicRatedProcedure(Ratelimit.fixedWindow(4, "30s"))
         })
         .returning()
       return user
-    } catch (err) {
+    } catch (err: unknown) {
       if (createdSquareCustomerId) {
         try {
           await squareClient.customersApi.deleteCustomer(createdSquareCustomerId)
@@ -115,9 +115,19 @@ export const create = publicRatedProcedure(Ratelimit.fixedWindow(4, "30s"))
           console.error("Failed to cleanup Clerk user", cleanupErr)
         }
       }
+      let message = "Unknown error"
+      if (err instanceof TRPCError) {
+        message = err.message
+      } else if (err instanceof Error) {
+        message = err.message
+      } else if (typeof err === "string") {
+        message = err
+      } else {
+        message = JSON.stringify(err)
+      }
       throw new TRPCError({
         code: "INTERNAL_SERVER_ERROR",
-        message: `Failed to register user: ${err}`,
+        message: `Failed to register user: ${message}`,
       })
     }
   })
