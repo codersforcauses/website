@@ -185,7 +185,7 @@ const TechForm = () => {
     <div className="space-y-1.5">
       <FormItem className="flex flex-col">
         <FormLabel className="font-mono">Technologies used</FormLabel>
-        <Popover>
+        <Popover modal={true}>
           <PopoverTrigger asChild>
             <FormControl>
               <Button variant="outline" role="combobox" className="w-full justify-between">
@@ -194,11 +194,11 @@ const TechForm = () => {
               </Button>
             </FormControl>
           </PopoverTrigger>
-          <PopoverContent className="w-[--radix-popover-trigger-width] p-0">
+          <PopoverContent className="w-[--radix-popover-trigger-width] p-0 ">
             <Command>
               <CommandInput placeholder="Search technologies..." />
               <CommandEmpty>Technology not found.</CommandEmpty>
-              <CommandGroup className="max-h-52 overflow-y-scroll">
+              <CommandGroup>
                 {Object.values(iconMap).map((item) => (
                   <CommandItem
                     key={item.value}
