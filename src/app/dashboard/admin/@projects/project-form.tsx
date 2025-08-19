@@ -266,7 +266,7 @@ const MembersForm = () => {
     <div className="space-y-1.5">
       <FormItem className="flex flex-col">
         <FormLabel className="font-mono">Members</FormLabel>
-        <Popover>
+        <Popover modal={true}>
           <PopoverTrigger asChild>
             <FormControl>
               <Button variant="outline" role="combobox" className="w-full justify-between">
@@ -279,7 +279,7 @@ const MembersForm = () => {
             <Command>
               <CommandInput placeholder="Search user..." />
               <CommandEmpty>User not found.</CommandEmpty>
-              <CommandGroup className="max-h-52 overflow-y-scroll">
+              <CommandGroup>
                 {users?.map((user) => (
                   <CommandItem
                     key={user.id}
