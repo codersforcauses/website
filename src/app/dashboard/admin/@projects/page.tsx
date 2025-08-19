@@ -2,6 +2,9 @@
 
 import dynamic from "next/dynamic"
 import Head from "next/head"
+import Link from "next/link"
+
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "~/components/ui/tabs"
 
 import { customMetadata } from "~/lib/metadata"
 import { api } from "~/trpc/react"
@@ -23,7 +26,8 @@ export default function ProjectsPage() {
   //   })
 
   const utils = api.useUtils()
-  const { data: projects } = api.admin.projects.getProjects.useQuery({})
+  const { data: ongoingProjects } = api.admin.projects.getPublicProjects.useQuery({ is_public: false })
+  const { data: publicProjects } = api.admin.projects.getPublicProjects.useQuery({ is_public: true })
 
   return (
     <>
@@ -38,17 +42,46 @@ export default function ProjectsPage() {
       <div className="my-4 flex gap-6">
         <CreateProject />
       </div>
-      <div className="flex flex-col md:flex-row md:gap-12">
-        <div className="flex-grow">
-          <div className="grid grid-cols-[repeat(auto-fit,minmax(14rem,300px))] gap-4 ">
-            {projects?.map((project, index) => (
-              <div key={index}>
-                <DBProjectCard key={project.name} project={project} />
+      <Tabs defaultValue="ongoing" className="container py-6">
+        <TabsList className="mb-2 w-full max-w-xs">
+          <TabsTrigger value="ongoing" className="w-full">
+            <Link href="?type=ongoing">Ongoing Projects</Link>
+          </TabsTrigger>
+          <TabsTrigger asChild value="past" className="w-full">
+            <Link href="?type=past">Public Projects</Link>
+          </TabsTrigger>
+        </TabsList>
+        <TabsContent value="past">
+          <div className="space-y-6">
+            {!publicProjects || publicProjects.length == 0 ? (
+              <h2 className="font-mono text-3xl text-primary">No public projects</h2>
+            ) : (
+              <div className="grid grid-cols-[repeat(auto-fit,minmax(14rem,300px))] gap-4">
+                {publicProjects.map((project, index) => (
+                  <div key={index}>
+                    <DBProjectCard key={project.name} project={project} />
+                  </div>
+                ))}
               </div>
-            ))}
+            )}
           </div>
-        </div>
-      </div>
+        </TabsContent>
+        <TabsContent value="ongoing">
+          <div className="space-y-6">
+            {!ongoingProjects || ongoingProjects.length == 0 ? (
+              <h2 className="font-mono text-3xl text-black dark:text-white">No ongoing projects</h2>
+            ) : (
+              <div className="grid grid-cols-[repeat(auto-fit,minmax(14rem,300px))] gap-4">
+                {ongoingProjects.map((project, index) => (
+                  <div key={index}>
+                    <DBProjectCard key={project.name} project={project} />
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+        </TabsContent>
+      </Tabs>
     </>
   )
 }

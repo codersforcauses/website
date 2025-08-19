@@ -1,13 +1,11 @@
 "use client"
 
-import { format, isAfter, isBefore, isSameDay, parse } from "date-fns"
 import Link from "next/link"
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "~/components/ui/tabs"
 
 import { api } from "~/trpc/react"
 
-import type { defaultValueType } from "../admin/@projects/project-form"
 import { DashboardCard } from "./card"
 
 export default function DashboardContent() {
