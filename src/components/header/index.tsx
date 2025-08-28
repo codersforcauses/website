@@ -25,7 +25,6 @@ const links: Array<HeaderItem> = [
     text: "Workshops",
     isExternal: true,
   },
-  { href: "/hack-for-homes", text: "Hack for Homes!" },
 ]
 
 const Header = async () => {
