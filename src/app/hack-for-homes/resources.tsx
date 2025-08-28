@@ -10,7 +10,7 @@ export default function ResourcesAccordion() {
       <Accordion type="single" collapsible className="w-full">
         <AccordionItem value="resources">
           <AccordionTrigger className="pl-2">
-            <h2 className="text-2xl font-semibold">Resources For Inspiration</h2>
+            <h2 className="text-xl font-semibold">Resources For Inspiration</h2>
           </AccordionTrigger>
           <AccordionContent>
             <ul className="list-disc space-y-2 pl-10">

@@ -8,7 +8,7 @@ export default function GuidingQuestionsAccordion() {
       <Accordion type="single" collapsible className="w-full">
         <AccordionItem value="guiding-questions">
           <AccordionTrigger className="pl-2">
-            <h2 className="text-2xl font-semibold">Guiding Questions & Audiences</h2>
+            <h2 className="text-xl font-semibold">Guiding Questions & Audiences</h2>
           </AccordionTrigger>
           <AccordionContent>
             <div className="space-y-4 pl-10">
