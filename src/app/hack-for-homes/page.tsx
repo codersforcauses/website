@@ -5,6 +5,7 @@ import { Button } from "~/components/ui/button"
 
 import GuidingQuestionsAccordion from "./guiding-qs"
 import ResourcesAccordion from "./resources"
+import Sponsors from "./sponsors"
 import VenueAccordion from "./venue2"
 
 export default function Itinerary() {
@@ -45,8 +46,8 @@ export default function Itinerary() {
       </div>
       <div className="bg-secondary bg-white py-6 text-primary dark:bg-alt-dark dark:text-secondary md:py-12 ">
         <div className="container mx-auto space-y-12">
-          <h3 className="font-mono text-2xl font-black dark:text-white">Past Clients</h3>
           <h3 className="font-mono text-2xl font-black dark:text-white">Proudly Supported By</h3>
+          <Sponsors />
         </div>
       </div>
     </>

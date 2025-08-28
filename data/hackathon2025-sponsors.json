@@ -1,0 +1,19 @@
+[
+    {
+    "name": "Venture: Student Innovation Centre - UWA Student Guild",
+    "alt": "Venture: Student Innovation Centre - UWA Student Guild logo",
+    "logo": "/sponsors/venture_horizontal_logo.png",
+    "link": "https://www.venture-student-innovation.com/"
+  },
+  {
+    "name": "Anthropic",
+    "alt": "Anthropic logo",
+    "logo": "/sponsors/anthropic_logo.png",
+    "link": "https://www.anthropic.com/"
+  }, 
+  {"name": "Bloom",
+  "alt": "Bloom logo",
+  "logo": "/sponsors/bloom_logo.png",
+  "link": "https://www.bloom.org.au/"
+  }
+]
