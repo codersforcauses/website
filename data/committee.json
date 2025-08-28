@@ -130,15 +130,28 @@
     }
   },
   {
-    "name": "Samuel Theodore",
+    "name": "James Lee",
     "position": "Ordinary Committee Member",
     "about": "He/Him",
     "social": {
       "email": "committee@codersforcauses.org",
-      "github": "https://github.com/samueltl21"
+      "github": "https://github.com/SafetyInObscurity"
     },
     "picture": {
-      "src": "/committee/samdp_25.jpg",
+      "src": "/committee/jamesdp_25.webp",
+      "alt": "CFC OCM"
+    }
+  },
+  {
+    "name": "Samuel Jackson",
+    "position": "Ordinary Committee Member",
+    "about": "He/Him",
+    "social": {
+      "email": "committee@codersforcauses.org",
+      "github": "https://github.com/samjjacko"
+    },
+    "picture": {
+      "src": "/committee/samjdp_25.jpg",
       "alt": "CFC OCM"
     }
   },
