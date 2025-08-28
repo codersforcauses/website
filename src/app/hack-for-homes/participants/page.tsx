@@ -1,4 +1,4 @@
-import participantList from "data/hackathon2025-participants.json"
+import participantList from "data/hackathon2025/participants.json"
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "~/components/ui/tabs"
 
