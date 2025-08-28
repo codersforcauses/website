@@ -1,4 +1,3 @@
-import { Accordion } from "@radix-ui/react-accordion"
 import Image from "next/image"
 import Link from "next/link"
 
@@ -6,7 +5,7 @@ import { Button } from "~/components/ui/button"
 
 import GuidingQuestionsAccordion from "./guiding-qs"
 import ResourcesAccordion from "./resources"
-import RubricAccordion from "./rubric"
+import RubricsAccordion from "./rubrics"
 import Sponsors from "./sponsors"
 import VenueAccordion from "./venue"
 
@@ -39,7 +38,7 @@ export default function Itinerary() {
         <VenueAccordion />
         <GuidingQuestionsAccordion />
         <ResourcesAccordion />
-        <RubricAccordion />
+        <RubricsAccordion />
       </div>
       <div className="bg-secondary bg-white py-6 text-primary dark:bg-alt-dark dark:text-secondary md:py-12 ">
         <div className="container mx-auto space-y-12">
