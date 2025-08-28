@@ -14,7 +14,8 @@ export const metadata: Metadata = {
   ...customMetadata({
     name: "Hack for Homes Itinerary",
     page: "Hack for Homes Itinerary",
-    description: "",
+    description:
+      "How can we improve housing accessibility and living conditions for Western Australians struggling to find affordable, safe, and stable housing during the current housing crisis?",
     image:
       "https://og-social-cards.vercel.app/**.%2Fabout**.png?theme=dark&md=1&fontSize=125px&images=https%3A%2Fcodersforcauses.org%2Flogo%2Fcfc_logo_white_full.svg",
   }),
