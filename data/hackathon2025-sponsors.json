@@ -1,5 +1,5 @@
 [
-    {
+  {
     "name": "Venture: Student Innovation Centre - UWA Student Guild",
     "alt": "Venture: Student Innovation Centre - UWA Student Guild logo",
     "logo": "/sponsors/venture_horizontal_logo.png",
@@ -10,10 +10,13 @@
     "alt": "Anthropic logo",
     "logo": "/sponsors/anthropic_logo.png",
     "link": "https://www.anthropic.com/"
-  }, 
-  {"name": "Bloom",
-  "alt": "Bloom logo",
-  "logo": "/sponsors/bloom_logo.png",
-  "link": "https://www.bloom.org.au/"
+  },
+  { "name": "Bloom", "alt": "Bloom logo", "logo": "/sponsors/bloom_logo.png", "link": "https://www.bloom.org.au/" },
+  { "name": "Boon", "alt": "Boon logo", "logo": "/sponsors/boon_logo.png", "link": "https://www.boon.com.au/" },
+  {
+    "name": "bankwest",
+    "alt": "bankwest logo",
+    "logo": "/sponsors/bankwest_logo.png",
+    "link": "https://www.bankwest.com.au/"
   }
 ]

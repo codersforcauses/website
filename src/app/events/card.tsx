@@ -1,3 +1,5 @@
+"use client"
+
 import Image from "next/image"
 
 import { Badge } from "~/components/ui/badge"
@@ -6,8 +8,16 @@ import { Skeleton } from "~/components/ui/skeleton"
 import type { Event } from "~/lib/types"
 
 const EventCard = (event: Omit<Event, "type">) => {
+  const handleOnclick = () => {
+    if (event.link) {
+      window.open(event.link, "_blank")
+    }
+  }
   return (
-    <div className="ml-4 grid grid-cols-5 grid-rows-2 border @container/card lg:ml-16">
+    <div
+      className={`ml-4 grid grid-cols-5 grid-rows-2 border @container/card lg:ml-16 ${event.link ? "cursor-pointer hover:shadow-lg" : ""}`}
+      onClick={handleOnclick}
+    >
       <div className="relative col-span-full @xl/card:col-span-2 @xl/card:row-span-2">
         <Skeleton className="size-full" />
         <Image

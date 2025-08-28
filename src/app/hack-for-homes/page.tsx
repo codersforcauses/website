@@ -1,3 +1,4 @@
+import { Accordion } from "@radix-ui/react-accordion"
 import Image from "next/image"
 import Link from "next/link"
 
@@ -5,8 +6,9 @@ import { Button } from "~/components/ui/button"
 
 import GuidingQuestionsAccordion from "./guiding-qs"
 import ResourcesAccordion from "./resources"
+import RubricAccordion from "./rubric"
 import Sponsors from "./sponsors"
-import VenueAccordion from "./venue2"
+import VenueAccordion from "./venue"
 
 export default function Itinerary() {
   return (
@@ -21,14 +23,10 @@ export default function Itinerary() {
             </p>
             <div className="flex pl-5 space-x-5 pt-4">
               <Button>
-                <Link href="/hack-for-homes/agenda">
-                  <p className="text-black hover:underline">Agenda</p>
-                </Link>
+                <Link href="/hack-for-homes/agenda">Agenda</Link>
               </Button>
               <Button>
-                <Link href="/hack-for-homes/participants">
-                  <p className="text-black hover:underline">Participants</p>
-                </Link>
+                <Link href="/hack-for-homes/participants">Participants</Link>
               </Button>
             </div>
           </div>
@@ -37,12 +35,11 @@ export default function Itinerary() {
           </div>
         </div>
       </div>
-      <div className="container w-full flex flex-col items-start justify-start py-8">
+      <div className="container w-full flex flex-col items-start justify-start py-8 gap-4">
         <VenueAccordion />
-        <div className="py-8 w-full">
-          <GuidingQuestionsAccordion />
-          <ResourcesAccordion />
-        </div>
+        <GuidingQuestionsAccordion />
+        <ResourcesAccordion />
+        <RubricAccordion />
       </div>
       <div className="bg-secondary bg-white py-6 text-primary dark:bg-alt-dark dark:text-secondary md:py-12 ">
         <div className="container mx-auto space-y-12">

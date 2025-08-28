@@ -41,6 +41,7 @@ export interface Event {
     start: string
     end: string
   }
+  link?: string
   location: string
   desc: string
   type?: "workshop" | "industry night" | "social event"

@@ -8,11 +8,11 @@ import ParticipantCard from "./card"
 
 export default function AgendaPage() {
   return (
-    <>
-      <div className="flex items-center px-8 pt-12">
+    <div className="container ">
+      <div className="flex items-center mt-8">
         <h2 className="text-2xl font-semibold">Participants</h2>
       </div>
-      <Tabs defaultValue="judges" className="container py-8">
+      <Tabs defaultValue="judges" className=" py-8">
         <TabsList className="mb-2 w-full max-w-xs">
           <TabsTrigger asChild value="judges" className="w-full">
             <div>Judges</div>
@@ -32,6 +32,6 @@ export default function AgendaPage() {
           </div>
         </TabsContent>
       </Tabs>
-    </>
+    </div>
   )
 }
