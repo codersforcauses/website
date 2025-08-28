@@ -1,0 +1,92 @@
+[
+  {
+    "id": 1,
+    "name": "Michael Nefiodovas",
+    "role":"Judge",
+    "description":"Director @ Teleios Pty Ltd x Hackathon Winner"
+  },
+  {
+    "id": 2,
+    "name": "Professor Rachel Cardell-Oliver",
+    "role":"Judge",
+    "description":"Head of Department, Computer Science and Software Engineering, UWA"
+  }, 
+  {
+    "id": 3,
+    "name": "Matthew James",
+    "role": "Judge",
+    "description": "CTO @ SupplyWise"
+  }, 
+  {
+    "id": 4,
+    "name": "Boon Keat Law",
+    "role": "Mentor",
+    "description": "Director @ Boon Solutions"
+  },
+  {
+    "id": 5,
+    "name": "Cheng Li",
+    "role": "Mentor",
+    "description": "2024 ComSSA Hackathon Winner, research assistant @ UWA Data Institute, Technical Project Consultant @ Intelife"
+  },
+    {
+    "id": 6,
+    "name": "Filip Najdovski",
+    "role": "Mentor",
+    "description": "Software Engineer II @ Microsoft, Former CFC OCM"
+  },
+    {
+    "id": 7,
+    "name": "James Audcent",
+    "role": "Mentor",
+    "description": "Co-Founder @ Zentient"
+  },
+    {
+    "id": 8,
+    "name": "Lachlan Russell",
+    "role": "Mentor",
+    "description": "Software Engineer @ Atlassian"
+  },
+  {
+    "id": 9,
+    "name": "Nick Hollingsworth",
+    "role": "Mentor",
+    "description": "Dev @ Data Operations (Freelance)"
+  },
+    {
+    "id": 10,
+    "name": "Oscar Hermoso",
+    "role": "Mentor",
+    "description": "Cloud Automation + DevOps Lead @ RAC Co-Founder @ Kedyou"
+  },
+  {
+    "id": 11,
+    "name": "Steve Hodgskin",
+    "role": "Mentor",
+    "description": "Director + Co-Founder @ Zentient"
+  },
+    {
+    "id": 12,
+    "name": "Tim Sondalini",
+    "role": "Mentor",
+    "description": "Innovation Lead @ WA Data Science + Innovation Hub"
+  }, 
+  {
+    "id": 13,
+    "name": "Larry Huynh",
+    "role": "Mentor",
+    "description": "PhD Candidate @ UWA"
+  },  
+  {
+    "id": 14,
+    "name": "Jack Sun",
+    "role": "Mentor",
+    "description": "Software Engineer @ Genvis, former CFC committee member"
+  },   
+    {
+    "id": 15,
+    "name": "Stephen den Boer",
+    "role": "Mentor",
+    "description": "Technology graduate @ Bankwest"
+  } 
+]
