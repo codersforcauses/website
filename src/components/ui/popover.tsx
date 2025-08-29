@@ -5,7 +5,9 @@ import * as React from "react"
 
 import { cn } from "~/lib/utils"
 
-const Popover = PopoverPrimitive.Root
+const Popover: React.FC<React.ComponentProps<typeof PopoverPrimitive.Root>> = (props) => (
+  <PopoverPrimitive.Root {...props} />
+)
 
 const PopoverTrigger = PopoverPrimitive.Trigger
 

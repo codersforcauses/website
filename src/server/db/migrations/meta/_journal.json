@@ -29,6 +29,13 @@
       "when": 1754098488709,
       "tag": "0003_illegal_clint_barton",
       "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1755348758040,
+      "tag": "0004_rare_blade",
+      "breakpoints": true
     }
   ]
 }
