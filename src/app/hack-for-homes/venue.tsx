@@ -1,5 +1,11 @@
+"use client"
+
+import { link } from "fs"
+import Link from "next/link"
+
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "~/components/ui/accordion"
 import { Alert, AlertDescription, AlertTitle } from "~/components/ui/alert"
+import { Button } from "~/components/ui/button"
 import { Separator } from "~/components/ui/separator"
 
 export default function VenueAccordion() {
@@ -14,7 +20,15 @@ export default function VenueAccordion() {
             <Alert>
               <AlertTitle>Visitor Info Package</AlertTitle>
               <AlertDescription>
-                For directions, parking, and venue details, please see the full Visitor Info Package.
+                For directions, parking, and venue details, please see the full{" "}
+                <Button type="button" variant="link" className="h-auto p-0 text-current underline" asChild>
+                  <Link
+                    href="https://www.canva.com/design/DAFIJy6uVPo/a0zO1yY6Vp9xOHvCoiq2fA/view?utm_content=DAFIJy6uVPo&utm_campaign=designshare&utm_medium=link2&utm_source=chatgpt.com&utlId=h3d9962a557"
+                    target="_blank"
+                  >
+                    Visitor Info Package
+                  </Link>
+                </Button>
               </AlertDescription>
             </Alert>
             <Separator />
