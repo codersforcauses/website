@@ -10,10 +10,10 @@ export const viewport: Viewport = {
 }
 
 export const metadata: Metadata = {
-  title: "Hack for Homes Itinerary",
+  title: "Hack for Homes",
   ...customMetadata({
-    name: "Hack for Homes Itinerary",
-    page: "Hack for Homes Itinerary",
+    name: "Hack for Homes",
+    page: "Hack for Homes",
     description:
       "How can we improve housing accessibility and living conditions for Western Australians struggling to find affordable, safe, and stable housing during the current housing crisis?",
     image:
