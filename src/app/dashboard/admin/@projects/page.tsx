@@ -20,14 +20,18 @@ export default function ProjectsPage() {
   //   const meta = customMetadata({
   //     name: "Our Projects",
   //     page: "projects",
-  //     description: "A list of all past and present projects.",
+  //     description: "A list of all public and present projects.",
   //     image:
   //       "https://og-social-cards.vercel.app/**.%2Fprojects**.png?theme=dark&md=1&fontSize=125px&images=https%3A%2Fcodersforcauses.org%2Flogo%2Fcfc_logo_white_full.svg",
   //   })
 
   const utils = api.useUtils()
-  const { data: ongoingProjects } = api.admin.projects.getPublicProjects.useQuery({ is_public: false })
-  const { data: publicProjects } = api.admin.projects.getPublicProjects.useQuery({ is_public: true })
+  const { isLoading: p1Loading, data: ongoingProjects } = api.admin.projects.getPublicProjects.useQuery({
+    is_public: false,
+  })
+  const { isLoading: p2Loading, data: publicProjects } = api.admin.projects.getPublicProjects.useQuery({
+    is_public: true,
+  })
 
   return (
     <>
@@ -42,25 +46,25 @@ export default function ProjectsPage() {
       <div className="my-4 flex gap-6">
         <CreateProject />
       </div>
-      <Tabs defaultValue="ongoing" className="container py-6">
+      <Tabs defaultValue="ongoing" className=" py-6">
         <TabsList className="mb-2 w-full max-w-xs">
           <TabsTrigger value="ongoing" className="w-full">
             <Link href="?type=ongoing">Ongoing Projects</Link>
           </TabsTrigger>
-          <TabsTrigger asChild value="past" className="w-full">
-            <Link href="?type=past">Public Projects</Link>
+          <TabsTrigger asChild value="public" className="w-full">
+            <Link href="?type=public">Public Projects</Link>
           </TabsTrigger>
         </TabsList>
-        <TabsContent value="past">
+        <TabsContent value="public">
           <div className="space-y-6">
-            {!publicProjects || publicProjects.length == 0 ? (
+            {p2Loading ? (
+              <h2 className="font-mono text-3xl text-primary">Loading...</h2>
+            ) : !publicProjects || publicProjects.length == 0 ? (
               <h2 className="font-mono text-3xl text-primary">No public projects</h2>
             ) : (
-              <div className="grid grid-cols-[repeat(auto-fit,minmax(14rem,300px))] gap-4">
+              <div className="grid grid-cols-[repeat(auto-fit,minmax(250px,300px))] gap-4">
                 {publicProjects.map((project, index) => (
-                  <div key={index}>
-                    <DBProjectCard key={project.name} project={project} />
-                  </div>
+                  <DBProjectCard key={project.name} project={project} />
                 ))}
               </div>
             )}
@@ -68,14 +72,14 @@ export default function ProjectsPage() {
         </TabsContent>
         <TabsContent value="ongoing">
           <div className="space-y-6">
-            {!ongoingProjects || ongoingProjects.length == 0 ? (
-              <h2 className="font-mono text-3xl text-black dark:text-white">No ongoing projects</h2>
+            {p1Loading ? (
+              <h2 className="font-mono text-3xl text-primary">Loading...</h2>
+            ) : !ongoingProjects || ongoingProjects.length == 0 ? (
+              <h2 className="font-mono text-3xl text-primary">No ongoing projects</h2>
             ) : (
-              <div className="grid grid-cols-[repeat(auto-fit,minmax(14rem,300px))] gap-4">
+              <div className="grid grid-cols-[repeat(auto-fit,minmax(250px,300px))] gap-4">
                 {ongoingProjects.map((project, index) => (
-                  <div key={index}>
-                    <DBProjectCard key={project.name} project={project} />
-                  </div>
+                  <DBProjectCard key={project.name} project={project} />
                 ))}
               </div>
             )}

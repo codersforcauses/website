@@ -10,12 +10,14 @@ import { DashboardCard } from "./card"
 
 export default function DashboardContent() {
   const { data: user } = api.users.getCurrent.useQuery()
-  const { data: pastProjects } = api.projects.getProjectByUser.useQuery({ user: user?.email ?? "" })
+  const { isLoading: p1Loading, data: pastProjects } = api.projects.getProjectByUser.useQuery({
+    user: user?.email ?? "",
+  })
   console.log("past", pastProjects)
-  const { data: openProjects } = api.projects.getApplicationOpen.useQuery()
+  const { isLoading: p2Loading, data: openProjects } = api.projects.getApplicationOpen.useQuery()
   console.log("open", openProjects)
   return (
-    <Tabs defaultValue="upcoming" className="container py-6">
+    <Tabs defaultValue="upcoming" className=" py-6">
       <TabsList className="mb-2 w-full max-w-xs">
         <TabsTrigger asChild value="past" className="w-full">
           <Link href="?type=past">Past Participation</Link>
@@ -26,7 +28,9 @@ export default function DashboardContent() {
       </TabsList>
       <TabsContent value="past">
         <div className="space-y-6">
-          {!pastProjects || pastProjects.length == 0 ? (
+          {p1Loading ? (
+            <h2 className="font-mono text-3xl text-primary">Loading...</h2>
+          ) : !pastProjects || pastProjects.length == 0 ? (
             <h2 className="font-mono text-3xl text-primary">No past participated projects</h2>
           ) : (
             <div className="grid grid-cols-[repeat(auto-fit,minmax(14rem,300px))] gap-4">
@@ -41,8 +45,10 @@ export default function DashboardContent() {
       </TabsContent>
       <TabsContent value="upcoming">
         <div className="space-y-6">
-          {!openProjects || openProjects.length == 0 ? (
-            <h2 className="font-mono text-3xl text-black dark:text-white">No upcoming projects</h2>
+          {p2Loading ? (
+            <h2 className="font-mono text-3xl text-primary">Loading...</h2>
+          ) : !openProjects || openProjects.length == 0 ? (
+            <h2 className="font-mono text-3xl text-primary">No upcoming projects</h2>
           ) : (
             <div className="grid grid-cols-[repeat(auto-fit,minmax(14rem,300px))] gap-4">
               {openProjects.map((project, index) => (

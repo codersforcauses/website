@@ -38,47 +38,60 @@ import DeleteProject from "./delete"
 import PreviewProject from "./preview"
 
 const TypeEnum = z.enum(PROJECT_TYPES)
-const formSchema = insertProjectSchema.extend({
-  name: z.string().min(2, {
-    message: "Name is required. Minimum 2 characters.",
-  }),
-  client: z.string().min(2, {
-    message: "Client is required. Minimum 2 characters.",
-  }),
-  logo_path: z.string().min(2, {
-    message: "Logo is required. Minimum 2 characters.",
-  }),
-  description: z.string().min(10, {
-    message: "Description is required. Minimum 10 characters.",
-  }),
-  img_path: z.string().optional(),
-  type: TypeEnum.default("Progressive Web App (PWA)"),
-  start_date: z.date().optional(),
-  end_date: z.date().optional(),
-  github_url: z.string().optional(),
-  website_url: z.string().optional(),
-  application_url: z.string().optional(),
-  impact: z
-    .array(
-      z.object({
-        value: z.string(),
-      }),
-    )
-    .optional(),
+const formSchema = insertProjectSchema
+  .extend({
+    name: z.string().min(2, {
+      message: "Name is required. Minimum 2 characters.",
+    }),
+    client: z.string().min(2, {
+      message: "Client is required. Minimum 2 characters.",
+    }),
+    logo_path: z.string().regex(/^\/.*/, "Path must start with '/'").min(2, {
+      message: "Logo is required. Minimum 2 characters.",
+    }),
+    description: z.string().min(10, {
+      message: "Description is required. Minimum 10 characters.",
+    }),
+    img_path: z.string().regex(/^\/.*/, "Path must start with '/'").optional(),
+    type: TypeEnum.default("Progressive Web App (PWA)"),
+    start_date: z.date().optional(),
+    end_date: z.date().optional(),
+    github_url: z.string().optional(),
+    website_url: z.string().optional(),
+    application_url: z.string().optional(),
+    impact: z
+      .array(
+        z.object({
+          value: z.string(),
+        }),
+      )
+      .optional(),
 
-  tech: z
-    .array(
-      z.object({
-        label: z.string(),
-        value: z.string(),
-        path: z.string(),
-      }),
-    )
-    .optional(),
-  members: z.string().array().optional(),
-  is_application_open: z.boolean(),
-  is_public: z.boolean(),
-})
+    tech: z
+      .array(
+        z.object({
+          label: z.string(),
+          value: z.string(),
+          path: z.string(),
+        }),
+      )
+      .optional(),
+    members: z.string().array().optional(),
+    is_application_open: z.boolean(),
+    is_public: z.boolean(),
+  })
+  .refine(
+    (data) => {
+      if (data.start_date && data.end_date) {
+        return data.end_date > data.start_date
+      }
+      return true
+    },
+    {
+      message: "End date must be after start date",
+      path: ["end_date"],
+    },
+  )
 export type ProjectType = z.infer<typeof TypeEnum>
 export type defaultValueType = {
   logo_path: string
@@ -521,7 +534,8 @@ export default function ProjectForm({
                   <Input placeholder="Coders for causes website" {...field} />
                 </FormControl>
                 <FormDescription>
-                  Logo path in the server. Please make sure you have uploaded the image in the repo.
+                  Logo path in the server usually start with `/client`. Please make sure you have uploaded the image in
+                  the repo.
                 </FormDescription>
                 <FormMessage />
               </FormItem>
@@ -537,7 +551,8 @@ export default function ProjectForm({
                   <Input placeholder="Coders for causes website" {...field} />
                 </FormControl>
                 <FormDescription>
-                  Image path in the server. Please make sure you have uploaded the image in the repo.
+                  Image path in the server usually start with `/projects`. Please make sure you have uploaded the image
+                  in the repo.
                 </FormDescription>
                 <FormMessage />
               </FormItem>
