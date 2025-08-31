@@ -1,7 +1,6 @@
 "use client"
 
 import { useSignIn } from "@clerk/nextjs"
-import { type EmailLinkFactor } from "@clerk/types"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { track } from "@vercel/analytics/react"
 import { useRouter } from "next/navigation"
@@ -15,7 +14,6 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "
 import { Input } from "~/components/ui/input"
 import { toast } from "~/components/ui/use-toast"
 
-import { SITE_URL } from "~/lib/constants"
 import type { ClerkError } from "~/lib/types"
 import { api } from "~/trpc/react"
 

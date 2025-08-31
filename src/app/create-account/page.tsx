@@ -120,8 +120,6 @@ export default function CreateAccount() {
     staleTime: Infinity, // this is ok because this will be the first time ever the user will fetch cards, no risk of it being out of date
   })
 
-  // const user_github = getValues().github
-
   const sendOtp = async (values: FormSchema) => {
     if (!isLoaded) return
     if (values.github !== "") {
@@ -565,7 +563,7 @@ export default function CreateAccount() {
           ) : (
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
               <FormLabel className="font-mono">Enter one-time code from your email</FormLabel>
-              <Input type="text" placeholder="xxxxxx" value={code} onChange={(e) => setCode(e.target.value)} />
+              <Input type="number" placeholder="xxxxxx" value={code} onChange={(e) => setCode(e.target.value)} />
               <Button type="submit" disabled={step === "verifying"} className="relative w-full">
                 {step === "verifying" ? "Waiting for code verification" : "Submit"}
               </Button>
