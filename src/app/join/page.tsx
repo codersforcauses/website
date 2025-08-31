@@ -1,11 +1,14 @@
 "use client"
 
 import { useSignIn } from "@clerk/nextjs"
+import { SignIn } from "@clerk/nextjs"
+import { type EmailLinkFactor } from "@clerk/types"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { track } from "@vercel/analytics/react"
 import { useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
 import { useForm } from "react-hook-form"
+import { siGoogle } from "simple-icons"
 import * as z from "zod"
 
 import { Alert, AlertDescription, AlertTitle } from "~/components/ui/alert"
@@ -17,6 +20,7 @@ import { toast } from "~/components/ui/use-toast"
 import type { ClerkError } from "~/lib/types"
 import { api } from "~/trpc/react"
 
+const googleIcon = { path: siGoogle.path, title: siGoogle.title }
 const formSchema = z.object({
   email: z
     .string()
@@ -127,6 +131,25 @@ export default function Join() {
       setStep("email")
     }
   }
+  const handleGoogleSignIn = async () => {
+    if (!isLoaded) return
+
+    try {
+      // Start the Google OAuth flow
+      await signIn.authenticateWithRedirect({
+        strategy: "oauth_google",
+        redirectUrl: `${window.location.origin}/sso-callback`,
+        redirectUrlComplete: "/dashboard", // after everything succeeds
+      })
+    } catch (error) {
+      console.error("Google sign-in failed", error)
+      toast({
+        variant: "destructive",
+        title: "Google sign-in failed",
+        description: `${error}`,
+      })
+    }
+  }
 
   return (
     <div>
@@ -156,24 +179,33 @@ export default function Join() {
           </Alert>
         )}
         {step === "initial" ? (
-          <form onSubmit={form.handleSubmit(sendOtp)} className="space-y-4 mt-4">
-            <FormField
-              control={form.control}
-              name="email"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel className="font-mono">Email address</FormLabel>
-                  <FormControl>
-                    <Input type="email" placeholder="hello@codersforcauses.org" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <Button type="submit" disabled={form.formState.isSubmitting} className="w-full">
-              Continue
+          <>
+            <form onSubmit={form.handleSubmit(sendOtp)} className="space-y-4 mt-4">
+              <FormField
+                control={form.control}
+                name="email"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel className="font-mono">Email address</FormLabel>
+                    <FormControl>
+                      <Input type="email" placeholder="hello@codersforcauses.org" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <Button type="submit" disabled={form.formState.isSubmitting} className="w-full">
+                Continue
+              </Button>
+            </form>
+            <Button variant="outline" className="w-full mt-4" onClick={handleGoogleSignIn}>
+              <svg role="img" viewBox="0 0 24 24" height={16} width={16} className="fill-current mr-4">
+                <title>{googleIcon.title}</title>
+                <path d={googleIcon.path} />
+              </svg>
+              Continue with Google
             </Button>
-          </form>
+          </>
         ) : (
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4 mt-4">
             <FormLabel className="font-mono">Enter one-time code from your email</FormLabel>
