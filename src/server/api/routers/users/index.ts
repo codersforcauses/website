@@ -6,7 +6,6 @@ import { createTRPCRouter } from "~/server/api/trpc"
 import { create } from "./create"
 import { get } from "./get"
 import { getCurrent } from "./get-current"
-import { rollbackClerk } from "./rollbackClerk"
 import { update } from "./update"
 import { updateSocials } from "./update-socials"
 
@@ -16,5 +15,4 @@ export const usersRouter = createTRPCRouter({
   get,
   update,
   updateSocials,
-  rollbackClerk,
 })
