@@ -46,7 +46,7 @@ export default function Join() {
     defaultValues,
   })
 
-  const sendOTP = async ({ email }: FormSchema) => {
+  const sendOtp = async ({ email }: FormSchema) => {
     if (!isLoaded) return null
 
     if (process.env.NEXT_PUBLIC_VERCEL_ENV === "production") track("click-join")
@@ -102,7 +102,7 @@ export default function Join() {
       toast({
         variant: "destructive",
         title: "Verification failed",
-        description: `${error ?? "Unknown error"}. Please try again.`,
+        description: `${(error as { message?: string })?.message ?? "Unknown error"}. Please try again.`,
       })
       setLoading(false)
       setStep("email")
@@ -137,7 +137,7 @@ export default function Join() {
           </Alert>
         )}
         {step === "initial" ? (
-          <form onSubmit={form.handleSubmit(sendOTP)} className="space-y-4 mt-4">
+          <form onSubmit={form.handleSubmit(sendOtp)} className="space-y-4 mt-4">
             <FormField
               control={form.control}
               name="email"
@@ -161,6 +161,14 @@ export default function Join() {
             <Input type="text" placeholder="xxxxxx" value={code} onChange={(e) => setCode(e.target.value)} />
             <Button type="submit" disabled={loading} className="relative w-full">
               {loading ? "Waiting for code verification" : "Submit"}
+            </Button>
+            <Button
+              type="button"
+              variant="outline"
+              className="relative w-full"
+              onClick={() => sendOtp(form.getValues())}
+            >
+              Get code again
             </Button>
           </form>
         )}

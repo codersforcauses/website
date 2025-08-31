@@ -161,7 +161,7 @@ export default function CreateAccount() {
       toast({
         variant: "destructive",
         title: "Verification failed",
-        description: `Error sending OTP ${error ?? ""}. Please try again. `,
+        description: `Error sending OTP ${(error as { message?: string })?.message ?? ""}. Please try again. `,
       })
     }
   }
@@ -191,21 +191,6 @@ export default function CreateAccount() {
 
     try {
       const result = await signUp.attemptEmailAddressVerification({ code })
-      if (result.verifications.emailAddress.status === "failed") {
-        toast({
-          variant: "destructive",
-          title: "Verification failed",
-          description: "The verification code is incorrect. Please try again.",
-        })
-      }
-
-      if (result.verifications.emailAddress.status === "expired") {
-        toast({
-          variant: "destructive",
-          title: "Link expired",
-          description: "The email verification link has expired. Please try again.",
-        })
-      }
       if (result.status === "complete") {
         if (!result.createdUserId) {
           toast({
@@ -233,7 +218,7 @@ export default function CreateAccount() {
       toast({
         variant: "destructive",
         title: "Failed to create user",
-        description: `An error occurred while trying to create user ${error ?? ""}. Please try again later.`,
+        description: `An error occurred while trying to create user ${(error as { message?: string })?.message ?? ""}. Please try again later.`,
       })
       setStep("enterCode")
     }
@@ -566,6 +551,14 @@ export default function CreateAccount() {
               <Input type="number" placeholder="xxxxxx" value={code} onChange={(e) => setCode(e.target.value)} />
               <Button type="submit" disabled={step === "verifying"} className="relative w-full">
                 {step === "verifying" ? "Waiting for code verification" : "Submit"}
+              </Button>
+              <Button
+                type="button"
+                variant="outline"
+                className="relative w-full"
+                onClick={() => sendOtp(form.getValues())}
+              >
+                Get code again
               </Button>
             </form>
           )
