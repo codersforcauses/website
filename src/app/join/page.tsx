@@ -39,6 +39,7 @@ export default function Join() {
   const [step, setStep] = React.useState<"initial" | "email" | "verification">("initial")
   const [code, setCode] = React.useState("")
   const [loading, setLoading] = React.useState(false)
+  const [countdown, setCountdown] = React.useState(0)
   const utils = api.useUtils()
   const { signIn, isLoaded, setActive } = useSignIn()
   const form = useForm<FormSchema>({
@@ -63,8 +64,12 @@ export default function Join() {
         emailAddressId: emailFactor.emailAddressId,
         strategy: "email_code",
       })
-
+      setCountdown(60)
       setStep("email")
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth", // smooth scrolling
+      })
     } catch (error) {
       const { errors = [] } = error as ClerkError
       if (errors?.[0]?.code === "form_identifier_not_found") {
@@ -73,6 +78,16 @@ export default function Join() {
       console.error(error)
     }
   }
+
+  React.useEffect(() => {
+    if (countdown > 0) {
+      const timer = setInterval(() => {
+        setCountdown((prev) => prev - 1)
+      }, 1000)
+
+      return () => clearInterval(timer)
+    }
+  }, [countdown])
 
   const onSubmit = async ({ email }: FormSchema) => {
     try {
@@ -95,8 +110,7 @@ export default function Join() {
       if (attempt.status === "complete") {
         await setActive({ session: attempt.createdSessionId }) // sets token from clerk
         await utils.users.getCurrent.refetch()
-
-        router.push("/dashboard")
+        window.location.href = "/dashboard"
       }
     } catch (error) {
       toast({
@@ -167,8 +181,9 @@ export default function Join() {
               variant="outline"
               className="relative w-full"
               onClick={() => sendOtp(form.getValues())}
+              disabled={countdown > 0}
             >
-              Get code again
+              Resend code {countdown > 0 ? `(${countdown}s)` : ""}
             </Button>
           </form>
         )}

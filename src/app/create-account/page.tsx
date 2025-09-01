@@ -92,6 +92,7 @@ export default function CreateAccount() {
   const router = useRouter()
   const searchParams = useSearchParams()
   const { isLoaded, signUp, setActive } = useSignUp()
+  const [countdown, setCountdown] = React.useState(0)
   const [code, setCode] = React.useState("")
   const [step, setStep] = React.useState<"submitForm" | "enterCode" | "verifying">("submitForm")
 
@@ -121,7 +122,8 @@ export default function CreateAccount() {
   })
 
   const sendOtp = async (values: FormSchema) => {
-    if (!isLoaded) return
+    if (!isLoaded) return null
+
     if (values.github !== "") {
       const { status: githubStatus } = await fetch(`https://api.github.com/users/${values.github}`)
 
@@ -138,6 +140,13 @@ export default function CreateAccount() {
         return
       }
     }
+
+    let uni: string | undefined
+    if (values.isUWA) {
+      uni = "UWA"
+    } else {
+      uni = values.uni
+    }
     try {
       await signUp.create({
         emailAddress: values.email,
@@ -148,14 +157,20 @@ export default function CreateAccount() {
           github: values.github,
           discord: values.discord,
           subscribe: values.subscribe,
+          student_number: values.student_number,
+          uni: uni,
         },
       })
 
       await signUp.prepareEmailAddressVerification({
         strategy: "email_code",
       })
-
+      setCountdown(60)
       setStep("enterCode")
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth", // smooth scrolling
+      })
     } catch (error) {
       console.error("Error sending OTP", error)
       toast({
@@ -165,6 +180,16 @@ export default function CreateAccount() {
       })
     }
   }
+
+  React.useEffect(() => {
+    if (countdown > 0) {
+      const timer = setInterval(() => {
+        setCountdown((prev) => prev - 1)
+      }, 1000)
+
+      return () => clearInterval(timer)
+    }
+  }, [countdown])
 
   const onSubmit = async (values: FormSchema) => {
     if (!isLoaded) return
@@ -557,8 +582,9 @@ export default function CreateAccount() {
                 variant="outline"
                 className="relative w-full"
                 onClick={() => sendOtp(form.getValues())}
+                disabled={countdown > 0}
               >
-                Get code again
+                Resend code {countdown > 0 ? `(${countdown}s)` : ""}
               </Button>
             </form>
           )
