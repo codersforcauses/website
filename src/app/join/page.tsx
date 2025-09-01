@@ -139,7 +139,7 @@ export default function Join() {
       await signIn.authenticateWithRedirect({
         strategy: "oauth_google",
         redirectUrl: `${window.location.origin}/sso-callback`,
-        redirectUrlComplete: "/dashboard", // after everything succeeds
+        redirectUrlComplete: `/dashboard`, // after everything succeeds
       })
     } catch (error) {
       console.error("Google sign-in failed", error)

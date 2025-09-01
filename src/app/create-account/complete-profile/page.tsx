@@ -93,7 +93,7 @@ export default function CompleteProfile() {
   const router = useRouter()
 
   const { isLoaded, user: clerkUser } = useUser()
-  const [step, setStep] = React.useState<"submitForm" | "enterCode" | "verifying">("submitForm")
+  const [step, setStep] = React.useState<"submitForm" | "verifying">("submitForm")
   if (!isLoaded) return null
 
   const clerk_id = clerkUser?.id
@@ -173,6 +173,8 @@ export default function CompleteProfile() {
             github: values.github,
             discord: values.discord,
             subscribe: values.subscribe,
+            university: values.uni,
+            student_number: values.student_number,
           },
         })
 
