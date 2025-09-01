@@ -157,8 +157,8 @@ export default function CreateAccount() {
           github: values.github,
           discord: values.discord,
           subscribe: values.subscribe,
+          university: uni,
           student_number: values.student_number,
-          uni: uni,
         },
       })
 
