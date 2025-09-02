@@ -1,6 +1,9 @@
 "use client"
 
 import dynamic from "next/dynamic"
+import { useRouter } from "next/navigation"
+
+import { Button } from "~/components/ui/button"
 
 import Clients from "./clients"
 import Committee from "./committee"
@@ -9,6 +12,7 @@ import Sponsors from "./sponsors"
 const Map = dynamic(() => import("~/app/about/map"), { ssr: false })
 
 export default function About() {
+  const router = useRouter()
   return (
     <>
       <div className="relative text-primary dark:bg-alt-dark dark:text-primary">
@@ -40,6 +44,11 @@ export default function About() {
           <Clients />
           <h3 className="font-mono text-2xl font-black dark:text-white">Proudly Supported By</h3>
           <Sponsors />
+          <div className="flex justify-center">
+            <Button className="text-md" size="lg" onClick={() => router.push("/sponsor-us")}>
+              Sponsor us
+            </Button>
+          </div>
         </div>
       </div>
     </>

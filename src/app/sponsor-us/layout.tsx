@@ -1,7 +1,9 @@
-import type { Viewport, Metadata } from "next"
-import TitleText from "../_components/title-text"
-import { type PropsWithChildren } from "~/lib/types"
+import type { Metadata, Viewport } from "next"
+
 import { customMetadata } from "~/lib/metadata"
+import { type PropsWithChildren } from "~/lib/types"
+
+import TitleText from "../_components/title-text"
 
 export const viewport: Viewport = {
   themeColor: "black",
@@ -20,12 +22,7 @@ export const metadata: Metadata = {
 }
 
 const Layout = ({ children }: PropsWithChildren) => {
-  return (
-    <main className="main">
-      <TitleText typed>./sponsor-us</TitleText>
-      {children}
-    </main>
-  )
+  return <main className="main">{children}</main>
 }
 
 export default Layout

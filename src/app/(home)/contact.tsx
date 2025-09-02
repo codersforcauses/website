@@ -92,7 +92,9 @@ const Contact = () => {
     <Collapsible open={open} onOpenChange={setOpen}>
       {!open && (
         <CollapsibleTrigger asChild>
-          <Button variant="outline-dark">Contact us</Button>
+          <Button variant="outline-dark" className="text-md" size="lg">
+            Contact us
+          </Button>
         </CollapsibleTrigger>
       )}
       <AnimatePresence>

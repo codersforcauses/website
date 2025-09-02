@@ -22,6 +22,10 @@ const aboutLinks = [
     text: "Our branding",
   },
   {
+    href: "/sponsor-us",
+    text: "Sponsor us",
+  },
+  {
     href: "/#_contact_us",
     text: "Contact us",
   },
@@ -87,7 +91,7 @@ const Footer = () => {
             </div>
             <p className="m-0 font-mono">
               <small>Made with &#10084;</small>
-              <small className="text-black"> by Jeremiah</small>
+              <small className="text-black"> by CFC</small>
             </p>
           </div>
           <div className="">
