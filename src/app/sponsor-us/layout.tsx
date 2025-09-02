@@ -13,7 +13,7 @@ export const metadata: Metadata = {
   title: "Sponsor Us",
   ...customMetadata({
     name: "Sponsor Us",
-    page: "sponsor",
+    page: "sponsor-us",
     description:
       "Coders for Causes is a software engineering club at UWA specializing in web development. We build custom software for charities and not for profits and give students the skills they need to succeed in the industry.",
     image:

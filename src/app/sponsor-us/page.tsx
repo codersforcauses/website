@@ -1,7 +1,6 @@
 "use client"
 
 import Link from "next/link"
-import { useRouter } from "next/navigation"
 
 import { Button } from "~/components/ui/button"
 
@@ -12,7 +11,6 @@ const numberList = [
 ]
 
 export default function Sponsor() {
-  const router = useRouter()
   return (
     <>
       <div>
