@@ -79,3 +79,12 @@ This also means all ID's must be prefixed by '_'.
 [id^="_"] {
   scroll-margin-top: 4rem;
 }
+
+.bgImage {
+  background-image: url("/events/DSC_5135.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  width: 100%;
+  height: 500px;
+}
