@@ -22,7 +22,7 @@ export default function Sponsor() {
           <div className="relative z-10 flex h-full flex-col items-center justify-center p-8">
             <h2 className="mb-4 font-mono text-4xl font-black text-white">CALL FOR SPONSORS</h2>
             <p className="text-2xl text-white">
-              Coders for Causes simply isn't possible without the support of our sponsors.
+              Coders for Causes simply isn&apos;t possible without the support of our sponsors.
             </p>
           </div>
         </div>
