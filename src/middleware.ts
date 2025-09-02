@@ -8,6 +8,7 @@ const adminRoles = ["admin", "committee"]
 
 const isAdminPage = createRouteMatcher(["/dashboard/admin(.*)"])
 const isProtectedPage = createRouteMatcher(["/dashboard(.*)", "/profile/settings(.*)"])
+const isAuthPage = createRouteMatcher(["/join(.*)", "/create-account(.*)"])
 
 export default clerkMiddleware(async (auth, req) => {
   const clerkId = auth().userId
@@ -27,6 +28,10 @@ export default clerkMiddleware(async (auth, req) => {
 
   if (isProtectedPage(req)) {
     auth().protect()
+  }
+
+  if (isAuthPage(req) && clerkId) {
+    return Response.redirect(new URL("/dashboard", req.url))
   }
 })
 

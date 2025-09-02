@@ -41,14 +41,8 @@ export default function Join() {
   const [code, setCode] = useState("")
   const [loading, setLoading] = useState(false)
   const [countdown, setCountdown] = useState(0)
-  const { isSignedIn, isLoaded: userLoaded } = useUser()
   const utils = api.useUtils()
   const { signIn, isLoaded, setActive } = useSignIn()
-  useEffect(() => {
-    if (userLoaded && isSignedIn) {
-      router.replace("/dashboard")
-    }
-  }, [isSignedIn, router, userLoaded])
 
   useEffect(() => {
     if (countdown > 0) {
@@ -118,6 +112,10 @@ export default function Join() {
       if (attempt.status === "complete") {
         await setActive({ session: attempt.createdSessionId }) // sets token from clerk
         await utils.users.getCurrent.refetch()
+        toast({
+          title: "Logged in",
+          description: "You have successfully logged in.",
+        })
         window.location.href = "/dashboard"
       }
     } catch (error) {

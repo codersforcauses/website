@@ -96,13 +96,6 @@ export default function CreateAccount() {
   const [countdown, setCountdown] = useState(0)
   const [code, setCode] = useState("")
   const [step, setStep] = useState<"submitForm" | "enterCode" | "verifying">("submitForm")
-  const { isSignedIn, isLoaded: userLoaded } = useUser()
-
-  useEffect(() => {
-    if (userLoaded && isSignedIn) {
-      router.replace("/dashboard")
-    }
-  }, [isSignedIn, router, userLoaded])
 
   useEffect(() => {
     if (countdown > 0) {
@@ -582,7 +575,14 @@ export default function CreateAccount() {
           ) : (
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
               <FormLabel className="font-mono">Enter one-time code from your email</FormLabel>
-              <Input type="number" placeholder="xxxxxx" value={code} onChange={(e) => setCode(e.target.value)} />
+              <Input
+                type="text"
+                inputMode="numeric"
+                pattern="[0-9]*"
+                placeholder="xxxxxx"
+                value={code}
+                onChange={(e) => setCode(e.target.value)}
+              />
               <Button type="submit" disabled={step === "verifying"} className="relative w-full">
                 {step === "verifying" ? "Waiting for code verification" : "Submit"}
               </Button>
