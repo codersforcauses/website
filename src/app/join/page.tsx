@@ -177,7 +177,14 @@ export default function Join() {
         ) : (
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4 mt-4">
             <FormLabel className="font-mono">Enter one-time code from your email</FormLabel>
-            <Input type="text" placeholder="xxxxxx" value={code} onChange={(e) => setCode(e.target.value)} />
+            <Input
+              type="text"
+              inputMode="numeric"
+              pattern="[0-9]*"
+              placeholder="xxxxxx"
+              value={code}
+              onChange={(e) => setCode(e.target.value)}
+            />
             <Button type="submit" disabled={loading} className="relative w-full">
               {loading ? "Waiting for code verification" : "Submit"}
             </Button>
