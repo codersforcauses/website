@@ -1,10 +1,11 @@
 "use client"
 
 import { useSignIn } from "@clerk/nextjs"
+import { useUser } from "@clerk/nextjs"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { track } from "@vercel/analytics/react"
 import { useRouter } from "next/navigation"
-import * as React from "react"
+import { useEffect, useState } from "react"
 import { useForm } from "react-hook-form"
 import * as z from "zod"
 
@@ -36,12 +37,29 @@ const defaultValues = {
 
 export default function Join() {
   const router = useRouter()
-  const [step, setStep] = React.useState<"initial" | "email" | "verification">("initial")
-  const [code, setCode] = React.useState("")
-  const [loading, setLoading] = React.useState(false)
-  const [countdown, setCountdown] = React.useState(0)
+  const [step, setStep] = useState<"initial" | "email" | "verification">("initial")
+  const [code, setCode] = useState("")
+  const [loading, setLoading] = useState(false)
+  const [countdown, setCountdown] = useState(0)
+  const { isSignedIn, isLoaded: userLoaded } = useUser()
   const utils = api.useUtils()
   const { signIn, isLoaded, setActive } = useSignIn()
+  useEffect(() => {
+    if (userLoaded && isSignedIn) {
+      router.replace("/dashboard")
+    }
+  }, [isSignedIn, router, userLoaded])
+
+  useEffect(() => {
+    if (countdown > 0) {
+      const timer = setInterval(() => {
+        setCountdown((prev) => prev - 1)
+      }, 1000)
+
+      return () => clearInterval(timer)
+    }
+  }, [countdown])
+
   const form = useForm<FormSchema>({
     resolver: zodResolver(formSchema),
     defaultValues,
@@ -79,16 +97,6 @@ export default function Join() {
     }
   }
 
-  React.useEffect(() => {
-    if (countdown > 0) {
-      const timer = setInterval(() => {
-        setCountdown((prev) => prev - 1)
-      }, 1000)
-
-      return () => clearInterval(timer)
-    }
-  }, [countdown])
-
   const onSubmit = async ({ email }: FormSchema) => {
     try {
       if (!isLoaded) return
@@ -116,7 +124,7 @@ export default function Join() {
       toast({
         variant: "destructive",
         title: "Verification failed",
-        description: `${(error as { message?: string })?.message ?? "Unknown error"}. Please try again.`,
+        description: `${(error as { message?: string })?.message ?? "Unknown error"}.`,
       })
       setLoading(false)
       setStep("email")
@@ -165,7 +173,7 @@ export default function Join() {
                 </FormItem>
               )}
             />
-            <Button type="submit" className="w-full">
+            <Button type="submit" disabled={form.formState.isSubmitting} className="w-full">
               Continue
             </Button>
           </form>

@@ -1,11 +1,12 @@
 "use client"
 
 import { useSignUp } from "@clerk/nextjs"
+import { useUser } from "@clerk/nextjs"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { track } from "@vercel/analytics/react"
 import Link from "next/link"
 import { useRouter, useSearchParams } from "next/navigation"
-import * as React from "react"
+import { useEffect, useState } from "react"
 import { useForm } from "react-hook-form"
 import { siDiscord } from "simple-icons"
 import * as z from "zod"
@@ -22,7 +23,7 @@ import { RadioGroup, RadioGroupItem } from "~/components/ui/radio-group"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "~/components/ui/tabs"
 import { toast } from "~/components/ui/use-toast"
 
-import { PRONOUNS, SITE_URL, UNIVERSITIES } from "~/lib/constants"
+import { PRONOUNS, UNIVERSITIES } from "~/lib/constants"
 import { cn, getIsMembershipOpen } from "~/lib/utils"
 import { type User } from "~/server/db/types"
 import { api } from "~/trpc/react"
@@ -86,15 +87,32 @@ const defaultValues = {
 }
 
 export default function CreateAccount() {
-  const [activeView, setActiveView] = React.useState<ActiveView>("form")
-  const [loadingSkipPayment, setLoadingSkipPayment] = React.useState(false)
-  const [user, setUser] = React.useState<User>()
+  const [activeView, setActiveView] = useState<ActiveView>("form")
+  const [loadingSkipPayment, setLoadingSkipPayment] = useState(false)
+  const [user, setUser] = useState<User>()
   const router = useRouter()
   const searchParams = useSearchParams()
   const { isLoaded, signUp, setActive } = useSignUp()
-  const [countdown, setCountdown] = React.useState(0)
-  const [code, setCode] = React.useState("")
-  const [step, setStep] = React.useState<"submitForm" | "enterCode" | "verifying">("submitForm")
+  const [countdown, setCountdown] = useState(0)
+  const [code, setCode] = useState("")
+  const [step, setStep] = useState<"submitForm" | "enterCode" | "verifying">("submitForm")
+  const { isSignedIn, isLoaded: userLoaded } = useUser()
+
+  useEffect(() => {
+    if (userLoaded && isSignedIn) {
+      router.replace("/dashboard")
+    }
+  }, [isSignedIn, router, userLoaded])
+
+  useEffect(() => {
+    if (countdown > 0) {
+      const timer = setInterval(() => {
+        setCountdown((prev) => prev - 1)
+      }, 1000)
+
+      return () => clearInterval(timer)
+    }
+  }, [countdown])
 
   const email = searchParams.get("email") ?? ""
   const form = useForm<FormSchema>({
@@ -104,6 +122,7 @@ export default function CreateAccount() {
       email: email,
     },
   })
+
   const { getValues, setError } = form
 
   const utils = api.useUtils()
@@ -176,20 +195,10 @@ export default function CreateAccount() {
       toast({
         variant: "destructive",
         title: "Verification failed",
-        description: `Error sending OTP ${(error as { message?: string })?.message ?? ""}. Please try again. `,
+        description: `Error sending OTP. ${(error as { message?: string })?.message ?? ""}. `,
       })
     }
   }
-
-  React.useEffect(() => {
-    if (countdown > 0) {
-      const timer = setInterval(() => {
-        setCountdown((prev) => prev - 1)
-      }, 1000)
-
-      return () => clearInterval(timer)
-    }
-  }, [countdown])
 
   const onSubmit = async (values: FormSchema) => {
     if (!isLoaded) return
@@ -243,7 +252,7 @@ export default function CreateAccount() {
       toast({
         variant: "destructive",
         title: "Failed to create user",
-        description: `An error occurred while trying to create user ${(error as { message?: string })?.message ?? ""}. Please try again later.`,
+        description: `An error occurred while trying to create user. ${(error as { message?: string })?.message ?? ""}.`,
       })
       setStep("enterCode")
     }
@@ -566,7 +575,7 @@ export default function CreateAccount() {
                   </FormItem>
                 )}
               />
-              <Button type="submit" className="relative w-full">
+              <Button type="submit" disabled={form.formState.isSubmitting} className="relative w-full">
                 Next
               </Button>
             </form>

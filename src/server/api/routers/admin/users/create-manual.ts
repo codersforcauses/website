@@ -50,8 +50,16 @@ export const createManual = adminProcedure
     try {
       clerkRes = await clerkClient().users.createUser({
         emailAddress: [input.email],
-        firstName: input.preferred_name,
         lastName: input.name, // we treat clerk.lastName as the user's full name
+        unsafeMetadata: {
+          preferred_name: input.preferred_name,
+          pronouns: input.pronouns,
+          github: input.github,
+          discord: input.discord,
+          subscribe: input.subscribe,
+          university: input.uni,
+          student_number: input.student_number,
+        },
       })
     } catch (err) {
       // user might exist already
