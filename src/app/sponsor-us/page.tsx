@@ -47,9 +47,11 @@ export default function Sponsor() {
       </div>
 
       <div className="flex justify-center pb-12 ">
-        <Button className="text-md" size="lg">
-          <Link href="/#_contact_us">Contact us</Link>
-        </Button>
+        <Link href="/#_contact_us">
+          <Button className="text-md" size="lg">
+            Contact us
+          </Button>
+        </Link>
       </div>
     </div>
   )
