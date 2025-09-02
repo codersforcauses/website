@@ -50,7 +50,7 @@ export const createManual = adminProcedure
     try {
       clerkRes = await clerkClient().users.createUser({
         emailAddress: [input.email],
-        lastName: input.name, // we treat clerk.lastName as the user's full name
+        firstName: input.name, // we treat clerk.firstName as the user's full name
         unsafeMetadata: {
           preferred_name: input.preferred_name,
           pronouns: input.pronouns,

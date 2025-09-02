@@ -1,7 +1,6 @@
 "use client"
 
 import { useSignUp } from "@clerk/nextjs"
-import { useUser } from "@clerk/nextjs"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { track } from "@vercel/analytics/react"
 import Link from "next/link"

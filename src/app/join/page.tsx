@@ -1,7 +1,6 @@
 "use client"
 
 import { useSignIn } from "@clerk/nextjs"
-import { useUser } from "@clerk/nextjs"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { track } from "@vercel/analytics/react"
 import { useRouter } from "next/navigation"
@@ -116,7 +115,7 @@ export default function Join() {
           title: "Logged in",
           description: "You have successfully logged in.",
         })
-        window.location.href = "/dashboard"
+        router.push("/dashboard")
       }
     } catch (error) {
       toast({
