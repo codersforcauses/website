@@ -12,7 +12,9 @@ export default function Sponsor() {
   return (
     <div>
       <div className="relative h-[500px] w-full ">
-        <div className="bgImage absolute inset-0"></div>
+        <div className="bgImage absolute inset-0" aria-hidden="true">
+          Industry night image
+        </div>
         <div className="absolute inset-0 bg-black opacity-60"></div>
         <div className="relative z-10 flex h-full flex-col items-center justify-center p-8">
           <h2 className="mb-4 font-mono text-4xl font-black text-white">CALL FOR SPONSORS</h2>
@@ -21,7 +23,7 @@ export default function Sponsor() {
           </p>
         </div>
       </div>
-      <div className=" w-full bg-gray-100 p-8 shadow-lg dark:bg-alt-dark md:px-20">
+      <div className="w-full bg-gray-100 p-8 shadow-lg dark:bg-alt-dark md:px-20">
         <p className="text-lg">
           Coders for Causes (CFC) is a pivotal student-run non-profit organization at the University of Western
           Australia. We are dedicated to bridging the gap between computing students and the tech industry, while
@@ -34,7 +36,7 @@ export default function Sponsor() {
         </p>
       </div>
       <div className="my-12">
-        <div className=" flex h-full  w-full place-content-evenly items-center gap-4">
+        <div className="flex h-full w-full place-content-evenly items-center gap-4">
           {numberList.map((item) => (
             <div className="text-center" key={item.label}>
               <p className="text-2xl font-semibold">{item.value}</p>
