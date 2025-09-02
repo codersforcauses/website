@@ -13,7 +13,10 @@ export default async function Dashboard() {
       <div className="container flex flex-wrap gap-x-8 gap-y-4 py-12">
         <div className="flex-grow">
           <h2 className="font-bold">Hey, {user?.preferred_name}</h2>
-          <p className="mt-4">Here you can see our upcoming projects and the projects you have participated in.</p>
+          <p className="mt-4">
+            Here you can see our upcoming projects and the projects you have participated in. You can apply for new
+            projects here if we link the application form.
+          </p>
           <div className="flex h-full mb-8">
             <DashboardContent />
           </div>

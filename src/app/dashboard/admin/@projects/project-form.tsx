@@ -3,7 +3,6 @@
 import { zodResolver } from "@hookform/resolvers/zod"
 import { track } from "@vercel/analytics/react"
 import { format } from "date-fns"
-import { is } from "drizzle-orm"
 import { useFieldArray, useForm, useFormContext } from "react-hook-form"
 import * as z from "zod"
 
@@ -12,15 +11,7 @@ import { Button } from "~/components/ui/button"
 import { Calendar } from "~/components/ui/calendar"
 import { Checkbox } from "~/components/ui/checkbox"
 import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem } from "~/components/ui/command"
-import {
-  Dialog,
-  DialogClose,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "~/components/ui/dialog"
+import { DialogClose } from "~/components/ui/dialog"
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "~/components/ui/form"
 import { Input } from "~/components/ui/input"
 import { Popover, PopoverContent, PopoverTrigger } from "~/components/ui/popover"
@@ -531,7 +522,7 @@ export default function ProjectForm({
               <FormItem>
                 <FormLabel className="font-mono">Logo path *</FormLabel>
                 <FormControl>
-                  <Input placeholder="Coders for causes website" {...field} />
+                  <Input placeholder="/client/xxxx.svg" {...field} />
                 </FormControl>
                 <FormDescription>
                   Logo path in the server usually start with `/client`. Please make sure you have uploaded the image in
@@ -548,7 +539,7 @@ export default function ProjectForm({
               <FormItem>
                 <FormLabel className="font-mono">Image path</FormLabel>
                 <FormControl>
-                  <Input placeholder="Coders for causes website" {...field} />
+                  <Input placeholder="/projects/xxxx.svg" {...field} />
                 </FormControl>
                 <FormDescription>
                   Image path in the server usually start with `/projects`. Please make sure you have uploaded the image

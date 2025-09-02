@@ -2,20 +2,8 @@
 
 import Image from "next/image"
 import Link from "next/link"
-import { notFound } from "next/navigation"
-import * as z from "zod"
 
 import { Button } from "~/components/ui/button"
-import {
-  Dialog,
-  DialogClose,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "~/components/ui/dialog"
-import { toast } from "~/components/ui/use-toast"
 
 import type { DashboardCardProps } from "~/app/dashboard/(root)/card"
 import type { defaultValueType } from "~/app/dashboard/admin/@projects/project-form"
@@ -75,7 +63,7 @@ export default function DBProject({ data }: DBProjectProps) {
     icon = "computer"
   }
   return (
-    <main className="main w-full flex justify-center">
+    <main className="main flex justify-center">
       {data.img_path ? (
         <div className="relative bg-black py-32 md:py-48">
           <Image

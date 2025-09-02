@@ -13,9 +13,7 @@ export default function DashboardContent() {
   const { isLoading: p1Loading, data: pastProjects } = api.projects.getProjectByUser.useQuery({
     user: user?.email ?? "",
   })
-  console.log("past", pastProjects)
   const { isLoading: p2Loading, data: openProjects } = api.projects.getApplicationOpen.useQuery()
-  console.log("open", openProjects)
   return (
     <Tabs defaultValue="upcoming" className=" py-6">
       <TabsList className="mb-2 w-full max-w-xs">
