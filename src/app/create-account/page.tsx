@@ -577,10 +577,11 @@ export default function CreateAccount() {
               <Input
                 type="text"
                 inputMode="numeric"
-                pattern="[0-9]*"
+                pattern="[0-9]+"
                 placeholder="xxxxxx"
                 value={code}
                 onChange={(e) => setCode(e.target.value)}
+                required
               />
               <Button type="submit" disabled={step === "verifying"} className="relative w-full">
                 {step === "verifying" ? "Waiting for code verification" : "Submit"}

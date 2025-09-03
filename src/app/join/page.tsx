@@ -97,7 +97,7 @@ export default function Join() {
       setLoading(true)
       const attempt = await signIn.attemptFirstFactor({
         strategy: "email_code",
-        code: code,
+        code,
       })
 
       if (attempt.firstFactorVerification?.status === "expired") {
@@ -180,10 +180,11 @@ export default function Join() {
             <Input
               type="text"
               inputMode="numeric"
-              pattern="[0-9]*"
+              pattern="[0-9]+"
               placeholder="xxxxxx"
               value={code}
               onChange={(e) => setCode(e.target.value)}
+              required
             />
             <Button type="submit" disabled={loading} className="relative w-full">
               {loading ? "Waiting for code verification" : "Submit"}
