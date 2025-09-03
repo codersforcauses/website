@@ -4,7 +4,7 @@ import { Button } from "~/components/ui/button"
 
 const numberList = [
   { label: "Events", value: "100+" },
-  { label: "Projects", value: "12+" },
+  { label: "Projects", value: "14+" },
   { label: "Volunteers", value: "500+" },
 ]
 
@@ -23,7 +23,7 @@ export default function Sponsor() {
           </p>
         </div>
       </div>
-      <div className="w-full bg-gray-100 p-8 shadow-lg dark:bg-alt-dark md:px-20">
+      <div className="w-full bg-gray-100 p-8 shadow-lg dark:bg-alt-dark lg:px-20">
         <p className="text-lg">
           Coders for Causes (CFC) is a pivotal student-run non-profit organization at the University of Western
           Australia. We are dedicated to bridging the gap between computing students and the tech industry, while
@@ -38,7 +38,7 @@ export default function Sponsor() {
       <div className="my-12">
         <div className="flex h-full w-full place-content-evenly items-center gap-4">
           {numberList.map((item) => (
-            <div className="text-center" key={item.label}>
+            <div className="text-center w-[88px]" key={item.label}>
               <p className="text-2xl font-semibold">{item.value}</p>
               <p className="text-lg">{item.label}</p>
             </div>
