@@ -1,4 +1,5 @@
 import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server"
+import { el } from "date-fns/locale"
 import { eq } from "drizzle-orm"
 
 import { db } from "./server/db"
@@ -7,30 +8,34 @@ import { User } from "./server/db/schema"
 const adminRoles = ["admin", "committee"]
 
 const isAdminPage = createRouteMatcher(["/dashboard/admin(.*)"])
-const isProtectedPage = createRouteMatcher(["/dashboard(.*)", "/profile/settings(.*)"])
-const isAuthPage = createRouteMatcher(["/join(.*)"])
+const isProtectedPage = createRouteMatcher(["/dashboard(.*)", "/profile(.*)"])
+const isAuthPage = createRouteMatcher(["/join(.*)", "/sso-callback(.*)"])
 
 export default clerkMiddleware(async (auth, req) => {
-  const clerkId = auth().userId
+  const { userId, redirectToSignIn } = await auth()
 
-  if (isAdminPage(req) && clerkId) {
-    const user = await db.query.User.findFirst({
-      where: eq(User.clerk_id, clerkId),
-    })
-
-    if (!adminRoles.includes(user?.role ?? "")) {
-      // non-existent clerk role so we go to 404 page cleanly
-      auth().protect({
-        role: "lmfaooo",
+  if (isAdminPage(req)) {
+    if (userId) {
+      const user = await db.query.User.findFirst({
+        where: eq(User.clerk_id, userId),
       })
+
+      if (!adminRoles.includes(user?.role ?? "")) {
+        // non-existent clerk role so we go to 404 page cleanly
+        auth().protect({
+          role: "lmfaooo",
+        })
+      }
+    } else {
+      return redirectToSignIn()
     }
   }
 
-  if (isProtectedPage(req)) {
-    auth().protect()
+  if (isProtectedPage(req) && !userId) {
+    return redirectToSignIn()
   }
 
-  if (isAuthPage(req) && clerkId) {
+  if (isAuthPage(req) && userId) {
     return Response.redirect(new URL("/dashboard", req.url))
   }
 })
