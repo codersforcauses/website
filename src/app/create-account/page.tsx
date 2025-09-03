@@ -244,7 +244,7 @@ export default function CreateAccount() {
       toast({
         variant: "destructive",
         title: "Failed to create user",
-        description: `An error occurred while trying to create user. ${(error as { message?: string })?.message ?? ""}.`,
+        description: `An error occurred while trying to create user. ${(error as { message?: string })?.message ?? ""}`,
       })
       setStep("enterCode")
     }

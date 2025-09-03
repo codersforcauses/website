@@ -12,7 +12,7 @@ const isProtectedPage = createRouteMatcher(["/dashboard(.*)", "/profile(.*)"])
 const isAuthPage = createRouteMatcher(["/join(.*)", "/sso-callback(.*)"])
 
 export default clerkMiddleware(async (auth, req) => {
-  const { userId, redirectToSignIn } = await auth()
+  const { userId, redirectToSignIn } = auth()
 
   if (isAdminPage(req)) {
     if (userId) {
