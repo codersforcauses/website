@@ -5,7 +5,7 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { track } from "@vercel/analytics/react"
 import Link from "next/link"
 import { useRouter, useSearchParams } from "next/navigation"
-import * as React from "react"
+import { useEffect, useState } from "react"
 import { useForm } from "react-hook-form"
 import { siDiscord } from "simple-icons"
 import * as z from "zod"
@@ -22,7 +22,7 @@ import { RadioGroup, RadioGroupItem } from "~/components/ui/radio-group"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "~/components/ui/tabs"
 import { toast } from "~/components/ui/use-toast"
 
-import { PRONOUNS, SITE_URL, UNIVERSITIES } from "~/lib/constants"
+import { PRONOUNS, UNIVERSITIES } from "~/lib/constants"
 import { cn, getIsMembershipOpen } from "~/lib/utils"
 import { type User } from "~/server/db/types"
 import { api } from "~/trpc/react"
@@ -86,21 +86,35 @@ const defaultValues = {
 }
 
 export default function CreateAccount() {
-  const [activeView, setActiveView] = React.useState<ActiveView>("form")
-  const [loading, setLoading] = React.useState(false)
-  const [loadingSkipPayment, setLoadingSkipPayment] = React.useState(false)
-  const [user, setUser] = React.useState<User>()
+  const [activeView, setActiveView] = useState<ActiveView>("form")
+  const [loadingSkipPayment, setLoadingSkipPayment] = useState(false)
+  const [user, setUser] = useState<User>()
   const router = useRouter()
   const searchParams = useSearchParams()
   const { isLoaded, signUp, setActive } = useSignUp()
+  const [countdown, setCountdown] = useState(0)
+  const [code, setCode] = useState("")
+  const [step, setStep] = useState<"submitForm" | "enterCode" | "verifying">("submitForm")
 
+  useEffect(() => {
+    if (countdown > 0) {
+      const timer = setInterval(() => {
+        setCountdown((prev) => prev - 1)
+      }, 1000)
+
+      return () => clearInterval(timer)
+    }
+  }, [countdown])
+
+  const email = searchParams.get("email") ?? ""
   const form = useForm<FormSchema>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       ...defaultValues,
-      email: searchParams.get("email") ?? "",
+      email: email,
     },
   })
+
   const { getValues, setError } = form
 
   const utils = api.useUtils()
@@ -118,26 +132,71 @@ export default function CreateAccount() {
     staleTime: Infinity, // this is ok because this will be the first time ever the user will fetch cards, no risk of it being out of date
   })
 
-  // const user_github = getValues().github
-
-  const onSubmit = async (values: FormSchema) => {
+  const sendOtp = async (values: FormSchema) => {
     if (!isLoaded) return null
 
-    if (process.env.NEXT_PUBLIC_VERCEL_ENV === "production") track("created-account")
-
-    setLoading(true)
     if (values.github !== "") {
       const { status: githubStatus } = await fetch(`https://api.github.com/users/${values.github}`)
 
       if (githubStatus !== 200) {
+        toast({
+          variant: "destructive",
+          title: "Github username not found",
+          description: "The Github username not found. Please try again.",
+        })
         setError("github", {
           type: "custom",
           message: "Github username not found",
         })
-        setLoading(false)
         return
       }
     }
+
+    let uni: string | undefined
+    if (values.isUWA) {
+      uni = "UWA"
+    } else {
+      uni = values.uni
+    }
+    try {
+      await signUp.create({
+        emailAddress: values.email,
+        firstName: values.name, // Use full name as first name
+        unsafeMetadata: {
+          preferred_name: values.preferred_name,
+          pronouns: values.pronouns,
+          github: values.github,
+          discord: values.discord,
+          subscribe: values.subscribe,
+          university: uni,
+          student_number: values.student_number,
+        },
+      })
+
+      await signUp.prepareEmailAddressVerification({
+        strategy: "email_code",
+      })
+      setCountdown(60)
+      setStep("enterCode")
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth", // smooth scrolling
+      })
+    } catch (error) {
+      console.error("Error sending OTP", error)
+      toast({
+        variant: "destructive",
+        title: "Verification failed",
+        description: `Error sending OTP. ${(error as { message?: string })?.message ?? ""}. `,
+      })
+    }
+  }
+
+  const onSubmit = async (values: FormSchema) => {
+    if (!isLoaded) return
+
+    setStep("verifying")
+    if (process.env.NEXT_PUBLIC_VERCEL_ENV === "production") track("created-account")
 
     const userData: Omit<FormSchema, "isUWA"> = {
       name: values.name,
@@ -157,65 +216,37 @@ export default function CreateAccount() {
     }
 
     try {
-      const { startEmailLinkFlow, cancelEmailLinkFlow } = signUp.createEmailLinkFlow()
-      await signUp.create({
-        emailAddress: values.email,
-        firstName: values.preferred_name,
-        lastName: values.name, // we treat clerk.lastName as the user's full name
-      })
-
-      toast({
-        title: "Email Verification Sent!",
-        description: (
-          <>
-            We&apos;ve sent you an email with a link to verify your email address. It can sometimes take up to 10
-            minutes to arrive. <strong>Please DO NOT close this page</strong>.
-          </>
-        ),
-      })
-
-      const su = await startEmailLinkFlow({
-        redirectUrl: `${SITE_URL}/verification`,
-      })
-
-      const verification = su.verifications.emailAddress
-      if (verification.status === "expired") {
-        toast({
-          variant: "destructive",
-          title: "Link expired",
-          description: "The email verification link has expired. Please try again.",
-        })
-      }
-      if (su.status === "complete") {
-        if (!su.createdUserId) {
+      const result = await signUp.attemptEmailAddressVerification({ code })
+      if (result.status === "complete") {
+        if (!result.createdUserId) {
           toast({
             variant: "destructive",
             title: "Failed to create Clerk user",
-            description: "Email link flow failed. Please try again.",
+            description: "Failed to create Clerk user. Please try again.",
           })
-          cancelEmailLinkFlow()
           return
         }
 
         const user = await createUser.mutateAsync({
-          clerk_id: su.createdUserId,
+          clerk_id: result.createdUserId,
           ...userData,
         })
         setUser(user)
-        await setActive({
-          session: su.createdSessionId,
-        })
+        if (result.createdSessionId) {
+          await setActive({
+            session: result.createdSessionId,
+          })
+        }
       }
       setActiveView("payment")
     } catch (error) {
-      console.error(error)
+      console.error("Signup error", error)
       toast({
         variant: "destructive",
         title: "Failed to create user",
-        description: "An error occurred while trying to create user. Please try again later.",
+        description: `An error occurred while trying to create user. ${(error as { message?: string })?.message ?? ""}.`,
       })
-    } finally {
-      setLoading(false)
+      setStep("enterCode")
     }
   }
 
@@ -252,141 +283,61 @@ export default function CreateAccount() {
     <div className="container grid gap-x-8 gap-y-4 py-12 md:grid-cols-2 md:gap-y-8 lg:gap-x-16">
       <Alert className="md:col-span-2">
         <span className="material-symbols-sharp size-4 text-xl leading-4">mail</span>
-        <AlertTitle>New user detected!</AlertTitle>
-        <AlertDescription>
-          We couldn&apos;t find an account with that email address so you can create a new account here. If you think it
-          was a mistake,{" "}
-          <Button variant="link" className="h-auto p-0">
-            <Link replace href="/join">
-              click here to go back
-            </Link>
-          </Button>
-        </AlertDescription>
+        {activeView === "form" ? (
+          step === "submitForm" ? (
+            <>
+              <AlertTitle>New user detected!</AlertTitle>
+              <AlertDescription>
+                We couldn&apos;t find an account with that email address so you can create a new account here. If you
+                think it was a mistake,{" "}
+                <Button variant="link" className="h-auto p-0">
+                  <Link replace href="/join">
+                    click here to go back
+                  </Link>
+                </Button>
+              </AlertDescription>
+            </>
+          ) : step === "enterCode" ? (
+            <>
+              <AlertTitle>Email verification code sent!</AlertTitle>
+              <AlertDescription>
+                It can take up to 10 minutes. Make sure to check your spam folder if you can&apos;t find it.
+              </AlertDescription>
+            </>
+          ) : (
+            <>
+              <AlertTitle>Verifying your email...</AlertTitle>
+              <AlertDescription>Thanks for your patience! We are verifying your email.</AlertDescription>
+            </>
+          )
+        ) : (
+          <>
+            <AlertTitle>User created!</AlertTitle>
+            <AlertDescription>
+              Now you can proceed to payment or skip for now and complete later from your dashboard.
+            </AlertDescription>
+          </>
+        )}
       </Alert>
       <Form {...form}>
         {activeView === "form" ? (
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-            <div className="space-y-2">
-              <h2 className="font-semibold leading-none tracking-tight">Personal details</h2>
-              <p className="text-sm text-muted-foreground">Fields marked with * are required.</p>
-            </div>
-            <FormField
-              control={form.control}
-              name="email"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel className="flex space-x-1 font-mono">
-                    <p>Email address</p>
-                    <p className="font-sans">*</p>
-                  </FormLabel>
-                  <FormControl>
-                    <Input type="email" placeholder="john.doe@codersforcauses.org" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="name"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel className="flex space-x-1 font-mono">
-                    <p>Full name</p> <p className="font-sans">*</p>
-                  </FormLabel>
-                  <FormControl>
-                    <Input autoComplete="name" placeholder="John Doe" {...field} />
-                  </FormControl>
-                  <FormDescription>
-                    We use your full name for internal committee records and official correspondence
-                  </FormDescription>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="preferred_name"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel className="flex space-x-1 font-mono">
-                    <p>Preferred name</p>
-                    <p className="font-sans">*</p>
-                  </FormLabel>
-                  <FormControl>
-                    <Input autoComplete="given-name" placeholder="John" {...field} />
-                  </FormControl>
-                  <FormDescription>This is how we normally refer to you</FormDescription>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="pronouns"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel className="flex space-x-1 font-mono">
-                    <p>Pronouns</p>
-                    <p className="font-sans">*</p>
-                  </FormLabel>
-                  <FormControl>
-                    <RadioGroup
-                      onValueChange={field.onChange}
-                      defaultValue={field.value}
-                      className="grid grid-cols-2 sm:grid-cols-3"
-                    >
-                      {PRONOUNS.map(({ label, value }) => (
-                        <FormItem key={value} className="flex h-6 items-center space-x-3 space-y-0">
-                          <FormControl>
-                            <RadioGroupItem value={value} />
-                          </FormControl>
-                          <FormLabel className="font-normal">{label}</FormLabel>
-                        </FormItem>
-                      ))}
-                      <FormItem className="flex h-6 items-center space-x-3 space-y-0">
-                        <FormControl>
-                          <RadioGroupItem value="other" />
-                        </FormControl>
-                        {Boolean(PRONOUNS.find(({ value: val }) => val === field.value)) ? (
-                          <FormLabel className="font-normal">Other</FormLabel>
-                        ) : (
-                          <FormControl>
-                            <Input {...field} placeholder="Other pronouns" className="h-8" />
-                          </FormControl>
-                        )}
-                      </FormItem>
-                    </RadioGroup>
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <div className="grid gap-y-4">
+          step === "submitForm" ? (
+            <form onSubmit={form.handleSubmit(sendOtp)} className="space-y-4">
+              <div className="space-y-2">
+                <h2 className="font-semibold leading-none tracking-tight">Personal details</h2>
+                <p className="text-sm text-muted-foreground">Fields marked with * are required.</p>
+              </div>
               <FormField
                 control={form.control}
-                name="isUWA"
+                name="email"
                 render={({ field }) => (
-                  <FormItem className="flex flex-row items-center space-x-3 space-y-0">
-                    <FormControl>
-                      <Checkbox checked={field.value} onCheckedChange={field.onChange} />
-                    </FormControl>
-                    <FormLabel className="font-mono">I&apos;m a UWA student</FormLabel>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="student_number"
-                render={({ field }) => (
-                  <FormItem className={cn(!getValues().isUWA && "hidden")}>
+                  <FormItem>
                     <FormLabel className="flex space-x-1 font-mono">
-                      <p>UWA student number</p>
+                      <p>Email address</p>
                       <p className="font-sans">*</p>
                     </FormLabel>
                     <FormControl>
-                      <Input placeholder="21012345" inputMode="numeric" {...field} />
+                      <Input type="email" placeholder="john.doe@codersforcauses.org" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -394,17 +345,55 @@ export default function CreateAccount() {
               />
               <FormField
                 control={form.control}
-                name="uni"
+                name="name"
                 render={({ field }) => (
-                  <FormItem className={cn(getValues().isUWA && "hidden")}>
-                    <FormLabel className="font-mono">University</FormLabel>
+                  <FormItem>
+                    <FormLabel className="flex space-x-1 font-mono">
+                      <p>Full name</p> <p className="font-sans">*</p>
+                    </FormLabel>
+                    <FormControl>
+                      <Input autoComplete="name" placeholder="John Doe" {...field} />
+                    </FormControl>
+                    <FormDescription>
+                      We use your full name for internal committee records and official correspondence
+                    </FormDescription>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="preferred_name"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel className="flex space-x-1 font-mono">
+                      <p>Preferred name</p>
+                      <p className="font-sans">*</p>
+                    </FormLabel>
+                    <FormControl>
+                      <Input autoComplete="given-name" placeholder="John" {...field} />
+                    </FormControl>
+                    <FormDescription>This is how we normally refer to you</FormDescription>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="pronouns"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel className="flex space-x-1 font-mono">
+                      <p>Pronouns</p>
+                      <p className="font-sans">*</p>
+                    </FormLabel>
                     <FormControl>
                       <RadioGroup
                         onValueChange={field.onChange}
                         defaultValue={field.value}
-                        className="grid sm:grid-cols-2"
+                        className="grid grid-cols-2 sm:grid-cols-3"
                       >
-                        {UNIVERSITIES.map(({ label, value }) => (
+                        {PRONOUNS.map(({ label, value }) => (
                           <FormItem key={value} className="flex h-6 items-center space-x-3 space-y-0">
                             <FormControl>
                               <RadioGroupItem value={value} />
@@ -416,11 +405,11 @@ export default function CreateAccount() {
                           <FormControl>
                             <RadioGroupItem value="other" />
                           </FormControl>
-                          {Boolean(UNIVERSITIES.find(({ value: val }) => val === field.value)) ? (
-                            <FormLabel className="font-normal">Other university</FormLabel>
+                          {Boolean(PRONOUNS.find(({ value: val }) => val === field.value)) ? (
+                            <FormLabel className="font-normal">Other</FormLabel>
                           ) : (
                             <FormControl>
-                              <Input placeholder="Other university" {...field} className="h-8" />
+                              <Input {...field} placeholder="Other pronouns" className="h-8" />
                             </FormControl>
                           )}
                         </FormItem>
@@ -430,93 +419,184 @@ export default function CreateAccount() {
                   </FormItem>
                 )}
               />
-            </div>
-            <div className="grid gap-x-2 gap-y-4 sm:grid-cols-2 md:gap-x-3">
-              <div className="space-y-2 sm:col-span-2">
-                <h2 className="font-semibold leading-none tracking-tight">Socials</h2>
-                <p className="text-sm text-muted-foreground">
-                  These fields are optional but are required if you plan on applying for projects during the winter and
-                  summer breaks.
-                </p>
-                <Alert>
-                  <svg viewBox="0 0 24 24" width={16} height={16} className="mr-2 fill-current">
-                    <title>{siDiscord.title}</title>
-                    <path d={siDiscord.path} />
-                  </svg>
-                  <AlertTitle>Join our Discord!</AlertTitle>
-                  <AlertDescription>
-                    You can join our Discord server at{" "}
-                    <Button type="button" variant="link" className="h-auto p-0 text-current" asChild>
-                      <Link href="http://discord.codersforcauses.org" target="_blank">
-                        discord.codersforcauses.org
-                      </Link>
-                    </Button>
-                  </AlertDescription>
-                </Alert>
+              <div className="grid gap-y-4">
+                <FormField
+                  control={form.control}
+                  name="isUWA"
+                  render={({ field }) => (
+                    <FormItem className="flex flex-row items-center space-x-3 space-y-0">
+                      <FormControl>
+                        <Checkbox checked={field.value} onCheckedChange={field.onChange} />
+                      </FormControl>
+                      <FormLabel className="font-mono">I&apos;m a UWA student</FormLabel>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="student_number"
+                  render={({ field }) => (
+                    <FormItem className={cn(!getValues().isUWA && "hidden")}>
+                      <FormLabel className="flex space-x-1 font-mono">
+                        <p>UWA student number</p>
+                        <p className="font-sans">*</p>
+                      </FormLabel>
+                      <FormControl>
+                        <Input placeholder="21012345" inputMode="numeric" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="uni"
+                  render={({ field }) => (
+                    <FormItem className={cn(getValues().isUWA && "hidden")}>
+                      <FormLabel className="font-mono">University</FormLabel>
+                      <FormControl>
+                        <RadioGroup
+                          onValueChange={field.onChange}
+                          defaultValue={field.value}
+                          className="grid sm:grid-cols-2"
+                        >
+                          {UNIVERSITIES.map(({ label, value }) => (
+                            <FormItem key={value} className="flex h-6 items-center space-x-3 space-y-0">
+                              <FormControl>
+                                <RadioGroupItem value={value} />
+                              </FormControl>
+                              <FormLabel className="font-normal">{label}</FormLabel>
+                            </FormItem>
+                          ))}
+                          <FormItem className="flex h-6 items-center space-x-3 space-y-0">
+                            <FormControl>
+                              <RadioGroupItem value="other" />
+                            </FormControl>
+                            {Boolean(UNIVERSITIES.find(({ value: val }) => val === field.value)) ? (
+                              <FormLabel className="font-normal">Other university</FormLabel>
+                            ) : (
+                              <FormControl>
+                                <Input placeholder="Other university" {...field} className="h-8" />
+                              </FormControl>
+                            )}
+                          </FormItem>
+                        </RadioGroup>
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </div>
+              <div className="grid gap-x-2 gap-y-4 sm:grid-cols-2 md:gap-x-3">
+                <div className="space-y-2 sm:col-span-2">
+                  <h2 className="font-semibold leading-none tracking-tight">Socials</h2>
+                  <p className="text-sm text-muted-foreground">
+                    These fields are optional but are required if you plan on applying for projects during the winter
+                    and summer breaks.
+                  </p>
+                  <Alert>
+                    <svg viewBox="0 0 24 24" width={16} height={16} className="mr-2 fill-current">
+                      <title>{siDiscord.title}</title>
+                      <path d={siDiscord.path} />
+                    </svg>
+                    <AlertTitle>Join our Discord!</AlertTitle>
+                    <AlertDescription>
+                      You can join our Discord server at{" "}
+                      <Button type="button" variant="link" className="h-auto p-0 text-current" asChild>
+                        <Link href="http://discord.codersforcauses.org" target="_blank">
+                          discord.codersforcauses.org
+                        </Link>
+                      </Button>
+                    </AlertDescription>
+                  </Alert>
+                </div>
+                <FormField
+                  control={form.control}
+                  name="github"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel className="font-mono">Github username</FormLabel>
+                      <FormControl>
+                        <Input placeholder="john_doe" {...field} />
+                      </FormControl>
+                      <FormDescription>
+                        Sign up at{" "}
+                        <Button type="button" variant="link" className="h-auto p-0 text-current" asChild>
+                          <Link href="https://github.com/signup" target="_blank">
+                            github.com/signup
+                          </Link>
+                        </Button>
+                      </FormDescription>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="discord"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel className="font-mono">Discord username</FormLabel>
+                      <FormControl>
+                        <Input placeholder="john_doe" {...field} />
+                      </FormControl>
+                      <FormDescription>
+                        Sign up at{" "}
+                        <Button type="button" variant="link" className="h-auto p-0 text-current" asChild>
+                          <Link href="https://discord.com/register" target="_blank">
+                            discord.com/register
+                          </Link>
+                        </Button>
+                      </FormDescription>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
               </div>
               <FormField
                 control={form.control}
-                name="github"
+                name="subscribe"
                 render={({ field }) => (
-                  <FormItem>
-                    <FormLabel className="font-mono">Github username</FormLabel>
+                  <FormItem className="flex flex-row items-center space-x-3 space-y-0">
                     <FormControl>
-                      <Input placeholder="john_doe" {...field} />
+                      <Checkbox checked={field.value} onCheckedChange={field.onChange} />
                     </FormControl>
-                    <FormDescription>
-                      Sign up at{" "}
-                      <Button type="button" variant="link" className="h-auto p-0 text-current" asChild>
-                        <Link href="https://github.com/signup" target="_blank">
-                          github.com/signup
-                        </Link>
-                      </Button>
-                    </FormDescription>
+                    <FormLabel className="text-sm">I wish to receive emails about future CFC events</FormLabel>
                     <FormMessage />
                   </FormItem>
                 )}
               />
-              <FormField
-                control={form.control}
-                name="discord"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel className="font-mono">Discord username</FormLabel>
-                    <FormControl>
-                      <Input placeholder="john_doe" {...field} />
-                    </FormControl>
-                    <FormDescription>
-                      Sign up at{" "}
-                      <Button type="button" variant="link" className="h-auto p-0 text-current" asChild>
-                        <Link href="https://discord.com/register" target="_blank">
-                          discord.com/register
-                        </Link>
-                      </Button>
-                    </FormDescription>
-                    <FormMessage />
-                  </FormItem>
-                )}
+              <Button type="submit" disabled={form.formState.isSubmitting} className="relative w-full">
+                Next
+              </Button>
+            </form>
+          ) : (
+            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+              <FormLabel className="font-mono">Enter one-time code from your email</FormLabel>
+              <Input
+                type="text"
+                inputMode="numeric"
+                pattern="[0-9]+"
+                placeholder="xxxxxx"
+                value={code}
+                onChange={(e) => setCode(e.target.value)}
+                required
               />
-            </div>
-            <FormField
-              control={form.control}
-              name="subscribe"
-              render={({ field }) => (
-                <FormItem className="flex flex-row items-center space-x-3 space-y-0">
-                  <FormControl>
-                    <Checkbox checked={field.value} onCheckedChange={field.onChange} />
-                  </FormControl>
-                  <FormLabel className="text-sm">I wish to receive emails about future CFC events</FormLabel>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <Button type="submit" disabled={loading} className="relative w-full">
-              {loading ? "Waiting for email verification" : "Next"}
-              {loading && (
-                <span className="material-symbols-sharp absolute right-4 animate-spin">progress_activity</span>
-              )}
-            </Button>
-          </form>
+              <Button type="submit" disabled={step === "verifying"} className="relative w-full">
+                {step === "verifying" ? "Waiting for code verification" : "Submit"}
+              </Button>
+              <Button
+                type="button"
+                variant="outline"
+                className="relative w-full"
+                onClick={() => sendOtp(form.getValues())}
+                disabled={countdown > 0}
+              >
+                Resend code {countdown > 0 ? `(${countdown}s)` : ""}
+              </Button>
+            </form>
+          )
         ) : (
           <DetailsBlock />
         )}
