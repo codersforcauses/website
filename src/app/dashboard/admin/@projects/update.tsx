@@ -35,7 +35,7 @@ export const DBProjectCard = ({ project }: DBProjectCardProps) => {
     github_url: data?.github_url || undefined,
     website_url: data?.website_url || undefined,
     description: data?.description || "",
-    impact: data?.impact?.map((item) => ({ value: item })) || [
+    impact: data?.impact || [
       {
         value: "",
       },

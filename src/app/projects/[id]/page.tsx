@@ -1,5 +1,6 @@
 "use client"
 
+import { Value } from "@radix-ui/react-select"
 import projects from "data/projects.json"
 import Image from "next/image"
 import Link from "next/link"
