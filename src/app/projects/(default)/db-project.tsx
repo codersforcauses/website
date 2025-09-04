@@ -120,10 +120,7 @@ export default function DBProject({ data }: DBProjectProps) {
                 </div>
               )}
             </div>
-            <Impact
-              impact={data.impact?.map((item) => (typeof item === "string" ? item ?? "" : item.value))}
-              className="lg:hidden"
-            />
+            <Impact impact={data.impact?.map((item) => item.value)} className="lg:hidden" />
             <div className="space-y-4">
               <h2 className="font-mono text-2xl font-black">Technologies used</h2>
               {data.tech && <DBTechList data={data.tech} />}
@@ -162,7 +159,7 @@ export default function DBProject({ data }: DBProjectProps) {
                 )}
               </div>
             )}
-            <Impact impact={data.impact?.map((item) => (typeof item === "string" ? item ?? "" : item.value))} />
+            <Impact impact={data.impact?.map((item) => item.value)} />
           </div>
         </div>
       </div>

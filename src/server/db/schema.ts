@@ -78,6 +78,10 @@ type TechItem = {
   path: string
 }
 
+type ImpactItem = {
+  value: string
+}
+
 export const Project = pgTable(
   "project",
   {
@@ -94,7 +98,7 @@ export const Project = pgTable(
     end_date: timestamp("end_date"), // end_date in the form
     website_url: varchar("website_url", { length: 256 }), // link in the form
     github_url: varchar("github_url", { length: 256 }), // source code link
-    impact: varchar("impact", { length: 1024 }).array(), // impact of the project, <string>[]
+    impact: jsonb("impact").$type<ImpactItem[]>(), // impact of the project, <string>[]
     description: varchar("description", { length: 1024 }).notNull(), // description of the project
     tech: jsonb("tech").$type<TechItem[]>(), // technologies used in the project, <string>[]
     members: varchar("members", { length: 256 }).array(), // impact of the project, <string>[]

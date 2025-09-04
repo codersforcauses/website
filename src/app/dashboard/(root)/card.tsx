@@ -19,23 +19,7 @@ import DBProject from "~/app/projects/(default)/db-project"
 import type { ProjectType, defaultValueType } from "../admin/@projects/project-form"
 
 export type DashboardCardProps = {
-  logo_path: string | null
-  img_path?: string | undefined | null
-  name: string | null
-  client: string | null
-  type: ProjectType | null
-  start_date?: Date | undefined | null
-  end_date?: Date | undefined | null
-  github_url?: string | null
-  website_url?: string | null
-  description: string | null
-  impact?: { value: string }[] | null | string[]
-  members?: string[] | null
-  tech?: { label: string; value: string; path: string }[] | null
-  is_application_open: boolean | null
-  application_url?: string | null
-  is_public: boolean | null
-  id?: string | null
+  [K in keyof defaultValueType]: defaultValueType[K] | null
 }
 export const DashboardCard = ({ project, upcoming = false }: { project: DashboardCardProps; upcoming?: boolean }) => {
   return (

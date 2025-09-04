@@ -1,5 +1,5 @@
 {
-  "id": "d9cd6d8b-7ed7-4227-8c74-7ce7f3047dca",
+  "id": "1e7b669f-43b1-4eb6-976b-9fe83d0da300",
   "prevId": "2f715dfd-3757-4d61-ab98-3c17785ff541",
   "version": "7",
   "dialect": "postgresql",
@@ -185,7 +185,7 @@
         },
         "impact": {
           "name": "impact",
-          "type": "varchar(1024)[]",
+          "type": "jsonb",
           "primaryKey": false,
           "notNull": false
         },

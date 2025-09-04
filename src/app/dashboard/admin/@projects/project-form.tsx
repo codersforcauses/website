@@ -392,7 +392,7 @@ export default function ProjectForm({
         website_url: values.website_url,
         application_url: values.application_url ? values.application_url : "",
         description: values.description,
-        impact: values.impact?.map((item) => item.value),
+        impact: values.impact,
         tech: values.tech?.map((item) => ({
           label: item.label,
           value: item.value,
@@ -415,12 +415,8 @@ export default function ProjectForm({
         website_url: values.website_url,
         application_url: values.application_url ? values.application_url : "",
         description: values.description,
-        impact: values.impact?.map((item) => item.value),
-        tech: values.tech?.map((item) => ({
-          label: item.label,
-          value: item.value,
-          path: item.path,
-        })),
+        impact: values.impact ?? undefined,
+        tech: values.tech ?? undefined,
         members: values.members,
         is_application_open: values.is_application_open,
         is_public: values.is_public,
@@ -429,11 +425,6 @@ export default function ProjectForm({
         id: formDefaultValues.id ?? "",
       })
     }
-  }
-
-  const handlePreview = () => {
-    const allValues = form.getValues() // <-- get all current form values
-    console.log(allValues)
   }
 
   return (

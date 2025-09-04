@@ -6,7 +6,6 @@ import Link from "next/link"
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "~/components/ui/tabs"
 
-import { customMetadata } from "~/lib/metadata"
 import { api } from "~/trpc/react"
 
 import CreateProject from "./create"
@@ -15,16 +14,7 @@ const DBProjectCard = dynamic(() => import("./update").then((mod) => mod.DBProje
   ssr: false,
 })
 
-//TODO: update to Next.js, and add image to metadata
 export default function ProjectsPage() {
-  //   const meta = customMetadata({
-  //     name: "Our Projects",
-  //     page: "projects",
-  //     description: "A list of all public and present projects.",
-  //     image:
-  //       "https://og-social-cards.vercel.app/**.%2Fprojects**.png?theme=dark&md=1&fontSize=125px&images=https%3A%2Fcodersforcauses.org%2Flogo%2Fcfc_logo_white_full.svg",
-  //   })
-
   const utils = api.useUtils()
   const { isLoading: p1Loading, data: ongoingProjects } = api.admin.projects.getPublicProjects.useQuery({
     is_public: false,

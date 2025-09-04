@@ -53,10 +53,16 @@ export const update = adminProcedure
           }),
         )
         .optional(),
-      impact: z.string().array().optional(),
+      impact: z
+        .array(
+          z.object({
+            value: z.string(),
+          }),
+        )
+        .optional(),
       members: z.string().array().optional(),
       is_application_open: z.boolean().default(false).optional(),
-      application_url: z.string().trim().nullable(),
+      application_url: z.string().trim().optional().nullable(),
       is_public: z.boolean().default(false).optional(),
       id: z.string().trim(),
     }),

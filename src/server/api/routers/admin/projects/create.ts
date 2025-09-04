@@ -46,14 +46,19 @@ export const create = adminProcedure
         )
         .optional(),
       members: z.string().array().optional(),
-      impact: z.string().array().optional(),
+      impact: z
+        .array(
+          z.object({
+            value: z.string(),
+          }),
+        )
+        .optional(),
       is_application_open: z.boolean().default(false),
       application_url: z.string().trim().optional(),
       is_public: z.boolean().default(false),
     }),
   )
   .mutation(async ({ ctx, input }) => {
-    // throw new Error(` ${input.members},,,${input.impact}  ,,, `)
     const project_data = await ctx.db.query.Project.findFirst({
       where: eq(Project.name, input.name),
     })

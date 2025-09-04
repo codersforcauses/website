@@ -12,7 +12,7 @@ CREATE TABLE "cfc-website_project" (
 	"end_date" timestamp,
 	"website_url" varchar(256),
 	"github_url" varchar(256),
-	"impact" varchar(1024)[],
+	"impact" jsonb,
 	"description" varchar(1024) NOT NULL,
 	"tech" jsonb,
 	"members" varchar(256)[],

@@ -1,10 +1,5 @@
 "use client"
 
-import Image from "next/image"
-import Link from "next/link"
-import { notFound } from "next/navigation"
-import * as z from "zod"
-
 import { Button } from "~/components/ui/button"
 import {
   Dialog,
@@ -15,14 +10,10 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "~/components/ui/dialog"
-import { toast } from "~/components/ui/use-toast"
 
-import type { DBProjectProps } from "~/app/projects/(default)/db-project"
 import DBProject from "~/app/projects/(default)/db-project"
-import { api } from "~/trpc/react"
 
 import { DashboardCardProps } from "../../(root)/card"
-import type { defaultValueType } from "./project-form"
 
 export default function PreviewProject({ data }: { data: DashboardCardProps }) {
   return (
