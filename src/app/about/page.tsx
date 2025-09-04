@@ -1,6 +1,9 @@
 "use client"
 
 import dynamic from "next/dynamic"
+import Link from "next/link"
+
+import { Button } from "~/components/ui/button"
 
 import Clients from "./clients"
 import Committee from "./committee"
@@ -40,6 +43,13 @@ export default function About() {
           <Clients />
           <h3 className="font-mono text-2xl font-black dark:text-white">Proudly Supported By</h3>
           <Sponsors />
+          <div className="flex justify-center">
+            <Link href="/sponsor-us">
+              <Button className="text-md" size="lg">
+                Sponsor us
+              </Button>
+            </Link>
+          </div>
         </div>
       </div>
     </>
