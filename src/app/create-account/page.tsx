@@ -180,7 +180,7 @@ export default function CreateAccount() {
       setStep("enterCode")
       window.scrollTo({
         top: 0,
-        behavior: "smooth", // smooth scrolling
+        behavior: "smooth",
       })
     } catch (error) {
       console.error("Error sending OTP", error)
@@ -194,7 +194,10 @@ export default function CreateAccount() {
 
   const onSubmit = async (values: FormSchema) => {
     if (!isLoaded) return
-
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    })
     setStep("verifying")
     if (process.env.NEXT_PUBLIC_VERCEL_ENV === "production") track("created-account")
 

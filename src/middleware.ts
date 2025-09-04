@@ -1,5 +1,4 @@
 import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server"
-import { el } from "date-fns/locale"
 import { eq } from "drizzle-orm"
 
 import { db } from "./server/db"

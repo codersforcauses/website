@@ -146,7 +146,7 @@ export default function Join() {
       toast({
         variant: "destructive",
         title: "Google sign-in failed",
-        description: `${error}`,
+        description: `${(error as { message?: string })?.message ?? ""}`,
       })
     }
   }
