@@ -100,7 +100,7 @@ export default function CompleteProfile() {
     },
   })
   useEffect(() => {
-    async function updateForm() {
+    const updateForm = async () => {
       if (!clerkUser) return null
       const email = clerkUser?.primaryEmailAddress?.emailAddress ?? ""
       const name = clerkUser?.firstName ? `${clerkUser.firstName} ${clerkUser.lastName ?? ""}`.trim() : ""
@@ -113,7 +113,7 @@ export default function CompleteProfile() {
       form.reset(user)
     }
 
-    updateForm()
+    updateForm().catch(console.error)
   }, [clerkUser])
   if (!isLoaded) return null
 
