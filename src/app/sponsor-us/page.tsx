@@ -2,6 +2,8 @@ import Link from "next/link"
 
 import { Button } from "~/components/ui/button"
 
+import Sponsors from "../about/sponsors"
+
 const numberList = [
   { label: "Events", value: "100+" },
   { label: "Projects", value: "14+" },
@@ -23,7 +25,7 @@ export default function Sponsor() {
           </p>
         </div>
       </div>
-      <div className="w-full bg-gray-100 p-8 shadow-lg dark:bg-alt-dark lg:px-20">
+      <div className="w-full bg-gray-100 p-8 shadow-lg dark:bg-alt-dark lg:px-8">
         <p className="text-lg">
           Coders for Causes (CFC) is a pivotal student-run non-profit organization at the University of Western
           Australia. We are dedicated to bridging the gap between computing students and the tech industry, while
@@ -35,7 +37,7 @@ export default function Sponsor() {
           opportunity to make a genuine social impact.
         </p>
       </div>
-      <div className="my-12">
+      <div className="mt-12 mb-16">
         <div className="flex h-full w-full place-content-evenly items-center gap-4">
           {numberList.map((item) => (
             <div className="text-center w-[88px]" key={item.label}>
@@ -46,12 +48,16 @@ export default function Sponsor() {
         </div>
       </div>
 
-      <div className="flex justify-center pb-12 ">
-        <Link href="/#_contact_us">
-          <Button className="text-md" size="lg">
-            Contact us
-          </Button>
-        </Link>
+      <div className="container mx-auto space-y-12">
+        <h3 className="font-mono text-2xl font-black text-primary">Proudly Supported By</h3>
+        <Sponsors />
+        <div className="flex justify-center pb-12">
+          <Link href="/#_contact_us">
+            <Button className="text-md" size="lg">
+              Contact us
+            </Button>
+          </Link>
+        </div>
       </div>
     </div>
   )
