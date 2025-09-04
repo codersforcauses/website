@@ -4,8 +4,8 @@ import { useUser } from "@clerk/nextjs"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { track } from "@vercel/analytics/react"
 import Link from "next/link"
-import { useRouter, useSearchParams } from "next/navigation"
-import * as React from "react"
+import { useRouter } from "next/navigation"
+import { useEffect, useState } from "react"
 import { useForm } from "react-hook-form"
 import { siDiscord } from "simple-icons"
 import * as z from "zod"
@@ -86,26 +86,39 @@ const defaultValues = {
 }
 
 export default function CompleteProfile() {
-  const [activeView, setActiveView] = React.useState<ActiveView>("form")
-  const [loadingSkipPayment, setLoadingSkipPayment] = React.useState(false)
-  const [user, setUser] = React.useState<User>()
+  const [activeView, setActiveView] = useState<ActiveView>("form")
+  const [loadingSkipPayment, setLoadingSkipPayment] = useState(false)
+  const [user, setUser] = useState<User>()
   const router = useRouter()
 
   const { isLoaded, user: clerkUser } = useUser()
-  const [step, setStep] = React.useState<"submitForm" | "verifying">("submitForm")
-  if (!isLoaded) return null
-
-  const clerk_id = clerkUser?.id
-  const email = clerkUser?.primaryEmailAddress?.emailAddress ?? ""
-  const name = clerkUser?.firstName ? `${clerkUser.firstName} ${clerkUser.lastName ?? ""}`.trim() : ""
+  const [step, setStep] = useState<"submitForm" | "verifying">("submitForm")
   const form = useForm<FormSchema>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       ...defaultValues,
-      email: email,
-      name: name,
     },
   })
+  useEffect(() => {
+    async function updateForm() {
+      if (!clerkUser) return null
+      const email = clerkUser?.primaryEmailAddress?.emailAddress ?? ""
+      const name = clerkUser?.firstName ? `${clerkUser.firstName} ${clerkUser.lastName ?? ""}`.trim() : ""
+      const user = await Promise.resolve({
+        ...defaultValues,
+        name: name,
+        email: email,
+      })
+
+      form.reset(user)
+    }
+
+    updateForm()
+  }, [clerkUser])
+  if (!isLoaded) return null
+
+  const clerk_id = clerkUser?.id
+
   const { getValues, setError } = form
 
   const utils = api.useUtils()
