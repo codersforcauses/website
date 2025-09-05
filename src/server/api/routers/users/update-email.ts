@@ -1,16 +1,21 @@
 import { clerkClient } from "@clerk/nextjs/server"
 import { TRPCError } from "@trpc/server"
+import { Ratelimit } from "@upstash/ratelimit"
 import { eq } from "drizzle-orm"
 import { z } from "zod"
 
-import { adminProcedure } from "~/server/api/trpc"
-import { db } from "~/server/db"
+import { protectedRatedProcedure } from "~/server/api/trpc"
 import { User } from "~/server/db/schema"
 
-export const updateEmail = adminProcedure
+export const updateEmail = protectedRatedProcedure(Ratelimit.fixedWindow(4, "30s"))
   .input(z.object({ userId: z.string(), oldEmail: z.string().email(), newEmail: z.string().email() }))
   .mutation(async ({ ctx, input }) => {
+    const currentUser = ctx.user
     const clerk = await clerkClient()
+    if (currentUser?.id !== input.userId) {
+      throw new TRPCError({ code: "FORBIDDEN", message: "You can only update your own email" })
+    }
+
     const user_data = await ctx.db.query.User.findFirst({
       where: eq(User.email, input.oldEmail),
     })
