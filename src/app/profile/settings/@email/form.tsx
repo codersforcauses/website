@@ -1,0 +1,203 @@
+"use client"
+
+import { useReverification, useUser } from "@clerk/nextjs"
+import { EmailAddressResource } from "@clerk/types"
+import { zodResolver } from "@hookform/resolvers/zod"
+import Link from "next/link"
+import { useEffect, useState } from "react"
+import { FormProvider, useForm } from "react-hook-form"
+import { z } from "zod"
+
+import { Button } from "~/components/ui/button"
+import { FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "~/components/ui/form"
+import { Input } from "~/components/ui/input"
+import { toast } from "~/components/ui/use-toast"
+
+import { api } from "~/trpc/react"
+
+const formSchema = z.object({
+  email: z
+    .string()
+    .email({
+      message: "Invalid email address",
+    })
+    .min(2, {
+      message: "Email is required",
+    }),
+  new_email: z
+    .string()
+    .email({
+      message: "Invalid email address",
+    })
+    .min(2, {
+      message: "New email is required",
+    }),
+})
+
+type FormSchema = z.infer<typeof formSchema>
+
+const defaultValues: FormSchema = {
+  email: "",
+  new_email: "",
+}
+
+const EmailForm = (props: { user_id: string; email?: Partial<FormSchema> }) => {
+  const utils = api.useUtils()
+  const { isLoaded, isSignedIn, user } = useUser()
+  const [countdown, setCountdown] = useState(0)
+  const [code, setCode] = useState("")
+  const [step, setStep] = useState<"submitForm" | "enterCode" | "verifying" | "updated">("submitForm")
+  const [emailObj, setEmailObj] = useState<EmailAddressResource | undefined>()
+  const createEmailAddress = useReverification((email: string) => user?.createEmailAddress({ email }))
+  useEffect(() => {
+    if (countdown > 0) {
+      const timer = setInterval(() => {
+        setCountdown((prev) => prev - 1)
+      }, 1000)
+
+      return () => clearInterval(timer)
+    }
+  }, [countdown])
+  const updateEmail = api.users.updateEmail.useMutation({
+    onSuccess: async () => {
+      await utils.users.getCurrent.refetch()
+    },
+  })
+
+  const form = useForm<FormSchema>({
+    resolver: zodResolver(formSchema),
+    defaultValues: props.email ? { ...props.email } : defaultValues,
+  })
+  if (!isLoaded) {
+    return null
+  }
+
+  if (!isSignedIn) {
+    return <p>You must be logged in to access this page</p>
+  }
+
+  const sendOtp = async (values: FormSchema) => {
+    try {
+      const res = await createEmailAddress(values.new_email.trim())
+      await user.reload()
+
+      const emailAddress = user.emailAddresses.find((a) => a.id === res?.id)
+      setEmailObj(emailAddress)
+
+      emailAddress?.prepareVerification({ strategy: "email_code" })
+      setCountdown(60)
+      setStep("enterCode")
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth",
+      })
+    } catch (error) {
+      console.error(JSON.stringify(error, null, 2))
+      toast({
+        variant: "destructive",
+        title: "Verification failed",
+        description: `Error sending OTP. ${(error as { message?: string })?.message ?? ""} `,
+      })
+    }
+  }
+  const onSubmit = async (data: FormSchema) => {
+    setStep("verifying")
+    try {
+      const emailVerifyAttempt = await emailObj?.attemptVerification({ code })
+
+      if (emailVerifyAttempt?.verification.status === "verified") {
+        updateEmail.mutate({
+          userId: props.user_id,
+          oldEmail: (data.email ?? "").trim(),
+          newEmail: (data.new_email ?? "").trim(),
+        })
+        toast({
+          title: "Email updated",
+          description: "Your email has been updated successfully.",
+        })
+        setStep("updated")
+      }
+    } catch (error) {
+      console.log("Update error", error)
+      toast({
+        variant: "destructive",
+        title: "Failed to update email",
+        description: `An error occurred while trying to update email. ${(error as { message?: string })?.message ?? ""}`,
+      })
+      setStep("enterCode")
+    }
+  }
+
+  return (
+    <FormProvider {...form}>
+      {step === "submitForm" ? (
+        <form onSubmit={form.handleSubmit(sendOtp)} className="grid max-w-xl gap-y-4">
+          <div className="grid gap-y-4">
+            <FormField
+              control={form.control}
+              name="email"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel className="flex space-x-1 font-mono">
+                    <p>Email address</p>
+                    <p className="font-sans">*</p>
+                  </FormLabel>
+                  <FormControl>
+                    <Input type="email" placeholder="john.doe@codersforcauses.org" {...field} readOnly />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="new_email"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel className="flex space-x-1 font-mono">
+                    <p>New email address</p>
+                    <p className="font-sans">*</p>
+                  </FormLabel>
+                  <FormControl>
+                    <Input type="email" placeholder="john.doe@codersforcauses.org" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </div>
+          <Button type="submit" disabled={form.formState.isSubmitting} className="relative w-full">
+            Next
+          </Button>
+        </form>
+      ) : (
+        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+          <FormLabel className="font-mono">Enter one-time code from your email</FormLabel>
+          <Input
+            type="text"
+            inputMode="numeric"
+            pattern="[0-9]+"
+            placeholder="xxxxxx"
+            value={code}
+            onChange={(e) => setCode(e.target.value)}
+            required
+          />
+          <Button type="submit" disabled={step === "verifying" || step === "updated"} className="relative w-full">
+            {step === "verifying" ? "Waiting for code verification" : step === "updated" ? "Email updated" : "Submit"}
+          </Button>
+          <Button
+            type="button"
+            variant="outline"
+            className="relative w-full"
+            onClick={() => sendOtp(form.getValues())}
+            disabled={countdown > 0}
+          >
+            Resend code {countdown > 0 ? `(${countdown}s)` : ""}
+          </Button>
+        </form>
+      )}
+    </FormProvider>
+  )
+}
+
+export default EmailForm
