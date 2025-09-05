@@ -390,7 +390,7 @@ export default function ProjectForm({
         end_date: values.end_date ? values.end_date : undefined,
         github_url: values.github_url,
         website_url: values.website_url,
-        application_url: values.application_url ? values.application_url : "",
+        application_url: values.application_url ?? "",
         description: values.description,
         impact: values.impact,
         tech: values.tech?.map((item) => ({
@@ -413,7 +413,7 @@ export default function ProjectForm({
         end_date: values.end_date ? values.end_date : undefined,
         github_url: values.github_url,
         website_url: values.website_url,
-        application_url: values.application_url ? values.application_url : "",
+        application_url: values.application_url ?? "",
         description: values.description,
         impact: values.impact ?? undefined,
         tech: values.tech ?? undefined,

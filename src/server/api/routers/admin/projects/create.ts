@@ -84,7 +84,7 @@ export const create = adminProcedure
     const [project] = await ctx.db
       .insert(Project)
       .values({
-        icon: icon, // default to website icon if not specified
+        icon: icon,
         logo_path: input.logo_path,
         img_path: input.img_path,
         name: input.name,

@@ -20,7 +20,7 @@ export default function DashboardContent() {
         <TabsTrigger asChild value="past" className="w-full">
           <Link href="?type=past">Past Participation</Link>
         </TabsTrigger>
-        <TabsTrigger value="upcoming" className="w-full">
+        <TabsTrigger asChild value="upcoming" className="w-full">
           <Link href="?type=upcoming">Upcoming Projects</Link>
         </TabsTrigger>
       </TabsList>
