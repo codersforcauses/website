@@ -70,7 +70,8 @@ export const create = publicRatedProcedure(Ratelimit.fixedWindow(4, "30s"))
       })
     }
 
-    const clerkUser = await clerkClient().users.getUser(input.clerk_id)
+    const clerk = await clerkClient()
+    const clerkUser = await clerk.users.getUser(input.clerk_id)
 
     if (!clerkUser) {
       throw new TRPCError({

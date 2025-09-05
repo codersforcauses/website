@@ -38,17 +38,38 @@ export const update = protectedRatedProcedure(Ratelimit.fixedWindow(4, "30s"))
         .optional(),
       student_number: z.string().nullish(),
       uni: z.string().optional().nullish(),
+      github: z.string().optional().nullish(),
+      discord: z.string().optional().nullish(),
+      subscribe: z.boolean(),
     }),
   )
   .mutation(async ({ ctx, input }) => {
     const currentUser = ctx.user
+    if (!currentUser) throw new Error("Not authenticated")
     // TODO: update clerk email
     // TODO: Wrap in a transaction
-    await clerkClient().users.updateUser(currentUser.clerk_id, {
-      // emailAddress: input.email,
-      firstName: input.preferred_name,
-      lastName: input.name,
-    })
+    try {
+      const clerk = await clerkClient()
+      await clerk.users.updateUser(currentUser.clerk_id, {
+        firstName: input.name,
+        unsafeMetadata: {
+          preferred_name: input.preferred_name,
+          pronouns: input.pronouns,
+          student_number: input.student_number,
+          university: input.uni,
+          github: input.github,
+          discord: input.discord,
+          subscribe: input.subscribe,
+        },
+      })
+    } catch (err: unknown) {
+      // Narrow the error type
+      if (err instanceof Error) {
+        throw new Error(`Failed to update user metadata: ${err?.message}`)
+      } else {
+        throw new Error("Failed to update user metadata: unknown error")
+      }
+    }
 
     const [user] = await ctx.db
       .update(User)
@@ -59,6 +80,9 @@ export const update = protectedRatedProcedure(Ratelimit.fixedWindow(4, "30s"))
         pronouns: input.pronouns?.trim(),
         student_number: input.student_number?.trim() ?? null,
         university: input.uni?.trim() ?? null,
+        github: input.github?.trim(),
+        discord: input.discord?.trim(),
+        subscribe: input.subscribe,
       })
       .where(eq(User.id, currentUser.id))
       .returning()
