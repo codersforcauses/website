@@ -84,7 +84,7 @@ export default function DBProject({ data }: DBProjectProps) {
           <span className="text-black text-opacity-60 dark:text-white dark:text-opacity-60">{` / ${data.name}`}</span>
         </nav>
         <div className="container relative mx-auto px-3 lg:flex">
-          <div className="space-y-8 lg:mr-8 lg:w-2/3">
+          <div className="space-y-8 lg:mr-8 lg:grow">
             <div className="space-y-4">
               <h1 className="mb-6 font-mono text-4xl md:text-6xl">{data.name}</h1>
               <div className="grid grid-cols-2 items-center gap-3 font-mono lg:hidden">
@@ -131,7 +131,7 @@ export default function DBProject({ data }: DBProjectProps) {
               </ul>
             </div>
           </div>
-          <div className="hidden w-full lg:w-1/3 space-y-8 lg:block">
+          <div className="hidden w-full lg:max-w-xs space-y-8 lg:block">
             <div className="space-y-4 font-mono">
               <div className="flex items-center">
                 <span className="material-symbols-sharp mr-3 select-none">{icon}</span>
