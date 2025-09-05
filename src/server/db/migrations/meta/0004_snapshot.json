@@ -1,5 +1,5 @@
 {
-  "id": "1e7b669f-43b1-4eb6-976b-9fe83d0da300",
+  "id": "e6d773c5-ad78-4d33-a9e7-5a16440dac6e",
   "prevId": "2f715dfd-3757-4d61-ab98-3c17785ff541",
   "version": "7",
   "dialect": "postgresql",
@@ -123,7 +123,7 @@
         },
         "icon": {
           "name": "icon",
-          "type": "icon",
+          "type": "project_icon",
           "typeSchema": "public",
           "primaryKey": false,
           "notNull": false
@@ -154,7 +154,7 @@
         },
         "type": {
           "name": "type",
-          "type": "type",
+          "type": "project_type",
           "typeSchema": "public",
           "primaryKey": false,
           "notNull": true
@@ -424,8 +424,8 @@
     }
   },
   "enums": {
-    "public.icon": {
-      "name": "icon",
+    "public.project_icon": {
+      "name": "project_icon",
       "schema": "public",
       "values": [
         "devices",
@@ -444,8 +444,8 @@
         "admin"
       ]
     },
-    "public.type": {
-      "name": "type",
+    "public.project_type": {
+      "name": "project_type",
       "schema": "public",
       "values": [
         "Mobile application",

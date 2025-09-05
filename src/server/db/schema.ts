@@ -70,8 +70,8 @@ export const Payment = pgTable(
   (payment) => [index("user_id_idx").on(payment.user_id), index("event_id_idx").on(payment.event_id)],
 )
 
-export const iconEnum = pgEnum("icon", PROJECT_ICONS)
-export const typeEnum = pgEnum("type", PROJECT_TYPES)
+export const iconEnum = pgEnum("project_icon", PROJECT_ICONS)
+export const typeEnum = pgEnum("project_type", PROJECT_TYPES)
 type TechItem = {
   label: string
   value: string
@@ -101,7 +101,7 @@ export const Project = pgTable(
     impact: jsonb("impact").$type<ImpactItem[]>(), // impact of the project, <string>[]
     description: varchar("description", { length: 1024 }).notNull(), // description of the project
     tech: jsonb("tech").$type<TechItem[]>(), // technologies used in the project, <string>[]
-    members: varchar("members", { length: 256 }).array(), // impact of the project, <string>[]
+    members: varchar("members", { length: 256 }).array(), // array of user emails
     is_application_open: boolean("is_application_open").default(false).notNull(), // whether the project is receiving applications or not
     application_url: varchar("application_url", { length: 256 }), // link to the application form
     is_public: boolean("is_public").default(false).notNull(), //  means they are visible on projects page

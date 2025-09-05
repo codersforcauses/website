@@ -6,6 +6,7 @@ import Link from "next/link"
 
 import { Button } from "~/components/ui/button"
 
+import NotFound from "~/app/not-found"
 import { api } from "~/trpc/react"
 
 import { Impact } from "../(default)/db-project"
@@ -27,7 +28,7 @@ export default function ProjectPage({ params: { id } }: { params: { id: string }
     const { isLoading, data: project } = api.projects.getProjectByName.useQuery({ name: id })
 
     if (isLoading) return <Loading />
-    return project ? <DBProject data={project} /> : null
+    return project ? <DBProject data={project} /> : <NotFound />
   } else {
     return (
       <main className="main">

@@ -214,7 +214,7 @@ const TechForm = () => {
                   >
                     <span
                       className={cn(
-                        "material-symbols-sharp mr-2 h-6 w-6 text-black",
+                        "material-symbols-sharp mr-2 h-6 w-6 text-primary",
                         tech.some(({ value }) => value === item.value) ? "opacity-100" : "opacity-0",
                       )}
                     >
@@ -294,7 +294,7 @@ const MembersForm = () => {
                   >
                     <span
                       className={cn(
-                        "material-symbols-sharp mr-2 h-6 w-6 text-black",
+                        "material-symbols-sharp mr-2 h-6 w-6 text-primary",
                         emailArray.some((email) => email === user.email) ? "opacity-100" : "opacity-0",
                       )}
                     >
@@ -646,7 +646,7 @@ export default function ProjectForm({
                 <FormControl>
                   <Checkbox checked={field.value} onCheckedChange={field.onChange} />
                 </FormControl>
-                <FormDescription>Start taking applications</FormDescription>
+                <FormDescription>Taking applications</FormDescription>
                 <FormMessage />
               </FormItem>
             )}

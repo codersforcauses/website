@@ -36,7 +36,7 @@ const Layout = ({ children, ...props }: AdminDashLayoutProps) => {
               <div className="grid size-[42px] min-w-[42px] place-items-center bg-black font-mono font-semibold text-white dark:bg-white dark:text-black">
                 cfc
               </div>
-              <h1 className="hidden md:block ml-2 font-mono font-bold leading-tight text-black">Admin Dashboard</h1>
+              <h1 className="hidden md:block ml-2 font-mono font-bold leading-tight text-primary">Admin Dashboard</h1>
             </div>
             {sidebarItems.map(({ text, icon }) => (
               <TabsTrigger
