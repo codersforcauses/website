@@ -1,8 +1,9 @@
-import { bigint, boolean, index, pgEnum, pgTableCreator, timestamp, uuid, varchar } from "drizzle-orm/pg-core"
+import { bigint, boolean, index, jsonb, pgEnum, pgTableCreator, timestamp, uuid, varchar } from "drizzle-orm/pg-core"
+import { createInsertSchema } from "drizzle-zod"
 import { invoicePaymentReminderSchema } from "square/dist/types/models/invoicePaymentReminder"
 import { v7 as uuidv7 } from "uuid"
 
-import { NAMED_ROLES } from "~/lib/constants"
+import { NAMED_ROLES, PROJECT_ICONS, PROJECT_TYPES } from "~/lib/constants"
 
 /**
  * This is an example of how to use the multi-project schema feature of Drizzle ORM. Use the same
@@ -29,7 +30,7 @@ export const User = pgTable(
     /// If this was unique someone could claim an student number of another student and
     /// prevent them from signing up.
     student_number: varchar("student_number", { length: 8 }),
-    university: varchar("university", { length: 128 }), // non UWA
+    university: varchar("university", { length: 128 }),
     github: varchar("github", { length: 128 }),
     discord: varchar("discord", { length: 128 }),
     subscribe: boolean("subscribe").default(true).notNull(),
@@ -68,3 +69,47 @@ export const Payment = pgTable(
   },
   (payment) => [index("user_id_idx").on(payment.user_id), index("event_id_idx").on(payment.event_id)],
 )
+
+export const iconEnum = pgEnum("project_icon", PROJECT_ICONS)
+export const typeEnum = pgEnum("project_type", PROJECT_TYPES)
+type TechItem = {
+  label: string
+  value: string
+  path: string
+}
+
+type ImpactItem = {
+  value: string
+}
+
+export const Project = pgTable(
+  "project",
+  {
+    id: uuid("id")
+      .primaryKey()
+      .$defaultFn(() => uuidv7()),
+    icon: iconEnum("icon"), // icon for the types of project, auto created and updated. depends on the type
+    logo_path: varchar("logo_path", { length: 256 }).notNull(),
+    img_path: varchar("img_path", { length: 256 }),
+    name: varchar("name", { length: 256 }).notNull().unique(),
+    client: varchar("client", { length: 256 }).notNull(),
+    type: typeEnum("type").notNull(), // e.g. Mobile application, PWA, Website
+    start_date: timestamp("start_date"), // start_date in the form
+    end_date: timestamp("end_date"), // end_date in the form
+    website_url: varchar("website_url", { length: 256 }), // link in the form
+    github_url: varchar("github_url", { length: 256 }), // source code link
+    impact: jsonb("impact").$type<ImpactItem[]>(), // impact of the project, <string>[]
+    description: varchar("description", { length: 1024 }).notNull(), // description of the project
+    tech: jsonb("tech").$type<TechItem[]>(), // technologies used in the project, <string>[]
+    members: varchar("members", { length: 256 }).array(), // array of user emails
+    is_application_open: boolean("is_application_open").default(false).notNull(), // whether the project is receiving applications or not
+    application_url: varchar("application_url", { length: 256 }), // link to the application form
+    is_public: boolean("is_public").default(false).notNull(), //  means they are visible on projects page
+    createdAt: timestamp("created_at")
+      .$default(() => new Date())
+      .notNull(),
+    updatedAt: timestamp("updated_at").$onUpdate(() => new Date()),
+  },
+  (project) => [index("name_idx").on(project.name)],
+)
+export const insertProjectSchema = createInsertSchema(Project)

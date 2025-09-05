@@ -4,9 +4,12 @@ import dynamic from "next/dynamic"
 
 import { customMetadata } from "~/lib/metadata"
 
+import DBCards from "./db-cards"
+
 const Card = dynamic(() => import("./card"), {
   ssr: false,
 })
+
 const ProjectProcessModal = dynamic(() => import("./modal"), {
   ssr: false,
 })
@@ -32,6 +35,7 @@ export default function ProjectsPage() {
       <div className="flex flex-col md:flex-row md:gap-12">
         <div className="flex-grow">
           <div className="grid grid-cols-[repeat(auto-fit,minmax(14rem,1fr))] gap-4">
+            <DBCards />
             {projectData.map((project) => (
               <Card key={project.id} project={project} />
             ))}

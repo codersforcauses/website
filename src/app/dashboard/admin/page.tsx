@@ -1,5 +1,5 @@
 import * as React from "react"
 
-export default function AdminDashboard() {
+export default async function AdminDashboard() {
   return <></>
 }

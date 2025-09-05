@@ -47,28 +47,120 @@ export const UNIVERSITIES = [
   },
 ] as const
 
-export const iconMap: Record<string, string> = {
-  mongodb: SimpleIcons.siMongodb.path,
-  vuedotjs: SimpleIcons.siVuedotjs.path,
-  nodedotjs: SimpleIcons.siNodedotjs.path,
-  express: SimpleIcons.siExpress.path,
-  nuxtdotjs: SimpleIcons.siNuxtdotjs.path,
-  vuetify: SimpleIcons.siVuetify.path,
-  nextdotjs: SimpleIcons.siNextdotjs.path,
-  vercel: SimpleIcons.siVercel.path,
-  html5: SimpleIcons.siHtml5.path,
-  css3: SimpleIcons.siCss3.path,
-  javascript: SimpleIcons.siJavascript.path,
-  heroku: SimpleIcons.siHeroku.path,
-  microsoftsqlserver: SimpleIcons.siMicrosoftsqlserver.path,
-  microsoftazure: SimpleIcons.siMicrosoftazure.path,
-  firebase: SimpleIcons.siFirebase.path,
-  react: SimpleIcons.siReact.path,
-  typescript: SimpleIcons.siTypescript.path,
-  tailwindcss: SimpleIcons.siTailwindcss.path,
-  django: SimpleIcons.siDjango.path,
-  digitalocean: SimpleIcons.siDigitalocean.path,
-  prisma: SimpleIcons.siPrisma.path,
-  clerk: SimpleIcons.siClerk.path,
-  docker: SimpleIcons.siDocker.path,
+export const iconMap: Record<string, { label: string; value: string; path: string }> = {
+  mongodb: {
+    label: SimpleIcons.siMongodb.title,
+    value: "mongodb",
+    path: SimpleIcons.siMongodb.path,
+  },
+  vuedotjs: {
+    label: SimpleIcons.siVuedotjs.title,
+    value: "vuedotjs",
+    path: SimpleIcons.siVuedotjs.path,
+  },
+  nodedotjs: {
+    label: SimpleIcons.siNodedotjs.title,
+    value: "nodedotjs",
+    path: SimpleIcons.siNodedotjs.path,
+  },
+  express: {
+    label: SimpleIcons.siExpress.title,
+    value: "express",
+    path: SimpleIcons.siExpress.path,
+  },
+  nuxtdotjs: {
+    label: SimpleIcons.siNuxtdotjs.title,
+    value: "nuxtdotjs",
+    path: SimpleIcons.siNuxtdotjs.path,
+  },
+  vuetify: {
+    label: SimpleIcons.siVuetify.title,
+    value: "vuetify",
+    path: SimpleIcons.siVuetify.path,
+  },
+  nextdotjs: {
+    label: SimpleIcons.siNextdotjs.title,
+    value: "nextdotjs",
+    path: SimpleIcons.siNextdotjs.path,
+  },
+
+  html5: {
+    label: SimpleIcons.siHtml5.title,
+    value: "html5",
+    path: SimpleIcons.siHtml5.path,
+  },
+  css3: {
+    label: SimpleIcons.siCss3.title,
+    value: "css3",
+    path: SimpleIcons.siCss3.path,
+  },
+  javascript: {
+    label: SimpleIcons.siJavascript.title,
+    value: "javascript",
+    path: SimpleIcons.siJavascript.path,
+  },
+  heroku: {
+    label: SimpleIcons.siHeroku.title,
+    value: "heroku",
+    path: SimpleIcons.siHeroku.path,
+  },
+  microsoftsqlserver: {
+    label: SimpleIcons.siMicrosoftsqlserver.title,
+    value: "microsoftsqlserver",
+    path: SimpleIcons.siMicrosoftsqlserver.path,
+  },
+  microsoftazure: {
+    label: SimpleIcons.siMicrosoftazure.title,
+    value: "microsoftazure",
+    path: SimpleIcons.siMicrosoftazure.path,
+  },
+  firebase: {
+    label: SimpleIcons.siFirebase.title,
+    value: "firebase",
+    path: SimpleIcons.siFirebase.path,
+  },
+  react: {
+    label: SimpleIcons.siReact.title,
+    value: "react",
+    path: SimpleIcons.siReact.path,
+  },
+  typescript: {
+    label: SimpleIcons.siTypescript.title,
+    value: "typescript",
+    path: SimpleIcons.siTypescript.path,
+  },
+  tailwindcss: {
+    label: SimpleIcons.siTailwindcss.title,
+    value: "tailwindcss",
+    path: SimpleIcons.siTailwindcss.path,
+  },
+  django: {
+    label: SimpleIcons.siDjango.title,
+    value: "django",
+    path: SimpleIcons.siDjango.path,
+  },
+  digitalocean: {
+    label: SimpleIcons.siDigitalocean.title,
+    value: "digitalocean",
+    path: SimpleIcons.siDigitalocean.path,
+  },
+  prisma: {
+    label: SimpleIcons.siPrisma.title,
+    value: "prisma",
+    path: SimpleIcons.siPrisma.path,
+  },
+  clerk: {
+    label: SimpleIcons.siClerk.title,
+    value: "clerk",
+    path: SimpleIcons.siClerk.path,
+  },
+  docker: {
+    label: SimpleIcons.siDocker.title,
+    value: "docker",
+    path: SimpleIcons.siDocker.path,
+  },
 }
+
+export const PROJECT_ICONS = ["devices", "computer", "mobile"] as const
+
+export const PROJECT_TYPES = ["Mobile application", "Progressive Web App (PWA)", "Website"] as const

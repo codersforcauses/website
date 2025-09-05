@@ -14,7 +14,7 @@ export interface ProjectModel {
   client: string
   type: string
   date: string
-  purl: string
+  purl: string // project URL `/projects/[id]`
   url?: string
   source: string
   impact: string[]
