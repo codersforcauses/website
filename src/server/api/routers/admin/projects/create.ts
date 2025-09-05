@@ -1,4 +1,6 @@
 import { eq } from "drizzle-orm"
+import fs from "fs"
+import path from "path"
 import { z } from "zod"
 
 import { PROJECT_ICONS, PROJECT_TYPES } from "~/lib/constants"
@@ -15,8 +17,25 @@ export const create = adminProcedure
         .min(2, {
           message: "Project logo_path url is required",
         })
-        .trim(),
-      img_path: z.string().trim().optional(),
+        .trim()
+        .refine(
+          (val) => {
+            const filePath = path.join(process.cwd(), "public", val)
+            return fs.existsSync(filePath)
+          },
+          { message: "Image does not exist in /public" },
+        ),
+      img_path: z
+        .string()
+        .trim()
+        .refine(
+          (val) => {
+            const filePath = path.join(process.cwd(), "public", val)
+            return fs.existsSync(filePath)
+          },
+          { message: "Image does not exist in /public" },
+        )
+        .optional(),
 
       name: z
         .string()
@@ -62,7 +81,7 @@ export const create = adminProcedure
     const project_data = await ctx.db.query.Project.findFirst({
       where: eq(Project.name, input.name),
     })
-    if (project_data) throw new Error(`Project ${input.name} already exist`)
+    if (project_data) throw new Error(`Project ${input.name} already exists.`)
     let icon: ProjectIcon = "devices" // default "devices"
     if (input.type === "Mobile application") {
       icon = "mobile"

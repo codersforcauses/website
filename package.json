@@ -65,6 +65,7 @@
     "drizzle-orm": "0.41.0",
     "drizzle-zod": "^0.7.1",
     "framer-motion": "11.0.24",
+    "fs": "0.0.1-security",
     "mapbox-gl": "3.2.0",
     "next": "14.2.26",
     "next-themes": "0.3.0",

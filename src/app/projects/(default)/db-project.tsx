@@ -6,7 +6,6 @@ import Link from "next/link"
 import { Button } from "~/components/ui/button"
 
 import type { DashboardCardProps } from "~/app/dashboard/(root)/card"
-import type { defaultValueType } from "~/app/dashboard/admin/@projects/project-form"
 import { api } from "~/trpc/react"
 
 const parseDescription = (text: string) =>
@@ -63,12 +62,12 @@ export default function DBProject({ data }: DBProjectProps) {
     icon = "computer"
   }
   return (
-    <main className="main flex justify-center">
+    <main className="main">
       {data.img_path ? (
         <div className="relative bg-black py-32 md:py-48">
           <Image
             alt={`An image of the front page of ${data.name}`}
-            src={`/projects/${data.img_path}`}
+            src={data.img_path}
             layout="fill"
             objectFit="contain"
           />
@@ -85,7 +84,7 @@ export default function DBProject({ data }: DBProjectProps) {
           <span className="text-black text-opacity-60 dark:text-white dark:text-opacity-60">{` / ${data.name}`}</span>
         </nav>
         <div className="container relative mx-auto px-3 lg:flex">
-          <div className="space-y-8 lg:mr-8">
+          <div className="space-y-8 lg:mr-8 lg:w-2/3">
             <div className="space-y-4">
               <h1 className="mb-6 font-mono text-4xl md:text-6xl">{data.name}</h1>
               <div className="grid grid-cols-2 items-center gap-3 font-mono lg:hidden">
@@ -132,7 +131,7 @@ export default function DBProject({ data }: DBProjectProps) {
               </ul>
             </div>
           </div>
-          <div className="hidden w-full max-w-xs space-y-8 lg:block">
+          <div className="hidden w-full lg:w-1/3 space-y-8 lg:block">
             <div className="space-y-4 font-mono">
               <div className="flex items-center">
                 <span className="material-symbols-sharp mr-3 select-none">{icon}</span>
