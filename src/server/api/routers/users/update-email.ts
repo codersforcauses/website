@@ -42,11 +42,23 @@ export const updateEmail = protectedRatedProcedure(Ratelimit.fixedWindow(4, "30s
         message: `Clerk user with id: ${input.userId} does not have a primary email address???`,
       })
 
+    const updateClerkUserEmail = async (oldEmailAddressId: string, newEmailAddress: string) => {
+      const clerk = await clerkClient()
+      // TODO: cannot update
+      const nonPrimaryEmail = clerkUser.emailAddresses.find((e) => e.emailAddress == input.newEmail.toLowerCase())
+      if (nonPrimaryEmail) {
+        await clerk.users.updateUser(user.clerk_id, {
+          primaryEmailAddressID: nonPrimaryEmail.id,
+        })
+        // TODO: delete social account(for sso)
+        await clerk.emailAddresses.deleteEmailAddress(oldEmailAddressId)
+      }
+    }
     // Clerk will always return the lowercased email from its API
     if (clerkUser.primaryEmailAddress?.emailAddress !== input.oldEmail.toLowerCase())
       throw new TRPCError({ code: "BAD_REQUEST", message: "Old email does not match" })
     try {
-      await updateClerkUserEmail(clerkUser.id, clerkUser.primaryEmailAddressId, input.newEmail)
+      await updateClerkUserEmail(clerkUser.primaryEmailAddressId, input.newEmail)
       await ctx.db.update(User).set({ email: input.newEmail }).where(eq(User.id, input.userId))
     } catch (err) {
       console.error(err)
@@ -55,14 +67,3 @@ export const updateEmail = protectedRatedProcedure(Ratelimit.fixedWindow(4, "30s
 
     return user
   })
-
-const updateClerkUserEmail = async (userId: string, oldEmailAddressId: string, newEmailAddress: string) => {
-  const clerk = await clerkClient()
-  await clerk.emailAddresses.createEmailAddress({
-    userId,
-    emailAddress: newEmailAddress,
-    verified: true,
-    primary: true,
-  })
-  await clerk.emailAddresses.deleteEmailAddress(oldEmailAddressId)
-}

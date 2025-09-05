@@ -1,14 +1,18 @@
 "use client"
 
 import { zodResolver } from "@hookform/resolvers/zod"
+import Link from "next/link"
 import { FormProvider, useForm } from "react-hook-form"
+import { siDiscord } from "simple-icons"
 import { z } from "zod"
 
+import { Alert, AlertDescription, AlertTitle } from "~/components/ui/alert"
 import { Button } from "~/components/ui/button"
 import { Checkbox } from "~/components/ui/checkbox"
 import { FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "~/components/ui/form"
 import { Input } from "~/components/ui/input"
 import { RadioGroup, RadioGroupItem } from "~/components/ui/radio-group"
+import { Separator } from "~/components/ui/separator"
 import { toast } from "~/components/ui/use-toast"
 
 import { PRONOUNS, UNIVERSITIES } from "~/lib/constants"
@@ -37,6 +41,9 @@ const formSchema = z
     isUWA: z.boolean(),
     student_number: z.string().optional(),
     uni: z.string().optional(),
+    github: z.string().optional(),
+    discord: z.string().optional(),
+    subscribe: z.boolean(),
   })
   .refine(({ isUWA, student_number }) => !Boolean(isUWA) || student_number, {
     message: "Student number is required",
@@ -70,16 +77,44 @@ const PersonalForm = (props: { defaultValues?: Partial<FormSchema> }) => {
 
   const form = useForm<FormSchema>({
     resolver: zodResolver(formSchema),
-    defaultValues: { ...props.defaultValues, uni: props.defaultValues?.uni ?? UNIVERSITIES[0].value },
+    defaultValues: { ...props.defaultValues },
   })
-  const { getValues } = form
+  const { getValues, setError } = form
 
-  const onSubmit = (data: FormSchema) => {
-    updateUser.mutate({
-      ...data,
-      student_number: !data.isUWA ? null : data.student_number,
-      uni: data.isUWA ? "UWA" : data.uni,
-    })
+  const onSubmit = async (data: FormSchema) => {
+    if (data.github !== "") {
+      const { status: githubStatus } = await fetch(`https://api.github.com/users/${data.github}`)
+
+      if (githubStatus !== 200) {
+        toast({
+          variant: "destructive",
+          title: "Github username not found",
+          description: "The Github username not found. Please try again.",
+        })
+        setError("github", {
+          type: "custom",
+          message: "Github username not found",
+        })
+        return
+      }
+    }
+    try {
+      updateUser.mutate({
+        ...data,
+        student_number: !data.isUWA ? null : data.student_number,
+        uni: data.isUWA ? "UWA" : data.uni,
+      })
+      toast({
+        title: "Update successful",
+        description: "Your personal details have been updated successfully.",
+      })
+    } catch (err) {
+      toast({
+        variant: "destructive",
+        title: "Failed to update user details",
+        description: "An error occurred while trying to update your personal details. Please try again later.",
+      })
+    }
   }
 
   return (
@@ -90,13 +125,14 @@ const PersonalForm = (props: { defaultValues?: Partial<FormSchema> }) => {
           name="email"
           render={({ field }) => (
             <FormItem>
-              <FormLabel className="font-mono">Email address</FormLabel>
+              <FormLabel className="flex space-x-1 font-mono">
+                <p>Email address</p>
+                <p className="font-sans">*</p>
+              </FormLabel>
               <FormControl>
                 <Input disabled type="email" placeholder="john.doe@codersforcauses.org" {...field} />
               </FormControl>
-              <FormDescription>
-                Email address cannot be updated right now. Please contact us if it needs to be changed.
-              </FormDescription>
+              <FormDescription>Email address can be updated in the `Email` tab.</FormDescription>
               <FormMessage />
             </FormItem>
           )}
@@ -106,7 +142,10 @@ const PersonalForm = (props: { defaultValues?: Partial<FormSchema> }) => {
           name="name"
           render={({ field }) => (
             <FormItem>
-              <FormLabel className="font-mono">Full name</FormLabel>
+              <FormLabel className="flex space-x-1 font-mono">
+                <p>Full name</p>
+                <p className="font-sans">*</p>
+              </FormLabel>
               <FormControl>
                 <Input autoComplete="name" placeholder="John Doe" {...field} />
               </FormControl>
@@ -122,7 +161,10 @@ const PersonalForm = (props: { defaultValues?: Partial<FormSchema> }) => {
           name="preferred_name"
           render={({ field }) => (
             <FormItem>
-              <FormLabel className="font-mono">Preferred name</FormLabel>
+              <FormLabel className="flex space-x-1 font-mono">
+                <p>Preferred name</p>
+                <p className="font-sans">*</p>
+              </FormLabel>
               <FormControl>
                 <Input autoComplete="given-name" placeholder="John" {...field} />
               </FormControl>
@@ -136,7 +178,10 @@ const PersonalForm = (props: { defaultValues?: Partial<FormSchema> }) => {
           name="pronouns"
           render={({ field }) => (
             <FormItem>
-              <FormLabel className="font-mono">Pronouns</FormLabel>
+              <FormLabel className="flex space-x-1 font-mono">
+                <p>Pronouns</p>
+                <p className="font-sans">*</p>
+              </FormLabel>
               <FormControl>
                 <RadioGroup
                   onValueChange={field.onChange}
@@ -189,7 +234,10 @@ const PersonalForm = (props: { defaultValues?: Partial<FormSchema> }) => {
             name="student_number"
             render={({ field }) => (
               <FormItem className={cn(!getValues().isUWA && "hidden")}>
-                <FormLabel className="font-mono">UWA student number</FormLabel>
+                <FormLabel className="flex space-x-1 font-mono">
+                  <p>UWA student number</p>
+                  <p className="font-sans">*</p>
+                </FormLabel>
                 <FormControl>
                   <Input placeholder="21012345" inputMode="numeric" {...field} />
                 </FormControl>
@@ -202,7 +250,10 @@ const PersonalForm = (props: { defaultValues?: Partial<FormSchema> }) => {
             name="uni"
             render={({ field }) => (
               <FormItem className={cn(getValues().isUWA && "hidden")}>
-                <FormLabel className="font-mono">University</FormLabel>
+                <FormLabel className="flex space-x-1 font-mono">
+                  <p>University</p>
+                  <p className="font-sans">*</p>
+                </FormLabel>
                 <FormControl>
                   <RadioGroup
                     onValueChange={field.onChange}
@@ -231,6 +282,84 @@ const PersonalForm = (props: { defaultValues?: Partial<FormSchema> }) => {
                     </FormItem>
                   </RadioGroup>
                 </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <div className="mt-4">
+            <h2 className="font-medium font-mono">Socials</h2>
+            <p className="text-sm text-muted-foreground">
+              These fields are optional but are required if you plan on applying for projects during the winter and
+              summer breaks.
+            </p>
+          </div>
+          <Separator className="md:max-w-2xl" />
+          <Alert>
+            <svg viewBox="0 0 24 24" width={16} height={16} className="mr-2 fill-current">
+              <title>{siDiscord.title}</title>
+              <path d={siDiscord.path} />
+            </svg>
+            <AlertTitle>Join our Discord!</AlertTitle>
+            <AlertDescription>
+              You can join our Discord server at{" "}
+              <Button type="button" variant="link" className="h-auto p-0 text-current" asChild>
+                <Link href="http://discord.codersforcauses.org" target="_blank">
+                  discord.codersforcauses.org
+                </Link>
+              </Button>
+            </AlertDescription>
+          </Alert>
+          <FormField
+            control={form.control}
+            name="github"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel className="font-mono">Github username</FormLabel>
+                <FormControl>
+                  <Input placeholder="johndoe" {...field} />
+                </FormControl>
+                <FormDescription>
+                  Sign up at{" "}
+                  <Button type="button" variant="link" className="h-auto p-0 text-current" asChild>
+                    <Link href="https://github.com/signup" target="_blank">
+                      github.com/signup
+                    </Link>
+                  </Button>
+                </FormDescription>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="discord"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel className="font-mono">Discord username</FormLabel>
+                <FormControl>
+                  <Input placeholder="john_doe" {...field} />
+                </FormControl>
+                <FormDescription>
+                  Sign up at{" "}
+                  <Button type="button" variant="link" className="h-auto p-0 text-current" asChild>
+                    <Link href="https://discord.com/register" target="_blank">
+                      discord.com/register
+                    </Link>
+                  </Button>
+                </FormDescription>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="subscribe"
+            render={({ field }) => (
+              <FormItem className="flex flex-row items-center space-x-3 space-y-0">
+                <FormControl>
+                  <Checkbox checked={field.value} onCheckedChange={field.onChange} />
+                </FormControl>
+                <FormLabel className="text-sm">I wish to receive emails about future CFC events</FormLabel>
                 <FormMessage />
               </FormItem>
             )}

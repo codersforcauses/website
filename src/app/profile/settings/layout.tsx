@@ -7,7 +7,7 @@ import { type PropsWithChildren } from "~/lib/types"
 
 interface UserSettingsLayoutProps extends PropsWithChildren {
   personal: React.ReactNode
-  socials: React.ReactNode
+  email: React.ReactNode
   appearance: React.ReactNode
   membership: React.ReactNode
 }
@@ -16,9 +16,9 @@ const Layout = async ({ children, ...props }: UserSettingsLayoutProps) => {
   const sidebarItems = [
     { text: "Personal", icon: "face", component: props.personal },
     {
-      text: "Socials",
-      icon: "tag",
-      component: props.socials,
+      text: "Email",
+      icon: "mail",
+      component: props.email,
     },
     { text: "Appearance", icon: "palette", component: props.appearance },
     // { text: "Notifications", icon: "notifications", component:  },

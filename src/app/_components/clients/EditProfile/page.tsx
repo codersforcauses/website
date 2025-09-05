@@ -118,7 +118,6 @@ const EditProfile = ({ setIsEditing, id, refetch }: EditProfileProps) => {
   const [showCircleProgress, setShowCircleProgress] = useState(false)
   const { data: user } = api.users.get.useQuery(id)
   const { mutateAsync: updateUser } = api.users.update.useMutation()
-  const { mutateAsync: updateSocials } = api.users.updateSocials.useMutation()
 
   const userDefaultValues = user && {
     name: user.name,
@@ -147,12 +146,6 @@ const EditProfile = ({ setIsEditing, id, refetch }: EditProfileProps) => {
           ...data,
           student_number: data.isUWA ? data.student_number : null,
           uni: data.isUWA ? "UWA" : data.uni,
-        }),
-
-        updateSocials({
-          ...data,
-          github: data.github ?? null,
-          discord: data.discord ?? null,
         }),
       ])
 
