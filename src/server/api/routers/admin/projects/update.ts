@@ -17,29 +17,14 @@ export const update = adminProcedure
         .min(2, {
           message: "Project logo_path url is required",
         })
-        .trim()
-        .refine(
-          (val) => {
-            const filePath = path.join(process.cwd(), "public", val)
-            return fs.existsSync(filePath)
-          },
-          { message: "Image does not exist in /public" },
-        ),
+        .trim(),
       img_path: z
         .string()
         .min(2, {
           message: "Project image url is required",
         })
         .trim()
-        .refine(
-          (val) => {
-            const filePath = path.join(process.cwd(), "public", val)
-            return fs.existsSync(filePath)
-          },
-          { message: "Image does not exist in /public" },
-        )
         .optional(),
-
       name: z
         .string()
         .min(2, {
@@ -83,6 +68,16 @@ export const update = adminProcedure
     }),
   )
   .mutation(async ({ ctx, input }) => {
+    const logoPath = path.join(process.cwd(), "public", input.logo_path)
+    if (!fs.existsSync(logoPath)) {
+      throw new Error(`Logo "${input.logo_path}" does not exist in "/public"`)
+    }
+    if (input.img_path) {
+      const imgPath = path.join(process.cwd(), "public", input.img_path)
+      if (!fs.existsSync(imgPath)) {
+        throw new Error(`Image "${input.img_path}" does not exist in "/public"`)
+      }
+    }
     const project_data = await ctx.db.query.Project.findFirst({
       where: and(eq(Project.name, input.name), ne(Project.id, input.id)),
     })
