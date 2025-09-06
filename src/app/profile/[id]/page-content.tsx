@@ -18,7 +18,7 @@ interface ProfilePageProps {
   currentUser: RouterOutputs["users"]["getCurrent"]
 }
 
-const ProfilePage = ({ id, currentUser }: ProfilePageProps) => {
+const ProfilePageContent = ({ id, currentUser }: ProfilePageProps) => {
   const [isEditing, setIsEditing] = useState(false)
   const { data: user, refetch } = api.users.get.useQuery(id)
 
@@ -128,4 +128,4 @@ const ProfilePage = ({ id, currentUser }: ProfilePageProps) => {
   return <ProfilePageSkeleton />
 }
 
-export default ProfilePage
+export default ProfilePageContent

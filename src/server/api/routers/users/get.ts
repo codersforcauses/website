@@ -19,3 +19,17 @@ export const get = publicRatedProcedure(Ratelimit.fixedWindow(4, "30s"))
 
     return user
   })
+
+export const getByEmail = publicRatedProcedure(Ratelimit.fixedWindow(4, "30s"))
+  .input(z.string().email())
+  .query(async ({ ctx, input }) => {
+    const user = await ctx.db.query.User.findFirst({
+      where: eq(User.email, input),
+    })
+
+    if (!user) {
+      throw new TRPCError({ code: "NOT_FOUND", message: `User with email: ${input} does not exist` })
+    }
+
+    return user
+  })
