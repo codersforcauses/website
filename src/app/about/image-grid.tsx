@@ -19,7 +19,7 @@ const ImageGrid = (props: ImageGridProps) => {
       {props.images.map((image) => (
         <div key={image.alt} className="relative aspect-video h-24 w-full">
           {image.link ? (
-            <Link href={image.link} passHref>
+            <Link href={image.link} passHref target="_blank" rel="noopener noreferrer">
               <Image
                 src={image.src}
                 alt={image.alt}
