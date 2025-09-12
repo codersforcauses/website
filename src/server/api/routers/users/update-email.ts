@@ -44,13 +44,22 @@ export const updateEmail = protectedRatedProcedure(Ratelimit.fixedWindow(4, "30s
 
     const updateClerkUserEmail = async (oldEmailAddressId: string, newEmailAddress: string) => {
       const clerk = await clerkClient()
-      // TODO: cannot update
       const nonPrimaryEmail = clerkUser.emailAddresses.find((e) => e.emailAddress == input.newEmail.toLowerCase())
+      const externalAccount = clerkUser.externalAccounts.find(
+        (account) => account.emailAddress === input.oldEmail.toLowerCase(),
+      )
+      // if (externalAccount) {
+      //   // TODO: correct this!!
+      //   const mess = await clerk.users.deleteUserExternalAccount({
+      //     userId: user.clerk_id,
+      //     externalAccountId: externalAccount.id,
+      //   })
+      //   if (!mess.deleted) throw new TRPCError({ code: "BAD_REQUEST", message: "Delete external account failed" })
+      // }
       if (nonPrimaryEmail) {
         await clerk.users.updateUser(user.clerk_id, {
           primaryEmailAddressID: nonPrimaryEmail.id,
         })
-        // TODO: delete social account(for sso)
         await clerk.emailAddresses.deleteEmailAddress(oldEmailAddressId)
       }
     }
@@ -59,11 +68,13 @@ export const updateEmail = protectedRatedProcedure(Ratelimit.fixedWindow(4, "30s
       throw new TRPCError({ code: "BAD_REQUEST", message: "Old email does not match" })
     try {
       await updateClerkUserEmail(clerkUser.primaryEmailAddressId, input.newEmail)
-      await ctx.db.update(User).set({ email: input.newEmail }).where(eq(User.id, input.userId))
     } catch (err) {
-      console.error(err)
-      throw new TRPCError({ code: "INTERNAL_SERVER_ERROR", message: "Failed to update email" })
+      throw new TRPCError({
+        code: "INTERNAL_SERVER_ERROR",
+        message: err instanceof Error ? err.message : "Failed to update email",
+      })
     }
+    await ctx.db.update(User).set({ email: input.newEmail }).where(eq(User.id, input.userId))
 
     return user
   })

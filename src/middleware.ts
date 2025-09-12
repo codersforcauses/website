@@ -1,4 +1,4 @@
-import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server"
+import { auth, clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server"
 import { eq } from "drizzle-orm"
 
 import { db } from "./server/db"

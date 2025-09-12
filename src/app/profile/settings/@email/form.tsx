@@ -106,7 +106,7 @@ const EmailForm = (props: { user_id: string; email?: Partial<FormSchema> }) => {
       const emailVerifyAttempt = await emailObj?.attemptVerification({ code })
 
       if (emailVerifyAttempt?.verification.status === "verified") {
-        updateEmail.mutate({
+        await updateEmail.mutateAsync({
           userId: props.user_id,
           oldEmail: (data.email ?? "").trim(),
           newEmail: (data.new_email ?? "").trim(),
@@ -116,6 +116,13 @@ const EmailForm = (props: { user_id: string; email?: Partial<FormSchema> }) => {
           description: "Your email has been updated successfully.",
         })
         setStep("updated")
+      } else {
+        toast({
+          variant: "destructive",
+          title: "Verification failed",
+          description: "The code you entered is incorrect. Please try again.",
+        })
+        setStep("enterCode")
       }
     } catch (error) {
       console.log("Update error", error)
