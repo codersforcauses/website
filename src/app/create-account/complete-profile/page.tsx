@@ -223,6 +223,7 @@ export default function CompleteProfile() {
 
     user.role = "member"
     utils.users.getCurrent.setData(undefined, user)
+    utils.users.getCurrent.invalidate()
     router.push("/dashboard")
   }
 
@@ -231,6 +232,7 @@ export default function CompleteProfile() {
       setLoadingSkipPayment(true)
       try {
         utils.users.getCurrent.setData(undefined, user)
+        utils.users.getCurrent.invalidate()
         router.push("/dashboard")
       } catch (error) {
         console.error(error)
