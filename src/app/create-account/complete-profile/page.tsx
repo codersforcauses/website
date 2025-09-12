@@ -1,10 +1,10 @@
 "use client"
 
-import { useSignUp } from "@clerk/nextjs"
+import { useUser } from "@clerk/nextjs"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { track } from "@vercel/analytics/react"
 import Link from "next/link"
-import { useRouter, useSearchParams } from "next/navigation"
+import { useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
 import { useForm } from "react-hook-form"
 import { siDiscord } from "simple-icons"
@@ -27,8 +27,8 @@ import { cn, getIsMembershipOpen } from "~/lib/utils"
 import { type User } from "~/server/db/types"
 import { api } from "~/trpc/react"
 
-import DetailsBlock from "./details"
-import PaymentBlock from "./payment"
+import DetailsBlock from "../details"
+import PaymentBlock from "../payment"
 
 type ActiveView = "form" | "payment"
 
@@ -85,35 +85,39 @@ const defaultValues = {
   subscribe: true,
 }
 
-export default function CreateAccount() {
+export default function CompleteProfile() {
   const [activeView, setActiveView] = useState<ActiveView>("form")
   const [loadingSkipPayment, setLoadingSkipPayment] = useState(false)
   const [user, setUser] = useState<User>()
   const router = useRouter()
-  const searchParams = useSearchParams()
-  const { isLoaded, signUp, setActive } = useSignUp()
-  const [countdown, setCountdown] = useState(0)
-  const [code, setCode] = useState("")
-  const [step, setStep] = useState<"submitForm" | "enterCode" | "verifying">("submitForm")
 
-  useEffect(() => {
-    if (countdown > 0) {
-      const timer = setInterval(() => {
-        setCountdown((prev) => prev - 1)
-      }, 1000)
-
-      return () => clearInterval(timer)
-    }
-  }, [countdown])
-
-  const email = searchParams.get("email") ?? ""
+  const { isLoaded, user: clerkUser } = useUser()
+  const [step, setStep] = useState<"submitForm" | "verifying">("submitForm")
   const form = useForm<FormSchema>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       ...defaultValues,
-      email: email,
     },
   })
+  useEffect(() => {
+    const updateForm = async () => {
+      if (!clerkUser) return null
+      const email = clerkUser?.primaryEmailAddress?.emailAddress ?? ""
+      const name = clerkUser?.firstName ? `${clerkUser.firstName} ${clerkUser.lastName ?? ""}`.trim() : ""
+      const user = await Promise.resolve({
+        ...defaultValues,
+        name: name,
+        email: email,
+      })
+
+      form.reset(user)
+    }
+
+    updateForm().catch(console.error)
+  }, [clerkUser])
+  if (!isLoaded) return null
+
+  const clerk_id = clerkUser?.id
 
   const { getValues, setError } = form
 
@@ -132,8 +136,8 @@ export default function CreateAccount() {
     staleTime: Infinity, // this is ok because this will be the first time ever the user will fetch cards, no risk of it being out of date
   })
 
-  const sendOtp = async (values: FormSchema) => {
-    if (!isLoaded) return null
+  const onSubmit = async (values: FormSchema) => {
+    if (!isLoaded) return
 
     if (values.github !== "") {
       const { status: githubStatus } = await fetch(`https://api.github.com/users/${values.github}`)
@@ -151,52 +155,9 @@ export default function CreateAccount() {
         return
       }
     }
-
-    let uni: string | undefined
-    if (values.isUWA) {
-      uni = "UWA"
-    } else {
-      uni = values.uni
-    }
-    try {
-      await signUp.create({
-        emailAddress: values.email,
-        firstName: values.name, // Use full name as first name
-        unsafeMetadata: {
-          preferred_name: values.preferred_name,
-          pronouns: values.pronouns,
-          github: values.github,
-          discord: values.discord,
-          subscribe: values.subscribe,
-          university: uni,
-          student_number: values.student_number,
-        },
-      })
-
-      await signUp.prepareEmailAddressVerification({
-        strategy: "email_code",
-      })
-      setCountdown(60)
-      setStep("enterCode")
-      window.scrollTo({
-        top: 0,
-        behavior: "smooth",
-      })
-    } catch (error) {
-      console.error("Error sending OTP", error)
-      toast({
-        variant: "destructive",
-        title: "Verification failed",
-        description: `Error sending OTP. ${(error as { message?: string })?.message ?? ""}. `,
-      })
-    }
-  }
-
-  const onSubmit = async (values: FormSchema) => {
-    if (!isLoaded) return
     window.scrollTo({
       top: 0,
-      behavior: "smooth",
+      behavior: "smooth", // smooth scrolling
     })
     setStep("verifying")
     if (process.env.NEXT_PUBLIC_VERCEL_ENV === "production") track("created-account")
@@ -219,28 +180,26 @@ export default function CreateAccount() {
     }
 
     try {
-      const result = await signUp.attemptEmailAddressVerification({ code })
-      if (result.status === "complete") {
-        if (!result.createdUserId) {
-          toast({
-            variant: "destructive",
-            title: "Failed to create Clerk user",
-            description: "Failed to create Clerk user. Please try again.",
-          })
-          return
-        }
-
-        const user = await createUser.mutateAsync({
-          clerk_id: result.createdUserId,
-          ...userData,
+      if (clerkUser)
+        await clerkUser.update({
+          firstName: values.name, // Use full name as first name
+          unsafeMetadata: {
+            preferred_name: values.preferred_name,
+            pronouns: values.pronouns,
+            github: values.github,
+            discord: values.discord,
+            subscribe: values.subscribe,
+            university: values.uni,
+            student_number: values.student_number,
+          },
         })
-        setUser(user)
-        if (result.createdSessionId) {
-          await setActive({
-            session: result.createdSessionId,
-          })
-        }
-      }
+
+      const user = await createUser.mutateAsync({
+        clerk_id: clerk_id ?? "",
+        ...userData,
+      })
+      setUser(user)
+
       setActiveView("payment")
     } catch (error) {
       console.error("Signup error", error)
@@ -249,7 +208,6 @@ export default function CreateAccount() {
         title: "Failed to create user",
         description: `An error occurred while trying to create user. ${(error as { message?: string })?.message ?? ""}`,
       })
-      setStep("enterCode")
     }
   }
 
@@ -264,8 +222,18 @@ export default function CreateAccount() {
     }
 
     user.role = "member"
-    utils.users.getCurrent.setData(undefined, user)
-    router.push("/dashboard")
+    try {
+      utils.users.getCurrent.setData(undefined, user)
+      await utils.users.getCurrent.invalidate()
+      router.push("/dashboard")
+    } catch (error) {
+      console.error(error)
+      toast({
+        variant: "destructive",
+        title: "Unable to update user",
+        description: `We were unable to update the user. ${(error as { message?: string })?.message ?? ""}`,
+      })
+    }
   }
 
   const handleSkipPayment = async () => {
@@ -273,9 +241,15 @@ export default function CreateAccount() {
       setLoadingSkipPayment(true)
       try {
         utils.users.getCurrent.setData(undefined, user)
+        await utils.users.getCurrent.invalidate()
         router.push("/dashboard")
       } catch (error) {
         console.error(error)
+        toast({
+          variant: "destructive",
+          title: "Unable to skip payment",
+          description: `Error occurred when trying to skip payment.${(error as { message?: string })?.message ?? ""}`,
+        })
       } finally {
         setLoadingSkipPayment(false)
       }
@@ -300,17 +274,10 @@ export default function CreateAccount() {
                 </Button>
               </AlertDescription>
             </>
-          ) : step === "enterCode" ? (
-            <>
-              <AlertTitle>Email verification code sent!</AlertTitle>
-              <AlertDescription>
-                It can take up to 10 minutes. Make sure to check your spam folder if you can&apos;t find it.
-              </AlertDescription>
-            </>
           ) : (
             <>
-              <AlertTitle>Verifying your email...</AlertTitle>
-              <AlertDescription>Thanks for your patience! We are verifying your email.</AlertDescription>
+              <AlertTitle>Creating your account...</AlertTitle>
+              <AlertDescription>Thanks for your patience! We are creating your account.</AlertDescription>
             </>
           )
         ) : (
@@ -324,23 +291,128 @@ export default function CreateAccount() {
       </Alert>
       <Form {...form}>
         {activeView === "form" ? (
-          step === "submitForm" ? (
-            <form onSubmit={form.handleSubmit(sendOtp)} className="space-y-4">
-              <div className="space-y-2">
-                <h2 className="font-semibold leading-none tracking-tight">Personal details</h2>
-                <p className="text-sm text-muted-foreground">Fields marked with * are required.</p>
-              </div>
+          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+            <div className="space-y-2">
+              <h2 className="font-semibold leading-none tracking-tight">Personal details</h2>
+              <p className="text-sm text-muted-foreground">Fields marked with * are required.</p>
+            </div>
+            <FormField
+              control={form.control}
+              name="email"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel className="flex space-x-1 font-mono">
+                    <p>Email address</p>
+                    <p className="font-sans">*</p>
+                  </FormLabel>
+                  <FormControl>
+                    <Input type="email" placeholder="john.doe@codersforcauses.org" {...field} readOnly />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="name"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel className="flex space-x-1 font-mono">
+                    <p>Full name</p> <p className="font-sans">*</p>
+                  </FormLabel>
+                  <FormControl>
+                    <Input autoComplete="name" placeholder="John Doe" {...field} />
+                  </FormControl>
+                  <FormDescription>
+                    We use your full name for internal committee records and official correspondence
+                  </FormDescription>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="preferred_name"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel className="flex space-x-1 font-mono">
+                    <p>Preferred name</p>
+                    <p className="font-sans">*</p>
+                  </FormLabel>
+                  <FormControl>
+                    <Input autoComplete="given-name" placeholder="John" {...field} />
+                  </FormControl>
+                  <FormDescription>This is how we normally refer to you</FormDescription>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="pronouns"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel className="flex space-x-1 font-mono">
+                    <p>Pronouns</p>
+                    <p className="font-sans">*</p>
+                  </FormLabel>
+                  <FormControl>
+                    <RadioGroup
+                      onValueChange={field.onChange}
+                      defaultValue={field.value}
+                      className="grid grid-cols-2 sm:grid-cols-3"
+                    >
+                      {PRONOUNS.map(({ label, value }) => (
+                        <FormItem key={value} className="flex h-6 items-center space-x-3 space-y-0">
+                          <FormControl>
+                            <RadioGroupItem value={value} />
+                          </FormControl>
+                          <FormLabel className="font-normal">{label}</FormLabel>
+                        </FormItem>
+                      ))}
+                      <FormItem className="flex h-6 items-center space-x-3 space-y-0">
+                        <FormControl>
+                          <RadioGroupItem value="other" />
+                        </FormControl>
+                        {Boolean(PRONOUNS.find(({ value: val }) => val === field.value)) ? (
+                          <FormLabel className="font-normal">Other</FormLabel>
+                        ) : (
+                          <FormControl>
+                            <Input {...field} placeholder="Other pronouns" className="h-8" />
+                          </FormControl>
+                        )}
+                      </FormItem>
+                    </RadioGroup>
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <div className="grid gap-y-4">
               <FormField
                 control={form.control}
-                name="email"
+                name="isUWA"
                 render={({ field }) => (
-                  <FormItem>
+                  <FormItem className="flex flex-row items-center space-x-3 space-y-0">
+                    <FormControl>
+                      <Checkbox checked={field.value} onCheckedChange={field.onChange} />
+                    </FormControl>
+                    <FormLabel className="font-mono">I&apos;m a UWA student</FormLabel>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="student_number"
+                render={({ field }) => (
+                  <FormItem className={cn(!getValues().isUWA && "hidden")}>
                     <FormLabel className="flex space-x-1 font-mono">
-                      <p>Email address</p>
+                      <p>UWA student number</p>
                       <p className="font-sans">*</p>
                     </FormLabel>
                     <FormControl>
-                      <Input type="email" placeholder="john.doe@codersforcauses.org" {...field} />
+                      <Input placeholder="21012345" inputMode="numeric" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -348,55 +420,17 @@ export default function CreateAccount() {
               />
               <FormField
                 control={form.control}
-                name="name"
+                name="uni"
                 render={({ field }) => (
-                  <FormItem>
-                    <FormLabel className="flex space-x-1 font-mono">
-                      <p>Full name</p> <p className="font-sans">*</p>
-                    </FormLabel>
-                    <FormControl>
-                      <Input autoComplete="name" placeholder="John Doe" {...field} />
-                    </FormControl>
-                    <FormDescription>
-                      We use your full name for internal committee records and official correspondence
-                    </FormDescription>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="preferred_name"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel className="flex space-x-1 font-mono">
-                      <p>Preferred name</p>
-                      <p className="font-sans">*</p>
-                    </FormLabel>
-                    <FormControl>
-                      <Input autoComplete="given-name" placeholder="John" {...field} />
-                    </FormControl>
-                    <FormDescription>This is how we normally refer to you</FormDescription>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="pronouns"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel className="flex space-x-1 font-mono">
-                      <p>Pronouns</p>
-                      <p className="font-sans">*</p>
-                    </FormLabel>
+                  <FormItem className={cn(getValues().isUWA && "hidden")}>
+                    <FormLabel className="font-mono">University</FormLabel>
                     <FormControl>
                       <RadioGroup
                         onValueChange={field.onChange}
                         defaultValue={field.value}
-                        className="grid grid-cols-2 sm:grid-cols-3"
+                        className="grid sm:grid-cols-2"
                       >
-                        {PRONOUNS.map(({ label, value }) => (
+                        {UNIVERSITIES.map(({ label, value }) => (
                           <FormItem key={value} className="flex h-6 items-center space-x-3 space-y-0">
                             <FormControl>
                               <RadioGroupItem value={value} />
@@ -408,11 +442,11 @@ export default function CreateAccount() {
                           <FormControl>
                             <RadioGroupItem value="other" />
                           </FormControl>
-                          {Boolean(PRONOUNS.find(({ value: val }) => val === field.value)) ? (
-                            <FormLabel className="font-normal">Other</FormLabel>
+                          {Boolean(UNIVERSITIES.find(({ value: val }) => val === field.value)) ? (
+                            <FormLabel className="font-normal">Other university</FormLabel>
                           ) : (
                             <FormControl>
-                              <Input {...field} placeholder="Other pronouns" className="h-8" />
+                              <Input placeholder="Other university" {...field} className="h-8" />
                             </FormControl>
                           )}
                         </FormItem>
@@ -422,184 +456,90 @@ export default function CreateAccount() {
                   </FormItem>
                 )}
               />
-              <div className="grid gap-y-4">
-                <FormField
-                  control={form.control}
-                  name="isUWA"
-                  render={({ field }) => (
-                    <FormItem className="flex flex-row items-center space-x-3 space-y-0">
-                      <FormControl>
-                        <Checkbox checked={field.value} onCheckedChange={field.onChange} />
-                      </FormControl>
-                      <FormLabel className="font-mono">I&apos;m a UWA student</FormLabel>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="student_number"
-                  render={({ field }) => (
-                    <FormItem className={cn(!getValues().isUWA && "hidden")}>
-                      <FormLabel className="flex space-x-1 font-mono">
-                        <p>UWA student number</p>
-                        <p className="font-sans">*</p>
-                      </FormLabel>
-                      <FormControl>
-                        <Input placeholder="21012345" inputMode="numeric" {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="uni"
-                  render={({ field }) => (
-                    <FormItem className={cn(getValues().isUWA && "hidden")}>
-                      <FormLabel className="font-mono">University</FormLabel>
-                      <FormControl>
-                        <RadioGroup
-                          onValueChange={field.onChange}
-                          defaultValue={field.value}
-                          className="grid sm:grid-cols-2"
-                        >
-                          {UNIVERSITIES.map(({ label, value }) => (
-                            <FormItem key={value} className="flex h-6 items-center space-x-3 space-y-0">
-                              <FormControl>
-                                <RadioGroupItem value={value} />
-                              </FormControl>
-                              <FormLabel className="font-normal">{label}</FormLabel>
-                            </FormItem>
-                          ))}
-                          <FormItem className="flex h-6 items-center space-x-3 space-y-0">
-                            <FormControl>
-                              <RadioGroupItem value="other" />
-                            </FormControl>
-                            {Boolean(UNIVERSITIES.find(({ value: val }) => val === field.value)) ? (
-                              <FormLabel className="font-normal">Other university</FormLabel>
-                            ) : (
-                              <FormControl>
-                                <Input placeholder="Other university" {...field} className="h-8" />
-                              </FormControl>
-                            )}
-                          </FormItem>
-                        </RadioGroup>
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-              </div>
-              <div className="grid gap-x-2 gap-y-4 sm:grid-cols-2 md:gap-x-3">
-                <div className="space-y-2 sm:col-span-2">
-                  <h2 className="font-semibold leading-none tracking-tight">Socials</h2>
-                  <p className="text-sm text-muted-foreground">
-                    These fields are optional but are required if you plan on applying for projects during the winter
-                    and summer breaks.
-                  </p>
-                  <Alert>
-                    <svg viewBox="0 0 24 24" width={16} height={16} className="mr-2 fill-current">
-                      <title>{siDiscord.title}</title>
-                      <path d={siDiscord.path} />
-                    </svg>
-                    <AlertTitle>Join our Discord!</AlertTitle>
-                    <AlertDescription>
-                      You can join our Discord server at{" "}
-                      <Button type="button" variant="link" className="h-auto p-0 text-current" asChild>
-                        <Link href="http://discord.codersforcauses.org" target="_blank">
-                          discord.codersforcauses.org
-                        </Link>
-                      </Button>
-                    </AlertDescription>
-                  </Alert>
-                </div>
-                <FormField
-                  control={form.control}
-                  name="github"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel className="font-mono">Github username</FormLabel>
-                      <FormControl>
-                        <Input placeholder="john_doe" {...field} />
-                      </FormControl>
-                      <FormDescription>
-                        Sign up at{" "}
-                        <Button type="button" variant="link" className="h-auto p-0 text-current" asChild>
-                          <Link href="https://github.com/signup" target="_blank">
-                            github.com/signup
-                          </Link>
-                        </Button>
-                      </FormDescription>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="discord"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel className="font-mono">Discord username</FormLabel>
-                      <FormControl>
-                        <Input placeholder="john_doe" {...field} />
-                      </FormControl>
-                      <FormDescription>
-                        Sign up at{" "}
-                        <Button type="button" variant="link" className="h-auto p-0 text-current" asChild>
-                          <Link href="https://discord.com/register" target="_blank">
-                            discord.com/register
-                          </Link>
-                        </Button>
-                      </FormDescription>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
+            </div>
+            <div className="grid gap-x-2 gap-y-4 sm:grid-cols-2 md:gap-x-3">
+              <div className="space-y-2 sm:col-span-2">
+                <h2 className="font-semibold leading-none tracking-tight">Socials</h2>
+                <p className="text-sm text-muted-foreground">
+                  These fields are optional but are required if you plan on applying for projects during the winter and
+                  summer breaks.
+                </p>
+                <Alert>
+                  <svg viewBox="0 0 24 24" width={16} height={16} className="mr-2 fill-current">
+                    <title>{siDiscord.title}</title>
+                    <path d={siDiscord.path} />
+                  </svg>
+                  <AlertTitle>Join our Discord!</AlertTitle>
+                  <AlertDescription>
+                    You can join our Discord server at{" "}
+                    <Button type="button" variant="link" className="h-auto p-0 text-current" asChild>
+                      <Link href="http://discord.codersforcauses.org" target="_blank">
+                        discord.codersforcauses.org
+                      </Link>
+                    </Button>
+                  </AlertDescription>
+                </Alert>
               </div>
               <FormField
                 control={form.control}
-                name="subscribe"
+                name="github"
                 render={({ field }) => (
-                  <FormItem className="flex flex-row items-center space-x-3 space-y-0">
+                  <FormItem>
+                    <FormLabel className="font-mono">Github username</FormLabel>
                     <FormControl>
-                      <Checkbox checked={field.value} onCheckedChange={field.onChange} />
+                      <Input placeholder="john_doe" {...field} />
                     </FormControl>
-                    <FormLabel className="text-sm">I wish to receive emails about future CFC events</FormLabel>
+                    <FormDescription>
+                      Sign up at{" "}
+                      <Button type="button" variant="link" className="h-auto p-0 text-current" asChild>
+                        <Link href="https://github.com/signup" target="_blank">
+                          github.com/signup
+                        </Link>
+                      </Button>
+                    </FormDescription>
                     <FormMessage />
                   </FormItem>
                 )}
               />
-              <Button type="submit" disabled={form.formState.isSubmitting} className="relative w-full">
-                Next
-              </Button>
-            </form>
-          ) : (
-            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-              <FormLabel className="font-mono">Enter one-time code from your email</FormLabel>
-              <Input
-                type="text"
-                inputMode="numeric"
-                pattern="[0-9]+"
-                placeholder="xxxxxx"
-                value={code}
-                onChange={(e) => setCode(e.target.value)}
-                required
+              <FormField
+                control={form.control}
+                name="discord"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel className="font-mono">Discord username</FormLabel>
+                    <FormControl>
+                      <Input placeholder="john_doe" {...field} />
+                    </FormControl>
+                    <FormDescription>
+                      Sign up at{" "}
+                      <Button type="button" variant="link" className="h-auto p-0 text-current" asChild>
+                        <Link href="https://discord.com/register" target="_blank">
+                          discord.com/register
+                        </Link>
+                      </Button>
+                    </FormDescription>
+                    <FormMessage />
+                  </FormItem>
+                )}
               />
-              <Button type="submit" disabled={step === "verifying"} className="relative w-full">
-                {step === "verifying" ? "Waiting for code verification" : "Submit"}
-              </Button>
-              <Button
-                type="button"
-                variant="outline"
-                className="relative w-full"
-                onClick={() => sendOtp(form.getValues())}
-                disabled={countdown > 0}
-              >
-                Resend code {countdown > 0 ? `(${countdown}s)` : ""}
-              </Button>
-            </form>
-          )
+            </div>
+            <FormField
+              control={form.control}
+              name="subscribe"
+              render={({ field }) => (
+                <FormItem className="flex flex-row items-center space-x-3 space-y-0">
+                  <FormControl>
+                    <Checkbox checked={field.value} onCheckedChange={field.onChange} />
+                  </FormControl>
+                  <FormLabel className="text-sm">I wish to receive emails about future CFC events</FormLabel>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <Button type="submit" className="relative w-full">
+              Submit
+            </Button>
+          </form>
         ) : (
           <DetailsBlock />
         )}
