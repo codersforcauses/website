@@ -222,9 +222,18 @@ export default function CompleteProfile() {
     }
 
     user.role = "member"
-    utils.users.getCurrent.setData(undefined, user)
-    utils.users.getCurrent.invalidate()
-    router.push("/dashboard")
+    try {
+      utils.users.getCurrent.setData(undefined, user)
+      await utils.users.getCurrent.invalidate()
+      router.push("/dashboard")
+    } catch (error) {
+      console.error(error)
+      toast({
+        variant: "destructive",
+        title: "Unable to update user",
+        description: `We were unable to update the user. ${(error as { message?: string })?.message ?? ""}`,
+      })
+    }
   }
 
   const handleSkipPayment = async () => {
@@ -232,10 +241,15 @@ export default function CompleteProfile() {
       setLoadingSkipPayment(true)
       try {
         utils.users.getCurrent.setData(undefined, user)
-        utils.users.getCurrent.invalidate()
+        await utils.users.getCurrent.invalidate()
         router.push("/dashboard")
       } catch (error) {
         console.error(error)
+        toast({
+          variant: "destructive",
+          title: "Unable to skip payment",
+          description: `Error occurred when trying to skip payment.${(error as { message?: string })?.message ?? ""}`,
+        })
       } finally {
         setLoadingSkipPayment(false)
       }
