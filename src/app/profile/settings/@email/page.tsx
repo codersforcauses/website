@@ -21,7 +21,9 @@ export default async function Socials() {
         </p>
       </div>
       <Separator className="md:max-w-2xl" />
-      <EmailForm user_id={user_id} email={email} />
+      <div className="max-w-xl">
+        <EmailForm user_id={user_id} email={email} />
+      </div>
     </div>
   )
 }

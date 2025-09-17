@@ -3,13 +3,12 @@
 import { useReverification, useUser } from "@clerk/nextjs"
 import { EmailAddressResource } from "@clerk/types"
 import { zodResolver } from "@hookform/resolvers/zod"
-import Link from "next/link"
 import { useEffect, useState } from "react"
 import { FormProvider, useForm } from "react-hook-form"
 import { z } from "zod"
 
 import { Button } from "~/components/ui/button"
-import { FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "~/components/ui/form"
+import { FormControl, FormField, FormItem, FormLabel, FormMessage } from "~/components/ui/form"
 import { Input } from "~/components/ui/input"
 import { toast } from "~/components/ui/use-toast"
 
@@ -59,8 +58,12 @@ const EmailForm = (props: { user_id: string; email?: Partial<FormSchema> }) => {
     }
   }, [countdown])
   const updateEmail = api.users.updateEmail.useMutation({
-    onSuccess: async () => {
-      await utils.users.getCurrent.refetch()
+    onError: (error) => {
+      toast({
+        variant: "destructive",
+        title: "Failed to update email",
+        description: error.message,
+      })
     },
   })
 
@@ -111,11 +114,12 @@ const EmailForm = (props: { user_id: string; email?: Partial<FormSchema> }) => {
           oldEmail: (data.email ?? "").trim(),
           newEmail: (data.new_email ?? "").trim(),
         })
+        setStep("updated")
         toast({
           title: "Email updated",
           description: "Your email has been updated successfully.",
         })
-        setStep("updated")
+        window.location.reload()
       } else {
         toast({
           variant: "destructive",
@@ -150,7 +154,7 @@ const EmailForm = (props: { user_id: string; email?: Partial<FormSchema> }) => {
                     <p className="font-sans">*</p>
                   </FormLabel>
                   <FormControl>
-                    <Input type="email" placeholder="john.doe@codersforcauses.org" {...field} readOnly />
+                    <Input disabled type="email" placeholder="john.doe@codersforcauses.org" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -179,7 +183,7 @@ const EmailForm = (props: { user_id: string; email?: Partial<FormSchema> }) => {
         </form>
       ) : (
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-          <FormLabel className="font-mono">Enter one-time code from your email</FormLabel>
+          <FormLabel className="font-mono">Enter one-time code from your new email</FormLabel>
           <Input
             type="text"
             inputMode="numeric"
