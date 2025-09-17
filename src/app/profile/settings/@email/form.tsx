@@ -3,6 +3,7 @@
 import { useReverification, useUser } from "@clerk/nextjs"
 import { EmailAddressResource } from "@clerk/types"
 import { zodResolver } from "@hookform/resolvers/zod"
+import { se } from "date-fns/locale"
 import { useEffect, useState } from "react"
 import { FormProvider, useForm } from "react-hook-form"
 import { z } from "zod"
@@ -43,9 +44,10 @@ const defaultValues: FormSchema = {
 const EmailForm = (props: { user_id: string; email?: Partial<FormSchema> }) => {
   const utils = api.useUtils()
   const { isLoaded, isSignedIn, user } = useUser()
-  const [countdown, setCountdown] = useState(0)
-  const [code, setCode] = useState("")
   const [step, setStep] = useState<"submitForm" | "enterCode" | "verifying" | "updated">("submitForm")
+  const [countdown, setCountdown] = useState(0)
+  const [send, setSend] = useState(false)
+  const [code, setCode] = useState("")
   const [emailObj, setEmailObj] = useState<EmailAddressResource | undefined>()
   const createEmailAddress = useReverification((email: string) => user?.createEmailAddress({ email }))
   useEffect(() => {
@@ -57,6 +59,19 @@ const EmailForm = (props: { user_id: string; email?: Partial<FormSchema> }) => {
       return () => clearInterval(timer)
     }
   }, [countdown])
+
+  useEffect(() => {
+    if (step === "enterCode" && emailObj && send) {
+      emailObj.prepareVerification({ strategy: "email_code" })
+      setSend(false)
+      setCountdown(60)
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth",
+      })
+    }
+  }, [emailObj, step, send])
+
   const updateEmail = api.users.updateEmail.useMutation({
     onError: (error) => {
       toast({
@@ -80,20 +95,25 @@ const EmailForm = (props: { user_id: string; email?: Partial<FormSchema> }) => {
   }
 
   const sendOtp = async (values: FormSchema) => {
+    setSend(true)
     try {
-      const res = await createEmailAddress(values.new_email.trim())
-      await user.reload()
+      if (values.new_email.trim() === user?.primaryEmailAddress?.emailAddress) {
+        toast({
+          variant: "destructive",
+          title: "Error",
+          description: "New email must be different from current email",
+        })
+        return
+      }
 
-      const emailAddress = user.emailAddresses.find((a) => a.id === res?.id)
-      setEmailObj(emailAddress)
+      if (!user.emailAddresses.some((e) => e.emailAddress === values.new_email.trim())) {
+        const res = await createEmailAddress(values.new_email.trim())
+        await user.reload()
+        const emailAddress = user.emailAddresses.find((a) => a.id === res?.id)
+        setEmailObj(emailAddress)
+      }
 
-      await emailAddress?.prepareVerification({ strategy: "email_code" })
-      setCountdown(60)
       setStep("enterCode")
-      window.scrollTo({
-        top: 0,
-        behavior: "smooth",
-      })
     } catch (error) {
       console.error(JSON.stringify(error, null, 2))
       toast({

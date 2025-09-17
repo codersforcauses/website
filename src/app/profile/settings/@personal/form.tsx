@@ -82,7 +82,7 @@ const PersonalForm = (props: { defaultValues?: Partial<FormSchema> }) => {
   const { getValues, setError } = form
 
   const onSubmit = async (data: FormSchema) => {
-    if (data.github !== "") {
+    if (data.github && data.github !== "") {
       const { status: githubStatus } = await fetch(`https://api.github.com/users/${data.github}`)
 
       if (githubStatus !== 200) {
