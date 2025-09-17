@@ -87,7 +87,7 @@ const EmailForm = (props: { user_id: string; email?: Partial<FormSchema> }) => {
       const emailAddress = user.emailAddresses.find((a) => a.id === res?.id)
       setEmailObj(emailAddress)
 
-      emailAddress?.prepareVerification({ strategy: "email_code" })
+      await emailAddress?.prepareVerification({ strategy: "email_code" })
       setCountdown(60)
       setStep("enterCode")
       window.scrollTo({

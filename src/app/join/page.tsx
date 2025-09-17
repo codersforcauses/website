@@ -65,10 +65,14 @@ export default function Join() {
 
     try {
       const attempt = await signIn.create({ identifier: email })
-      const emailFactor = attempt.supportedFirstFactors.find((factor) => factor.strategy === "email_code")
-
+      const emailFactor = attempt.supportedFirstFactors?.find((factor) => factor.strategy === "email_code")
       if (!emailFactor || emailFactor.strategy !== "email_code") {
-        throw new Error("Email code factor not supported")
+        toast({
+          variant: "destructive",
+          title: "Error",
+          description: "Email code factor not supported",
+        })
+        return
       }
 
       const si = await attempt.prepareFirstFactor({
@@ -79,7 +83,7 @@ export default function Join() {
       setStep("email")
       window.scrollTo({
         top: 0,
-        behavior: "smooth", // smooth scrolling
+        behavior: "smooth",
       })
     } catch (error) {
       const { errors = [] } = error as ClerkError
