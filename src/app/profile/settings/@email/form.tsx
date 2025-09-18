@@ -63,7 +63,16 @@ const EmailForm = (props: { user_id: string; email?: Partial<FormSchema> }) => {
   useEffect(() => {
     const run = async () => {
       if (step === "enterCode" && emailObj && send) {
-        await emailObj.prepareVerification({ strategy: "email_code" })
+        await emailObj.prepareVerification({ strategy: "email_code" }).catch((e) => {
+          console.error(e)
+          toast({
+            variant: "destructive",
+            title: "Error sending OTP",
+            description: `${(e as { message?: string })?.message ?? ""}`,
+          })
+          setSend(false)
+          return
+        })
         setSend(false)
         setCountdown(60)
         window.scrollTo({ top: 0, behavior: "smooth" })
