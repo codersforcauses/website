@@ -61,15 +61,16 @@ const EmailForm = (props: { user_id: string; email?: Partial<FormSchema> }) => {
   }, [countdown])
 
   useEffect(() => {
-    if (step === "enterCode" && emailObj && send) {
-      emailObj.prepareVerification({ strategy: "email_code" })
-      setSend(false)
-      setCountdown(60)
-      window.scrollTo({
-        top: 0,
-        behavior: "smooth",
-      })
+    const run = async () => {
+      if (step === "enterCode" && emailObj && send) {
+        await emailObj.prepareVerification({ strategy: "email_code" })
+        setSend(false)
+        setCountdown(60)
+        window.scrollTo({ top: 0, behavior: "smooth" })
+      }
     }
+
+    run()
   }, [emailObj, step, send])
 
   const updateEmail = api.users.updateEmail.useMutation({

@@ -41,7 +41,7 @@ const ProfilePage = ({ id, currentUser }: ProfilePageProps) => {
         <TitleText typed>./profile</TitleText>
         <div className="container mx-auto p-4">
           <div className="flex flex-col gap-4 space-y-2 md:flex-row md:py-12">
-            <div className="space-y-2 p-2 md:max-w-1/2 md:min-w-80">
+            <div className={`space-y-2 p-2 ${currentUser?.id === user.id ? "md:w-1/2" : "md:min-w-80"}`}>
               <div>
                 {user.role && <Badge className="bg-primary/80 capitalize">{user.role}</Badge>}
                 <h2 className="text-2xl font-bold">{user.preferred_name}</h2>
