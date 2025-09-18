@@ -63,23 +63,26 @@ const EmailForm = (props: { user_id: string; email?: Partial<FormSchema> }) => {
   useEffect(() => {
     const run = async () => {
       if (step === "enterCode" && emailObj && send) {
-        await emailObj.prepareVerification({ strategy: "email_code" }).catch((e) => {
+        try {
+          await emailObj.prepareVerification({ strategy: "email_code" })
+        } catch (e) {
           console.error(e)
           toast({
             variant: "destructive",
             title: "Error sending OTP",
-            description: `${(e as { message?: string })?.message ?? ""}`,
+            description: e instanceof Error ? e.message : "Unknown error",
           })
           setSend(false)
           return
-        })
+        }
+
         setSend(false)
         setCountdown(60)
         window.scrollTo({ top: 0, behavior: "smooth" })
       }
     }
 
-    run()
+    void run()
   }, [emailObj, step, send])
 
   const updateEmail = api.users.updateEmail.useMutation({
@@ -133,6 +136,7 @@ const EmailForm = (props: { user_id: string; email?: Partial<FormSchema> }) => {
       })
     }
   }
+
   const onSubmit = async (data: FormSchema) => {
     setStep("verifying")
     try {
