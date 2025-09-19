@@ -1,16 +1,22 @@
 import { clerkClient } from "@clerk/nextjs/server"
 import { TRPCError } from "@trpc/server"
-import { eq } from "drizzle-orm"
+import { Ratelimit } from "@upstash/ratelimit"
+import { eq, sql } from "drizzle-orm"
+import type { InferSelectModel } from "drizzle-orm"
 import { z } from "zod"
 
-import { adminProcedure } from "~/server/api/trpc"
-import { db } from "~/server/db"
-import { User } from "~/server/db/schema"
+import { protectedRatedProcedure } from "~/server/api/trpc"
+import { Project, User } from "~/server/db/schema"
 
-export const updateEmail = adminProcedure
+export const updateEmail = protectedRatedProcedure(Ratelimit.fixedWindow(4, "30s"))
   .input(z.object({ userId: z.string(), oldEmail: z.string().email(), newEmail: z.string().email() }))
   .mutation(async ({ ctx, input }) => {
+    const currentUser = ctx.user
     const clerk = await clerkClient()
+    if (currentUser?.id !== input.userId) {
+      throw new TRPCError({ code: "FORBIDDEN", message: "You can only update your own email" })
+    }
+
     const user_data = await ctx.db.query.User.findFirst({
       where: eq(User.email, input.oldEmail),
     })
@@ -40,24 +46,43 @@ export const updateEmail = adminProcedure
     // Clerk will always return the lowercased email from its API
     if (clerkUser.primaryEmailAddress?.emailAddress !== input.oldEmail.toLowerCase())
       throw new TRPCError({ code: "BAD_REQUEST", message: "Old email does not match" })
+
+    // use for sso accounts
+    // const externalAccount = clerkUser.externalAccounts.find(
+    //   (account) => account.emailAddress === input.oldEmail.toLowerCase(),
+    // )
+
     try {
-      await updateClerkUserEmail(clerkUser.id, clerkUser.primaryEmailAddressId, input.newEmail)
-      await ctx.db.update(User).set({ email: input.newEmail }).where(eq(User.id, input.userId))
+      await updateClerkUserEmail(user, clerkUser.primaryEmailAddressId)
     } catch (err) {
-      console.error(err)
-      throw new TRPCError({ code: "INTERNAL_SERVER_ERROR", message: "Failed to update email" })
+      throw new TRPCError({
+        code: "INTERNAL_SERVER_ERROR",
+        message: err instanceof Error ? err.message : "Failed to update email",
+      })
     }
+
+    await ctx.db.update(User).set({ email: input.newEmail }).where(eq(User.id, input.userId))
+    await ctx.db
+      .update(Project)
+      .set({
+        members: sql`array_replace(${Project.members}, ${input.oldEmail}, ${input.newEmail})`,
+      })
+      .where(sql`${input.oldEmail} = ANY(${Project.members})`)
 
     return user
   })
 
-const updateClerkUserEmail = async (userId: string, oldEmailAddressId: string, newEmailAddress: string) => {
+const updateClerkUserEmail = async (user: InferSelectModel<typeof User>, oldEmailAddressId: string) => {
   const clerk = await clerkClient()
-  await clerk.emailAddresses.createEmailAddress({
-    userId,
-    emailAddress: newEmailAddress,
-    verified: true,
-    primary: true,
-  })
+
+  // if (externalAccount) {
+  //   // TODO: correct this!! Use for sso
+  //   const mess = await clerk.users.deleteUserExternalAccount({
+  //     userId: user.clerk_id,
+  //     externalAccountId: externalAccount.id,
+  //   })
+  //   if (!mess.deleted) throw new TRPCError({ code: "BAD_REQUEST", message: "Delete external account failed" })
+  // }
+
   await clerk.emailAddresses.deleteEmailAddress(oldEmailAddressId)
 }

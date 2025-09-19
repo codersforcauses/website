@@ -1,4 +1,4 @@
-import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server"
+import { auth, clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server"
 import { eq } from "drizzle-orm"
 
 import { db } from "./server/db"
@@ -11,7 +11,8 @@ const isProtectedPage = createRouteMatcher(["/dashboard(.*)", "/profile/settings
 const isAuthPage = createRouteMatcher(["/join(.*)"])
 
 export default clerkMiddleware(async (auth, req) => {
-  const clerkId = auth().userId
+  const session = await auth()
+  const clerkId = session.userId
 
   if (isAdminPage(req) && clerkId) {
     const user = await db.query.User.findFirst({
@@ -20,14 +21,14 @@ export default clerkMiddleware(async (auth, req) => {
 
     if (!adminRoles.includes(user?.role ?? "")) {
       // non-existent clerk role so we go to 404 page cleanly
-      auth().protect({
+      await auth.protect({
         role: "lmfaooo",
       })
     }
   }
 
   if (isProtectedPage(req)) {
-    auth().protect()
+    await auth.protect()
   }
 
   if (isAuthPage(req) && clerkId) {

@@ -46,9 +46,10 @@ export const createManual = adminProcedure
   )
   .mutation(async ({ ctx, input }) => {
     let clerkRes: ClerkUser | undefined
+    const clerk = await clerkClient()
     // TODO: wrap in a transaction
     try {
-      clerkRes = await clerkClient().users.createUser({
+      clerkRes = await clerk.users.createUser({
         emailAddress: [input.email],
         firstName: input.name, // we treat clerk.firstName as the user's full name
         unsafeMetadata: {
@@ -63,7 +64,7 @@ export const createManual = adminProcedure
       })
     } catch (err) {
       // user might exist already
-      clerkRes = (await clerkClient().users.getUserList({ emailAddress: [input.email] })).data[0]
+      clerkRes = (await clerk.users.getUserList({ emailAddress: [input.email] })).data[0]
     }
 
     if (!clerkRes)

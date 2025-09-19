@@ -39,8 +39,18 @@ export const getProjectByName = publicRatedProcedure(Ratelimit.fixedWindow(60, "
   })
 
 export const getProjectByUser = protectedRatedProcedure(Ratelimit.fixedWindow(60, "30s"))
-  .input(z.object({ user: z.string() }))
+  .input(z.object({ user: z.string(), isPublic: z.boolean().optional() }))
   .query(async ({ input, ctx }) => {
+    const conditions = []
+
+    if (input.user) {
+      conditions.push(arrayContains(Project.members, [input.user]))
+    }
+
+    if (typeof input.isPublic === "boolean") {
+      conditions.push(eq(Project.is_public, input.isPublic))
+    }
+
     const projectData = await ctx.db.query.Project.findMany({
       columns: {
         logo_path: true,
@@ -60,7 +70,7 @@ export const getProjectByUser = protectedRatedProcedure(Ratelimit.fixedWindow(60
         application_url: true,
         is_public: true,
       },
-      where: input.user ? arrayContains(Project.members, [input.user]) : undefined,
+      where: conditions.length > 0 ? and(...conditions) : undefined,
     })
 
     return projectData
