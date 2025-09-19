@@ -3,7 +3,6 @@
 import { useReverification, useUser } from "@clerk/nextjs"
 import { EmailAddressResource } from "@clerk/types"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { se } from "date-fns/locale"
 import { useEffect, useState } from "react"
 import { FormProvider, useForm } from "react-hook-form"
 import { z } from "zod"

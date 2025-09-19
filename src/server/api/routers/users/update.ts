@@ -21,15 +21,6 @@ export const update = protectedRatedProcedure(Ratelimit.fixedWindow(4, "30s"))
           message: "Preferred name is required",
         })
         .optional(),
-      // email: z
-      //   .string()
-      //   .email({
-      //     message: "Invalid email address",
-      //   })
-      // .min(2, {
-      //   message: "Email is required",
-      // })
-      // .optional(),
       pronouns: z
         .string()
         .min(2, {
@@ -65,7 +56,7 @@ export const update = protectedRatedProcedure(Ratelimit.fixedWindow(4, "30s"))
     } catch (err: unknown) {
       // Narrow the error type
       if (err instanceof Error) {
-        throw new Error(`Failed to update user metadata: ${err?.message}`)
+        throw new Error(`Failed to update user metadata: ${err.message}`)
       } else {
         throw new Error("Failed to update user metadata: unknown error")
       }
@@ -76,7 +67,6 @@ export const update = protectedRatedProcedure(Ratelimit.fixedWindow(4, "30s"))
       .set({
         name: input.name?.trim(),
         preferred_name: input.preferred_name?.trim(),
-        // email: input.email?.trim(),
         pronouns: input.pronouns?.trim(),
         student_number: input.student_number?.trim() ?? null,
         university: input.uni?.trim() ?? null,

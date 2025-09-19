@@ -65,12 +65,17 @@ const PersonalForm = (props: { defaultValues?: Partial<FormSchema> }) => {
   const updateUser = api.users.update.useMutation({
     onSuccess: async () => {
       await utils.users.getCurrent.refetch()
+      toast({
+        title: "Update successful",
+        description: "Your personal details have been updated successfully.",
+      })
     },
+
     onError: () => {
       toast({
         variant: "destructive",
         title: "Failed to update user details",
-        description: "An error occurred while trying to update your personal details. Please try again later.",
+        description: "An error occurred while trying to update your personal details. Please try again.",
       })
     },
   })
@@ -84,7 +89,6 @@ const PersonalForm = (props: { defaultValues?: Partial<FormSchema> }) => {
   const onSubmit = async (data: FormSchema) => {
     if (data.github && data.github !== "") {
       const { status: githubStatus } = await fetch(`https://api.github.com/users/${data.github}`)
-
       if (githubStatus !== 200) {
         toast({
           variant: "destructive",
@@ -98,23 +102,12 @@ const PersonalForm = (props: { defaultValues?: Partial<FormSchema> }) => {
         return
       }
     }
-    try {
-      updateUser.mutate({
-        ...data,
-        student_number: !data.isUWA ? null : data.student_number,
-        uni: data.isUWA ? "UWA" : data.uni,
-      })
-      toast({
-        title: "Update successful",
-        description: "Your personal details have been updated successfully.",
-      })
-    } catch (err) {
-      toast({
-        variant: "destructive",
-        title: "Failed to update user details",
-        description: "An error occurred while trying to update your personal details. Please try again later.",
-      })
-    }
+
+    updateUser.mutate({
+      ...data,
+      student_number: !data.isUWA ? null : data.student_number,
+      uni: data.isUWA ? "UWA" : data.uni,
+    })
   }
 
   return (
