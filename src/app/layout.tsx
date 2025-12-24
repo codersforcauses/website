@@ -1,18 +1,17 @@
-import { ClerkProvider } from "@clerk/nextjs"
-import "@material-symbols/font-300/sharp.css"
-import { Analytics } from "@vercel/analytics/react"
+import "@material-symbols/font-400/sharp.css"
+import "~/styles/globals.css"
+
 import type { Metadata, Viewport } from "next"
 import { IBM_Plex_Mono, IBM_Plex_Sans } from "next/font/google"
 
-import Footer from "~/components/footer"
-import Header from "~/components/header"
-import { Toaster } from "~/components/ui/toaster"
+import { Toaster } from "~/ui/toaster"
+import { Providers } from "./providers"
 
-import { customMetadata } from "~/lib/metadata"
-import { type PropsWithChildren } from "~/lib/types"
-import "~/styles/globals.css"
-
-import Providers from "./providers"
+export const metadata: Metadata = {
+  title: "Coders for Causes",
+  description: "Coders for Causes",
+  icons: [{ rel: "icon", url: "/favicon.png" }],
+}
 
 const mono = IBM_Plex_Mono({
   variable: "--font-mono",
@@ -27,43 +26,23 @@ const sans = IBM_Plex_Sans({
 
 export const viewport: Viewport = {
   themeColor: "black",
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 1,
+  // userScalable: false,
 }
 
-export const metadata: Metadata = {
-  title: {
-    template: "%s | Coders for Causes",
-    default: "Coders for Causes",
-  },
-  ...customMetadata({
-    name: "Coders for Causes",
-    description:
-      "Coders for Causes is a software engineering club at UWA specializing in web development. We build custom software for charities and not for profits and give students the skills they need to succeed in the industry.",
-    image:
-      "https://og-social-cards.vercel.app/**.%2FInnovation%20with%20a%20mission**.png?theme=dark&md=1&fontSize=100px&images=https%3A%2Fcodersforcauses.org%2Flogo%2Fcfc_logo_white_full.svg",
-  }),
-}
-
-export const dynamic = "force-dynamic"
-
-export default function RootLayout({ children }: PropsWithChildren) {
+export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <ClerkProvider clerkJSVariant="headless">
-      <html
-        lang="en-AU"
-        suppressHydrationWarning
-        className={`${sans.variable} ${mono.variable} touch-manipulation scroll-smooth bg-black font-sans selection:bg-alt-accent selection:text-black`}
-      >
-        <head />
-        <body className="antialiased">
-          <Providers>
-            <Header />
-            {children}
-            <Footer />
-            <Toaster />
-          </Providers>
-          {process.env.NEXT_PUBLIC_VERCEL_ENV === "production" && <Analytics />}
-        </body>
-      </html>
-    </ClerkProvider>
+    <html
+      lang="en-AU"
+      suppressHydrationWarning
+      className={`${sans.variable} ${mono.variable} touch-manipulation scroll-smooth bg-black font-sans selection:bg-accent selection:text-neutral-950`}
+    >
+      <body className="root antialiased">
+        <Providers>{children}</Providers>
+        <Toaster />
+      </body>
+    </html>
   )
 }

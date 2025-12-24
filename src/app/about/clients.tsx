@@ -1,27 +1,25 @@
-import clients from "data/clients.json"
+"use client"
 
-import { type ImageProps } from "~/lib/types"
+import Image from "next/image"
+import { useTheme } from "next-themes"
 
-import ImageGrid from "./image-grid"
+import clients from "~/data/clients.json"
 
-interface Client {
-  name: string
-  logo: string
-  dark_logo: string
-}
-
-const Clients = () => {
-  const typedClients = clients as Client[]
-
-  const imageList: ImageProps[] = typedClients.map(
-    (client): ImageProps => ({
-      src: client.logo,
-      srcDark: client.dark_logo,
-      alt: client.name,
-    }),
+export default function Clients() {
+  const { resolvedTheme } = useTheme()
+  return (
+    <div className="grid grid-cols-[repeat(auto-fit,minmax(12rem,1fr))] place-items-center gap-8">
+      {clients.map((client) => (
+        <Image
+          key={client.name}
+          src={(resolvedTheme === "dark" && client.dark_logo) || client.logo}
+          alt={`${client.name} logo`}
+          title={client.name}
+          width={client.width}
+          height={100}
+          className="brightness-110 contrast-50 grayscale transition-all duration-150 ease-in hover:filter-none dark:brightness-150 dark:hover:filter-none"
+        />
+      ))}
+    </div>
   )
-
-  return <ImageGrid images={imageList} />
 }
-
-export default Clients

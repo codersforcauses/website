@@ -1,13 +1,33 @@
-import * as SimpleIcons from "simple-icons/icons"
+import {
+  siClerk,
+  siCss3,
+  siDigitalocean,
+  siDjango,
+  siDocker,
+  siExpress,
+  siFirebase,
+  siHeroku,
+  siHtml5,
+  siJavascript,
+  siMicrosoftazure,
+  siMicrosoftsqlserver,
+  siMongodb,
+  siNextdotjs,
+  siNodedotjs,
+  siNuxtdotjs,
+  siPrisma,
+  siReact,
+  siTailwindcss,
+  siTypescript,
+  siVercel,
+  siVuedotjs,
+  siVuetify,
+} from "simple-icons/icons"
 
-export const SITE_URL =
-  process.env.NEXT_PUBLIC_VERCEL_ENV === "production"
-    ? `https://${process.env.NEXT_PUBLIC_VERCEL_PROJECT_PRODUCTION_URL}`
-    : process.env.NEXT_PUBLIC_VERCEL_URL
-      ? `https://${process.env.NEXT_PUBLIC_VERCEL_URL}`
-      : `http://localhost:${process.env.PORT ?? 3000}`
-
-export const NAMED_ROLES = ["member", "honorary", "past", "committee", "admin"] as const
+export const NAMED_ROLES = ["member", "honorary", "past", "returning", "committee", "admin"] as const
+export const ADMIN_ROLES = ["admin", "committee"]
+export const MEETING_ADMIN_ROLES = ["admin", "returning"] as const // access to general meeting election controls
+export const MEETING_ACCESS_ROLES = ["admin", "committee", "returning"] as const // access to general meeting admin pages
 
 export const PRONOUNS = [
   {
@@ -48,27 +68,27 @@ export const UNIVERSITIES = [
 ] as const
 
 export const iconMap: Record<string, string> = {
-  mongodb: SimpleIcons.siMongodb.path,
-  vuedotjs: SimpleIcons.siVuedotjs.path,
-  nodedotjs: SimpleIcons.siNodedotjs.path,
-  express: SimpleIcons.siExpress.path,
-  nuxtdotjs: SimpleIcons.siNuxtdotjs.path,
-  vuetify: SimpleIcons.siVuetify.path,
-  nextdotjs: SimpleIcons.siNextdotjs.path,
-  vercel: SimpleIcons.siVercel.path,
-  html5: SimpleIcons.siHtml5.path,
-  css3: SimpleIcons.siCss3.path,
-  javascript: SimpleIcons.siJavascript.path,
-  heroku: SimpleIcons.siHeroku.path,
-  microsoftsqlserver: SimpleIcons.siMicrosoftsqlserver.path,
-  microsoftazure: SimpleIcons.siMicrosoftazure.path,
-  firebase: SimpleIcons.siFirebase.path,
-  react: SimpleIcons.siReact.path,
-  typescript: SimpleIcons.siTypescript.path,
-  tailwindcss: SimpleIcons.siTailwindcss.path,
-  django: SimpleIcons.siDjango.path,
-  digitalocean: SimpleIcons.siDigitalocean.path,
-  prisma: SimpleIcons.siPrisma.path,
-  clerk: SimpleIcons.siClerk.path,
-  docker: SimpleIcons.siDocker.path,
+  mongodb: siMongodb.path,
+  vuedotjs: siVuedotjs.path,
+  nodedotjs: siNodedotjs.path,
+  express: siExpress.path,
+  nuxtdotjs: siNuxtdotjs.path,
+  vuetify: siVuetify.path,
+  nextdotjs: siNextdotjs.path,
+  vercel: siVercel.path,
+  html5: siHtml5.path,
+  css3: siCss3.path,
+  javascript: siJavascript.path,
+  heroku: siHeroku.path,
+  microsoftsqlserver: siMicrosoftsqlserver.path,
+  microsoftazure: siMicrosoftazure.path,
+  firebase: siFirebase.path,
+  react: siReact.path,
+  typescript: siTypescript.path,
+  tailwindcss: siTailwindcss.path,
+  django: siDjango.path,
+  digitalocean: siDigitalocean.path,
+  prisma: siPrisma.path,
+  clerk: siClerk.path,
+  docker: siDocker.path,
 }

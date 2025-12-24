@@ -1,645 +1,625 @@
 "use client"
 
-import { useSignUp } from "@clerk/nextjs"
-import { zodResolver } from "@hookform/resolvers/zod"
-import { track } from "@vercel/analytics/react"
+import * as React from "react"
 import Link from "next/link"
 import { useRouter, useSearchParams } from "next/navigation"
-import * as React from "react"
-import { useForm } from "react-hook-form"
+import { useForm } from "@tanstack/react-form"
+import { z } from "zod"
 import { siDiscord } from "simple-icons"
-import * as z from "zod"
+import { AnimatePresence, motion } from "motion/react"
 
-// import { Avatar, AvatarFallback, AvatarImage } from "~/components/ui/avatar"
-// import GithubHeatmap from "../_components/github-heatmap"
-import OnlinePaymentForm from "~/components/payment/online"
-import { Alert, AlertDescription, AlertTitle } from "~/components/ui/alert"
-import { Button } from "~/components/ui/button"
-import { Checkbox } from "~/components/ui/checkbox"
-import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "~/components/ui/form"
-import { Input } from "~/components/ui/input"
-import { RadioGroup, RadioGroupItem } from "~/components/ui/radio-group"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "~/components/ui/tabs"
-import { toast } from "~/components/ui/use-toast"
-
-import { PRONOUNS, SITE_URL, UNIVERSITIES } from "~/lib/constants"
-import { cn, getIsMembershipOpen } from "~/lib/utils"
-import { type User } from "~/server/db/types"
-import { api } from "~/trpc/react"
-
-import DetailsBlock from "./details"
-import PaymentBlock from "./payment"
+import { authClient } from "~/lib/auth-client"
+import { PRONOUNS, UNIVERSITIES } from "~/lib/constants"
+import { Alert, AlertDescription, AlertTitle } from "~/ui/alert"
+import { Button } from "~/ui/button"
+import { Checkbox } from "~/ui/checkbox"
+import { Field, FieldDescription, FieldError, FieldLabel, FieldLegend, FieldSet } from "~/ui/field"
+import { Input } from "~/ui/input"
+import { RadioGroup, RadioGroupItem } from "~/ui/radio-group"
+import { Scrollspy } from "~/components/ui/scrollspy"
+import { Switch } from "~/ui/switch"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "~/ui/tabs"
+import VerificationDialog from "./verification"
 
 type ActiveView = "form" | "payment"
 
 const formSchema = z
   .object({
-    name: z.string().min(2, {
-      message: "Name is required",
+    name: z.string().min(1, {
+      error: "Name is required",
     }),
-    preferred_name: z.string().min(2, {
-      message: "Preferred name is required",
+    preferredName: z.string().min(1, {
+      error: "Preferred name is required",
     }),
-    email: z
-      .string()
-      .email({
-        message: "Invalid email address",
-      })
-      .min(2, {
-        message: "Email is required",
-      }),
-    pronouns: z.string().min(2, {
-      message: "Pronouns are required",
+    email: z.email({
+      error: ({ input }) => (input === "" ? "Email is required" : "Invalid email address"),
+    }),
+    pronouns: z.string().min(1, {
+      error: "Pronouns are required",
     }),
     isUWA: z.boolean(),
-    student_number: z.string().optional(),
-    uni: z.string().optional(),
-    github: z.string().optional(),
-    discord: z.string().optional(),
+    studentNumber: z.string(),
+    uni: z.string(),
+    github: z.string(),
+    discord: z.string(),
     subscribe: z.boolean(),
   })
-  .refine(({ isUWA, student_number }) => !Boolean(isUWA) || student_number, {
-    message: "Student number is required",
-    path: ["student_number"],
+  .refine(({ isUWA, studentNumber }) => !isUWA || studentNumber, {
+    error: "Student number is required",
+    path: ["studentNumber"],
   })
-  .refine(({ isUWA, student_number = "" }) => !Boolean(isUWA) || student_number.length === 8, {
-    message: "Student number must be 8 digits long",
-    path: ["student_number"],
+  .refine(({ isUWA, studentNumber = "" }) => !isUWA || studentNumber.length === 8, {
+    error: "Student number must be 8 digits long",
+    path: ["studentNumber"],
   })
-  .refine(({ isUWA, uni = "" }) => Boolean(isUWA) || uni || uni === "other", {
-    message: "University is required",
+  .refine(({ isUWA, uni = "" }) => Boolean(isUWA) || uni !== "", {
+    error: "University is required",
     path: ["uni"],
   })
 
-type FormSchema = z.infer<typeof formSchema>
+const currentYear = new Date().getFullYear()
 
-const defaultValues = {
-  name: "",
-  preferred_name: "",
-  pronouns: PRONOUNS[0].value,
-  isUWA: true,
-  student_number: "",
-  uni: UNIVERSITIES[0].value,
-  github: "",
-  discord: "",
-  subscribe: true,
-}
-
-export default function CreateAccount() {
-  const [activeView, setActiveView] = React.useState<ActiveView>("form")
-  const [loading, setLoading] = React.useState(false)
-  const [loadingSkipPayment, setLoadingSkipPayment] = React.useState(false)
-  const [user, setUser] = React.useState<User>()
+export default function CreateAccountPage() {
   const router = useRouter()
   const searchParams = useSearchParams()
-  const { isLoaded, signUp, setActive } = useSignUp()
-
-  const form = useForm<FormSchema>({
-    resolver: zodResolver(formSchema),
+  const { data, refetch } = authClient.useSession()
+  const btnRef = React.useRef<HTMLButtonElement>(null)
+  const parentRef = React.useRef<HTMLDivElement>(null)
+  const [activeView, setActiveView] = React.useState<ActiveView>("form")
+  const [openVerification, setOpenVerification] = React.useState(false)
+  const [loadingSkipPayment, setSkipPaymentTransition] = React.useTransition()
+  const form = useForm({
     defaultValues: {
-      ...defaultValues,
       email: searchParams.get("email") ?? "",
+      name: "",
+      preferredName: "",
+      pronouns: PRONOUNS[0].value as string,
+      isUWA: true,
+      studentNumber: "",
+      uni: UNIVERSITIES[0].value as string,
+      github: "",
+      discord: "",
+      subscribe: true,
     },
-  })
-  const { getValues, setError } = form
-
-  const utils = api.useUtils()
-  const createUser = api.users.create.useMutation({
-    onError: (error) => {
-      toast({
-        variant: "destructive",
-        title: "Failed to create database user",
-        description: error.message,
-      })
+    validators: {
+      onSubmit: formSchema,
     },
-  })
-  const { data: cards } = api.payments.getCards.useQuery(undefined, {
-    enabled: !!user,
-    staleTime: Infinity, // this is ok because this will be the first time ever the user will fetch cards, no risk of it being out of date
-  })
-
-  // const user_github = getValues().github
-
-  const onSubmit = async (values: FormSchema) => {
-    if (!isLoaded) return null
-
-    if (process.env.NEXT_PUBLIC_VERCEL_ENV === "production") track("created-account")
-
-    setLoading(true)
-    if (values.github !== "") {
-      const { status: githubStatus } = await fetch(`https://api.github.com/users/${values.github}`)
-
-      if (githubStatus !== 200) {
-        setError("github", {
-          type: "custom",
-          message: "Github username not found",
-        })
-        setLoading(false)
-        return
-      }
-    }
-
-    const userData: Omit<FormSchema, "isUWA"> = {
-      name: values.name,
-      preferred_name: values.preferred_name,
-      email: values.email,
-      pronouns: values.pronouns,
-      github: values.github,
-      discord: values.discord,
-      subscribe: values.subscribe,
-    }
-
-    if (values.isUWA) {
-      userData.student_number = values.student_number
-    } else {
-      userData.uni = values.uni
-    }
-
-    try {
-      const { startEmailLinkFlow, cancelEmailLinkFlow } = signUp.createEmailLinkFlow()
-      await signUp.create({
-        emailAddress: values.email,
-        firstName: values.preferred_name,
-        lastName: values.name, // we treat clerk.lastName as the user's full name
+    async onSubmit({ value: { isUWA, ...value } }) {
+      const { data, error } = await authClient.signUp.email({
+        email: value.email,
+        name: value.name,
+        preferredName: value.preferredName,
+        pronouns: value.pronouns,
+        studentNumber: isUWA ? value.studentNumber : null,
+        university: isUWA ? null : value.uni,
+        github: value.github || null,
+        discord: value.discord || null,
+        subscribe: value.subscribe,
+        password: crypto.randomUUID(),
       })
-
-      toast({
-        title: "Email Verification Sent!",
-        description: (
-          <>
-            We&apos;ve sent you an email with a link to verify your email address. It can sometimes take up to 10
-            minutes to arrive. <strong>Please DO NOT close this page</strong>.
-          </>
-        ),
-      })
-
-      const su = await startEmailLinkFlow({
-        redirectUrl: `${SITE_URL}/verification`,
-      })
-
-      const verification = su.verifications.emailAddress
-      if (verification.status === "expired") {
-        toast({
-          variant: "destructive",
-          title: "Link expired",
-          description: "The email verification link has expired. Please try again.",
-        })
-      }
-      if (su.status === "complete") {
-        if (!su.createdUserId) {
-          toast({
-            variant: "destructive",
-            title: "Failed to create Clerk user",
-            description: "Email link flow failed. Please try again.",
-          })
-          cancelEmailLinkFlow()
-          return
+      if (error) {
+        if (error.code === "USER_ALREADY_EXISTS") {
+          // TODO: handle this better
+        } else if (error.code === "FAILED_TO_CREATE_USER") {
+          // TODO: handle this better
+          console.log("Exists error:", error)
+        } else {
+          // TODO: handle different error cases
+          console.log("Create error:", error)
         }
-
-        const user = await createUser.mutateAsync({
-          clerk_id: su.createdUserId,
-          ...userData,
-        })
-        setUser(user)
-        await setActive({
-          session: su.createdSessionId,
-        })
       }
-      setActiveView("payment")
-    } catch (error) {
-      console.error(error)
-      toast({
-        variant: "destructive",
-        title: "Failed to create user",
-        description: "An error occurred while trying to create user. Please try again later.",
-      })
-    } finally {
-      setLoading(false)
-    }
-  }
 
-  const handleAfterOnlinePayment = async (paymentID: string) => {
-    if (!user) {
-      toast({
-        variant: "destructive",
-        title: "Unable to verify user",
-        description: "We were unable to verify if the user was created.",
-      })
-      return
-    }
-
-    user.role = "member"
-    utils.users.getCurrent.setData(undefined, user)
-    router.push("/dashboard")
-  }
-
-  const handleSkipPayment = async () => {
-    if (user) {
-      setLoadingSkipPayment(true)
-      try {
-        utils.users.getCurrent.setData(undefined, user)
-        router.push("/dashboard")
-      } catch (error) {
-        console.error(error)
-      } finally {
-        setLoadingSkipPayment(false)
+      if (data) {
+        setOpenVerification(true)
       }
-    }
+    },
+  })
+
+  const handleSkipPayment = () => {
+    setSkipPaymentTransition(() => {
+      refetch()
+      router.push("/dashboard")
+    })
   }
 
   return (
-    <div className="container grid gap-x-8 gap-y-4 py-12 md:grid-cols-2 md:gap-y-8 lg:gap-x-16">
-      <Alert className="md:col-span-2">
-        <span className="material-symbols-sharp size-4 text-xl leading-4">mail</span>
-        <AlertTitle>New user detected!</AlertTitle>
-        <AlertDescription>
-          We couldn&apos;t find an account with that email address so you can create a new account here. If you think it
-          was a mistake,{" "}
-          <Button variant="link" className="h-auto p-0">
-            <Link replace href="/join">
-              click here to go back
-            </Link>
-          </Button>
-        </AlertDescription>
-      </Alert>
-      <Form {...form}>
-        {activeView === "form" ? (
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-            <div className="space-y-2">
-              <h2 className="font-semibold leading-none tracking-tight">Personal details</h2>
-              <p className="text-sm text-muted-foreground">Fields marked with * are required.</p>
-            </div>
-            <FormField
-              control={form.control}
-              name="email"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel className="flex space-x-1 font-mono">
-                    <p>Email address</p>
-                    <p className="font-sans">*</p>
-                  </FormLabel>
-                  <FormControl>
-                    <Input type="email" placeholder="john.doe@codersforcauses.org" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="name"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel className="flex space-x-1 font-mono">
-                    <p>Full name</p> <p className="font-sans">*</p>
-                  </FormLabel>
-                  <FormControl>
-                    <Input autoComplete="name" placeholder="John Doe" {...field} />
-                  </FormControl>
-                  <FormDescription>
-                    We use your full name for internal committee records and official correspondence
-                  </FormDescription>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="preferred_name"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel className="flex space-x-1 font-mono">
-                    <p>Preferred name</p>
-                    <p className="font-sans">*</p>
-                  </FormLabel>
-                  <FormControl>
-                    <Input autoComplete="given-name" placeholder="John" {...field} />
-                  </FormControl>
-                  <FormDescription>This is how we normally refer to you</FormDescription>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="pronouns"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel className="flex space-x-1 font-mono">
-                    <p>Pronouns</p>
-                    <p className="font-sans">*</p>
-                  </FormLabel>
-                  <FormControl>
+    <div className="container mx-auto flex gap-x-24 px-4 py-12 lg:gap-x-40">
+      <div className="flex grow flex-col gap-y-4 lg:max-w-176" ref={parentRef}>
+        <Alert>
+          <span aria-label="Mail Icon" className="material-symbols-sharp">
+            mail
+          </span>
+          <AlertTitle>New user detected!</AlertTitle>
+          <AlertDescription className="block">
+            We couldn&apos;t find an account with that email address so you can create a new account here. If you think
+            it was a mistake,{" "}
+            <Button variant="link" className="h-auto p-0">
+              <Link replace href="/join" className="inline outline-none select-none">
+                click here to go back
+              </Link>
+            </Button>
+          </AlertDescription>
+        </Alert>
+        <form
+          className="grid gap-y-4"
+          onSubmit={async (e) => {
+            e.preventDefault()
+            btnRef.current?.focus()
+            await form.handleSubmit()
+          }}
+        >
+          <FieldSet id="personal-details">
+            <FieldLegend>Personal details</FieldLegend>
+            <FieldDescription>All fields in this section are required.</FieldDescription>
+            <form.Field name="email">
+              {(field) => {
+                const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid
+                return (
+                  <Field data-invalid={isInvalid}>
+                    <FieldLabel htmlFor="email">Email address</FieldLabel>
+                    <Input
+                      id="email"
+                      name="email"
+                      type="email"
+                      autoComplete="email"
+                      placeholder="john.doe@codersforcauses.org"
+                      value={field.state.value}
+                      onBlur={field.handleBlur}
+                      aria-invalid={isInvalid}
+                      onChange={(e) => {
+                        field.handleChange(e.target.value)
+                      }}
+                    />
+                    {isInvalid && <FieldError errors={field.state.meta.errors} />}
+                  </Field>
+                )
+              }}
+            </form.Field>
+            <form.Field name="name">
+              {(field) => {
+                const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid
+                return (
+                  <Field data-invalid={isInvalid}>
+                    <FieldLabel htmlFor="name">Full name</FieldLabel>
+                    <Input
+                      id="name"
+                      name="name"
+                      autoComplete="name"
+                      placeholder="John Doe"
+                      value={field.state.value}
+                      onBlur={field.handleBlur}
+                      aria-invalid={isInvalid}
+                      onChange={(e) => {
+                        field.handleChange(e.target.value)
+                      }}
+                    />
+                    <FieldDescription>
+                      We use your full name for internal committee records and official correspondence
+                    </FieldDescription>
+                    {isInvalid && <FieldError errors={field.state.meta.errors} />}
+                  </Field>
+                )
+              }}
+            </form.Field>
+            <form.Field name="preferredName">
+              {(field) => {
+                const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid
+                return (
+                  <Field data-invalid={isInvalid}>
+                    <FieldLabel htmlFor="preferredName">Preferred name</FieldLabel>
+                    <Input
+                      id="preferredName"
+                      name="preferredName"
+                      autoComplete="given-name"
+                      placeholder="John"
+                      value={field.state.value}
+                      onBlur={field.handleBlur}
+                      aria-invalid={isInvalid}
+                      onChange={(e) => {
+                        field.handleChange(e.target.value)
+                      }}
+                    />
+                    <FieldDescription>This is how we normally refer to you</FieldDescription>
+                    {isInvalid && <FieldError errors={field.state.meta.errors} />}
+                  </Field>
+                )
+              }}
+            </form.Field>
+            <form.Field name="pronouns">
+              {(field) => {
+                const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid
+                return (
+                  <FieldSet>
+                    <FieldLegend variant="label" className="font-mono font-medium">
+                      Pronouns
+                    </FieldLegend>
                     <RadioGroup
-                      onValueChange={field.onChange}
-                      defaultValue={field.value}
-                      className="grid grid-cols-2 sm:grid-cols-3"
+                      onValueChange={field.handleChange}
+                      defaultValue={field.state.value}
+                      onBlur={field.handleBlur}
+                      aria-invalid={isInvalid}
+                      className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 [&>div]:h-6"
                     >
                       {PRONOUNS.map(({ label, value }) => (
-                        <FormItem key={value} className="flex h-6 items-center space-x-3 space-y-0">
-                          <FormControl>
-                            <RadioGroupItem value={value} />
-                          </FormControl>
-                          <FormLabel className="font-normal">{label}</FormLabel>
-                        </FormItem>
+                        <Field key={value} orientation="horizontal" data-invalid={isInvalid}>
+                          <RadioGroupItem id={label} value={value} aria-invalid={isInvalid} />
+                          <FieldLabel htmlFor={label} className="font-sans font-normal">
+                            {label}
+                          </FieldLabel>
+                        </Field>
                       ))}
-                      <FormItem className="flex h-6 items-center space-x-3 space-y-0">
-                        <FormControl>
-                          <RadioGroupItem value="other" />
-                        </FormControl>
-                        {Boolean(PRONOUNS.find(({ value: val }) => val === field.value)) ? (
-                          <FormLabel className="font-normal">Other</FormLabel>
+                      <Field orientation="horizontal">
+                        <RadioGroupItem id="other-gender" value="" aria-invalid={isInvalid} />
+                        {PRONOUNS.find(({ value: val }) => val === field.state.value) ? (
+                          <FieldLabel htmlFor="other-gender" className="font-sans font-normal">
+                            Other
+                          </FieldLabel>
                         ) : (
-                          <FormControl>
-                            <Input {...field} placeholder="Other pronouns" className="h-8" />
-                          </FormControl>
+                          <Input
+                            autoFocus
+                            id="other-pronouns"
+                            name="other-pronouns"
+                            placeholder="Other pronouns"
+                            value={field.state.value}
+                            onBlur={field.handleBlur}
+                            aria-invalid={isInvalid}
+                            onChange={(e) => {
+                              field.handleChange(e.target.value)
+                            }}
+                            className="h-8 w-full"
+                          />
                         )}
-                      </FormItem>
+                      </Field>
                     </RadioGroup>
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
+                    {isInvalid && <FieldError errors={field.state.meta.errors} />}
+                  </FieldSet>
+                )
+              }}
+            </form.Field>
+            <form.Field name="isUWA">
+              {(field) => (
+                <Field orientation="horizontal">
+                  <Switch id="isUWA" checked={field.state.value} onCheckedChange={field.handleChange} />
+                  <FieldLabel htmlFor="isUWA">I am a UWA student</FieldLabel>
+                </Field>
               )}
-            />
-            <div className="grid gap-y-4">
-              <FormField
-                control={form.control}
-                name="isUWA"
-                render={({ field }) => (
-                  <FormItem className="flex flex-row items-center space-x-3 space-y-0">
-                    <FormControl>
-                      <Checkbox checked={field.value} onCheckedChange={field.onChange} />
-                    </FormControl>
-                    <FormLabel className="font-mono">I&apos;m a UWA student</FormLabel>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="student_number"
-                render={({ field }) => (
-                  <FormItem className={cn(!getValues().isUWA && "hidden")}>
-                    <FormLabel className="flex space-x-1 font-mono">
-                      <p>UWA student number</p>
-                      <p className="font-sans">*</p>
-                    </FormLabel>
-                    <FormControl>
-                      <Input placeholder="21012345" inputMode="numeric" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="uni"
-                render={({ field }) => (
-                  <FormItem className={cn(getValues().isUWA && "hidden")}>
-                    <FormLabel className="font-mono">University</FormLabel>
-                    <FormControl>
-                      <RadioGroup
-                        onValueChange={field.onChange}
-                        defaultValue={field.value}
-                        className="grid sm:grid-cols-2"
-                      >
-                        {UNIVERSITIES.map(({ label, value }) => (
-                          <FormItem key={value} className="flex h-6 items-center space-x-3 space-y-0">
-                            <FormControl>
-                              <RadioGroupItem value={value} />
-                            </FormControl>
-                            <FormLabel className="font-normal">{label}</FormLabel>
-                          </FormItem>
-                        ))}
-                        <FormItem className="flex h-6 items-center space-x-3 space-y-0">
-                          <FormControl>
-                            <RadioGroupItem value="other" />
-                          </FormControl>
-                          {Boolean(UNIVERSITIES.find(({ value: val }) => val === field.value)) ? (
-                            <FormLabel className="font-normal">Other university</FormLabel>
-                          ) : (
-                            <FormControl>
-                              <Input placeholder="Other university" {...field} className="h-8" />
-                            </FormControl>
-                          )}
-                        </FormItem>
-                      </RadioGroup>
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-            </div>
+            </form.Field>
+            <form.Subscribe selector={(state) => state.values.isUWA}>
+              {/* prefer css hidden states over ternary to preserve state */}
+              {(isUWA) => (
+                <>
+                  <form.Field name="studentNumber">
+                    {(field) => {
+                      const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid
+                      return (
+                        <Field data-invalid={isInvalid} className={isUWA ? "" : "hidden"}>
+                          <FieldLabel htmlFor="">UWA student number</FieldLabel>
+                          <Input
+                            placeholder="21012345"
+                            inputMode="numeric"
+                            value={field.state.value}
+                            onBlur={field.handleBlur}
+                            aria-invalid={isInvalid}
+                            onChange={(e) => {
+                              field.handleChange(e.target.value)
+                            }}
+                          />
+                          <FieldDescription>This is how we normally refer to you</FieldDescription>
+                          {isInvalid && <FieldError errors={field.state.meta.errors} />}
+                        </Field>
+                      )
+                    }}
+                  </form.Field>
+                  <form.Field name="uni">
+                    {(field) => {
+                      const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid
+                      return (
+                        <FieldSet className={isUWA ? "hidden" : "grid gap-y-1.5"}>
+                          <FieldLegend variant="label" className="font-mono font-medium">
+                            University
+                          </FieldLegend>
+                          <RadioGroup
+                            name="uni"
+                            defaultValue={field.state.value}
+                            onValueChange={field.handleChange}
+                            onBlur={field.handleBlur}
+                            className="grid grid-cols-2 sm:grid-cols-3 [&>div]:h-6"
+                          >
+                            {UNIVERSITIES.map(({ label, value }) => (
+                              <Field key={value} orientation="horizontal" data-invalid={isInvalid}>
+                                <RadioGroupItem id={label} value={value} aria-invalid={isInvalid} />
+                                <FieldLabel htmlFor={label} className="font-sans font-normal">
+                                  {label}
+                                </FieldLabel>
+                              </Field>
+                            ))}
+                            <Field orientation="horizontal" data-invalid={isInvalid}>
+                              <RadioGroupItem id="other-uni" value="" aria-invalid={isInvalid} />
+                              {UNIVERSITIES.find(({ value: val }) => val === field.state.value) ? (
+                                <FieldLabel htmlFor="other-uni" className="font-sans font-normal">
+                                  Other
+                                </FieldLabel>
+                              ) : (
+                                <Input
+                                  autoFocus
+                                  placeholder="Other university"
+                                  value={field.state.value}
+                                  onBlur={field.handleBlur}
+                                  aria-invalid={isInvalid}
+                                  onChange={(e) => {
+                                    field.handleChange(e.target.value)
+                                  }}
+                                  className="h-8 w-full"
+                                />
+                              )}
+                            </Field>
+                          </RadioGroup>
+                          {isInvalid && <FieldError errors={field.state.meta.errors} />}
+                        </FieldSet>
+                      )
+                    }}
+                  </form.Field>
+                </>
+              )}
+            </form.Subscribe>
+          </FieldSet>
+
+          <FieldSet id="social-details">
+            <FieldLegend>Socials</FieldLegend>
+            <FieldDescription className="text-balance">
+              These fields are optional but will be required if you plan on applying for projects during the winter and
+              summer university breaks.
+            </FieldDescription>
+            <Alert>
+              <svg viewBox="0 0 24 24" width={16} height={16}>
+                <title>{siDiscord.title}</title>
+                <path d={siDiscord.path} />
+              </svg>
+              <AlertTitle>Join our Discord!</AlertTitle>
+              <AlertDescription className="inline-block">
+                You can join our Discord server at{" "}
+                <Button type="button" variant="link" className="h-auto p-0 text-current" asChild>
+                  <Link href="http://discord.codersforcauses.org" target="_blank">
+                    discord.codersforcauses.org
+                  </Link>
+                </Button>
+              </AlertDescription>
+            </Alert>
+
             <div className="grid gap-x-2 gap-y-4 sm:grid-cols-2 md:gap-x-3">
-              <div className="space-y-2 sm:col-span-2">
-                <h2 className="font-semibold leading-none tracking-tight">Socials</h2>
-                <p className="text-sm text-muted-foreground">
-                  These fields are optional but are required if you plan on applying for projects during the winter and
-                  summer breaks.
-                </p>
-                <Alert>
-                  <svg viewBox="0 0 24 24" width={16} height={16} className="mr-2 fill-current">
-                    <title>{siDiscord.title}</title>
-                    <path d={siDiscord.path} />
-                  </svg>
-                  <AlertTitle>Join our Discord!</AlertTitle>
-                  <AlertDescription>
-                    You can join our Discord server at{" "}
-                    <Button type="button" variant="link" className="h-auto p-0 text-current" asChild>
-                      <Link href="http://discord.codersforcauses.org" target="_blank">
-                        discord.codersforcauses.org
-                      </Link>
-                    </Button>
-                  </AlertDescription>
-                </Alert>
-              </div>
-              <FormField
-                control={form.control}
+              <form.Field
                 name="github"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel className="font-mono">Github username</FormLabel>
-                    <FormControl>
-                      <Input placeholder="john_doe" {...field} />
-                    </FormControl>
-                    <FormDescription>
-                      Sign up at{" "}
-                      <Button type="button" variant="link" className="h-auto p-0 text-current" asChild>
-                        <Link href="https://github.com/signup" target="_blank">
-                          github.com/signup
-                        </Link>
-                      </Button>
-                    </FormDescription>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="discord"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel className="font-mono">Discord username</FormLabel>
-                    <FormControl>
-                      <Input placeholder="john_doe" {...field} />
-                    </FormControl>
-                    <FormDescription>
-                      Sign up at{" "}
-                      <Button type="button" variant="link" className="h-auto p-0 text-current" asChild>
-                        <Link href="https://discord.com/register" target="_blank">
-                          discord.com/register
-                        </Link>
-                      </Button>
-                    </FormDescription>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
+                validators={{
+                  async onSubmitAsync({ value }) {
+                    if (!value) return undefined
+                    const { status } = await fetch(`https://api.github.com/users/${value}`)
+                    if (status !== 200) return { message: "Github username does not exist" }
+                    return undefined
+                  },
+                }}
+              >
+                {(field) => {
+                  const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid
+                  return (
+                    <Field data-invalid={isInvalid}>
+                      <FieldLabel htmlFor="github">Github username</FieldLabel>
+                      <Input
+                        id="github"
+                        name="github"
+                        placeholder="john_doe"
+                        value={field.state.value}
+                        onBlur={field.handleBlur}
+                        aria-invalid={isInvalid}
+                        onChange={(e) => {
+                          field.handleChange(e.target.value)
+                        }}
+                      />
+                      <FieldDescription>
+                        Sign up at{" "}
+                        <Button type="button" variant="link" className="h-auto p-0 text-current" asChild>
+                          <Link href="https://github.com/signup" target="_blank">
+                            github.com/signup
+                          </Link>
+                        </Button>
+                      </FieldDescription>
+                      {isInvalid && <FieldError errors={field.state.meta.errors} />}
+                    </Field>
+                  )
+                }}
+              </form.Field>
+              <form.Field name="discord">
+                {(field) => {
+                  const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid
+                  return (
+                    <Field data-invalid={isInvalid}>
+                      <FieldLabel htmlFor="discord">Discord username</FieldLabel>
+                      <Input
+                        id="discord"
+                        name="discord"
+                        placeholder="john_doe"
+                        value={field.state.value}
+                        onBlur={field.handleBlur}
+                        aria-invalid={isInvalid}
+                        onChange={(e) => {
+                          field.handleChange(e.target.value)
+                        }}
+                      />
+                      <FieldDescription>
+                        Sign up at{" "}
+                        <Button type="button" variant="link" className="h-auto p-0 text-current" asChild>
+                          <Link href="https://discord.com/register" target="_blank">
+                            discord.com/register
+                          </Link>
+                        </Button>
+                      </FieldDescription>
+                      {isInvalid && <FieldError errors={field.state.meta.errors} />}
+                    </Field>
+                  )
+                }}
+              </form.Field>
             </div>
-            <FormField
-              control={form.control}
-              name="subscribe"
-              render={({ field }) => (
-                <FormItem className="flex flex-row items-center space-x-3 space-y-0">
-                  <FormControl>
-                    <Checkbox checked={field.value} onCheckedChange={field.onChange} />
-                  </FormControl>
-                  <FormLabel className="text-sm">I wish to receive emails about future CFC events</FormLabel>
-                  <FormMessage />
-                </FormItem>
+
+            <form.Field name="subscribe">
+              {(field) => (
+                <Field orientation="horizontal">
+                  <Checkbox
+                    checked={field.state.value}
+                    onCheckedChange={(e) => {
+                      field.handleChange(Boolean(e))
+                    }}
+                  />
+                  <FieldLabel className="font-sans text-sm font-normal">
+                    I wish to receive emails about future CFC events
+                  </FieldLabel>
+                </Field>
               )}
-            />
-            <Button type="submit" disabled={loading} className="relative w-full">
-              {loading ? "Waiting for email verification" : "Next"}
-              {loading && (
-                <span className="material-symbols-sharp absolute right-4 animate-spin">progress_activity</span>
+            </form.Field>
+          </FieldSet>
+          <form.Subscribe selector={(state) => [state.isSubmitting, state.canSubmit]}>
+            {([isSubmitting, canSubmit]) => {
+              const btnText = isSubmitting ? "Waiting for email verification" : "Next"
+              return (
+                <Button ref={btnRef} type="submit" disabled={isSubmitting ?? !canSubmit} className="relative w-full">
+                  <AnimatePresence mode="popLayout" initial={false}>
+                    <motion.span
+                      key={btnText}
+                      transition={{ type: "spring", duration: 0.2, bounce: 0 }}
+                      initial={{ opacity: 0, y: -36 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: 36 }}
+                    >
+                      {btnText}
+                    </motion.span>
+                  </AnimatePresence>
+                  {isSubmitting && (
+                    <span className="material-symbols-sharp absolute right-4 animate-spin text-base! leading-none!">
+                      progress_activity
+                    </span>
+                  )}
+                </Button>
+              )
+            }}
+          </form.Subscribe>
+        </form>
+
+        <FieldSet id="payment-details">
+          <FieldLegend>Payment</FieldLegend>
+          <div className="text-sm leading-normal font-normal text-neutral-500 dark:text-neutral-400">
+            <FieldDescription className="text-balance">
+              Become a paying member of Coders for Causes for just $5 a year (ends on 31st Dec {currentYear}). There are
+              many benefits to becoming a member which include:
+            </FieldDescription>
+            <ul className="list-inside list-disc">
+              <li>discounts to paid events such as industry nights</li>
+              <li>the ability to vote and run for committee positions</li>
+              <li>the ability to join our projects run during the winter and summer breaks.</li>
+            </ul>
+          </div>
+
+          <div className="space-y-4">
+            <Tabs defaultValue="online">
+              <TabsList className="w-full">
+                <TabsTrigger value="online" className="w-full">
+                  Online
+                </TabsTrigger>
+                <TabsTrigger value="in-person" className="w-full">
+                  In-person
+                </TabsTrigger>
+              </TabsList>
+              <TabsContent value="online" className="space-y-4">
+                <p className="text-sm text-neutral-500 dark:text-neutral-400">
+                  Our online payment system is handled by{" "}
+                  <Button asChild variant="link" className="h-auto p-0">
+                    <Link href="https://squareup.com/au/en" target="_blank">
+                      Square
+                    </Link>
+                  </Button>
+                  . We do not store your card details but we do record the information Square provides us after
+                  confirming your card.
+                </p>
+                {/* <OnlinePaymentForm cards={cards} afterPayment={handleAfterOnlinePayment} /> */}
+              </TabsContent>
+              <TabsContent value="in-person" className="space-y-4">
+                <p className="text-sm text-balance text-neutral-500 dark:text-neutral-400">
+                  We accept cash and card payments in-person. We use{" "}
+                  <Button asChild variant="link" className="h-auto p-0">
+                    <Link href="https://squareup.com/au/en" target="_blank">
+                      Square&apos;s
+                    </Link>
+                  </Button>{" "}
+                  Point-of-Sale terminals to accept card payments. Reach out to a committee member via our Discord or a
+                  CFC event to pay in-person. A committee member will update your status as a member on payment
+                  confirmation.
+                </p>
+              </TabsContent>
+            </Tabs>
+            <div className="relative select-none">
+              <div className="absolute inset-0 flex items-center">
+                <span className="w-full border-t" />
+              </div>
+              <div className="relative flex justify-center text-xs uppercase">
+                <span className="bg-white px-2 text-neutral-500 dark:bg-neutral-950 dark:text-neutral-400">Or</span>
+              </div>
+            </div>
+            <FieldSet>
+              <FieldLegend variant="label">Skipping payment</FieldLegend>
+              <FieldDescription className="text-balance">
+                You can skip payment for now but you will miss out on the benefits mentioned above until you do. You can
+                always pay later by going to your account dashboard.
+              </FieldDescription>
+            </FieldSet>
+            <Button
+              variant="outline"
+              disabled={loadingSkipPayment}
+              className="relative w-full"
+              onClick={handleSkipPayment}
+            >
+              Skip payment
+              {loadingSkipPayment && (
+                <span className="material-symbols-sharp absolute right-4 animate-spin text-base! leading-none!">
+                  progress_activity
+                </span>
               )}
             </Button>
-          </form>
-        ) : (
-          <DetailsBlock />
-        )}
-      </Form>
-      {activeView === "payment" ? (
-        <div className="space-y-4">
-          <div className="space-y-2">
-            <h2 className="font-semibold leading-none tracking-tight">Payment</h2>
-            <div className="text-sm text-muted-foreground">
-              <p>
-                Become a paying member of Coders for Causes for just $5 a year (ends on 31st Dec{" "}
-                {new Date().getFullYear()}). There are many benefits to becoming a member which include:
-              </p>
-              <ul className="list-inside list-disc">
-                <li>discounts to paid events such as industry nights</li>
-                <li>the ability to vote and run for committee positions</li>
-                <li>the ability to join our projects run during the winter and summer breaks.</li>
-              </ul>
-            </div>
           </div>
-          {getIsMembershipOpen() ? (
-            <>
-              <Tabs defaultValue="online">
-                <TabsList className="w-full">
-                  <TabsTrigger value="online" className="w-full">
-                    Online
-                  </TabsTrigger>
-                  <TabsTrigger value="in-person" className="w-full">
-                    In-person
-                  </TabsTrigger>
-                </TabsList>
-                <TabsContent value="online" className="space-y-4">
-                  <p className="text-sm text-muted-foreground">
-                    Our online payment system is handled by{" "}
-                    <Button asChild variant="link" className="h-auto p-0">
-                      <Link href="https://squareup.com/au/en" target="_blank">
-                        Square
-                      </Link>
-                    </Button>
-                    . We do not store your card details but we do record the information Square provides us after
-                    confirming your card.
-                  </p>
-                  <OnlinePaymentForm cards={cards} afterPayment={handleAfterOnlinePayment} />
-                </TabsContent>
-                <TabsContent value="in-person" className="space-y-4">
-                  <p className="text-sm text-muted-foreground">
-                    We accept cash and card payments in-person. We use{" "}
-                    <Button asChild variant="link" className="h-auto p-0">
-                      <Link href="https://squareup.com/au/en" target="_blank">
-                        Square&apos;s
-                      </Link>
-                    </Button>{" "}
-                    Point-of-Sale terminals to accept card payments. Reach out to a committee member via our Discord or
-                    a CFC event to pay in-person. A committee member will update your status as a member on payment
-                    confirmation.
-                  </p>
-                  <Button className="w-full" onClick={handleSkipPayment}>
-                    I&apos;ve paid in cash
-                  </Button>
-                </TabsContent>
-              </Tabs>
-              <div className="relative select-none">
-                <div className="absolute inset-0 flex items-center">
-                  <span className="w-full border-t" />
-                </div>
-                <div className="relative flex justify-center text-xs uppercase">
-                  <span className="bg-background px-2 text-muted-foreground">Or</span>
-                </div>
-              </div>
-              <div className="space-y-2">
-                <h2 className="text-sm font-semibold leading-none tracking-tight">Skipping payment</h2>
-                <div className="text-sm text-muted-foreground">
-                  <p>
-                    You can skip payment for now but you will miss out on the benefits mentioned above until you do. You
-                    can always pay later by going to your account dashboard.
-                  </p>
-                </div>
-              </div>
-              <Button
-                variant="outline"
-                disabled={loadingSkipPayment}
-                className="relative w-full"
-                onClick={handleSkipPayment}
-              >
-                Skip payment
-                {loadingSkipPayment && (
-                  <span className="material-symbols-sharp absolute right-4 animate-spin">progress_activity</span>
-                )}
-              </Button>
-            </>
-          ) : (
-            <p className="text-sm text-warning">
-              Memberships are temporarily closed for the new year. Please check back later.
-            </p>
-          )}
-        </div>
-      ) : (
-        <PaymentBlock />
-      )}
-      {/* <div className="hidden w-full border border-border md:block">
-          <div className="relative h-40 bg-black border-b border-muted">
-            <div className="container">
-              <Avatar
-                size="lg"
-                className="absolute bottom-0 translate-y-1/2 border-4 border-muted"
-              >
-                <AvatarImage
-                  src="https://github.com/shadcn.png"
-                  alt="@shadcn"
-                />
-                <AvatarFallback>CN</AvatarFallback>
-              </Avatar>
-            </div>
-          </div>
-          <div className="container">
-            <div className="mt-10">
-              <p className="text-lg font-bold">{getValues().name}</p>
-              <p className="text-sm text-muted-foreground">
-                {getValues().email}
-              </p>
-            </div>
-            <GithubHeatmap username={user_github ?? ""} />
-          </div>
-        </div> */}
+          <VerificationDialog
+            email={form.state.values.email}
+            open={openVerification}
+            onOpenChange={setOpenVerification}
+            changeActiveView={() => setActiveView("payment")}
+          />
+        </FieldSet>
+      </div>
+
+      <div className="hidden w-[150px] flex-col md:flex">
+        <Scrollspy offset={50} targetRef={parentRef} className="sticky top-24 z-0 flex flex-col gap-2">
+          <p className="text-xs text-neutral-500 dark:text-neutral-400">On This Page</p>
+          <Button
+            size="sm"
+            variant="ghost"
+            data-scrollspy-anchor="personal-details"
+            className="justify-start data-[active=true]:bg-neutral-100 data-[active=true]:text-neutral-900 dark:data-[active=true]:bg-neutral-800 dark:data-[active=true]:text-neutral-50"
+          >
+            Personal details
+          </Button>
+          <Button
+            size="sm"
+            variant="ghost"
+            data-scrollspy-anchor="social-details"
+            className="justify-start data-[active=true]:bg-neutral-100 data-[active=true]:text-neutral-900 dark:data-[active=true]:bg-neutral-800 dark:data-[active=true]:text-neutral-50"
+          >
+            Social details
+          </Button>
+          <Button
+            size="sm"
+            variant="ghost"
+            data-scrollspy-anchor="payment-details"
+            className="justify-start data-[active=true]:bg-neutral-100 data-[active=true]:text-neutral-900 dark:data-[active=true]:bg-neutral-800 dark:data-[active=true]:text-neutral-50"
+          >
+            Payment details
+          </Button>
+        </Scrollspy>
+      </div>
     </div>
   )
 }

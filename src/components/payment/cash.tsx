@@ -1,63 +1,66 @@
 "use client"
 
-import { zodResolver } from "@hookform/resolvers/zod"
-import { useForm } from "react-hook-form"
-import * as z from "zod"
+import * as React from "react"
+import { z } from "zod"
 
-import { Button } from "~/components/ui/button"
-import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "~/components/ui/form"
-import { Input } from "~/components/ui/input"
-
-interface CashPaymentFormProps {
-  afterPayment?: (paymentID: string) => Promise<void>
-}
+import { Button } from "~/ui/button"
+import { FormDescription, FormField, FormLabel, FormMessage, useAppForm } from "~/ui/form"
+import { Input } from "~/ui/input"
 
 const formSchema = z.object({
-  code: z.string().optional(),
+  code: z.string(),
 })
 
-const defaultValues = {
-  code: "",
-}
-
-type FormSchema = z.infer<typeof formSchema>
-
-const CashPaymentForm = (props: CashPaymentFormProps) => {
-  const form = useForm<FormSchema>({
-    resolver: zodResolver(formSchema),
-    defaultValues,
+export default function CashPayment() {
+  const form = useAppForm({
+    defaultValues: {
+      code: "",
+    },
+    validators: {
+      onSubmit: formSchema,
+    },
+    onSubmit({ value }) {
+      // await props.afterPayment?.("paymentID");
+    },
   })
 
-  const onSubmit = async ({ code }: FormSchema) => {
-    console.log(code)
-    await props.afterPayment?.("paymentID")
-  }
-
   return (
-    <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-        <FormField
-          control={form.control}
-          name="code"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel className="font-mono">Confirmation code</FormLabel>
-              <FormControl>
-                <Input {...field} />
-              </FormControl>
-              <FormDescription>
-                To verify your payment, have a committee member enter the confirmation code.
-              </FormDescription>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <Button type="submit" className="w-full">
-          Confirm
-        </Button>
-      </form>
-    </Form>
+    <form>
+      <form.AppField name="code">
+        {(field) => (
+          <field.FormItem>
+            <FormLabel>
+              Confirmation code <span className="opacity-75">*</span>
+            </FormLabel>
+            <FormField>
+              <Input
+                type="password"
+                value={field.state.value}
+                onBlur={field.handleBlur}
+                onChange={(e) => {
+                  field.handleChange(e.target.value)
+                }}
+              />
+            </FormField>
+            <FormDescription>
+              To verify your payment, have a committee member enter the confirmation code.
+            </FormDescription>
+            <FormMessage />
+          </field.FormItem>
+        )}
+      </form.AppField>
+      <form.Subscribe selector={(state) => [state.isSubmitting, state.canSubmit]}>
+        {([isSubmitting, canSubmit]) => (
+          <Button type="submit" disabled={isSubmitting ?? !canSubmit} className="relative w-full">
+            Confirm
+            {isSubmitting && (
+              <span className="material-symbols-sharp absolute right-4 animate-spin text-base! leading-none!">
+                progress_activity
+              </span>
+            )}
+          </Button>
+        )}
+      </form.Subscribe>
+    </form>
   )
 }
-
-export default CashPaymentForm

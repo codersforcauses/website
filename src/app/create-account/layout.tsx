@@ -1,32 +1,22 @@
-import type { Metadata, Viewport } from "next"
+import Header from "~/components/header"
+import Footer from "~/components/footer"
+import { TypingText } from "~/ui/typing-text"
 
-import { customMetadata } from "~/lib/metadata"
-import { type PropsWithChildren } from "~/lib/types"
-
-import TitleText from "../_components/title-text"
-
-export const viewport: Viewport = {
-  themeColor: "black",
-}
-
-export const metadata: Metadata = {
-  title: "Sign Up",
-  ...customMetadata({
-    name: "Sign Up",
-    page: "create-account",
-    description: "Create an account to access the Coders for Causes platform.",
-    image:
-      "https://og-social-cards.vercel.app/**.%2Fcreate-account**.png?theme=dark&md=1&fontSize=125px&images=https%3A%2Fcodersforcauses.org%2Flogo%2Fcfc_logo_white_full.svg",
-  }),
-}
-
-const Layout = ({ children }: PropsWithChildren) => {
+export default function Layout({ children }: LayoutProps<"/create-account">) {
   return (
-    <main className="main">
-      <TitleText typed>./create-account</TitleText>
-      {children}
-    </main>
+    <>
+      <Header />
+      <main id="main" className="bg-white dark:bg-neutral-950">
+        <div className="bg-black pt-18 pb-9 text-neutral-50 md:pt-24 md:pb-12">
+          <div className="container mx-auto px-4">
+            <h1 className="font-mono text-2xl select-none md:text-3xl">
+              <TypingText text="./create-account" />
+            </h1>
+          </div>
+        </div>
+        {children}
+      </main>
+      <Footer />
+    </>
   )
 }
-
-export default Layout

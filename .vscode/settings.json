@@ -1,12 +1,66 @@
 {
+  "tailwindCSS.classFunctions": ["cva", "cx"],
+  "typescript.experimental.useTsgo": true,
   "workbench.editor.customLabels.patterns": {
     "**/src/app/**/page.tsx": "${dirname} - Page",
     "**/src/app/**/index.tsx": "${dirname} - Index",
     "**/src/app/**/layout.tsx": "${dirname} - Layout",
     "**/src/app/**/template.tsx": "${dirname} - Template",
-
     // lol
-    "**/src/components/**/index.tsx": "${dirname} - Component",
-    "**/src/_components/**/index.tsx": "${dirname} - Component"
-  }
+    "**/src/components/**/index.tsx": "${dirname} - Component"
+  },
+  "workbench.colorCustomizations": {
+    "activityBar.activeBackground": "#3e6db3",
+    "activityBar.background": "#3e6db3",
+    "activityBar.foreground": "#e7e7e7",
+    "activityBar.inactiveForeground": "#e7e7e799",
+    "activityBarBadge.background": "#5f213a",
+    "activityBarBadge.foreground": "#e7e7e7",
+    "tab.activeBorder": "#3e6db3",
+    "statusBar.background": "#31568d",
+    "statusBar.foreground": "#e7e7e7",
+    "statusBarItem.hoverBackground": "#3e6db3",
+    "statusBarItem.remoteBackground": "#31568d",
+    "statusBarItem.remoteForeground": "#e7e7e7"
+  },
+  "peacock.color": "#31568d",
+  "cSpell.words": [
+    "anglicare",
+    "autorenew",
+    "codersforcauses",
+    "Cowan",
+    "daypicker",
+    "foguwa",
+    "foodbank",
+    "GUWA",
+    "ignitementoring",
+    "MAPBOX",
+    "microsoftazure",
+    "microsoftsqlserver",
+    "MSQL",
+    "nextdotjs",
+    "nodedotjs",
+    "Nuxt",
+    "nuxtdotjs",
+    "overscan",
+    "oxlint",
+    "oxlintrc",
+    "Rugbyworks",
+    "snarkdown",
+    "srugby",
+    "TAFE",
+    "thevault",
+    "treeify",
+    "turbopack",
+    "Unban",
+    "uuidv",
+    "visx",
+    "vuedotjs",
+    "Vuetify",
+    "wadl",
+    "wais"
+  ],
+  "editor.tabSize": 2,
+  "editor.tabCompletion": "onlySnippets",
+  "oxc.enable": true
 }

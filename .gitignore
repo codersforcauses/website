@@ -11,6 +11,7 @@
 # database
 /prisma/db.sqlite
 /prisma/db.sqlite-journal
+db.sqlite
 
 # next.js
 /.next/
@@ -41,12 +42,13 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 
-# Sentry Config File
-.sentryclirc
+# idea files
+.idea
+# Million Lint
+.million
 
 # Sentry Config File
 .env.sentry-build-plugin
 
-# xata
-.xatarc
-.xata/
+# user data migration
+cfc-website_user.csv

@@ -1,23 +1,15 @@
-import { cookies } from "next/headers"
+"use client"
 
-import { ThemeProvider } from "~/components/theme-provider"
-
-import { type PropsWithChildren } from "~/lib/types"
+import * as React from "react"
+import { ThemeProvider } from "next-themes"
 import { TRPCReactProvider } from "~/trpc/react"
 
-export default function Providers({ children }: PropsWithChildren) {
+export function Providers({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <ThemeProvider enableSystem disableTransitionOnChange attribute="class" defaultTheme="system">
-      <TRPCReactProvider cookies={cookies().toString()}>{children}</TRPCReactProvider>
-    </ThemeProvider>
+    <TRPCReactProvider>
+      <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
+        {children}
+      </ThemeProvider>
+    </TRPCReactProvider>
   )
-  // ) : (
-  // import("@builder.io/react-hydration-overlay").then(({ HydrationOverlay }) => (
-  //   <HydrationOverlay>
-  //     <ThemeProvider enableSystem disableTransitionOnChange attribute="class" defaultTheme="system">
-  //       <TRPCReactProvider cookies={cookies().toString()}>{children}</TRPCReactProvider>
-  //     </ThemeProvider>
-  //   </HydrationOverlay>
-  // ))
-  // )
 }

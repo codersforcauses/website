@@ -1,81 +1,171 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+@import "tw-animate-css";
 
-/* If these values are updated, make sure to update the variables for Square styles as well. */
-@layer base {
-  :root {
-    --background: 0 0% 100%;
-    --foreground: 0 0% 3.9%;
-    --card: 0 0% 100%;
-    --card-foreground: 0 0% 3.9%;
-    --popover: 0 0% 100%;
-    --popover-foreground: 0 0% 3.9%;
-    --primary: 0 0% 9%;
-    --primary-foreground: 0 0% 98%;
-    --secondary: 0 0% 96.1%;
-    --secondary-foreground: 0 0% 9%;
-    --muted: 0 0% 96.1%;
-    --muted-foreground: 0 0% 45.1%;
-    --accent: 0 0% 96.1%;
-    --accent-foreground: 0 0% 9%;
-    --destructive: 0 72.2% 50.6%;
-    --destructive-foreground: 0 0% 98%;
-    --border: 0 0% 89.8%;
-    --ring: 0 0% 3.9%;
-    --radius: 0rem;
-  }
+@custom-variant dark (&:is(.dark *));
 
-  .dark {
-    --background: 0 0% 3.9%;
-    --foreground: 0 0% 98%;
-    --card: 0 0% 3.9%;
-    --card-foreground: 0 0% 98%;
-    --popover: 0 0% 3.9%;
-    --popover-foreground: 0 0% 98%;
-    --primary: 0 0% 98%;
-    --primary-foreground: 0 0% 9%;
-    --secondary: 0 0% 14.9%;
-    --secondary-foreground: 0 0% 98%;
-    --muted: 0 0% 14.9%;
-    --muted-foreground: 0 0% 63.9%;
-    --accent: 0 0% 14.9%;
-    --accent-foreground: 0 0% 98%;
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 0 0% 98%;
-    --border: 0 0% 14.9%;
-    --ring: 0 0% 83.1%;
+@theme {
+  --color-accent: oklch(85.614% 0.15981 176.162);
+
+  --animate-wiggle: wiggle 1000ms cubic-bezier(0.2, 0.8, 0.4, 1) both;
+
+  /* **`ease-in`**: (Starts slow, speeds up) Should generally be avoided as it makes the UI feel slow. */
+  --ease-in-quad: cubic-bezier(0.55, 0.085, 0.68, 0.53);
+  --ease-in-cubic: cubic-bezier(0.55, 0.055, 0.675, 0.19);
+  --ease-in-quart: cubic-bezier(0.895, 0.03, 0.685, 0.22);
+  --ease-in-quint: cubic-bezier(0.755, 0.05, 0.855, 0.06);
+  --ease-in-expo: cubic-bezier(0.95, 0.05, 0.795, 0.035);
+  --ease-in-circ: cubic-bezier(0.6, 0.04, 0.98, 0.335);
+
+  /* **ease-out**: (Starts fast, slows down) Best for elements entering the screen or user-initiated interactions. */
+  --ease-out-quad: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --ease-out-cubic: cubic-bezier(0.215, 0.61, 0.355, 1);
+  --ease-out-quart: cubic-bezier(0.165, 0.84, 0.44, 1);
+  --ease-out-quint: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-out-expo: cubic-bezier(0.19, 1, 0.22, 1);
+  --ease-out-circ: cubic-bezier(0.075, 0.82, 0.165, 1);
+
+  /* **ease-in-out**: (Smooth acceleration and deceleration) Perfect for elements moving within the screen. */
+  --ease-in-out-quad: cubic-bezier(0.455, 0.03, 0.515, 0.955);
+  --ease-in-out-cubic: cubic-bezier(0.645, 0.045, 0.355, 1);
+  --ease-in-out-quart: cubic-bezier(0.77, 0, 0.175, 1);
+  --ease-in-out-quint: cubic-bezier(0.86, 0, 0.07, 1);
+  --ease-in-out-expo: cubic-bezier(1, 0, 0, 1);
+  --ease-in-out-circ: cubic-bezier(0.785, 0.135, 0.15, 0.86);
+
+  @keyframes wiggle {
+    0%,
+    90% {
+      transform: translate(-1px, 0);
+    }
+    20%, 80%: {
+      transform: translate(2px, 0);
+    }
+    30%, 50%, 70%: {
+      transform: translate(-4px, 0);
+    }
+    40%, 60%: {
+      transform: translate(4px, 0);
+    }
   }
+}
+
+@theme inline {
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-ring: var(--sidebar-ring);
+}
+
+:root {
+  --radius: 0.625rem;
+
+  --sidebar: oklch(0.985 0 0);
+  --sidebar-foreground: #0a0a0a;
+  --sidebar-primary: oklch(0.205 0 0);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.97 0 0);
+  --sidebar-accent-foreground: #171717;
+  --sidebar-ring: oklch(0.708 0 0);
+}
+
+.dark {
+  --sidebar: #171717;
+  --sidebar-foreground: #fafafa;
+  --sidebar-primary: #1447e6;
+  --sidebar-primary-foreground: #fafafa;
+  --sidebar-accent: #262626;
+  --sidebar-accent-foreground: #fafafa;
+  --sidebar-ring: rgb(115, 115, 115);
 }
 
 @layer base {
   * {
-    @apply border-border;
+    @apply border-black/20 outline-black/5 dark:border-white/20 dark:outline-white/5;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply bg-black text-neutral-950 dark:text-neutral-50;
   }
-
-  .main {
-    @apply mt-16 h-full min-h-[calc(100vh-(64px+600px))] md:min-h-[calc(100vh-(64px+292px))];
+  /* .leaflet-container {
+    @apply !bg-card !font-[inherit];
   }
-
-  .material-symbols-sharp {
-    font-variation-settings:
-      "FILL" 0,
-      "GRAD" 0,
-      "opsz" 24;
+  .leaflet-container a {
+    @apply !text-inherit;
   }
-
-  .sq-card-message {
-    margin: 0 !important;
+  .leaflet-div-icon {
+    @apply !bg-transparent !border-none;
   }
+  .leaflet-popup-content-wrapper, .leaflet-popup-content, .leaflet-popup-content p {
+    @apply ![all:unset];
+  }
+  .leaflet-popup {
+    @apply !animate-none;
+  }
+  .leaflet-popup-close-button {
+    @apply ring-offset-background focus:ring-ring bg-secondary rounded-xs opacity-70 transition-opacity hover:opacity-100 focus:ring-2 focus:outline-hidden;
+  }
+  .leaflet-tooltip, .leaflet-draw-tooltip {
+    @apply !bg-foreground !text-background !animate-none !rounded-md !border-none !p-0 !px-3 !py-1.5 !shadow-none;
+  }
+  .leaflet-draw-tooltip:before {
+    @apply bg-foreground !top-1/2 !right-0.5 size-2.5 translate-x-1/2 -translate-y-1/2 rotate-45 rounded-[2px] !border-none;
+  }
+  .leaflet-error-draw-tooltip {
+    @apply !bg-destructive !text-white;
+  }
+  .leaflet-error-draw-tooltip:before {
+    @apply bg-destructive;
+  }
+  .leaflet-draw-tooltip-subtext {
+    @apply !text-background;
+  }
+  .leaflet-popup-tip-container, .leaflet-tooltip-top:before, .leaflet-tooltip-bottom:before, .leaflet-tooltip-left:before, .leaflet-tooltip-right:before {
+    @apply hidden;
+  }
+  .leaflet-control-attribution {
+    @apply !bg-muted rounded-md !px-[4px] !py-[2px] text-[10px] !leading-none !text-inherit;
+  }
+  .leaflet-draw-guide-dash {
+    @apply rounded-full;
+  }
+  .leaflet-edit-marker-selected {
+    @apply !border-transparent !bg-transparent;
+  } */
 }
 
-/*
-Offsets all ID's with prefix '_' with the height of header.
-This also means all ID's must be prefixed by '_'.
-*/
-[id^="_"] {
-  scroll-margin-top: 4rem;
+.root {
+  isolation: isolate;
+}
+
+.material-symbols-sharp {
+  font-variation-settings:
+    "FILL" 0,
+    "GRAD" 0,
+    "opsz" 20;
+}
+
+.sq-card-message {
+  margin: 0 !important;
+}
+
+.toast-container {
+  --gap: 0.25rem;
+  --scale: 0.05;
+  --translate: 13%;
+}
+
+.toast {
+  transform: scale(calc(1 - var(--index) * var(--scale))) translateY(calc(var(--index) * var(--translate)));
+}
+.toast-large {
+  transform: scale(calc(1 - var(--index) * var(--scale))) translateY(calc(-1 * var(--index) * var(--translate)));
+}
+
+.toast-container:hover .toast {
+  transform: scale(1) translateY(calc(var(--index) * (100% + var(--gap))));
+}
+.toast-container:hover .toast-large {
+  transform: scale(1) translateY(calc(-1 * var(--index) * (100% + var(--gap))));
 }

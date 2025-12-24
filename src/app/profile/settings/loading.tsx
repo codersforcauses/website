@@ -1,26 +1,17 @@
-import { Separator } from "~/components/ui/separator"
-import { Skeleton } from "~/components/ui/skeleton"
+import { Separator } from "~/ui/separator"
+import { Skeleton } from "~/ui/skeleton"
 
-const Loading = () => {
+export default function Loading() {
   return (
     <div className="space-y-4">
       <div>
-        <h2 className="font-mono text-lg font-medium">Personal details</h2>
-        <p className="text-sm text-muted-foreground">Update your personal details. All fields here are required.</p>
+        <h2 className="font-mono text-lg font-medium">Membership</h2>
+        <p className="text-sm text-neutral-500 dark:text-neutral-400">
+          View your current membership details or renew your membership.
+        </p>
       </div>
       <Separator className="md:max-w-2xl" />
-      <div className="max-w-xl space-y-4">
-        {new Array(5).fill(0).map((_, idx) => (
-          <div key={idx} className="space-y-1.5">
-            <Skeleton className="h-[1.125rem] w-3/12" />
-            <Skeleton className="h-10 w-full" />
-            <Skeleton className="h-[0.875rem] w-11/12" />
-          </div>
-        ))}
-        <Skeleton className="h-10 w-full" />
-      </div>
+      <Skeleton className="h-full w-1/2" />
     </div>
   )
 }
-
-export default Loading

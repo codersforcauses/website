@@ -1,61 +1,23 @@
-import * as React from "react"
+import { SidebarInset, SidebarProvider } from "~/ui/sidebar"
+import { TypingText } from "~/ui/typing-text"
+import SettingsSidebar from "./sidebar"
 
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "~/components/ui/tabs"
-
-import TitleText from "~/app/_components/title-text"
-import { type PropsWithChildren } from "~/lib/types"
-
-interface UserSettingsLayoutProps extends PropsWithChildren {
-  personal: React.ReactNode
-  socials: React.ReactNode
-  appearance: React.ReactNode
-  membership: React.ReactNode
-}
-
-const Layout = async ({ children, ...props }: UserSettingsLayoutProps) => {
-  const sidebarItems = [
-    { text: "Personal", icon: "face", component: props.personal },
-    {
-      text: "Socials",
-      icon: "tag",
-      component: props.socials,
-    },
-    { text: "Appearance", icon: "palette", component: props.appearance },
-    // { text: "Notifications", icon: "notifications", component:  },
-    { text: "Membership", icon: "stars", component: props.membership },
-  ]
-
+export default function Layout({ children }: LayoutProps<"/profile/settings">) {
   return (
-    <main className="main">
-      <TitleText typed>./settings</TitleText>
-      <div className="container py-8">
-        <Tabs defaultValue={sidebarItems[0]?.text} className="flex flex-col md:flex-row">
-          <TabsList className="h-full flex-grow p-1 md:h-auto md:flex-grow-0">
-            <div className="flex md:grid md:h-min md:w-52 md:max-w-xs md:grid-cols-1 md:gap-1 md:self-start">
-              {sidebarItems.map(({ icon, text }) => (
-                <TabsTrigger
-                  key={text}
-                  value={text}
-                  className="group flex justify-start focus:ring-1 focus:ring-muted-foreground data-[state=active]:flex-grow md:h-[42px]"
-                >
-                  <span className="material-symbols-sharp text-xl leading-none">{icon}</span>
-                  <span className="ml-2 hidden group-data-[state=active]:block sm:block">{text}</span>
-                </TabsTrigger>
-              ))}
-            </div>
-          </TabsList>
-          <div className="flex-grow py-8 md:px-8 md:py-0">
-            {sidebarItems.map(({ text, component }) => (
-              <TabsContent key={text} value={text} className="mt-0">
-                {component}
-              </TabsContent>
-            ))}
-          </div>
-        </Tabs>
+    <main id="main" className="bg-white dark:bg-neutral-950">
+      <div className="bg-black pt-18 pb-9 text-neutral-50 md:pt-24 md:pb-12">
+        <div className="container mx-auto px-4">
+          <h1 className="font-mono text-2xl select-none md:text-3xl">
+            <TypingText text="./settings" />
+          </h1>
+        </div>
       </div>
-      {children}
+      <SidebarProvider className="container mx-auto min-h-[calc(100vh-(288px+180px+48px))] p-4">
+        <SettingsSidebar />
+        <SidebarInset>
+          <div className="@container/main">{children}</div>
+        </SidebarInset>
+      </SidebarProvider>
     </main>
   )
 }
-
-export default Layout

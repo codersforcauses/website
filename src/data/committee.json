@@ -1,0 +1,171 @@
+[
+  {
+    "name": "Juliana Salazar Franco",
+    "position": "President",
+    "pronouns": "She/They",
+    "social": {
+      "email": "president@codersforcauses.org",
+      "github": "https://github.com/Julie-Salazar"
+    },
+    "picture": {
+      "src": "/committee/julesdp_24.png",
+      "alt": "CFC President"
+    }
+  },
+  {
+    "name": "Lauren Pudney",
+    "position": "Vice President",
+    "pronouns": "She/Her",
+    "social": {
+      "email": "vicepresident@codersforcauses.org",
+      "github": "https://github.com/laurenpudz"
+    },
+    "picture": {
+      "src": "/committee/laurendp_24.png",
+      "alt": "CFC Vice President"
+    }
+  },
+  {
+    "name": "Alexandra Harrison",
+    "position": "Secretary",
+    "pronouns": "She/Her",
+    "social": {
+      "email": "secretary@codersforcauses.org",
+      "github": "https://github.com/allyharrison"
+    },
+    "picture": {
+      "src": "/committee/allydp_25.webp",
+      "alt": "CFC Secretary"
+    }
+  },
+  {
+    "name": "Mahit Gupta",
+    "position": "Treasurer",
+    "pronouns": "He/Him",
+    "social": {
+      "email": "treasurer@codersforcauses.org",
+      "github": "https://github.com/MahitGtg"
+    },
+    "picture": {
+      "src": "/committee/mahitdp_25.jpg",
+      "alt": "CFC Treasurer"
+    }
+  },
+  {
+    "name": "Jack Sun",
+    "position": "Technical Lead",
+    "pronouns": "He/Him",
+    "social": {
+      "email": "dev@codersforcauses.org",
+      "github": "https://github.com/jsun1590"
+    },
+    "picture": {
+      "src": "/committee/jackdp_22.webp",
+      "alt": "CFC Tech Lead"
+    }
+  },
+  {
+    "name": "Keandria Ong",
+    "position": "Marketing Officer",
+    "pronouns": "She/Her",
+    "social": {
+      "email": "publicity@codersforcauses.org",
+      "github": "https://github.com/mouper"
+    },
+    "picture": {
+      "src": "/committee/driadp_25.jpg",
+      "alt": "CFC Marketing Officer"
+    }
+  },
+  {
+    "name": "Tom Nylund",
+    "position": "Ordinary Committee Member",
+    "pronouns": "He/Him",
+    "social": {
+      "email": "committee@codersforcauses.org",
+      "github": ""
+    },
+    "picture": {
+      "src": "/committee/tomdp_25.png",
+      "alt": "CFC OCM"
+    }
+  },
+  {
+    "name": "Erica Kong",
+    "position": "Ordinary Committee Member",
+    "pronouns": "She/Her",
+    "social": {
+      "email": "committee@codersforcauses.org",
+      "github": "https://github.com/ErikaKK"
+    },
+    "picture": {
+      "src": "/committee/ericadp_25.jpg",
+      "alt": "CFC OCM"
+    }
+  },
+  {
+    "name": "Alton Wong",
+    "position": "Ordinary Committee Member",
+    "pronouns": "He/Him",
+    "social": {
+      "email": "committee@codersforcauses.org",
+      "github": "https://github.com/ZenFlamex"
+    },
+    "picture": {
+      "src": "/committee/altondp_25.jpg",
+      "alt": "CFC OCM"
+    }
+  },
+  {
+    "name": "lshita Sharma",
+    "position": "Ordinary Committee Member",
+    "pronouns": "She/Her",
+    "social": {
+      "email": "committee@codersforcauses.org",
+      "github": "https://github.com/grumblingremlin"
+    },
+    "picture": {
+      "src": "/committee/ishitadp_25.jpg",
+      "alt": "CFC OCM"
+    }
+  },
+  {
+    "name": "Arzoo",
+    "position": "Ordinary Committee Member",
+    "pronouns": "She/Her",
+    "social": {
+      "email": "committee@codersforcauses.org",
+      "github": ""
+    },
+    "picture": {
+      "src": "/committee/arzoodp_25.webp",
+      "alt": "CFC OCM"
+    }
+  },
+  {
+    "name": "Samuel Theodore",
+    "position": "Ordinary Committee Member",
+    "pronouns": "He/Him",
+    "social": {
+      "email": "committee@codersforcauses.org",
+      "github": "https://github.com/samueltl21"
+    },
+    "picture": {
+      "src": "/committee/samdp_25.jpg",
+      "alt": "CFC OCM"
+    }
+  },
+  {
+    "name": "Joshua Chai",
+    "position": "Fresher Representative",
+    "pronouns": "He/Him",
+    "social": {
+      "email": "firstyear@codersforcauses.org",
+      "github": "https://github.com/joshuachai"
+    },
+    "picture": {
+      "src": "/committee/joshuadp_25.jpg",
+      "alt": "CFC Fresher Rep."
+    }
+  }
+]

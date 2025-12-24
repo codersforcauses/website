@@ -1,35 +1,37 @@
-import { Slot } from "@radix-ui/react-slot"
-import { type VariantProps, cva } from "class-variance-authority"
 import * as React from "react"
+import { Slot } from "@radix-ui/react-slot"
+import { cva, type VariantProps } from "class-variance-authority"
 
 import { cn } from "~/lib/utils"
 
 const buttonVariants = cva(
-  "inline-flex touch-none items-center justify-center whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50",
+  "inline-flex shrink-0 items-center justify-center gap-2 text-sm font-medium whitespace-nowrap transition-all outline-none focus-visible:border-neutral-950 focus-visible:ring-[3px] focus-visible:ring-neutral-950/50 disabled:pointer-events-none disabled:opacity-50 aria-invalid:border-red-500 aria-invalid:ring-red-500/20 dark:focus-visible:border-neutral-300 dark:focus-visible:ring-neutral-300/50 [&_.material-symbols-sharp]:pointer-events-none [&_.material-symbols-sharp]:shrink-0 [&_.material-symbols-sharp:not([class*='size-'])]:text-base! [&_.material-symbols-sharp:not([class*='size-'])]:leading-none! [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
   {
     variants: {
       variant: {
-        default: "bg-primary text-primary-foreground hover:bg-primary/90",
-        dark: "bg-neutral-50 text-black ring-offset-black hover:bg-neutral-50/90 focus-visible:ring-neutral-300",
-        destructive: "bg-destructive text-destructive-foreground hover:bg-destructive/90",
+        default:
+          "bg-black text-neutral-50 hover:bg-neutral-800 dark:bg-white dark:text-neutral-950 dark:hover:bg-neutral-100",
+        dark: "bg-white text-neutral-950 hover:bg-neutral-200",
+        destructive:
+          "bg-red-500 text-neutral-50 hover:bg-red-500/90 focus-visible:ring-red-500/20 dark:bg-red-900 dark:hover:bg-red-900/90 dark:focus-visible:ring-red-900/20",
         outline:
-          "border border-black/25 bg-background hover:bg-accent hover:text-accent-foreground dark:border-white/25",
-        "outline-dark":
-          "border border-neutral-50/25 ring-offset-black bg-black hover:bg-neutral-50/25 focus-visible:ring-neutral-300",
-        secondary: "bg-secondary text-secondary-foreground hover:bg-secondary/80",
-        "secondary-dark":
-          "bg-neutral-800 text-neutral-50 ring-offset-black hover:bg-neutral-800/80 focus-visible:ring-neutral-300",
-        ghost: "hover:bg-accent hover:text-accent-foreground",
-        "ghost-dark": "text-neutral-50 ring-offset-black hover:bg-neutral-50/10 focus-visible:ring-neutral-300",
-        link: "text-primary underline-offset-4 hover:underline",
-        "link-dark":
-          "text-neutral-50 underline-offset-4 ring-offset-black hover:underline focus-visible:ring-neutral-300",
+          "border bg-white hover:bg-neutral-100 hover:text-neutral-950 dark:bg-neutral-950 dark:hover:bg-neutral-800 dark:hover:text-neutral-50",
+        "outline-dark": "border border-white/20 bg-neutral-950 hover:bg-neutral-800 hover:text-neutral-50",
+        secondary:
+          "bg-neutral-100 text-neutral-950 hover:bg-neutral-200 dark:bg-neutral-800 dark:text-neutral-50 dark:hover:bg-neutral-700",
+        "secondary-dark": "bg-neutral-800 text-neutral-50 hover:bg-neutral-700",
+        ghost: "hover:bg-neutral-100 hover:text-neutral-950 dark:hover:bg-neutral-800 dark:hover:text-neutral-50",
+        "ghost-dark": "text-neutral-50 hover:bg-neutral-800 hover:text-neutral-50 focus-visible:ring-neutral-300/50",
+        link: "text-neutral-950 underline-offset-4 hover:underline dark:text-neutral-50",
+        "link-dark": "text-neutral-50 underline-offset-4 hover:underline focus-visible:ring-neutral-300/50",
       },
       size: {
-        default: "h-10 px-4 py-2",
-        sm: "h-9 px-3",
-        lg: "h-11 px-8",
-        icon: "h-10 w-10",
+        default: "h-9 px-4 py-2 has-[>.material-symbols-sharp]:px-3 has-[>svg]:px-3",
+        sm: "h-8 gap-1.5 px-3 has-[>.material-symbols-sharp]:px-2.5 has-[>svg]:px-2.5",
+        lg: "h-10 px-6 has-[>.material-symbols-sharp]:px-4 has-[>svg]:px-4",
+        icon: "size-9",
+        "icon-sm": "size-8",
+        "icon-lg": "size-10",
       },
     },
     defaultVariants: {
@@ -39,18 +41,19 @@ const buttonVariants = cva(
   },
 )
 
-export interface ButtonProps
-  extends React.ButtonHTMLAttributes<HTMLButtonElement>,
-    VariantProps<typeof buttonVariants> {
-  asChild?: boolean
-}
+function Button({
+  className,
+  variant,
+  size,
+  asChild = false,
+  ...props
+}: React.ComponentProps<"button"> &
+  VariantProps<typeof buttonVariants> & {
+    asChild?: boolean
+  }) {
+  const Comp = asChild ? Slot : "button"
 
-const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ className, variant, size, asChild = false, ...props }, ref) => {
-    const Comp = asChild ? Slot : "button"
-    return <Comp className={cn(buttonVariants({ variant, size, className }))} ref={ref} {...props} />
-  },
-)
-Button.displayName = "Button"
+  return <Comp data-slot="button" className={cn(buttonVariants({ variant, size, className }))} {...props} />
+}
 
 export { Button, buttonVariants }

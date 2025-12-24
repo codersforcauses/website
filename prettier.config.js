@@ -2,14 +2,18 @@
 const config = {
   trailingComma: "all",
   semi: false,
+  tabWidth: 2,
   endOfLine: "lf",
   printWidth: 120,
-  tabWidth: 2,
-  tailwindConfig: "./tailwind.config.ts",
-  importOrder: ["^~/components/(.*)$", "^~/(.*)$", "^[./]"],
-  importOrderSeparation: true,
-  importOrderSortSpecifiers: true,
-  plugins: ["prettier-plugin-tailwindcss", "@trivago/prettier-plugin-sort-imports"],
+  plugins: [
+    "prettier-plugin-tailwindcss",
+    // "@trivago/prettier-plugin-sort-imports"
+  ],
+  tailwindFunctions: ["cva", "cn"],
+  tailwindStylesheet: "./src/styles/globals.css",
+  // importOrder: ["^~/components/(.*)$", "^~/(.*)$", "^[./]"],
+  // importOrderSeparation: true,
+  // importOrderSortSpecifiers: true,
 }
 
 export default config

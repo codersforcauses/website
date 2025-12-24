@@ -1,137 +1,138 @@
 "use client"
 
-import { useSignIn } from "@clerk/nextjs"
-import { type EmailLinkFactor } from "@clerk/types"
-import { zodResolver } from "@hookform/resolvers/zod"
-import { track } from "@vercel/analytics/react"
-import { useRouter } from "next/navigation"
 import * as React from "react"
-import { useForm } from "react-hook-form"
-import * as z from "zod"
+import { useRouter } from "next/navigation"
+import { useForm } from "@tanstack/react-form"
+import { z } from "zod"
+import { AnimatePresence, motion } from "motion/react"
 
-import { Alert, AlertDescription, AlertTitle } from "~/components/ui/alert"
-import { Button } from "~/components/ui/button"
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "~/components/ui/form"
-import { Input } from "~/components/ui/input"
-import { toast } from "~/components/ui/use-toast"
-
-import { SITE_URL } from "~/lib/constants"
-import type { ClerkError } from "~/lib/types"
 import { api } from "~/trpc/react"
+import { authClient } from "~/lib/auth-client"
+import { Alert, AlertDescription, AlertTitle } from "~/ui/alert"
+import { Button } from "~/ui/button"
+import { Field, FieldError, FieldGroup, FieldLabel } from "~/components/ui/field"
+import { Input } from "~/ui/input"
+import { Spinner } from "~/ui/spinner"
+import VerificationDialog from "./verification"
 
 const formSchema = z.object({
-  email: z
-    .string()
-    .email({
-      message: "Invalid email address",
-    })
-    .min(2, {
-      message: "Email is required",
-    }),
+  email: z.email({
+    error: ({ input }) => (input === "" ? "Email is required" : "Invalid email address"),
+  }),
 })
 
-type FormSchema = z.infer<typeof formSchema>
-
-const defaultValues = {
-  email: "",
-}
-
-export default function Join() {
-  const [showAlert, setShowAlert] = React.useState(false)
+export default function JoinPage() {
   const router = useRouter()
-  const utils = api.useUtils()
-  const { signIn, isLoaded, setActive } = useSignIn()
-  const form = useForm<FormSchema>({
-    resolver: zodResolver(formSchema),
-    defaultValues,
+  const btnRef = React.useRef<HTMLButtonElement>(null)
+  const { mutateAsync } = api.user.checkIfExists.useMutation()
+  const [btnText, setText] = React.useState("Continue")
+  const [loading, startTransition] = React.useTransition()
+  const [openVerification, setOpenVerification] = React.useState(false)
+  const form = useForm({
+    defaultValues: {
+      email: "",
+    },
+    validators: {
+      onSubmit: formSchema,
+    },
+    onSubmit({ value }) {
+      setText("Checking if email exists")
+      startTransition(async () => {
+        const userExists = await mutateAsync(value.email)
+
+        if (userExists) {
+          setText("Sending code to email")
+          await authClient.emailOtp.sendVerificationOtp(
+            {
+              email: value.email,
+              type: "sign-in",
+            },
+            {
+              onSuccess() {
+                setText("Continue")
+                setOpenVerification(true)
+              },
+              // onError({ error }) {
+              //   console.log("join error:", error);
+              // },
+            },
+          )
+        } else {
+          setText("Redirecting to sign up")
+          router.replace(`/create-account?email=${value.email}`)
+        }
+      })
+    },
   })
 
-  const onSubmit = async ({ email }: FormSchema) => {
-    if (!isLoaded) return null
-
-    if (process.env.NEXT_PUBLIC_VERCEL_ENV === "production") track("click-join")
-
-    const { startEmailLinkFlow } = signIn.createEmailLinkFlow()
-    try {
-      const si = await signIn.create({ identifier: email })
-
-      const emailLinkFactor = si.supportedFirstFactors.find(
-        (ff) => ff.strategy === "email_link" && ff.safeIdentifier === email,
-      ) as EmailLinkFactor | undefined
-
-      if (!emailLinkFactor) throw new Error("Email link is not a supported first factor??")
-
-      setShowAlert(true)
-      // Start the magic link flow.
-      const res = await startEmailLinkFlow({
-        emailAddressId: emailLinkFactor.emailAddressId,
-        redirectUrl: `${SITE_URL}/verification`,
-      })
-      const verification = res.firstFactorVerification
-      // Check the verification result.
-      if (verification.status === "expired") {
-        toast({
-          variant: "destructive",
-          title: "Link expired",
-          description: "The email verification link has expired. Please try again.",
-        })
-      }
-      if (res.status === "complete") {
-        // careful of order
-        await setActive({ session: res.createdSessionId }) // sets token from clerk
-        await utils.users.getCurrent.refetch()
-
-        router.push("/dashboard")
-      }
-    } catch (error) {
-      const { errors = [] } = error as ClerkError
-      if (errors?.[0]?.code === "form_identifier_not_found") {
-        router.replace(`/create-account?email=${email}`)
-      }
-      console.error(error)
-    } finally {
-      setShowAlert(false)
-    }
-  }
-
   return (
-    <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-        {showAlert ? (
-          <Alert>
-            <span className="material-symbols-sharp size-4 text-xl leading-4">mail</span>
-            <AlertTitle>Verification email sent!</AlertTitle>
-            <AlertDescription>
-              It can take up to 10 minutes. Make sure to check your spam folder if you can&apos;t find it.
-            </AlertDescription>
-          </Alert>
-        ) : (
-          <Alert>
-            <span className="material-symbols-sharp size-4 text-xl leading-4">help</span>
-            <AlertTitle>Welcome!</AlertTitle>
-            <AlertDescription>
-              No passwords here! Enter your email, and we&apos;ll email you a link to sign in or bring you to the sign
-              up page.
-            </AlertDescription>
-          </Alert>
-        )}
-        <FormField
-          control={form.control}
-          name="email"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel className="font-mono">Email address</FormLabel>
-              <FormControl>
-                <Input type="email" placeholder="hello@codersforcauses.org" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
+    <>
+      <form
+        className="grid gap-y-4"
+        onSubmit={(e) => {
+          e.preventDefault()
+          btnRef.current?.focus()
+          void form.handleSubmit()
+        }}
+      >
+        <Alert>
+          <span aria-hidden className="material-symbols-sharp">
+            info
+          </span>
+          <AlertTitle>Welcome!</AlertTitle>
+          <AlertDescription>
+            No passwords here! Enter your email, and we&apos;ll email you a code to sign in or bring you to the sign up
+            page.
+          </AlertDescription>
+        </Alert>
+        <FieldGroup>
+          <form.Field name="email">
+            {(field) => {
+              const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid
+              return (
+                <Field data-invalid={isInvalid}>
+                  <FieldLabel htmlFor={field.name}>Email address</FieldLabel>
+                  <Input
+                    autoFocus
+                    type="email"
+                    id={field.name}
+                    name={field.name}
+                    value={field.state.value}
+                    onBlur={field.handleBlur}
+                    onChange={(e) => field.handleChange(e.target.value)}
+                    aria-invalid={isInvalid}
+                    autoComplete="email"
+                    placeholder="john.doe@codersforcauses.org"
+                    disabled={loading}
+                  />
+                  {isInvalid && <FieldError errors={field.state.meta.errors} />}
+                </Field>
+              )
+            }}
+          </form.Field>
+        </FieldGroup>
+
+        <form.Subscribe selector={(state) => [state.canSubmit]}>
+          {([canSubmit]) => (
+            <Button ref={btnRef} type="submit" disabled={loading ?? !canSubmit} className="relative w-full">
+              <AnimatePresence mode="popLayout" initial={false}>
+                <motion.span
+                  key={btnText}
+                  transition={{ type: "spring", duration: 0.2, bounce: 0 }}
+                  initial={{ opacity: 0, y: -36 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: 36 }}
+                >
+                  {btnText}
+                </motion.span>
+              </AnimatePresence>
+              {loading && <Spinner className="absolute right-4" />}
+            </Button>
           )}
-        />
-        <Button type="submit" disabled={showAlert} className="w-full">
-          {showAlert ? "Waiting for email verification" : "Continue"}
-        </Button>
+        </form.Subscribe>
       </form>
-    </Form>
+
+      <VerificationDialog email={form.state.values.email} open={openVerification} onOpenChange={setOpenVerification} />
+    </>
   )
 }

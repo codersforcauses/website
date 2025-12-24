@@ -1,0 +1,78 @@
+[
+  {
+    "name": "Community Spirit Foundation",
+    "logo": "/clients/csf_logo_dark.svg",
+    "dark_logo": "/clients/csf_logo.png",
+    "width": 170
+  },
+  {
+    "name": "Repair Lab",
+    "logo": "/clients/repair_lab_logo.png",
+    "dark_logo": "/clients/repair_lab_logo.png",
+    "width": 100
+  },
+  {
+    "name": "P2S RugbyWorks",
+    "logo": "/clients/p2s_logo.svg",
+    "dark_logo": "/clients/p2s_logo_dark.svg",
+    "width": 180,
+    "alt_width": 207
+  },
+  {
+    "name": "Western Australian Debating League",
+    "logo": "/clients/wadl_logo.svg",
+    "dark_logo": "/clients/wadl_logo_light.png",
+    "width": 100
+  },
+  {
+    "name": "Blue Crew Australia",
+    "logo": "/clients/blue_crew_logo.png",
+    "dark_logo": "",
+    "width": 100
+  },
+  {
+    "name": "Ocean Youth",
+    "logo": "/clients/oy_logo.svg",
+    "dark_logo": "",
+    "width": 204.3
+  },
+
+  {
+    "name": "Foodbank WA",
+    "logo": "/clients/foodbank_logo.svg",
+    "dark_logo": "",
+    "width": 120,
+    "alt_width": 139.21
+  },
+  {
+    "name": "Pets of Older Persons",
+    "logo": "/clients/poops_logo.svg",
+    "dark_logo": "/clients/poops_logo_dark.png",
+    "width": 100
+  },
+  {
+    "name": "Western Australian Institute of Sport",
+    "logo": "/clients/wais_logo.svg",
+    "dark_logo": "/clients/wais_logo_dark.svg",
+    "width": 200
+  },
+  {
+    "name": "Anglicare WA",
+    "logo": "/clients/anglicare_logo.svg",
+    "dark_logo": "",
+    "width": 100
+  },
+  {
+    "name": "UWA Friends of the Grounds",
+    "logo": "/clients/fog_logo.svg",
+    "dark_logo": "",
+    "width": 150,
+    "alt_width": 171.35
+  },
+  {
+    "name": "Ignite Mentoring",
+    "logo": "/clients/ignite_logo.svg",
+    "dark_logo": "",
+    "width": 100
+  }
+]

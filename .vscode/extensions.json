@@ -1,0 +1,12 @@
+{
+  "recommendations": [
+    "esbenp.prettier-vscode", // prettier plugin
+    "dbaeumer.vscode-eslint", // eslint plugin
+    "oxc.oxc-vscode", // formatter to replace prettier/eslint
+    "bradlc.vscode-tailwindcss", // hinting / autocompletion for tailwind
+    "aaron-bond.better-comments", // comment highlighter
+    "streetsidesoftware.code-spell-checker", // spell checker
+    "eamodio.gitlens", // git in vscode
+    "mattpocock.ts-error-translator" // better typescript error messages
+  ]
+}

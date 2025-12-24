@@ -1,10 +1,15 @@
 // This file configures the initialization of Sentry on the client.
 // The added config here will be used whenever a users loads a page in their browser.
 // https://docs.sentry.io/platforms/javascript/guides/nextjs/
+
 import * as Sentry from "@sentry/nextjs"
 
 Sentry.init({
   dsn: "https://237a767d0f7c4a79b052b6df86adb720@o1131895.ingest.us.sentry.io/6176944",
+
+  // Adds request headers and IP for users, for more info visit:
+  // https://docs.sentry.io/platforms/javascript/guides/nextjs/configuration/options/#sendDefaultPii
+  sendDefaultPii: true,
 
   // Add optional integrations for additional features
   integrations: [Sentry.replayIntegration()],

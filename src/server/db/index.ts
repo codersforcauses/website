@@ -1,8 +1,19 @@
-import { drizzle } from "drizzle-orm/xata-http"
+import { drizzle } from "drizzle-orm/postgres-js"
+import postgres from "postgres"
 
+import { env } from "~/env"
 import * as schema from "./schema"
-import { getXataClient } from "./xata"
+import { relations } from "./relations"
 
-const xata = getXataClient()
+/**
+ * Cache the database connection in development. This avoids creating a new connection on every HMR
+ * update.
+ */
+const globalForDb = globalThis as unknown as {
+  conn: postgres.Sql | undefined
+}
 
-export const db = drizzle(xata, { schema })
+const conn = globalForDb.conn ?? postgres(env.DATABASE_URL)
+if (env.NODE_ENV !== "production") globalForDb.conn = conn
+
+export const db = drizzle({ client: conn, relations, schema })

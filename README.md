@@ -9,10 +9,10 @@
 Bootstrapped using the create-t3-app using:
 
 - [Next.js App router](https://nextjs.org/docs)
-- [tRPC v10](https://trpc.io/docs/v10/)
-- [Tailwind.css v3](https://tailwindcss.com/)
+- [tRPC v11](https://trpc.io/docs/)
+- [Tailwind.css v4](https://tailwindcss.com/)
 - [Drizzle ORM](https://orm.drizzle.team/docs/overview)
-- [Clerk authentication](https://clerk.com/docs)
+- [Better auth](https://www.better-auth.com/docs/introduction)
 - [Vercel](https://vercel.com)
 
 We use [pnpm](https://pnpm.io/) as the package manager for this project.
