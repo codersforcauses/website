@@ -1,6 +1,6 @@
 import { uuidv7 } from "uuidv7"
 
-import { createTable } from "./prefix"
+import { createTable, timestamps } from "./util"
 import { users } from "./user"
 
 export const payments = createTable(
@@ -21,8 +21,7 @@ export const payments = createTable(
     // eventId: d
     //   .uuid("event_id")
     //   .references(() => users.id, { onDelete: "set null" }), // TODO: add events table
-    createdAt: d.timestamp("created_at", { withTimezone: true }).defaultNow().notNull(),
-    updatedAt: d.timestamp("updated_at", { withTimezone: true }).$onUpdate(() => new Date()),
+    ...timestamps,
   }),
   // (t) => [index("verification_identifier_idx").on(t.identifier)],
 )

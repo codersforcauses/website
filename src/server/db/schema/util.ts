@@ -1,4 +1,4 @@
-import { pgTableCreator } from "drizzle-orm/pg-core"
+import { pgTableCreator, timestamp } from "drizzle-orm/pg-core"
 
 /**
  * This is an example of how to use the multi-project schema feature of Drizzle ORM. Use the same
@@ -7,3 +7,8 @@ import { pgTableCreator } from "drizzle-orm/pg-core"
  * @see https://orm.drizzle.team/docs/goodies#multi-project-schema
  */
 export const createTable = pgTableCreator((name) => `cfc_website_${name}`)
+
+export const timestamps = {
+  createdAt: timestamp("created_at", { withTimezone: true }).defaultNow().notNull(),
+  updatedAt: timestamp("updated_at", { withTimezone: true }).$onUpdate(() => new Date()),
+}

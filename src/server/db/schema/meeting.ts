@@ -1,7 +1,7 @@
 import { index, pgEnum } from "drizzle-orm/pg-core"
 import { uuidv7 } from "uuidv7"
 
-import { createTable } from "./prefix"
+import { createTable, timestamps } from "./util"
 import { users } from "./user"
 
 export const meetingStatusEnum = pgEnum("meeting-status", ["upcoming", "ongoing", "completed", "cancelled"])
@@ -20,8 +20,8 @@ export const generalMeetings = createTable(
     agenda: d.text(),
     status: meetingStatusEnum("status").default("upcoming").notNull(),
     createdBy: d.uuid("user_id").references(() => users.id, { onDelete: "set null" }), // keep meeting even if user is deleted
-    createdAt: d.timestamp("created_at", { withTimezone: true }).defaultNow().notNull(),
-    updatedAt: d.timestamp("updated_at", { withTimezone: true }).$onUpdate(() => new Date()),
+
+    ...timestamps,
   }),
   (t) => [index("slug_idx").on(t.slug)],
 )
@@ -128,13 +128,13 @@ export const voters = createTable(
       .uuid()
       .primaryKey()
       .$defaultFn(() => uuidv7()),
+    userId: d.uuid("user_id").references(() => users.id, { onDelete: "set null" }),
     meetingId: d
       .uuid("meeting_id")
       .notNull()
       .references(() => generalMeetings.id, { onDelete: "cascade" }),
     approved: d.boolean().default(false).notNull(),
-    createdAt: d.timestamp("created_at", { withTimezone: true }).defaultNow().notNull(),
-    updatedAt: d.timestamp("updated_at", { withTimezone: true }).$onUpdate(() => new Date()),
+    ...timestamps,
   }),
   // (t) => [index("verification_identifier_idx").on(t.identifier)],
 )
@@ -160,8 +160,7 @@ export const contests = createTable(
     status: contestStatusEnum().default("closed"),
     current: d.boolean().default(false),
     tally: d.json(),
-    createdAt: d.timestamp("created_at", { withTimezone: true }).defaultNow().notNull(),
-    updatedAt: d.timestamp("updated_at", { withTimezone: true }).$onUpdate(() => new Date()),
+    ...timestamps,
   }),
   // (t) => [index("verification_identifier_idx").on(t.identifier)],
 )
@@ -173,16 +172,15 @@ export const votes = createTable(
       .uuid()
       .primaryKey()
       .$defaultFn(() => uuidv7()),
-    userId: d
-      .uuid("user_id")
+    voterId: d
+      .uuid("voter_id")
       .notNull()
-      .references(() => users.id, { onDelete: "cascade" }),
+      .references(() => voters.id, { onDelete: "cascade" }),
     contestId: d
       .uuid("contest_id")
       .notNull()
       .references(() => contests.id, { onDelete: "cascade" }),
-    createdAt: d.timestamp("created_at", { withTimezone: true }).defaultNow().notNull(),
-    updatedAt: d.timestamp("updated_at", { withTimezone: true }).$onUpdate(() => new Date()),
+    ...timestamps,
   }),
   // (t) => [index("verification_identifier_idx").on(t.identifier)],
 )
@@ -199,8 +197,7 @@ export const votePreferences = createTable(
       .notNull()
       .references(() => candidates.id, { onDelete: "cascade" }),
     preference: d.smallint().notNull(),
-    createdAt: d.timestamp("created_at", { withTimezone: true }).defaultNow().notNull(),
-    updatedAt: d.timestamp("updated_at", { withTimezone: true }).$onUpdate(() => new Date()),
+    ...timestamps,
   }),
   // (t) => [index("verification_identifier_idx").on(t.identifier)],
 )
@@ -216,8 +213,7 @@ export const winners = createTable(
       .uuid("contest_id")
       .notNull()
       .references(() => contests.id, { onDelete: "cascade" }),
-    createdAt: d.timestamp("created_at", { withTimezone: true }).defaultNow().notNull(),
-    updatedAt: d.timestamp("updated_at", { withTimezone: true }).$onUpdate(() => new Date()),
+    ...timestamps,
   }),
   // (t) => [index("verification_identifier_idx").on(t.identifier)],
 )

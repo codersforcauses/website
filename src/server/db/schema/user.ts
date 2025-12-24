@@ -1,7 +1,7 @@
 import { index, uniqueIndex } from "drizzle-orm/pg-core"
 import { uuidv7 } from "uuidv7"
 
-import { createTable } from "./prefix"
+import { createTable, timestamps } from "./util"
 
 export const users = createTable(
   "user",
@@ -28,9 +28,7 @@ export const users = createTable(
     banned: d.boolean().default(false),
     banReason: d.text("ban_reason"),
     banExpires: d.timestamp("ban_expires", { withTimezone: true }),
-
-    createdAt: d.timestamp("created_at", { withTimezone: true }).defaultNow().notNull(),
-    updatedAt: d.timestamp("updated_at", { withTimezone: true }).$onUpdate(() => new Date()),
+    ...timestamps,
   }),
   (t) => [uniqueIndex("user_email_idx").on(t.email), index("user_name_idx").on(t.name)],
 )
@@ -59,8 +57,7 @@ export const accounts = createTable(
     }),
     scope: d.text(),
     password: d.text(),
-    createdAt: d.timestamp("created_at", { withTimezone: true }).defaultNow().notNull(),
-    updatedAt: d.timestamp("updated_at", { withTimezone: true }).$onUpdate(() => new Date()),
+    ...timestamps,
   }),
   (t) => [index("account_user_id_idx").on(t.userId)],
 )
@@ -81,8 +78,7 @@ export const sessions = createTable(
       .references(() => users.id, { onDelete: "cascade" }),
     impersonatedBy: d.uuid("impersonated_by").references(() => users.id),
     expiresAt: d.timestamp("expires_at", { mode: "date", withTimezone: true }).notNull(),
-    createdAt: d.timestamp("created_at", { withTimezone: true }).defaultNow().notNull(),
-    updatedAt: d.timestamp("updated_at", { withTimezone: true }).$onUpdate(() => new Date()),
+    ...timestamps,
   }),
   (t) => [index("session_user_id_idx").on(t.userId), index("session_token_idx").on(t.token)],
 )
@@ -97,8 +93,7 @@ export const verifications = createTable(
     identifier: d.text().notNull(),
     value: d.text().notNull(),
     expiresAt: d.timestamp("expires_at", { mode: "date", withTimezone: true }).notNull(),
-    createdAt: d.timestamp("created_at", { withTimezone: true }).defaultNow().notNull(),
-    updatedAt: d.timestamp("updated_at", { withTimezone: true }).$onUpdate(() => new Date()),
+    ...timestamps,
   }),
   (t) => [index("verification_identifier_idx").on(t.identifier)],
 )
