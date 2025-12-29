@@ -15,13 +15,16 @@ export default async function Personal() {
     isUWA: !!data?.student_number,
     student_number: data?.student_number ?? undefined,
     uni: data?.university ?? undefined,
+    github: data?.github ?? undefined,
+    discord: data?.discord ?? undefined,
+    subscribe: data?.subscribe ?? true,
   }
 
   return (
     <div className="space-y-4">
       <div>
         <h2 className="font-mono text-lg font-medium">Personal details</h2>
-        <p className="text-sm text-muted-foreground">Update your personal details. All fields here are required.</p>
+        <p className="text-sm text-muted-foreground">Fields marked with * are required.</p>
       </div>
       <Separator className="md:max-w-2xl" />
       <PersonalForm defaultValues={defaultValues} />
