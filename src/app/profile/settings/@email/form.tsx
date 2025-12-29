@@ -45,6 +45,11 @@ const defaultValues: FormSchema = {
 const EmailForm = (props: { user_id: string; email?: Partial<FormSchema> }) => {
   const utils = api.useUtils()
   const { isLoaded, isSignedIn, user } = useUser()
+  const unverifiedEmails = useMemo(
+    () => user?.emailAddresses?.filter((email: EmailAddressResource) => email.verification.status !== "verified") || [],
+    [user?.emailAddresses],
+  )
+
   const [step, setStep] = useState<"submitForm" | "enterCode" | "verifying" | "updated">("submitForm")
   const [countdown, setCountdown] = useState(0)
   const [send, setSend] = useState(false)
@@ -108,11 +113,6 @@ const EmailForm = (props: { user_id: string; email?: Partial<FormSchema> }) => {
   if (!isSignedIn) {
     return <p>You must be logged in to access this page</p>
   }
-
-  const unverifiedEmails = useMemo(
-    () => user.emailAddresses.filter((email: EmailAddressResource) => email.verification.status !== "verified"),
-    [user.emailAddresses],
-  )
 
   const sendOtp = async (values: FormSchema) => {
     setSend(true)
