@@ -3,7 +3,7 @@
 import { useReverification, useUser } from "@clerk/nextjs"
 import { EmailAddressResource } from "@clerk/types"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { useEffect, useState } from "react"
+import { useEffect, useMemo, useState } from "react"
 import { FormProvider, useForm } from "react-hook-form"
 import { z } from "zod"
 
@@ -13,6 +13,8 @@ import { Input } from "~/components/ui/input"
 import { toast } from "~/components/ui/use-toast"
 
 import { api } from "~/trpc/react"
+
+import { UnverifiedEmailsList } from "./unverified-emails"
 
 const formSchema = z.object({
   email: z
@@ -49,6 +51,7 @@ const EmailForm = (props: { user_id: string; email?: Partial<FormSchema> }) => {
   const [code, setCode] = useState("")
   const [emailObj, setEmailObj] = useState<EmailAddressResource | undefined>()
   const createEmailAddress = useReverification((email: string) => user?.createEmailAddress({ email }))
+
   useEffect(() => {
     if (countdown > 0) {
       const timer = setInterval(() => {
@@ -105,6 +108,11 @@ const EmailForm = (props: { user_id: string; email?: Partial<FormSchema> }) => {
   if (!isSignedIn) {
     return <p>You must be logged in to access this page</p>
   }
+
+  const unverifiedEmails = useMemo(
+    () => user.emailAddresses.filter((email: EmailAddressResource) => email.verification.status !== "verified"),
+    [user.emailAddresses],
+  )
 
   const sendOtp = async (values: FormSchema) => {
     setSend(true)
@@ -175,45 +183,59 @@ const EmailForm = (props: { user_id: string; email?: Partial<FormSchema> }) => {
   return (
     <FormProvider {...form}>
       {step === "submitForm" ? (
-        <form onSubmit={form.handleSubmit(sendOtp)} className="grid max-w-xl gap-y-4">
-          <div className="grid gap-y-4">
-            <FormField
-              control={form.control}
-              name="email"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel className="flex space-x-1 font-mono">
-                    <p>Email address</p>
-                    <p className="font-sans">*</p>
-                  </FormLabel>
-                  <FormControl>
-                    <Input disabled type="email" placeholder="john.doe@codersforcauses.org" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="new_email"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel className="flex space-x-1 font-mono">
-                    <p>New email address</p>
-                    <p className="font-sans">*</p>
-                  </FormLabel>
-                  <FormControl>
-                    <Input type="email" placeholder="john.doe@codersforcauses.org" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-          </div>
-          <Button type="submit" disabled={form.formState.isSubmitting} className="relative w-full">
-            Next
-          </Button>
-        </form>
+        <>
+          {unverifiedEmails.length > 0 && (
+            <UnverifiedEmailsList unverifiedEmails={unverifiedEmails} user={user} toast={toast} />
+          )}
+          <form onSubmit={form.handleSubmit(sendOtp)} className="grid max-w-xl gap-y-4">
+            <div className="grid gap-y-4">
+              <FormField
+                control={form.control}
+                name="email"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel className="flex space-x-1 font-mono">
+                      <p>Email address</p>
+                      <p className="font-sans">*</p>
+                    </FormLabel>
+                    <FormControl>
+                      <Input disabled type="email" placeholder="john.doe@codersforcauses.org" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="new_email"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel className="flex space-x-1 font-mono">
+                      <p>New email address</p>
+                      <p className="font-sans">*</p>
+                    </FormLabel>
+                    <FormControl>
+                      <Input
+                        type="email"
+                        placeholder="john.doe@codersforcauses.org"
+                        {...field}
+                        disabled={unverifiedEmails.length > 0}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </div>
+            <Button
+              type="submit"
+              disabled={form.formState.isSubmitting || unverifiedEmails.length > 0}
+              className="relative w-full"
+            >
+              Next
+            </Button>
+          </form>
+        </>
       ) : (
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
           <FormLabel className="font-mono">Enter one-time code from your new email</FormLabel>
@@ -221,6 +243,8 @@ const EmailForm = (props: { user_id: string; email?: Partial<FormSchema> }) => {
             type="text"
             inputMode="numeric"
             pattern="[0-9]+"
+            maxLength={6}
+            minLength={6}
             placeholder="xxxxxx"
             value={code}
             onChange={(e) => setCode(e.target.value)}

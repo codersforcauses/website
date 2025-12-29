@@ -185,6 +185,8 @@ export default function Join() {
               type="text"
               inputMode="numeric"
               pattern="[0-9]+"
+              maxLength={6}
+              minLength={6}
               placeholder="xxxxxx"
               value={code}
               onChange={(e) => setCode(e.target.value)}
