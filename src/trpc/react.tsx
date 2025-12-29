@@ -4,7 +4,6 @@ import { useState } from "react"
 import { QueryClientProvider, type QueryClient } from "@tanstack/react-query"
 import { httpBatchStreamLink, loggerLink } from "@trpc/client"
 import { createTRPCReact } from "@trpc/react-query"
-import { ReactQueryDevtools } from "@tanstack/react-query-devtools"
 import type { inferRouterInputs, inferRouterOutputs } from "@trpc/server"
 import SuperJSON from "superjson"
 
@@ -68,7 +67,6 @@ export function TRPCReactProvider(props: { children: React.ReactNode }) {
       <api.Provider client={trpcClient} queryClient={queryClient}>
         {props.children}
       </api.Provider>
-      <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>
   )
 }
