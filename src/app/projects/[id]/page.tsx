@@ -1,6 +1,6 @@
 "use client"
 
-import projects from "data/projects.json"
+import projects from "@/data/projects.json"
 import Image from "next/image"
 import Link from "next/link"
 

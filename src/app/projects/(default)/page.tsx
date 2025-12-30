@@ -1,4 +1,4 @@
-import projectData from "data/projects.json"
+import projectData from "@/data/projects.json"
 import type { Metadata, Viewport } from "next"
 import dynamic from "next/dynamic"
 

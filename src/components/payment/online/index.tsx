@@ -122,16 +122,20 @@ const OnlinePaymentForm = ({
   }, [])
 
   const cardTokenizeResponseReceived = async (result: TokenResult) => {
-    if (result.errors) {
-      // TODO handle errors
+    if (result.status !== "OK") {
+      toast({
+        variant: "destructive",
+        title: "Payment tokenization failed",
+        description: "There was an issue processing your payment method. Please try again.",
+      })
       return
     }
 
     let paymentID: string | undefined = ""
-    if (cardDetails[0] && (result?.details?.method as string) === "Card") {
+    if (cardDetails[0] && (result.details?.method as string) === "Card") {
       try {
         const id = await storeCard.mutateAsync({
-          sourceID: result.token!,
+          sourceID: result.token,
         })
         paymentID = await pay.mutateAsync({
           sourceID: id!,
@@ -139,19 +143,28 @@ const OnlinePaymentForm = ({
           amount,
         })
       } catch (error) {
-        // TODO: handle error
-        console.log(error)
+        toast({
+          variant: "destructive",
+          title: "Payment failed",
+          description:
+            "Unable to process your payment with stored card. Please try again or use a different payment method.",
+        })
+        console.error("Stored card payment error:", error)
       }
     } else {
       try {
         paymentID = await pay.mutateAsync({
-          sourceID: result.token!,
+          sourceID: result.token,
           label,
           amount,
         })
       } catch (error) {
-        // TODO: handle error
-        console.log(error)
+        toast({
+          variant: "destructive",
+          title: "Payment failed",
+          description: "Unable to process your payment. Please try again or use a different payment method.",
+        })
+        console.error("Direct payment error:", error)
       }
     }
 
