@@ -23,5 +23,12 @@ export const updateRole = adminProcedure
       throw new TRPCError({ code: "NOT_FOUND", message: `User with id: ${input.id} does not exist` })
     }
 
+    if (input.role === "member") {
+      await ctx.db
+        .update(User)
+        .set({ membership_expiry: new Date(Date.now() + 365 * 24 * 60 * 60 * 1000) })
+        .where(eq(User.id, input.id))
+    }
+
     return user
   })

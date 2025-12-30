@@ -76,5 +76,10 @@ export const pay = protectedRatedProcedure(Ratelimit.fixedWindow(2, "30s"))
 
     await ctx.db.update(User).set({ role: "member" }).where(eq(User.id, currentUser.id))
 
+    await ctx.db
+      .update(User)
+      .set({ membership_expiry: new Date(Date.now() + 365 * 24 * 60 * 60 * 1000) })
+      .where(eq(User.id, currentUser.id))
+
     return result.payment.id
   })

@@ -36,6 +36,13 @@
       "when": 1757090142089,
       "tag": "0004_fine_ken_ellis",
       "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1767083476016,
+      "tag": "0005_daffy_victor_mancha",
+      "breakpoints": true
     }
   ]
 }

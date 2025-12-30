@@ -170,6 +170,24 @@ const columns = (updateRole: ({ id, role }: UpdateUserRoleFunctionProps) => void
     accessorFn: (user) => format(user.createdAt, "Pp", { locale: enAU }),
   },
   {
+    id: "Membership expiry",
+    header: "Membership expiry",
+    cell: ({ row }) => {
+      const user = row.original
+      if (!user.membership_expiry) {
+        return
+      }
+      const isExpired = new Date(user.membership_expiry) < new Date()
+      return (
+        <span className={`text-xs ${isExpired ? "text-destructive" : "text-foreground"}`}>
+          {format(user.membership_expiry, "Pp", { locale: enAU })}
+        </span>
+      )
+    },
+    accessorFn: (user) =>
+      user.membership_expiry ? format(user.membership_expiry, "Pp", { locale: enAU }) : "No membership",
+  },
+  {
     header: "Socials",
     cell: ({ row }) => {
       const user = row.original

@@ -15,9 +15,8 @@ const PaymentBlock = () => {
           <h2 className="font-semibold leading-none tracking-tight">Payment</h2>
           <div className="text-sm text-muted-foreground">
             <p>
-              Become a paying member of Coders for Causes for just $5 a year (ends on 31st Dec{" "}
-              {new Date().getFullYear()}
-              ). There are many benefits to becoming a member which include:
+              Become a paying member of Coders for Causes for just $5 a year (ends one year from now ). There are many
+              benefits to becoming a member which include:
             </p>
             <ul className="list-inside list-disc">
               <li>discounts to paid events such as industry nights</li>

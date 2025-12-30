@@ -36,7 +36,7 @@ export const User = pgTable(
     subscribe: boolean("subscribe").default(true).notNull(),
     role: roleEnum("role"),
     square_customer_id: varchar("square_customer_id", { length: 32 }).unique().notNull(),
-
+    membership_expiry: timestamp("membership_expiry"),
     createdAt: timestamp("created_at")
       .$default(() => new Date())
       .notNull(),
