@@ -1,4 +1,5 @@
 import { TRPCError } from "@trpc/server"
+import { addYears } from "date-fns"
 import { eq } from "drizzle-orm"
 import { z } from "zod"
 
@@ -26,7 +27,7 @@ export const updateRole = adminProcedure
     if (input.role === "member") {
       await ctx.db
         .update(User)
-        .set({ membership_expiry: new Date(Date.now() + 365 * 24 * 60 * 60 * 1000) })
+        .set({ membership_expiry: addYears(new Date(), 1) })
         .where(eq(User.id, input.id))
     }
 
