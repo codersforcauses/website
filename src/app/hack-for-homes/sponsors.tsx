@@ -1,4 +1,4 @@
-import sponsors from "data/hackathon2025/sponsors.json"
+import sponsors from "@/data/hackathon2025/sponsors.json"
 
 import { type ImageProps } from "~/lib/types"
 

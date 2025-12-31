@@ -1,4 +1,4 @@
-import committee from "data/committee.json"
+import committee from "@/data/committee.json"
 import Image from "next/image"
 import * as React from "react"
 import { siGithub } from "simple-icons"

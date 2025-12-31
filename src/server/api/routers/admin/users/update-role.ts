@@ -1,4 +1,5 @@
 import { TRPCError } from "@trpc/server"
+import { addYears } from "date-fns"
 import { eq } from "drizzle-orm"
 import { z } from "zod"
 
@@ -21,6 +22,13 @@ export const updateRole = adminProcedure
 
     if (!user) {
       throw new TRPCError({ code: "NOT_FOUND", message: `User with id: ${input.id} does not exist` })
+    }
+
+    if (input.role === "member") {
+      await ctx.db
+        .update(User)
+        .set({ membership_expiry: addYears(new Date(), 1) })
+        .where(eq(User.id, input.id))
     }
 
     return user

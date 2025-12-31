@@ -30,6 +30,11 @@ pnpm i <dep_name> -E
 
 # Update all packages
 pnpm upgrade -L
+
+# Database migration
+pnpm drizzle-kit pull
+pnpm drizzle-kit generate
+pnpm drizzle-kit migrate
 ```
 
 ## Planned Features

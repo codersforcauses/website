@@ -84,8 +84,8 @@ const Card = ({ amount, paymentInstance, theme, setFocus, ...props }: CardProps)
       }
 
       let message = `Tokenization failed with status: ${result.status}`
-      if (result?.errors) {
-        message += ` and errors: ${JSON.stringify(result?.errors)}`
+      if (result.status !== "OK" && "errors" in result && result.errors) {
+        message += ` and errors: ${JSON.stringify(result.errors)}`
 
         throw new Error(message)
       }

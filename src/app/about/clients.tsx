@@ -1,4 +1,4 @@
-import clients from "data/clients.json"
+import clients from "@/data/clients.json"
 
 import { type ImageProps } from "~/lib/types"
 

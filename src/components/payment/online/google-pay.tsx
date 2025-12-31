@@ -95,8 +95,8 @@ const GooglePay = ({ paymentInstance, payRequest, theme, ...props }: GooglePayPr
       }
 
       let message = `Tokenization failed with status: ${result.status}`
-      if (result?.errors) {
-        message += ` and errors: ${JSON.stringify(result?.errors, null, 2)}`
+      if (result.status !== "OK" && "errors" in result && result.errors) {
+        message += ` and errors: ${JSON.stringify(result.errors, null, 2)}`
 
         throw new Error(message)
       }

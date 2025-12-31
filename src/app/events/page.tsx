@@ -1,4 +1,4 @@
-import eventList from "data/events.json"
+import eventList from "@/data/events.json"
 import { format, isAfter, isBefore, isSameDay, parse } from "date-fns"
 import Link from "next/link"
 

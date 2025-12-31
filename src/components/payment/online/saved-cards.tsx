@@ -68,10 +68,12 @@ const SavedCardsForm = ({ amount, cards, ...props }: SavedCardsProps) => {
     try {
       props.loadingState[1](true)
       await props.cardTokenizeResponseReceived({
-        // fuck you square
-        status: "OK" as TokenStatusType,
+        status: "OK",
         token: values.card,
-      })
+        details: {
+          method: "Card",
+        },
+      } as TokenResult)
     } catch (error) {
       console.error(error)
     } finally {

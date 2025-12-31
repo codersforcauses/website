@@ -1,4 +1,4 @@
-import agendaList from "data/hackathon2025/agenda.json"
+import agendaList from "@/data/hackathon2025/agenda.json"
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "~/components/ui/tabs"
 

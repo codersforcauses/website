@@ -37,7 +37,6 @@ export const update = protectedRatedProcedure(Ratelimit.fixedWindow(4, "30s"))
   .mutation(async ({ ctx, input }) => {
     const currentUser = ctx.user
     if (!currentUser) throw new Error("Not authenticated")
-    // TODO: update clerk email
     // TODO: Wrap in a transaction
     try {
       const clerk = await clerkClient()

@@ -122,8 +122,8 @@ const ProfilePage = ({ id, currentUser }: ProfilePageProps) => {
                         <div className="text-sm text-muted-foreground">
                           <p>
                             You&apos;re not a member with us yet. Become a paying member of Coders for Causes for just
-                            $5 a year (ends on 31st Dec {new Date().getFullYear()}). There are many benefits to becoming
-                            a member which include:
+                            $5 a year (ends one year from now). There are many benefits to becoming a member which
+                            include:
                           </p>
                           <ul className="list-inside list-disc">
                             <li>discounts to paid events such as industry nights</li>

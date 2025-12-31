@@ -1,6 +1,7 @@
 import { TRPCError } from "@trpc/server"
 import { Ratelimit } from "@upstash/ratelimit"
 import { randomUUID } from "crypto"
+import { addYears } from "date-fns"
 import { eq } from "drizzle-orm"
 import { env } from "process"
 import { z } from "zod"
@@ -74,7 +75,13 @@ export const pay = protectedRatedProcedure(Ratelimit.fixedWindow(2, "30s"))
       currency: result.payment.amountMoney.currency,
     })
 
-    await ctx.db.update(User).set({ role: "member" }).where(eq(User.id, currentUser.id))
+    await ctx.db
+      .update(User)
+      .set({
+        role: "member",
+        membership_expiry: addYears(new Date(), 1),
+      })
+      .where(eq(User.id, currentUser.id))
 
     return result.payment.id
   })
