@@ -1,6 +1,12 @@
+import { api } from "~/trpc/server"
+
+import ExportButton from "./export"
 import UpdateEmail from "./update-email"
 
 export default async function AdminUserTable() {
+  const projects = await api.admin.projects.getAllProjects.query()
+  const payments = await api.admin.analytics.getAllPayments.query()
+
   return (
     <>
       <div className="flex h-[50px] items-center p-1">
@@ -8,6 +14,10 @@ export default async function AdminUserTable() {
       </div>
       <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
         <UpdateEmail />
+      </div>
+      <div className=" flex flex-col space-y-4 my-4">
+        <ExportButton data={projects} label="projects" />
+        <ExportButton data={payments} label="payments" />
       </div>
     </>
   )

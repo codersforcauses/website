@@ -5,12 +5,6 @@ import { User } from "~/server/db/schema"
 
 export const getAll = adminProcedure.query(async ({ ctx }) => {
   const userList = await ctx.db.query.User.findMany({
-    columns: {
-      subscribe: false,
-      square_customer_id: false,
-      updatedAt: false,
-      reminder_pending: false,
-    },
     orderBy: [desc(User.createdAt), desc(User.id)],
   })
 

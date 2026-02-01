@@ -63,13 +63,13 @@ import { cn } from "~/lib/utils"
 import { type User } from "~/server/db/types"
 import { api } from "~/trpc/react"
 
-import ExportButton from "./export"
+import ExportButton from "../@tools/export"
 import AddUserForm from "./form"
 
-type UserProps = Omit<User, "subscribe" | "square_customer_id" | "updatedAt" | "reminder_pending">
+type DisplayColumn = Omit<User, "subscribe" | "square_customer_id" | "updatedAt" | "reminder_pending">
 
 export interface TableProps {
-  data: Array<UserProps>
+  data: Array<User>
 }
 interface UserTableProps extends TableProps {
   refetch: () => void
@@ -92,7 +92,7 @@ const sortIcon = (sortOrder: string | boolean) => {
   }
 }
 
-const columns = (updateRole: ({ id, role }: UpdateUserRoleFunctionProps) => void): ColumnDef<UserProps>[] => [
+const columns = (updateRole: ({ id, role }: UpdateUserRoleFunctionProps) => void): ColumnDef<DisplayColumn>[] => [
   {
     id: "Select",
     enableSorting: false,
@@ -341,7 +341,7 @@ const UserTable = ({ data, isRefetching, ...props }: UserTableProps) => {
 
   return (
     <>
-      <div className="flex h-[50px] items-center gap-2 p-1 pr-0">
+      <div className="flex h-12 items-center gap-2 p-1 pr-0">
         {data.length > 0 && (
           <>
             {selectedRowIDs.length > 0 && (
@@ -418,7 +418,7 @@ const UserTable = ({ data, isRefetching, ...props }: UserTableProps) => {
                   })}
               </DropdownMenuContent>
             </DropdownMenu>
-            <ExportButton data={data} />
+            <ExportButton data={data} label="users" />
             <Button variant="secondary" disabled={isRefetching} onClick={props.refetch}>
               <span className={cn("material-symbols-sharp", isRefetching && "animate-spin")}>autorenew</span>
               <span className="ml-2 hidden sm:block">Sync{isRefetching && "ing"}</span>
