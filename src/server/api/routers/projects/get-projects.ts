@@ -1,6 +1,6 @@
 import { TRPCError } from "@trpc/server"
 import { Ratelimit } from "@upstash/ratelimit"
-import { and, arrayContains, eq } from "drizzle-orm"
+import { and, arrayContains, eq, sql } from "drizzle-orm"
 import { z } from "zod"
 
 import { protectedRatedProcedure, publicRatedProcedure } from "~/server/api/trpc"
@@ -41,14 +41,14 @@ export const getProjectByName = publicRatedProcedure(Ratelimit.fixedWindow(60, "
 export const getProjectByUser = protectedRatedProcedure(Ratelimit.fixedWindow(60, "30s"))
   .input(z.object({ user: z.string(), isPublic: z.boolean().optional() }))
   .query(async ({ input, ctx }) => {
-    const conditions = []
+    let whereClause = sql`TRUE`
 
     if (input.user) {
-      conditions.push(arrayContains(Project.members, [input.user]))
+      whereClause = sql`${whereClause} AND ${Project.members} ILIKE '%${input.user}%'`
     }
 
     if (typeof input.isPublic === "boolean") {
-      conditions.push(eq(Project.is_public, input.isPublic))
+      whereClause = sql`${whereClause} AND ${Project.is_public} = ${input.isPublic}`
     }
 
     const projectData = await ctx.db.query.Project.findMany({
@@ -70,7 +70,7 @@ export const getProjectByUser = protectedRatedProcedure(Ratelimit.fixedWindow(60
         application_url: true,
         is_public: true,
       },
-      where: conditions.length > 0 ? and(...conditions) : undefined,
+      where: whereClause,
     })
 
     return projectData

@@ -1,7 +1,5 @@
 import { defineConfig } from "drizzle-kit"
 
-import { getXataClient } from "~/server/db/xata"
-
 export default defineConfig({
   out: "./src/server/db/migrations",
   schema: "./src/server/db/schema.ts",
@@ -9,6 +7,6 @@ export default defineConfig({
   dialect: "postgresql",
   tablesFilter: ["cfc-website_*"],
   dbCredentials: {
-    url: getXataClient().sql.connectionString,
+    url: process.env.SUPABASE_DB_URL!,
   },
 })

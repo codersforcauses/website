@@ -4,7 +4,6 @@ import { eq } from "drizzle-orm"
 import { z } from "zod"
 
 import { adminProcedure } from "~/server/api/trpc"
-import { db } from "~/server/db"
 import { User } from "~/server/db/schema"
 
 export const updateEmail = adminProcedure

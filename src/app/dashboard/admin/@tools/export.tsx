@@ -28,6 +28,10 @@ export default function ExportButton({ data, label }: ExportButtonProps) {
     const headers = Object.keys(data[0] as Record<string, unknown>).join(",")
     const escapeCSV = (value: unknown) => {
       if (value == null) return ""
+      if (value instanceof Date) return value.toISOString()
+      if (typeof value === "string" && !isNaN(Date.parse(value))) {
+        return new Date(value).toISOString()
+      }
       const str = String(value)
       if (/[",\n]/.test(str)) {
         return `"${str.replace(/"/g, '""')}"`
