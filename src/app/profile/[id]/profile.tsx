@@ -1,5 +1,6 @@
 "use client"
 
+import { format } from "date-fns"
 import Link from "next/link"
 import { siDiscord, siGithub } from "simple-icons"
 
@@ -115,7 +116,7 @@ const ProfilePage = ({ id, currentUser }: ProfilePageProps) => {
             <div className="p-2 w-auto">
               <div className="">
                 {currentUser?.id === user.id ? (
-                  user?.role === null && (
+                  user?.role === null ? (
                     <div className="space-y-4 max-w-md">
                       <div className="space-y-2">
                         <h2 className="font-semibold leading-none tracking-tight">Membership</h2>
@@ -140,6 +141,16 @@ const ProfilePage = ({ id, currentUser }: ProfilePageProps) => {
                         </p>
                       )}
                     </div>
+                  ) : (
+                    user.role === "member" &&
+                    user.membership_expiry && (
+                      <div>
+                        Your membership will expire on{" "}
+                        <span className="text-primary">
+                          {format(new Date(String(user.membership_expiry)), "dd MMMM yyyy")}
+                        </span>
+                      </div>
+                    )
                   )
                 ) : (
                   <>
