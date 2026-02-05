@@ -146,7 +146,7 @@ const ProfilePage = ({ id, currentUser }: ProfilePageProps) => {
                     user.membership_expiry && (
                       <div>
                         Your membership will expire on{" "}
-                        <span className="text-destructive">
+                        <span className="text-primary">
                           {format(new Date(String(user.membership_expiry)), "dd MMMM yyyy")}
                         </span>
                       </div>
