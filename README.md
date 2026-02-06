@@ -33,8 +33,9 @@ pnpm i <dep_name> -E
 pnpm upgrade -L
 
 # Database migration
-npx drizzle-kit generate
-npx drizzle-kit push
+pnpm drizzle-kit pull
+pnpm drizzle-kit generate
+pnpm drizzle-kit push
 ```
 
 ### Notes
