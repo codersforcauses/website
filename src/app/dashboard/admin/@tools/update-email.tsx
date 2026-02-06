@@ -27,9 +27,11 @@ const defaultValues: FormSchema = {
   newEmail: "",
 }
 
+// deprecated, only for admin to update user email
+// users should use the updateEmail procedure in users router to update their own email
 const UpdateEmail = () => {
   return (
-    <ToolCard title="Update Email">
+    <ToolCard title="Update user email">
       <UpdateEmailForm />
     </ToolCard>
   )

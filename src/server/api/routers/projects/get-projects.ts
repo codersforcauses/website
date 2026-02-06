@@ -41,15 +41,14 @@ export const getProjectByName = publicRatedProcedure(Ratelimit.fixedWindow(60, "
 export const getProjectByUser = protectedRatedProcedure(Ratelimit.fixedWindow(60, "30s"))
   .input(z.object({ user: z.string(), isPublic: z.boolean().optional() }))
   .query(async ({ input, ctx }) => {
-    let whereClause = sql`TRUE`
+    const conditions = []
 
     if (input.user) {
-      const searchPattern = `%${input.user}%`
-      whereClause = sql`${whereClause} AND ${Project.members} ILIKE ${searchPattern}`
+      conditions.push(arrayContains(Project.members, [input.user]))
     }
 
     if (typeof input.isPublic === "boolean") {
-      whereClause = sql`${whereClause} AND ${Project.is_public} = ${input.isPublic}`
+      conditions.push(eq(Project.is_public, input.isPublic))
     }
 
     const projectData = await ctx.db.query.Project.findMany({
@@ -71,7 +70,7 @@ export const getProjectByUser = protectedRatedProcedure(Ratelimit.fixedWindow(60
         application_url: true,
         is_public: true,
       },
-      where: whereClause,
+      where: conditions.length > 0 ? and(...conditions) : undefined,
     })
 
     return projectData

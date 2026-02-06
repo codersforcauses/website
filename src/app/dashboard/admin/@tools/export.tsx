@@ -25,21 +25,35 @@ export default function ExportButton({ data, label }: ExportButtonProps) {
       return
     }
 
-    const headers = Object.keys(data[0] as Record<string, unknown>).join(",")
-    const escapeCSV = (value: unknown) => {
+    const headers = Object.keys(data[0] as Record<string, unknown>)
+    const escapeCSV = (value: unknown): string => {
       if (value == null) return ""
-      if (value instanceof Date) return value.toISOString()
-      if (typeof value === "string" && !isNaN(Date.parse(value))) {
-        return new Date(value).toISOString()
+
+      let str: string
+      if (typeof value === "object") {
+        if (value instanceof Date) {
+          str = value.toISOString()
+        } else {
+          // Stringify JSON objects/arrays
+          str = JSON.stringify(value)
+        }
+      } else {
+        str = String(value)
       }
-      const str = String(value)
-      if (/[",\n]/.test(str)) {
+
+      // Escape CSV: wrap in quotes if contains comma, quote, or newline
+      // and escape internal quotes by doubling them
+      if (/[",\n\r]/.test(str)) {
         return `"${str.replace(/"/g, '""')}"`
       }
       return str
     }
-    const rows = data.map((row) => Object.values(row).map(escapeCSV).join(",")).join("\n")
-    const csv = headers + "\n" + rows
+
+    const rows = data
+      .map((row) => headers.map((key) => escapeCSV((row as Record<string, unknown>)[key])).join(","))
+      .join("\n")
+
+    const csv = headers.join(",") + "\n" + rows
     const blob = new Blob([csv], { type: "text/csv" })
     const url = window.URL.createObjectURL(blob)
 
