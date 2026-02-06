@@ -1,5 +1,3 @@
-import Link from "next/link"
-
 import { api } from "~/trpc/server"
 
 interface CardProps {
@@ -25,13 +23,14 @@ const Card = (props: CardProps) => {
 
 const Count = async () => {
   const count = await api.admin.analytics.getUserCount.query()
+  const projectCount = await api.admin.analytics.getProjectCount.query()
 
   return (
     <>
       <Card heading="Users" count={count.users} icon="group" />
       <Card heading="Members" count={count.members} icon="group" />
-      <Card heading="Projects" count={"N/A"} icon="devices" />
-      <Card heading="Events" count={"N/A"} icon="event" />
+      <Card heading="Projects" count={projectCount.publicProjects} icon="devices" />
+      {/* <Card heading="Events" count={"N/A"} icon="event" /> */}
     </>
   )
 }

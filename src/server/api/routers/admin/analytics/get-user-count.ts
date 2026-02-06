@@ -1,4 +1,4 @@
-import { isNotNull, sql } from "drizzle-orm"
+import { eq, sql } from "drizzle-orm"
 
 import { adminProcedure } from "~/server/api/trpc"
 import { User } from "~/server/db/schema"
@@ -9,7 +9,7 @@ export const getUserCount = adminProcedure.query(async ({ ctx }) => {
     ctx.db
       .select({ count: sql<number>`count(*)`.mapWith(Number) })
       .from(User)
-      .where(isNotNull(User.role)),
+      .where(eq(User.role, "member")),
   ])
 
   return {

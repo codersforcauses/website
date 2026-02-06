@@ -1,4 +1,4 @@
-import { desc } from "drizzle-orm"
+import { desc, sql } from "drizzle-orm"
 
 import { adminProcedure } from "~/server/api/trpc"
 import { Payment } from "~/server/db/schema"

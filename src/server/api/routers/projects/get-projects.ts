@@ -44,7 +44,8 @@ export const getProjectByUser = protectedRatedProcedure(Ratelimit.fixedWindow(60
     let whereClause = sql`TRUE`
 
     if (input.user) {
-      whereClause = sql`${whereClause} AND ${Project.members} ILIKE '%${input.user}%'`
+      const searchPattern = `%${input.user}%`
+      whereClause = sql`${whereClause} AND ${Project.members} ILIKE ${searchPattern}`
     }
 
     if (typeof input.isPublic === "boolean") {

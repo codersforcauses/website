@@ -16,7 +16,7 @@ import { type RouterOutputs } from "~/trpc/shared"
 
 const Card = dynamic(() => import("./card"), {
   ssr: false,
-  loading: () => <Skeleton className="h-[97px] w-full @[485px]:h-[48px]" />,
+  loading: () => <Skeleton className="h-24 w-full @[485px]:h-12" />,
 })
 const GooglePay = dynamic(() => import("./google-pay"), {
   ssr: false,
@@ -206,7 +206,7 @@ const OnlinePaymentForm = ({
       </AccordionItem>
     </Accordion>
   ) : (
-    <Skeleton className="h-[320px] w-full" />
+    <Skeleton className="h-80 w-full" />
   )
 }
 
