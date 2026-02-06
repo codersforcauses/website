@@ -37,10 +37,10 @@ export const User = pgTable(
     role: roleEnum("role"),
     square_customer_id: varchar("square_customer_id", { length: 32 }).unique().notNull(),
     membership_expiry: timestamp("membership_expiry"),
-    createdAt: timestamp("created_at")
+    created_at: timestamp("created_at")
       .$default(() => new Date())
       .notNull(),
-    updatedAt: timestamp("updated_at").$onUpdate(() => new Date()),
+    updated_at: timestamp("updated_at").$onUpdate(() => new Date()),
     // `reminder_pending` id a Flag used to send reminders for membership renewal bc Resend can only send 100 emails per day
     reminder_pending: boolean("reminder_pending").default(false).notNull(),
   },
@@ -62,10 +62,10 @@ export const Payment = pgTable(
     label: varchar("label", { length: 256 }).notNull(),
     event_id: varchar("event_id", { length: 32 }), // TODO: link when events are implemented
 
-    createdAt: timestamp("created_at")
+    created_at: timestamp("created_at")
       .$default(() => new Date())
       .notNull(),
-    updatedAt: timestamp("updated_at").$onUpdate(() => new Date()),
+    updated_at: timestamp("updated_at").$onUpdate(() => new Date()),
   },
   (payment) => [index("user_id_idx").on(payment.user_id), index("event_id_idx").on(payment.event_id)],
 )
@@ -105,10 +105,10 @@ export const Project = pgTable(
     is_application_open: boolean("is_application_open").default(false).notNull(), // whether the project is receiving applications or not
     application_url: varchar("application_url", { length: 256 }), // link to the application form
     is_public: boolean("is_public").default(false).notNull(), //  means they are visible on projects page
-    createdAt: timestamp("created_at")
+    created_at: timestamp("created_at")
       .$default(() => new Date())
       .notNull(),
-    updatedAt: timestamp("updated_at").$onUpdate(() => new Date()),
+    updated_at: timestamp("updated_at").$onUpdate(() => new Date()),
   },
   (project) => [index("name_idx").on(project.name)],
 )

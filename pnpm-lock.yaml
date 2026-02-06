@@ -141,7 +141,7 @@ importers:
         version: 0.30.1(typescript@5.4.3)
       '@xata.io/drizzle':
         specifier: 0.0.24
-        version: 0.0.24(drizzle-orm@0.41.0(@opentelemetry/api@1.9.0)(@types/pg@8.6.1)(@xata.io/client@0.30.1(typescript@5.4.3))(gel@2.2.0)(pg@8.16.3))(typescript@5.4.3)
+        version: 0.0.24(drizzle-orm@0.41.0(@opentelemetry/api@1.9.0)(@types/pg@8.16.0)(@xata.io/client@0.30.1(typescript@5.4.3))(gel@2.2.0)(pg@8.16.3(pg-native@3.5.2)))(typescript@5.4.3)
       class-variance-authority:
         specifier: 0.7.0
         version: 0.7.0
@@ -156,10 +156,10 @@ importers:
         version: 3.6.0
       drizzle-orm:
         specifier: 0.41.0
-        version: 0.41.0(@opentelemetry/api@1.9.0)(@types/pg@8.6.1)(@xata.io/client@0.30.1(typescript@5.4.3))(gel@2.2.0)(pg@8.16.3)
+        version: 0.41.0(@opentelemetry/api@1.9.0)(@types/pg@8.16.0)(@xata.io/client@0.30.1(typescript@5.4.3))(gel@2.2.0)(pg@8.16.3(pg-native@3.5.2))
       drizzle-zod:
         specifier: ^0.7.1
-        version: 0.7.1(drizzle-orm@0.41.0(@opentelemetry/api@1.9.0)(@types/pg@8.6.1)(@xata.io/client@0.30.1(typescript@5.4.3))(gel@2.2.0)(pg@8.16.3))(zod@3.22.4)
+        version: 0.7.1(drizzle-orm@0.41.0(@opentelemetry/api@1.9.0)(@types/pg@8.16.0)(@xata.io/client@0.30.1(typescript@5.4.3))(gel@2.2.0)(pg@8.16.3(pg-native@3.5.2)))(zod@3.22.4)
       framer-motion:
         specifier: 11.0.24
         version: 11.0.24(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -174,7 +174,10 @@ importers:
         version: 0.3.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       pg:
         specifier: ^8.14.1
-        version: 8.16.3
+        version: 8.16.3(pg-native@3.5.2)
+      pg-native:
+        specifier: ^3.5.2
+        version: 3.5.2
       react:
         specifier: 18.3.1
         version: 18.3.1
@@ -245,6 +248,9 @@ importers:
       '@types/node':
         specifier: 20.12.2
         version: 20.12.2
+      '@types/pg':
+        specifier: ^8.16.0
+        version: 8.16.0
       '@types/react':
         specifier: 18.3.3
         version: 18.3.3
@@ -2808,6 +2814,9 @@ packages:
   '@types/pg-pool@2.0.6':
     resolution: {integrity: sha512-TaAUE5rq2VQYxab5Ts7WZhKNmuN78Q6PiFonTDdpbx8a1H0M1vhy3rhiMjl+e2iHmogyMw7jZF4FrE6eJUy5HQ==}
 
+  '@types/pg@8.16.0':
+    resolution: {integrity: sha512-RmhMd/wD+CF8Dfo+cVIy3RR5cl8CyfXQ0tGgW6XBL8L4LM/UTEbNXYRbLwU6w+CgrKBNbrQWt4FUtTfaU5jSYQ==}
+
   '@types/pg@8.6.1':
     resolution: {integrity: sha512-1Kc4oAGzAl7uqUStZCDvaLFqZrW9qWSjXOmBfdgyBP5La7Us6Mg4GBvRlSoaZMhQF/zSj1C8CtKMBkoiT8eL8w==}
 
@@ -3584,6 +3593,9 @@ packages:
   binary-extensions@2.3.0:
     resolution: {integrity: sha512-Ceh+7ox5qe7LJuLHoY0feh3pHuUDHAcRUeyL2VYghZwfpkNIy/+8Ocg0a3UuSoYzavmylwuLWQOf3hl0jjMMIw==}
     engines: {node: '>=8'}
+
+  bindings@1.5.0:
+    resolution: {integrity: sha512-p2q/t/mhvuOj/UeLlV6566GD/guowlr0hHxClI0W9m7MWYkL1F0hLo+0Aexs9HSPCtR1SXQ0TD3MMKrXZajbiQ==}
 
   bn.js@5.2.2:
     resolution: {integrity: sha512-v2YAxEmKaBLahNwE1mjp4WON6huMNeuDvagFZW+ASCuA/ku0bXR9hSMw0XpiqMoA3+rmnyck/tPRSFQkoC9Cuw==}
@@ -4515,6 +4527,9 @@ packages:
     resolution: {integrity: sha512-QlZ5yJC0VxHxQQsQhXvBaC7VRJ2uaxTf+Tfpu4Z/OcVQJVpZO+DGU0rkoVW5ce2SccxugvpBJoMvUs59iILYdw==}
     engines: {node: '>= 12'}
 
+  file-uri-to-path@1.0.0:
+    resolution: {integrity: sha512-0Zt+s3L7Vf1biwWZ29aARiVYLx7iMGnEUl9x33fbB/j3jR81u/O2LbqK+Bm1CDSNDKVtJ/YjwY7TUd5SkeLQLw==}
+
   fill-range@7.1.1:
     resolution: {integrity: sha512-YsGpe3WHLK8ZYi4tWDg2Jy3ebRz2rXowDxnld4bkQB00cc/1Zw9AWnC0i9ztDJitivtQvaI9KaLyKrc+hBW0yg==}
     engines: {node: '>=8'}
@@ -5179,6 +5194,9 @@ packages:
     resolution: {integrity: sha512-+bT2uH4E5LGE7h/n3evcS/sQlJXCpIp6ym8OWJ5eV6+67Dsql/LaaT7qJBAt2rzfoa/5QBGBhxDix1dMt2kQKQ==}
     engines: {node: '>= 0.8.0'}
 
+  libpq@1.8.15:
+    resolution: {integrity: sha512-4lSWmly2Nsj3LaTxxtFmJWuP3Kx+0hYHEd+aNrcXEWT0nKWaPd9/QZPiMkkC680zeALFGHQdQWjBvnilL+vgWA==}
+
   lighthouse-logger@1.4.2:
     resolution: {integrity: sha512-gPWxznF6TKmUHrOQjlVo2UbaL2EJ71mb2CCeRs/2qBpi4L/g4LUVc9+3lKQ6DTUZwJswfM7ainGrLO1+fOqa2g==}
 
@@ -5439,6 +5457,9 @@ packages:
   mz@2.7.0:
     resolution: {integrity: sha512-z81GNO7nnYMEhrGh9LeymoE4+Yr0Wn5McHIZMK5cfQCl+NDX08sCZgUc9/6MHni9IWuFLm1Z3HTCXu2z9fN62Q==}
 
+  nan@2.22.2:
+    resolution: {integrity: sha512-DANghxFkS1plDdRsX0X9pm0Z6SJNN6gBdtXfanwoZ8hooC5gosGFSBGRYHUVPz1asKA/kMRqDRdHrluZ61SpBQ==}
+
   nanoid@3.3.11:
     resolution: {integrity: sha512-N8SpfPUnUp1bK+PMYW8qSWdl9U+wwNWI4QKxOYDy9JAro3WMX7p2OeVRF9v+347pnakNevPmiHhNmZ2HbFA76w==}
     engines: {node: ^10 || ^12 || ^13.7 || ^14 || >=15.0.1}
@@ -5691,6 +5712,9 @@ packages:
   pg-int8@1.0.1:
     resolution: {integrity: sha512-WCtabS6t3c8SkpDBUlb1kjOs7l66xsGdKpIPZsg4wR+B3+u9UAum2odSsF9tnvxg80h4ZxLWMy4pRjOsFIqQpw==}
     engines: {node: '>=4.0.0'}
+
+  pg-native@3.5.2:
+    resolution: {integrity: sha512-3oi+KVil86Vngo4H0IlhBaYSJWdcu8t2f1Y4TkQoQi5oZ9bNeYECGqW3oSGx69mjSZYHoC3h+3jYtqzRgndn5A==}
 
   pg-pool@3.10.1:
     resolution: {integrity: sha512-Tu8jMlcX+9d8+QVzKIvM/uJtp07PKr82IUOYEphaWcoBhIYkoHpLXN3qO59nAI11ripznDsEzEv8nUxBVWajGg==}
@@ -9755,7 +9779,13 @@ snapshots:
 
   '@types/pg-pool@2.0.6':
     dependencies:
-      '@types/pg': 8.6.1
+      '@types/pg': 8.16.0
+
+  '@types/pg@8.16.0':
+    dependencies:
+      '@types/node': 20.12.2
+      pg-protocol: 1.10.3
+      pg-types: 2.2.0
 
   '@types/pg@8.6.1':
     dependencies:
@@ -10481,10 +10511,10 @@ snapshots:
     dependencies:
       typescript: 5.4.3
 
-  '@xata.io/drizzle@0.0.24(drizzle-orm@0.41.0(@opentelemetry/api@1.9.0)(@types/pg@8.6.1)(@xata.io/client@0.30.1(typescript@5.4.3))(gel@2.2.0)(pg@8.16.3))(typescript@5.4.3)':
+  '@xata.io/drizzle@0.0.24(drizzle-orm@0.41.0(@opentelemetry/api@1.9.0)(@types/pg@8.16.0)(@xata.io/client@0.30.1(typescript@5.4.3))(gel@2.2.0)(pg@8.16.3(pg-native@3.5.2)))(typescript@5.4.3)':
     dependencies:
       '@xata.io/client': 0.30.1(typescript@5.4.3)
-      drizzle-orm: 0.41.0(@opentelemetry/api@1.9.0)(@types/pg@8.6.1)(@xata.io/client@0.30.1(typescript@5.4.3))(gel@2.2.0)(pg@8.16.3)
+      drizzle-orm: 0.41.0(@opentelemetry/api@1.9.0)(@types/pg@8.16.0)(@xata.io/client@0.30.1(typescript@5.4.3))(gel@2.2.0)(pg@8.16.3(pg-native@3.5.2))
     transitivePeerDependencies:
       - typescript
 
@@ -10798,6 +10828,10 @@ snapshots:
     optional: true
 
   binary-extensions@2.3.0: {}
+
+  bindings@1.5.0:
+    dependencies:
+      file-uri-to-path: 1.0.0
 
   bn.js@5.2.2: {}
 
@@ -11287,17 +11321,17 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  drizzle-orm@0.41.0(@opentelemetry/api@1.9.0)(@types/pg@8.6.1)(@xata.io/client@0.30.1(typescript@5.4.3))(gel@2.2.0)(pg@8.16.3):
+  drizzle-orm@0.41.0(@opentelemetry/api@1.9.0)(@types/pg@8.16.0)(@xata.io/client@0.30.1(typescript@5.4.3))(gel@2.2.0)(pg@8.16.3(pg-native@3.5.2)):
     optionalDependencies:
       '@opentelemetry/api': 1.9.0
-      '@types/pg': 8.6.1
+      '@types/pg': 8.16.0
       '@xata.io/client': 0.30.1(typescript@5.4.3)
       gel: 2.2.0
-      pg: 8.16.3
+      pg: 8.16.3(pg-native@3.5.2)
 
-  drizzle-zod@0.7.1(drizzle-orm@0.41.0(@opentelemetry/api@1.9.0)(@types/pg@8.6.1)(@xata.io/client@0.30.1(typescript@5.4.3))(gel@2.2.0)(pg@8.16.3))(zod@3.22.4):
+  drizzle-zod@0.7.1(drizzle-orm@0.41.0(@opentelemetry/api@1.9.0)(@types/pg@8.16.0)(@xata.io/client@0.30.1(typescript@5.4.3))(gel@2.2.0)(pg@8.16.3(pg-native@3.5.2)))(zod@3.22.4):
     dependencies:
-      drizzle-orm: 0.41.0(@opentelemetry/api@1.9.0)(@types/pg@8.6.1)(@xata.io/client@0.30.1(typescript@5.4.3))(gel@2.2.0)(pg@8.16.3)
+      drizzle-orm: 0.41.0(@opentelemetry/api@1.9.0)(@types/pg@8.16.0)(@xata.io/client@0.30.1(typescript@5.4.3))(gel@2.2.0)(pg@8.16.3(pg-native@3.5.2))
       zod: 3.22.4
 
   dunder-proto@1.0.1:
@@ -11787,6 +11821,8 @@ snapshots:
   file-selector@0.6.0:
     dependencies:
       tslib: 2.8.1
+
+  file-uri-to-path@1.0.0: {}
 
   fill-range@7.1.1:
     dependencies:
@@ -12525,6 +12561,11 @@ snapshots:
       prelude-ls: 1.2.1
       type-check: 0.4.0
 
+  libpq@1.8.15:
+    dependencies:
+      bindings: 1.5.0
+      nan: 2.22.2
+
   lighthouse-logger@1.4.2:
     dependencies:
       debug: 2.6.9
@@ -12918,6 +12959,8 @@ snapshots:
       object-assign: 4.1.1
       thenify-all: 1.6.0
 
+  nan@2.22.2: {}
+
   nanoid@3.3.11: {}
 
   napi-postinstall@0.3.4: {}
@@ -13176,9 +13219,14 @@ snapshots:
 
   pg-int8@1.0.1: {}
 
-  pg-pool@3.10.1(pg@8.16.3):
+  pg-native@3.5.2:
     dependencies:
-      pg: 8.16.3
+      libpq: 1.8.15
+      pg-types: 2.2.0
+
+  pg-pool@3.10.1(pg@8.16.3(pg-native@3.5.2)):
+    dependencies:
+      pg: 8.16.3(pg-native@3.5.2)
 
   pg-protocol@1.10.3: {}
 
@@ -13190,15 +13238,16 @@ snapshots:
       postgres-date: 1.0.7
       postgres-interval: 1.2.0
 
-  pg@8.16.3:
+  pg@8.16.3(pg-native@3.5.2):
     dependencies:
       pg-connection-string: 2.9.1
-      pg-pool: 3.10.1(pg@8.16.3)
+      pg-pool: 3.10.1(pg@8.16.3(pg-native@3.5.2))
       pg-protocol: 1.10.3
       pg-types: 2.2.0
       pgpass: 1.0.5
     optionalDependencies:
       pg-cloudflare: 1.2.7
+      pg-native: 3.5.2
 
   pgpass@1.0.5:
     dependencies:

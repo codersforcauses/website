@@ -20,7 +20,7 @@ export const getUsersPerDay = adminProcedure.query(async ({ ctx }) => {
         count: sql<number>`count(*)`.mapWith(Number),
       })
       .from(User)
-      .where(between(User.createdAt, twoMonths, new Date()))
+      .where(between(User.created_at, twoMonths, new Date()))
       .groupBy(
         sql`extract(day from created_at)`,
         sql`extract(month from created_at)`,
@@ -39,7 +39,7 @@ export const getUsersPerDay = adminProcedure.query(async ({ ctx }) => {
         count: sql<number>`count(*)`.mapWith(Number),
       })
       .from(User)
-      .where(and(isNotNull(User.role), between(User.createdAt, twoMonths, new Date())))
+      .where(and(isNotNull(User.role), between(User.created_at, twoMonths, new Date())))
       .groupBy(
         sql`extract(day from created_at)`,
         sql`extract(month from created_at)`,

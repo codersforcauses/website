@@ -66,7 +66,7 @@ import { api } from "~/trpc/react"
 import ExportButton from "../@tools/export"
 import AddUserForm from "./form"
 
-type DisplayColumn = Omit<User, "subscribe" | "square_customer_id" | "updatedAt" | "reminder_pending">
+type DisplayColumn = Omit<User, "subscribe" | "square_customer_id" | "updated_at" | "reminder_pending">
 
 export interface TableProps {
   data: Array<User>
@@ -167,7 +167,7 @@ const columns = (updateRole: ({ id, role }: UpdateUserRoleFunctionProps) => void
     id: "Date joined",
     header: "Date joined",
     cell: (cell) => <span className="text-xs">{cell.getValue<React.ReactNode>()}</span>,
-    accessorFn: (user) => format(user.createdAt, "Pp", { locale: enAU }),
+    accessorFn: (user) => format(user.created_at, "Pp", { locale: enAU }),
   },
   {
     id: "Membership expiry",

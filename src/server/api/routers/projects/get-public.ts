@@ -14,7 +14,7 @@ export const getPublic = publicRatedProcedure(Ratelimit.fixedWindow(60, "30s")).
     },
     where: (project, { eq }) => eq(project.is_public, true),
 
-    orderBy: [desc(Project.createdAt), desc(Project.id)],
+    orderBy: [desc(Project.created_at), desc(Project.id)],
   })
 
   return projectList

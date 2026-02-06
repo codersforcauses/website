@@ -5,19 +5,13 @@ import { useForm } from "react-hook-form"
 import { z } from "zod"
 
 import { Button } from "~/components/ui/button"
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "~/components/ui/dialog"
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "~/components/ui/form"
 import { Input } from "~/components/ui/input"
 import { toast } from "~/components/ui/use-toast"
 
 import { api } from "~/trpc/react"
+
+import ToolCard from "./tool-card"
 
 const formSchema = z.object({
   userId: z.string(),
@@ -33,27 +27,13 @@ const defaultValues: FormSchema = {
   newEmail: "",
 }
 
+// deprecated, only for admin to update user email
+// users should use the updateEmail procedure in users router to update their own email
 const UpdateEmail = () => {
   return (
-    <div className="col-span-2 border bg-card text-card-foreground">
-      <div className="flex flex-row items-center justify-between space-y-0 p-6 pb-2">
-        <h3 className="text-sm font-medium tracking-tight">Update Email</h3>
-      </div>
-      <div className="w-full p-6 pt-0">
-        <Dialog>
-          <DialogTrigger asChild>
-            <Button>Open form</Button>
-          </DialogTrigger>
-          <DialogContent className="max-h-screen overflow-auto sm:max-w-md">
-            <DialogHeader>
-              <DialogTitle>Update user email</DialogTitle>
-              <DialogDescription></DialogDescription>
-            </DialogHeader>
-            <UpdateEmailForm />
-          </DialogContent>
-        </Dialog>
-      </div>
-    </div>
+    <ToolCard title="Update user email">
+      <UpdateEmailForm />
+    </ToolCard>
   )
 }
 

@@ -12,9 +12,6 @@ export default async function AdminUserTable() {
       <div className="flex h-[50px] items-center p-1">
         <h2 className="text-2xl font-semibold">Tools</h2>
       </div>
-      <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
-        <UpdateEmail />
-      </div>
       <div className=" flex flex-col space-y-4 my-4">
         <ExportButton data={projects} label="projects" />
         <ExportButton data={payments} label="payments" />

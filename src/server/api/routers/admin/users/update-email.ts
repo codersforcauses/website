@@ -1,12 +1,13 @@
 import { clerkClient } from "@clerk/nextjs/server"
 import { TRPCError } from "@trpc/server"
-import { eq } from "drizzle-orm"
+import { eq, sql } from "drizzle-orm"
 import { z } from "zod"
 
 import { adminProcedure } from "~/server/api/trpc"
-import { db } from "~/server/db"
-import { User } from "~/server/db/schema"
+import { Project, User } from "~/server/db/schema"
 
+// deprecated, only for admin to update user email
+// users should use the updateEmail procedure in users router to update their own email
 export const updateEmail = adminProcedure
   .input(z.object({ userId: z.string(), oldEmail: z.string().email(), newEmail: z.string().email() }))
   .mutation(async ({ ctx, input }) => {
@@ -14,18 +15,23 @@ export const updateEmail = adminProcedure
     const user_data = await ctx.db.query.User.findFirst({
       where: eq(User.email, input.oldEmail),
     })
+
     if (!user_data) {
       throw new TRPCError({ code: "NOT_FOUND", message: `User with email: ${input.oldEmail} does not exist` })
     }
+
     const user_email_data = await ctx.db.query.User.findFirst({
       where: eq(User.email, input.newEmail),
     })
+
     if (user_email_data) {
       throw new TRPCError({ code: "FORBIDDEN", message: `User with email: ${input.newEmail} already exist` })
     }
+
     const user = await ctx.db.query.User.findFirst({
       where: eq(User.id, input.userId),
     })
+
     if (!user) {
       throw new TRPCError({ code: "NOT_FOUND", message: `User with id: ${input.userId} does not exist` })
     }
@@ -47,6 +53,12 @@ export const updateEmail = adminProcedure
       console.error(err)
       throw new TRPCError({ code: "INTERNAL_SERVER_ERROR", message: "Failed to update email" })
     }
+    await ctx.db
+      .update(Project)
+      .set({
+        members: sql`array_replace(${Project.members}, ${input.oldEmail}, ${input.newEmail})`,
+      })
+      .where(sql`${input.oldEmail} = ANY(${Project.members})`)
 
     return user
   })

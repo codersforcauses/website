@@ -1,14 +1,10 @@
-"use client"
-
 import * as React from "react"
-import type { ImperativePanelHandle } from "react-resizable-panels"
 
-import { ResizableHandle, ResizablePanel, ResizablePanelGroup } from "~/components/ui/resizable"
-import { Separator } from "~/components/ui/separator"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "~/components/ui/tabs"
 
+import NotFound from "~/app/not-found"
 import type { PropsWithChildren } from "~/lib/types"
-import { cn } from "~/lib/utils"
+import { api } from "~/trpc/server"
 
 interface AdminDashLayoutProps extends PropsWithChildren {
   users: React.ReactNode
@@ -18,7 +14,12 @@ interface AdminDashLayoutProps extends PropsWithChildren {
   tools: React.ReactNode
 }
 
-const Layout = ({ children, ...props }: AdminDashLayoutProps) => {
+const Layout = async ({ children, ...props }: AdminDashLayoutProps) => {
+  const user = await api.users.getCurrent.query()
+  if (!["admin", "committee"].includes(user?.role ?? "")) {
+    return <NotFound />
+  }
+
   const sidebarItems = [
     { text: "Users", icon: "group", component: props.users },
     { text: "Projects", icon: "devices", component: props.projects },

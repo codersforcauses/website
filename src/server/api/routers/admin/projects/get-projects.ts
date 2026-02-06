@@ -1,5 +1,5 @@
 import { desc } from "drizzle-orm"
-import { and, eq } from "drizzle-orm"
+import { eq } from "drizzle-orm"
 import { z } from "zod"
 
 import { adminProcedure } from "~/server/api/trpc"
@@ -35,7 +35,7 @@ export const getProjects = adminProcedure
       },
       where: name ? eq(Project.name, name) : undefined,
 
-      orderBy: [desc(Project.createdAt), desc(Project.id)],
+      orderBy: [desc(Project.created_at), desc(Project.id)],
     })
 
     return projectList
@@ -71,7 +71,7 @@ export const getPublicProjects = adminProcedure
       },
       where: eq(Project.is_public, is_public),
 
-      orderBy: [desc(Project.createdAt), desc(Project.id)],
+      orderBy: [desc(Project.created_at), desc(Project.id)],
     })
 
     return projectList

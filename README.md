@@ -14,7 +14,8 @@ Bootstrapped using the create-t3-app using:
 - [Drizzle ORM](https://orm.drizzle.team/docs/overview)
 - [Clerk authentication](https://clerk.com/docs)
 - [Vercel](https://vercel.com)
-- [Xata](https://app.xata.io)
+- [Supabase](https://supabase.com/)
+- Deprecated: [Xata lite](https://app.xata.io)
 
 We use [pnpm](https://pnpm.io/) as the package manager for this project.
 
@@ -34,20 +35,25 @@ pnpm upgrade -L
 # Database migration
 pnpm drizzle-kit pull
 pnpm drizzle-kit generate
-pnpm drizzle-kit migrate
+pnpm drizzle-kit push
 ```
+
+### Notes
+
+- UTC time
+- When you make changes to the DB, please back up the data first.
 
 ## Planned Features
 
 ### Project Integration Enhancements
 
-- Profiles will soon showcase the projects that users have contributed to, highlighting their work and collaborations.
+- Profiles showcase the projects that users have contributed to, highlighting their work and collaborations.
 - Applications to join our seasonal Summer and Winter projects will be directly accessible through the site for our members.
 - Committee members and Administrators will gain the ability to upload project specifics directly to the platform.
 
 ### User Profile Enhancements
 
-- The platform will support multiple role assignments for users, offering tailored experiences based on their involvement and interests.
+- The platform supports multiple role assignments for users, offering tailored experiences based on their involvement and interests.
 - Enhanced profile customization options will be introduced.
 
 ### Event Participation and Management
