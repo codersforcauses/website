@@ -53,7 +53,7 @@ export const Impact = ({ impact, ...props }: { impact?: string[]; className?: st
 )
 
 export default function DBProject({ data }: DBProjectProps) {
-  const { data: users } = api.admin.users.getNamesByEmails.useQuery({ emails: data.members ? data.members : [] })
+  const { data: users } = api.users.getNamesByEmails.useQuery({ emails: data.members ? data.members : [] })
 
   let icon = "devices" // default "devices"
   if (data.type === "Mobile application") {
