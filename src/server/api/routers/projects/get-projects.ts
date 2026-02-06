@@ -1,6 +1,6 @@
 import { TRPCError } from "@trpc/server"
 import { Ratelimit } from "@upstash/ratelimit"
-import { and, arrayContains, eq, sql } from "drizzle-orm"
+import { and, arrayContains, eq } from "drizzle-orm"
 import { z } from "zod"
 
 import { protectedRatedProcedure, publicRatedProcedure } from "~/server/api/trpc"
