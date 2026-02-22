@@ -2,6 +2,7 @@ import { createCallerFactory, createTRPCRouter } from "~/server/api/trpc"
 import { adminRouter } from "~/server/api/routers/admin"
 import { userRouter } from "~/server/api/routers/user"
 import { paymentRouter } from "~/server/api/routers/payment"
+import { generalMeetingsRouter } from "~/server/api/routers/general-meetings"
 
 /**
  * This is the primary router for your server.
@@ -12,6 +13,7 @@ export const appRouter = createTRPCRouter({
   admin: adminRouter,
   user: userRouter,
   payment: paymentRouter,
+  generalMeetings: generalMeetingsRouter,
 })
 
 // export type definition of API
