@@ -52,3 +52,8 @@ yarn-error.log*
 
 # user data migration
 cfc-website_user.csv
+
+# AI
+CLAUDE.md
+.CLAUDE
+.llms
