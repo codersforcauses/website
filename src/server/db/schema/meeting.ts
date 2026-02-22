@@ -12,7 +12,7 @@ export const generalMeetings = createTable(
       .uuid()
       .primaryKey()
       .$defaultFn(() => uuidv7()),
-    slug: d.varchar("title", { length: 256 }).unique().notNull(),
+    slug: d.varchar("slug", { length: 256 }).unique().notNull(),
     title: d.varchar("title", { length: 256 }).unique().notNull(),
     start: d.timestamp("start", { withTimezone: true }).notNull(),
     end: d.timestamp("end", { withTimezone: true }),
@@ -56,7 +56,7 @@ export const candidates = createTable(
     meetingId: d
       .uuid("meeting_id")
       .notNull()
-      .references(() => users.id, { onDelete: "cascade" }),
+      .references(() => generalMeetings.id, { onDelete: "cascade" }),
   }),
   // (t) => [index("verification_identifier_idx").on(t.identifier)],
 )
@@ -75,7 +75,7 @@ export const nominations = createTable(
     meetingId: d
       .uuid("meeting_id")
       .notNull()
-      .references(() => users.id, { onDelete: "cascade" }),
+      .references(() => generalMeetings.id, { onDelete: "cascade" }),
   }),
   // (t) => [index("verification_identifier_idx").on(t.identifier)],
 )

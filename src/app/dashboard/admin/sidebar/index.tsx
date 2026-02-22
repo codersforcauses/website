@@ -20,6 +20,7 @@ import { type SidebarNavLink, SidebarMainNav, SidebarMeetingNav } from "./nav"
 import { Dialog } from "~/ui/dialog"
 import { DialogTrigger } from "@radix-ui/react-dialog"
 import CreateMeetingDialog from "./dialogs/create-meeting"
+import { api } from "~/trpc/react"
 
 const mainLinks: SidebarNavLink[] = [
   {
@@ -42,15 +43,18 @@ const projectLinks: SidebarNavLink[] = [
   },
 ]
 
-const meetingLinks: SidebarNavLink[] = [
-  {
-    title: "Annual General Meeting 2025",
-    url: "/dashboard/admin/general-meetings/meeting",
-    icon: "D25",
-  },
-]
-
 export function AdminSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+  const [meetingDialogOpen, setMeetingDialogOpen] = React.useState(false)
+
+  const { data: meetings } = api.admin.generalMeetings.getAll.useQuery()
+
+  const meetingLinks: SidebarNavLink[] =
+    meetings?.map((meeting) => ({
+      title: meeting.title,
+      url: `/dashboard/admin/general-meetings/${meeting.slug}` as unknown as SidebarNavLink["url"],
+      icon: String(meeting.start.getFullYear()).slice(2),
+    })) ?? []
+
   return (
     <Sidebar collapsible="icon" {...props}>
       <SidebarHeader className="h-(--header-height)">
@@ -88,7 +92,7 @@ export function AdminSidebar({ ...props }: React.ComponentProps<typeof Sidebar>)
         </SidebarGroup>
         <SidebarGroup>
           <SidebarGroupLabel>General meetings</SidebarGroupLabel>
-          <Dialog>
+          <Dialog open={meetingDialogOpen} onOpenChange={setMeetingDialogOpen}>
             <DialogTrigger asChild>
               <SidebarGroupAction title="Add General Meeting">
                 <span className="material-symbols-sharp text-base! leading-none!">add</span>
@@ -96,7 +100,7 @@ export function AdminSidebar({ ...props }: React.ComponentProps<typeof Sidebar>)
               </SidebarGroupAction>
             </DialogTrigger>
             <React.Suspense fallback={null}>
-              <CreateMeetingDialog />
+              <CreateMeetingDialog onSuccess={() => setMeetingDialogOpen(false)} />
             </React.Suspense>
           </Dialog>
           <SidebarGroupContent>
