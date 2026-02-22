@@ -2,42 +2,42 @@ export const DEFAULT_POSITIONS = [
   {
     title: "President",
     openings: 1,
-    description: "",
+    description: "Represents the club externally, coordinates the committee and sets the club direction.",
   },
   {
     title: "Vice-President",
     openings: 1,
-    description: "",
+    description: "Supports the President and acts in their absence.",
   },
   {
     title: "Secretary",
     openings: 1,
-    description: "",
+    description: "Manages club communications, meeting minutes, and administrative tasks.",
   },
   {
     title: "Treasurer",
     openings: 1,
-    description: "",
+    description: "Oversees club finances, budgeting, and financial reporting.",
   },
   {
     title: "Technical Lead",
     openings: 1,
-    description: "",
+    description: "Oversees the projects and develops/delivers technical workshops.",
   },
   {
     title: "Marketing Officer",
     openings: 1,
-    description: "",
+    description: "Manages social media, promotions, and club communications.",
   },
   {
     title: "Fresher Representative",
     openings: 1,
-    description: "",
+    description: "Represents and supports first year students in the club.",
   },
   {
     title: "Ordinary Committee Member",
     openings: 4,
-    description: "",
+    description: "Assists with operations and contributes to the club according to their specialties.",
   },
 ]
 
