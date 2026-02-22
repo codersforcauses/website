@@ -1,23 +1,18 @@
+import * as React from "react"
 import { headers } from "next/headers"
 import { redirect } from "next/navigation"
 
 import { auth } from "~/lib/auth"
 import { MEETING_ACCESS_ROLES } from "~/lib/constants"
 import { api, HydrateClient } from "~/trpc/server"
-import { Button } from "~/ui/button"
-import {
-  Breadcrumb,
-  BreadcrumbItem,
-  BreadcrumbLink,
-  BreadcrumbList,
-  BreadcrumbPage,
-  BreadcrumbSeparator,
-} from "~/ui/breadcrumb"
+import { Breadcrumb, BreadcrumbItem, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from "~/ui/breadcrumb"
 import { Separator } from "~/ui/separator"
+import { Skeleton } from "~/ui/skeleton"
 import { SidebarTrigger } from "~/ui/sidebar"
 import PositionsCard from "./cards/positions"
 import AgendaCard from "./cards/agenda"
 import QuestionsCard from "./cards/questions"
+import StatusCard from "./cards/status"
 
 export default async function GeneralMeetingPage({ params }: PageProps<"/dashboard/admin/general-meetings/[slug]">) {
   const { slug } = await params
@@ -27,18 +22,7 @@ export default async function GeneralMeetingPage({ params }: PageProps<"/dashboa
   if (!data?.user) redirect(`/join?redirect=/dashboard/admin/general-meetings/${slug}`)
   if (!data.user.role?.split(",").some((role) => MEETING_ACCESS_ROLES.includes(role))) redirect("/dashboard")
 
-  // const meeting = await api.admin.generalMeetings.getMeeting(slug)
-
-  // void api.admin.users.getUsers.prefetchInfinite(
-  //   {
-  //     query: (search ?? "").toString(),
-  //     filters: "",
-  //   },
-  //   {
-  //     pages: 0,
-  //     getNextPageParam: (lastPage) => lastPage.nextPage,
-  //   },
-  // )
+  void api.generalMeetings.get.prefetch({ slug })
 
   return (
     <>
@@ -51,7 +35,7 @@ export default async function GeneralMeetingPage({ params }: PageProps<"/dashboa
               <BreadcrumbItem>CFC General Meetings</BreadcrumbItem>
               <BreadcrumbSeparator />
               <BreadcrumbItem>
-                <BreadcrumbPage>title</BreadcrumbPage>
+                <BreadcrumbPage>{slug}</BreadcrumbPage>
               </BreadcrumbItem>
             </BreadcrumbList>
           </Breadcrumb>
@@ -60,9 +44,18 @@ export default async function GeneralMeetingPage({ params }: PageProps<"/dashboa
       <div className="relative flex flex-1 flex-col p-4 pt-0">
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
           <HydrateClient>
-            <PositionsCard />
-            <QuestionsCard />
-            <AgendaCard />
+            <React.Suspense fallback={<Skeleton className="h-64 w-full" />}>
+              <PositionsCard />
+            </React.Suspense>
+            <React.Suspense fallback={<Skeleton className="h-64 w-full" />}>
+              <QuestionsCard />
+            </React.Suspense>
+            <React.Suspense fallback={<Skeleton className="h-64 w-full" />}>
+              <AgendaCard />
+            </React.Suspense>
+            <React.Suspense fallback={<Skeleton className="h-64 w-full" />}>
+              <StatusCard />
+            </React.Suspense>
           </HydrateClient>
         </div>
       </div>

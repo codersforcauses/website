@@ -6,6 +6,7 @@ import { AnimatePresence, motion } from "motion/react"
 import { useForm } from "@tanstack/react-form"
 
 import { api } from "~/trpc/react"
+import { toast } from "~/hooks/use-toast"
 import { Button } from "~/ui/button"
 import { DayPicker } from "~/ui/daypicker"
 import { DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "~/ui/dialog"
@@ -20,37 +21,6 @@ const today = new Date()
 const yesterday = new Date(new Date().setDate(today.getDate() - 1))
 const nextFiveYears = new Date(new Date().setFullYear(today.getFullYear() + 5))
 
-function getTimes() {
-  const items = []
-  for (let hour = 6; hour < 23; hour++) {
-    items.push([hour, 0])
-    items.push([hour, 30])
-  }
-
-  const date = new Date()
-  const labelFormatter = new Intl.DateTimeFormat("en-AU", {
-    hour: "2-digit",
-    minute: "numeric",
-    hourCycle: "h12",
-  })
-  const valueFormatter = new Intl.DateTimeFormat("en-AU", {
-    hour: "2-digit",
-    minute: "numeric",
-    hourCycle: "h23",
-  })
-
-  return items.map((time) => {
-    const [hour, minute] = time
-    date.setHours(hour!)
-    date.setMinutes(minute!)
-
-    return {
-      label: labelFormatter.format(date),
-      value: valueFormatter.format(date),
-    }
-  })
-}
-
 const formSchema = z.object({
   title: z.string().min(1, "Title is required"),
   start_date: z
@@ -58,22 +28,27 @@ const formSchema = z.object({
     .min(today, "Start date is required")
     .max(nextFiveYears, "Date must be within the next five years"),
   start_time: z.iso.time({ precision: -1, error: "Start time is required" }),
-  venue: z.string(),
+  end_time: z.iso.time({ precision: -1, error: "End time is required" }),
+  venue: z.string().min(1, "Venue is required"),
   positions: z.boolean(),
   questions: z.boolean(),
 })
 
-export default function CreateMeetingDialog() {
+export default function CreateMeetingDialog({ onSuccess }: { onSuccess?: () => void }) {
   const btnRef = React.useRef<HTMLButtonElement>(null)
   const [openDate, setOpenDate] = React.useState(false)
   const [btnText, setText] = React.useState("Create meeting")
-  // const { mutateAsync } = api.user.checkIfExists.useMutation()
   const [loading, startTransition] = React.useTransition()
+
+  const utils = api.useUtils()
+  const { mutateAsync } = api.admin.generalMeetings.create.useMutation()
+
   const form = useForm({
     defaultValues: {
       title: `Annual General Meeting ${today.getFullYear()}`,
       start_date: yesterday,
-      start_time: "",
+      start_time: "17:30",
+      end_time: "19:30",
       venue: "",
       positions: true,
       questions: true,
@@ -84,17 +59,30 @@ export default function CreateMeetingDialog() {
     onSubmit({ value }) {
       setText("Creating meeting")
       startTransition(async () => {
-        const date = new Date(value.date)
-        const [hours, minutes] = value.time.split(":").map(Number)
-        date.setHours(hours!, minutes!)
-        console.log(value.title, date)
+        const startDate = new Date(value.start_date)
+        const [startHours, startMinutes] = value.start_time.split(":").map(Number)
+        startDate.setHours(startHours!, startMinutes!, 0, 0)
 
-        // const userExists = await mutateAsync(value.email)
-        // if (userExists) {
-        //   setText("Sending code to email")
-        // } else {
-        //   setText("Redirecting to sign up")
-        // }
+        const endDate = new Date(value.start_date)
+        const [endHours, endMinutes] = value.end_time.split(":").map(Number)
+        endDate.setHours(endHours!, endMinutes!, 0, 0)
+
+        try {
+          await mutateAsync({
+            title: value.title,
+            start_date: startDate,
+            end_date: endDate,
+            venue: value.venue,
+            positions: value.positions,
+            questions: value.questions,
+          })
+          await utils.admin.generalMeetings.getAll.invalidate()
+          toast({ title: "Meeting created", description: `${value.title} has been created successfully.` })
+          onSuccess?.()
+        } catch {
+          toast({ title: "Failed to create meeting", variant: "destructive" })
+          setText("Create meeting")
+        }
       })
     },
   })
@@ -140,10 +128,6 @@ export default function CreateMeetingDialog() {
             {(field) => {
               const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid
               const selectedDate = field.state.value
-              const selectedTime =
-                selectedDate.getHours().toString().padStart(2, "0") +
-                ":" +
-                selectedDate.getMinutes().toString().padStart(2, "0")
 
               return (
                 <Field data-invalid={isInvalid}>
@@ -165,9 +149,6 @@ export default function CreateMeetingDialog() {
                               year: "numeric",
                               month: "short",
                               day: "numeric",
-                              hour12: true,
-                              hour: "2-digit",
-                              minute: "2-digit",
                             })}
                         <span className="material-symbols-sharp text-base! leading-none!">keyboard_arrow_down</span>
                       </Button>
@@ -198,41 +179,45 @@ export default function CreateMeetingDialog() {
                         className="bg-transparent p-0"
                       />
                       <div className="flex gap-2 border-t px-4 pt-4! *:[div]:w-full">
-                        <div>
-                          <Label htmlFor="time-from">Start Time</Label>
-                          <Input
-                            id="time-from"
-                            type="time"
-                            step={60 * 1000}
-                            min="07:00"
-                            max="22:00"
-                            defaultValue="10:30"
-                            className="appearance-none [&::-webkit-calendar-picker-indicator]:hidden [&::-webkit-calendar-picker-indicator]:appearance-none"
-                          />
-                        </div>
+                        <form.Field name="start_time">
+                          {(timeField) => (
+                            <div>
+                              <Label htmlFor="time-from">Start Time</Label>
+                              <Input
+                                id="time-from"
+                                type="time"
+                                step={60 * 1000}
+                                min="07:00"
+                                max="22:00"
+                                value={timeField.state.value}
+                                onChange={(e) => timeField.handleChange(e.target.value)}
+                                className="appearance-none [&::-webkit-calendar-picker-indicator]:hidden [&::-webkit-calendar-picker-indicator]:appearance-none"
+                              />
+                            </div>
+                          )}
+                        </form.Field>
                         <span>-</span>
-                        <div>
-                          <Label htmlFor="time-to">End Time</Label>
-                          <Input
-                            id="time-to"
-                            type="time"
-                            step={60 * 1000}
-                            min="07:05"
-                            max="22:00"
-                            defaultValue="12:30"
-                            className="appearance-none [&::-webkit-calendar-picker-indicator]:hidden [&::-webkit-calendar-picker-indicator]:appearance-none"
-                          />
-                        </div>
+                        <form.Field name="end_time">
+                          {(timeField) => (
+                            <div>
+                              <Label htmlFor="time-to">End Time</Label>
+                              <Input
+                                id="time-to"
+                                type="time"
+                                step={60 * 1000}
+                                min="07:05"
+                                max="22:00"
+                                value={timeField.state.value}
+                                onChange={(e) => timeField.handleChange(e.target.value)}
+                                className="appearance-none [&::-webkit-calendar-picker-indicator]:hidden [&::-webkit-calendar-picker-indicator]:appearance-none"
+                              />
+                            </div>
+                          )}
+                        </form.Field>
                       </div>
                       <div className="flex items-center justify-between border-t p-2">
                         <p></p>
-                        <Button
-                          size="sm"
-                          onClick={() => {
-                            // field.handleChange(newDate)
-                            setOpenDate(false)
-                          }}
-                        >
+                        <Button size="sm" onClick={() => setOpenDate(false)}>
                           Confirm
                         </Button>
                       </div>
