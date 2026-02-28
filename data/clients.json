@@ -70,5 +70,10 @@
     "dark_logo": "/clients/oy_logo.svg",
     "name": "Ocean Youth",
     "width": 200
+  },
+  {
+    "logo": "/clients/bloom_logo.png",
+    "name": "Bloom",
+    "width": 200
   }
 ]

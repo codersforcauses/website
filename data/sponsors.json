@@ -36,5 +36,12 @@
     "alt": "U Group",
     "logo": "/sponsors/u_group_logo.png",
     "link": "https://www.theugroup.co/"
+  },
+  {
+    "name": "IMC",
+    "alt": "IMC logo",
+    "logo": "/sponsors/imc.svg",
+    "dark_logo": "/sponsors/imc2.svg",
+    "link": "https://www.imc.com/"
   }
 ]

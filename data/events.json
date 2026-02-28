@@ -256,6 +256,22 @@
     "desc": "Get industry level experience and skills by working on fun projects."
   },
   {
+    "slug": "summer_projects_2025",
+    "tags": ["project", "social"],
+    "title": "Summer Projects 2025",
+    "image": {
+      "src": "/events/summer_2025_projects.png",
+      "alt": "Introductory session for the summer projects"
+    },
+    "date": "22/11/25",
+    "time": {
+      "start": "11:00am",
+      "end": "4:00pm"
+    },
+    "location": "UWA EZONE",
+    "desc": "Get industry level experience and skills by working on fun projects."
+  },
+  {
     "slug": "hack_for_homes_2025",
     "tags": ["competition"],
     "link": "/hack-for-homes",
@@ -271,5 +287,37 @@
     },
     "location": "Bloom Innovation Space, St Catherine's College UWA Campus ",
     "desc": "Bringing together some of Perth's most talented student developers to tackle real-world problems over four intensive days."
+  },
+  {
+    "slug": "software_industry_night_2026",
+    "tags": ["industry", "social", "networking"],
+    "title": "Industry Night 2026",
+    "image": {
+      "src": "/events/industry_night_2026.png",
+      "alt": "Image of people mingling at the industry night"
+    },
+    "date": "11/03/26",
+    "time": {
+      "start": "6:30pm",
+      "end": "9:00pm"
+    },
+    "location": "UWA EZONE",
+    "desc": "Come down to UWA EZONE and talk with representatives from the industry to gain insights into career opportunities as well as tips for the rest of your development career. We will be having amazing speakers who will be speaking about the industry, their experiences and technical knowledge to help you get ahead whether you're a first year or have just graduated."
+  },
+  {
+    "slug": "agm_2026",
+    "tags": ["agm", "meeting"],
+    "title": "Annual General Meeting 2026",
+    "image": {
+      "src": "/events/2024_agm.png",
+      "alt": "Image of people holding an annual general meeting"
+    },
+    "date": "25/03/26",
+    "time": {
+      "start": "5:30pm",
+      "end": "7:30pm"
+    },
+    "location": "UWA EZONE",
+    "desc": "We will be giving a brief recap of the past year, saying bye to the current committee and electing this year’s committee."
   }
 ]
