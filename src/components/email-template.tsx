@@ -2,13 +2,15 @@ import { Body, Button, Container, Head, Html, Img, Preview, Section, Text } from
 import * as React from "react"
 
 interface MembershipRenewalReminderEmailProps {
-  Firstname?: string
-  WebsiteLink?: string
+  firstname?: string
+  membershipEndDate?: string
+  websiteLink?: string
 }
 
 export const MembershipRenewalReminderEmail = ({
-  Firstname,
-  WebsiteLink = "https://codersforcauses.org/join",
+  firstname,
+  membershipEndDate,
+  websiteLink = "https://codersforcauses.org/join",
 }: MembershipRenewalReminderEmailProps) => {
   // let year = new Date().getFullYear()
   // const month = new Date().getMonth()
@@ -27,17 +29,13 @@ export const MembershipRenewalReminderEmail = ({
         <Container style={container}>
           <Text style={title}>Your membership has expired</Text>
           <Section>
-            <Text style={text}>Hi {Firstname},</Text>
+            <Text style={text}>Hi {firstname},</Text>
             <Text style={text}>
-              {`Your membership of Coders for Causes ends on 31st Dec 2025. To keep your membership active, please renew it by clicking the button below.`}
+              {`Your membership of Coders for Causes ends on ${membershipEndDate}. To keep your membership active, please renew it by clicking the button below.`}
             </Text>
-            <Text
-              style={text}
-            >{`Please note that, following an amendment to our constitution last year, subscriptions will expire one year from the date of purchase, effective from 2026.`}</Text>
-            <Button style={button} href={WebsiteLink}>
+            <Button style={button} href={websiteLink}>
               Login to my account
             </Button>
-            <Text style={text}>Happy new year and happy coding!</Text>
             <Img
               src="https://codersforcauses.org/logo/cfc_logo_white_circle.png"
               width="50"
