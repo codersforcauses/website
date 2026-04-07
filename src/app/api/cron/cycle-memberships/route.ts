@@ -30,7 +30,7 @@ export async function GET(request: NextRequest) {
     dbRes = await db
       .update(User)
       .set({ role: null, membership_expiry: null, reminder_pending: true })
-      .where(and(eq(User.role, "member"), lte(User.membership_expiry, today)))
+      .where(lte(User.membership_expiry, today))
       .returning()
   })
 

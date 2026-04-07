@@ -3,6 +3,10 @@
     {
       "path": "/api/cron/cycle-memberships",
       "schedule": "59 15 31 12 *"
+    },
+    {
+      "path": "/api/cron/prevent-supabase-pausing",
+      "schedule": "0 0 */3 * *"
     }
   ]
 }
