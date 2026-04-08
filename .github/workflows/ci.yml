@@ -79,3 +79,24 @@ jobs:
 
       - name: Run tsc
         run: pnpm typecheck
+
+  backup-db:
+    name: Backup database to S3
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/master' && github.event_name == 'push'
+    steps:
+      - name: Dump database
+        env:
+          SUPABASE_DB_URL: ${{ secrets.SUPABASE_DB_URL }}
+          PGSSLMODE: require
+        run: pg_dump "$SUPABASE_DB_URL" -Fc -f backup.dump
+
+      - name: Upload to S3
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_REGION: ${{ secrets.AWS_REGION }}
+          S3_BUCKET: ${{ secrets.S3_BUCKET }}
+        run: |
+          aws s3 cp backup.dump "s3://$S3_BUCKET/backups/$(date +%Y-%m-%d_%H-%M-%S).dump"
+
