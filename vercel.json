@@ -5,20 +5,8 @@
       "schedule": "59 15 31 12 *"
     },
     {
-      "path": "/api/cron/membership-renewal-reminder",
-      "schedule": "0 3 1 1 *"
-    },
-    {
-      "path": "/api/cron/membership-renewal-reminder",
-      "schedule": "0 3 2 1 *"
-    },
-    {
-      "path": "/api/cron/membership-renewal-reminder",
-      "schedule": "0 3 3 1 *"
-    },
-    {
-      "path": "/api/cron/membership-renewal-reminder",
-      "schedule": "0 3 4 1 *"
+      "path": "/api/cron/prevent-supabase-pausing",
+      "schedule": "0 0 */3 * *"
     }
   ]
 }
