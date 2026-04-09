@@ -7,9 +7,6 @@ on:
     types: ["opened", "synchronize", "reopened", "edited"]
   workflow_dispatch:
 
-  permissions:
-  contents: read
-
 jobs:
   format:
     name: Run Prettier
