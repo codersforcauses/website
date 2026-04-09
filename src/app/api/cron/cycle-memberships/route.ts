@@ -1,6 +1,6 @@
 import * as Sentry from "@sentry/nextjs"
 import { format } from "date-fns"
-import { and, eq, lte } from "drizzle-orm"
+import { lte } from "drizzle-orm"
 import type { NextRequest } from "next/server"
 import { Resend } from "resend"
 
@@ -22,14 +22,12 @@ export async function GET(request: NextRequest) {
   }
 
   let dbRes: (typeof User.$inferSelect)[] = []
-  const now = new Date()
-  const today = new Date(now)
+  const today = new Date()
 
   await Sentry.withMonitor("cycle-memberships", async () => {
-    // TODO: backup db and put into aws bucket
     dbRes = await db
       .update(User)
-      .set({ role: null, membership_expiry: null, reminder_pending: true })
+      .set({ role: null, membership_expiry: null })
       .where(lte(User.membership_expiry, today))
       .returning()
   })

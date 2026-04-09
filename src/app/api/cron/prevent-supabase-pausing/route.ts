@@ -14,12 +14,12 @@ export async function GET(request: NextRequest) {
     })
   }
 
-  let dbHealth
+  let dbHealth = false
   try {
     const result = await db.execute<{ healthy: boolean }>(sql`SELECT true as healthy`)
-    dbHealth = result.rows[0]?.healthy
+    dbHealth = result.rows[0]?.healthy ?? false
   } catch (err) {
-    dbHealth = false
+    console.error("Database health check failed", err)
   }
 
   return Response.json(

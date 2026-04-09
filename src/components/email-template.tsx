@@ -2,8 +2,8 @@ import { Body, Button, Container, Head, Html, Img, Preview, Section, Text } from
 import * as React from "react"
 
 interface MembershipRenewalReminderEmailProps {
-  firstname?: string
-  membershipEndDate?: string
+  firstname: string
+  membershipEndDate: string
   websiteLink?: string
 }
 
@@ -12,12 +12,6 @@ export const MembershipRenewalReminderEmail = ({
   membershipEndDate,
   websiteLink = "https://codersforcauses.org/join",
 }: MembershipRenewalReminderEmailProps) => {
-  // let year = new Date().getFullYear()
-  // const month = new Date().getMonth()
-  // if (month < 6) {
-  //   year -= 1
-  // }
-
   return (
     <Html>
       <Head />
