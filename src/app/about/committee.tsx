@@ -9,7 +9,7 @@ const CommitteeCard = ({ name, position, about, social, picture: { src, alt } }:
   <div className="group relative flex">
     <div className="relative h-96 w-full md:h-64 lg:h-72">
       <div className="h-full w-full animate-pulse bg-secondary dark:bg-alt-dark" />
-      <Image priority src={src} alt={alt} fill className="h-full w-full object-cover object-top" />
+      <Image priority src={src} alt={alt} fill className="h-full w-full object-cover object-[center_20%]" />
     </div>
     <div className="absolute inset-x-0 bottom-0 p-4 text-secondary opacity-0 transition-opacity duration-300 group-hover:bg-primary group-hover:opacity-100">
       <p className="font-mono font-black">
