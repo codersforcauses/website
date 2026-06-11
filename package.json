@@ -3,6 +3,7 @@
   "version": "0.1.2",
   "private": true,
   "type": "module",
+  "packageManager": "pnpm@10.26.2",
   "scripts": {
     "build": "next build",
     "db:push": "drizzle-kit push",
