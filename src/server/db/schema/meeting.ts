@@ -1,33 +1,41 @@
 import { index, pgEnum } from "drizzle-orm/pg-core"
 import { uuidv7 } from "uuidv7"
+import * as z from "zod"
 
+import type { retrieveSuggestion } from "~/lib/mapbox"
+import { MEETING_CONTEST_STATUS, MEETING_STATUS, MEETING_QUESTION_TYPE } from "~/lib/constants"
 import { createTable, timestamps } from "./util"
 import { users } from "./user"
 
-export const meetingStatusEnum = pgEnum("meeting-status", ["upcoming", "ongoing", "completed", "cancelled"])
+export const meetingStatusEnum = pgEnum("meeting-status", MEETING_STATUS)
 export const generalMeetings = createTable(
-  "general_meetings",
+  "general_meeting",
   (d) => ({
     id: d
       .uuid()
       .primaryKey()
       .$defaultFn(() => uuidv7()),
-    slug: d.varchar("title", { length: 256 }).unique().notNull(),
-    title: d.varchar("title", { length: 256 }).unique().notNull(),
+    slug: d.varchar("slug", { length: 256 }).unique().notNull(),
+    title: d.varchar("title", { length: 256 }).notNull(),
     start: d.timestamp("start", { withTimezone: true }).notNull(),
     end: d.timestamp("end", { withTimezone: true }),
-    venue: d.varchar("venue", { length: 512 }), // need to change to output from mapbox
+    room: d.varchar("room", { length: 128 }),
+    venue: d.jsonb().$type<z.infer<typeof retrieveSuggestion>["features"][number]>(),
+    venueFallback: d.varchar("venue_fallback", { length: 128 }),
     agenda: d.text(),
-    status: meetingStatusEnum("status").default("upcoming").notNull(),
-    createdBy: d.uuid("user_id").references(() => users.id, { onDelete: "set null" }), // keep meeting even if user is deleted
-
+    status: meetingStatusEnum("status").default("draft").notNull(),
+    createdBy: d.uuid("created_by").references(() => users.id, { onDelete: "set null" }), // keep meeting even if user is deleted
     ...timestamps,
   }),
-  (t) => [index("slug_idx").on(t.slug)],
+  (t) => [
+    index("slug_idx").on(t.slug),
+    // !maybe index the start date and status to fetch upcoming meetings
+    // index("date_idx").on(t.start),
+  ],
 )
 
 export const positions = createTable(
-  "positions",
+  "position",
   (d) => ({
     id: d
       .uuid()
@@ -38,15 +46,16 @@ export const positions = createTable(
       .notNull()
       .references(() => generalMeetings.id, { onDelete: "cascade" }),
     title: d.text("title").notNull(),
-    description: d.text(),
+    description: d.text().notNull().default(""),
     priority: d.smallint().notNull(), // position order for election
     openings: d.smallint().notNull().default(1),
+    ...timestamps,
   }),
   // (t) => [index("verification_identifier_idx").on(t.identifier)],
 )
 
 export const candidates = createTable(
-  "candidates",
+  "candidate",
   (d) => ({
     id: d
       .uuid()
@@ -56,13 +65,13 @@ export const candidates = createTable(
     meetingId: d
       .uuid("meeting_id")
       .notNull()
-      .references(() => users.id, { onDelete: "cascade" }),
+      .references(() => generalMeetings.id, { onDelete: "cascade" }),
   }),
   // (t) => [index("verification_identifier_idx").on(t.identifier)],
 )
 
 export const nominations = createTable(
-  "nominations",
+  "nomination",
   (d) => ({
     candidateId: d
       .uuid("candidate_id")
@@ -75,14 +84,14 @@ export const nominations = createTable(
     meetingId: d
       .uuid("meeting_id")
       .notNull()
-      .references(() => users.id, { onDelete: "cascade" }),
+      .references(() => generalMeetings.id, { onDelete: "cascade" }),
   }),
   // (t) => [index("verification_identifier_idx").on(t.identifier)],
 )
 
-export const questionTypeEnum = pgEnum("question-type", ["short", "long", "checkbox"])
+export const questionTypeEnum = pgEnum("question-type", MEETING_QUESTION_TYPE)
 export const questions = createTable(
-  "questions",
+  "question",
   (d) => ({
     id: d
       .uuid()
@@ -93,15 +102,16 @@ export const questions = createTable(
       .notNull()
       .references(() => generalMeetings.id, { onDelete: "cascade" }),
     order: d.smallint().notNull(), // question order for candidate application
-    text: d.text().notNull(),
-    type: questionTypeEnum().default("short"),
-    required: d.boolean().default(false),
+    text: d.text().notNull().default(""),
+    type: questionTypeEnum().notNull().default("short"),
+    required: d.boolean().notNull().default(false),
+    ...timestamps,
   }),
   // (t) => [index("verification_identifier_idx").on(t.identifier)],
 )
 
 export const answers = createTable(
-  "answers",
+  "answer",
   (d) => ({
     id: d
       .uuid()
@@ -116,13 +126,14 @@ export const answers = createTable(
       .notNull()
       .references(() => questions.id, { onDelete: "cascade" }),
     text: d.text().notNull(),
+    ...timestamps,
   }),
   // (t) => [index("verification_identifier_idx").on(t.identifier)],
 )
 
 //Generates voter for when they go to the link and shows on the admin page to get approved
 export const voters = createTable(
-  "voters",
+  "voter",
   (d) => ({
     id: d
       .uuid()
@@ -140,10 +151,10 @@ export const voters = createTable(
 )
 
 // called race in legacy system
-export const contestStatusEnum = pgEnum("contest-status", ["closed", "open", "finished"]) // maybe add "restarted" status later
+export const contestStatusEnum = pgEnum("contest-status", MEETING_CONTEST_STATUS) // maybe add "restarted" status later
 // maybe generate contests only when meeting has started
 export const contests = createTable(
-  "contests",
+  "contest",
   (d) => ({
     id: d
       .uuid()
@@ -166,7 +177,7 @@ export const contests = createTable(
 )
 
 export const votes = createTable(
-  "votes",
+  "vote",
   (d) => ({
     id: d
       .uuid()
@@ -180,13 +191,12 @@ export const votes = createTable(
       .uuid("contest_id")
       .notNull()
       .references(() => contests.id, { onDelete: "cascade" }),
-    ...timestamps,
   }),
   // (t) => [index("verification_identifier_idx").on(t.identifier)],
 )
 
 export const votePreferences = createTable(
-  "vote_preferences",
+  "vote_preference",
   (d) => ({
     voteId: d
       .uuid("vote_id")
@@ -203,7 +213,7 @@ export const votePreferences = createTable(
 )
 
 export const winners = createTable(
-  "winners",
+  "winner",
   (d) => ({
     candidateId: d
       .uuid("candidate_id")
@@ -213,7 +223,6 @@ export const winners = createTable(
       .uuid("contest_id")
       .notNull()
       .references(() => contests.id, { onDelete: "cascade" }),
-    ...timestamps,
   }),
   // (t) => [index("verification_identifier_idx").on(t.identifier)],
 )

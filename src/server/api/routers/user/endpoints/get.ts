@@ -1,5 +1,5 @@
 import { TRPCError } from "@trpc/server"
-import { z } from "zod"
+import * as z from "zod"
 
 import { publicRatedProcedure } from "~/server/api/trpc"
 import { UNIVERSITIES } from "~/lib/constants"

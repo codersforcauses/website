@@ -1,8 +1,11 @@
 {
   "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "plugins": ["unicorn", "typescript", "oxc", "nextjs", "jsx-a11y", "react-perf"],
-  "jsPlugins": ["@tanstack/query", "eslint-plugin-drizzle"],
+  "plugins": ["unicorn", "typescript", "oxc", "nextjs", "react", "jsx-a11y", "react-perf"],
+  "jsPlugins": ["@tanstack/eslint-plugin-query", "eslint-plugin-drizzle"],
   "categories": {},
+  "options": {
+    "typeAware": true
+  },
   "rules": {
     "for-direction": "warn",
     "no-async-promise-executor": "warn",
@@ -126,7 +129,6 @@
   },
   "settings": {
     "jsx-a11y": {
-      "polymorphicPropName": null,
       "components": {},
       "attributes": {}
     },
@@ -142,5 +144,5 @@
     "builtin": true
   },
   "globals": {},
-  "ignorePatterns": []
+  "ignorePatterns": ["scripts/*"]
 }

@@ -9,6 +9,6 @@ import { pgTableCreator, timestamp } from "drizzle-orm/pg-core"
 export const createTable = pgTableCreator((name) => `cfc_website_${name}`)
 
 export const timestamps = {
-  createdAt: timestamp("created_at", { withTimezone: true }).defaultNow().notNull(),
-  updatedAt: timestamp("updated_at", { withTimezone: true }).$onUpdate(() => new Date()),
+  createdAt: timestamp("created_at", { precision: 6, withTimezone: true }).defaultNow().notNull(),
+  updatedAt: timestamp("updated_at", { precision: 6, withTimezone: true }).$onUpdate(() => new Date()),
 }

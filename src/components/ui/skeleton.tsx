@@ -5,8 +5,8 @@ import { cn } from "~/lib/utils"
 const skeletonVariants = cva("animate-pulse", {
   variants: {
     variant: {
-      default: "bg-neutral-200 dark:bg-neutral-800",
-      dark: "bg-neutral-800",
+      default: "bg-muted",
+      dark: "bg-muted-dark",
     },
   },
   defaultVariants: {

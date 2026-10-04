@@ -1,20 +1,20 @@
 "use client"
 
-import { useState } from "react"
-import { QueryClientProvider, type QueryClient } from "@tanstack/react-query"
-import { httpBatchStreamLink, loggerLink } from "@trpc/client"
-import { createTRPCReact } from "@trpc/react-query"
+import * as React from "react"
+import { environmentManager, QueryClientProvider, type QueryClient } from "@tanstack/react-query"
+import { createTRPCContext } from "@trpc/tanstack-react-query"
+import { createTRPCClient, httpBatchStreamLink, loggerLink } from "@trpc/client"
 import type { inferRouterInputs, inferRouterOutputs } from "@trpc/server"
 import SuperJSON from "superjson"
 
-import type { AppRouter } from "~/server/api/root"
 import { getBaseUrl } from "~/lib/utils"
 import { createQueryClient } from "./query-client"
+import type { AppRouter } from "./types"
 
 let clientQueryClientSingleton: QueryClient | undefined = undefined
 export function getQueryClient() {
-  if (typeof window === "undefined") {
-    // Server: always make a new query client
+  // Server: always make a new query client
+  if (environmentManager.isServer()) {
     return createQueryClient()
   }
   // Browser: use singleton pattern to keep the same query client
@@ -23,7 +23,8 @@ export function getQueryClient() {
   return clientQueryClientSingleton
 }
 
-export const api = createTRPCReact<AppRouter>()
+const { TRPCProvider, useTRPC: useApi } = createTRPCContext<AppRouter>()
+export { useApi }
 
 /**
  * Inference helper for inputs.
@@ -42,8 +43,8 @@ export type RouterOutputs = inferRouterOutputs<AppRouter>
 export function TRPCReactProvider(props: { children: React.ReactNode }) {
   const queryClient = getQueryClient()
 
-  const [trpcClient] = useState(() =>
-    api.createClient({
+  const [trpcClient] = React.useState(() =>
+    createTRPCClient<AppRouter>({
       links: [
         loggerLink({
           enabled: (op) =>
@@ -54,7 +55,7 @@ export function TRPCReactProvider(props: { children: React.ReactNode }) {
           url: getBaseUrl() + "/api/trpc",
           headers: () => {
             const headers = new Headers()
-            headers.set("x-trpc-source", "coders-for-causes-4")
+            headers.set("x-trpc-source", "cfc-client")
             return headers
           },
         }),
@@ -64,9 +65,9 @@ export function TRPCReactProvider(props: { children: React.ReactNode }) {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <api.Provider client={trpcClient} queryClient={queryClient}>
+      <TRPCProvider trpcClient={trpcClient} queryClient={queryClient}>
         {props.children}
-      </api.Provider>
+      </TRPCProvider>
     </QueryClientProvider>
   )
 }

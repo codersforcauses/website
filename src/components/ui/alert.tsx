@@ -4,13 +4,17 @@ import { cva, type VariantProps } from "class-variance-authority"
 import { cn } from "~/lib/utils"
 
 const alertVariants = cva(
-  "relative grid w-full grid-cols-[0_1fr] items-start gap-y-0.5 border px-4 py-3 text-sm has-[>.material-symbols-sharp]:grid-cols-[calc(var(--spacing)*4)_1fr] has-[>.material-symbols-sharp]:gap-x-3 has-[>svg]:grid-cols-[calc(var(--spacing)*4)_1fr] has-[>svg]:gap-x-3 [&>.material-symbols-sharp]:-translate-x-0.5 [&>.material-symbols-sharp]:text-xl! [&>.material-symbols-sharp]:leading-5! [&>svg]:size-4 [&>svg]:translate-y-0.5 [&>svg]:fill-current",
+  [
+    "relative grid w-full items-start gap-x-2 gap-y-0.5 border px-3.5 py-3 text-sm text-foreground has-data-[slot=alert-action]:grid-cols-[1fr_auto]",
+    "has-[>svg]:grid-cols-[--spacing(4)_1fr] has-[>svg]:gap-x-2 has-[>svg]:has-data-[slot=alert-action]:grid-cols-[--spacing(4)_1fr_auto] [&>svg]:h-lh [&>svg]:w-4",
+    "has-[>span.material-symbols-sharp]:grid-cols-[--spacing(4)_1fr] has-[>span.material-symbols-sharp]:gap-x-2 has-[>span.material-symbols-sharp]:has-data-[slot=alert-action]:grid-cols-[--spacing(4)_1fr_auto] [&>.material-symbols-sharp]:text-base! [&>.material-symbols-sharp]:leading-5!",
+  ],
   {
     variants: {
       variant: {
-        default: "bg-neutral-50 text-neutral-950 dark:bg-neutral-900 dark:text-neutral-50",
+        default: "bg-primary-foreground",
         destructive:
-          "bg-white text-red-500 *:data-[slot=alert-description]:text-red-500/90 dark:bg-neutral-950 [&>.material-symbols-sharp]:text-current",
+          "bg-background text-destructive *:data-[slot=alert-description]:text-destructive/90 [&>.material-symbols-sharp]:text-current [&>svg]:text-current",
       },
     },
     defaultVariants: {
@@ -27,7 +31,7 @@ function AlertTitle({ className, ...props }: React.ComponentProps<"div">) {
   return (
     <div
       data-slot="alert-title"
-      className={cn("col-start-2 line-clamp-1 min-h-4 font-medium tracking-tight", className)}
+      className={cn("font-medium [.material-symbols-sharp~&]:col-start-2 [svg~&]:col-start-2", className)}
       {...props}
     />
   )
@@ -38,7 +42,7 @@ function AlertDescription({ className, ...props }: React.ComponentProps<"div">) 
     <div
       data-slot="alert-description"
       className={cn(
-        "col-start-2 grid justify-items-start gap-1 text-sm text-neutral-500 dark:text-neutral-400 [&_p]:leading-relaxed",
+        "flex flex-col gap-2.5 text-muted-foreground [.material-symbols-sharp~&]:col-start-2 [svg~&]:col-start-2",
         className,
       )}
       {...props}
@@ -46,4 +50,19 @@ function AlertDescription({ className, ...props }: React.ComponentProps<"div">) 
   )
 }
 
-export { Alert, AlertTitle, AlertDescription }
+function AlertAction({ className, ...props }: React.ComponentProps<"div">) {
+  return (
+    <div
+      data-slot="alert-action"
+      className={cn(
+        "flex gap-1 max-sm:col-start-2 max-sm:mt-2 sm:row-start-1 sm:row-end-3 sm:self-center sm:[[data-slot=alert-description]~&]:col-start-2 sm:[[data-slot=alert-title]~&]:col-start-2",
+        "sm:[svg~&]:col-start-2 sm:[svg~[data-slot=alert-description]~&]:col-start-3 sm:[svg~[data-slot=alert-title]~&]:col-start-3",
+        "sm:[.material-symbols-sharp~&]:col-start-2 sm:[.material-symbols-sharp~[data-slot=alert-description]~&]:col-start-3 sm:[.material-symbols-sharp~[data-slot=alert-title]~&]:col-start-3",
+        className,
+      )}
+      {...props}
+    />
+  )
+}
+
+export { Alert, AlertTitle, AlertDescription, AlertAction }

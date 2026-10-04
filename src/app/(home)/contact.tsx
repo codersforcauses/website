@@ -5,12 +5,12 @@ import { AnimatePresence, motion } from "motion/react"
 import { useForm } from "@tanstack/react-form"
 import * as z from "zod"
 
-import { Button } from "~/components/ui/button"
-import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "~/components/ui/collapsible"
-import { Input } from "~/components/ui/input"
-import { Textarea } from "~/ui/textarea"
-import { toast } from "~/hooks/use-toast"
+import SubmitButton from "~/blocks/submit-button"
+import { Button } from "~/ui/button"
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "~/ui/collapsible"
 import { Field, FieldError, FieldLabel } from "~/ui/field"
+import { InputGroup, InputGroupAddon, InputGroupInput, InputGroupTextarea } from "~/ui/input-group"
+import { toastManager } from "~/ui/toast"
 
 const formSchema = z.object({
   name: z.string().min(2, {
@@ -27,7 +27,6 @@ const formSchema = z.object({
 
 export default function Contact() {
   const [open, setOpen] = React.useState(false)
-  const [count, setCount] = React.useState(0)
   const btnRef = React.useRef<HTMLButtonElement>(null)
 
   const form = useForm({
@@ -39,6 +38,10 @@ export default function Contact() {
     },
     validators: {
       onSubmit: formSchema,
+    },
+    onSubmitInvalid() {
+      const InvalidInput = document.querySelector('[aria-invalid="true"]') as HTMLInputElement
+      InvalidInput?.focus()
     },
     async onSubmit({ value }) {
       // change loading to use transition
@@ -52,21 +55,19 @@ export default function Contact() {
       // if (response.ok) {
       //   form.reset()
       // setOpen(false)
-      toast({
+      toastManager.add({
         title: "We've received your message",
-        // description: "Your query has been submitted to us, we will get back to you as soon as we can.",
-        description: `Your query has been submitted to us, we will get back to you as soon as we can. ${count}`,
+        description: "Your query has been submitted to us, we will get back to you as soon as we can.",
+        type: "success",
       })
-      setCount((prev) => prev + 1)
       // }
       // } catch (error) {
       //   console.log("Error sending message:", error)
-
-      //   toast({
-      //     variant: "destructive",
-      //     title: "Failed to send message",
-      //     description: "Your message was unable to be sent, please try again.",
-      //   })
+      // toastManager.add({
+      //   title: "Failed to send message",
+      //   description: "Your message failed to send, please try again.",
+      //   type: "error",
+      // })
       // }
     },
   })
@@ -78,14 +79,10 @@ export default function Contact() {
 
   return (
     <Collapsible open={open} onOpenChange={setOpen}>
-      {!open && (
-        <CollapsibleTrigger asChild>
-          <Button variant="outline-dark">Contact us</Button>
-        </CollapsibleTrigger>
-      )}
+      {!open && <CollapsibleTrigger render={<Button variant="outline-dark">Contact us</Button>} />}
       <AnimatePresence>
         {open && (
-          <CollapsibleContent asChild forceMount>
+          <CollapsibleContent animate={false}>
             <motion.div
               initial={{
                 opacity: 0,
@@ -105,7 +102,7 @@ export default function Contact() {
               }}
             >
               <form
-                className="mt-4 grid max-w-xl gap-y-4"
+                className="grid gap-y-4"
                 onSubmit={async (e) => {
                   e.preventDefault()
                   btnRef.current?.focus()
@@ -117,21 +114,28 @@ export default function Contact() {
                     const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid
                     return (
                       <Field data-invalid={isInvalid}>
-                        <FieldLabel htmlFor="name">Name</FieldLabel>
-                        <Input
-                          id="name"
-                          name="name"
-                          autoFocus
-                          variant="dark"
-                          autoComplete="name"
-                          placeholder="John Doe"
-                          aria-invalid={isInvalid}
-                          value={field.state.value}
-                          onBlur={field.handleBlur}
-                          onChange={(e) => {
-                            field.handleChange(e.target.value)
-                          }}
-                        />
+                        <FieldLabel htmlFor={field.name}>Name</FieldLabel>
+                        <InputGroup variant="dark">
+                          <InputGroupInput
+                            id={field.name}
+                            name={field.name}
+                            autoFocus
+                            variant="dark"
+                            autoComplete="name"
+                            placeholder="John Doe"
+                            aria-invalid={isInvalid}
+                            value={field.state.value}
+                            onBlur={field.handleBlur}
+                            onChange={(e) => {
+                              field.handleChange(e.target.value)
+                            }}
+                          />
+                          {isInvalid && (
+                            <InputGroupAddon align="inline-end">
+                              <span className="material-symbols-sharp text-destructive-dark">error</span>
+                            </InputGroupAddon>
+                          )}
+                        </InputGroup>
                         {isInvalid && <FieldError errors={field.state.meta.errors} />}
                       </Field>
                     )
@@ -142,23 +146,29 @@ export default function Contact() {
                     const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid
                     return (
                       <Field data-invalid={isInvalid}>
-                        <FieldLabel htmlFor="org_name">
+                        <FieldLabel htmlFor={field.name}>
                           Organization name
                           <span className="opacity-75">(optional)</span>
                         </FieldLabel>
-                        <Input
-                          id="org_name"
-                          name="org_name"
-                          variant="dark"
-                          autoComplete="organization"
-                          placeholder="Coders for causes"
-                          value={field.state.value}
-                          onBlur={field.handleBlur}
-                          onChange={(e) => {
-                            field.handleChange(e.target.value)
-                          }}
-                        />
-
+                        <InputGroup variant="dark">
+                          <InputGroupInput
+                            id={field.name}
+                            name={field.name}
+                            variant="dark"
+                            autoComplete="organization"
+                            placeholder="Coders for causes"
+                            value={field.state.value}
+                            onBlur={field.handleBlur}
+                            onChange={(e) => {
+                              field.handleChange(e.target.value)
+                            }}
+                          />
+                          {isInvalid && (
+                            <InputGroupAddon align="inline-end">
+                              <span className="material-symbols-sharp text-destructive-dark">error</span>
+                            </InputGroupAddon>
+                          )}
+                        </InputGroup>
                         {isInvalid && <FieldError errors={field.state.meta.errors} />}
                       </Field>
                     )
@@ -168,23 +178,30 @@ export default function Contact() {
                   {(field) => {
                     const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid
                     return (
-                      <Field>
-                        <FieldLabel htmlFor="email">Email address</FieldLabel>
-                        <Input
-                          id="email"
-                          name="email"
-                          variant="dark"
-                          type="text"
-                          inputMode="email"
-                          autoComplete="email"
-                          placeholder="hello@codersforcauses.org"
-                          value={field.state.value}
-                          onBlur={field.handleBlur}
-                          onChange={(e) => {
-                            field.handleChange(e.target.value)
-                          }}
-                        />
-
+                      <Field data-invalid={isInvalid}>
+                        <FieldLabel htmlFor={field.name}>Email address</FieldLabel>
+                        <InputGroup variant="dark">
+                          <InputGroupInput
+                            id={field.name}
+                            name={field.name}
+                            variant="dark"
+                            type="text"
+                            inputMode="email"
+                            autoComplete="email"
+                            aria-invalid={isInvalid}
+                            placeholder="hello@codersforcauses.org"
+                            value={field.state.value}
+                            onBlur={field.handleBlur}
+                            onChange={(e) => {
+                              field.handleChange(e.target.value)
+                            }}
+                          />
+                          {isInvalid && (
+                            <InputGroupAddon align="inline-end">
+                              <span className="material-symbols-sharp text-destructive-dark">error</span>
+                            </InputGroupAddon>
+                          )}
+                        </InputGroup>
                         {isInvalid && <FieldError errors={field.state.meta.errors} />}
                       </Field>
                     )
@@ -194,20 +211,27 @@ export default function Contact() {
                   {(field) => {
                     const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid
                     return (
-                      <Field>
-                        <FieldLabel htmlFor="message">Message</FieldLabel>
-                        <Textarea
-                          id="message"
-                          name="message"
-                          variant="dark"
-                          placeholder="Write a short message here to get things started"
-                          value={field.state.value}
-                          onBlur={field.handleBlur}
-                          onChange={(e) => {
-                            field.handleChange(e.target.value)
-                          }}
-                        />
-
+                      <Field data-invalid={isInvalid}>
+                        <FieldLabel htmlFor={field.name}>Message</FieldLabel>
+                        <InputGroup variant="dark">
+                          <InputGroupTextarea
+                            id={field.name}
+                            name={field.name}
+                            variant="dark"
+                            aria-invalid={isInvalid}
+                            placeholder="Write a short message here to get things started"
+                            value={field.state.value}
+                            onBlur={field.handleBlur}
+                            onChange={(e) => {
+                              field.handleChange(e.target.value)
+                            }}
+                          />
+                          {isInvalid && (
+                            <InputGroupAddon align="inline-end">
+                              <span className="material-symbols-sharp text-destructive-dark">error</span>
+                            </InputGroupAddon>
+                          )}
+                        </InputGroup>
                         {isInvalid && <FieldError errors={field.state.meta.errors} />}
                       </Field>
                     )
@@ -215,22 +239,20 @@ export default function Contact() {
                 </form.Field>
                 <div className="grid grid-cols-2 gap-4">
                   <form.Subscribe selector={(state) => [state.isSubmitting, state.canSubmit]}>
-                    {([isSubmitting, canSubmit]) => (
-                      <Button
-                        ref={btnRef}
-                        type="submit"
-                        variant="dark"
-                        disabled={isSubmitting ?? !canSubmit}
-                        className="relative order-1 w-full"
-                      >
-                        {isSubmitting ? "Sending" : "Send"}
-                        {isSubmitting && (
-                          <span className="material-symbols-sharp absolute right-4 animate-spin text-base! leading-none!">
-                            progress_activity
-                          </span>
-                        )}
-                      </Button>
-                    )}
+                    {([isSubmitting, canSubmit]) => {
+                      const btnText = isSubmitting ? "Sending" : "Send"
+                      return (
+                        <SubmitButton
+                          ref={btnRef}
+                          disabled={isSubmitting ?? !canSubmit}
+                          loading={isSubmitting ?? false}
+                          variant="dark"
+                          className="order-1"
+                        >
+                          {btnText}
+                        </SubmitButton>
+                      )
+                    }}
                   </form.Subscribe>
 
                   <Button variant="ghost-dark" type="button" className="order-0" onClick={close}>

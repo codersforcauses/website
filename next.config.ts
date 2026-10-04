@@ -8,13 +8,18 @@ import "./src/env.js"
 import type { NextConfig } from "next"
 
 const config: NextConfig = {
+  // allowedDevOrigins: ["192.168.1.111"],
   reactStrictMode: true,
   typedRoutes: true,
   cacheComponents: true,
   poweredByHeader: false,
+  reactCompiler: true,
+  // compiler: {
+  //   removeConsole: {
+  //     exclude: ["error"],
+  //   },
+  // },
   experimental: {
-    // optimizePackageImports: [""],
-    cssChunking: true,
     inlineCss: true,
     // browserDebugInfoInTerminal: true,
     viewTransition: true,

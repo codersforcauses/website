@@ -3,7 +3,7 @@
 // !Run command: `bun run scripts/migrate.ts`
 
 import fs from "node:fs/promises"
-import { hashPassword } from "better-auth/crypto"
+// import { hashPassword } from "better-auth/crypto"
 import { auth } from "../src/lib/auth"
 
 type User = {
@@ -66,7 +66,7 @@ async function migrate() {
 
   for (const user of users) {
     const { id, preferred_name, student_number, square_customer_id, created_at, updated_at, ...oldUser } = user
-    const pass = await hashPassword(crypto.randomUUID())
+    // const pass = await hashPassword(crypto.randomUUID())
     try {
       const createdUser = await ctx.adapter.create<{
         id: string
@@ -91,7 +91,7 @@ async function migrate() {
             userId: createdUser.id,
             createdAt: created_at,
             updatedAt: created_at,
-            password: pass,
+            // password: pass,
           },
         })
       }

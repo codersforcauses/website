@@ -1,10 +1,10 @@
-import { z } from "zod"
+import * as z from "zod"
 
 import { adminProcedure } from "~/server/api/trpc"
-import { positions } from "~/server/db/schema"
+import { createPositions as create } from "../../util/create"
 
 /**
- * Creates a new general meeting
+ * Creates positions for meeting
  * @param {number} - Number of months to query: 1, 3, 6, 12, and 0 where 0 is all time
  * @returns {Promise<Object>} - Object returning general meeting details
  * @throws {TRPCError} - If user is not logged in, does not have admin privileges, or the db operation fails
@@ -26,13 +26,8 @@ const createPositions = adminProcedure
       ),
     }),
   )
-  .mutation(async ({ ctx, input }) => {
-    const data = input.positions.map((position) => ({
-      ...position,
-      meetingId: input.meetingId,
-    }))
-
-    await ctx.db.insert(positions).values(data)
+  .mutation(async ({ input }) => {
+    await create(input)
   })
 
 export default createPositions

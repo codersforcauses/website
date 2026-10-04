@@ -1,11 +1,7 @@
 /**
- * YOU PROBABLY DON'T NEED TO EDIT THIS FILE, UNLESS:
- * 1. You want to modify request context (see Part 1).
- * 2. You want to create a new middleware or type of procedure (see Part 3).
- *
- * TL;DR - This is where all the tRPC server stuff is created and plugged in. The pieces you will
- * need to use are documented accordingly near the end.
+ * YOU PROBABLY DON'T NEED TO EDIT THIS FILE, UNLESS YOU"RE ADDING MORE MIDDLEWARE
  */
+import { cache } from "react"
 import { initTRPC, TRPCError } from "@trpc/server"
 import * as Sentry from "@sentry/nextjs"
 import { Ratelimit, type RatelimitConfig } from "@upstash/ratelimit"
@@ -30,7 +26,7 @@ import { env } from "~/env"
  *
  * @see https://trpc.io/docs/server/context
  */
-export const createTRPCContext = async (opts: { headers: Headers }) => {
+export const createTRPCContext = cache(async (opts: { headers: Headers }) => {
   const session = await auth.api.getSession({
     headers: opts.headers,
   })
@@ -40,7 +36,7 @@ export const createTRPCContext = async (opts: { headers: Headers }) => {
     session,
     ...opts,
   }
-}
+})
 
 /**
  * 2. INITIALIZATION
@@ -49,7 +45,7 @@ export const createTRPCContext = async (opts: { headers: Headers }) => {
  * ZodErrors so that you get type-safety on the frontend if your procedure fails due to validation
  * errors on the backend.
  */
-const t = initTRPC.context<typeof createTRPCContext>().create({
+const t = initTRPC.context<Awaited<ReturnType<typeof createTRPCContext>>>().create({
   transformer: superjson,
   errorFormatter({ shape, error }) {
     return {

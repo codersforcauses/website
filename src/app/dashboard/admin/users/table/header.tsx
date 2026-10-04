@@ -32,11 +32,11 @@ export default function UsersTableHead<TData, TValue>({
       <svg viewBox="0 -960 960 960">
         <path
           d="M298-584l-58-56 240-240 240 240-58 56-182-182-182 182Z"
-          className={cn(column.getIsSorted() === "asc" ? "fill-current" : "fill-neutral-400 dark:fill-neutral-500")}
+          className={cn(column.getIsSorted() === "asc" ? "fill-current" : "fill-muted-foreground")}
         />
         <path
           d="M480-80 240-320l57-57 183 183 183-183 57 57L480-80Z"
-          className={cn(column.getIsSorted() === "desc" ? "fill-current" : "fill-neutral-400 dark:fill-neutral-500")}
+          className={cn(column.getIsSorted() === "desc" ? "fill-current" : "fill-muted-foreground")}
         />
       </svg>
     </Button>

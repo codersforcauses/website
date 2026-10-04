@@ -1,8 +1,8 @@
 "use client"
 
 import * as React from "react"
-import { ChevronDownIcon, ChevronLeftIcon, ChevronRightIcon } from "lucide-react"
-import { type DayButton, DayPicker as RDayPicker, getDefaultClassNames } from "react-day-picker"
+
+import { type DayButton, DayPicker as RDayPicker, getDefaultClassNames } from "@daypicker/react"
 
 import { cn } from "~/lib/utils"
 import { Button, buttonVariants } from "~/ui/button"
@@ -25,7 +25,7 @@ function DayPicker({
     <RDayPicker
       showOutsideDays={showOutsideDays}
       className={cn(
-        "group/calendar bg-white p-3 [--cell-size:--spacing(8)] in-data-[slot=card-content]:bg-transparent in-data-[slot=popover-content]:bg-transparent dark:bg-neutral-950",
+        "group/daypicker bg-background p-3 [--cell-size:--spacing(8)] in-data-[slot=card-content]:bg-transparent in-data-[slot=popover-content]:bg-transparent",
         String.raw`rtl:**:[.rdp-button\_next>svg]:rotate-180`,
         String.raw`rtl:**:[.rdp-button\_previous>svg]:rotate-180`,
         className,
@@ -59,59 +59,65 @@ function DayPicker({
           defaultClassNames.dropdowns,
         ),
         dropdown_root: cn(
-          "relative border border-neutral-200 has-focus:border-neutral-950 has-focus:ring-[3px] has-focus:ring-neutral-950/50 dark:border-neutral-800 dark:has-focus:border-neutral-300 dark:has-focus:ring-neutral-300/50",
+          "relative border border-border has-focus:border-foreground has-focus:ring-3 has-focus:ring-primary/50",
           defaultClassNames.dropdown_root,
         ),
-        dropdown: cn("absolute inset-0 opacity-0", defaultClassNames.dropdown),
+        dropdown: cn("absolute inset-0 bg-background opacity-0", defaultClassNames.dropdown),
         caption_label: cn(
           "font-medium select-none",
           captionLayout === "label"
             ? "text-sm"
-            : "flex h-8 items-center gap-1 pr-1 pl-2 text-sm [&>svg]:size-3.5 [&>svg]:text-neutral-500 dark:[&>svg]:text-neutral-400",
+            : "flex h-8 items-center gap-1 pr-1 pl-2 text-sm [&>svg]:size-3.5 [&>svg]:text-muted-foreground",
           defaultClassNames.caption_label,
         ),
-        table: "w-full border-collapse",
+        month_grid: "w-full border-collapse",
         weekdays: cn("flex", defaultClassNames.weekdays),
-        weekday: cn(
-          "flex-1 text-[0.8rem] font-normal text-neutral-500 select-none dark:text-neutral-400",
-          defaultClassNames.weekday,
-        ),
+        weekday: cn("flex-1 text-[0.8rem] font-normal text-muted-foreground select-none", defaultClassNames.weekday),
         week: cn("mt-2 flex w-full", defaultClassNames.week),
         week_number_header: cn("w-(--cell-size) select-none", defaultClassNames.week_number_header),
-        week_number: cn(
-          "text-[0.8rem] text-neutral-500 select-none dark:text-neutral-400",
-          defaultClassNames.week_number,
+        week_number: cn("text-[0.8rem] text-muted-foreground select-none", defaultClassNames.week_number),
+        day: cn("group/day relative aspect-square size-full p-0 text-center select-none", defaultClassNames.day),
+        range_start: cn(
+          "relative isolate z-0 bg-muted after:absolute after:inset-y-0 after:right-0 after:w-4 after:bg-muted",
+          defaultClassNames.range_start,
         ),
-        day: cn("group/day relative aspect-square h-full w-full p-0 text-center select-none", defaultClassNames.day),
-        range_start: cn("bg-neutral-100 dark:bg-neutral-800", defaultClassNames.range_start),
-        range_middle: cn("rounded-none", defaultClassNames.range_middle),
-        range_end: cn("rounded-r-md bg-neutral-100 dark:bg-neutral-800", defaultClassNames.range_end),
-        today: cn(
-          "bg-neutral-100 text-neutral-900 data-[selected=true]:rounded-none dark:bg-neutral-800 dark:text-neutral-50",
-          defaultClassNames.today,
+        range_middle: cn(defaultClassNames.range_middle),
+        range_end: cn(
+          "relative isolate z-0 bg-muted after:absolute after:inset-y-0 after:left-0 after:w-4 after:bg-muted",
+          defaultClassNames.range_end,
         ),
-        outside: cn(
-          "text-neutral-500 aria-selected:text-neutral-500 dark:text-neutral-400 dark:aria-selected:text-neutral-400",
-          defaultClassNames.outside,
-        ),
-        disabled: cn("text-neutral-500 opacity-50 dark:text-neutral-400", defaultClassNames.disabled),
+        today: cn("bg-muted text-foreground", defaultClassNames.today),
+        outside: cn("text-muted-foreground aria-selected:text-muted-foreground", defaultClassNames.outside),
+        disabled: cn("text-muted-foreground opacity-50", defaultClassNames.disabled),
         hidden: cn("invisible", defaultClassNames.hidden),
         ...classNames,
       }}
       components={{
         Root: ({ className, rootRef, ...props }) => {
-          return <div data-slot="calendar" ref={rootRef} className={cn(className)} {...props} />
+          return <div data-slot="daypicker" ref={rootRef} className={cn(className)} {...props} />
         },
         Chevron: ({ className, orientation, ...props }) => {
           if (orientation === "left") {
-            return <ChevronLeftIcon className={cn("size-4", className)} {...props} />
+            return (
+              <span className={cn("material-symbols-sharp text-lg! leading-none!", className)}>
+                keyboard_arrow_left
+              </span>
+            )
           }
 
           if (orientation === "right") {
-            return <ChevronRightIcon className={cn("size-4", className)} {...props} />
+            return (
+              <span className={cn("material-symbols-sharp text-lg! leading-none!", className)}>
+                keyboard_arrow_right
+              </span>
+            )
           }
 
-          return <ChevronDownIcon className={cn("size-4", className)} {...props} />
+          return (
+            <span className={cn("material-symbols-sharp text-base! leading-none!", className)}>
+              keyboard_arrow_down
+            </span>
+          )
         },
         DayButton: CalendarDayButton,
         WeekNumber: ({ children, ...props }) => {
@@ -149,7 +155,7 @@ function CalendarDayButton({ className, day, modifiers, ...props }: React.Compon
       data-range-end={modifiers.range_end}
       data-range-middle={modifiers.range_middle}
       className={cn(
-        "group-data-[focused=true]/day:border-ring group-data-[focused=true]/day:ring-ring/50 flex aspect-square size-auto w-full min-w-(--cell-size) flex-col gap-1 leading-none font-normal group-data-[focused=true]/day:relative group-data-[focused=true]/day:z-10 group-data-[focused=true]/day:ring-[3px] data-[range-end=true]:rounded-md data-[range-end=true]:rounded-r-md data-[range-end=true]:bg-neutral-900 data-[range-end=true]:text-neutral-50 data-[range-middle=true]:rounded-none data-[range-middle=true]:bg-neutral-100 data-[range-middle=true]:text-neutral-900 data-[range-start=true]:bg-neutral-900 data-[range-start=true]:text-neutral-50 data-[selected-single=true]:bg-neutral-900 data-[selected-single=true]:text-neutral-50 dark:hover:text-neutral-50 dark:data-[range-end=true]:bg-neutral-50 dark:data-[range-end=true]:text-neutral-900 dark:data-[range-middle=true]:bg-neutral-800 dark:data-[range-middle=true]:text-neutral-50 dark:data-[range-start=true]:bg-neutral-50 dark:data-[range-start=true]:text-neutral-900 dark:data-[selected-single=true]:bg-neutral-50 dark:data-[selected-single=true]:text-neutral-900 [&>span]:text-xs [&>span]:opacity-70",
+        "relative isolate z-10 flex aspect-square size-auto w-full min-w-(--cell-size) flex-col gap-1 border-0 leading-none font-normal group-data-[focused=true]/day:relative group-data-[focused=true]/day:z-10 group-data-[focused=true]/day:border-foreground group-data-[focused=true]/day:ring-3 group-data-[focused=true]/day:ring-primary/50 data-[range-end=true]:bg-primary data-[range-end=true]:text-primary-foreground data-[range-middle=true]:bg-muted data-[range-middle=true]:text-foreground data-[range-start=true]:bg-primary data-[range-start=true]:text-primary-foreground data-[selected-single=true]:bg-primary data-[selected-single=true]:text-primary-foreground dark:hover:text-foreground [&>span]:text-xs [&>span]:opacity-70",
         defaultClassNames.day,
         className,
       )}

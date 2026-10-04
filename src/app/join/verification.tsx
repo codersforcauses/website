@@ -1,9 +1,10 @@
 import * as React from "react"
 import { useRouter } from "next/navigation"
 import { useForm } from "@tanstack/react-form"
-import { z } from "zod"
+import * as z from "zod"
 
 import { authClient } from "~/lib/auth-client"
+import SubmitButton from "~/blocks/submit-button"
 import {
   AlertDialog,
   AlertDialogCancel,
@@ -14,7 +15,7 @@ import {
   AlertDialogTitle,
 } from "~/ui/alert-dialog"
 import { Button } from "~/ui/button"
-import { InputOTP, InputOTPGroup, InputOTPSlot } from "~/ui/input-otp"
+import { DEFAULT_OTP_LENGTH, InputOTP, InputOTPGroup, InputOTPSlot } from "~/ui/input-otp"
 import { Field, FieldError } from "~/ui/field"
 
 interface VerificationForm {
@@ -102,13 +103,7 @@ export default function VerificationDialog({ email, ...props }: VerificationForm
 
   return (
     <AlertDialog {...props}>
-      <AlertDialogContent
-        asChild
-        className="sm:max-w-sm"
-        onOpenAutoFocus={(e) => {
-          e.preventDefault()
-        }}
-      >
+      <AlertDialogContent initialFocus={false} className="sm:max-w-sm">
         <form
           className="grid gap-y-4"
           onSubmit={async (e) => {
@@ -139,7 +134,9 @@ export default function VerificationDialog({ email, ...props }: VerificationForm
                   <InputOTP
                     autoFocus
                     autoSubmit
+                    id={field.name}
                     name={field.name}
+                    length={DEFAULT_OTP_LENGTH}
                     value={field.state.value}
                     onBlur={field.handleBlur}
                     onValueChange={field.handleChange}
@@ -147,7 +144,7 @@ export default function VerificationDialog({ email, ...props }: VerificationForm
                     className="font-mono"
                   >
                     <InputOTPGroup className="w-full">
-                      {Array.from({ length: 6 }).map((_, i) => (
+                      {Array.from({ length: DEFAULT_OTP_LENGTH }).map((_, i) => (
                         <InputOTPSlot key={i} index={i} className="w-full" />
                       ))}
                     </InputOTPGroup>
@@ -157,20 +154,18 @@ export default function VerificationDialog({ email, ...props }: VerificationForm
               )
             }}
           </form.Field>
-          <AlertDialogFooter className="grid grid-cols-3">
+          <AlertDialogFooter className="-mt-4 grid grid-cols-3">
             <AlertDialogCancel>Cancel</AlertDialogCancel>
             <div />
-            <form.Subscribe selector={(state) => [state.canSubmit, state.isSubmitting]}>
-              {([canSubmit, isSubmitting]) => (
-                <Button type="submit" disabled={!canSubmit} className="relative">
-                  Continue
-                  {isSubmitting && (
-                    <span className="material-symbols-sharp animate-spin text-base! leading-none!">
-                      progress_activity
-                    </span>
-                  )}
-                </Button>
-              )}
+            <form.Subscribe selector={(state) => [state.isSubmitting, state.canSubmit]}>
+              {([isSubmitting, canSubmit]) => {
+                const btnText = "Continue"
+                return (
+                  <SubmitButton disabled={isSubmitting ?? !canSubmit} loading={isSubmitting ?? false}>
+                    {btnText}
+                  </SubmitButton>
+                )
+              }}
             </form.Subscribe>
           </AlertDialogFooter>
         </form>

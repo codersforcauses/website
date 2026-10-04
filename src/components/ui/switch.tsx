@@ -1,25 +1,29 @@
 "use client"
 
-import * as React from "react"
-import * as SwitchPrimitive from "@radix-ui/react-switch"
+import { Switch as SwitchPrimitive } from "@base-ui/react/switch"
 
 import { cn } from "~/lib/utils"
 
-function Switch({ className, ...props }: React.ComponentProps<typeof SwitchPrimitive.Root>) {
+function Switch({
+  className,
+  size = "default",
+  ...props
+}: SwitchPrimitive.Root.Props & {
+  size?: "sm" | "default"
+}) {
   return (
     <SwitchPrimitive.Root
       data-slot="switch"
+      data-size={size}
       className={cn(
-        "peer inline-flex h-[1.15rem] w-8 shrink-0 items-center rounded-full border transition-all outline-none focus-visible:border-neutral-950 focus-visible:ring-[3px] focus-visible:ring-neutral-950/50 disabled:cursor-not-allowed disabled:opacity-50 data-[state=checked]:bg-neutral-900 data-[state=unchecked]:bg-neutral-200 dark:focus-visible:border-neutral-300 dark:focus-visible:ring-neutral-300/50 dark:data-[state=checked]:bg-neutral-50 dark:data-[state=unchecked]:bg-neutral-950",
+        "peer group/switch relative inline-flex shrink-0 items-center border border-border transition-all outline-none after:absolute after:-inset-x-3 after:-inset-y-2 focus-visible:border-foreground focus-visible:ring-3 focus-visible:ring-primary/50 aria-invalid:border-destructive/70 aria-invalid:ring-destructive/20 data-checked:bg-primary data-disabled:cursor-not-allowed data-disabled:opacity-50 data-unchecked:bg-muted data-[size=default]:h-4.5 data-[size=default]:w-8 data-[size=sm]:h-3.5 data-[size=sm]:w-6",
         className,
       )}
       {...props}
     >
       <SwitchPrimitive.Thumb
         data-slot="switch-thumb"
-        className={cn(
-          "pointer-events-none block size-4 rounded-full bg-white ring-0 transition-all data-[state=checked]:translate-x-[calc(100%-2px)] data-[state=unchecked]:translate-x-0 dark:bg-neutral-950 dark:data-[state=checked]:bg-neutral-900 dark:data-[state=unchecked]:bg-neutral-50",
-        )}
+        className="pointer-events-none block h-full bg-background ring-0 transition-all group-data-[size=default]/switch:w-2 group-data-[size=sm]/switch:w-1.5 data-checked:bg-primary-foreground group-data-[size=default]/switch:data-checked:translate-x-[calc(250%+2px)] group-data-[size=sm]/switch:data-checked:translate-x-[calc(250%+1px)] data-unchecked:translate-x-0 data-unchecked:bg-foreground"
       />
     </SwitchPrimitive.Root>
   )

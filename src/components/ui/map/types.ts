@@ -1,0 +1,68 @@
+import type { Map, Marker, ProjectionSpecification } from "mapbox-gl"
+
+export type MapCoordinates = [longitude: number, latitude: number]
+export type MapBounds = [southwest: MapCoordinates, northeast: MapCoordinates]
+export type MapPath = MapCoordinates[]
+export type MapImageCorners = [
+  topLeft: MapCoordinates,
+  topRight: MapCoordinates,
+  bottomRight: MapCoordinates,
+  bottomLeft: MapCoordinates,
+]
+export type MapProjection = ProjectionSpecification["name"]
+
+export type LngLatCoordinates = {
+  lng: number
+  lat: number
+}
+
+export type MapThemeStyles = {
+  light?: string
+  dark?: string
+}
+
+export const defaultMapStyles: Required<MapThemeStyles> = {
+  light: "mapbox://styles/mapbox/light-v11?optimize=true",
+  dark: "mapbox://styles/mapbox/dark-v11?optimize=true",
+}
+
+export const standardMapStyles: Required<MapThemeStyles> = {
+  light: "mapbox://styles/mapbox/standard",
+  dark: "mapbox://styles/mapbox/standard",
+}
+
+export const streetsMapStyles: Required<MapThemeStyles> = {
+  light: "mapbox://styles/mapbox/streets-v12",
+  dark: "mapbox://styles/mapbox/dark-v11",
+}
+
+export const outdoorsMapStyles: Required<MapThemeStyles> = {
+  light: "mapbox://styles/mapbox/outdoors-v12",
+  dark: "mapbox://styles/mapbox/dark-v11",
+}
+
+export const satelliteMapStyles: Required<MapThemeStyles> = {
+  light: "mapbox://styles/mapbox/satellite-streets-v12",
+  dark: "mapbox://styles/mapbox/satellite-streets-v12",
+}
+
+export const navigationMapStyles: Required<MapThemeStyles> = {
+  light: "mapbox://styles/mapbox/navigation-day-v1",
+  dark: "mapbox://styles/mapbox/navigation-night-v1",
+}
+
+export type MapCompareOrientation = "horizontal" | "vertical"
+
+export type MapSyncLayout = "horizontal" | "vertical" | "grid"
+
+export type MapContextValue = {
+  map: Map | null
+  isLoaded: boolean
+}
+
+export type MarkerContextValue = {
+  markerRef: React.RefObject<Marker | null>
+  markerElementRef: React.RefObject<HTMLDivElement | null>
+  map: Map | null
+  isReady: boolean
+}

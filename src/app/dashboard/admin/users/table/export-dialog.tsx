@@ -1,12 +1,13 @@
 import * as React from "react"
 import { useForm } from "@tanstack/react-form"
+import { useMutation } from "@tanstack/react-query"
 import z from "zod"
 
-import { api } from "~/trpc/react"
-import { Button } from "~/ui/button"
+import { useApi } from "~/trpc/react"
 import { Checkbox } from "~/ui/checkbox"
 import { DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "~/ui/dialog"
-import { Spinner } from "~/ui/spinner"
+import { Field, FieldError, FieldLabel } from "~/ui/field"
+import SubmitButton from "~/blocks/submit-button"
 
 const formSchema = z.object({
   id: z.boolean(),
@@ -41,8 +42,9 @@ const formSchema = z.object({
 })
 
 export default function ExportDialog() {
+  const { admin } = useApi()
   const [loading, startTransition] = React.useTransition()
-  const { mutateAsync } = api.admin.users.exportUsers.useMutation()
+  const { mutateAsync } = useMutation(admin.users.exportUsers.mutationOptions())
 
   const form = useForm({
     // defaultValues: fields.reduce(
@@ -75,29 +77,36 @@ export default function ExportDialog() {
           void form.handleSubmit()
         }}
       >
-        <form.AppField name="all">
-          {(field) => (
-            <field.FormItem className="inline-flex items-center">
-              <FormField>
+        <form.Field name="all">
+          {(field) => {
+            const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid
+            return (
+              <Field data-invalid={isInvalid}>
                 <Checkbox
+                  id={field.name}
+                  name={field.name}
                   disabled={loading}
                   checked={field.state.value || "indeterminate"}
+                  aria-invalid={isInvalid}
                   onCheckedChange={(e) => {
-                    field.handleChange(Boolean(e))
+                    field.handleChange(e)
                   }}
                 />
-              </FormField>
-              <FormLabel className="font-sans text-sm font-medium">Select all</FormLabel>
-            </field.FormItem>
-          )}
-        </form.AppField>
+                <FieldLabel htmlFor={field.name} className="font-sans text-sm font-medium">
+                  Select all
+                </FieldLabel>
+                {isInvalid && <FieldError errors={field.state.meta.errors} />}
+              </Field>
+            )
+          }}
+        </form.Field>
         <div className="grid gap-1 pl-5">
           {formSchema
             .omit({ role: true })
             .keyof()
             .options.map((col) => (
-              <form.AppField key={col} name={col}>
-                {(field) => (
+              <form.Field key={col} name={col}>
+                {/* {(field) => (
                   <field.FormItem className="inline-flex items-center">
                     <FormField>
                       <Checkbox
@@ -110,11 +119,32 @@ export default function ExportDialog() {
                     </FormField>
                     <FormLabel className="font-sans text-sm font-normal">{col}</FormLabel>
                   </field.FormItem>
-                )}
-              </form.AppField>
+                )} */}
+                {(field) => {
+                  const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid
+                  return (
+                    <Field data-invalid={isInvalid}>
+                      <Checkbox
+                        id={field.name}
+                        name={field.name}
+                        disabled={loading}
+                        checked={field.state.value}
+                        aria-invalid={isInvalid}
+                        onCheckedChange={(e) => {
+                          field.handleChange(e)
+                        }}
+                      />
+                      <FieldLabel htmlFor={field.name} className="font-sans text-sm font-medium">
+                        {col}
+                      </FieldLabel>
+                      {isInvalid && <FieldError errors={field.state.meta.errors} />}
+                    </Field>
+                  )
+                }}
+              </form.Field>
             ))}
-          <form.AppField name="role">
-            {(field) => (
+          <form.Field name="role">
+            {/* {(field) => (
               <field.FormItem className="inline-flex items-center">
                 <FormField>
                   <Checkbox
@@ -127,12 +157,33 @@ export default function ExportDialog() {
                 </FormField>
                 <FormLabel className="font-sans text-sm font-normal">role</FormLabel>
               </field.FormItem>
-            )}
-          </form.AppField>
+            )} */}
+            {(field) => {
+              const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid
+              return (
+                <Field data-invalid={isInvalid}>
+                  <Checkbox
+                    id={field.name}
+                    name={field.name}
+                    disabled={loading}
+                    checked={field.state.value}
+                    aria-invalid={isInvalid}
+                    onCheckedChange={(e) => {
+                      field.handleChange(e)
+                    }}
+                  />
+                  <FieldLabel htmlFor={field.name} className="font-sans text-sm font-medium">
+                    role
+                  </FieldLabel>
+                  {isInvalid && <FieldError errors={field.state.meta.errors} />}
+                </Field>
+              )
+            }}
+          </form.Field>
           <div className="grid grid-cols-2 gap-1 pl-5">
             {formSchema.shape.role.keyof().options.map((role) => (
-              <form.AppField key={role} name={role}>
-                {(field) => (
+              <form.Field key={role} name={role}>
+                {/* {(field) => (
                   <field.FormItem className="inline-flex items-center">
                     <FormField>
                       <Checkbox
@@ -145,24 +196,46 @@ export default function ExportDialog() {
                     </FormField>
                     <FormLabel className="font-sans text-sm font-normal">{role}</FormLabel>
                   </field.FormItem>
-                )}
-              </form.AppField>
+                )} */}
+                {(field) => {
+                  const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid
+                  return (
+                    <Field data-invalid={isInvalid}>
+                      <Checkbox
+                        id={field.name}
+                        name={field.name}
+                        disabled={loading}
+                        checked={field.state.value}
+                        aria-invalid={isInvalid}
+                        onCheckedChange={(e) => {
+                          field.handleChange(e)
+                        }}
+                      />
+                      <FieldLabel htmlFor={field.name} className="font-sans text-sm font-medium">
+                        {role}
+                      </FieldLabel>
+                      {isInvalid && <FieldError errors={field.state.meta.errors} />}
+                    </Field>
+                  )
+                }}
+              </form.Field>
             ))}
           </div>
         </div>
         <DialogFooter className="col-span-full mt-3">
-          <form.Subscribe selector={(state) => [state.canSubmit]}>
-            {([canSubmit]) => (
-              <Button
-                // ref={btnRef}
-                type="submit"
-                disabled={loading ?? !canSubmit}
-                className="relative w-full"
-              >
-                Export
-                {loading && <Spinner className="absolute right-4" />}
-              </Button>
-            )}
+          <form.Subscribe selector={(state) => [state.isSubmitting, state.canSubmit]}>
+            {([isSubmitting, canSubmit]) => {
+              const btnText = "Export"
+              return (
+                <SubmitButton
+                  // ref={btnRef}
+                  disabled={(isSubmitting || loading) ?? !canSubmit}
+                  loading={isSubmitting || loading}
+                >
+                  {btnText}
+                </SubmitButton>
+              )
+            }}
           </form.Subscribe>
         </DialogFooter>
       </form>

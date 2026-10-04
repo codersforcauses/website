@@ -3,27 +3,27 @@
 import * as React from "react"
 import { useTheme } from "next-themes"
 
-import { Button } from "~/components/ui/button"
+import { Button } from "~/ui/button"
 
 export function toggleTheme(theme: string | undefined, setTheme: React.Dispatch<React.SetStateAction<string>>) {
   const styleId = "theme-transition-styles"
   const isDark = theme === "dark"
   const animation = `
-      ::view-transition-old(root) {
-        animation: none;
+    ::view-transition-old(root) {
+      animation: none;
+    }
+    ::view-transition-new(root) {
+      animation: 0.8s var(--ease-out-cubic) wipe-in-bottom-left forwards;
+    }
+    @keyframes wipe-in-bottom-left {
+      from {
+        clip-path: polygon(50% -50%, 150% 50%, 150% 50%, 50% -50%);
       }
-      ::view-transition-new(root) {
-        animation: 0.8s var(--ease-out-cubic) wipe-in-bottom-left forwards;
+      to {
+        clip-path: polygon(50% -50%, 150% 50%, 50% 150%, -50% 50%);
       }
-      @keyframes wipe-in-bottom-left {
-        from {
-          clip-path: polygon(50% -50%, 150% 50%, 150% 50%, 50% -50%);
-        }
-        to {
-          clip-path: polygon(50% -50%, 150% 50%, 50% 150%, -50% 50%);
-        }
-      }
-    `
+    }
+  `
   let styleElement = document.getElementById(styleId) as HTMLStyleElement
 
   if (!styleElement) {
@@ -52,7 +52,7 @@ export default function ThemeSwitcher() {
   }, [resolvedTheme, setTheme])
 
   return (
-    <Button variant="ghost-dark" size="icon" className="bg-black focus-visible:ring-white/25" onClick={toggle}>
+    <Button variant="ghost-dark" size="icon" className="bg-black" onClick={toggle}>
       <span className="material-symbols-sharp">{isDark ? "dark_mode" : "light_mode"}</span>
     </Button>
   )

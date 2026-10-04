@@ -1,27 +1,26 @@
 "use client"
 
 import * as React from "react"
-import Image from "next/image"
 import Link from "next/link"
+import type { Route } from "next"
 import { siDiscord, siFacebook, siGithub, siInstagram, siLinkedin, siX } from "simple-icons"
-
-import { Button } from "~/components/ui/button"
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "~/components/ui/dialog"
-import ConstitutionModal, { constitutionUrl } from "./constitution"
 import { usePrefetchQuery } from "@tanstack/react-query"
 
-type LinkType = React.ComponentProps<typeof Link<string>>["href"]
+import { cn } from "~/lib/utils"
+import { Button, buttonVariants } from "~/ui/button"
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "~/ui/dialog"
+import ConstitutionModal, { constitutionUrl } from "./constitution"
 
-type Links =
-  | {
-      href: LinkType
-      text: string
-    }
-  | {
-      href: LinkType
-      path: string
-      title: string
-    }
+interface Links {
+  href: Route
+  text: string
+}
+
+interface SocialLink {
+  href: Route
+  path: string
+  title: string
+}
 
 const aboutLinks: Array<Links> = [
   {
@@ -53,7 +52,7 @@ const eventLinks: Array<Links> = [
   { href: "/events?type=past", text: "Past events" },
 ]
 
-const socialLinks: Array<Links> = [
+const socialLinks: Array<SocialLink> = [
   {
     href: "http://github.com/codersforcauses/",
     path: siGithub.path,
@@ -100,18 +99,23 @@ export default function Footer() {
     staleTime: 1000 * 60 * 60 * 24, // 1 day
   })
   return (
-    <footer className="bg-black py-6 text-neutral-50">
+    <footer className="bg-black py-6 text-foreground-dark">
       <div className="container mx-auto px-4">
         <div className="grid grid-cols-2 gap-x-8 gap-y-4 md:grid-cols-5">
           <div className="col-span-2 flex flex-col md:col-span-1">
-            <div className="relative h-full min-h-[80px] flex-grow select-none">
-              <Image
-                fill
-                src="/logo/cfc_logo_white_full.svg"
-                alt="Coders for Causes logo"
-                className="!w-auto object-top md:!h-auto"
-              />
-            </div>
+            <svg viewBox="0 0 425 134.84" className="max-h-20 max-w-3xs select-none">
+              <g className="fill-white">
+                <rect x={0} y={0} width={270} height={70} />
+                <rect x={0} y={65} width={425} height={70} />
+              </g>
+              <g transform="translate(4.3, 0)" className="fill-black font-mono text-[4.5em] font-medium">
+                <text dy={56}>coders</text>
+                <text dy={124}>for</text>
+                <text dx={155} dy={124}>
+                  causes
+                </text>
+              </g>
+            </svg>
             <p className="m-0 font-mono">
               <small>Made with &#10084;</small>
               <small className="text-black"> by Jeremiah</small>
@@ -122,11 +126,13 @@ export default function Footer() {
             <ul>
               <li>
                 <Dialog>
-                  <DialogTrigger asChild>
-                    <Button variant="link-dark" className="-ml-4 h-auto">
-                      Constitution
-                    </Button>
-                  </DialogTrigger>
+                  <DialogTrigger
+                    render={
+                      <Button variant="link-dark" className="-ml-4 h-auto">
+                        Constitution
+                      </Button>
+                    }
+                  />
                   <DialogContent className="max-h-screen w-full overflow-hidden sm:max-h-[calc(95vh)] md:max-w-2xl">
                     <DialogHeader>
                       <DialogTitle>Constitution</DialogTitle>
@@ -160,9 +166,9 @@ export default function Footer() {
               <ul>
                 {aboutLinks.map(({ href, text }) => (
                   <li key={text}>
-                    <Button asChild variant="link-dark" className="-ml-4 h-auto">
-                      <Link href={href}>{text}</Link>
-                    </Button>
+                    <Link href={href} className={cn(buttonVariants({ variant: "link-dark" }), "-ml-4 h-auto")}>
+                      {text}
+                    </Link>
                   </li>
                 ))}
               </ul>
@@ -173,9 +179,9 @@ export default function Footer() {
             <ul>
               {projectLinks.map(({ href, text }) => (
                 <li key={text}>
-                  <Button asChild variant="link-dark" className="-ml-4 h-auto">
-                    <Link href={href}>{text}</Link>
-                  </Button>
+                  <Link href={href} className={cn(buttonVariants({ variant: "link-dark" }), "-ml-4 h-auto")}>
+                    {text}
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -185,9 +191,9 @@ export default function Footer() {
             <ul>
               {eventLinks.map(({ href, text }) => (
                 <li key={text}>
-                  <Button asChild variant="link-dark" className="-ml-4 h-auto">
-                    <Link href={href}>{text}</Link>
-                  </Button>
+                  <Link href={href} className={cn(buttonVariants({ variant: "link-dark" }), "-ml-4 h-auto")}>
+                    {text}
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -197,13 +203,18 @@ export default function Footer() {
           <p className="font-mono text-xs">&copy; {currentYear} Coders for Causes</p>
           <div className="grid grid-cols-6 justify-between gap-1">
             {socialLinks.map(({ href, title, path }) => (
-              <Button asChild key={title} variant="ghost-dark" size="icon">
-                <a href={href} target="_blank" rel="noopener noreferrer" aria-label={title}>
-                  <svg aria-hidden viewBox="0 0 24 24" height={16} width={16} className="fill-current">
-                    <path d={path} />
-                  </svg>
-                </a>
-              </Button>
+              <a
+                key={title}
+                href={href}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={title}
+                className={buttonVariants({ variant: "ghost-dark", size: "icon" })}
+              >
+                <svg aria-hidden viewBox="0 0 24 24" height={16} width={16} className="fill-current">
+                  <path d={path} />
+                </svg>
+              </a>
             ))}
           </div>
         </div>

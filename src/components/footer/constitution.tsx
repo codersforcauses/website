@@ -1,9 +1,6 @@
 import * as React from "react"
 import { useSuspenseQuery } from "@tanstack/react-query"
-import snarkdown from "snarkdown"
-
-import { ScrollArea } from "~/components/ui/scroll-area"
-import { Button } from "~/ui/button"
+import { marked } from "marked"
 
 export const constitutionUrl =
   "https://raw.githubusercontent.com/codersforcauses/cfc-constitution/master/Constitution.md"
@@ -23,7 +20,16 @@ export default function ConstitutionModal() {
     staleTime: 1000 * 60 * 60 * 24, // 1 day
   })
 
-  const html = React.useMemo(() => snarkdown(data), [data])
+  const html = React.useMemo(() => {
+    return (
+      // snarkdown(data)
+      marked.parse(data, {
+        // gfm: true,
+        // breaks: true,
+        pedantic: true,
+      })
+    )
+  }, [data])
 
   // if (isError) {
   //   return (
@@ -38,20 +44,11 @@ export default function ConstitutionModal() {
   // }
 
   return (
-    <>
-      <style>
-        {`
-          .constitution strong {
-            margin-top: 0.5rem;
-          }
-          .constitution br {
-            margin-bottom: 0.5rem;
-          }
-        `}
-      </style>
-      <ScrollArea className="h-[calc(100vh-84px)] w-full font-sans text-sm sm:h-[calc(95vh-84px)]">
-        <div className="constitution flex flex-col" dangerouslySetInnerHTML={{ __html: html }} />
-      </ScrollArea>
-    </>
+    <div className="no-scrollbar -mx-4 max-h-[calc(100vh-84px)] overflow-y-auto px-4 sm:max-h-[calc(95vh-84px)]">
+      <div
+        className="constitution flex flex-col gap-1 font-sans text-sm [&_strong]:my-4"
+        dangerouslySetInnerHTML={{ __html: html }}
+      />
+    </div>
   )
 }

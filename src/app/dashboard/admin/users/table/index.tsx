@@ -3,8 +3,9 @@
 import * as React from "react"
 import Form from "next/form"
 import { useSearchParams } from "next/navigation"
+import { useSuspenseInfiniteQuery } from "@tanstack/react-query"
 import {
-  type OnChangeFn,
+  // type OnChangeFn,
   type SortingState,
   getCoreRowModel,
   getSortedRowModel,
@@ -12,10 +13,11 @@ import {
 } from "@tanstack/react-table"
 import { AnimatePresence, motion } from "motion/react"
 
-import { api } from "~/trpc/react"
 import { cn } from "~/lib/utils"
+import { useApi } from "~/trpc/react"
 import { AlertDialog } from "~/ui/alert-dialog"
 import { Button } from "~/ui/button"
+import { ButtonGroup } from "~/ui/button-group"
 import { Dialog, DialogTrigger } from "~/ui/dialog"
 import { Input } from "~/ui/input"
 import { columns } from "./columns"
@@ -29,6 +31,7 @@ function getSortString(sorting: SortingState): string {
 }
 
 export default function UsersTableContainer() {
+  const { admin } = useApi()
   const [sorting, setSorting] = React.useState<SortingState>([])
   const [open, setOpen] = React.useState(false)
   const [ID, setID] = React.useState("")
@@ -37,20 +40,28 @@ export default function UsersTableContainer() {
   const searchQuery = searchParams.get("search")
   const filterQuery = searchParams.get("filters")
 
-  const [{ pages }, { isFetching, isRefetching, fetchNextPage, refetch: refetchData }] =
-    api.admin.users.getUsers.useSuspenseInfiniteQuery(
+  const {
+    data,
+    isFetching,
+    isRefetching,
+    fetchNextPage,
+    refetch: refetchData,
+  } = useSuspenseInfiniteQuery(
+    admin.users.listUsers.infiniteQueryOptions(
       {
         query: searchQuery ?? "",
         filters: getSortString(sorting) ?? "",
+        cursor: 0,
       },
       {
         getNextPageParam: (lastPage) => lastPage.nextPage,
         refetchOnWindowFocus: false,
         refetchInterval: 1000 * 60, // 60 seconds
       },
-    )
+    ),
+  )
 
-  const users = React.useMemo(() => pages.flatMap((page) => page.users), [pages])
+  const users = React.useMemo(() => data.pages.flatMap((page) => page.users), [data.pages])
   const refetch = React.useCallback(() => {
     void refetchData()
   }, [refetchData])
@@ -89,37 +100,40 @@ export default function UsersTableContainer() {
             <span>Sync{isRefetching && "ing"}</span>
           </Button>
           <Dialog>
-            <DialogTrigger asChild>
-              <Button variant="secondary">
-                <span className="material-symbols-sharp">file_export</span>
-                Export users
-              </Button>
-            </DialogTrigger>
+            <DialogTrigger
+              render={
+                <Button variant="secondary">
+                  <span className="material-symbols-sharp">file_export</span>
+                  Export users
+                </Button>
+              }
+            />
             <ExportDialog />
           </Dialog>
         </div>
-        <Form action="" className="flex w-full sm:max-w-xs md:max-w-sm">
-          <Input
-            type="search"
-            name="search"
-            defaultValue={searchQuery ?? ""}
-            // disabled={isFetching}
-            placeholder="Search name, email or student number"
-            autoComplete="off"
-            className="relative z-[1] w-full bg-white dark:bg-neutral-950"
-            onChange={(e) => {
-              const { value, form } = e.currentTarget
-              if (value === "") form?.requestSubmit()
-            }}
-          />
-          <Button
-            type="submit"
-            size="icon"
-            // disabled={isFetching}
-            className="cursor-pointer"
-          >
-            <AnimatePresence mode="popLayout" initial={false}>
-              {/* {isFetching ? (
+        <Form action="" className="w-full sm:max-w-xs md:max-w-sm">
+          <ButtonGroup className="w-full">
+            <Input
+              type="search"
+              name="search"
+              defaultValue={searchQuery ?? ""}
+              // disabled={isFetching}
+              placeholder="Search name, email or student number"
+              autoComplete="off"
+              className="w-full bg-background"
+              onChange={(e) => {
+                const { value, form } = e.currentTarget
+                if (value === "") form?.requestSubmit()
+              }}
+            />
+            <Button
+              type="submit"
+              size="icon"
+              // disabled={isFetching}
+              className="cursor-pointer"
+            >
+              <AnimatePresence mode="popLayout" initial={false}>
+                {/* {isFetching ? (
                 <motion.span
                   key="loading"
                   className="material-symbols-sharp animate-spin"
@@ -131,25 +145,26 @@ export default function UsersTableContainer() {
                   progress_activity
                 </motion.span>
               ) : ( */}
-              <motion.span
-                key="default"
-                className="material-symbols-sharp"
-                transition={{ type: "spring", duration: 0.2, bounce: 0 }}
-                initial={{ opacity: 0, y: -36 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: 36 }}
-              >
-                search
-              </motion.span>
-              {/* )} */}
-            </AnimatePresence>
-          </Button>
+                <motion.span
+                  key="default"
+                  className="material-symbols-sharp"
+                  transition={{ type: "spring", duration: 0.2, bounce: 0 }}
+                  initial={{ opacity: 0, y: -36 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: 36 }}
+                >
+                  search
+                </motion.span>
+                {/* )} */}
+              </AnimatePresence>
+            </Button>
+          </ButtonGroup>
         </Form>
       </div>
       <AlertDialog open={open} onOpenChange={setOpen}>
         <UsersTable
           isFetching={isFetching}
-          numUsers={pages[0]?.total ?? 0}
+          numUsers={data.pages[0]?.total ?? 0}
           totalFetched={users.length}
           fetchNextPage={fetchNextPage}
           table={table}

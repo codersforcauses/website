@@ -3,20 +3,19 @@
 import { track } from "@vercel/analytics/react"
 import Link from "next/link"
 
-import { Button } from "~/components/ui/button"
+import { cn } from "~/lib/utils"
+import { buttonVariants } from "~/ui/button"
 
 export default function JoinUs() {
   return (
-    <Button
-      asChild
-      variant="dark"
-      size="lg"
-      className="sm:text-lg"
-      onClick={() => {
+    <Link
+      href="/join"
+      className={cn(buttonVariants({ variant: "dark", size: "lg" }), "sm:text-lg")}
+      onNavigate={() => {
         if (process.env.NEXT_PUBLIC_VERCEL_ENV === "production") track("join", { location: "home page" })
       }}
     >
-      <Link href="/join">Join us</Link>
-    </Button>
+      Join us
+    </Link>
   )
 }

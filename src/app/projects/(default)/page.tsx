@@ -3,9 +3,10 @@
 import Image from "next/image"
 import Link from "next/link"
 import { useTheme } from "next-themes"
+import type { Route } from "next"
 
 import projects from "~/data/projects.json"
-import { Button } from "~/ui/button"
+import { buttonVariants } from "~/ui/button"
 
 export default function ProjectsPage() {
   const { resolvedTheme } = useTheme()
@@ -22,18 +23,16 @@ export default function ProjectsPage() {
             />
             <div className="absolute bottom-0 flex w-full items-end justify-between gap-px p-2">
               <div className="flex flex-col gap-y-px">
-                <p className="w-fit bg-neutral-950 px-1.5 py-1 text-sm leading-none font-medium text-neutral-50 dark:bg-neutral-50 dark:text-neutral-950">
+                <p className="w-fit bg-foreground px-1.5 py-1 text-sm leading-none font-medium text-neutral-50 dark:text-neutral-950">
                   {project.name}
                 </p>
-                <p className="w-fit bg-neutral-950 px-1.5 py-1 text-xs text-neutral-200 dark:bg-neutral-50 dark:text-neutral-800">
+                <p className="w-fit bg-foreground px-1.5 py-1 text-xs text-neutral-200 dark:text-neutral-800">
                   {project.client}
                 </p>
               </div>
-              <Button asChild size="icon">
-                <Link href={`projects/${project.id}`}>
-                  <span className="material-symbols-sharp">arrow_outward</span>
-                </Link>
-              </Button>
+              <Link href={`projects/${project.id}` as Route} className={buttonVariants({ size: "icon" })}>
+                <span className="material-symbols-sharp">arrow_outward</span>
+              </Link>
             </div>
           </div>
         ))}

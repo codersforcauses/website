@@ -1,0 +1,1 @@
+ALTER TABLE "cfc_website_general_meetings" RENAME COLUMN "user_id" TO "created_by";

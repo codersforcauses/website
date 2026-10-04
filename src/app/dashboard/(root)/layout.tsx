@@ -17,7 +17,7 @@ export default function Layout({ children }: LayoutProps<"/dashboard">) {
   return (
     <>
       <Header />
-      <main id="main" className="bg-white dark:bg-neutral-950">
+      <main id="main" className="bg-background">
         <div className="bg-black pt-18 pb-9 text-neutral-50 md:pt-24 md:pb-12">
           <div className="container mx-auto px-4">
             <h1 className="h-6 font-mono text-2xl md:h-8 md:text-3xl">

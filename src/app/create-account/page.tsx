@@ -4,19 +4,21 @@ import * as React from "react"
 import Link from "next/link"
 import { useRouter, useSearchParams } from "next/navigation"
 import { useForm } from "@tanstack/react-form"
-import { z } from "zod"
 import { siDiscord } from "simple-icons"
-import { AnimatePresence, motion } from "motion/react"
+import * as z from "zod"
 
+import { cn } from "~/lib/utils"
 import { authClient } from "~/lib/auth-client"
 import { PRONOUNS, UNIVERSITIES } from "~/lib/constants"
+import SubmitButton from "~/blocks/submit-button"
 import { Alert, AlertDescription, AlertTitle } from "~/ui/alert"
-import { Button } from "~/ui/button"
+import { Button, buttonVariants } from "~/ui/button"
 import { Checkbox } from "~/ui/checkbox"
 import { Field, FieldDescription, FieldError, FieldLabel, FieldLegend, FieldSet } from "~/ui/field"
 import { Input } from "~/ui/input"
+import { InputGroup, InputGroupAddon, InputGroupInput } from "~/ui/input-group"
 import { RadioGroup, RadioGroupItem } from "~/ui/radio-group"
-import { Scrollspy } from "~/components/ui/scrollspy"
+// import { Scrollspy } from "~/ui/scrollspy"
 import { Switch } from "~/ui/switch"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "~/ui/tabs"
 import VerificationDialog from "./verification"
@@ -25,34 +27,34 @@ type ActiveView = "form" | "payment"
 
 const formSchema = z
   .object({
-    name: z.string().min(1, {
+    name: z.string().trim().min(1, {
       error: "Name is required",
     }),
-    preferredName: z.string().min(1, {
+    preferredName: z.string().trim().min(1, {
       error: "Preferred name is required",
     }),
     email: z.email({
-      error: ({ input }) => (input === "" ? "Email is required" : "Invalid email address"),
+      error: ({ input }) => (String(input).trim() === "" ? "Email is required" : "Invalid email address"),
     }),
-    pronouns: z.string().min(1, {
+    pronouns: z.string().trim().min(1, {
       error: "Pronouns are required",
     }),
     isUWA: z.boolean(),
-    studentNumber: z.string(),
-    uni: z.string(),
-    github: z.string(),
-    discord: z.string(),
+    studentNumber: z.string().trim(),
+    uni: z.string().trim(),
+    github: z.string().trim(),
+    discord: z.string().trim(),
     subscribe: z.boolean(),
   })
   .refine(({ isUWA, studentNumber }) => !isUWA || studentNumber, {
     error: "Student number is required",
     path: ["studentNumber"],
   })
-  .refine(({ isUWA, studentNumber = "" }) => !isUWA || studentNumber.length === 8, {
+  .refine(({ isUWA, studentNumber }) => !isUWA || studentNumber.length === 8, {
     error: "Student number must be 8 digits long",
     path: ["studentNumber"],
   })
-  .refine(({ isUWA, uni = "" }) => Boolean(isUWA) || uni !== "", {
+  .refine(({ isUWA, uni }) => Boolean(isUWA) || uni !== "", {
     error: "University is required",
     path: ["uni"],
   })
@@ -84,9 +86,13 @@ export default function CreateAccountPage() {
     validators: {
       onSubmit: formSchema,
     },
+    onSubmitInvalid() {
+      const InvalidInput = document.querySelector('[aria-invalid="true"]') as HTMLInputElement
+      InvalidInput?.focus()
+    },
     async onSubmit({ value: { isUWA, ...value } }) {
-      const { data, error } = await authClient.signUp.email({
-        email: value.email,
+      const { data, error } = await authClient.signIn.emailOtp({
+        email: value.email.toLowerCase(),
         name: value.name,
         preferredName: value.preferredName,
         pronouns: value.pronouns,
@@ -95,7 +101,6 @@ export default function CreateAccountPage() {
         github: value.github || null,
         discord: value.discord || null,
         subscribe: value.subscribe,
-        password: crypto.randomUUID(),
       })
       if (error) {
         if (error.code === "USER_ALREADY_EXISTS") {
@@ -116,8 +121,9 @@ export default function CreateAccountPage() {
   })
 
   const handleSkipPayment = () => {
-    setSkipPaymentTransition(() => {
-      refetch()
+    setSkipPaymentTransition(async () => {
+      await refetch()
+      // TODO: url redirect
       router.push("/dashboard")
     })
   }
@@ -156,20 +162,28 @@ export default function CreateAccountPage() {
                 const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid
                 return (
                   <Field data-invalid={isInvalid}>
-                    <FieldLabel htmlFor="email">Email address</FieldLabel>
-                    <Input
-                      id="email"
-                      name="email"
-                      type="email"
-                      autoComplete="email"
-                      placeholder="john.doe@codersforcauses.org"
-                      value={field.state.value}
-                      onBlur={field.handleBlur}
-                      aria-invalid={isInvalid}
-                      onChange={(e) => {
-                        field.handleChange(e.target.value)
-                      }}
-                    />
+                    <FieldLabel htmlFor={field.name}>Email address</FieldLabel>
+                    <InputGroup>
+                      <InputGroupInput
+                        id={field.name}
+                        name={field.name}
+                        type="text"
+                        inputMode="email"
+                        autoComplete="email"
+                        placeholder="john.doe@codersforcauses.org"
+                        aria-invalid={isInvalid}
+                        value={field.state.value}
+                        onBlur={field.handleBlur}
+                        onChange={(e) => {
+                          field.handleChange(e.target.value)
+                        }}
+                      />
+                      {isInvalid && (
+                        <InputGroupAddon align="inline-end">
+                          <span className="material-symbols-sharp text-destructive">error</span>
+                        </InputGroupAddon>
+                      )}
+                    </InputGroup>
                     {isInvalid && <FieldError errors={field.state.meta.errors} />}
                   </Field>
                 )
@@ -180,23 +194,30 @@ export default function CreateAccountPage() {
                 const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid
                 return (
                   <Field data-invalid={isInvalid}>
-                    <FieldLabel htmlFor="name">Full name</FieldLabel>
-                    <Input
-                      id="name"
-                      name="name"
-                      autoComplete="name"
-                      placeholder="John Doe"
-                      value={field.state.value}
-                      onBlur={field.handleBlur}
-                      aria-invalid={isInvalid}
-                      onChange={(e) => {
-                        field.handleChange(e.target.value)
-                      }}
-                    />
+                    <FieldLabel htmlFor={field.name}>Full name</FieldLabel>
+                    <InputGroup>
+                      <InputGroupInput
+                        id={field.name}
+                        name={field.name}
+                        autoComplete="name"
+                        placeholder="John Doe"
+                        value={field.state.value}
+                        onBlur={field.handleBlur}
+                        aria-invalid={isInvalid}
+                        onChange={(e) => {
+                          field.handleChange(e.target.value)
+                        }}
+                      />
+                      {isInvalid && (
+                        <InputGroupAddon align="inline-end">
+                          <span className="material-symbols-sharp text-destructive">error</span>
+                        </InputGroupAddon>
+                      )}
+                    </InputGroup>
+                    {isInvalid && <FieldError errors={field.state.meta.errors} />}
                     <FieldDescription>
                       We use your full name for internal committee records and official correspondence
                     </FieldDescription>
-                    {isInvalid && <FieldError errors={field.state.meta.errors} />}
                   </Field>
                 )
               }}
@@ -206,21 +227,28 @@ export default function CreateAccountPage() {
                 const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid
                 return (
                   <Field data-invalid={isInvalid}>
-                    <FieldLabel htmlFor="preferredName">Preferred name</FieldLabel>
-                    <Input
-                      id="preferredName"
-                      name="preferredName"
-                      autoComplete="given-name"
-                      placeholder="John"
-                      value={field.state.value}
-                      onBlur={field.handleBlur}
-                      aria-invalid={isInvalid}
-                      onChange={(e) => {
-                        field.handleChange(e.target.value)
-                      }}
-                    />
-                    <FieldDescription>This is how we normally refer to you</FieldDescription>
+                    <FieldLabel htmlFor={field.name}>Preferred name</FieldLabel>
+                    <InputGroup>
+                      <InputGroupInput
+                        id={field.name}
+                        name={field.name}
+                        autoComplete="given-name"
+                        placeholder="John"
+                        value={field.state.value}
+                        onBlur={field.handleBlur}
+                        aria-invalid={isInvalid}
+                        onChange={(e) => {
+                          field.handleChange(e.target.value)
+                        }}
+                      />
+                      {isInvalid && (
+                        <InputGroupAddon align="inline-end">
+                          <span className="material-symbols-sharp text-destructive">error</span>
+                        </InputGroupAddon>
+                      )}
+                    </InputGroup>
                     {isInvalid && <FieldError errors={field.state.meta.errors} />}
+                    <FieldDescription>This is how we normally refer to you</FieldDescription>
                   </Field>
                 )
               }}
@@ -234,10 +262,12 @@ export default function CreateAccountPage() {
                       Pronouns
                     </FieldLegend>
                     <RadioGroup
-                      onValueChange={field.handleChange}
-                      defaultValue={field.state.value}
-                      onBlur={field.handleBlur}
+                      id={field.name}
+                      name={field.name}
                       aria-invalid={isInvalid}
+                      value={field.state.value}
+                      onValueChange={field.handleChange}
+                      onBlur={field.handleBlur}
                       className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 [&>div]:h-6"
                     >
                       {PRONOUNS.map(({ label, value }) => (
@@ -293,18 +323,26 @@ export default function CreateAccountPage() {
                       const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid
                       return (
                         <Field data-invalid={isInvalid} className={isUWA ? "" : "hidden"}>
-                          <FieldLabel htmlFor="">UWA student number</FieldLabel>
-                          <Input
-                            placeholder="21012345"
-                            inputMode="numeric"
-                            value={field.state.value}
-                            onBlur={field.handleBlur}
-                            aria-invalid={isInvalid}
-                            onChange={(e) => {
-                              field.handleChange(e.target.value)
-                            }}
-                          />
-                          <FieldDescription>This is how we normally refer to you</FieldDescription>
+                          <FieldLabel htmlFor={field.name}>UWA student number</FieldLabel>
+                          <InputGroup>
+                            <InputGroupInput
+                              id={field.name}
+                              name={field.name}
+                              placeholder="21012345"
+                              inputMode="numeric"
+                              value={field.state.value}
+                              onBlur={field.handleBlur}
+                              aria-invalid={isInvalid}
+                              onChange={(e) => {
+                                field.handleChange(e.target.value)
+                              }}
+                            />
+                            {isInvalid && (
+                              <InputGroupAddon align="inline-end">
+                                <span className="material-symbols-sharp text-destructive">error</span>
+                              </InputGroupAddon>
+                            )}
+                          </InputGroup>
                           {isInvalid && <FieldError errors={field.state.meta.errors} />}
                         </Field>
                       )
@@ -319,8 +357,10 @@ export default function CreateAccountPage() {
                             University
                           </FieldLegend>
                           <RadioGroup
-                            name="uni"
-                            defaultValue={field.state.value}
+                            id={field.name}
+                            name={field.name}
+                            aria-invalid={isInvalid}
+                            value={field.state.value}
                             onValueChange={field.handleChange}
                             onBlur={field.handleBlur}
                             className="grid grid-cols-2 sm:grid-cols-3 [&>div]:h-6"
@@ -342,6 +382,8 @@ export default function CreateAccountPage() {
                               ) : (
                                 <Input
                                   autoFocus
+                                  id="other-university"
+                                  name="other-university"
                                   placeholder="Other university"
                                   value={field.state.value}
                                   onBlur={field.handleBlur}
@@ -371,18 +413,20 @@ export default function CreateAccountPage() {
               summer university breaks.
             </FieldDescription>
             <Alert>
-              <svg viewBox="0 0 24 24" width={16} height={16}>
+              <svg aria-hidden viewBox="0 0 24 24" width={16} height={16} className="fill-current">
                 <title>{siDiscord.title}</title>
                 <path d={siDiscord.path} />
               </svg>
               <AlertTitle>Join our Discord!</AlertTitle>
               <AlertDescription className="inline-block">
                 You can join our Discord server at{" "}
-                <Button type="button" variant="link" className="h-auto p-0 text-current" asChild>
-                  <Link href="http://discord.codersforcauses.org" target="_blank">
-                    discord.codersforcauses.org
-                  </Link>
-                </Button>
+                <Link
+                  href="http://discord.codersforcauses.org"
+                  target="_blank"
+                  className={cn(buttonVariants({ variant: "link" }), "-m-1 h-auto p-1 text-current")}
+                >
+                  discord.codersforcauses.org
+                </Link>
               </AlertDescription>
             </Alert>
 
@@ -402,27 +446,36 @@ export default function CreateAccountPage() {
                   const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid
                   return (
                     <Field data-invalid={isInvalid}>
-                      <FieldLabel htmlFor="github">Github username</FieldLabel>
-                      <Input
-                        id="github"
-                        name="github"
-                        placeholder="john_doe"
-                        value={field.state.value}
-                        onBlur={field.handleBlur}
-                        aria-invalid={isInvalid}
-                        onChange={(e) => {
-                          field.handleChange(e.target.value)
-                        }}
-                      />
+                      <FieldLabel htmlFor={field.name}>Github username</FieldLabel>
+                      <InputGroup>
+                        <InputGroupInput
+                          id={field.name}
+                          name={field.name}
+                          placeholder="john_doe"
+                          value={field.state.value}
+                          onBlur={field.handleBlur}
+                          aria-invalid={isInvalid}
+                          onChange={(e) => {
+                            field.handleChange(e.target.value)
+                          }}
+                        />
+                        {isInvalid && (
+                          <InputGroupAddon align="inline-end">
+                            <span className="material-symbols-sharp text-destructive">error</span>
+                          </InputGroupAddon>
+                        )}
+                      </InputGroup>
+                      {isInvalid && <FieldError errors={field.state.meta.errors} />}
                       <FieldDescription>
                         Sign up at{" "}
-                        <Button type="button" variant="link" className="h-auto p-0 text-current" asChild>
-                          <Link href="https://github.com/signup" target="_blank">
-                            github.com/signup
-                          </Link>
-                        </Button>
+                        <Link
+                          href="https://github.com/signup"
+                          target="_blank"
+                          className={cn(buttonVariants({ variant: "link" }), "-m-1 h-auto p-1 text-current")}
+                        >
+                          github.com/signup
+                        </Link>
                       </FieldDescription>
-                      {isInvalid && <FieldError errors={field.state.meta.errors} />}
                     </Field>
                   )
                 }}
@@ -432,27 +485,36 @@ export default function CreateAccountPage() {
                   const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid
                   return (
                     <Field data-invalid={isInvalid}>
-                      <FieldLabel htmlFor="discord">Discord username</FieldLabel>
-                      <Input
-                        id="discord"
-                        name="discord"
-                        placeholder="john_doe"
-                        value={field.state.value}
-                        onBlur={field.handleBlur}
-                        aria-invalid={isInvalid}
-                        onChange={(e) => {
-                          field.handleChange(e.target.value)
-                        }}
-                      />
+                      <FieldLabel htmlFor={field.name}>Discord username</FieldLabel>
+                      <InputGroup>
+                        <InputGroupInput
+                          id={field.name}
+                          name={field.name}
+                          placeholder="john_doe"
+                          value={field.state.value}
+                          onBlur={field.handleBlur}
+                          aria-invalid={isInvalid}
+                          onChange={(e) => {
+                            field.handleChange(e.target.value)
+                          }}
+                        />
+                        {isInvalid && (
+                          <InputGroupAddon align="inline-end">
+                            <span className="material-symbols-sharp text-destructive">error</span>
+                          </InputGroupAddon>
+                        )}
+                      </InputGroup>
+                      {isInvalid && <FieldError errors={field.state.meta.errors} />}
                       <FieldDescription>
                         Sign up at{" "}
-                        <Button type="button" variant="link" className="h-auto p-0 text-current" asChild>
-                          <Link href="https://discord.com/register" target="_blank">
-                            discord.com/register
-                          </Link>
-                        </Button>
+                        <Link
+                          href="https://discord.com/register"
+                          target="_blank"
+                          className={cn(buttonVariants({ variant: "link" }), "-m-1 h-auto p-1 text-current")}
+                        >
+                          discord.com/register
+                        </Link>
                       </FieldDescription>
-                      {isInvalid && <FieldError errors={field.state.meta.errors} />}
                     </Field>
                   )
                 }}
@@ -479,24 +541,9 @@ export default function CreateAccountPage() {
             {([isSubmitting, canSubmit]) => {
               const btnText = isSubmitting ? "Waiting for email verification" : "Next"
               return (
-                <Button ref={btnRef} type="submit" disabled={isSubmitting ?? !canSubmit} className="relative w-full">
-                  <AnimatePresence mode="popLayout" initial={false}>
-                    <motion.span
-                      key={btnText}
-                      transition={{ type: "spring", duration: 0.2, bounce: 0 }}
-                      initial={{ opacity: 0, y: -36 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: 36 }}
-                    >
-                      {btnText}
-                    </motion.span>
-                  </AnimatePresence>
-                  {isSubmitting && (
-                    <span className="material-symbols-sharp absolute right-4 animate-spin text-base! leading-none!">
-                      progress_activity
-                    </span>
-                  )}
-                </Button>
+                <SubmitButton ref={btnRef} disabled={isSubmitting ?? !canSubmit} loading={isSubmitting ?? false}>
+                  {btnText}
+                </SubmitButton>
               )
             }}
           </form.Subscribe>
@@ -504,12 +551,12 @@ export default function CreateAccountPage() {
 
         <FieldSet id="payment-details">
           <FieldLegend>Payment</FieldLegend>
-          <div className="text-sm leading-normal font-normal text-neutral-500 dark:text-neutral-400">
+          <div className="text-sm leading-normal font-normal text-muted-foreground">
             <FieldDescription className="text-balance">
               Become a paying member of Coders for Causes for just $5 a year (ends on 31st Dec {currentYear}). There are
               many benefits to becoming a member which include:
             </FieldDescription>
-            <ul className="list-inside list-disc">
+            <ul className="list-inside list-[square]">
               <li>discounts to paid events such as industry nights</li>
               <li>the ability to vote and run for committee positions</li>
               <li>the ability to join our projects run during the winter and summer breaks.</li>
@@ -527,26 +574,30 @@ export default function CreateAccountPage() {
                 </TabsTrigger>
               </TabsList>
               <TabsContent value="online" className="space-y-4">
-                <p className="text-sm text-neutral-500 dark:text-neutral-400">
+                <p className="text-sm text-muted-foreground">
                   Our online payment system is handled by{" "}
-                  <Button asChild variant="link" className="h-auto p-0">
-                    <Link href="https://squareup.com/au/en" target="_blank">
-                      Square
-                    </Link>
-                  </Button>
+                  <Link
+                    href="https://squareup.com/au/en"
+                    target="_blank"
+                    className={cn(buttonVariants({ variant: "link" }), "h-auto p-0")}
+                  >
+                    Square
+                  </Link>
                   . We do not store your card details but we do record the information Square provides us after
                   confirming your card.
                 </p>
                 {/* <OnlinePaymentForm cards={cards} afterPayment={handleAfterOnlinePayment} /> */}
               </TabsContent>
               <TabsContent value="in-person" className="space-y-4">
-                <p className="text-sm text-balance text-neutral-500 dark:text-neutral-400">
+                <p className="text-sm text-balance text-muted-foreground">
                   We accept cash and card payments in-person. We use{" "}
-                  <Button asChild variant="link" className="h-auto p-0">
-                    <Link href="https://squareup.com/au/en" target="_blank">
-                      Square&apos;s
-                    </Link>
-                  </Button>{" "}
+                  <Link
+                    href="https://squareup.com/au/en"
+                    target="_blank"
+                    className={cn(buttonVariants({ variant: "link" }), "h-auto p-0")}
+                  >
+                    Square&apos;s
+                  </Link>{" "}
                   Point-of-Sale terminals to accept card payments. Reach out to a committee member via our Discord or a
                   CFC event to pay in-person. A committee member will update your status as a member on payment
                   confirmation.
@@ -558,7 +609,7 @@ export default function CreateAccountPage() {
                 <span className="w-full border-t" />
               </div>
               <div className="relative flex justify-center text-xs uppercase">
-                <span className="bg-white px-2 text-neutral-500 dark:bg-neutral-950 dark:text-neutral-400">Or</span>
+                <span className="bg-background px-2 text-muted-foreground">Or</span>
               </div>
             </div>
             <FieldSet>
@@ -586,14 +637,16 @@ export default function CreateAccountPage() {
             email={form.state.values.email}
             open={openVerification}
             onOpenChange={setOpenVerification}
-            changeActiveView={() => setActiveView("payment")}
+            changeActiveView={() => {
+              setActiveView("payment")
+            }}
           />
         </FieldSet>
       </div>
 
-      <div className="hidden w-[150px] flex-col md:flex">
+      {/* <div className="hidden w-[150px] flex-col md:flex">
         <Scrollspy offset={50} targetRef={parentRef} className="sticky top-24 z-0 flex flex-col gap-2">
-          <p className="text-xs text-neutral-500 dark:text-neutral-400">On This Page</p>
+          <p className="text-xs text-muted-foreground">On This Page</p>
           <Button
             size="sm"
             variant="ghost"
@@ -619,7 +672,7 @@ export default function CreateAccountPage() {
             Payment details
           </Button>
         </Scrollspy>
-      </div>
+      </div> */}
     </div>
   )
 }

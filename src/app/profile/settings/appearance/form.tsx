@@ -1,6 +1,7 @@
 "use client"
 
-import * as RadioGroupPrimitive from "@radix-ui/react-radio-group"
+import { Radio as RadioPrimitive } from "@base-ui/react/radio"
+import { RadioGroup as RadioGroupPrimitive } from "@base-ui/react/radio-group"
 import { useTheme } from "next-themes"
 
 import { cn } from "~/lib/utils"
@@ -106,55 +107,56 @@ export default function AppearanceForm() {
       <Label htmlFor="theme" className="sr-only">
         Theme
       </Label>
-      <RadioGroupPrimitive.Root
+      <RadioGroupPrimitive
         id="theme"
+        name="theme"
         defaultValue="system"
         value={theme}
         onValueChange={setTheme}
         className="grid max-w-2xl gap-4 sm:grid-cols-2 md:grid-cols-3"
       >
         <div className="flex flex-col space-y-2">
-          <RadioGroupPrimitive.Item asChild value="light" id="light">
+          <RadioPrimitive.Root value="light" id="light">
             <div className="relative aspect-video w-full p-1 hover:opacity-90 focus:outline-none md:h-32">
               <LightMode className="overflow-hidden border" />
-              <RadioGroupPrimitive.Indicator className="absolute inset-0 border-2 border-accent" />
+              <RadioPrimitive.Indicator className="absolute inset-0 border-2 border-accented" />
             </div>
-          </RadioGroupPrimitive.Item>
+          </RadioPrimitive.Root>
           <Label htmlFor="light" className="self-center">
             Light
           </Label>
         </div>
         <div className="flex flex-col space-y-2">
-          <RadioGroupPrimitive.Item asChild value="dark" id="dark">
+          <RadioPrimitive.Root value="dark" id="dark">
             <div className="relative aspect-video w-full p-1 hover:opacity-90 focus:outline-none md:h-32">
               <DarkMode className="overflow-hidden border" />
-              <RadioGroupPrimitive.Indicator className="absolute inset-0 border-2 border-accent" />
+              <RadioPrimitive.Indicator className="absolute inset-0 border-2 border-accented" />
             </div>
-          </RadioGroupPrimitive.Item>
+          </RadioPrimitive.Root>
           <Label htmlFor="dark" className="self-center">
             Dark
           </Label>
         </div>
         <div className="flex flex-col space-y-2">
-          <RadioGroupPrimitive.Item asChild value="system" id="system">
+          <RadioPrimitive.Root value="system" id="system">
             <div className="relative aspect-video p-1 hover:opacity-90 focus:outline-none md:h-32">
               <div className="relative size-full overflow-hidden border">
                 <LightMode
-                  className="absolute z-[1]"
+                  className="absolute z-1"
                   style={{
                     clipPath: "inset(0px 50% 0px 0px)",
                   }}
                 />
                 <DarkMode className="absolute" />
               </div>
-              <RadioGroupPrimitive.Indicator className="absolute inset-0 border-2 border-accent" />
+              <RadioPrimitive.Indicator className="absolute inset-0 border-2 border-accented" />
             </div>
-          </RadioGroupPrimitive.Item>
+          </RadioPrimitive.Root>
           <Label htmlFor="system" className="self-center">
             System
           </Label>
         </div>
-      </RadioGroupPrimitive.Root>
+      </RadioGroupPrimitive>
     </div>
   )
 }

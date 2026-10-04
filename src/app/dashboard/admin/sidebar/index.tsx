@@ -1,7 +1,7 @@
-"use client"
-
 import * as React from "react"
 
+import { trpc, HydrateClient, prefetch } from "~/trpc/server"
+import { Dialog, DialogTrigger } from "~/ui/dialog"
 import {
   Sidebar,
   SidebarContent,
@@ -14,12 +14,11 @@ import {
   SidebarMenu,
   SidebarMenuItem,
   SidebarRail,
-} from "~/components/ui/sidebar"
-import User from "./user"
-import { type SidebarNavLink, SidebarMainNav, SidebarMeetingNav } from "./nav"
-import { Dialog } from "~/ui/dialog"
-import { DialogTrigger } from "@radix-ui/react-dialog"
+} from "~/ui/sidebar"
 import CreateMeetingDialog from "./dialogs/create-meeting"
+import { type SidebarNavLink, SidebarMainNav, SidebarMeetingNav } from "./nav"
+import { MeetingSkeleton } from "./skeletons"
+import User from "./user"
 
 const mainLinks: SidebarNavLink[] = [
   {
@@ -37,20 +36,14 @@ const mainLinks: SidebarNavLink[] = [
 const projectLinks: SidebarNavLink[] = [
   {
     title: "Overview",
-    url: "/dashboard/admin/projects/temp",
+    url: "/dashboard/admin/projects/:temp",
     icon: "dashboard_2",
   },
 ]
 
-const meetingLinks: SidebarNavLink[] = [
-  {
-    title: "Annual General Meeting 2025",
-    url: "/dashboard/admin/general-meetings/meeting",
-    icon: "D25",
-  },
-]
-
 export function AdminSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+  prefetch(trpc.admin.generalMeetings.list.queryOptions(false))
+
   return (
     <Sidebar collapsible="icon" {...props}>
       <SidebarHeader className="h-(--header-height)">
@@ -61,7 +54,7 @@ export function AdminSidebar({ ...props }: React.ComponentProps<typeof Sidebar>)
             </div>
             <div className="grid flex-1 text-left text-sm leading-tight">
               <span className="truncate font-medium">Coders for Causes</span>
-              <span className="truncate text-neutral-400">Admin Dashboard</span>
+              <span className="truncate text-muted-foreground-dark">Admin Dashboard</span>
             </div>
           </SidebarMenuItem>
         </SidebarMenu>
@@ -89,20 +82,22 @@ export function AdminSidebar({ ...props }: React.ComponentProps<typeof Sidebar>)
         <SidebarGroup>
           <SidebarGroupLabel>General meetings</SidebarGroupLabel>
           <Dialog>
-            <DialogTrigger asChild>
-              <SidebarGroupAction title="Add General Meeting">
-                <span className="material-symbols-sharp text-base! leading-none!">add</span>
-                <span className="sr-only">Add General Meeting</span>
-              </SidebarGroupAction>
-            </DialogTrigger>
-            <React.Suspense fallback={null}>
-              <CreateMeetingDialog />
-            </React.Suspense>
+            <DialogTrigger
+              render={
+                <SidebarGroupAction title="Add General Meeting">
+                  <span className="material-symbols-sharp text-base! leading-none!">add</span>
+                  <span className="sr-only">Add General Meeting</span>
+                </SidebarGroupAction>
+              }
+            />
+            <CreateMeetingDialog />
           </Dialog>
           <SidebarGroupContent>
-            <React.Suspense fallback={null}>
-              <SidebarMeetingNav links={meetingLinks} />
-            </React.Suspense>
+            <HydrateClient>
+              <React.Suspense fallback={<MeetingSkeleton />}>
+                <SidebarMeetingNav />
+              </React.Suspense>
+            </HydrateClient>
           </SidebarGroupContent>
         </SidebarGroup>
       </SidebarContent>

@@ -16,7 +16,7 @@ export default function Loading() {
         </AlertDescription>
       </Alert>
       <div className="grid gap-1.5">
-        <Skeleton className="h-[14px] w-1/2" />
+        <Skeleton className="h-3.5 w-1/2" />
         <Skeleton className="h-9 w-full" />
       </div>
       <Button disabled>Loading</Button>

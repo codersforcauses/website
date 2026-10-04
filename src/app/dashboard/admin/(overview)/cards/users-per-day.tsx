@@ -1,12 +1,12 @@
 "use client"
 
 import * as React from "react"
-import { Axis, Group, Responsive, Pattern, Scale, Shape } from "@visx/visx"
+import { useSuspenseQuery } from "@tanstack/react-query"
+import { Axis, Group, Responsive, Scale, Shape } from "@visx/visx"
 import { subMonths } from "date-fns"
-import { motion } from "motion/react"
 
+import { useApi } from "~/trpc/react"
 import { ToggleGroup, ToggleGroupItem } from "~/ui/toggle-group"
-import { api } from "~/trpc/react"
 
 type GraphRange = "0" | "1" | "3" | "6" | "12"
 
@@ -47,6 +47,7 @@ function Graph({ data, range, height, width }: GraphProps) {
     range: ["#333333", "#aaaaaa"],
   })
 
+  return null
   return (
     <svg height={height} width={width}>
       <Group.Group left={24}>
@@ -83,39 +84,33 @@ function Graph({ data, range, height, width }: GraphProps) {
 }
 
 export default function UsersPerDay() {
+  const { admin } = useApi()
   const [range, setRange] = React.useState<GraphRange>("1")
-  const [data] = api.admin.analytics.getUsersPerDay.useSuspenseQuery(Number(range), {
-    staleTime: Infinity,
-    refetchOnMount: "always",
-  })
+  const { data } = useSuspenseQuery(
+    admin.analytics.getUsersPerDay.queryOptions(Number(range), {
+      staleTime: Infinity,
+      refetchOnMount: "always",
+    }),
+  )
 
   return (
     <>
       <div className="flex flex-wrap items-center justify-between pt-0.5">
-        <h3 className="font-mono text-sm font-medium tracking-tight">Sign-ups</h3>
+        <h3 className="text-sm font-medium tracking-tight">Sign-ups</h3>
         <ToggleGroup
-          type="single"
           variant="outline"
           size="sm"
-          className="[&>button]:size-8"
-          value={range}
+          // className="[&>button]:size-8"
+          value={[range]}
           onValueChange={(value) => {
             if (!value) setRange("0")
-            else setRange(value as GraphRange)
+            else setRange(value[0] as GraphRange)
           }}
         >
-          <ToggleGroupItem value="1">
-            <span className="w-4 text-xs">1M</span>
-          </ToggleGroupItem>
-          <ToggleGroupItem value="3">
-            <span className="w-4 text-xs">3M</span>
-          </ToggleGroupItem>
-          <ToggleGroupItem value="6">
-            <span className="w-4 text-xs">6M</span>
-          </ToggleGroupItem>
-          <ToggleGroupItem value="12">
-            <span className="w-4 text-xs">1Y</span>
-          </ToggleGroupItem>
+          <ToggleGroupItem value="1">1M</ToggleGroupItem>
+          <ToggleGroupItem value="3">3M</ToggleGroupItem>
+          <ToggleGroupItem value="6">6M</ToggleGroupItem>
+          <ToggleGroupItem value="12">1Y</ToggleGroupItem>
         </ToggleGroup>
       </div>
       <Responsive.ParentSize>

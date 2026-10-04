@@ -1,226 +1,170 @@
 "use client"
 
 import * as React from "react"
-import { Group, Responsive, Shape, Pattern, Legend, Scale } from "@visx/visx"
-import { motion } from "motion/react"
+import { arc, descending, pie, scaleOrdinal, schemeGreys } from "d3"
+import { useSuspenseQuery } from "@tanstack/react-query"
+import { motion, type Variants } from "motion/react"
 
-import { api } from "~/trpc/react"
-import { cn } from "~/lib/utils"
+import { useApi } from "~/trpc/react"
+import { useDimensions } from "~/hooks/use-dimensions"
+import type { PatternOrientationType } from "~/components/svg/pattern"
 
 interface DataProps {
   count: number
   pronouns: string
 }
 
-interface GenderDistributionProps {
-  data: Array<DataProps>
-}
-
-interface GraphProps extends GenderDistributionProps {
+interface GraphProps {
   height: number
   width: number
-  // isFocused: Record<string, boolean>
-  // onHoverEnter: (label: string) => void
-  // onHoverLeave: () => void
+  data: DataProps[]
 }
 
 interface PiePattern {
-  CustomPattern: typeof Pattern.PatternLines | typeof Pattern.PatternHexagons
-  orientation: React.ComponentPropsWithoutRef<typeof Pattern.PatternLines>["orientation"]
+  orientation: PatternOrientationType[]
   strokeWidth: number
 }
 
-const count = (d: DataProps) => d.count
+const draw: Variants = {
+  hidden: {
+    pathLength: 1,
+  },
+  visible: {
+    pathLength: 0,
+    transition: {
+      pathLength: {
+        type: "spring",
+        duration: 2,
+        bounce: 0,
+      },
+    },
+  },
+}
 
 // TODO: need a controlled random function for custom gender patterns
 function getPattern(pronoun: string, key?: string): PiePattern {
   switch (pronoun) {
     case "he/him":
       return {
-        CustomPattern: Pattern.PatternLines,
         strokeWidth: 6, // solid fill
         orientation: ["horizontal"],
       }
     case "she/her":
       return {
-        CustomPattern: Pattern.PatternLines,
-        strokeWidth: 2,
+        strokeWidth: 1,
         orientation: ["diagonalRightToLeft", "diagonal"],
       }
     case "they/them":
       return {
-        CustomPattern: Pattern.PatternLines,
         strokeWidth: 3,
         orientation: ["horizontal", "vertical"],
       }
     default:
       return {
-        CustomPattern: Pattern.PatternLines,
-        strokeWidth: 2,
-        orientation: ["diagonalRightToLeft"],
+        strokeWidth: 1,
+        orientation: ["diagonal"],
       }
   }
 }
 
-// TODO: add hover to highlight
-function Graph({
-  width,
-  height,
-  data,
-  // isFocused, onHoverEnter, onHoverLeave
-}: GraphProps) {
-  const radius = Math.min(width, height) / 2
+function Graph({ width, height, data }: GraphProps) {
+  const total = data.reduce((acc, cu) => acc + cu.count, 0)
+  const outerRadius = Math.min(width, height) / 2
+  const innerRadius = outerRadius / 1.4
   const centerY = height / 2
   const centerX = width / 2
 
+  const pieData = React.useMemo(() => {
+    const pieGenerator = pie<any, DataProps>()
+      .startAngle(-90 * (Math.PI / 180))
+      .endAngle(90 * (Math.PI / 180))
+      .value((d) => d.count)
+    return pieGenerator(data)
+  }, [data])
+
+  const colorScale = scaleOrdinal(schemeGreys[data.length])
+
+  const arcs = React.useMemo(() => {
+    const arcPathGenerator = arc()
+    return pieData.map((p) =>
+      arcPathGenerator({
+        outerRadius,
+        innerRadius,
+        startAngle: p.startAngle,
+        endAngle: p.endAngle,
+        padAngle: 0.004,
+      }),
+    )
+  }, [innerRadius, outerRadius, pieData])
+
   return (
-    <motion.svg width={width} height={height} className="group/paths">
-      <Group.Group top={centerY} left={centerX}>
-        <Shape.Pie data={data} pieValue={count} outerRadius={radius} innerRadius={radius / 1.25} padAngle={0.01}>
-          {({ arcs, path }) =>
-            arcs.map((arc, i) => {
-              const id = arc.data.pronouns
-              const { CustomPattern, ...patternProps } = getPattern(arc.data.pronouns)
-              return (
-                <g key={id}>
-                  <CustomPattern
-                    id={id}
-                    height={6}
-                    width={6}
-                    className="stroke-neutral-950 dark:stroke-neutral-50"
-                    {...patternProps}
-                  />
-                  <motion.path
-                    d={path(arc) ?? ""}
-                    fill={`url(#${id})`}
-                    data-pattern={id}
-                    initial={{
-                      opacity: 0,
-                    }}
-                    animate={{
-                      opacity: 1,
-                    }}
-                    transition={{
-                      delay: 0.15 * i,
-                      duration: 0.3,
-                    }}
-                    className="transition-opacity duration-200 ease-in-out group-has-[:hover]/paths:not-hover:opacity-40"
-                    // className={isFocused[arc.data.pronouns] ? "opacity-100" : "opacity-50"}
-                    // onHoverStart={() => onHoverEnter(arc.data.pronouns)}
-                    // onHoverEnd={onHoverLeave}
-                  />
-                </g>
-              )
-            })
-          }
-        </Shape.Pie>
-      </Group.Group>
+    <motion.svg width={width} height={height} initial="hidden" animate="visible" className="inline-block">
+      <g transform={`translate(${centerX}, ${centerY})`}>
+        {arcs.map((arc, i) => {
+          const pronoun = data[i]!.pronouns
+          // const patternProps = getPattern(pronoun)
+          // console.log(colorScale(pronoun))
+
+          return (
+            <g key={i}>
+              {/* <Pattern id={pronoun} height={6} width={6} {...patternProps} className="stroke-current" /> */}
+              <path
+                d={arc!}
+                fill={colorScale(pronoun)}
+                //  fill={`url(#${pronoun})`}
+              />
+            </g>
+          )
+        })}
+      </g>
+      <defs>
+        <clipPath id="cut-off">
+          <rect x="0" y="0" width={width} height={centerY} />
+        </clipPath>
+      </defs>
+      <motion.circle
+        cx={centerX}
+        cy={centerY}
+        r={innerRadius}
+        strokeWidth={(outerRadius - innerRadius) * 2}
+        clipPath="url(#cut-off)"
+        className="translate-x-full -scale-x-100 stroke-muted"
+        variants={draw}
+      />
+      <circle cx={centerX} cy={centerY} r={innerRadius} className="fill-background" />
+      {data.map(({ count, pronouns }, i) => (
+        <g key={pronouns} transform={`translate(0, ${centerY + 30 + i * 24 + i * 4})`} className="fill-current">
+          {/* <rect fill={`url(#${pronouns})`} width={24} height={24} /> */}
+          <text textAnchor="start" alignmentBaseline="baseline" dx={30} dy={16}>
+            {pronouns.toLowerCase()}
+          </text>
+          <g transform={`translate(${width}, 0)`}>
+            <text dy={16} textAnchor="end" alignmentBaseline="baseline" className="tabular-nums">
+              {count}
+              <tspan className="fill-muted-foreground">{" | "}</tspan>
+              {((count / total) * 100).toPrecision(2)}%
+            </text>
+          </g>
+        </g>
+      ))}
     </motion.svg>
   )
 }
-// TODO: find a solution using group and has to reduce js if possible
+
 export default function GenderDistribution() {
-  const [gender] = api.admin.analytics.getGenderStatistics.useSuspenseQuery(undefined, {
-    staleTime: Infinity,
-    refetchOnMount: "always",
-  })
-  const pronouns = gender.map((g) => g.pronouns)
-  // const [focusDefault] = React.useState({
-  //   allTrue: pronouns.reduce(
-  //     (obj, p) => ({
-  //       ...obj,
-  //       [p]: true,
-  //     }),
-  //     {} as Record<string, boolean>,
-  //   ),
-  //   allFalse: pronouns.reduce(
-  //     (obj, p) => ({
-  //       ...obj,
-  //       [p]: false,
-  //     }),
-  //     {} as Record<string, boolean>,
-  //   ),
-  // })
-  // const [focusPronoun, setFocusPronoun] = React.useState(
-  //   pronouns.reduce(
-  //     (obj, p) => ({
-  //       ...obj,
-  //       [p]: true,
-  //     }),
-  //     {} as Record<string, boolean>,
-  //   ),
-  // )
+  const { admin } = useApi()
+  const { ref, dimensions } = useDimensions()
 
-  const threshold = Scale.scaleOrdinal({
-    domain: pronouns,
-    range: pronouns.map((p) => getPattern(p)),
-  })
-
-  // const onHoverEnter = React.useCallback(
-  //   (label: string) => {
-  //     setFocusPronoun({
-  //       ...focusDefault.allFalse,
-  //       [label]: true,
-  //     })
-  //   },
-  //   [focusDefault.allFalse],
-  // )
-  // const onHoverLeave = React.useCallback(() => {
-  //   setFocusPronoun(focusDefault.allTrue)
-  // }, [focusDefault.allTrue])
+  const { data: gender } = useSuspenseQuery(
+    admin.analytics.getGenderStatistics.queryOptions(undefined, {
+      staleTime: Infinity,
+      refetchOnMount: "always",
+    }),
+  )
 
   return (
-    <div className="grid gap-6 @xs/gender:grid-cols-7">
-      <Responsive.ParentSize className="aspect-square w-full @xs/gender:col-span-4">
-        {({ width, height }) => (
-          <Graph
-            data={gender}
-            width={width}
-            height={height}
-            // isFocused={focusPronoun}
-            // onHoverEnter={onHoverEnter}
-            // onHoverLeave={onHoverLeave}
-          />
-        )}
-      </Responsive.ParentSize>
-      <Legend.LegendOrdinal scale={threshold}>
-        {(labels) => (
-          <div className="group/legend @xs/gender:col-span-3 @xs/gender:place-self-center">
-            {labels.map((label) => {
-              const id = label.text
-              const { CustomPattern, ...patternProps } = label.value!
-              return (
-                <Legend.LegendItem
-                  key={`legend-${id}`}
-                  data-pattern={id}
-                  className={cn(
-                    "flex items-center gap-1.5 pt-1 first:pt-0",
-                    "transition-opacity duration-200 ease-in-out group-has-[:hover]/legend:not-hover:opacity-40",
-                    // focusPronoun[id] ? "opacity-100" : "opacity-50"
-                  )}
-                  // onMouseOver={() => onHoverEnter(id)}
-                  // onMouseLeave={onHoverLeave}
-                >
-                  <svg width={24} height={24}>
-                    <CustomPattern
-                      id={id}
-                      height={6}
-                      width={6}
-                      className="stroke-neutral-950 dark:stroke-neutral-50"
-                      {...patternProps}
-                    />
-                    <rect fill={`url(#${id})`} width={24} height={24} />
-                  </svg>
-                  <p className="font-medium">{id}</p>
-                  <span className="font-mono text-neutral-500 dark:text-neutral-400">
-                    {gender.find((g) => g.pronouns === id)?.count}
-                  </span>
-                </Legend.LegendItem>
-              )
-            })}
-          </div>
-        )}
-      </Legend.LegendOrdinal>
+    <div ref={ref} className="size-full min-h-0 min-w-0">
+      <Graph data={gender.toSorted((a, b) => descending(a.count, b.count))} {...dimensions} />
     </div>
   )
 }

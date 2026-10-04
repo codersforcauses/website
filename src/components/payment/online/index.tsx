@@ -3,7 +3,6 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "~/
 export default function CardPayment() {
   return (
     <Accordion
-      type="single"
       //   disabled={loadingState[0]}
       //   defaultValue={(cards ?? [])?.length > 0 ? "saved" : "card"}
       className="w-full border border-black/25 dark:border-white/25"

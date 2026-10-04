@@ -16,11 +16,11 @@ export default function Committee() {
             className="h-full w-full object-cover object-top grayscale transition-all duration-150 ease-in hover:filter-none"
           />
           <div className="absolute bottom-0 flex flex-col gap-y-px p-2">
-            <p className="w-fit bg-neutral-950 px-1.5 py-1 text-sm leading-none font-medium text-neutral-50">
+            <p className="w-fit bg-background-dark px-1.5 py-1 text-sm leading-none font-medium text-foreground-dark">
               {com.name}
               <span className="ml-2 text-xs text-neutral-300">{com.pronouns}</span>
             </p>
-            <p className="w-fit bg-neutral-950 px-1.5 py-1 text-xs text-neutral-200">{com.position}</p>
+            <p className="w-fit bg-background-dark px-1.5 py-1 text-xs text-neutral-200">{com.position}</p>
             {/* <div className="hidden w-fit grid-cols-2 gap-px md:grid">
               <Button asChild aria-label="email" variant="ghost-dark" size="icon" className="size-6 bg-neutral-950">
                 <a target="_blank" rel="noopener noreferrer" href={`mailto:${com.social.email}`}>

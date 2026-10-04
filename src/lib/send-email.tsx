@@ -1,5 +1,5 @@
 import type * as React from "react"
-import { render } from "@react-email/components"
+import { render, toPlainText } from "react-email"
 import { aws, sesClient } from "./aws-ses.server"
 
 interface EmailProps {
@@ -14,12 +14,8 @@ interface EmailProps {
 
 export async function sendEmail({ bcc, to, subject, email }: EmailProps) {
   try {
-    const [html, text] = await Promise.all([
-      render(email),
-      render(email, {
-        plainText: true,
-      }),
-    ])
+    const html = await render(email)
+    const text = toPlainText(html)
 
     const emailCommand = new aws.SendEmailCommand({
       Destination: {

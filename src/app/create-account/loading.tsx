@@ -1,8 +1,8 @@
 import Link from "next/link"
 
-import { Alert, AlertDescription, AlertTitle } from "~/components/ui/alert"
-import { Button } from "~/components/ui/button"
-import { Skeleton } from "~/components/ui/skeleton"
+import { Alert, AlertDescription, AlertTitle } from "~/ui/alert"
+import { Button } from "~/ui/button"
+import { Skeleton } from "~/ui/skeleton"
 
 const currentYear = new Date().getFullYear()
 
@@ -44,7 +44,7 @@ export default function Loading() {
               Become a paying member of Coders for Causes for just $5 a year (ends on 31st Dec {currentYear}). There are
               many benefits to becoming a member which include:
             </p>
-            <ul className="list-inside list-disc">
+            <ul className="list-inside list-[square]">
               <li>discounts to paid events such as industry nights</li>
               <li>the ability to vote and run for committee positions</li>
               <li>the ability to join our projects run during the winter and summer breaks.</li>

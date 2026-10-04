@@ -1,14 +1,14 @@
 import { randomUUID } from "node:crypto"
 import { Ratelimit } from "@upstash/ratelimit"
-import { TRPCError } from "@trpc/server"
-import { eq } from "drizzle-orm"
-import type { Money } from "square"
+// import { TRPCError } from "@trpc/server"
+// import { eq } from "drizzle-orm"
+// import type { Money } from "square"
 import z from "zod"
 
 import { protectedRatedProcedure } from "~/server/api/trpc"
 import { squareClient } from "~/lib/square.server"
 import { env } from "~/env"
-import { payments } from "~/server/db/schema"
+// import { payments } from "~/server/db/schema"
 
 /**
  * Payment using Square
@@ -28,7 +28,7 @@ const pay = protectedRatedProcedure(Ratelimit.fixedWindow(2, "30s"))
   .mutation(async ({ ctx, input }) => {
     const currentUser = ctx.session.user
 
-    const { payment, errors } = await squareClient.payments.create({
+    const { payment } = await squareClient.payments.create({
       idempotencyKey: randomUUID(),
       locationId: env.NEXT_PUBLIC_SQUARE_LOCATION_ID,
       sourceId: input.sourceID,
@@ -57,7 +57,7 @@ const pay = protectedRatedProcedure(Ratelimit.fixedWindow(2, "30s"))
     //   currency: membership.currency,
     // })
 
-    return payment.id
+    // return payment.id
   })
 
 export default pay

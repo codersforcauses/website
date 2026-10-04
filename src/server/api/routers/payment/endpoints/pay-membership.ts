@@ -46,15 +46,15 @@ const payMembership = protectedRatedProcedure(Ratelimit.fixedWindow(2, "30s"))
       })
     }
 
-    await Promise.all([
-      ctx.db.insert(payments).values({
+    await ctx.db.transaction(async (tx) => {
+      await tx.insert(payments).values({
         userId: currentUser.id,
         label: label,
         amount: membership.amount,
         currency: membership.currency,
-      }),
-      ctx.db.update(users).set({ role: "member" }).where(eq(users.id, currentUser.id)),
-    ])
+      })
+      await tx.update(users).set({ role: "member" }).where(eq(users.id, currentUser.id))
+    })
 
     return payment.id
   })

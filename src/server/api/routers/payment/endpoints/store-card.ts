@@ -1,6 +1,6 @@
 import { randomUUID } from "node:crypto"
 import { Ratelimit } from "@upstash/ratelimit"
-import { z } from "zod"
+import * as z from "zod"
 
 import { protectedRatedProcedure } from "~/server/api/trpc"
 import { squareClient } from "~/lib/square.server"

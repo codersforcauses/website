@@ -1,3 +1,4 @@
+import { sql } from "drizzle-orm"
 import { index, uniqueIndex } from "drizzle-orm/pg-core"
 import { uuidv7 } from "uuidv7"
 
@@ -16,6 +17,7 @@ export const users = createTable(
     emailVerified: d.boolean("email_verified").default(false).notNull(),
     image: d.text(),
     pronouns: d.text().notNull(),
+    bio: d.text(),
     studentNumber: d.varchar("student_number", { length: 8 }).unique(),
     university: d.text(), // non UWA
     github: d.text().unique(),
@@ -27,10 +29,10 @@ export const users = createTable(
     role: d.text(),
     banned: d.boolean().default(false),
     banReason: d.text("ban_reason"),
-    banExpires: d.timestamp("ban_expires", { withTimezone: true }),
+    banExpires: d.timestamp("ban_expires", { precision: 6, withTimezone: true }),
     ...timestamps,
   }),
-  (t) => [uniqueIndex("user_email_idx").on(t.email), index("user_name_idx").on(t.name)],
+  (t) => [uniqueIndex("user_email_idx").on(sql`lower(${t.email})`), index("user_name_idx").on(sql`lower(${t.name})`)],
 )
 
 export const accounts = createTable(
@@ -50,9 +52,11 @@ export const accounts = createTable(
     refreshToken: d.text("refresh_token"),
     accessToken: d.text("access_token"),
     refreshTokenExpiresAt: d.timestamp("refresh_token_expires_at", {
+      precision: 6,
       withTimezone: true,
     }),
     accessTokenExpiresAt: d.timestamp("access_token_expires_at", {
+      precision: 6,
       withTimezone: true,
     }),
     scope: d.text(),
@@ -69,15 +73,15 @@ export const sessions = createTable(
       .uuid()
       .primaryKey()
       .$defaultFn(() => uuidv7()),
-    token: d.text().notNull().unique(),
-    ipAddress: d.text("ip_address"),
-    userAgent: d.text("user_agent"),
     userId: d
       .uuid("user_id")
       .notNull()
       .references(() => users.id, { onDelete: "cascade" }),
+    token: d.text().notNull().unique(),
+    ipAddress: d.text("ip_address"),
+    userAgent: d.text("user_agent"),
     impersonatedBy: d.uuid("impersonated_by").references(() => users.id),
-    expiresAt: d.timestamp("expires_at", { mode: "date", withTimezone: true }).notNull(),
+    expiresAt: d.timestamp("expires_at", { precision: 6, withTimezone: true }).notNull(),
     ...timestamps,
   }),
   (t) => [index("session_user_id_idx").on(t.userId), index("session_token_idx").on(t.token)],
@@ -92,7 +96,7 @@ export const verifications = createTable(
       .$defaultFn(() => uuidv7()),
     identifier: d.text().notNull(),
     value: d.text().notNull(),
-    expiresAt: d.timestamp("expires_at", { mode: "date", withTimezone: true }).notNull(),
+    expiresAt: d.timestamp("expires_at", { precision: 6, withTimezone: true }).notNull(),
     ...timestamps,
   }),
   (t) => [index("verification_identifier_idx").on(t.identifier)],

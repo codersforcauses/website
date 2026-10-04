@@ -1,29 +1,31 @@
-import * as React from "react"
-import { headers } from "next/headers"
 import { redirect } from "next/navigation"
 
-import { auth } from "~/lib/auth"
 import { ADMIN_ROLES } from "~/lib/constants"
-import { api, HydrateClient } from "~/trpc/server"
+import { getSession } from "~/lib/auth-server"
+import { joinRedirectLink } from "~/lib/typed-links"
+import { HydrateClient, prefetch, trpc } from "~/trpc/server"
 import UsersTableContainer from "./table"
 
 export default async function UsersPage({ searchParams }: PageProps<"/dashboard/admin/users">) {
   const { search } = await searchParams
-  const data = await auth.api.getSession({
-    headers: await headers(),
-  })
-  if (!data?.user) redirect("/join")
+  const data = await getSession()
+
+  if (!data?.user) {
+    redirect(joinRedirectLink({ redirect: `/dashboard/admin/users` }))
+  }
   if (!data.user.role?.split(",").some((role) => ADMIN_ROLES.includes(role))) redirect("/dashboard")
 
-  void api.admin.users.getUsers.prefetchInfinite(
-    {
-      query: (search ?? "").toString(),
-      filters: "",
-    },
-    {
-      pages: 0,
-      getNextPageParam: (lastPage) => lastPage.nextPage,
-    },
+  prefetch(
+    trpc.admin.users.listUsers.infiniteQueryOptions(
+      {
+        query: (search ?? "").toString(),
+        filters: "",
+        cursor: 0,
+      },
+      {
+        getNextPageParam: (lastPage) => lastPage.nextPage,
+      },
+    ),
   )
 
   return (

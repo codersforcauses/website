@@ -1,8 +1,10 @@
+import type { Route } from "next"
 import Image from "next/image"
 import Link from "next/link"
 import { notFound } from "next/navigation"
 
 import projects from "~/data/projects.json"
+import { cn } from "~/lib/utils"
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -11,8 +13,9 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "~/ui/breadcrumb"
-import { Button } from "~/ui/button"
+import { buttonVariants } from "~/ui/button"
 import { iconMap } from "~/lib/constants"
+import { div } from "motion/react-client"
 
 export function generateStaticParams() {
   return projects.map((project) => ({ id: project.id }))
@@ -28,9 +31,9 @@ export default async function ProjectPage({ params }: PageProps<"/projects/[id]"
     <>
       <section className="relative border-b border-black bg-black py-32 md:py-48">
         <Image
+          fill
           alt={`An image of the front page of ${project.name}`}
           src={`/projects/${project.img}`}
-          fill
           className="object-contain object-center"
         />
       </section>
@@ -39,9 +42,7 @@ export default async function ProjectPage({ params }: PageProps<"/projects/[id]"
           <Breadcrumb className="mb-4">
             <BreadcrumbList>
               <BreadcrumbItem>
-                <BreadcrumbLink asChild>
-                  <Link href="/projects">Projects</Link>
-                </BreadcrumbLink>
+                <BreadcrumbLink render={<Link href="/projects">Projects</Link>} />
               </BreadcrumbItem>
               <BreadcrumbSeparator />
               <BreadcrumbItem>
@@ -49,7 +50,7 @@ export default async function ProjectPage({ params }: PageProps<"/projects/[id]"
               </BreadcrumbItem>
             </BreadcrumbList>
           </Breadcrumb>
-          <div>
+          <div className="flex flex-col gap-4">
             <h1 className="scroll-m-20 font-mono text-4xl tracking-tight text-balance md:text-6xl">{project.name}</h1>
             <div className="grid grid-cols-2 items-center font-mono">
               <div className="flex items-center gap-2">
@@ -69,14 +70,20 @@ export default async function ProjectPage({ params }: PageProps<"/projects/[id]"
             {(project?.url ?? project?.source) && (
               <div className="mt-2 grid grid-cols-2 gap-4 sm:max-w-max">
                 {project?.url && (
-                  <Button asChild variant="outline" className="w-full font-mono" size="lg">
-                    <Link href={project.url}>Visit website</Link>
-                  </Button>
+                  <Link
+                    href={project.url as Route}
+                    className={cn(buttonVariants({ variant: "outline", size: "lg" }), "w-full font-mono")}
+                  >
+                    Visit website
+                  </Link>
                 )}
                 {project?.source && (
-                  <Button asChild variant="outline" className="w-full font-mono" size="lg">
-                    <Link href={project.source}>View code</Link>
-                  </Button>
+                  <Link
+                    href={project.source as Route}
+                    className={cn(buttonVariants({ variant: "outline", size: "lg" }), "w-full font-mono")}
+                  >
+                    View code
+                  </Link>
                 )}
               </div>
             )}
@@ -88,9 +95,11 @@ export default async function ProjectPage({ params }: PageProps<"/projects/[id]"
                   return (
                     <div key={tech.name} className="flex items-center gap-2 select-none">
                       {iconPath && (
-                        <svg role="img" viewBox="0 0 24 24" height={20} width={20} className="fill-current">
-                          <path d={iconPath} />
-                        </svg>
+                        <div className="grid size-8 place-items-center bg-muted">
+                          <svg role="img" viewBox="0 0 24 24" height={16} width={16} className="fill-current">
+                            <path d={iconPath} />
+                          </svg>
+                        </div>
                       )}
                       <p>{tech.name}</p>
                     </div>

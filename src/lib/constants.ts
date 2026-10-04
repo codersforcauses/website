@@ -1,6 +1,7 @@
+// microsoft icons patched in from simple icons 12.4.0 since it was removed in latest version
 import {
   siClerk,
-  siCss3,
+  siCss,
   siDigitalocean,
   siDjango,
   siDocker,
@@ -14,7 +15,7 @@ import {
   siMongodb,
   siNextdotjs,
   siNodedotjs,
-  siNuxtdotjs,
+  siNuxt,
   siPrisma,
   siReact,
   siTailwindcss,
@@ -22,12 +23,20 @@ import {
   siVercel,
   siVuedotjs,
   siVuetify,
-} from "simple-icons/icons"
+} from "simple-icons"
+
+import type { MapCoordinates } from "~/ui/map/types"
+
+export const UWA_COORDS = [115.819114082271, -31.98067096024902] satisfies MapCoordinates
 
 export const NAMED_ROLES = ["member", "honorary", "past", "returning", "committee", "admin"] as const
 export const ADMIN_ROLES = ["admin", "committee"]
-export const MEETING_ADMIN_ROLES = ["admin", "returning"] as const // access to general meeting election controls
-export const MEETING_ACCESS_ROLES = ["admin", "committee", "returning"] as const // access to general meeting admin pages
+export const MEETING_ADMIN_ROLES = ["admin", "returning"] // access to general meeting election controls
+export const MEETING_ACCESS_ROLES = ["admin", "committee", "returning"] // access to general meeting admin pages
+
+export const MEETING_STATUS = ["draft", "upcoming", "ongoing", "completed", "cancelled"] as const
+export const MEETING_QUESTION_TYPE = ["short", "long", "checkbox"] as const
+export const MEETING_CONTEST_STATUS = ["closed", "open", "finished"] as const
 
 export const PRONOUNS = [
   {
@@ -72,12 +81,12 @@ export const iconMap: Record<string, string> = {
   vuedotjs: siVuedotjs.path,
   nodedotjs: siNodedotjs.path,
   express: siExpress.path,
-  nuxtdotjs: siNuxtdotjs.path,
+  nuxtdotjs: siNuxt.path,
   vuetify: siVuetify.path,
   nextdotjs: siNextdotjs.path,
   vercel: siVercel.path,
   html5: siHtml5.path,
-  css3: siCss3.path,
+  css: siCss.path,
   javascript: siJavascript.path,
   heroku: siHeroku.path,
   microsoftsqlserver: siMicrosoftsqlserver.path,

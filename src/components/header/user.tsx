@@ -1,14 +1,16 @@
 "use client"
 
-import * as React from "react"
-// import { setUser } from "@sentry/nextjs";
-import { track } from "@vercel/analytics/react"
 import dynamic from "next/dynamic"
 import Link from "next/link"
-import { usePathname, useRouter } from "next/navigation"
+import { useRouter } from "next/navigation"
+import { track } from "@vercel/analytics/react"
+// import { setUser } from "@sentry/nextjs";
 
-import { Avatar, AvatarFallback } from "~/components/ui/avatar"
-import { Button } from "~/components/ui/button"
+import { authClient } from "~/lib/auth-client"
+import { ADMIN_ROLES } from "~/lib/constants"
+import { usePathName } from "~/hooks/use-pathname"
+import { Avatar, AvatarFallback } from "~/ui/avatar"
+import { Button, buttonVariants } from "~/ui/button"
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -17,26 +19,23 @@ import {
   DropdownMenuSeparator,
   // DropdownMenuShortcut,
   DropdownMenuTrigger,
-} from "~/components/ui/dropdown-menu"
-import { authClient } from "~/lib/auth-client"
+} from "~/ui/dropdown-menu"
 import { Skeleton } from "~/ui/skeleton"
 
 const ThemeSwitcher = dynamic(() => import("./theme"), {
   ssr: false,
   loading: () => (
     <Button variant="ghost-dark" size="icon">
-      <span className="size-4 bg-neutral-800" />
+      <span className="size-4 bg-muted-dark" />
     </Button>
   ),
 })
 
-const adminRoles = ["admin", "committee"]
-
 export default function UserButton() {
-  const path = usePathname()
+  const path = usePathName()
   const router = useRouter()
   const { data, isPending } = authClient.useSession()
-  const isAdmin = data?.user?.role && adminRoles.includes(data.user.role)
+  const isAdmin = data?.user?.role && ADMIN_ROLES.includes(data.user.role)
 
   const userSignOut = async () => {
     await authClient.signOut({
@@ -51,7 +50,7 @@ export default function UserButton() {
     return (
       <>
         <ThemeSwitcher />
-        <Skeleton className="h-9 w-24 bg-neutral-800" />
+        <Skeleton className="h-9 w-24 bg-muted-dark" />
       </>
     )
   }
@@ -59,16 +58,17 @@ export default function UserButton() {
     return (
       <>
         <ThemeSwitcher />
-        <Button
-          asChild
-          variant="secondary-dark"
-          className="focus-visible:ring-white/25 dark:hover:bg-white dark:hover:text-neutral-950"
-          onClick={() => {
+        <Link
+          href="/join"
+          className={buttonVariants({
+            variant: "secondary-dark",
+          })}
+          onNavigate={() => {
             if (process.env.NEXT_PUBLIC_VERCEL_ENV === "production") track("join", { location: "header" })
           }}
         >
-          <Link href="/join">Join us</Link>
-        </Button>
+          Join us
+        </Link>
       </>
     )
   }
@@ -76,51 +76,60 @@ export default function UserButton() {
     <>
       {process.env.NODE_ENV === "development" && <ThemeSwitcher />}
       <DropdownMenu>
-        <DropdownMenuTrigger asChild>
-          <Button
-            variant="ghost-dark"
-            className="max-w-40 space-x-1.5 bg-black pr-2 pl-0.5 text-neutral-50 focus-visible:ring-white/25"
-          >
-            <Avatar size="sm">
-              <AvatarFallback className="bg-neutral-900 dark:bg-neutral-900">
-                {data.user?.preferredName.charAt(0)}
-              </AvatarFallback>
-            </Avatar>
-            <span>{data.user?.preferredName}</span>
-          </Button>
-        </DropdownMenuTrigger>
+        <DropdownMenuTrigger
+          render={
+            <Button variant="ghost-dark" className="max-w-40 bg-black px-2 data-popup-open:bg-accent-dark">
+              <Avatar size="sm">
+                <AvatarFallback className="bg-background-dark">{data.user?.preferredName.charAt(0)}</AvatarFallback>
+              </Avatar>
+              <span>{data.user?.preferredName}</span>
+            </Button>
+          }
+        />
         <DropdownMenuContent variant="dark" align="end">
           <DropdownMenuGroup>
-            <DropdownMenuItem asChild disabled={path === "/dashboard"}>
-              <Link href="/dashboard">
-                <span className="material-symbols-sharp">dashboard</span>
-                <span>Dashboard</span>
-              </Link>
-              {/* <DropdownMenuShortcut>⌘S</DropdownMenuShortcut> */}
-            </DropdownMenuItem>
-            {isAdmin && (
-              <DropdownMenuItem asChild disabled={path === "/dashboard/admin"}>
-                <Link href="/dashboard/admin">
-                  <span className="material-symbols-sharp">admin_panel_settings</span>
-                  <span>Admin Dashboard</span>
+            <DropdownMenuItem
+              disabled={path === "/dashboard"}
+              render={
+                <Link href="/dashboard">
+                  <span className="material-symbols-sharp">dashboard</span>
+                  <span>Dashboard</span>
                   {/* <DropdownMenuShortcut>⌘S</DropdownMenuShortcut> */}
                 </Link>
-              </DropdownMenuItem>
+              }
+            />
+            {isAdmin && (
+              <DropdownMenuItem
+                disabled={path === "/dashboard/admin"}
+                render={
+                  <Link href="/dashboard/admin">
+                    <span className="material-symbols-sharp">admin_panel_settings</span>
+                    <span>Admin Dashboard</span>
+                    {/* <DropdownMenuShortcut>⌘S</DropdownMenuShortcut> */}
+                  </Link>
+                }
+              />
             )}
-            <DropdownMenuItem asChild disabled={path.includes(`/profile/${data.user.id}`)}>
-              <Link href={`/profile/${data.user.id}`}>
-                <span className="material-symbols-sharp">person</span>
-                <span>Profile</span>
-                {/* <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut> */}
-              </Link>
-            </DropdownMenuItem>
-            <DropdownMenuItem asChild disabled={path === "/profile/settings"}>
-              <Link href="/profile/settings">
-                <span className="material-symbols-sharp">settings_account_box</span>
-                <span>Settings</span>
-                {/* <DropdownMenuShortcut>⌘S</DropdownMenuShortcut> */}
-              </Link>
-            </DropdownMenuItem>
+            <DropdownMenuItem
+              disabled={path.includes(`/profile/${data.user.id}`)}
+              render={
+                <Link href={`/profile/${data.user.id}`}>
+                  <span className="material-symbols-sharp">person</span>
+                  <span>Profile</span>
+                  {/* <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut> */}
+                </Link>
+              }
+            />
+            <DropdownMenuItem
+              disabled={path === "/profile/settings"}
+              render={
+                <Link href="/profile/settings">
+                  <span className="material-symbols-sharp">settings_account_box</span>
+                  <span>Settings</span>
+                  {/* <DropdownMenuShortcut>⌘S</DropdownMenuShortcut> */}
+                </Link>
+              }
+            />
           </DropdownMenuGroup>
           <DropdownMenuSeparator />
           <DropdownMenuItem

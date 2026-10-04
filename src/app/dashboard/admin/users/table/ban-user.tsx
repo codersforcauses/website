@@ -1,8 +1,9 @@
 import * as React from "react"
 import { useForm } from "@tanstack/react-form"
-import { z } from "zod"
+import * as z from "zod"
 
 import { authClient } from "~/lib/auth-client"
+import SubmitButton from "~/blocks/submit-button"
 import {
   AlertDialogCancel,
   AlertDialogContent,
@@ -11,12 +12,11 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from "~/ui/alert-dialog"
-import { Button } from "~/ui/button"
+import { ButtonGroup } from "~/ui/button-group"
 import { Input } from "~/ui/input"
-import { Label } from "~/ui/label"
-import { Field, FieldError, FieldLabel } from "~/ui/field"
+import { InputGroup, InputGroupAddon, InputGroupInput } from "~/ui/input-group"
+import { Field, FieldError, FieldLabel, FieldLegend, FieldSet } from "~/ui/field"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "~/ui/select"
-import { Spinner } from "~/ui/spinner"
 import { Switch } from "~/ui/switch"
 
 interface BanUserProps {
@@ -72,12 +72,7 @@ export default function BanUser({ name, userId, refetchData }: BanUserProps) {
     },
   })
   return (
-    <AlertDialogContent
-      onOpenAutoFocus={(e) => {
-        e.preventDefault()
-        inputRef.current?.focus()
-      }}
-    >
+    <AlertDialogContent initialFocus={inputRef}>
       <AlertDialogHeader>
         <AlertDialogTitle>Ban {name}</AlertDialogTitle>
         <AlertDialogDescription>
@@ -85,125 +80,152 @@ export default function BanUser({ name, userId, refetchData }: BanUserProps) {
         </AlertDialogDescription>
       </AlertDialogHeader>
       <form
-        className="grid gap-y-4"
         onSubmit={(e) => {
           e.preventDefault()
           void form.handleSubmit()
         }}
       >
-        <form.Field name="reason">
-          {(field) => {
-            const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid
-            return (
-              <Field data-invalid={isInvalid}>
-                <FieldLabel>Ban reason</FieldLabel>
-                <Input
-                  ref={inputRef}
-                  placeholder="Spamming"
-                  disabled={loading}
-                  value={field.state.value}
-                  onChange={(e) => {
-                    field.handleChange(e.target.value)
+        <div className="grid gap-y-4">
+          <form.Field name="reason">
+            {(field) => {
+              const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid
+              return (
+                <Field data-invalid={isInvalid}>
+                  <FieldLabel htmlFor={field.name}>Ban reason</FieldLabel>
+                  <Input
+                    id={field.name}
+                    name={field.name}
+                    ref={inputRef}
+                    placeholder="Spamming"
+                    disabled={loading}
+                    aria-invalid={isInvalid}
+                    value={field.state.value}
+                    onBlur={field.handleBlur}
+                    onChange={(e) => {
+                      field.handleChange(e.target.value)
+                    }}
+                  />
+                  {isInvalid && <FieldError errors={field.state.meta.errors} />}
+                </Field>
+              )
+            }}
+          </form.Field>
+          <FieldSet>
+            <FieldLegend variant="label" className="font-mono">
+              Ban length
+            </FieldLegend>
+            <div className="flex max-w-sm items-center justify-between gap-2">
+              <ButtonGroup id="ban_length">
+                <form.Field name="len">
+                  {(field) => {
+                    const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid
+                    return (
+                      <Field data-invalid={isInvalid}>
+                        <FieldLabel htmlFor={field.name} className="sr-only">
+                          Ban time
+                        </FieldLabel>
+                        <InputGroup variant="dark">
+                          <InputGroupInput
+                            id={field.name}
+                            name={field.name}
+                            placeholder="7"
+                            inputMode="numeric"
+                            disabled={loading}
+                            aria-invalid={isInvalid}
+                            value={field.state.value}
+                            onBlur={field.handleBlur}
+                            className="max-w-24"
+                            onChange={(e) => {
+                              field.handleChange(e.target.value)
+                            }}
+                          />
+                          {isInvalid && (
+                            <InputGroupAddon align="inline-end">
+                              <span className="material-symbols-sharp text-destructive-dark">error</span>
+                            </InputGroupAddon>
+                          )}
+                        </InputGroup>
+                        {isInvalid && <FieldError errors={field.state.meta.errors} />}
+                      </Field>
+                    )
                   }}
-                />
+                </form.Field>
+                <form.Field name="duration">
+                  {(field) => {
+                    const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid
+                    return (
+                      <Field data-invalid={isInvalid}>
+                        <FieldLabel htmlFor={field.name} className="sr-only">
+                          Ban duration
+                        </FieldLabel>
+                        <Select
+                          id={field.name}
+                          name={field.name}
+                          value={field.state.value}
+                          items={DURATION}
+                          onValueChange={(val) => {
+                            field.handleChange(val!)
+                          }}
+                        >
+                          <SelectTrigger aria-invalid={isInvalid}>
+                            <SelectValue placeholder="days" />
+                          </SelectTrigger>
+                          <SelectContent alignItemWithTrigger>
+                            {DURATION.map((duration) => (
+                              <SelectItem key={duration.label} value={duration.value}>
+                                {duration.label}
+                              </SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
 
-                {isInvalid && <FieldError errors={field.state.meta.errors} />}
-              </Field>
-            )
-          }}
-        </form.Field>
-
-        <div className="space-y-1.5">
-          <Label className="font-mono">Ban length</Label>
-          <div className="flex max-w-sm items-center justify-between gap-2">
-            <div className="flex gap-0.5">
-              <form.Field name="len">
+                        {isInvalid && <FieldError errors={field.state.meta.errors} />}
+                      </Field>
+                    )
+                  }}
+                </form.Field>
+              </ButtonGroup>
+              <div className="text-xs text-muted-foreground">OR</div>
+              <form.Field name="indefinite">
                 {(field) => {
                   const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid
                   return (
-                    <Field data-invalid={isInvalid}>
-                      <FieldLabel className="sr-only">Ban time</FieldLabel>
-
-                      <Input
-                        placeholder="7"
-                        inputMode="numeric"
-                        disabled={loading}
-                        value={field.state.value}
-                        className="w-20"
-                        onChange={(e) => {
-                          field.handleChange(e.target.value)
-                        }}
-                      />
-
-                      {isInvalid && <FieldError errors={field.state.meta.errors} />}
-                    </Field>
-                  )
-                }}
-              </form.Field>
-              <form.Field name="duration">
-                {(field) => {
-                  const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid
-                  return (
-                    <Field data-invalid={isInvalid}>
-                      <FieldLabel className="sr-only">Ban duration</FieldLabel>
-
-                      <Select
-                        defaultValue={field.state.value}
-                        onValueChange={(val) => {
+                    <Field orientation="horizontal" data-invalid={isInvalid} className="w-fit">
+                      <Switch
+                        id={field.name}
+                        name={field.name}
+                        // size="sm"
+                        checked={field.state.value}
+                        onCheckedChange={(val) => {
                           field.handleChange(val)
                         }}
-                      >
-                        <SelectTrigger className="w-28">
-                          <SelectValue placeholder="days" />
-                        </SelectTrigger>
-                        <SelectContent className="w-(--radix-select-trigger-width)">
-                          {DURATION.map((duration) => (
-                            <SelectItem key={duration.label} value={duration.value}>
-                              {duration.label}
-                            </SelectItem>
-                          ))}
-                        </SelectContent>
-                      </Select>
-
+                      />
+                      <FieldLabel htmlFor={field.name} className="font-sans">
+                        Indefinite
+                      </FieldLabel>
                       {isInvalid && <FieldError errors={field.state.meta.errors} />}
                     </Field>
                   )
                 }}
               </form.Field>
             </div>
-            <div className="text-xs text-neutral-500 dark:text-neutral-400">OR</div>
-            <form.Field name="indefinite">
-              {(field) => {
-                const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid
-                return (
-                  <Field data-invalid={isInvalid}>
-                    <div className="flex items-center gap-1.5">
-                      <Switch
-                        defaultChecked={field.state.value}
-                        onCheckedChange={(val) => {
-                          field.handleChange(val)
-                        }}
-                      />
-                      <FieldLabel>Indefinite</FieldLabel>
-                    </div>
-                    {isInvalid && <FieldError errors={field.state.meta.errors} />}
-                  </Field>
-                )
-              }}
-            </form.Field>
-          </div>
+          </FieldSet>
         </div>
-
         <AlertDialogFooter>
           <AlertDialogCancel disabled={loading}>Cancel</AlertDialogCancel>
-
-          <form.Subscribe selector={(state) => [state.canSubmit]}>
-            {([canSubmit]) => (
-              <Button type="submit" disabled={loading ?? !canSubmit} variant="destructive">
-                Ban user
-                {loading && <Spinner />}
-              </Button>
-            )}
+          <form.Subscribe selector={(state) => [state.isSubmitting, state.canSubmit]}>
+            {([isSubmitting, canSubmit]) => {
+              const btnText = "Ban user"
+              return (
+                <SubmitButton
+                  disabled={(isSubmitting || loading) ?? !canSubmit}
+                  loading={(isSubmitting || loading) ?? false}
+                  variant="destructive"
+                >
+                  {btnText}
+                </SubmitButton>
+              )
+            }}
           </form.Subscribe>
         </AlertDialogFooter>
       </form>

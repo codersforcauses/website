@@ -4,7 +4,6 @@ import "~/styles/globals.css"
 import type { Metadata, Viewport } from "next"
 import { IBM_Plex_Mono, IBM_Plex_Sans } from "next/font/google"
 
-import { Toaster } from "~/ui/toaster"
 import { Providers } from "./providers"
 
 export const metadata: Metadata = {
@@ -20,7 +19,7 @@ const mono = IBM_Plex_Mono({
 })
 const sans = IBM_Plex_Sans({
   variable: "--font-sans",
-  weight: ["400", "500", "700"],
+  weight: "variable",
   subsets: ["latin"],
 })
 
@@ -37,11 +36,10 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
     <html
       lang="en-AU"
       suppressHydrationWarning
-      className={`${sans.variable} ${mono.variable} touch-manipulation scroll-smooth bg-black font-sans selection:bg-accent selection:text-neutral-950`}
+      className={`${sans.variable} ${mono.variable} isolate touch-manipulation bg-black font-sans selection:bg-accented selection:text-background-dark`}
     >
-      <body className="root antialiased">
+      <body className="relative antialiased">
         <Providers>{children}</Providers>
-        <Toaster />
       </body>
     </html>
   )

@@ -2,14 +2,17 @@
 
 import * as React from "react"
 import Link from "next/link"
-import { z } from "zod"
+import * as z from "zod"
 import { siDiscord } from "simple-icons"
+import { useForm } from "@tanstack/react-form"
 
+import { cn } from "~/lib/utils"
 import { authClient } from "~/lib/auth-client"
-import { Button } from "~/ui/button"
-import { FormDescription, FormField, FormLabel, FormMessage, useAppForm } from "~/ui/form"
-import { Input } from "~/ui/input"
+import SubmitButton from "~/blocks/submit-button"
 import { Alert, AlertDescription, AlertTitle } from "~/ui/alert"
+import { buttonVariants } from "~/ui/button"
+import { Field, FieldDescription, FieldError, FieldLabel } from "~/ui/field"
+import { InputGroup, InputGroupAddon, InputGroupInput } from "~/ui/input-group"
 
 const formSchema = z.object({
   github: z.string(),
@@ -20,7 +23,7 @@ type FormSchema = z.infer<typeof formSchema>
 
 export default function SocialForm(props: { defaultValues?: Partial<FormSchema> }) {
   const btnRef = React.useRef<HTMLButtonElement>(null)
-  const form = useAppForm({
+  const form = useForm({
     defaultValues: props.defaultValues,
     validators: {
       onSubmit: formSchema,
@@ -57,22 +60,23 @@ export default function SocialForm(props: { defaultValues?: Partial<FormSchema> 
       }}
     >
       <Alert>
-        <svg viewBox="0 0 24 24" width={16} height={16}>
+        <svg aria-hidden viewBox="0 0 24 24" width={16} height={16} className="fill-current">
           <title>{siDiscord.title}</title>
           <path d={siDiscord.path} />
         </svg>
         <AlertTitle>Join our Discord!</AlertTitle>
         <AlertDescription className="inline-block">
           You can join our Discord server at{" "}
-          <Button type="button" variant="link" className="h-auto p-0 text-current" asChild>
-            <Link href="http://discord.codersforcauses.org" target="_blank">
-              discord.codersforcauses.org
-            </Link>
-          </Button>
+          <Link
+            href="http://discord.codersforcauses.org"
+            target="_blank"
+            className={cn(buttonVariants({ variant: "link" }), "-m-1 h-auto p-1 text-current")}
+          >
+            discord.codersforcauses.org
+          </Link>
         </AlertDescription>
       </Alert>
-
-      <form.AppField
+      <form.Field
         name="github"
         validators={{
           async onSubmitAsync({ value }) {
@@ -83,70 +87,93 @@ export default function SocialForm(props: { defaultValues?: Partial<FormSchema> 
           },
         }}
       >
-        {(field) => (
-          <field.FormItem>
-            <FormLabel>Github username</FormLabel>
-            <FormField>
-              <Input
-                autoFocus
-                placeholder="john_doe"
-                value={field.state.value}
-                onBlur={field.handleBlur}
-                onChange={(e) => {
-                  field.handleChange(e.target.value)
-                }}
-              />
-            </FormField>
-            <FormDescription>
-              Sign up at{" "}
-              <Button type="button" variant="link" className="h-auto p-0 text-current" asChild>
-                <Link href="https://github.com/signup" target="_blank">
+        {(field) => {
+          const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid
+          return (
+            <Field data-invalid={isInvalid}>
+              <FieldLabel htmlFor={field.name}>Github username</FieldLabel>
+              <InputGroup>
+                <InputGroupInput
+                  id={field.name}
+                  name={field.name}
+                  placeholder="john_doe"
+                  value={field.state.value}
+                  onBlur={field.handleBlur}
+                  aria-invalid={isInvalid}
+                  onChange={(e) => {
+                    field.handleChange(e.target.value)
+                  }}
+                />
+                {isInvalid && (
+                  <InputGroupAddon align="inline-end">
+                    <span className="material-symbols-sharp text-destructive">error</span>
+                  </InputGroupAddon>
+                )}
+              </InputGroup>
+              {isInvalid && <FieldError errors={field.state.meta.errors} />}
+              <FieldDescription>
+                Sign up at{" "}
+                <Link
+                  href="https://github.com/signup"
+                  target="_blank"
+                  className={cn(buttonVariants({ variant: "link" }), "-m-1 h-auto p-1 text-current")}
+                >
                   github.com/signup
                 </Link>
-              </Button>
-            </FormDescription>
-            <FormMessage />
-          </field.FormItem>
-        )}
-      </form.AppField>
-      <form.AppField name="discord">
-        {(field) => (
-          <field.FormItem>
-            <FormLabel>Discord username</FormLabel>
-            <FormField>
-              <Input
-                placeholder="john_doe"
-                value={field.state.value}
-                onBlur={field.handleBlur}
-                onChange={(e) => {
-                  field.handleChange(e.target.value)
-                }}
-              />
-            </FormField>
-            <FormDescription>
-              Sign up at{" "}
-              <Button type="button" variant="link" className="h-auto p-0 text-current" asChild>
-                <Link href="https://discord.com/register" target="_blank">
+              </FieldDescription>
+            </Field>
+          )
+        }}
+      </form.Field>
+      <form.Field name="discord">
+        {(field) => {
+          const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid
+          return (
+            <Field data-invalid={isInvalid}>
+              <FieldLabel htmlFor={field.name}>Discord username</FieldLabel>
+              <InputGroup>
+                <InputGroupInput
+                  id={field.name}
+                  name={field.name}
+                  placeholder="john_doe"
+                  value={field.state.value}
+                  onBlur={field.handleBlur}
+                  aria-invalid={isInvalid}
+                  onChange={(e) => {
+                    field.handleChange(e.target.value)
+                  }}
+                />
+                {isInvalid && (
+                  <InputGroupAddon align="inline-end">
+                    <span className="material-symbols-sharp text-destructive">error</span>
+                  </InputGroupAddon>
+                )}
+              </InputGroup>
+              {isInvalid && <FieldError errors={field.state.meta.errors} />}
+              <FieldDescription>
+                Sign up at{" "}
+                <Link
+                  href="https://discord.com/register"
+                  target="_blank"
+                  className={cn(buttonVariants({ variant: "link" }), "-m-1 h-auto p-1 text-current")}
+                >
                   discord.com/register
                 </Link>
-              </Button>
-            </FormDescription>
-            <FormMessage />
-          </field.FormItem>
-        )}
-      </form.AppField>
+              </FieldDescription>
+            </Field>
+          )
+        }}
+      </form.Field>
 
       <form.Subscribe selector={(state) => [state.isSubmitting, state.canSubmit]}>
-        {([isSubmitting, canSubmit]) => (
-          <Button ref={btnRef} type="submit" disabled={isSubmitting ?? !canSubmit} className="relative w-full">
-            {isSubmitting ? "Waiting for email verification" : "Update"}
-            {isSubmitting && (
-              <span className="material-symbols-sharp absolute right-4 animate-spin text-base! leading-none!">
-                progress_activity
-              </span>
-            )}
-          </Button>
-        )}
+        {([isSubmitting, canSubmit]) => {
+          const btnText = isSubmitting ? "Updating" : "Update"
+          return (
+            <SubmitButton ref={btnRef} disabled={isSubmitting ?? !canSubmit} loading={isSubmitting ?? false}>
+              {btnText}
+            </SubmitButton>
+          )
+        }}
       </form.Subscribe>
     </form>
   )

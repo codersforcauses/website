@@ -1,5 +1,5 @@
 import { createEnv } from "@t3-oss/env-nextjs"
-import { z } from "zod"
+import * as z from "zod"
 
 export const env = createEnv({
   /**
@@ -32,7 +32,7 @@ export const env = createEnv({
         "Update Square keys to production keys",
       ),
     NEXT_PUBLIC_SQUARE_LOCATION_ID: z.string(),
-    NEXT_PUBLIC_MAPBOX_API: z.string(),
+    NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN: z.string(),
   },
 
   /**
@@ -46,7 +46,7 @@ export const env = createEnv({
     SQUARE_ACCESS_TOKEN: process.env.SQUARE_ACCESS_TOKEN,
     NEXT_PUBLIC_SQUARE_APP_ID: process.env.NEXT_PUBLIC_SQUARE_APP_ID,
     NEXT_PUBLIC_SQUARE_LOCATION_ID: process.env.NEXT_PUBLIC_SQUARE_LOCATION_ID,
-    NEXT_PUBLIC_MAPBOX_API: process.env.NEXT_PUBLIC_MAPBOX_API,
+    NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN: process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN,
     UPSTASH_REDIS_REST_URL: process.env.UPSTASH_REDIS_REST_URL,
     UPSTASH_REDIS_REST_TOKEN: process.env.UPSTASH_REDIS_REST_TOKEN,
     CRON_SECRET: process.env.CRON_SECRET,

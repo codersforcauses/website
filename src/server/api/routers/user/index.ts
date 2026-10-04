@@ -1,6 +1,6 @@
 import { createTRPCRouter } from "~/server/api/trpc"
 import get from "./endpoints/get"
-import checkIfExists from "./endpoints/check-If-exists"
+import checkIfExists from "./endpoints/check-exists"
 
 export const userRouter = createTRPCRouter({
   checkIfExists,

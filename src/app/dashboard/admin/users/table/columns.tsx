@@ -12,11 +12,12 @@ import { authClient } from "~/lib/auth-client"
 import { NAMED_ROLES } from "~/lib/constants"
 import { AlertDialogTrigger } from "~/ui/alert-dialog"
 import { Badge } from "~/ui/badge"
-import { Button } from "~/ui/button"
+import { Button, buttonVariants } from "~/ui/button"
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
   DropdownMenuContent,
+  DropdownMenuGroup,
   DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuPortal,
@@ -68,12 +69,14 @@ export const columns: ColumnDef<User>[] = [
             </Tooltip>
           )}
         </div>
-        <span className="text-xs text-neutral-600 dark:text-neutral-400">{row.original.name}</span>
+        <span className="text-xs text-muted-foreground">{row.original.name}</span>
       </div>
     ),
     meta: {
-      headerClassName: "w-[--header-name-size] max-w-[--header-name-size] min-w-[--header-name-size]",
-      cellClassName: "w-[--col-name-size] max-w-[--col-name-size] min-w-[--col-name-size]",
+      // headerClassName: "w-(--header-name-size) max-w-(--header-name-size) min-w-(--header-name-size)",
+      // cellClassName: "w-(--col-name-size) max-w-(--col-name-size) min-w-(--col-name-size)",
+      headerClassName: "max-w-[14rem]",
+      cellClassName: "max-w-[14rem]",
     },
   },
   {
@@ -82,8 +85,10 @@ export const columns: ColumnDef<User>[] = [
     header: "Email",
     enableSorting: false,
     meta: {
-      headerClassName: "w-[--header-email-size] max-w-[--header-email-size] min-w-[--header-email-size]",
-      cellClassName: "w-[--col-email-size] max-w-[--col-email-size] min-w-[--col-email-size]",
+      // headerClassName: "w-(--header-email-size) max-w-(--header-email-size) min-w-(--header-email-size)",
+      // cellClassName: "w-(--col-email-size) max-w-(--col-email-size) min-w-(--col-email-size)",
+      headerClassName: "max-w-[14rem]",
+      cellClassName: "max-w-[14rem]",
     },
   },
   {
@@ -93,8 +98,8 @@ export const columns: ColumnDef<User>[] = [
     maxSize: 100,
     enableSorting: false,
     meta: {
-      headerClassName: "w-[--header-pronouns-size] max-w-[--header-pronouns-size] min-w-[--header-pronouns-size]",
-      cellClassName: "w-[--col-pronouns-size] max-w-[--col-pronouns-size] min-w-[--col-pronouns-size] text-xs",
+      headerClassName: "w-(--header-pronouns-size) max-w-(--header-pronouns-size) min-w-(--header-pronouns-size)",
+      cellClassName: "w-(--col-pronouns-size) max-w-(--col-pronouns-size) min-w-(--col-pronouns-size) text-xs",
     },
   },
   {
@@ -114,8 +119,8 @@ export const columns: ColumnDef<User>[] = [
       ) : null
     },
     meta: {
-      headerClassName: "w-[--header-roles-size] max-w-42 min-w-[--header-roles-size]",
-      cellClassName: "w-[--col-roles-size] max-w-42 min-w-[--col-roles-size] select-none",
+      headerClassName: "w-(--header-roles-size) max-w-42 min-w-(--header-roles-size)",
+      cellClassName: "w-(--col-roles-size) max-w-42 min-w-(--col-roles-size) select-none",
     },
   },
   {
@@ -124,8 +129,9 @@ export const columns: ColumnDef<User>[] = [
     enableSorting: false,
     accessorFn: (user) => (user.studentNumber ? `${user.studentNumber} (UWA)` : user.university),
     meta: {
-      headerClassName: "w-[--header-university-size] max-w-[--header-university-size] min-w-[--header-university-size]",
-      cellClassName: "w-[--col-university-size] max-w-[--col-university-size] min-w-[--col-university-size] text-xs",
+      headerClassName: "w-(--header-university-size) max-w-(--header-university-size) min-w-(--header-university-size)",
+      cellClassName:
+        "w-(--col-university-size) max-w-(--col-university-size) min-w-(--col-university-size) tabular-nums text-xs",
     },
   },
   {
@@ -156,8 +162,8 @@ export const columns: ColumnDef<User>[] = [
       )
     },
     meta: {
-      headerClassName: "w-[--header-socials-size] max-w-52 min-w-[--header-socials-size]",
-      cellClassName: "w-[--col-socials-size] max-w-52 min-w-[--col-socials-size]",
+      headerClassName: "w-(--header-socials-size) max-w-52 min-w-(--header-socials-size)",
+      cellClassName: "w-(--col-socials-size) max-w-52 min-w-(--col-socials-size)",
     },
   },
   {
@@ -170,8 +176,8 @@ export const columns: ColumnDef<User>[] = [
       </div>
     ),
     meta: {
-      headerClassName: "w-[--header-createdAt-size] max-w-[--header-createdAt-size] min-w-[--header-createdAt-size]",
-      cellClassName: "w-[--col-createdAt-size] max-w-[--col-createdAt-size] min-w-[--col-createdAt-size] text-xs",
+      headerClassName: "w-24 max-w-24 min-w-24",
+      cellClassName: "w-24 max-w-24 min-w-24 text-xs",
     },
   },
   {
@@ -183,114 +189,132 @@ export const columns: ColumnDef<User>[] = [
       return (
         <DropdownMenu>
           <DropdownMenuTrigger
-            asChild
-            className="data-[state=open]:bg-neutral-100 dark:data-[state=open]:bg-neutral-800"
+            aria-label={`More actions for ${user.name}`}
+            className={buttonVariants({
+              variant: "ghost",
+              size: "icon-sm",
+              className: "data-popup-open:bg-muted",
+            })}
           >
-            <Button aria-label={`More actions for ${user.name}`} variant="ghost" size="icon">
-              <span aria-hidden className="material-symbols-sharp">
-                more_horiz
-              </span>
-            </Button>
+            <span aria-hidden className="material-symbols-sharp">
+              more_horiz
+            </span>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
-            <DropdownMenuLabel>Actions</DropdownMenuLabel>
-            <DropdownMenuItem onSelect={() => navigator.clipboard.writeText(user.id)}>Copy user ID</DropdownMenuItem>
-            <DropdownMenuItem asChild>
-              <Link href={`/profile/${user.id}`} target="_blank">
-                Go to profile
-              </Link>
-            </DropdownMenuItem>
+            <DropdownMenuGroup>
+              <DropdownMenuLabel>Actions</DropdownMenuLabel>
+              <DropdownMenuItem onClick={() => navigator.clipboard.writeText(user.id)}>Copy user ID</DropdownMenuItem>
+              <DropdownMenuItem
+                render={
+                  <Link href={`/profile/${user.id}`} target="_blank">
+                    Go to profile
+                  </Link>
+                }
+              />
+            </DropdownMenuGroup>
             <DropdownMenuSeparator />
-            <DropdownMenuSub>
-              <DropdownMenuSubTrigger>Change role</DropdownMenuSubTrigger>
-              <DropdownMenuPortal>
-                <DropdownMenuSubContent>
-                  <DropdownMenuCheckboxItem
-                    checked={!user.role}
-                    onCheckedChange={async () => {
-                      await authClient.admin.setRole({
-                        userId: user.id,
-                        role: "",
-                      })
-
-                      table.options.meta?.refetch?.()
-                    }}
-                  >
-                    none
-                  </DropdownMenuCheckboxItem>
-                  {NAMED_ROLES.map((role) => (
+            <DropdownMenuGroup>
+              <DropdownMenuSub>
+                <DropdownMenuSubTrigger>Change role</DropdownMenuSubTrigger>
+                <DropdownMenuPortal>
+                  <DropdownMenuSubContent>
                     <DropdownMenuCheckboxItem
-                      key={role}
-                      checked={user.role?.toLowerCase().includes(role)}
-                      onCheckedChange={async (val) => {
-                        // state machine from ts-pattern instead of nested if else
-                        const newRole = match({
-                          val,
-                          role: user.role,
-                        })
-                          .with({ val: true, role: null }, () => role)
-                          .with({ val: true, role: P.not(null) }, () => user.role?.split(",").concat(role))
-                          .with({ val: false, role: P.not(null) }, () => user.role?.split(",").filter((r) => r != role))
-                          .with({ val: false, role: null }, () => "")
-                          .exhaustive()
-
+                      checked={!user.role}
+                      onCheckedChange={async () => {
                         await authClient.admin.setRole({
                           userId: user.id,
-                          role: newRole,
+                          role: "",
                         })
+
                         table.options.meta?.refetch?.()
                       }}
                     >
-                      {role}
+                      none
                     </DropdownMenuCheckboxItem>
-                  ))}
-                </DropdownMenuSubContent>
-              </DropdownMenuPortal>
-            </DropdownMenuSub>
+                    {NAMED_ROLES.map((role) => (
+                      <DropdownMenuCheckboxItem
+                        key={role}
+                        checked={user.role?.toLowerCase().includes(role)}
+                        onCheckedChange={async (val) => {
+                          // state machine from ts-pattern instead of nested if else
+                          const newRole = match({
+                            val,
+                            role: user.role,
+                          })
+                            .with({ val: true, role: null }, () => role)
+                            .with({ val: true, role: P.not(null) }, () => user.role?.split(",").concat(role))
+                            .with({ val: false, role: P.not(null) }, () =>
+                              user.role?.split(",").filter((r) => r != role),
+                            )
+                            .with({ val: false, role: null }, () => "")
+                            .exhaustive()
+
+                          await authClient.admin.setRole({
+                            userId: user.id,
+                            role: newRole,
+                          })
+                          table.options.meta?.refetch?.()
+                        }}
+                      >
+                        {role}
+                      </DropdownMenuCheckboxItem>
+                    ))}
+                  </DropdownMenuSubContent>
+                </DropdownMenuPortal>
+              </DropdownMenuSub>
+            </DropdownMenuGroup>
             <DropdownMenuSeparator />
-            {user.banned ? (
-              <DropdownMenuItem
-                onSelect={async () => {
-                  await authClient.admin.unbanUser({
-                    userId: user.id,
-                  })
-                  table.options.meta?.refetch?.()
-                }}
-              >
-                Unban user
-              </DropdownMenuItem>
-            ) : (
-              <AlertDialogTrigger asChild>
+            <DropdownMenuGroup>
+              {user.banned ? (
                 <DropdownMenuItem
-                  variant="destructive"
-                  onSelect={() => {
-                    table.options.meta?.setID?.(user.id)
-                    table.options.meta?.setType?.("ban")
+                  onClick={async () => {
+                    await authClient.admin.unbanUser({
+                      userId: user.id,
+                    })
+                    table.options.meta?.refetch?.()
                   }}
                 >
-                  Ban user
+                  Unban user
                 </DropdownMenuItem>
-              </AlertDialogTrigger>
-            )}
+              ) : (
+                <AlertDialogTrigger
+                  nativeButton={false}
+                  render={
+                    <DropdownMenuItem
+                      variant="destructive"
+                      onClick={() => {
+                        table.options.meta?.setID?.(user.id)
+                        table.options.meta?.setType?.("ban")
+                      }}
+                    >
+                      Ban user
+                    </DropdownMenuItem>
+                  }
+                />
+              )}
 
-            <AlertDialogTrigger asChild>
-              <DropdownMenuItem
-                variant="destructive"
-                onSelect={() => {
-                  table.options.meta?.setID?.(user.id)
-                  table.options.meta?.setType?.("delete")
-                }}
-              >
-                Delete user
-              </DropdownMenuItem>
-            </AlertDialogTrigger>
+              <AlertDialogTrigger
+                nativeButton={false}
+                render={
+                  <DropdownMenuItem
+                    variant="destructive"
+                    onClick={() => {
+                      table.options.meta?.setID?.(user.id)
+                      table.options.meta?.setType?.("delete")
+                    }}
+                  >
+                    Delete user
+                  </DropdownMenuItem>
+                }
+              />
+            </DropdownMenuGroup>
           </DropdownMenuContent>
         </DropdownMenu>
       )
     },
     meta: {
-      headerClassName: "w-[--header-actions-size] max-w-[--header-actions-size] min-w-[--header-actions-size]",
-      cellClassName: "w-[--col-actions-size] max-w-[--col-actions-size] min-w-[--col-actions-size]",
+      headerClassName: "w-12 max-w-12 min-w-12",
+      cellClassName: "w-12 max-w-12 min-w-12",
     },
   },
 ]

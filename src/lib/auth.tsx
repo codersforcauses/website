@@ -1,6 +1,6 @@
 // ! DO NOT CHANGE DIRECTORY
 
-import { betterAuth } from "better-auth"
+import { betterAuth } from "better-auth/minimal"
 import { nextCookies } from "better-auth/next-js"
 import { drizzleAdapter } from "better-auth/adapters/drizzle"
 import { admin as adminPlugin, emailOTP } from "better-auth/plugins"
@@ -17,6 +17,7 @@ import { ac, admin, committee, member, returning } from "./permissions"
 
 export const auth = betterAuth({
   baseURL: getBaseUrl(),
+  // experimental: { joins: true }, // disabled for now since better-auth hasn't updated to new syntax
   database: drizzleAdapter(db, {
     provider: "pg",
     usePlural: true,
@@ -34,7 +35,7 @@ export const auth = betterAuth({
       bannedUserMessage: "You have been banned. Please contact a committee member if you believe this is a mistake.",
     }),
     emailOTP({
-      disableSignUp: true,
+      // disableSignUp: true,
       expiresIn: 60 * 10, // 10 minutes
       sendVerificationOnSignUp: true,
       overrideDefaultEmailVerification: true,
@@ -42,29 +43,35 @@ export const auth = betterAuth({
         await sendEmail({
           to: [email],
           subject: "Sign in to Coders for Causes",
-          email: <OTPEmail code={otp} />,
+          email: <OTPEmail code={otp} />, // ! .tsx needed for this line
         })
+      },
+      changeEmail: {
+        enabled: true,
+        verifyCurrentEmail: true,
       },
     }),
     nextCookies(),
   ],
-  emailAndPassword: {
-    enabled: true,
-    requireEmailVerification: true,
-    autoSignIn: true,
-  },
+  // emailAndPassword: {
+  //   enabled: true,
+  //   requireEmailVerification: true,
+  //   autoSignIn: true,
+  // },
   emailVerification: {
     autoSignInAfterVerification: true,
   },
   user: {
-    // changeEmail: {
-    //   enabled: true,
-    //   sendChangeEmailVerification
-    // },
     additionalFields: {
       preferredName: {
         type: "string",
         required: true,
+      },
+      bio: {
+        type: "string",
+        required: false,
+        input: false,
+        returned: false,
       },
       pronouns: {
         type: "string",
@@ -100,6 +107,12 @@ export const auth = betterAuth({
         unique: true,
         input: false,
       },
+    },
+  },
+  session: {
+    cookieCache: {
+      enabled: true,
+      maxAge: 5 * 60, // Cache duration in seconds
     },
   },
   advanced: {

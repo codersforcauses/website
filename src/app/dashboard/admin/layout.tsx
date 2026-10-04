@@ -1,7 +1,7 @@
 import { SidebarProvider } from "~/ui/sidebar"
 import { AdminSidebar } from "./sidebar"
 
-export default function Layout({ children }: LayoutProps<"/dashboard/admin">) {
+export default async function Layout({ children }: LayoutProps<"/dashboard/admin">) {
   return (
     <SidebarProvider
       theme="dark"

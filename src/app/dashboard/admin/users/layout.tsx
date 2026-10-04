@@ -4,10 +4,10 @@ import { Separator } from "~/ui/separator"
 
 export default function Layout({ children }: LayoutProps<"/dashboard/admin/users">) {
   return (
-    <SidebarInset className="bg-neutral-50 dark:bg-neutral-900">
+    <SidebarInset className="bg-primary-foreground">
       <header className="transition-[width, height] flex h-(--header-height) shrink-0 items-center gap-2 ease-linear">
         <div className="flex items-center gap-2 px-4">
-          <SidebarTrigger className="-ml-1" />
+          <SidebarTrigger className="-ml-2" />
           <Separator orientation="vertical" className="mr-2 data-[orientation=vertical]:h-4" />
           <Breadcrumb>
             <BreadcrumbList>

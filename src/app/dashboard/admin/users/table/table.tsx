@@ -23,7 +23,7 @@ export default function UsersTable({ isFetching, totalFetched, numUsers, fetchNe
       const { scrollHeight, scrollTop, clientHeight } = containerRefElement.currentTarget
       //once the user has scrolled within 500px of the bottom of the table, fetch more data if we can
       if (scrollHeight - scrollTop - clientHeight < 500 && !isFetching && totalFetched < numUsers) {
-        void fetchNextPage()
+        fetchNextPage()
       }
     },
     [isFetching, totalFetched, numUsers, fetchNextPage],
@@ -48,7 +48,7 @@ export default function UsersTable({ isFetching, totalFetched, numUsers, fetchNe
 
   return (
     <TableContainer
-      className="h-full max-h-[calc(100svh-(var(--header-height)+5.5rem+1rem))] bg-white md:max-h-[calc(100svh-(var(--header-height)+2.75rem+1rem))] dark:bg-neutral-950"
+      className="h-full max-h-[calc(100svh-(var(--header-height)+5.5rem+1rem))] bg-background md:max-h-[calc(100svh-(var(--header-height)+2.75rem+1rem))]"
       onScroll={fetchMoreOnBottomReached}
       style={
         {
@@ -57,15 +57,9 @@ export default function UsersTable({ isFetching, totalFetched, numUsers, fetchNe
       }
     >
       <Table>
-        <TableHeader
-          className={cn(
-            "sticky top-0 z-10",
-            "bg-neutral-200 dark:bg-neutral-700",
-            "[&_tr]:border-neutral-50 dark:[&_tr]:border-neutral-900",
-          )}
-        >
+        <TableHeader className="sticky top-0 z-10 bg-muted [&_tr]:border-border">
           {table.getHeaderGroups().map((headerGroup) => (
-            <TableRow key={headerGroup.id} className="hover:bg-transparent dark:hover:bg-transparent">
+            <TableRow key={headerGroup.id}>
               {headerGroup.headers.map((header) => (
                 <TableHead
                   key={header.id}
@@ -94,7 +88,7 @@ export default function UsersTable({ isFetching, totalFetched, numUsers, fetchNe
                   key={row.id}
                   className={cn(
                     row.original.banned && "bg-red-50 hover:bg-red-100 dark:bg-red-950/30 dark:hover:bg-red-950/50",
-                    "border-neutral-100 dark:border-neutral-900",
+                    "border-muted",
                   )}
                 >
                   {row.getVisibleCells().map((cell) => (

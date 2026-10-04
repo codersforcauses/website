@@ -8,7 +8,7 @@ import Header from "~/components/header"
 import Footer from "~/components/footer"
 import { Providers } from "./providers"
 import GlitchScreen from "~/ui/glitch-screen"
-import { Button } from "~/ui/button"
+import { buttonVariants } from "~/ui/button"
 import Link from "next/link"
 
 const mono = IBM_Plex_Mono({
@@ -41,14 +41,14 @@ export default function GlobalNotFound() {
     <html
       lang="en-AU"
       suppressHydrationWarning
-      className={`${sans.variable} ${mono.variable} touch-manipulation scroll-smooth bg-black font-sans selection:bg-accent selection:text-neutral-950`}
+      className={`${sans.variable} ${mono.variable} touch-manipulation bg-black font-sans selection:bg-accented selection:text-background-dark`}
     >
       <body className="root antialiased">
         <Providers>
           <Header />
           <main
             id="main"
-            className="relative min-h-[calc(100svh-288px)] w-full overflow-hidden bg-white select-none md:mt-4 md:h-[calc(100svh-(288px+48px+16px))] md:min-h-0 dark:bg-neutral-950"
+            className="relative min-h-[calc(100svh-288px)] w-full overflow-hidden bg-background select-none md:mt-4 md:h-[calc(100svh-(288px+48px+16px))] md:min-h-0"
           >
             <GlitchScreen smooth glitchSpeed={250}>
               <div className="absolute inset-0">
@@ -57,12 +57,10 @@ export default function GlobalNotFound() {
                     <h1 className="text-center font-mono text-[10rem]/40 font-bold tracking-tight text-balance md:text-[16rem]/55">
                       404
                     </h1>
-                    <p className="bg-white font-medium md:text-2xl dark:bg-neutral-950">
-                      We could not locate this page in the matrix
-                    </p>
-                    <Button asChild size="lg">
-                      <Link href="/">Return to home page</Link>
-                    </Button>
+                    <p className="bg-background font-medium md:text-2xl">We could not locate this page in the matrix</p>
+                    <Link href="/" className={buttonVariants({ size: "lg" })}>
+                      Return to home page
+                    </Link>
                   </div>
                 </div>
               </div>

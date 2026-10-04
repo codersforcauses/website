@@ -1,0 +1,6 @@
+allowBuilds:
+  '@sentry/cli': true
+  esbuild: true
+  sharp: true
+patchedDependencies:
+  simple-icons@^16.0.0: patches/simple-icons@16.15.0.patch

@@ -1,7 +1,7 @@
-import { z } from "zod"
+import * as z from "zod"
 
 import { adminProcedure } from "~/server/api/trpc"
-import { questions } from "~/server/db/schema"
+import { createQuestions as create } from "../../util/create"
 
 /**
  * Creates a new general meeting
@@ -26,14 +26,8 @@ const createQuestions = adminProcedure
       ),
     }),
   )
-  .mutation(async ({ ctx, input }) => {
-    // create questions in the database
-    const data = input.questions.map((question) => ({
-      ...question,
-      meetingId: input.meetingId,
-    }))
-
-    await ctx.db.insert(questions).values(data)
+  .mutation(async ({ input }) => {
+    return await create(input)
   })
 
 export default createQuestions

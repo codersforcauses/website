@@ -1,4 +1,16 @@
-import { Body, Container, Head, Heading, Html, Preview, Text, Tailwind, Section, Img } from "@react-email/components"
+import {
+  Body,
+  Container,
+  Head,
+  Heading,
+  Html,
+  Preview,
+  Text,
+  Tailwind,
+  Section,
+  Img,
+  pixelBasedPreset,
+} from "react-email"
 
 interface OTPEmailProps {
   code: string
@@ -6,10 +18,14 @@ interface OTPEmailProps {
 
 export default function OTPEmail({ code }: OTPEmailProps) {
   return (
-    <Html>
-      <Head></Head>
-      <Preview>OTP code for Coders for Causes</Preview>
-      <Tailwind>
+    <Tailwind
+      config={{
+        presets: [pixelBasedPreset],
+      }}
+    >
+      <Html>
+        <Head />
+        <Preview>OTP code for Coders for Causes</Preview>
         <Body className="bg-black">
           <Container className="mx-auto my-0 bg-white">
             <Section className="bg-black px-3">
@@ -49,8 +65,8 @@ export default function OTPEmail({ code }: OTPEmailProps) {
             </Section>
           </Container>
         </Body>
-      </Tailwind>
-    </Html>
+      </Html>
+    </Tailwind>
   )
 }
 

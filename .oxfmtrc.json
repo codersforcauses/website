@@ -1,0 +1,14 @@
+{
+  "$schema": "./node_modules/oxfmt/configuration_schema.json",
+  "trailingComma": "all",
+  "semi": false,
+  "tabWidth": 2,
+  "endOfLine": "lf",
+  "printWidth": 120,
+  "experimentalTailwindcss": {
+    "stylesheet": "./src/styles/globals.css",
+    "functions": ["cva", "cn"]
+  },
+  "experimentalSortPackageJson": false,
+  "ignorePatterns": ["scripts/", ".next/", "src/server/db/migrations", "**/*.yaml", "**/*.yml", "next-env.d.ts"]
+}

@@ -3,8 +3,8 @@
 import * as React from "react"
 
 interface GlitchScreenProps {
-  glitchSpeed: number
-  smooth: boolean
+  glitchSpeed?: number
+  smooth?: boolean
   colors?: string[]
   children?: React.ReactNode
 }

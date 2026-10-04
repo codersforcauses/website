@@ -1,19 +1,17 @@
 import * as React from "react"
+import { Input as InputPrimitive } from "@base-ui/react/input"
 import { type VariantProps, cva } from "class-variance-authority"
 
 import { cn } from "~/lib/utils"
 
 const inputVariants = cva(
-  [
-    "flex h-9 w-full min-w-0 border bg-transparent px-3 py-1 text-base transition-[color,box-shadow] outline-none file:inline-flex file:h-7 file:border-0 file:bg-transparent file:text-sm file:font-medium focus-visible:ring-[3px] disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 md:text-sm",
-    "aria-invalid:border-red-500 aria-invalid:ring-red-500/20",
-  ],
+  "flex w-full min-w-0 border bg-transparent px-3 py-1 text-base transition-all outline-none focus-visible:ring-3 disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 aria-invalid:animate-wiggle md:text-sm",
   {
     variants: {
       variant: {
         default:
-          "file:text-neutral-950 placeholder:text-neutral-500 focus-visible:border-neutral-950 focus-visible:ring-neutral-950/50 dark:file:text-neutral-50 dark:placeholder:text-neutral-400 dark:focus-visible:border-neutral-300 dark:focus-visible:ring-neutral-300/50",
-        dark: "border-white/20 text-neutral-50 outline-white/5 file:text-neutral-50 placeholder:text-neutral-400 focus-visible:border-neutral-300 focus-visible:ring-neutral-300/50",
+          "border-border text-foreground placeholder:text-muted-foreground focus-visible:border-foreground focus-visible:ring-primary/50 aria-invalid:border-destructive/70 aria-invalid:ring-destructive/40 focus-visible:aria-invalid:border-destructive",
+        dark: "border-border-dark text-foreground-dark placeholder:text-muted-foreground-dark focus-visible:border-foreground-dark focus-visible:ring-primary-dark/50 aria-invalid:border-destructive-dark/70 aria-invalid:ring-destructive-dark/40 focus-visible:aria-invalid:border-destructive-dark",
       },
     },
     defaultVariants: {
@@ -28,7 +26,19 @@ function Input({
   variant = "default",
   ...props
 }: React.ComponentProps<"input"> & VariantProps<typeof inputVariants>) {
-  return <input type={type} data-slot="input" className={cn(inputVariants({ variant, className }))} {...props} />
+  return (
+    <InputPrimitive
+      type={type}
+      data-slot="input"
+      data-variant={variant}
+      className={cn(
+        inputVariants({ variant }),
+        "h-9 file:inline-flex file:h-7 file:border-0 file:bg-transparent file:text-sm file:font-medium data-[variant=dark]:file:text-foreground-dark data-[variant=default]:file:text-foreground",
+        className,
+      )}
+      {...props}
+    />
+  )
 }
 
-export { Input }
+export { Input, inputVariants }

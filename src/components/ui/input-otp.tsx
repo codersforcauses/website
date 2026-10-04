@@ -1,36 +1,41 @@
 "use client"
 
-import * as React from "react"
-import * as OTP from "@radix-ui/react-one-time-password-field"
+import { OTPFieldPreview as OTP } from "@base-ui/react/otp-field"
 
 import { cn } from "~/lib/utils"
+import { inputVariants } from "./input"
 
-function InputOTP({ className, children, ...props }: OTP.OneTimePasswordFieldProps) {
+const DEFAULT_OTP_LENGTH = 6
+
+function InputOTP({ className, ...props }: OTP.Root.Props) {
   return (
-    <OTP.Root data-slot="input-otp" className={cn("group flex items-center gap-2", className)} {...props}>
-      {children}
-      <OTP.HiddenInput />
-    </OTP.Root>
+    <OTP.Root
+      data-slot="input-otp"
+      className={cn("group/input-otp flex flex-nowrap items-center data-disabled:opacity-50", className)}
+      {...props}
+    />
   )
 }
 
 function InputOTPGroup({ className, ...props }: React.ComponentProps<"div">) {
-  return <div data-slot="input-otp-group" className={cn("flex items-center", className)} {...props} />
+  return <div data-slot="input-otp-group" className={cn("inline-flex items-center", className)} {...props} />
 }
 
 function InputOTPSlot({
   index,
   className,
   ...props
-}: OTP.OneTimePasswordFieldInputProps & {
+}: OTP.Input.Props & {
   index: number
 }) {
   return (
     <OTP.Input
       data-slot="input-otp-slot"
       data-index={index}
+      aria-label={`Character ${index + 1}`}
       className={cn(
-        "size-9 appearance-none border-y border-r text-center text-sm transition-all outline-none group-aria-invalid:border-red-500 first:border-l focus-visible:border-neutral-950 focus-visible:ring-[3px] focus-visible:ring-neutral-950/50 group-aria-invalid:focus-visible:ring-red-500/20 disabled:opacity-50 dark:focus-visible:border-neutral-300 dark:focus-visible:ring-neutral-300/50 dark:group-aria-invalid:focus-visible:ring-red-500/20",
+        inputVariants({ variant: "default" }),
+        "size-9 appearance-none border-y text-center text-sm transition-all outline-none group-aria-invalid/input-otp:border-destructive/70 group-aria-invalid/input-otp:ring-destructive/40 first:border-l group-aria-invalid/input-otp:focus-visible:border-destructive",
         className,
       )}
       {...props}
@@ -38,15 +43,8 @@ function InputOTPSlot({
   )
 }
 
-function InputOTPSeparator({ className, ...props }: React.ComponentProps<"div">) {
-  return (
-    <div
-      data-slot="input-otp-separator"
-      role="separator"
-      className={cn("h-px w-4 bg-neutral-500 dark:bg-neutral-400", className)}
-      {...props}
-    />
-  )
+function InputOTPSeparator({ className, ...props }: OTP.Separator.Props) {
+  return <OTP.Separator data-slot="input-otp-separator" className={cn("h-px w-4 bg-border", className)} {...props} />
 }
 
-export { InputOTP, InputOTPGroup, InputOTPSlot, InputOTPSeparator }
+export { InputOTP, InputOTPGroup, InputOTPSlot, InputOTPSeparator, DEFAULT_OTP_LENGTH }

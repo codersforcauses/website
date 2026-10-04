@@ -10,7 +10,7 @@ import {
   AlertDialogTitle,
 } from "~/ui/alert-dialog"
 import { Button } from "~/ui/button"
-import { Spinner } from "~/ui/spinner"
+import { Loader } from "~/ui/loader"
 
 interface DeleteUserProps {
   name: string
@@ -41,7 +41,7 @@ export default function DeleteUser({ name, userId, refetchData }: DeleteUserProp
         <AlertDialogCancel disabled={loading}>Cancel</AlertDialogCancel>
         <Button type="submit" variant="destructive" disabled={loading} onClick={deleteUser}>
           Yes, delete user
-          {loading && <Spinner />}
+          {loading && <Loader />}
         </Button>
       </AlertDialogFooter>
     </AlertDialogContent>

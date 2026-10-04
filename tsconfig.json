@@ -27,15 +27,16 @@
     "incremental": true,
     "paths": {
       "~/ui/*": ["./src/components/ui/*"],
+      "~/blocks/*": ["./src/components/blocks/*"],
       "~/*": ["./src/*"]
     }
   },
   "include": [
     "next-env.d.ts",
-    "**/*.ts",
-    "**/*.tsx",
-    "**/*.cjs",
-    "**/*.js",
+    "src/**/*",
+    "drizzle-dev.config.ts",
+    "drizzle-prod.config.ts",
+    "next.config.ts",
     ".next/types/**/*.ts",
     ".next/dev/types/**/*.ts"
   ],

@@ -3,16 +3,15 @@
 import * as React from "react"
 import { useRouter } from "next/navigation"
 import { useForm } from "@tanstack/react-form"
-import { z } from "zod"
-import { AnimatePresence, motion } from "motion/react"
+import * as z from "zod"
+import { useMutation } from "@tanstack/react-query"
 
-import { api } from "~/trpc/react"
+import { useApi } from "~/trpc/react"
 import { authClient } from "~/lib/auth-client"
+import SubmitButton from "~/blocks/submit-button"
 import { Alert, AlertDescription, AlertTitle } from "~/ui/alert"
-import { Button } from "~/ui/button"
-import { Field, FieldError, FieldGroup, FieldLabel } from "~/components/ui/field"
+import { Field, FieldError, FieldGroup, FieldLabel } from "~/ui/field"
 import { Input } from "~/ui/input"
-import { Spinner } from "~/ui/spinner"
 import VerificationDialog from "./verification"
 
 const formSchema = z.object({
@@ -22,9 +21,10 @@ const formSchema = z.object({
 })
 
 export default function JoinPage() {
+  const { user } = useApi()
   const router = useRouter()
   const btnRef = React.useRef<HTMLButtonElement>(null)
-  const { mutateAsync } = api.user.checkIfExists.useMutation()
+  const { mutateAsync } = useMutation(user.checkIfExists.mutationOptions())
   const [btnText, setText] = React.useState("Continue")
   const [loading, startTransition] = React.useTransition()
   const [openVerification, setOpenVerification] = React.useState(false)
@@ -94,16 +94,18 @@ export default function JoinPage() {
                   <FieldLabel htmlFor={field.name}>Email address</FieldLabel>
                   <Input
                     autoFocus
-                    type="email"
                     id={field.name}
                     name={field.name}
                     value={field.state.value}
-                    onBlur={field.handleBlur}
-                    onChange={(e) => field.handleChange(e.target.value)}
                     aria-invalid={isInvalid}
                     autoComplete="email"
                     placeholder="john.doe@codersforcauses.org"
+                    inputMode="email"
                     disabled={loading}
+                    onBlur={field.handleBlur}
+                    onChange={(e) => {
+                      field.handleChange(e.target.value)
+                    }}
                   />
                   {isInvalid && <FieldError errors={field.state.meta.errors} />}
                 </Field>
@@ -112,22 +114,15 @@ export default function JoinPage() {
           </form.Field>
         </FieldGroup>
 
-        <form.Subscribe selector={(state) => [state.canSubmit]}>
-          {([canSubmit]) => (
-            <Button ref={btnRef} type="submit" disabled={loading ?? !canSubmit} className="relative w-full">
-              <AnimatePresence mode="popLayout" initial={false}>
-                <motion.span
-                  key={btnText}
-                  transition={{ type: "spring", duration: 0.2, bounce: 0 }}
-                  initial={{ opacity: 0, y: -36 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: 36 }}
-                >
-                  {btnText}
-                </motion.span>
-              </AnimatePresence>
-              {loading && <Spinner className="absolute right-4" />}
-            </Button>
+        <form.Subscribe selector={(state) => [state.isSubmitting, state.canSubmit]}>
+          {([isSubmitting, canSubmit]) => (
+            <SubmitButton
+              ref={btnRef}
+              disabled={(isSubmitting || loading) ?? !canSubmit}
+              loading={isSubmitting || loading}
+            >
+              {btnText}
+            </SubmitButton>
           )}
         </form.Subscribe>
       </form>

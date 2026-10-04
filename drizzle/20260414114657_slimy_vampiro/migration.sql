@@ -1,0 +1,2 @@
+ALTER TABLE "cfc_website_general_meetings" ADD COLUMN "venue_fallback" varchar(128);--> statement-breakpoint
+ALTER TABLE "cfc_website_general_meetings" ALTER COLUMN "venue" SET DATA TYPE jsonb USING "venue"::jsonb;
